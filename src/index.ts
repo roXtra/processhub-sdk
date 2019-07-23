@@ -48,3 +48,5 @@ import * as Settings from "./settings";
 export { Settings };
 import * as ServiceTask from "./servicetask";
 export { ServiceTask };
+import * as FileStore from "./filestore";
+export { FileStore };
