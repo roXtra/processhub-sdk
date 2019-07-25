@@ -50,3 +50,5 @@ import * as ServiceTask from "./servicetask";
 export { ServiceTask };
 import * as FileStore from "./filestore";
 export { FileStore };
+import * as Test from "./test";
+export {Test};
