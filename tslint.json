@@ -44,10 +44,6 @@
         ]
     },
     "rules": {
-        "no-unused-variable": [
-            true,
-            "react"
-        ],
         "class-name": true,
         "comment-format": [
             true,
@@ -58,10 +54,7 @@
             "spaces"
         ],
         "no-eval": true,
-        "no-floating-promises": [
-            true,
-            "Thenable"
-        ],
+        "no-floating-promises": [true, "Thenable"], 
         "no-internal-module": true,
         "no-trailing-whitespace": false,
         "no-unsafe-finally": true,
