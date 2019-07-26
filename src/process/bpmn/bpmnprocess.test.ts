@@ -7,7 +7,19 @@ import { LoadTemplateReply } from "../legacyapi";
 import { createBpmnTemplate } from "./bpmnmoddlehelper";
 import { RowDetails } from "../phclient";
 import { TaskSettings } from "../processinterfaces";
-import { readFileAsync } from "../../test/testtools";
+import fs = require("fs");
+
+async function readFileAsync(fileName: string): Promise<string> {
+  return await new Promise<string>((resolve, reject) => {
+    fs.readFile(fileName, "utf8", (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
 
 let TestRowDetails: RowDetails[] = [];
 
