@@ -2,6 +2,7 @@ import "fetch-everywhere";
 import { getErrorHandlers } from "./errorhandler";
 import { BaseRequest, ApiResult, BaseError, BaseMessage, API_FAILED } from "./apiinterfaces";
 import { getBackendUrl } from "../config";
+import _ = require("lodash");
 
 // Api-Aufruf per GET 
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
@@ -16,7 +17,7 @@ export async function getJson<Request extends BaseRequest>(path: string, request
     }
   }
 
-  let url = getBackendUrl() + path + "?" + str.join("&");
+  let url = (_.isEmpty(request)) ? getBackendUrl() + path : getBackendUrl() + path + "?" + str.join("&");
 
   let req: RequestInit = null;
   if (accessToken == null) {

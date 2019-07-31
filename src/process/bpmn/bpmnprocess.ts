@@ -128,6 +128,28 @@ export class BpmnProcess {
     return fieldDefinitions;
   }
 
+  public getFieldDefinitionsOfSpecificType(fieldType: string): FieldDefinition[] {
+    let fieldDefinitions: FieldDefinition[] = [];
+
+    let process: Bpmn.Process = this.bpmnXml.rootElements.find((e) => e.$type === BPMN_PROCESS) as Bpmn.Process;
+    process.flowElements.map(flowElement => {
+      let extVals = BpmnProcess.getExtensionValues(flowElement);
+      if (extVals) {
+        let taskFields = BpmnProcess.getExtensionValues(flowElement).fieldDefinitions;
+        if (taskFields && taskFields.length > 0) {
+          // currently all tasks have their own fieldDefinitions. It might happen that they have different configs
+          // -> add the first one we find to the result set
+          taskFields.map(taskField => {
+            if (fieldDefinitions.find(fieldDefinition => fieldDefinition.name == taskField.name) == null && taskField.type === fieldType)
+              fieldDefinitions.push(taskField);
+          });
+        }
+      }
+    });
+
+    return fieldDefinitions;
+  }
+
   public getFieldDefinitionsForTask(taskObject: Bpmn.Task | Bpmn.Activity): FieldDefinition[] {
     let extVals = BpmnProcess.getExtensionValues(taskObject);
     if (extVals)
