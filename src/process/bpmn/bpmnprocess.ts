@@ -160,37 +160,38 @@ export class BpmnProcess {
 
   public static getExtensionValues(activityObject: Bpmn.Activity): TaskExtensions {
     let returnValue: TaskExtensions = {
-      description: null,
-      fieldDefinitions: null,
-      sendTaskReceiver: null,
+      description: undefined,
+      fieldDefinitions: undefined,
+      sendTaskReceiver: undefined,
       sendTaskInstanceLink: true,
-      sendTaskSubject: null,
+      sendTaskSubject: undefined,
       sendTaskWithFieldContents: true,
       allFieldsEditable: false,
       roleOwnersEditable: false,
       viewAllFields: true,
       dueAtDateCanBeEdit: false,
-      dueAtDuration: null,
+      dueAtDuration: undefined,
       sendMailNotification: true,
-      requiredFieldsNeeded: null,
+      requiredFieldsNeeded: undefined,
       saveDecisionInFieldContents: false,
-      customFieldContentsValue: null,
+      customFieldContentsValue: undefined,
 
-      serviceTaskApiUrl: null,
-      serviceTaskRequestObjectString: null,
-      serviceTaskResponseFieldName: null,
-      serviceTaskConfigObject: null,
-      scriptTaskCode: null,
+      serviceTaskApiUrl: undefined,
+      serviceTaskRequestObjectString: undefined,
+      serviceTaskResponseFieldName: undefined,
+      serviceTaskConfigObject: undefined,
+      scriptTaskCode: undefined,
 
-      timerStartConfiguration: null,
+      timerStartConfiguration: undefined,
 
       subProcessId: undefined,
 
       sequenceFlowExpression: undefined,
       isBuilderExpression: false,
 
-      fieldsWhichShouldSend: null,
-      dateFieldTimer: null
+      fieldsWhichShouldSend: undefined,
+      dateFieldTimer: undefined,
+      roXtraVersion: undefined,
     };
 
     if (activityObject == null || activityObject.extensionElements == null || (activityObject.extensionElements != null && activityObject.extensionElements.values == null)) {
@@ -212,6 +213,9 @@ export class BpmnProcess {
               break;
             case TaskSettings.Description:
               returnValue.description = child.$body;
+              break;
+            case TaskSettings.RoXtraVersion:
+              returnValue.roXtraVersion = child.$body;
               break;
             case TaskSettings.SendTaskSubject:
               returnValue.sendTaskSubject = child.$body;
@@ -718,7 +722,7 @@ export class BpmnProcess {
     }
   }
 
-  public static addOrUpdateExtension(activity: Bpmn.Activity, key: TaskSettings, value: string | boolean | {}[], extensionValueType: TaskSettingsValueType): void {
+  public static addOrUpdateExtension(baseElement: Bpmn.BaseElement, key: TaskSettings, value: string | boolean | {}[], extensionValueType: TaskSettingsValueType): void {
 
     if (extensionValueType === "List") {
       value = JSON.stringify(value);
@@ -731,24 +735,24 @@ export class BpmnProcess {
     if (value == null)
       value = "";
 
-    if (!activity.extensionElements || activity.extensionElements.values == null) {
+    if (!baseElement.extensionElements || baseElement.extensionElements.values == null) {
       let extensions: BpmnModdleHelper.BpmnModdleExtensionElements = BpmnModdleHelper.createTaskExtensionTemplate();
-      activity.extensionElements = extensions;
+      baseElement.extensionElements = extensions;
     }
 
     // remove second processhub:inputOutput
-    if (activity.extensionElements.values.length > 1) {
-      activity.extensionElements.values = [activity.extensionElements.values[0]];
+    if (baseElement.extensionElements.values.length > 1) {
+      baseElement.extensionElements.values = [baseElement.extensionElements.values[0]];
     }
 
-    for (let extension of activity.extensionElements.values) {
+    for (let extension of baseElement.extensionElements.values) {
       if (extension.$children != null) {
         extension.$children = extension.$children.filter(child => child.name !== key);
         // extensionElement = extension.$children.find(e => e.name === key);
       }
     }
 
-    BpmnModdleHelper.addTaskExtensionInputText(activity.extensionElements, key, value as string);
+    BpmnModdleHelper.addTaskExtensionInputText(baseElement.extensionElements, key, value as string);
   }
 
   public addLane(processId: string, id: string, name: string): string {
@@ -1445,9 +1449,9 @@ export class BpmnProcess {
   public getSortedTasks(processId: string, ignoreSendTasks: boolean = false): Bpmn.Task[] {
     const types: Bpmn.ElementType[] = ["bpmn:UserTask", "bpmn:ServiceTask", "bpmn:ScriptTask"];
     if (!ignoreSendTasks) {
-      types.push("bpmn:SendTask");      
+      types.push("bpmn:SendTask");
     }
-    return this.getSortedActivities(processId, types) as Bpmn.Task[];    
+    return this.getSortedActivities(processId, types) as Bpmn.Task[];
   }
 
   public getSortedActivities(processId: string, types: Bpmn.ElementType[]): Bpmn.Activity[] {
@@ -1847,8 +1851,8 @@ export class BpmnProcess {
   public removeStartEvent(rowDetails: RowDetails[]): void {
     let processContext = this.getProcess(this.processId());
     let startEvent = this.getStartEvents(this.processId()).find(start => start.eventDefinitions == null);
-    this.removeSequenceFlow(this.processId(), startEvent.outgoing.last());   
-    
+    this.removeSequenceFlow(this.processId(), startEvent.outgoing.last());
+
     processContext.flowElements = processContext.flowElements.filter(elem => elem.id !== startEvent.id);
 
     this.removeTaskObjectFromLanes(this.processId(), startEvent);

@@ -206,7 +206,8 @@ export const TaskSettings = {
   FieldsWhichShouldSend: "fields-which-should-send",
   DateFieldTimer: "datefield-for-timercatch",
   ScriptTaskCode: "script-task-code",
-  ServiceTaskConfigObject: "service-task-config-object"
+  ServiceTaskConfigObject: "service-task-config-object",
+  RoXtraVersion: "roxtra-version",
 };
 export type TaskSettings = keyof typeof TaskSettings;
 
@@ -244,6 +245,7 @@ export interface TaskExtensions {
 
   fieldsWhichShouldSend: string[];
   dateFieldTimer: string;
+  roXtraVersion: string;
 }
 
 export interface TimerStartEventConfiguration {
