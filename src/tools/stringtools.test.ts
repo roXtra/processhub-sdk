@@ -1,5 +1,5 @@
 import * as chai from "chai";
-import chaiExclude from 'chai-exclude';
+import chaiExclude from "chai-exclude";
 import * as StringTools from "./stringtools";
 import { NestedElements, Group, Rule } from "./stringtools";
 import _ = require("lodash");
@@ -126,7 +126,7 @@ describe("sdk", function () {
             query: "",
             expectedGroup: { 
               rules: [], 
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           },
           {
@@ -134,7 +134,7 @@ describe("sdk", function () {
             query: "()",
             expectedGroup: { 
               rules: [], 
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           },
           {
@@ -144,10 +144,10 @@ describe("sdk", function () {
               rules: [ 
                 { 
                   rules: [], 
-                  combinator: '&&' 
+                  combinator: "&&" 
                 } as Group
               ],
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           },
           {
@@ -157,11 +157,11 @@ describe("sdk", function () {
               rules: [ 
                 {
                    field: "field['Zahl']",
-                   operator: '>',
+                   operator: ">",
                    value: 5
                 } as Rule
               ],
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           },
           {
@@ -171,11 +171,11 @@ describe("sdk", function () {
               rules: [ 
                 {
                    field: "field['A&B']",
-                   operator: '!=',
-                   value: '[X|Y]'
+                   operator: "!=",
+                   value: "[X|Y]"
                 } as Rule
               ],
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           },
           {
@@ -185,11 +185,11 @@ describe("sdk", function () {
               rules: [ 
                 {
                    field: "field['Date']",
-                   operator: '==',
+                   operator: "==",
                    value: undefined
                 } as Rule
               ],
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           },
           {
@@ -198,12 +198,12 @@ describe("sdk", function () {
             expectedGroup: {
               rules: [ 
                 {
-                   field: 'field[\'Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von\']',
-                   operator: '==',
-                   value: ''
+                   field: "field['Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von']",
+                   operator: "==",
+                   value: ""
                 } as Rule
               ],
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           },
           {
@@ -212,17 +212,17 @@ describe("sdk", function () {
             expectedGroup: {
               rules: [ 
                 {
-                  field: 'role[\'Mitarbeiter\'].lastName',
-                  operator: '==',
-                  value: 'Mustermann' 
+                  field: "role['Mitarbeiter'].lastName",
+                  operator: "==",
+                  value: "Mustermann" 
                 } as Rule,
                 {
-                  field: 'role[\'GF/KB/PL\'].firstName',
-                  operator: '==',
-                  value: 'Max' 
+                  field: "role['GF/KB/PL'].firstName",
+                  operator: "==",
+                  value: "Max" 
                 } as Rule
               ],
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           },
           {
@@ -231,17 +231,17 @@ describe("sdk", function () {
             expectedGroup: {
               rules: [ 
                 {
-                  field: 'field[\'Check\']',
-                  operator: '==',
-                  value: {A:true,B:true}
+                  field: "field['Check']",
+                  operator: "==",
+                  value: {A: true, B: true }
                 } as Rule,
                 {
-                  field: 'field[\'DATUM\']',
-                  operator: '>=',
-                  value: '2019-08-14T22:00:00.000Z' 
+                  field: "field['DATUM']",
+                  operator: ">=",
+                  value: "2019-08-14T22:00:00.000Z"
                 } as Rule
               ],
-              combinator: '||' 
+              combinator: "||"
             } as Group
           },
           {
@@ -250,32 +250,32 @@ describe("sdk", function () {
             expectedGroup: {
               rules: [ 
                 {
-                   field: 'role[\'Abteilungsleitung\']',
-                   operator: '==',
-                   value: 'ABC' 
+                   field: "role['Abteilungsleitung']",
+                   operator: "==",
+                   value: "ABC" 
                 } as Rule,
                 {
-                   field: 'field[\'Dienstbezeichnung\']',
-                   operator: '==',
-                   value: 'xyz' 
+                   field: "field['Dienstbezeichnung']",
+                   operator: "==",
+                   value: "xyz" 
                 } as Rule,
                 { 
                    rules: [ 
                       {
-                        field: 'field[\'Art der Veranstaltung\']',
-                        operator: '!=',
-                        value: 'gfdg dfg'
+                        field: "field['Art der Veranstaltung']",
+                        operator: "!=",
+                        value: "gfdg dfg"
                       } as Rule,
                       {
-                        field: 'field[\'Entstehen Teilnehmergebühren?\']',
-                        operator: '==',
-                        value: 'nein' 
+                        field: "field['Entstehen Teilnehmergebühren?']",
+                        operator: "==",
+                        value: "nein" 
                       } as Rule
                     ], 
-                    combinator: '||'
+                    combinator: "||"
                 } as Group
               ],
-              combinator: '&&' 
+              combinator: "&&"
             } as Group
           },
           {
@@ -286,35 +286,35 @@ describe("sdk", function () {
                 { 
                   rules: [ 
                     {
-                      field: 'field[\'Name, Vorname\']',
-                      operator: '==',
-                      value: ''
+                      field: "field['Name, Vorname']",
+                      operator: "==",
+                      value: ""
                     } as Rule,
                     {
-                      field: 'field[\'Name, Vorname\']',
-                      operator: '==',
-                      value: ''
+                      field: "field['Name, Vorname']",
+                      operator: "==",
+                      value: ""
                     } as Rule
                   ], 
-                  combinator: '&&'
+                  combinator: "&&"
                 } as Group,
                 { 
                   rules: [ 
                     {
-                      field: 'field[\'Name, Vorname\']',
-                      operator: '==',
-                      value: ''
+                      field: "field['Name, Vorname']",
+                      operator: "==",
+                      value: ""
                     } as Rule,
                     {
-                      field: 'field[\'Name, Vorname\']',
-                      operator: '==',
-                      value: ''
+                      field: "field['Name, Vorname']",
+                      operator: "==",
+                      value: ""
                     } as Rule
                   ], 
-                  combinator: '&&'
+                  combinator: "&&"
                } as Group
               ],
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           }
         ];
@@ -324,7 +324,7 @@ describe("sdk", function () {
             const res: NestedElements = StringTools.getNestedElements(p.query);
             const res2 = StringTools.parseNestedElementsToGroupConstruct(res);
 
-            chai.expect(res2).excludingEvery('id').to.deep.equal(p.expectedGroup)
+            chai.expect(res2).excludingEvery(["id", "isTopGroup"]).to.deep.equal(p.expectedGroup);
           });
         });
 
@@ -334,7 +334,7 @@ describe("sdk", function () {
             expectedQuery: null,
             group: { 
               rules: [], 
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           },
           {
@@ -344,10 +344,10 @@ describe("sdk", function () {
               rules: [ 
                 { 
                   rules: [], 
-                  combinator: '&&' 
+                  combinator: "&&" 
                 } as Group
               ],
-              combinator: '&&' 
+              combinator: "&&" 
             }
           },
           {
@@ -357,11 +357,11 @@ describe("sdk", function () {
               rules: [ 
                 {
                    field: "field['Zahl']",
-                   operator: '>',
+                   operator: ">",
                    value: 5
                 } as Rule
               ],
-              combinator: '&&' 
+              combinator: "&&"
             } as Group
           },
           {
@@ -371,11 +371,11 @@ describe("sdk", function () {
               rules: [ 
                 {
                    field: "field['A&B']",
-                   operator: '!=',
-                   value: '[X|Y]'
+                   operator: "!=",
+                   value: "[X|Y]"
                 } as Rule
               ],
-              combinator: '&&' 
+              combinator: "&&"
             } as Group
           },
           {
@@ -385,11 +385,11 @@ describe("sdk", function () {
               rules: [ 
                 {
                    field: "field['Date']",
-                   operator: '==',
+                   operator: "==",
                    value: undefined
                 } as Rule
               ],
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           },
           {
@@ -398,12 +398,12 @@ describe("sdk", function () {
             group: {
               rules: [ 
                 {
-                   field: 'field[\'Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von\']',
-                   operator: '==',
-                   value: ''
+                   field: "field['Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von']",
+                   operator: "==",
+                   value: ""
                 } as Rule
               ],
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           },
           {
@@ -412,17 +412,17 @@ describe("sdk", function () {
             group: {
               rules: [ 
                 {
-                  field: 'role[\'Mitarbeiter\'].lastName',
-                  operator: '==',
-                  value: 'Mustermann' 
+                  field: "role['Mitarbeiter'].lastName",
+                  operator: "==",
+                  value: "Mustermann" 
                 } as Rule,
                 {
-                  field: 'role[\'GF/KB/PL\'].firstName',
-                  operator: '==',
-                  value: 'Max' 
+                  field: "role['GF/KB/PL'].firstName",
+                  operator: "==",
+                  value: "Max" 
                 } as Rule
               ],
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           },
           {
@@ -431,17 +431,17 @@ describe("sdk", function () {
             group: {
               rules: [ 
                 {
-                  field: 'field[\'Check\']',
-                  operator: '==',
-                  value: {A:true,B:true}
+                  field: "field['Check']",
+                  operator: "==",
+                  value: { A: true, B: true }
                 } as Rule,
                 {
-                  field: 'field[\'DATUM\']',
-                  operator: '>=',
-                  value: '2019-08-14T22:00:00.000Z' 
+                  field: "field['DATUM']",
+                  operator: ">=",
+                  value: "2019-08-14T22:00:00.000Z" 
                 } as Rule
               ],
-              combinator: '||' 
+              combinator: "||" 
             } as Group
           },
           {
@@ -450,32 +450,32 @@ describe("sdk", function () {
             group: {
               rules: [ 
                 {
-                   field: 'role[\'Abteilungsleitung\']',
-                   operator: '==',
-                   value: 'ABC' 
+                   field: "role['Abteilungsleitung']",
+                   operator: "==",
+                   value: "ABC" 
                 } as Rule,
                 {
-                   field: 'field[\'Dienstbezeichnung\']',
-                   operator: '==',
-                   value: 'xyz' 
+                   field: "field['Dienstbezeichnung']",
+                   operator: "==",
+                   value: "xyz" 
                 } as Rule,
                 { 
                    rules: [ 
                       {
-                        field: 'field[\'Art der Veranstaltung\']',
-                        operator: '!=',
-                        value: 'gfdg dfg'
+                        field: "field['Art der Veranstaltung']",
+                        operator: "!=",
+                        value: "gfdg dfg"
                       } as Rule,
                       {
-                        field: 'field[\'Entstehen Teilnehmergebühren?\']',
-                        operator: '==',
-                        value: 'nein' 
+                        field: "field['Entstehen Teilnehmergebühren?']",
+                        operator: "==",
+                        value: "nein" 
                       } as Rule
                     ], 
-                    combinator: '||'
+                    combinator: "||"
                 } as Group
               ],
-              combinator: '&&' 
+              combinator: "&&" 
             } as Group
           }
         ];

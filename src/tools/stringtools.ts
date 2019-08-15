@@ -140,7 +140,7 @@ export function getGroupFromQuery(query: string): Group {
 }
 
 export function getQueryFromGroup(group: Group, isChild?: boolean): string {
-  if(group.rules.length == 0) {
+  if (group.rules.length == 0) {
     return isChild ? "()" : null;
   }
 
@@ -150,7 +150,7 @@ export function getQueryFromGroup(group: Group, isChild?: boolean): string {
 export function getQueryFromRule(rule: Rule) {
   let value: string | number | { [index: string]: boolean };
 
-  switch(typeof rule.value) {
+  switch (typeof rule.value) {
     case "undefined":
       value = undefined;
       break;
@@ -168,8 +168,8 @@ export function getQueryFromRule(rule: Rule) {
   return `${rule.field} ${rule.operator} ${value}`;
 }
 
-export class NestedElement {query: string; type: string; top?: boolean};
-export class NestedElements {[key:string]: NestedElement};
+export class NestedElement {query: string; type: string; top?: boolean; }
+export class NestedElements {[key: string]: NestedElement}
 
 const ruleRegex = /((field|role)\['([^']*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=|\<\>|\>\<)\s(('([^']+)')|(([^()&\|]+)))/; // /((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+)))/
 const nestedRegex = /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role)\['([^']*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=|\<\>|\>\<)\s(('([^']+)')|(([^()&&\|\|]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/; // /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/;
@@ -180,17 +180,17 @@ export function getNestedElements(query: string): NestedElements {
   let replacedQuery = query;
   let res: NestedElements = {};
 
-  while(match) {
+  while (match) {
       let uuid = Tools.createId();
-      if(match[3]) {
+      if (match[3]) {
         res[uuid] = { query: "", type: "nested"};
-        replacedQuery = replacedQuery.replace(nestedRegex, (m, p1, p2, p3, p4, offset, full) => { return p2 + uuid + p4 });
+        replacedQuery = replacedQuery.replace(nestedRegex, (m, p1, p2, p3, p4, offset, full) => { return p2 + uuid + p4; });
       } else {
         res[uuid] = { query: match[6], type: isCombinatorRegex.test(match[6]) ? "group" : (ruleRegex.test(match[0]) ? "rule" : "nested")};
-        replacedQuery = replacedQuery.replace(nestedRegex, uuid)
+        replacedQuery = replacedQuery.replace(nestedRegex, uuid);
       }
       match = nestedRegex.exec(replacedQuery);
-      if(!match) {
+      if (!match) {
         res[uuid].top = true;
       }
   }
@@ -225,7 +225,7 @@ export function parseNestedElementsToGroupConstruct(nestedElement: NestedElement
   let topGroup: Group = new Group();
   topGroup.isTopGroup = isTopGroup;
 
-  if(_.isEmpty(nestedElement)) {
+  if (_.isEmpty(nestedElement)) {
     return topGroup;
   }
 
@@ -233,10 +233,10 @@ export function parseNestedElementsToGroupConstruct(nestedElement: NestedElement
   topGroup.combinator = topEntry.type == "group" ? isCombinatorRegex.exec(topEntry.query)[1] : "&&";
 
   let splittedRules = topEntry.type == "group" ? topEntry.query.split(topGroup.combinator).map(item => item.trim()) : [topEntry.query];
-  for(let i: number = 0; i < splittedRules.length; i++) {
-    if(splittedRules[i] == "") {
+  for (let i: number = 0; i < splittedRules.length; i++) {
+    if (splittedRules[i] == "") {
 
-    } else if(!ruleRegex.test(splittedRules[i])) {
+    } else if (!ruleRegex.test(splittedRules[i])) {
       parseNestedElement(splittedRules[i], nestedElement, topGroup);
     } else {
       topGroup.rules.push(parseRule(splittedRules[i]));
@@ -250,7 +250,7 @@ export function parseNestedElement(query: string, nestedElements: NestedElements
   delete nestedElements[Object.keys(nestedElements).find(k => nestedElements[k].top)];
   nestedElements[query].top = true;
   group.rules.push(parseNestedElementsToGroupConstruct(nestedElements));
-  if(nestedElements[query]) {
+  if (nestedElements[query]) {
     nestedElements[query].top = false;
   }
 }
@@ -260,7 +260,7 @@ export function getFieldOrRoleDisplayName(fieldString: string): string {
   let match = fieldString.match(/((field|role)\['([^']*)'\](\.[^\s]+)?)/);
   let prefix = match[2] == "field" ? tl("Feld") : tl("Rolle");
   let suffix = "";
-  if(match[4]) {
+  if (match[4]) {
     switch (match[4]) {
       case ".firstName":
           suffix = " (" + tl("Vorname")  + ")";
@@ -289,13 +289,13 @@ export function parseRule(rule: string): Rule {
   if (match) {    
     res.field = match[1];
     res.operator = match[5];
-    if(match[8]) { // normal text
+    if (match[8]) { // normal text
       res.value = match[8];
-    } else if(match[10] == "''") { // empty text
+    } else if (match[10] == "''") { // empty text
       res.value = "";
-    } else if(match[10] == "undefined") { // undefined (object)
+    } else if (match[10] == "undefined") { // undefined (object)
       res.value = undefined;
-    } else if(!Number.isNaN(Number(match[10]))) {
+    } else if (!Number.isNaN(Number(match[10]))) {
       res.value = Number(match[10]); // number
     } else {
       res.value = JSON.parse(match[10]); // object (checklist)
