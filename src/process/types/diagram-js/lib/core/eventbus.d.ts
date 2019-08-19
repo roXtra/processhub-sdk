@@ -146,6 +146,8 @@ declare module "diagram-js/lib/core/EventBus" {
     public on(events: "resize.end", priority: number, callback: (event: ResizeEndEvent) => void): void;
     public on(events: "resize.ended", callback: (event: EventBusEvent<IResizeEndedContext>) => void): void;
 
+    public on(events: "selection.changed", callback: (Event: SelectionChangedEvent) => void): void;
+
     public on(events: "shape.add", callback: (Event: ShapeAddEvent) => void): void;
     public on(events: "shape.added", priority: number, callback: (Event: ShapeAddedEvent) => void): void;
     public on(events: "shape.added", callback: (Event: ShapeAddedEvent) => void): void;
@@ -169,6 +171,7 @@ declare module "diagram-js/lib/core/EventBus" {
      * @param {Object} [that] Pass context (`this`) to the callback
      */
     public once(event: "element.click", priority: number, callback: (Event: EventBusEvent<Object>) => void, that?: Object): void;
+    public once(events: "selection.changed", priority: number, callback: (Event: SelectionChangedEvent) => void): void;
 
     /**
      * Removes event listeners by event and callback.
@@ -408,6 +411,11 @@ declare module "diagram-js/lib/core/EventBus" {
     newBounds: IBounds;
     resizeConstraints: {};
     shape: Shape;
+  }
+
+  export interface SelectionChangedEvent {
+    newSelection: Base[];
+    oldSelection: Base[];
   }
 
   export class ResizeEndEvent extends EventBusEvent<IResizeEndContext> {
