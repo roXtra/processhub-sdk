@@ -7,7 +7,6 @@ import { BpmnProcessDiagram } from "./bpmnprocessdiagram";
 import BpmnModdle = require("bpmn-moddle");
 import { Bpmn, Bpmndi } from "../bpmn";
 import { Processhub } from "modeler/bpmn/processhub";
-import { ModdleElementType } from "./bpmnmoddlehelper";
 import { RunningTaskLane, TaskToLaneMapEntry, TaskExtensions, TaskSettings, TaskSettingsValueType, StartButtonMap, ProcessDiagramSize } from "../processinterfaces";
 import { isTrue } from "../../tools/assert";
 import { tl } from "../../tl";
@@ -350,7 +349,7 @@ export class BpmnProcess {
     });
   }
 
-  public isOneOfNextActivityOfType(currentTaskId: string, type: ModdleElementType): boolean {
+  public isOneOfNextActivityOfType(currentTaskId: string, type: Bpmn.bpmnType): boolean {
     let elem = this.getNextActivities(currentTaskId);
     for (let el of elem) {
       if (el.$type === type) {
@@ -581,8 +580,8 @@ export class BpmnProcess {
     }
   }
 
-  public getEndEvents(processId: string): BpmnModdleHelper.BpmnModdleEndEvent[] {
-    return this.getEvents(processId, "bpmn:EndEvent") as BpmnModdleHelper.BpmnModdleEndEvent[];
+  public getEndEvents(processId: string): Bpmn.EndEvent[] {
+    return this.getEvents(processId, "bpmn:EndEvent") as Bpmn.EndEvent[];
   }
 
   private getEvents(processId: string, eventType: string): Bpmn.FlowElement[] {
@@ -713,7 +712,7 @@ export class BpmnProcess {
       value = "";
 
     if (!baseElement.extensionElements || baseElement.extensionElements.values == null) {
-      let extensions: BpmnModdleHelper.BpmnModdleExtensionElements = BpmnModdleHelper.createTaskExtensionTemplate();
+      let extensions: Bpmn.ExtensionElements = BpmnModdleHelper.createTaskExtensionTemplate();
       baseElement.extensionElements = extensions;
     }
 
@@ -977,7 +976,7 @@ export class BpmnProcess {
     // standard convert to send task change on switch back
     let convertToType: "bpmn:SendTask" | "bpmn:UserTask" = rows[changedTaskIdx].taskType as "bpmn:SendTask" | "bpmn:UserTask";
 
-    let extensions: BpmnModdleHelper.BpmnModdleExtensionElements = BpmnModdleHelper.createTaskExtensionTemplate();
+    let extensions: Bpmn.ExtensionElements = BpmnModdleHelper.createTaskExtensionTemplate();
 
     let focusedTask = null;
 
@@ -1178,7 +1177,7 @@ export class BpmnProcess {
     let processContext: Bpmn.Process = this.getProcess(this.processId());
 
     if (focusedTask == null) {
-      let extensions: BpmnModdleHelper.BpmnModdleExtensionElements = BpmnModdleHelper.createTaskExtensionTemplate();
+      let extensions: Bpmn.ExtensionElements = BpmnModdleHelper.createTaskExtensionTemplate();
       focusedTask = this.moddle.create(newTaskRowDetails.taskType as "bpmn:UserTask", { id: newTaskRowDetails.taskId, name: newTaskRowDetails.task, extensionElements: extensions, incoming: [], outgoing: [] });
       processContext.flowElements.push(focusedTask);
     }
@@ -1280,7 +1279,7 @@ export class BpmnProcess {
 
   //  Diagramm Komponente 
   // Gibt die notwendigen Elemente für die Erstellung des Diagram-Pars im XML zurück
-  public getCollaborationElements(): BpmnModdleHelper.BpmnModdleCollaboration[] {
+  public getCollaborationElements(): Bpmn.Collaboration[] {
     let elements = this.bpmnXml.rootElements.filter((e: any) => e.$type === "bpmn:Collaboration") as Bpmn.Collaboration[];
     return elements;
   }
@@ -1478,7 +1477,7 @@ export class BpmnProcess {
     return sortedTasks;
   }
 
-  private getFlowElementsOfTypes<T extends Bpmn.BaseElement>(types: BpmnModdleHelper.ModdleElementType[]): T[] {
+  private getFlowElementsOfTypes<T extends Bpmn.BaseElement>(types: Bpmn.bpmnType[]): T[] {
     let res: T[] = [];
     for (let type of types) {
       res = res.concat(this.getFlowElementsOfType<T>(type));
@@ -1486,7 +1485,7 @@ export class BpmnProcess {
     return res;
   }
 
-  private getFlowElementsOfType<T extends Bpmn.BaseElement>(type: BpmnModdleHelper.ModdleElementType): T[] {
+  private getFlowElementsOfType<T extends Bpmn.BaseElement>(type: Bpmn.bpmnType): T[] {
     let elements: T[] = [];
     let processes: Bpmn.Process[] = this.bpmnXml.rootElements.filter((e) => e.$type === "bpmn:Process") as Bpmn.Process[];
 

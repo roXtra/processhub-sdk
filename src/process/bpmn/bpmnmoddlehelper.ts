@@ -7,43 +7,23 @@ import { createId } from "../../tools/guid";
 import { tl } from "../../tl";
 import { isRoxtraEdition } from "../../settings";
 
-export type ModdleElementType = Bpmn.bpmnType;
-
-export type BpmnModdleTask = Bpmn.Task;
-export type BpmnModdleUserTask = Bpmn.UserTask;
-export type BpmnModdleSendTask = Bpmn.SendTask;
-export type BpmnModdleExtensionElements = Bpmn.ExtensionElements;
-export type BpmnModdleEndEvent = Bpmn.EndEvent;
-export type BpmnModdleIntermediateThrowEvent = Bpmn.IntermediateThrowEvent;
-export type BpmnModdleIntermediateCatchEvent = Bpmn.IntermediateCatchEvent;
-export type BpmnModdleBoundaryEvent = Bpmn.BoundaryEvent;
-export type BpmnModdleProcess = Bpmn.Process;
-export type BpmnModdleLaneSet = Bpmn.LaneSet;
-export type BpmnModdleSequenceFlow = Bpmn.SequenceFlow;
-export type BpmnFormalExpresion = Bpmn.FormalExpression;
-export type BpmnModdleLane = Bpmn.Lane;
-export type BpmnModdleCollaboration = Bpmn.Collaboration;
-export type BpmndiModdleBounds = Dc.Bounds;
-export type BpmnModdleParticipant = Bpmn.Participant;
-export type BpmnModdleStartEvent = Bpmn.StartEvent;
-
 const processhubNs = "http://processhub.com/schema/1.0/bpmn";
 
-export function createTaskExtensionTemplate(): BpmnModdleExtensionElements {
+export function createTaskExtensionTemplate(): Bpmn.ExtensionElements {
   let moddle = new BpmnModdle([], {});
 
   let inputOutput: Processhub.InputOutput = moddle.createAny("processhub:inputOutput", processhubNs, {
     $children: []
   });
 
-  let extensionElements: BpmnModdleExtensionElements = moddle.create("bpmn:ExtensionElements", {
+  let extensionElements: Bpmn.ExtensionElements = moddle.create("bpmn:ExtensionElements", {
     values: [inputOutput]
   });
 
   return extensionElements;
 }
 
-export function addTaskExtensionInputText(extensions: BpmnModdleExtensionElements, key: TaskSettings, value: string) {
+export function addTaskExtensionInputText(extensions: Bpmn.ExtensionElements, key: TaskSettings, value: string) {
   let moddle = new BpmnModdle();
 
   let inputParameter: Processhub.InputParameter = moddle.createAny("processhub:inputParameter", processhubNs, {

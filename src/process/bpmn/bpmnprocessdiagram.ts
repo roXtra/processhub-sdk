@@ -1,7 +1,6 @@
 import * as BpmnProcess from "./bpmnprocess";
 import { Bpmn, Bpmndi } from "../bpmn";
 import { isTrue } from "../../tools";
-import { BpmnModdleStartEvent } from "./bpmnmoddlehelper";
 import { RowDetails } from "..";
 
 export class Waypoint {
@@ -173,10 +172,10 @@ export class BpmnProcessDiagram {
       let drawObjectList: Bpmn.FlowNode[] = [];
       let startElementObject = flowElements.filter((e: any) => e.$type === "bpmn:StartEvent");
       startElementObject = startElementObject.sort((a, b) => {
-        if ((a as BpmnModdleStartEvent).eventDefinitions == null)
+        if ((a as Bpmn.StartEvent).eventDefinitions == null)
           return -1;
 
-        if ((b as BpmnModdleStartEvent).eventDefinitions == null)
+        if ((b as Bpmn.StartEvent).eventDefinitions == null)
           return 1;
         return 0;
       });
@@ -265,10 +264,10 @@ export class BpmnProcessDiagram {
 
         yParam = (this.diagramYStartParam + BpmnProcessDiagram.GATEWAY_WIDTH) + laneNumber * this.diagramLaneHeight;
 
-        let standardStartEvent = taskList.filter(t => t.$type === "bpmn:StartEvent" && (t as BpmnModdleStartEvent).eventDefinitions == null);
+        let standardStartEvent = taskList.filter(t => t.$type === "bpmn:StartEvent" && (t as Bpmn.StartEvent).eventDefinitions == null);
         let startEvents = taskList.filter(t => t.$type === "bpmn:StartEvent");
 
-        let startEvent = (workingObject as BpmnModdleStartEvent);
+        let startEvent = (workingObject as Bpmn.StartEvent);
         if (startEvent.eventDefinitions != null && startEvent.eventDefinitions.length > 0) {
           if (standardStartEvent.length > 0 || (startEvents.length > 1 && startEvents.last().id == workingObject.id)) {
             xParam -= iconWidth + BpmnProcessDiagram.SPACE_BETWEEN_TASKS;
