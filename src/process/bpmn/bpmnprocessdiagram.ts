@@ -4,17 +4,6 @@ import { isTrue } from "../../tools";
 import { BpmnModdleStartEvent } from "./bpmnmoddlehelper";
 import { RowDetails } from "..";
 
-// bpmn Diagram
-export const DiagramShapeTypes = {
-  BPMNDI_DIAGRAM: "bpmndi:BPMNDiagram",
-  BPMNDI_SHAPE: "bpmndi:BPMNShape",
-  BPMNDI_EDGE: "bpmndi:BPMNEdge"
-};
-export type DiagramShapeTypes = keyof typeof DiagramShapeTypes;
-// export const BPMNDI_DIAGRAM = "bpmndi:BPMNDiagram";
-// export const BPMNDI_SHAPE = "bpmndi:BPMNShape";
-// export const BPMNDI_EDGE = "bpmndi:BPMNEdge";
-
 export class Waypoint {
   x: number;
   y: number;
@@ -53,14 +42,14 @@ export class BpmnProcessDiagram {
 
   // Gibt erstes Diagram Element aus XML zurück
   private getDiagramElement(): Bpmndi.BPMNDiagram {
-    let diagrams = this.bpmnProcess.bpmnXml.diagrams.filter((e: any) => e.$type === DiagramShapeTypes.BPMNDI_DIAGRAM);
+    let diagrams = this.bpmnProcess.bpmnXml.diagrams.filter((e: any) => e.$type === "bpmndi:BPMNDiagram");
     return diagrams[0];
   }
 
   public getShapeFromDiagram(shapeId: string): Bpmndi.BPMNShape {
     let diagram = this.getDiagramElement();
     for (let planeElement of diagram.plane.planeElement) {
-      if (planeElement.$type === DiagramShapeTypes.BPMNDI_SHAPE && (planeElement as Bpmndi.BPMNShape).bpmnElement != null && (planeElement as Bpmndi.BPMNShape).bpmnElement.id === shapeId) {
+      if (planeElement.$type === "bpmndi:BPMNShape" && (planeElement as Bpmndi.BPMNShape).bpmnElement != null && (planeElement as Bpmndi.BPMNShape).bpmnElement.id === shapeId) {
         return planeElement as Bpmndi.BPMNShape;
       }
     }
@@ -81,7 +70,7 @@ export class BpmnProcessDiagram {
     const res: Bpmndi.BPMNShape[] = [];
     const diagram = this.getDiagramElement();
     for (const planeElement of diagram.plane.planeElement) {
-      if (planeElement.$type === DiagramShapeTypes.BPMNDI_SHAPE && (planeElement as Bpmndi.BPMNShape).bpmnElement.$type === "bpmn:EndEvent") {
+      if (planeElement.$type === "bpmndi:BPMNShape" && (planeElement as Bpmndi.BPMNShape).bpmnElement.$type === "bpmn:EndEvent") {
         res.push(planeElement as Bpmndi.BPMNShape);
       }
     }
@@ -93,8 +82,8 @@ export class BpmnProcessDiagram {
     let diagram = this.getDiagramElement();
     // für die Berechnung der gesamt Breite
     let process = this.bpmnProcess.getProcess(processId);
-    let amountOfProcesses = process.flowElements.filter((e: any) => e.$type === BpmnProcess.BPMN_USERTASK || e.$type === BpmnProcess.BPMN_SENDTASK).length;
-    let amountOfSequences = process.flowElements.filter((e: any) => e.$type === BpmnProcess.BPMN_SEQUENCEFLOW).length;
+    let amountOfProcesses = process.flowElements.filter((e: any) => e.$type === "bpmn:UserTask" || e.$type === "bpmn:SendTask").length;
+    let amountOfSequences = process.flowElements.filter((e: any) => e.$type === "bpmn:SequenceFlow").length;
 
 
     let allGateways = this.bpmnProcess.getAllExclusiveGateways();
@@ -105,7 +94,7 @@ export class BpmnProcessDiagram {
     let sortedTasks: Bpmn.FlowNode[] = [];
     if (copyTaskIdsOrderFromTable != null && copyTaskIdsOrderFromTable.length > 0) {
       let tmp = this.bpmnProcess.getExistingActivityObject(copyTaskIdsOrderFromTable[0].taskId);
-      if (tmp != null && tmp.$type == BpmnProcess.BPMN_STARTEVENT) {
+      if (tmp != null && tmp.$type == "bpmn:StartEvent") {
         copyTaskIdsOrderFromTable.splice(0, 1);
       }
     }
@@ -182,7 +171,7 @@ export class BpmnProcessDiagram {
 
       let flowElements = process.flowElements;
       let drawObjectList: Bpmn.FlowNode[] = [];
-      let startElementObject = flowElements.filter((e: any) => e.$type === BpmnProcess.BPMN_STARTEVENT);
+      let startElementObject = flowElements.filter((e: any) => e.$type === "bpmn:StartEvent");
       startElementObject = startElementObject.sort((a, b) => {
         if ((a as BpmnModdleStartEvent).eventDefinitions == null)
           return -1;
@@ -204,7 +193,7 @@ export class BpmnProcessDiagram {
 
       for (let i = 0; i < drawObjectList.length; i++) {
         let task = drawObjectList[i];
-        if (task != null && task.$type !== BpmnProcess.BPMN_ENDEVENT && task.outgoing != null && task.outgoing.find(out => out.targetRef.$type === BpmnProcess.BPMN_EXCLUSIVEGATEWAY)) {
+        if (task != null && task.$type !== "bpmn:EndEvent" && task.outgoing != null && task.outgoing.find(out => out.targetRef.$type === "bpmn:ExclusiveGateway")) {
           let gate = gates.find(g => g.incoming.find(inc => inc.sourceRef.id === task.id) != null);
           if (drawObjectList.find(obj => obj.id === gate.id) == null) {
             drawObjectList.splice((i + 1), 0, gate);
@@ -227,8 +216,8 @@ export class BpmnProcessDiagram {
         let thisObj = drawObjectList[i];
         let nextObj = drawObjectList[(i + 1)];
         let tmpSf = sequenceFlows.find(sf => sf.sourceRef.id === thisObj.id && sf.targetRef.id === nextObj.id);
-        if (tmpSf != null || thisObj.$type === BpmnProcess.BPMN_STARTEVENT) {
-          if (thisObj.$type === BpmnProcess.BPMN_STARTEVENT) {
+        if (tmpSf != null || thisObj.$type === "bpmn:StartEvent") {
+          if (thisObj.$type === "bpmn:StartEvent") {
             tmpSf = sequenceFlows.find(sf => sf.sourceRef.id === thisObj.id);
           }
           if (tmpSf != null) {
@@ -267,8 +256,8 @@ export class BpmnProcessDiagram {
       let yParam = (this.diagramYStartParam + 23) + laneNumber * this.diagramLaneHeight;
 
       // weil größe des icons anders
-      if (workingObject.$type === BpmnProcess.BPMN_STARTEVENT || workingObject.$type === BpmnProcess.BPMN_ENDEVENT || workingObject.$type === BpmnProcess.BPMN_EXCLUSIVEGATEWAY) {
-        // let amountOfStartEvents = taskList.filter(obj => obj.$type === BpmnProcess.BPMN_STARTEVENT);
+      if (workingObject.$type === "bpmn:StartEvent" || workingObject.$type === "bpmn:EndEvent" || workingObject.$type === "bpmn:ExclusiveGateway") {
+        // let amountOfStartEvents = taskList.filter(obj => obj.$type === "bpmn:StartEvent");
 
         // let startEventHeightShift = amountOfStartEvents.length == 2 ? 20 : 40;
         iconWidth = sizeStartAndEndEvent;
@@ -276,8 +265,8 @@ export class BpmnProcessDiagram {
 
         yParam = (this.diagramYStartParam + BpmnProcessDiagram.GATEWAY_WIDTH) + laneNumber * this.diagramLaneHeight;
 
-        let standardStartEvent = taskList.filter(t => t.$type === BpmnProcess.BPMN_STARTEVENT && (t as BpmnModdleStartEvent).eventDefinitions == null);
-        let startEvents = taskList.filter(t => t.$type === BpmnProcess.BPMN_STARTEVENT);
+        let standardStartEvent = taskList.filter(t => t.$type === "bpmn:StartEvent" && (t as BpmnModdleStartEvent).eventDefinitions == null);
+        let startEvents = taskList.filter(t => t.$type === "bpmn:StartEvent");
 
         let startEvent = (workingObject as BpmnModdleStartEvent);
         if (startEvent.eventDefinitions != null && startEvent.eventDefinitions.length > 0) {
@@ -285,7 +274,7 @@ export class BpmnProcessDiagram {
             xParam -= iconWidth + BpmnProcessDiagram.SPACE_BETWEEN_TASKS;
           }
 
-          let isMessageStartEvent = startEvent.eventDefinitions.last().$type === BpmnProcess.BPMN_MESSAGEEVENTDEFINITION;
+          let isMessageStartEvent = startEvent.eventDefinitions.last().$type === "bpmn:MessageEventDefinition";
           isMessageStartEvent ?
             yParam -= 40 :
             yParam += 40;
@@ -353,7 +342,7 @@ export class BpmnProcessDiagram {
   private createShape(bpmnElement: any, xParam: number, yParam: number, widthParam: number, heightParam: number): any {
     let bounds = this.bpmnProcess.moddle.create("dc:Bounds", { x: xParam, y: yParam, width: widthParam, height: heightParam });
     let shape = this.bpmnProcess.moddle.create("bpmndi:BPMNShape", {
-      id: BpmnProcess.BpmnProcess.getBpmnId(DiagramShapeTypes.BPMNDI_SHAPE),
+      id: BpmnProcess.BpmnProcess.getBpmnId("bpmndi:BPMNShape"),
       bounds: bounds,
       bpmnElement: bpmnElement
     });
@@ -370,7 +359,7 @@ export class BpmnProcessDiagram {
     }
 
     let edge = this.bpmnProcess.moddle.create("bpmndi:BPMNEdge", {
-      id: BpmnProcess.BpmnProcess.getBpmnId(DiagramShapeTypes.BPMNDI_EDGE),
+      id: BpmnProcess.BpmnProcess.getBpmnId("bpmndi:BPMNEdge"),
       bpmnElement: bpmnElement,
       sourceElement: sourceElement,
       targetElement: targetElement,

@@ -1,7 +1,5 @@
 import BpmnModdle = require("bpmn-moddle");
 import { BpmnProcess } from "./bpmnprocess";
-import * as BpmnProcessDiagramFile from "./bpmnprocessdiagram";
-import * as BpmnProcessFile from "./bpmnprocess";
 import { Processhub, Bpmn, Dc } from "../bpmn";
 import { TaskSettings, ProcessResult } from "../processinterfaces";
 import { LoadTemplateReply } from "../legacyapi";
@@ -74,49 +72,49 @@ export async function createBpmnTemplate(moddle: BpmnModdle): Promise<LoadTempla
       // https://github.com/bpmn-io/bpmn-moddle/tree/master/test/spec/xml
 
       // 1 Prozessknoten mit 1 unbenannten Teilnehmer (=Lane)
-      let processId = BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_PROCESS);
-      let startEventObject = moddle.create(BpmnProcessFile.BPMN_STARTEVENT, { id: BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_STARTEVENT), outgoing: [], incoming: [] });
-      let endEventObject = moddle.create(BpmnProcessFile.BPMN_ENDEVENT, { id: BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_ENDEVENT), outgoing: [], incoming: [] });
-      let task = moddle.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_USERTASK), name: "Aufgabe 1", extensionElements: null, incoming: [], outgoing: [] });
-      let task2 = moddle.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_USERTASK), name: "Aufgabe 2", extensionElements: null, incoming: [], outgoing: [] });
+      let processId = BpmnProcess.getBpmnId("bpmn:Process");
+      let startEventObject = moddle.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
+      let endEventObject = moddle.create("bpmn:EndEvent", { id: BpmnProcess.getBpmnId("bpmn:EndEvent"), outgoing: [], incoming: [] });
+      let task = moddle.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 1", extensionElements: null, incoming: [], outgoing: [] });
+      let task2 = moddle.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 2", extensionElements: null, incoming: [], outgoing: [] });
 
-      let initSequenceFlow = moddle.create(BpmnProcessFile.BPMN_SEQUENCEFLOW, {
-        id: BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_SEQUENCEFLOW),
+      let initSequenceFlow = moddle.create("bpmn:SequenceFlow", {
+        id: BpmnProcess.getBpmnId("bpmn:SequenceFlow"),
         sourceRef: startEventObject,
         targetRef: task
       });
       task.incoming.push(initSequenceFlow);
       startEventObject.outgoing.push(initSequenceFlow);
 
-      let initSequenceFlow2 = moddle.create(BpmnProcessFile.BPMN_SEQUENCEFLOW, {
-        id: BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_SEQUENCEFLOW),
+      let initSequenceFlow2 = moddle.create("bpmn:SequenceFlow", {
+        id: BpmnProcess.getBpmnId("bpmn:SequenceFlow"),
         sourceRef: task,
         targetRef: task2
       });
       task2.incoming.push(initSequenceFlow2);
       task.outgoing.push(initSequenceFlow2);
 
-      let initSequenceFlow3 = moddle.create(BpmnProcessFile.BPMN_SEQUENCEFLOW, {
-        id: BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_SEQUENCEFLOW),
+      let initSequenceFlow3 = moddle.create("bpmn:SequenceFlow", {
+        id: BpmnProcess.getBpmnId("bpmn:SequenceFlow"),
         sourceRef: task2,
         targetRef: endEventObject
       });
       endEventObject.incoming.push(initSequenceFlow3);
       task2.outgoing.push(initSequenceFlow3);
 
-      let lane = moddle.create(BpmnProcessFile.BPMN_LANE, 
-        { id: BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_LANE), name: "Ersteller", flowNodeRef: [startEventObject, task] }
+      let lane = moddle.create("bpmn:Lane", 
+        { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: "Ersteller", flowNodeRef: [startEventObject, task] }
       );
 
-      let lane2 = moddle.create(BpmnProcessFile.BPMN_LANE, 
-        { id: BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_LANE), name: "Bearbeiter", flowNodeRef: [task2, endEventObject] }
+      let lane2 = moddle.create("bpmn:Lane", 
+        { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: "Bearbeiter", flowNodeRef: [task2, endEventObject] }
       );
 
       // ACHTUNG! Wenn hier einmal standardmäßig der "Teilnehmer 1" nicht mehr steht, dann müssen Tests angepasst werden
-      let laneSet = moddle.create(BpmnProcessFile.BPMN_LANESET, { id: BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_LANESET), lanes: [lane, lane2]
+      let laneSet = moddle.create("bpmn:LaneSet", { id: BpmnProcess.getBpmnId("bpmn:LaneSet"), lanes: [lane, lane2]
       });
 
-      let bpmnProcessElement = moddle.create(BpmnProcessFile.BPMN_PROCESS, {
+      let bpmnProcessElement = moddle.create("bpmn:Process", {
         id: processId,
         laneSets: [
           laneSet
@@ -133,19 +131,19 @@ export async function createBpmnTemplate(moddle: BpmnModdle): Promise<LoadTempla
         ]
       });
 
-      let bpmnParticipant = moddle.create(BpmnProcessFile.BPMN_PARTICIPANT, {
-        id: BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_PARTICIPANT),
+      let bpmnParticipant = moddle.create("bpmn:Participant", {
+        id: BpmnProcess.getBpmnId("bpmn:Participant"),
         processRef: bpmnProcessElement,
         name: isRoxtraEdition ? tl("Prozess") : "ProcessHub",
       });
 
-      let bpmnCollaboration = moddle.create(BpmnProcessFile.BPMN_COLLABORATION, {
-        id: BpmnProcess.getBpmnId(BpmnProcessFile.BPMN_COLLABORATION),
+      let bpmnCollaboration = moddle.create("bpmn:Collaboration", {
+        id: BpmnProcess.getBpmnId("bpmn:Collaboration"),
         participants: [bpmnParticipant]
       });
 
       let bpmnDiagram = moddle.create("bpmndi:BPMNDiagram", {
-        name: BpmnProcess.getBpmnId(BpmnProcessDiagramFile.DiagramShapeTypes.BPMNDI_DIAGRAM),
+        name: BpmnProcess.getBpmnId("bpmndi:BPMNDiagram"),
         plane: moddle.create("bpmndi:BPMNPlane", {
           bpmnElement: bpmnCollaboration,
           planeElement: []

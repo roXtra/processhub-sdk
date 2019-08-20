@@ -2,7 +2,7 @@ import BpmnModdle = require("bpmn-moddle");
 import { assert, expect } from "chai";
 import { Bpmn } from "../../process/bpmn";
 import { isId } from "../../tools/guid";
-import { BpmnProcess, BPMN_USERTASK, BPMN_ENDEVENT, BPMN_STARTEVENT, BPMN_LANE } from "./bpmnprocess";
+import { BpmnProcess } from "./bpmnprocess";
 import { LoadTemplateReply } from "../legacyapi";
 import { createBpmnTemplate } from "./bpmnmoddlehelper";
 import { RowDetails } from "../phclient";
@@ -24,7 +24,7 @@ async function readFileAsync(fileName: string): Promise<string> {
 let TestRowDetails: RowDetails[] = [];
 
 async function addTask(rowDetails: RowDetails[], rowNumber: number, bpmnProcess: any): Promise<void> {
-  rowDetails.splice((rowNumber + 1), 0, { rowNumber: (rowNumber + 1), selectedRole: rowDetails[rowNumber].selectedRole, task: "", taskId: null, laneId: rowDetails[rowNumber].laneId, taskType: BPMN_USERTASK, jumpsTo: rowDetails[rowNumber].jumpsTo });
+  rowDetails.splice((rowNumber + 1), 0, { rowNumber: (rowNumber + 1), selectedRole: rowDetails[rowNumber].selectedRole, task: "", taskId: null, laneId: rowDetails[rowNumber].laneId, taskType: "bpmn:UserTask", jumpsTo: rowDetails[rowNumber].jumpsTo });
 
   bpmnProcess.addTaskBetween(rowDetails, (rowNumber + 1));
 
@@ -106,14 +106,10 @@ describe("sdk", function () {
         });
 
         it("soll eine ID mit einem Prefix zurückgeben", function () {
-          let id: string = BpmnProcess.getBpmnId(BPMN_USERTASK);
+          let id: string = BpmnProcess.getBpmnId("bpmn:UserTask");
           assert(id.length > 16);
         });
 
-        it("soll eine ID mit der gleichen länge trotz Parameter zurückgeben", function () {
-          let id: string = BpmnProcess.getBpmnId("BPMNTASK");
-          assert(isId(id));
-        });
       });
 
       describe("BpmnProcessClass", function () {
@@ -183,12 +179,12 @@ describe("sdk", function () {
           // wie test zuvor bis hier her
 
           let startEvents: Bpmn.StartEvent[] = bpmnProcess.getStartEvents(process.id);
-          assert(startEvents[0].outgoing[0].targetRef.$type === BPMN_USERTASK);
-          assert(startEvents[0].outgoing[0].sourceRef.$type === BPMN_STARTEVENT);
+          assert(startEvents[0].outgoing[0].targetRef.$type === "bpmn:UserTask");
+          assert(startEvents[0].outgoing[0].sourceRef.$type === "bpmn:StartEvent");
 
           let endEvent: Bpmn.EndEvent = bpmnProcess.getEndEvents(process.id)[0];
-          assert(endEvent.incoming[0].sourceRef.$type === BPMN_USERTASK);
-          assert(endEvent.incoming[0].targetRef.$type === BPMN_ENDEVENT);
+          assert(endEvent.incoming[0].sourceRef.$type === "bpmn:UserTask");
+          assert(endEvent.incoming[0].targetRef.$type === "bpmn:EndEvent");
         });
 
         it("soll Lane anlegen", async function () {
@@ -197,7 +193,7 @@ describe("sdk", function () {
           let processes = bpmnProcess.getProcesses();
           let process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
 
-          let testId: string = BpmnProcess.getBpmnId(BPMN_LANE);
+          let testId: string = BpmnProcess.getBpmnId("bpmn:Lane");
           let testLaneId: string = bpmnProcess.addLane(process.id, testId, "Test Lane");
 
           let lanes: Bpmn.Lane[] = bpmnProcess.getLanes(false);
@@ -259,7 +255,7 @@ describe("sdk", function () {
             // wie test zuvor bis hier her
             let testLaneName: string = "Test Lane";
 
-            let testId: string = BpmnProcess.getBpmnId(BPMN_LANE);
+            let testId: string = BpmnProcess.getBpmnId("bpmn:Lane");
             bpmnProcess.addLane(process.id, testId, testLaneName);
             let rowDetails: RowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
 
@@ -268,7 +264,7 @@ describe("sdk", function () {
             testTaskObject = bpmnProcess.getExistingTask(process.id, testTaskId) as Bpmn.UserTask;
             assert(testTaskObject.name === rowDetails[1].task);
             assert(testTaskObject.id === testTaskId);
-            assert(testTaskObject.$type === BPMN_USERTASK);
+            assert(testTaskObject.$type === "bpmn:UserTask");
           });
 
           it("soll Text einfügen und lesen - Description", async function () {
@@ -333,11 +329,11 @@ describe("sdk", function () {
 
             // wie test zuvor bis hier her
             let testLaneName: string = "Test Lane";
-            let testId: string = BpmnProcess.getBpmnId(BPMN_LANE);
+            let testId: string = BpmnProcess.getBpmnId("bpmn:Lane");
             bpmnProcess.addLane(process.id, testId, testLaneName);
 
             let testLaneName2: string = "Test Lane2";
-            let testId2: string = BpmnProcess.getBpmnId(BPMN_LANE);
+            let testId2: string = BpmnProcess.getBpmnId("bpmn:Lane");
             bpmnProcess.addLane(process.id, testId2, testLaneName2);
 
 
@@ -353,7 +349,7 @@ describe("sdk", function () {
 
             assert(testTaskObject1.name === testTaskName1);
             assert(testTaskObject1.id === testTaskId1);
-            assert(testTaskObject1.$type === BPMN_USERTASK);
+            assert(testTaskObject1.$type === "bpmn:UserTask");
 
 
             let testTaskName2: string = "Test Aufgabe B";
@@ -364,7 +360,7 @@ describe("sdk", function () {
 
             assert(testTaskObject2.name === testTaskName2);
             assert(testTaskObject2.id === testTaskId2);
-            assert(testTaskObject2.$type === BPMN_USERTASK);
+            assert(testTaskObject2.$type === "bpmn:UserTask");
 
 
             let testTaskName3: string = "Test Aufgabe C";
@@ -375,7 +371,7 @@ describe("sdk", function () {
 
             assert(testTaskObject3.name === testTaskName3, testTaskObject3.name + " === " + testTaskName3);
             assert(testTaskObject3.id === testTaskId3, testTaskObject3.id + " === " + testTaskId3);
-            assert(testTaskObject3.$type === BPMN_USERTASK, testTaskObject3.$type + " === " + BPMN_USERTASK);
+            assert(testTaskObject3.$type === "bpmn:UserTask", testTaskObject3.$type + " === " + "bpmn:UserTask");
 
             let tasks = bpmnProcess.getSortedTasks(bpmnProcess.processId());
             assert(tasks.length === 2);
@@ -403,7 +399,7 @@ describe("sdk", function () {
           let process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
 
           let testLaneName: string = "Test Lane";
-          let testId: string = BpmnProcess.getBpmnId(BPMN_LANE);
+          let testId: string = BpmnProcess.getBpmnId("bpmn:Lane");
           bpmnProcess.addLane(process.id, testId, testLaneName);
 
           let rowDetails: RowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
@@ -426,7 +422,7 @@ describe("sdk", function () {
           let process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
 
           let testLaneName: string = "Test Lane";
-          let testId: string = BpmnProcess.getBpmnId(BPMN_LANE);
+          let testId: string = BpmnProcess.getBpmnId("bpmn:Lane");
           bpmnProcess.addLane(process.id, testId, testLaneName);
        
           let rowDetails: RowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
@@ -443,7 +439,7 @@ describe("sdk", function () {
           let process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
 
           let testLaneName: string = "Test Lane";
-          let testId: string = BpmnProcess.getBpmnId(BPMN_LANE);
+          let testId: string = BpmnProcess.getBpmnId("bpmn:Lane");
           bpmnProcess.addLane(process.id, testId, testLaneName);
 
           let rowDetails: RowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
@@ -495,7 +491,7 @@ describe("sdk", function () {
 
           let rowNumber = 1;
           let testTaskName = "Test Task Name 1337";
-          rowDetails.splice(2, 0, { rowNumber: (rowNumber + 1), selectedRole: rowDetails[rowNumber].selectedRole, task: testTaskName, taskId: null, laneId: rowDetails[rowNumber].laneId, taskType: BPMN_USERTASK, jumpsTo: rowDetails[rowNumber].jumpsTo });
+          rowDetails.splice(2, 0, { rowNumber: (rowNumber + 1), selectedRole: rowDetails[rowNumber].selectedRole, task: testTaskName, taskId: null, laneId: rowDetails[rowNumber].laneId, taskType: "bpmn:UserTask", jumpsTo: rowDetails[rowNumber].jumpsTo });
 
           bpmnProcess.addTaskBetween(rowDetails, 2);
 

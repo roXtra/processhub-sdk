@@ -1,6 +1,6 @@
 import { tl } from "../tl";
 import { UserDetails } from "../user/userinterfaces";
-import { BpmnProcess, BPMN_TIMEREVENTDEFINITION, BPMN_MESSAGEEVENTDEFINITION } from "./bpmn/bpmnprocess";
+import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { WorkspaceDetails, WorkspaceType } from "../workspace/workspaceinterfaces";
 import { PredefinedGroups, getDefaultRoleGroup } from "../user/index";
 import { ProcessDetails } from "./processinterfaces";
@@ -123,8 +123,8 @@ export function getProcessRoles(currentRoles: ProcessRoles, bpmnProcess: BpmnPro
     // set starting roles
     const startEvents = bpmnProcess.getStartEvents(bpmnProcess.processId());
     startEvents.map(startEvent => {
-      const isMessageStartEvent: boolean = startEvent.eventDefinitions != null && startEvent.eventDefinitions.find(e => e.$type === BPMN_MESSAGEEVENTDEFINITION) != null;
-      const isTimerStartEvent: boolean = startEvent.eventDefinitions != null && startEvent.eventDefinitions.find(e => e.$type === BPMN_TIMEREVENTDEFINITION) != null;
+      const isMessageStartEvent: boolean = startEvent.eventDefinitions != null && startEvent.eventDefinitions.find(e => e.$type === "bpmn:MessageEventDefinition") != null;
+      const isTimerStartEvent: boolean = startEvent.eventDefinitions != null && startEvent.eventDefinitions.find(e => e.$type === "bpmn:TimerEventDefinition") != null;
       let role = bpmnProcess.getLaneOfFlowNode(startEvent.id);
       if (role) { // in new processes somehow the start element is not in a lane (yet)
         if (isMessageStartEvent) {
