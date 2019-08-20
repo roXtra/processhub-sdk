@@ -1765,7 +1765,7 @@ export class BpmnProcess {
           name: tmpBoundary.name,
           isBoundaryEvent: true,
           type: DecisionTaskTypes.Boundary,
-          boundaryEventType: tmpBoundary.eventDefinitions[tmpBoundary.eventDefinitions.length - 1].$type.toString()
+          boundaryEventType: tmpBoundary.eventDefinitions[tmpBoundary.eventDefinitions.length - 1].$type
         } as DecisionTask);
       }
     }

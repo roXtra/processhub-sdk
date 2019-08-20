@@ -1,4 +1,5 @@
 import { UserDetails } from "../user";
+import { Bpmn } from "../process/bpmn";
 
 export enum TodoStatus {
   TodoOnTime = 0,
@@ -80,6 +81,6 @@ export interface DecisionTask {
   name: string;
   type: DecisionTaskTypes;
   isBoundaryEvent: boolean;
-  boundaryEventType?: string;
+  boundaryEventType?: Bpmn.bpmnType;
   // routeStack?: string[];
 }
