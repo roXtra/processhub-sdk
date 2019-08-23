@@ -181,7 +181,7 @@ export function addOrUpdateExtension(baseElement: Bpmn.BaseElement, key: BpmnExt
   settingsElement.$body = value as string;
 }
 
-export function getExtensionBody(flowNode: Bpmn.FlowNode, settingsName: string): string {
+export function getExtensionBody(flowNode: Bpmn.FlowNode, settingsName: BpmnExtensionName): string {
   if (flowNode.extensionElements && flowNode.extensionElements.values) {
     const phInOut = flowNode.extensionElements.values.find(e => e.$type === "processhub:inputOutput") as Processhub.InputOutput;
     if (phInOut && phInOut.$children) {

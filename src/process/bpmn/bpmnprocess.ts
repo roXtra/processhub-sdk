@@ -3,7 +3,6 @@ import * as Todo from "../../todo";
 import { FieldDefinition, FieldDefinitionItem } from "../../data/datainterfaces";
 import { LaneDictionary } from "./bpmnprocessdiagram";
 import { BpmnProcessDiagram } from "./bpmnprocessdiagram";
-import BpmnModdle = require("bpmn-moddle");
 import { Bpmn, Bpmndi } from "../bpmn";
 import { RunningTaskLane, TaskToLaneMapEntry, StartButtonMap, ProcessDiagramSize, TaskSettingsValueType, BpmnExtensionName, TaskExtensions } from "../processinterfaces";
 import { isTrue } from "../../tools/assert";
@@ -43,7 +42,7 @@ export class BpmnProcess {
   }
 
   public static getSetSenderAsRoleOwner(startEvent: Bpmn.StartEvent): boolean {
-    const valueAsString: string = getExtensionBody(startEvent, "set-sender-as-roleowner");
+    const valueAsString: string = getExtensionBody(startEvent, "set-sender-as-role-owner");
     if (valueAsString) {
       return valueAsString === "true";
     } else {
