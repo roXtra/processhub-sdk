@@ -4,7 +4,7 @@ import { Bpmn } from "../../process/bpmn";
 import { isId } from "../../tools/guid";
 import { BpmnProcess } from "./bpmnprocess";
 import { LoadTemplateReply } from "../legacyapi";
-import { createBpmnTemplate } from "./bpmnmoddlehelper";
+import { createBpmnTemplate, bpmnModdleInstance } from "./bpmnmoddlehelper";
 import { RowDetails } from "../phclient";
 import fs = require("fs");
 
@@ -386,6 +386,16 @@ describe("sdk", function () {
             lanes = bpmnProcess.getLanes(true);
             assert(lanes.length === 1);
           });
+        });
+      });
+
+      describe("getSetSenderAsRoleOwner", function() {
+        it("sets and gets SetSenderAsRoleOwner", function() {
+          const startEvent: Bpmn.StartEvent = bpmnModdleInstance.create("bpmn:StartEvent", {});
+          BpmnProcess.setSetSenderAsRoleOwner(startEvent, false);
+          expect(BpmnProcess.getSetSenderAsRoleOwner(startEvent)).to.equal(false);
+          BpmnProcess.setSetSenderAsRoleOwner(startEvent, true);
+          expect(BpmnProcess.getSetSenderAsRoleOwner(startEvent)).to.equal(true);
         });
       });
 
