@@ -1,13 +1,11 @@
 import * as BpmnModdleHelper from "./bpmnmoddlehelper";
 import * as Todo from "../../todo";
 import { FieldDefinition, FieldDefinitionItem } from "../../data/datainterfaces";
-import { updateLegacyFieldDefinitions } from "../../data/datatools";
 import { LaneDictionary } from "./bpmnprocessdiagram";
 import { BpmnProcessDiagram } from "./bpmnprocessdiagram";
 import BpmnModdle = require("bpmn-moddle");
 import { Bpmn, Bpmndi } from "../bpmn";
-import { Processhub } from "modeler/bpmn/processhub";
-import { RunningTaskLane, TaskToLaneMapEntry, TaskExtensions, TaskSettings, TaskSettingsValueType, StartButtonMap, ProcessDiagramSize } from "../processinterfaces";
+import { RunningTaskLane, TaskToLaneMapEntry, StartButtonMap, ProcessDiagramSize, TaskSettingsValueType, BpmnExtensionName, TaskExtensions } from "../processinterfaces";
 import { isTrue } from "../../tools/assert";
 import { tl } from "../../tl";
 import { createId } from "../../tools/guid";
@@ -15,7 +13,7 @@ import { InstanceDetails } from "../../instance/instanceinterfaces";
 import { DecisionTask, DecisionTaskTypes, filterTodosForInstance } from "../../todo";
 import { LoadTemplateReply } from "../legacyapi";
 import { RowDetails } from "../phclient";
-import { replaceOldFieldSyntax } from "../../tools";
+import { getExtensionValues, addOrUpdateExtension, getExtensionBody, setExtensionBody } from "./bpmnextensions";
 
 export class BpmnProcess {
 
@@ -28,6 +26,32 @@ export class BpmnProcess {
     this.moddle = new BpmnModdle([], {});
     this.bpmnXml = null;
     this.processDiagram = new BpmnProcessDiagram(this);
+  }
+
+  public static addOrUpdateExtension(baseElement: Bpmn.BaseElement, key: BpmnExtensionName, value: string | boolean | {}[], extensionValueType: TaskSettingsValueType): void {
+    addOrUpdateExtension(baseElement, key, value, extensionValueType);
+  }
+
+  public static getExtensionValues(activityObject: Bpmn.Activity): TaskExtensions {
+    return getExtensionValues(activityObject);
+  }
+
+  public static getFlowNodeDescription(flowNode: Bpmn.FlowNode): string {
+    return getExtensionBody(flowNode, "description");
+  }
+
+  public static setSetSenderAsRoleOwner(startEvent: Bpmn.StartEvent, setSetSenderAsRoleOwner: boolean): void {
+    setExtensionBody(startEvent, "set-sender-as-roleowner", setSetSenderAsRoleOwner.toString());
+  }
+
+  public static getSetSenderAsRoleOwner(startEvent: Bpmn.StartEvent): boolean {
+    const valueAsString: string = getExtensionBody(startEvent, "set-sender-as-roleowner");
+    if (valueAsString) {
+      return valueAsString === "true";
+    } else {
+      // default value is true 
+      return true;
+    }
   }
 
   public definitionId(): string {
@@ -61,9 +85,9 @@ export class BpmnProcess {
 
     let process: Bpmn.Process = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process") as Bpmn.Process;
     process.flowElements.map(flowElement => {
-      let extVals = BpmnProcess.getExtensionValues(flowElement);
+      let extVals = getExtensionValues(flowElement);
       if (extVals) {
-        let taskFields = BpmnProcess.getExtensionValues(flowElement).fieldDefinitions;
+        let taskFields = getExtensionValues(flowElement).fieldDefinitions;
         if (taskFields && taskFields.length > 0) {
           // currently all tasks have their own fieldDefinitions. It might happen that they have different configs
           // -> add the first one we find to the result set
@@ -87,9 +111,9 @@ export class BpmnProcess {
 
     let process: Bpmn.Process = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process") as Bpmn.Process;
     process.flowElements.map(flowElement => {
-      let extVals = BpmnProcess.getExtensionValues(flowElement);
+      let extVals = getExtensionValues(flowElement);
       if (extVals) {
-        let taskFields = BpmnProcess.getExtensionValues(flowElement).fieldDefinitions;
+        let taskFields = getExtensionValues(flowElement).fieldDefinitions;
         if (taskFields && taskFields.length > 0) {
           // currently all tasks have their own fieldDefinitions. It might happen that they have different configs
           // -> add the first one we find to the result set
@@ -109,9 +133,9 @@ export class BpmnProcess {
 
     let process: Bpmn.Process = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process") as Bpmn.Process;
     process.flowElements.map(flowElement => {
-      let extVals = BpmnProcess.getExtensionValues(flowElement);
+      let extVals = getExtensionValues(flowElement);
       if (extVals) {
-        let taskFields = BpmnProcess.getExtensionValues(flowElement).fieldDefinitions;
+        let taskFields = getExtensionValues(flowElement).fieldDefinitions;
         if (taskFields && taskFields.length > 0) {
           // currently all tasks have their own fieldDefinitions. It might happen that they have different configs
           // -> add the first one we find to the result set
@@ -127,167 +151,17 @@ export class BpmnProcess {
   }
 
   public getFieldDefinitionsForTask(taskObject: Bpmn.Task | Bpmn.Activity): FieldDefinition[] {
-    let extVals = BpmnProcess.getExtensionValues(taskObject);
+    let extVals = getExtensionValues(taskObject);
     if (extVals)
       return extVals.fieldDefinitions;
     else
       return null;
   }
 
-  public static getExtensionValues(activityObject: Bpmn.Activity): TaskExtensions {
-    let returnValue: TaskExtensions = {
-      description: undefined,
-      fieldDefinitions: undefined,
-      sendTaskReceiver: undefined,
-      sendTaskInstanceLink: true,
-      sendTaskSubject: undefined,
-      sendTaskWithFieldContents: true,
-      allFieldsEditable: false,
-      roleOwnersEditable: false,
-      viewAllFields: true,
-      dueAtDateCanBeEdit: false,
-      dueAtDuration: undefined,
-      sendMailNotification: true,
-      requiredFieldsNeeded: undefined,
-      saveDecisionInFieldContents: false,
-      customFieldContentsValue: undefined,
-
-      serviceTaskApiUrl: undefined,
-      serviceTaskRequestObjectString: undefined,
-      serviceTaskResponseFieldName: undefined,
-      serviceTaskConfigObject: undefined,
-      scriptTaskCode: undefined,
-
-      timerStartConfiguration: undefined,
-
-      subProcessId: undefined,
-
-      sequenceFlowExpression: undefined,
-      isBuilderExpression: false,
-
-      fieldsWhichShouldSend: undefined,
-      dateFieldTimer: undefined,
-      roXtraVersion: undefined,
-    };
-
-    if (activityObject == null || activityObject.extensionElements == null || (activityObject.extensionElements != null && activityObject.extensionElements.values == null)) {
-      return returnValue;
-    }
-
-    for (let values of activityObject.extensionElements.values) {
-      if (values != null && values.$children != null) {
-        for (let child of values.$children) {
-          switch (child.name) {
-            case TaskSettings.SequenceFlowExpression:
-              returnValue.sequenceFlowExpression = child.$body ? replaceOldFieldSyntax(child.$body) : child.$body;
-              break;
-            case TaskSettings.IsBuilderExpression:
-              returnValue.isBuilderExpression = child.$body == "true";
-              break;
-            case TaskSettings.SubProcessId:
-              returnValue.subProcessId = child.$body;
-              break;
-            case TaskSettings.Description:
-              returnValue.description = child.$body;
-              break;
-            case TaskSettings.RoXtraVersion:
-              returnValue.roXtraVersion = child.$body;
-              break;
-            case TaskSettings.SendTaskSubject:
-              returnValue.sendTaskSubject = child.$body;
-              break;
-            case TaskSettings.SendTaskInstanceLink:
-              returnValue.sendTaskInstanceLink = child.$body == "true";
-              break;
-            case TaskSettings.SendTaskWithFieldContents:
-              returnValue.sendTaskWithFieldContents = child.$body != "false";
-              break;
-            case TaskSettings.RoleOwnersEditable:
-              returnValue.roleOwnersEditable = child.$body != "false";
-            case TaskSettings.AllFieldsEditable:
-              returnValue.allFieldsEditable = child.$body != "false";
-              break;
-            case TaskSettings.SendMailNotification:
-              returnValue.sendMailNotification = child.$body != "false";
-              break;
-            case TaskSettings.ViewAllFields:
-              returnValue.viewAllFields = child.$body != "false";
-              break;
-            case TaskSettings.DueAtDateCanBeEdit:
-              returnValue.dueAtDateCanBeEdit = child.$body != "false";
-              break;
-            case TaskSettings.DueAtDuration:
-              returnValue.dueAtDuration = child.$body;
-              break;
-            case TaskSettings.DateFieldTimer:
-              returnValue.dateFieldTimer = child.$body;
-              break;
-            case TaskSettings.ScriptTaskCode:
-              returnValue.scriptTaskCode = child.$body;
-              break;
-            case TaskSettings.ServiceTaskConfigObject:
-              returnValue.serviceTaskConfigObject = JSON.parse(child.$body);
-              break;
-            case TaskSettings.FieldsWhichShouldSend:
-              returnValue.fieldsWhichShouldSend = JSON.parse(child.$body);
-              break;
-            case TaskSettings.RequiredFieldsNeeded: {
-              try {
-                returnValue.requiredFieldsNeeded = JSON.parse(child.$body);
-              } catch (ex) {
-                console.log(ex);
-
-                returnValue.requiredFieldsNeeded = [];
-              }
-            }
-              break;
-            case TaskSettings.SaveDecisionInFieldContents:
-              returnValue.saveDecisionInFieldContents = child.$body != "false";
-              break;
-            case TaskSettings.CustomFieldContentsValue:
-              returnValue.customFieldContentsValue = child.$body;
-              break;
-            case TaskSettings.SendTaskReceiver: {
-              try {
-                returnValue.sendTaskReceiver = JSON.parse(child.$body);
-              } catch (ex) {
-                console.log(ex);
-
-                returnValue.sendTaskReceiver = [];
-              }
-            }
-              break;
-            case TaskSettings.UserForm:
-              returnValue.fieldDefinitions = updateLegacyFieldDefinitions(JSON.parse(child.$body));
-              break;
-
-            case TaskSettings.ServiceTaskApiUrl:
-              returnValue.serviceTaskApiUrl = child.$body;
-              break;
-            case TaskSettings.ServiceTaskRequestObjectString:
-              returnValue.serviceTaskRequestObjectString = child.$body;
-              break;
-            case TaskSettings.ServiceTaskResponseFieldName:
-              returnValue.serviceTaskResponseFieldName = child.$body;
-              break;
-
-            case TaskSettings.TimerStartConfiguration:
-              returnValue.timerStartConfiguration = JSON.parse(child.$body);
-              break;
-
-            default:
-              break;
-          }
-        }
-      }
-    }
-    return returnValue;
-  }
-
   public async loadXml(processXmlStr: string): Promise<void> {
     return await new Promise<void>((resolve, reject): void => {
       if (processXmlStr != null) {
-        this.moddle.fromXML(processXmlStr, (err: any, bpmnXml: any, bpmnContext: any) => {
+        this.moddle.fromXML(processXmlStr, (err: any, bpmnXml: any) => {
           if (err) {
             console.log(err);
             reject(err);
@@ -478,15 +352,15 @@ export class BpmnProcess {
       }
     ];
 
-    BpmnProcess.addOrUpdateExtension(
+    addOrUpdateExtension(
       startElement,
-      TaskSettings.UserForm as TaskSettings,
+      "processhub-userform",
       JSON.stringify(fieldDefinitions),
       "Text");
 
-    BpmnProcess.addOrUpdateExtension(
+    addOrUpdateExtension(
       startElement,
-      TaskSettings.RoleOwnersEditable as TaskSettings,
+      "roleowners-editable",
       true,
       "Boolean");
 
@@ -561,7 +435,7 @@ export class BpmnProcess {
         if (startEvent.eventDefinitions == null) {
           // check if start event has only one roxfilefield
           let onlyRoxFileField: boolean = false;
-          const extVals: TaskExtensions = BpmnProcess.getExtensionValues(startEvent);
+          const extVals: TaskExtensions = getExtensionValues(startEvent);
           if (extVals.fieldDefinitions != null && extVals.fieldDefinitions.length === 1) {
             if (extVals.fieldDefinitions[0].type === "ProcessHubRoxFile") {
               onlyRoxFileField = true;
@@ -696,39 +570,6 @@ export class BpmnProcess {
     } else {
       console.log("Error: cannot find SequenceFlow to remove.");
     }
-  }
-
-  public static addOrUpdateExtension(baseElement: Bpmn.BaseElement, key: TaskSettings, value: string | boolean | {}[], extensionValueType: TaskSettingsValueType): void {
-
-    if (extensionValueType === "List") {
-      value = JSON.stringify(value);
-    }
-
-    if (extensionValueType === "Boolean") {
-      value = Boolean(value).toString();
-    }
-
-    if (value == null)
-      value = "";
-
-    if (!baseElement.extensionElements || baseElement.extensionElements.values == null) {
-      let extensions: Bpmn.ExtensionElements = BpmnModdleHelper.createTaskExtensionTemplate();
-      baseElement.extensionElements = extensions;
-    }
-
-    // remove second processhub:inputOutput
-    if (baseElement.extensionElements.values.length > 1) {
-      baseElement.extensionElements.values = [baseElement.extensionElements.values[0]];
-    }
-
-    for (let extension of baseElement.extensionElements.values) {
-      if (extension.$children != null) {
-        extension.$children = extension.$children.filter(child => child.name !== key);
-        // extensionElement = extension.$children.find(e => e.name === key);
-      }
-    }
-
-    BpmnModdleHelper.addTaskExtensionInputText(baseElement.extensionElements, key, value as string);
   }
 
   public addLane(processId: string, id: string, name: string): string {
@@ -1574,59 +1415,6 @@ export class BpmnProcess {
       }
     }
     return null;
-  }
-
-  private static getExtensionBody(flowNode: Bpmn.FlowNode, settingsName: string): string {
-    if (flowNode.extensionElements && flowNode.extensionElements.values) {
-      const phInOut = flowNode.extensionElements.values.find(e => e.$type === "processhub:inputOutput") as Processhub.InputOutput;
-      if (phInOut && phInOut.$children) {
-        const descriptionElement = phInOut.$children.find(c => (c as Processhub.InputParameter).name === settingsName);
-        if (descriptionElement && descriptionElement.$body) {
-          return descriptionElement.$body;
-        }
-      }
-    }
-    return null;
-  }
-
-  public static getSetSenderAsRoleOwner(startEvent: Bpmn.StartEvent): boolean {
-    const valueAsString: string = BpmnProcess.getExtensionBody(startEvent, TaskSettings.SetSenderAsRoleOwner);
-    if (valueAsString) {
-      return valueAsString === "true";
-    } else {
-      // default value is true 
-      return true;
-    }
-  }
-
-  public static getFlowNodeDescription(flowNode: Bpmn.FlowNode): string {
-    return BpmnProcess.getExtensionBody(flowNode, TaskSettings.Description);
-  }
-
-  private static setExtensionBody(flowNode: Bpmn.FlowNode, settingsName: string, value: string): void {
-    const bpmnModdle = new BpmnModdle([], {});
-    if (!flowNode.extensionElements) {
-      flowNode.extensionElements = bpmnModdle.create("bpmn:ExtensionElements", { values: [] });
-    }
-    let phInOut = flowNode.extensionElements.values.find(e => e.$type === "processhub:inputOutput") as Processhub.InputOutput;
-    if (!phInOut || phInOut.$children == null) {
-      phInOut = bpmnModdle.createAny("processhub:inputOutput", "http://processhub.com/schema/1.0/bpmn", { $children: [] });
-      flowNode.extensionElements.values.push(phInOut);
-    }
-    let settingsElement = phInOut.$children.find(c => (c as Processhub.InputParameter).name === settingsName);
-    if (!settingsElement) {
-      settingsElement = bpmnModdle.createAny("processhub:inputParameter", "http://processhub.com/schema/1.0/bpmn", { name: settingsName });
-      phInOut.$children.push(settingsElement);
-    }
-
-    if (value != null)
-      settingsElement.$body = value;
-    else
-      settingsElement.$body = "";
-  }
-
-  public static setSetSenderAsRoleOwner(startEvent: Bpmn.StartEvent, setSetSenderAsRoleOwner: boolean): void {
-    BpmnProcess.setExtensionBody(startEvent, TaskSettings.SetSenderAsRoleOwner, setSetSenderAsRoleOwner.toString());
   }
 
   public checkCompatibilityOfChangedProcess(runningInstances: InstanceDetails[], userInstances: InstanceDetails[]): boolean {

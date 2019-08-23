@@ -1,7 +1,8 @@
 import { BaseReply } from "../legacyapi";
 import { IRoxFile, IRoxFolder } from ".";
-import { Instance, Process } from "..";
+import { Instance } from "..";
 import { FieldContentMap } from "../data";
+import { TaskExtensions } from "../process/processinterfaces";
 
 export const RequestRoutes = {
   GetRootFolder: "/api/phroxapi/getrootfolder",
@@ -79,7 +80,7 @@ export interface DownloadRoxDocToServerReply extends BaseReply {
 
 export interface DownloadRoxDocToServerRequest {
   instanceDetails: Instance.InstanceDetails;
-  extVals: Process.TaskExtensions;
+  extVals: TaskExtensions;
 }
 
 export interface GetDocumentReply extends BaseReply {

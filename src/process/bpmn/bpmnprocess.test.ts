@@ -6,7 +6,6 @@ import { BpmnProcess } from "./bpmnprocess";
 import { LoadTemplateReply } from "../legacyapi";
 import { createBpmnTemplate } from "./bpmnmoddlehelper";
 import { RowDetails } from "../phclient";
-import { TaskSettings } from "../processinterfaces";
 import fs = require("fs");
 
 async function readFileAsync(fileName: string): Promise<string> {
@@ -270,7 +269,7 @@ describe("sdk", function () {
           it("soll Text einfügen und lesen - Description", async function () {
             
             let testValue = "tritra test 123!";
-            BpmnProcess.addOrUpdateExtension(testTaskObject, TaskSettings.Description as TaskSettings, testValue, "Text");
+            BpmnProcess.addOrUpdateExtension(testTaskObject, "description", testValue, "Text");
 
             let extensionValues = BpmnProcess.getExtensionValues(testTaskObject);
 
@@ -281,7 +280,7 @@ describe("sdk", function () {
             
             let testValue = "((field['Feld_1'] == 1) && (role['Bearbeiter'] == 'Administrator, Admin'))";
             let expectedValue = "((field['Feld_1'] == 1) && (role['Bearbeiter'] == 'Administrator, Admin'))";
-            BpmnProcess.addOrUpdateExtension(testTaskObject, TaskSettings.SequenceFlowExpression as TaskSettings, testValue, "Text");
+            BpmnProcess.addOrUpdateExtension(testTaskObject, "sequenceflow-expression", testValue, "Text");
 
             let extensionValues = BpmnProcess.getExtensionValues(testTaskObject);
 
@@ -291,7 +290,7 @@ describe("sdk", function () {
           it("soll Boolean einfügen und lesen", async function () {
             
             let testValue = true;
-            BpmnProcess.addOrUpdateExtension(testTaskObject, TaskSettings.IsBuilderExpression as TaskSettings, testValue, "Boolean");
+            BpmnProcess.addOrUpdateExtension(testTaskObject, "isBuilder-expression", testValue, "Boolean");
 
             let extensionValues = BpmnProcess.getExtensionValues(testTaskObject);
 
@@ -301,7 +300,7 @@ describe("sdk", function () {
           it("soll List einfügen und lesen", async function () {
             
             let testValue: string[] = [ "Receiver1", "Receiver2" ];
-            BpmnProcess.addOrUpdateExtension(testTaskObject, TaskSettings.SendTaskReceiver as TaskSettings, testValue, "List");
+            BpmnProcess.addOrUpdateExtension(testTaskObject, "send-task-receiver", testValue, "List");
 
             let extensionValues = BpmnProcess.getExtensionValues(testTaskObject);
 
@@ -312,7 +311,7 @@ describe("sdk", function () {
             
             let testValue = "(({{ field.Feld_1 }} == 1) && ({{ role.Bearbeiter }} == 'Administrator, Admin')) || role['Pruefer'].displayName && role['Ersteller'].firstname";
             let sollValue = "((field['Feld_1'] == 1) && (role['Bearbeiter'] == 'Administrator, Admin')) || role['Pruefer'].displayName && role['Ersteller'].firstname";
-            BpmnProcess.addOrUpdateExtension(testTaskObject, TaskSettings.SequenceFlowExpression as TaskSettings, testValue, "Text");
+            BpmnProcess.addOrUpdateExtension(testTaskObject, "sequenceflow-expression", testValue, "Text");
 
             let extensionValues = BpmnProcess.getExtensionValues(testTaskObject);
             

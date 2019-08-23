@@ -1,7 +1,7 @@
 import BpmnModdle = require("bpmn-moddle");
 import { BpmnProcess } from "./bpmnprocess";
-import { Processhub, Bpmn, Dc } from "../bpmn";
-import { TaskSettings, ProcessResult } from "../processinterfaces";
+import { Processhub, Bpmn } from "../bpmn";
+import { ProcessResult, BpmnExtensionName } from "../processinterfaces";
 import { LoadTemplateReply } from "../legacyapi";
 import { createId } from "../../tools/guid";
 import { tl } from "../../tl";
@@ -23,7 +23,7 @@ export function createTaskExtensionTemplate(): Bpmn.ExtensionElements {
   return extensionElements;
 }
 
-export function addTaskExtensionInputText(extensions: Bpmn.ExtensionElements, key: TaskSettings, value: string) {
+export function addTaskExtensionInputText(extensions: Bpmn.ExtensionElements, key: BpmnExtensionName, value: string) {
   let moddle = new BpmnModdle();
 
   let inputParameter: Processhub.InputParameter = moddle.createAny("processhub:inputParameter", processhubNs, {
@@ -44,7 +44,7 @@ export async function createBpmnTemplate(moddle: BpmnModdle): Promise<LoadTempla
     "<bpmn:definitions xmlns:bpmn='http://www.omg.org/spec/BPMN/20100524/MODEL' id='Definition_" + createId() + "'>" +
     "</bpmn:definitions>";
 
-  let promise = new Promise<LoadTemplateReply>(function (resolve, reject) {
+  let promise = new Promise<LoadTemplateReply>(function (resolve) {
     moddle.fromXML(xmlStr, (err: any, bpmnXml: any, bpmnContext: any): void => {
       // Basisknoten anlegen - gleichzeitig ein gutes Beispiel für den Umgang mit moddle
 
