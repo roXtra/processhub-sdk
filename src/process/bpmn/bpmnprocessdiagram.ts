@@ -41,8 +41,7 @@ export class BpmnProcessDiagram {
 
   // Gibt erstes Diagram Element aus XML zurück
   private getDiagramElement(): Bpmndi.BPMNDiagram {
-    let diagrams = this.bpmnProcess.bpmnXml.diagrams.filter((e: any) => e.$type === "bpmndi:BPMNDiagram");
-    return diagrams[0];
+    return this.bpmnProcess.getBpmnDefinitions().diagrams[0];
   }
 
   public getShapeFromDiagram(shapeId: string): Bpmndi.BPMNShape {

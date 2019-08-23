@@ -41,7 +41,7 @@ async function createTestBpmnProcess(): Promise<BpmnProcess> {
   let bpmnProcess: BpmnProcess = new BpmnProcess();
   let reply: LoadTemplateReply = await createBpmnTemplate(bpmnProcess.moddle);
 
-  bpmnProcess.bpmnXml = reply.bpmnXml;
+  bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 
   let sortedTasks = bpmnProcess.getSortedTasks(bpmnProcess.processId());
   assert.isTrue(sortedTasks.length == 2, "wrong template process 1");

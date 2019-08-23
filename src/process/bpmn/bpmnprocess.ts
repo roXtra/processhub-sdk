@@ -13,12 +13,12 @@ import { InstanceDetails } from "../../instance/instanceinterfaces";
 import { DecisionTask, DecisionTaskTypes, filterTodosForInstance } from "../../todo";
 import { LoadTemplateReply } from "../legacyapi";
 import { RowDetails } from "../phclient";
-import { getExtensionValues, addOrUpdateExtension, getExtensionBody, setExtensionBody } from "./bpmnextensions";
+import { getExtensionValues, addOrUpdateExtension, getExtensionBody } from "./bpmnextensions";
 
 export class BpmnProcess {
 
   moddle: BpmnModdle;
-  bpmnXml: Bpmn.Definitions;
+  private bpmnXml: Bpmn.Definitions;
 
   private processDiagram: BpmnProcessDiagram;
 
@@ -41,7 +41,7 @@ export class BpmnProcess {
   }
 
   public static setSetSenderAsRoleOwner(startEvent: Bpmn.StartEvent, setSetSenderAsRoleOwner: boolean): void {
-    setExtensionBody(startEvent, "set-sender-as-roleowner", setSetSenderAsRoleOwner.toString());
+    addOrUpdateExtension(startEvent, "set-sender-as-role-owner", setSetSenderAsRoleOwner, "Boolean");
   }
 
   public static getSetSenderAsRoleOwner(startEvent: Bpmn.StartEvent): boolean {
@@ -52,6 +52,14 @@ export class BpmnProcess {
       // default value is true 
       return true;
     }
+  }
+
+  public getBpmnDefinitions(): Bpmn.Definitions {
+    return this.bpmnXml;
+  }
+
+  public setBpmnDefinitions(definitions: Bpmn.Definitions): void {
+    this.bpmnXml = definitions;
   }
 
   public definitionId(): string {

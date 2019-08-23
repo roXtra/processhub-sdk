@@ -190,9 +190,6 @@ export type BpmnExtensionName =
 | "view-all-fields" // boolean: view all existing fields
 | "send-mail-notification" // boolean: send notification for task
 | "set-sender-as-role-owner" // boolean: set mail sender as role owner, default: true
-| "service-task-api-url"
-| "service-task-request-object"
-| "service-task-response-fieldname"
 | "timer-start-configuration"
 | "required-fields-needed" // boolean: means that the task needed previous required fields (not necessary on negative decisions)
 | "save-decision-in-fields"
@@ -225,9 +222,6 @@ export interface TaskExtensions {
   dueAtDateCanBeEdit: boolean;
   dueAtDuration: string; // standard dueAtDuration in seconds
 
-  serviceTaskApiUrl: string;
-  serviceTaskRequestObjectString: string;
-  serviceTaskResponseFieldName: string;
   serviceTaskConfigObject: ServiceTaskConfigObject;
   scriptTaskCode: string;
 

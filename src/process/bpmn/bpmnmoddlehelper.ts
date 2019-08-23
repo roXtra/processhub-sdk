@@ -82,16 +82,17 @@ export async function createBpmnTemplate(moddle: BpmnModdle): Promise<LoadTempla
       endEventObject.incoming.push(initSequenceFlow3);
       task2.outgoing.push(initSequenceFlow3);
 
-      let lane = moddle.create("bpmn:Lane", 
+      let lane = moddle.create("bpmn:Lane",
         { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: "Ersteller", flowNodeRef: [startEventObject, task] }
       );
 
-      let lane2 = moddle.create("bpmn:Lane", 
+      let lane2 = moddle.create("bpmn:Lane",
         { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: "Bearbeiter", flowNodeRef: [task2, endEventObject] }
       );
 
       // ACHTUNG! Wenn hier einmal standardmäßig der "Teilnehmer 1" nicht mehr steht, dann müssen Tests angepasst werden
-      let laneSet = moddle.create("bpmn:LaneSet", { id: BpmnProcess.getBpmnId("bpmn:LaneSet"), lanes: [lane, lane2]
+      let laneSet = moddle.create("bpmn:LaneSet", {
+        id: BpmnProcess.getBpmnId("bpmn:LaneSet"), lanes: [lane, lane2]
       });
 
       let bpmnProcessElement = moddle.create("bpmn:Process", {

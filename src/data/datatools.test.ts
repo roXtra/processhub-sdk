@@ -63,7 +63,7 @@ describe("sdk", function () {
           let bpmnProcess: BpmnProcess = new BpmnProcess();
           let reply: LoadTemplateReply = await createBpmnTemplate(bpmnProcess.moddle);
 
-          bpmnProcess.bpmnXml = reply.bpmnXml;
+          bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 
           let res = DataTools.parseAndInsertStringWithFieldContent(testString, { Anlagen: "1" } as FieldContentMap, bpmnProcess, { [bpmnProcess.getLanes(false).find(l => l.name == "Bearbeiter").id]: [{ memberId: "1", displayName: "Administrator, Admin" }] } as RoleOwnerMap);
 

@@ -24,9 +24,6 @@ export function getExtensionValues(activityObject: Bpmn.Activity): TaskExtension
     saveDecisionInFieldContents: false,
     customFieldContentsValue: undefined,
 
-    serviceTaskApiUrl: undefined,
-    serviceTaskRequestObjectString: undefined,
-    serviceTaskResponseFieldName: undefined,
     serviceTaskConfigObject: undefined,
     scriptTaskCode: undefined,
 
@@ -101,7 +98,16 @@ export function getExtensionValues(activityObject: Bpmn.Activity): TaskExtension
             returnValue.serviceTaskConfigObject = JSON.parse(child.$body);
             break;
           case "fields-which-should-send":
-            returnValue.fieldsWhichShouldSend = JSON.parse(child.$body);
+            try {
+              if (child.$body && child.$body.length > 0) {
+                returnValue.fieldsWhichShouldSend = JSON.parse(child.$body);
+              } else {
+                returnValue.fieldsWhichShouldSend = [];
+              }
+            } catch (ex) {
+              console.log(ex);
+              returnValue.fieldsWhichShouldSend = [];
+            }
             break;
           case "required-fields-needed": {
             try {
@@ -131,16 +137,6 @@ export function getExtensionValues(activityObject: Bpmn.Activity): TaskExtension
             break;
           case "processhub-userform":
             returnValue.fieldDefinitions = updateLegacyFieldDefinitions(JSON.parse(child.$body));
-            break;
-
-          case "service-task-api-url":
-            returnValue.serviceTaskApiUrl = child.$body;
-            break;
-          case "service-task-request-object":
-            returnValue.serviceTaskRequestObjectString = child.$body;
-            break;
-          case "service-task-response-fieldname":
-            returnValue.serviceTaskResponseFieldName = child.$body;
             break;
 
           case "timer-start-configuration":
