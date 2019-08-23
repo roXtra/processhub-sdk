@@ -2,7 +2,6 @@ import * as chai from "chai";
 import chaiExclude from "chai-exclude";
 import * as StringTools from "./stringtools";
 import { NestedElements, Group, Rule } from "./stringtools";
-import _ = require("lodash");
 
 chai.use(chaiExclude);
 

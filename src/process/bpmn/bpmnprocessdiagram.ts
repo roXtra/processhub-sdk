@@ -2,6 +2,7 @@ import * as BpmnProcess from "./bpmnprocess";
 import { Bpmn, Bpmndi } from "../bpmn";
 import { isTrue } from "../../tools";
 import { RowDetails } from "..";
+import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 
 export class Waypoint {
   x: number;
@@ -338,8 +339,8 @@ export class BpmnProcessDiagram {
   }
 
   private createShape(bpmnElement: any, xParam: number, yParam: number, widthParam: number, heightParam: number): any {
-    let bounds = this.bpmnProcess.moddle.create("dc:Bounds", { x: xParam, y: yParam, width: widthParam, height: heightParam });
-    let shape = this.bpmnProcess.moddle.create("bpmndi:BPMNShape", {
+    let bounds = bpmnModdleInstance.create("dc:Bounds", { x: xParam, y: yParam, width: widthParam, height: heightParam });
+    let shape = bpmnModdleInstance.create("bpmndi:BPMNShape", {
       id: BpmnProcess.BpmnProcess.getBpmnId("bpmndi:BPMNShape"),
       bounds: bounds,
       bpmnElement: bpmnElement
@@ -352,11 +353,11 @@ export class BpmnProcessDiagram {
     let resultWaypoint: any[] = [];
     // waypoint einfügen
     for (let waypoint of waypoints) {
-      let tmpWaypoint = this.bpmnProcess.moddle.create("dc:Point", { x: waypoint.x, y: waypoint.y });
+      let tmpWaypoint =  bpmnModdleInstance.create("dc:Point", { x: waypoint.x, y: waypoint.y });
       resultWaypoint.push(tmpWaypoint);
     }
 
-    let edge = this.bpmnProcess.moddle.create("bpmndi:BPMNEdge", {
+    let edge = bpmnModdleInstance.create("bpmndi:BPMNEdge", {
       id: BpmnProcess.BpmnProcess.getBpmnId("bpmndi:BPMNEdge"),
       bpmnElement: bpmnElement,
       sourceElement: sourceElement,

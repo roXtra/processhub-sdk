@@ -2,9 +2,8 @@ import { TaskSettingsValueType, BpmnExtensionName, TaskExtensions } from "../pro
 import { Bpmn } from "modeler/bpmn/bpmn";
 import { replaceOldFieldSyntax } from "../../tools/stringtools";
 import { updateLegacyFieldDefinitions } from "../../data/datatools";
-import BpmnModdle = require("bpmn-moddle");
 import { Processhub } from "modeler/bpmn/processhub";
-import { createTaskExtensionTemplate, addTaskExtensionInputText } from "./bpmnmoddlehelper";
+import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 
 export function getExtensionValues(activityObject: Bpmn.Activity): TaskExtensions {
   let returnValue: TaskExtensions = {
@@ -165,24 +164,21 @@ export function addOrUpdateExtension(baseElement: Bpmn.BaseElement, key: BpmnExt
   if (value == null)
     value = "";
 
-  if (!baseElement.extensionElements || baseElement.extensionElements.values == null) {
-    let extensions: Bpmn.ExtensionElements = createTaskExtensionTemplate();
-    baseElement.extensionElements = extensions;
+  if (!baseElement.extensionElements) {
+    baseElement.extensionElements = bpmnModdleInstance.create("bpmn:ExtensionElements", { values: [] });
+  }
+  let phInOut = baseElement.extensionElements.values.find(e => e.$type === "processhub:inputOutput") as Processhub.InputOutput;
+  if (!phInOut || phInOut.$children == null) {
+    phInOut = bpmnModdleInstance.createAny("processhub:inputOutput", "http://processhub.com/schema/1.0/bpmn", { $children: [] });
+    baseElement.extensionElements.values.push(phInOut);
+  }
+  let settingsElement = phInOut.$children.find(c => (c as Processhub.InputParameter).name === key);
+  if (!settingsElement) {
+    settingsElement = bpmnModdleInstance.createAny("processhub:inputParameter", "http://processhub.com/schema/1.0/bpmn", { name: key });
+    phInOut.$children.push(settingsElement);
   }
 
-  // remove second processhub:inputOutput
-  if (baseElement.extensionElements.values.length > 1) {
-    baseElement.extensionElements.values = [baseElement.extensionElements.values[0]];
-  }
-
-  for (let extension of baseElement.extensionElements.values) {
-    if (extension.$children != null) {
-      extension.$children = extension.$children.filter(child => child.name !== key);
-      // extensionElement = extension.$children.find(e => e.name === key);
-    }
-  }
-
-  addTaskExtensionInputText(baseElement.extensionElements, key, value as string);
+  settingsElement.$body = value as string;
 }
 
 export function getExtensionBody(flowNode: Bpmn.FlowNode, settingsName: string): string {
@@ -197,27 +193,3 @@ export function getExtensionBody(flowNode: Bpmn.FlowNode, settingsName: string):
   }
   return null;
 }
-
-export function setExtensionBody(flowNode: Bpmn.FlowNode, settingsName: string, value: string): void {
-  const bpmnModdle = new BpmnModdle([], {});
-  if (!flowNode.extensionElements) {
-    flowNode.extensionElements = bpmnModdle.create("bpmn:ExtensionElements", { values: [] });
-  }
-  let phInOut = flowNode.extensionElements.values.find(e => e.$type === "processhub:inputOutput") as Processhub.InputOutput;
-  if (!phInOut || phInOut.$children == null) {
-    phInOut = bpmnModdle.createAny("processhub:inputOutput", "http://processhub.com/schema/1.0/bpmn", { $children: [] });
-    flowNode.extensionElements.values.push(phInOut);
-  }
-  let settingsElement = phInOut.$children.find(c => (c as Processhub.InputParameter).name === settingsName);
-  if (!settingsElement) {
-    settingsElement = bpmnModdle.createAny("processhub:inputParameter", "http://processhub.com/schema/1.0/bpmn", { name: settingsName });
-    phInOut.$children.push(settingsElement);
-  }
-
-  if (value != null)
-    settingsElement.$body = value;
-  else
-    settingsElement.$body = "";
-}
-
-

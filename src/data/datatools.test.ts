@@ -61,7 +61,7 @@ describe("sdk", function () {
           let resultString = "1Administrator, Admin";
 
           let bpmnProcess: BpmnProcess = new BpmnProcess();
-          let reply: LoadTemplateReply = await createBpmnTemplate(bpmnProcess.moddle);
+          let reply: LoadTemplateReply = await createBpmnTemplate();
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 

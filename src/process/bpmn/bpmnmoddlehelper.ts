@@ -1,51 +1,23 @@
 import BpmnModdle = require("bpmn-moddle");
 import { BpmnProcess } from "./bpmnprocess";
-import { Processhub, Bpmn } from "../bpmn";
-import { ProcessResult, BpmnExtensionName } from "../processinterfaces";
+import { ProcessResult } from "../processinterfaces";
 import { LoadTemplateReply } from "../legacyapi";
 import { createId } from "../../tools/guid";
 import { tl } from "../../tl";
 import { isRoxtraEdition } from "../../settings";
 
-const processhubNs = "http://processhub.com/schema/1.0/bpmn";
 
-export function createTaskExtensionTemplate(): Bpmn.ExtensionElements {
-  let moddle = new BpmnModdle([], {});
-
-  let inputOutput: Processhub.InputOutput = moddle.createAny("processhub:inputOutput", processhubNs, {
-    $children: []
-  });
-
-  let extensionElements: Bpmn.ExtensionElements = moddle.create("bpmn:ExtensionElements", {
-    values: [inputOutput]
-  });
-
-  return extensionElements;
-}
-
-export function addTaskExtensionInputText(extensions: Bpmn.ExtensionElements, key: BpmnExtensionName, value: string) {
-  let moddle = new BpmnModdle();
-
-  let inputParameter: Processhub.InputParameter = moddle.createAny("processhub:inputParameter", processhubNs, {
-    name: key,
-    $body: value
-  });
-
-  if (extensions.values[0].$children == null) {
-    extensions.values[0].$children = [];
-  }
-  extensions.values[0].$children.push(inputParameter);
-}
+export const bpmnModdleInstance: BpmnModdle = new BpmnModdle([], {});
 
 // Basis-Bpmn-Prozess erzeugen
-export async function createBpmnTemplate(moddle: BpmnModdle): Promise<LoadTemplateReply> {
+export async function createBpmnTemplate(): Promise<LoadTemplateReply> {
   let xmlStr =
     "<?xml version='1.0' encoding='UTF-8'?>" +
     "<bpmn:definitions xmlns:bpmn='http://www.omg.org/spec/BPMN/20100524/MODEL' id='Definition_" + createId() + "'>" +
     "</bpmn:definitions>";
 
   let promise = new Promise<LoadTemplateReply>(function (resolve) {
-    moddle.fromXML(xmlStr, (err: any, bpmnXml: any, bpmnContext: any): void => {
+    bpmnModdleInstance.fromXML(xmlStr, (err: any, bpmnXml: any, bpmnContext: any): void => {
       // Basisknoten anlegen - gleichzeitig ein gutes Beispiel für den Umgang mit moddle
 
       // Beispiele für Zugriffe auf Xml siehe
@@ -53,12 +25,12 @@ export async function createBpmnTemplate(moddle: BpmnModdle): Promise<LoadTempla
 
       // 1 Prozessknoten mit 1 unbenannten Teilnehmer (=Lane)
       let processId = BpmnProcess.getBpmnId("bpmn:Process");
-      let startEventObject = moddle.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
-      let endEventObject = moddle.create("bpmn:EndEvent", { id: BpmnProcess.getBpmnId("bpmn:EndEvent"), outgoing: [], incoming: [] });
-      let task = moddle.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 1", extensionElements: null, incoming: [], outgoing: [] });
-      let task2 = moddle.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 2", extensionElements: null, incoming: [], outgoing: [] });
+      let startEventObject = bpmnModdleInstance.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
+      let endEventObject = bpmnModdleInstance.create("bpmn:EndEvent", { id: BpmnProcess.getBpmnId("bpmn:EndEvent"), outgoing: [], incoming: [] });
+      let task = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 1", extensionElements: null, incoming: [], outgoing: [] });
+      let task2 = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 2", extensionElements: null, incoming: [], outgoing: [] });
 
-      let initSequenceFlow = moddle.create("bpmn:SequenceFlow", {
+      let initSequenceFlow = bpmnModdleInstance.create("bpmn:SequenceFlow", {
         id: BpmnProcess.getBpmnId("bpmn:SequenceFlow"),
         sourceRef: startEventObject,
         targetRef: task
@@ -66,7 +38,7 @@ export async function createBpmnTemplate(moddle: BpmnModdle): Promise<LoadTempla
       task.incoming.push(initSequenceFlow);
       startEventObject.outgoing.push(initSequenceFlow);
 
-      let initSequenceFlow2 = moddle.create("bpmn:SequenceFlow", {
+      let initSequenceFlow2 = bpmnModdleInstance.create("bpmn:SequenceFlow", {
         id: BpmnProcess.getBpmnId("bpmn:SequenceFlow"),
         sourceRef: task,
         targetRef: task2
@@ -74,7 +46,7 @@ export async function createBpmnTemplate(moddle: BpmnModdle): Promise<LoadTempla
       task2.incoming.push(initSequenceFlow2);
       task.outgoing.push(initSequenceFlow2);
 
-      let initSequenceFlow3 = moddle.create("bpmn:SequenceFlow", {
+      let initSequenceFlow3 = bpmnModdleInstance.create("bpmn:SequenceFlow", {
         id: BpmnProcess.getBpmnId("bpmn:SequenceFlow"),
         sourceRef: task2,
         targetRef: endEventObject
@@ -82,20 +54,20 @@ export async function createBpmnTemplate(moddle: BpmnModdle): Promise<LoadTempla
       endEventObject.incoming.push(initSequenceFlow3);
       task2.outgoing.push(initSequenceFlow3);
 
-      let lane = moddle.create("bpmn:Lane",
+      let lane = bpmnModdleInstance.create("bpmn:Lane",
         { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: "Ersteller", flowNodeRef: [startEventObject, task] }
       );
 
-      let lane2 = moddle.create("bpmn:Lane",
+      let lane2 = bpmnModdleInstance.create("bpmn:Lane",
         { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: "Bearbeiter", flowNodeRef: [task2, endEventObject] }
       );
 
       // ACHTUNG! Wenn hier einmal standardmäßig der "Teilnehmer 1" nicht mehr steht, dann müssen Tests angepasst werden
-      let laneSet = moddle.create("bpmn:LaneSet", {
+      let laneSet = bpmnModdleInstance.create("bpmn:LaneSet", {
         id: BpmnProcess.getBpmnId("bpmn:LaneSet"), lanes: [lane, lane2]
       });
 
-      let bpmnProcessElement = moddle.create("bpmn:Process", {
+      let bpmnProcessElement = bpmnModdleInstance.create("bpmn:Process", {
         id: processId,
         laneSets: [
           laneSet
@@ -112,20 +84,20 @@ export async function createBpmnTemplate(moddle: BpmnModdle): Promise<LoadTempla
         ]
       });
 
-      let bpmnParticipant = moddle.create("bpmn:Participant", {
+      let bpmnParticipant = bpmnModdleInstance.create("bpmn:Participant", {
         id: BpmnProcess.getBpmnId("bpmn:Participant"),
         processRef: bpmnProcessElement,
         name: isRoxtraEdition ? tl("Prozess") : "ProcessHub",
       });
 
-      let bpmnCollaboration = moddle.create("bpmn:Collaboration", {
+      let bpmnCollaboration = bpmnModdleInstance.create("bpmn:Collaboration", {
         id: BpmnProcess.getBpmnId("bpmn:Collaboration"),
         participants: [bpmnParticipant]
       });
 
-      let bpmnDiagram = moddle.create("bpmndi:BPMNDiagram", {
+      let bpmnDiagram = bpmnModdleInstance.create("bpmndi:BPMNDiagram", {
         name: BpmnProcess.getBpmnId("bpmndi:BPMNDiagram"),
-        plane: moddle.create("bpmndi:BPMNPlane", {
+        plane: bpmnModdleInstance.create("bpmndi:BPMNPlane", {
           bpmnElement: bpmnCollaboration,
           planeElement: []
         })

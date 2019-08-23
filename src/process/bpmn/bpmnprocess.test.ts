@@ -39,7 +39,7 @@ async function addTask(rowDetails: RowDetails[], rowNumber: number, bpmnProcess:
 
 async function createTestBpmnProcess(): Promise<BpmnProcess> {
   let bpmnProcess: BpmnProcess = new BpmnProcess();
-  let reply: LoadTemplateReply = await createBpmnTemplate(bpmnProcess.moddle);
+  let reply: LoadTemplateReply = await createBpmnTemplate();
 
   bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 

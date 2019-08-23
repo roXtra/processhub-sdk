@@ -14,16 +14,14 @@ import { DecisionTask, DecisionTaskTypes, filterTodosForInstance } from "../../t
 import { LoadTemplateReply } from "../legacyapi";
 import { RowDetails } from "../phclient";
 import { getExtensionValues, addOrUpdateExtension, getExtensionBody } from "./bpmnextensions";
+import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 
 export class BpmnProcess {
 
-  moddle: BpmnModdle;
   private bpmnXml: Bpmn.Definitions;
-
   private processDiagram: BpmnProcessDiagram;
 
   constructor() {
-    this.moddle = new BpmnModdle([], {});
     this.bpmnXml = null;
     this.processDiagram = new BpmnProcessDiagram(this);
   }
@@ -78,7 +76,7 @@ export class BpmnProcess {
       if (exGat.outgoing != null && exGat.outgoing.length > 1) {
         for (let seqFlow of exGat.outgoing) {
           // this.variables.choosenTaskId
-          seqFlow.conditionExpression = this.moddle.create("bpmn:FormalExpression", {
+          seqFlow.conditionExpression = bpmnModdleInstance.create("bpmn:FormalExpression", {
             body: "this.variables.taskInput." + exGat.id + ".userInput.choosenTaskId == '" + seqFlow.targetRef.id + "'", language: "JavaScript"
           });
         }
@@ -169,7 +167,7 @@ export class BpmnProcess {
   public async loadXml(processXmlStr: string): Promise<void> {
     return await new Promise<void>((resolve, reject): void => {
       if (processXmlStr != null) {
-        this.moddle.fromXML(processXmlStr, (err: any, bpmnXml: any) => {
+        bpmnModdleInstance.fromXML(processXmlStr, (err: any, bpmnXml: any) => {
           if (err) {
             console.log(err);
             reject(err);
@@ -325,7 +323,7 @@ export class BpmnProcess {
   }
 
   public async loadFromTemplate(): Promise<LoadTemplateReply> {
-    let result: LoadTemplateReply = await BpmnModdleHelper.createBpmnTemplate(this.moddle);
+    let result: LoadTemplateReply = await BpmnModdleHelper.createBpmnTemplate();
 
     this.bpmnXml = result.bpmnXml;
 
@@ -582,7 +580,7 @@ export class BpmnProcess {
 
   public addLane(processId: string, id: string, name: string): string {
     // add an additional lane (=role)
-    let lane = this.moddle.create("bpmn:Lane", { id: id, name: name, flowNodeRef: [] });
+    let lane = bpmnModdleInstance.create("bpmn:Lane", { id: id, name: name, flowNodeRef: [] });
 
     let processContext: Bpmn.Process = this.getProcess(processId);
     if (processContext.laneSets[0].lanes == null) {
@@ -825,16 +823,14 @@ export class BpmnProcess {
     // standard convert to send task change on switch back
     let convertToType: "bpmn:SendTask" | "bpmn:UserTask" = rows[changedTaskIdx].taskType as "bpmn:SendTask" | "bpmn:UserTask";
 
-    let extensions: Bpmn.ExtensionElements = BpmnModdleHelper.createTaskExtensionTemplate();
-
     let focusedTask = null;
 
     rows[changedTaskIdx].taskId = BpmnProcess.getBpmnId(convertToType);
 
     if (convertToType === "bpmn:SendTask") {
-      focusedTask = this.moddle.create("bpmn:SendTask", { id: rows[changedTaskIdx].taskId, name: rows[changedTaskIdx].task, extensionElements: extensions, incoming: [], outgoing: [] });
+      focusedTask = bpmnModdleInstance.create("bpmn:SendTask", { id: rows[changedTaskIdx].taskId, name: rows[changedTaskIdx].task, incoming: [], outgoing: [] });
     } else if (convertToType === "bpmn:UserTask") {
-      focusedTask = this.moddle.create("bpmn:UserTask", { id: rows[changedTaskIdx].taskId, name: rows[changedTaskIdx].task, extensionElements: extensions, incoming: [], outgoing: [] });
+      focusedTask = bpmnModdleInstance.create("bpmn:UserTask", { id: rows[changedTaskIdx].taskId, name: rows[changedTaskIdx].task, incoming: [], outgoing: [] });
     }
 
     if (focusedTask == null) {
@@ -886,7 +882,7 @@ export class BpmnProcess {
       } else {
         focusedTask.outgoing = [];
         let processContext: Bpmn.Process = this.getProcess(this.processId());
-        let newGateway = this.moddle.create("bpmn:ExclusiveGateway", { id: "ExclusiveGateway_" + createId(), name: "", incoming: [], outgoing: [] });
+        let newGateway = bpmnModdleInstance.create("bpmn:ExclusiveGateway", { id: "ExclusiveGateway_" + createId(), name: "", incoming: [], outgoing: [] });
         processContext.flowElements.push(newGateway);
 
         this.addSequenceFlow(this.processId(), focusedTask, newGateway, false);
@@ -982,8 +978,8 @@ export class BpmnProcess {
       let start = this.getStartEvents(this.processId()).last();
       let targetTask = start.outgoing.last().targetRef;
       let processContext: Bpmn.Process = this.getProcess(this.processId());
-      let startEventObject = this.moddle.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
-      let eventDef = type == "bpmn:TimerEventDefinition" ? this.moddle.create(type as "bpmn:TimerEventDefinition", { timeDuration: this.moddle.create("bpmn:FormalExpression", { body: "PT0S" }) }) : this.moddle.create(type as "bpmn:MessageEventDefinition", {});
+      let startEventObject = bpmnModdleInstance.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
+      let eventDef = type == "bpmn:TimerEventDefinition" ? bpmnModdleInstance.create(type as "bpmn:TimerEventDefinition", { timeDuration: bpmnModdleInstance.create("bpmn:FormalExpression", { body: "PT0S" }) }) : bpmnModdleInstance.create(type as "bpmn:MessageEventDefinition", {});
 
       startEventObject.eventDefinitions = [eventDef];
       this.addSequenceFlow(this.processId(), startEventObject, targetTask, false);
@@ -1026,8 +1022,7 @@ export class BpmnProcess {
     let processContext: Bpmn.Process = this.getProcess(this.processId());
 
     if (focusedTask == null) {
-      let extensions: Bpmn.ExtensionElements = BpmnModdleHelper.createTaskExtensionTemplate();
-      focusedTask = this.moddle.create(newTaskRowDetails.taskType as "bpmn:UserTask", { id: newTaskRowDetails.taskId, name: newTaskRowDetails.task, extensionElements: extensions, incoming: [], outgoing: [] });
+      focusedTask = bpmnModdleInstance.create(newTaskRowDetails.taskType as "bpmn:UserTask", { id: newTaskRowDetails.taskId, name: newTaskRowDetails.task, incoming: [], outgoing: [] });
       processContext.flowElements.push(focusedTask);
     }
 
@@ -1090,7 +1085,7 @@ export class BpmnProcess {
     let processContext = this.getProcess(processId);
     // Weiteren Sequenzfluss einfügen
     let id = BpmnProcess.getBpmnId("bpmn:SequenceFlow");
-    let sequenceFlow = this.moddle.create("bpmn:SequenceFlow", { id: id, targetRef: targetReference, sourceRef: sourceReference });
+    let sequenceFlow = bpmnModdleInstance.create("bpmn:SequenceFlow", { id: id, targetRef: targetReference, sourceRef: sourceReference });
 
     processContext.flowElements.push(sequenceFlow);
 
@@ -1116,7 +1111,7 @@ export class BpmnProcess {
     this.removeLanesWithoutShape();
 
     return await new Promise<string>((resolve, reject) => {
-      this.moddle.toXML(this.bpmnXml, { format: true }, function (err: any, xmlStr: string) {
+      bpmnModdleInstance.toXML(this.bpmnXml, { format: true }, function (err: any, xmlStr: string) {
         if (err) reject(err);
         resolve(xmlStr);
       });
@@ -1609,7 +1604,7 @@ export class BpmnProcess {
       let start = this.getStartEvents(this.processId()).last();
       let targetTask = start.outgoing.last().targetRef;
       let processContext: Bpmn.Process = this.getProcess(this.processId());
-      let startEventObject = this.moddle.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
+      let startEventObject = bpmnModdleInstance.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
 
       this.addSequenceFlow(this.processId(), startEventObject, targetTask, false);
       processContext.flowElements.push(startEventObject);
