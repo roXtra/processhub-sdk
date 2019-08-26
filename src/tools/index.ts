@@ -6,4 +6,5 @@ export * from "./stringtools";
 export * from "./timing";
 export * from "./browser";
 export * from "./localwebstorage";
+export * from "./version";
 import "./array";

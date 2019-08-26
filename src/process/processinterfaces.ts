@@ -22,12 +22,21 @@ export interface ProcessReportDraft {
   url: string;
 }
 
-export interface ServiceDetails {
+/**
+ * describes the contents of the service.json file that is located in the services'
+ */
+export interface ServiceJson {
   id: string;
-  name: string;
-  foldername: string;
+  minRoXtraVersion: string;
+  maxRoXtraVersion: string;
+  name: string;  
   actions: ServiceActionConfig[];
 }
+
+export interface ServiceDetails extends ServiceJson {
+  foldername: string;
+}
+
 export interface ServiceActionConfig {
   id: string;
   label: string;
