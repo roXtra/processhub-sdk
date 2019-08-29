@@ -65,7 +65,7 @@ describe("sdk", function () {
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 
-          let res = DataTools.parseAndInsertStringWithFieldContent(testString, { Anlagen: "1" } as FieldContentMap, bpmnProcess, { [bpmnProcess.getLanes(false).find(l => l.name == "Bearbeiter").id]: [{ memberId: "1", displayName: "Administrator, Admin" }] } as RoleOwnerMap);
+          let res = DataTools.parseAndInsertStringWithFieldContent(testString, { Anlagen: "1" } as FieldContentMap, bpmnProcess, { [bpmnProcess.getLanes(false).find(l => l.name === "Bearbeiter").id]: [{ memberId: "1", displayName: "Administrator, Admin" }] } as RoleOwnerMap);
 
           assert.equal(res, resultString);
         });

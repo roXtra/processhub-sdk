@@ -37,7 +37,7 @@ export async function loadWorkspace(workspaceId: string, getExtras: WorkspaceExt
       if ((getExtras & WorkspaceExtras.ExtrasGroups) && cachedWorkspace.extras.groups)
       getExtras -= WorkspaceExtras.ExtrasGroups;
 
-    if (getExtras == 0) {
+    if (getExtras === 0) {
       // all data available from cache
       StateHandler.rootStore.dispatch({
         type: WorkspaceMessages.WorkspaceLoadedMessage,

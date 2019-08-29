@@ -8,12 +8,12 @@ import { ResetStore } from "../statehandler/actions";
 
 export function workspaceReducer(workspaceState: WorkspaceState, action: any): WorkspaceState {
 
-  if (workspaceState == null || action && action.type == ResetStore) {
+  if (workspaceState == null || action && action.type === ResetStore) {
     // init state
     workspaceState = new WorkspaceState();
     workspaceState.workspaceCache = {};
   }
-  if (action == null || action.type == ResetStore)
+  if (action == null || action.type === ResetStore)
     return workspaceState;
 
   switch (action.type) {

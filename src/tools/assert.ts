@@ -14,7 +14,7 @@ export function error(message?: string): void {
 
 export function equal(actual: any, expected: any, message?: string): void {
   if (!isProduction) {
-    if (actual != expected) {
+    if (actual !== expected) {
       if (message) {
         throw new Error("Assertion failed: " + message);
       } else {

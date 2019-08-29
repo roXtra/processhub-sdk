@@ -24,7 +24,7 @@ export function filterUserTodos(todos: TodoDetails[], user: UserDetails): TodoDe
     return [];
 
   let filteredTodos: TodoDetails[] = todos.filter(
-    todo => (todo.todoType != TodoType.Simulation) && (todo.userId === user.userId));
+    todo => (todo.todoType !== TodoType.Simulation) && (todo.userId === user.userId));
 
   return filteredTodos;
 }
@@ -35,7 +35,7 @@ export function filterUnassignedTodos(todos: TodoDetails[]): TodoDetails[] {
     return [];
 
   let filteredTodos: TodoDetails[] = todos.filter(
-    todo => (todo.todoType != TodoType.Simulation) && (todo.userId == null));
+    todo => (todo.todoType !== TodoType.Simulation) && (todo.userId == null));
 
   return filteredTodos;
 }
@@ -47,7 +47,7 @@ export function filterTodosForInstance(instances: InstanceDetails[], instanceId:
 
     let todos = getTodosFromInstances(instances);
     
-  let filteredTodos: TodoDetails[] = todos.filter(todo => todo.instanceId == instanceId);
+  let filteredTodos: TodoDetails[] = todos.filter(todo => todo.instanceId === instanceId);
   return filteredTodos;
 }
 
@@ -69,7 +69,7 @@ export function filterTodosForWorkspace(instances: InstanceDetails[], workspaceI
     
   let todos = getTodosFromInstances(instances);
   
-  let filteredTodos: TodoDetails[] = todos.filter(todo => todo.workspaceId == workspaceId);
+  let filteredTodos: TodoDetails[] = todos.filter(todo => todo.workspaceId === workspaceId);
   return filteredTodos;
 }
 

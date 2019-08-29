@@ -50,7 +50,7 @@ export function getExtensionValues(activityObject: Bpmn.Activity): TaskExtension
             returnValue.sequenceFlowExpression = child.$body ? replaceOldFieldSyntax(child.$body) : child.$body;
             break;
           case "isBuilder-expression":
-            returnValue.isBuilderExpression = child.$body == "true";
+            returnValue.isBuilderExpression = child.$body === "true";
             break;
           case "subprocessid":
             returnValue.subProcessId = child.$body;
@@ -65,24 +65,24 @@ export function getExtensionValues(activityObject: Bpmn.Activity): TaskExtension
             returnValue.sendTaskSubject = child.$body;
             break;
           case "send-task-instance-link":
-            returnValue.sendTaskInstanceLink = child.$body == "true";
+            returnValue.sendTaskInstanceLink = child.$body === "true";
             break;
           case "send-task-with-field-contents":
-            returnValue.sendTaskWithFieldContents = child.$body != "false";
+            returnValue.sendTaskWithFieldContents = child.$body !== "false";
             break;
           case "roleowners-editable":
-            returnValue.roleOwnersEditable = child.$body != "false";
+            returnValue.roleOwnersEditable = child.$body !== "false";
           case "all-fields-editable":
-            returnValue.allFieldsEditable = child.$body != "false";
+            returnValue.allFieldsEditable = child.$body !== "false";
             break;
           case "send-mail-notification":
-            returnValue.sendMailNotification = child.$body != "false";
+            returnValue.sendMailNotification = child.$body !== "false";
             break;
           case "view-all-fields":
-            returnValue.viewAllFields = child.$body != "false";
+            returnValue.viewAllFields = child.$body !== "false";
             break;
           case "due-at-can-be-edit":
-            returnValue.dueAtDateCanBeEdit = child.$body != "false";
+            returnValue.dueAtDateCanBeEdit = child.$body !== "false";
             break;
           case "due-at-duration":
             returnValue.dueAtDuration = child.$body;
@@ -119,7 +119,7 @@ export function getExtensionValues(activityObject: Bpmn.Activity): TaskExtension
           }
             break;
           case "save-decision-in-fields":
-            returnValue.saveDecisionInFieldContents = child.$body != "false";
+            returnValue.saveDecisionInFieldContents = child.$body !== "false";
             break;
           case "custom-field-contents-value":
             returnValue.customFieldContentsValue = child.$body;

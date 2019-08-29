@@ -40,27 +40,27 @@ export function licenseHasWorkspaceProcessManagers(workspace: WorkspaceDetails):
 
 
 export function licenseIsFree(workspace: WorkspaceDetails): boolean {
-  return workspace && workspace.workspaceType == WorkspaceType.Free;
+  return workspace && workspace.workspaceType === WorkspaceType.Free;
 }
 export function licenseIsTrial(workspace: WorkspaceDetails): boolean {
-  return workspace && workspace.trialExpiresAt && workspace.workspaceType != WorkspaceType.Demo && workspace.workspaceType != WorkspaceType.Free;
+  return workspace && workspace.trialExpiresAt && workspace.workspaceType !== WorkspaceType.Demo && workspace.workspaceType !== WorkspaceType.Free;
 }
 export function licenseIsDemo(workspace: WorkspaceDetails): boolean {
-  return workspace && workspace.workspaceType == WorkspaceType.Demo;
+  return workspace && workspace.workspaceType === WorkspaceType.Demo;
 }
 export function licenseIsDemoOrHigher(workspace: WorkspaceDetails): boolean {
   return workspace && workspace.workspaceType >= WorkspaceType.Demo;
 }
 
 export function licenseIsTeam(workspace: WorkspaceDetails): boolean {
-  return workspace && workspace.workspaceType == WorkspaceType.Team;
+  return workspace && workspace.workspaceType === WorkspaceType.Team;
 }
 export function licenseIsTeamOrHigher(workspace: WorkspaceDetails): boolean {
   return workspace && workspace.workspaceType >= WorkspaceType.Team;
 }
 
 export function licenseIsBusiness(workspace: WorkspaceDetails): boolean {
-  return workspace && workspace.workspaceType == WorkspaceType.Business;
+  return workspace && workspace.workspaceType === WorkspaceType.Business;
 }
 export function licenseIsBusinessOrHigher(workspace: WorkspaceDetails): boolean {
   return workspace && workspace.workspaceType >= WorkspaceType.Business;

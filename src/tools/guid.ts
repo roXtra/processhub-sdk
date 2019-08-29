@@ -43,7 +43,7 @@ export function isUserId(id: string): boolean {
   if (isRoxtraEdition) {
     return /^\d+$/.test(id);
   } else {
-    return (isId(id) && id.substr(0, 1) == "0");
+    return (isId(id) && id.substr(0, 1) === "0");
   }
 }
 
@@ -51,12 +51,12 @@ export function isGroupId(id: string): boolean {
   if (isRoxtraEdition) {
     return id.startsWith("G_");
   } else {
-    return (isId(id) && id.substr(0, 1) == "1");
+    return (isId(id) && id.substr(0, 1) === "1");
   }
 }
 
 export function isWorkspaceId(id: string): boolean {
-  return (isId(id) && id.substr(0, 4) == "2000");
+  return (isId(id) && id.substr(0, 4) === "2000");
 }
 
 export function nullId(): string {
@@ -65,7 +65,7 @@ export function nullId(): string {
 
 export function isTempUserId(id: string): boolean {
   let prefixLength = TEMP_USERID_PREFIX.length;
-  return (id.substr(0, prefixLength) == TEMP_USERID_PREFIX);
+  return (id.substr(0, prefixLength) === TEMP_USERID_PREFIX);
 }
 
 // number format 123.4567.890

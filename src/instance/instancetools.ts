@@ -18,7 +18,7 @@ export function parseIdMailAddress(prefix: string, mail: string): string {
     return null;
 }
 export function getInstanceMailAddress(instanceId: string): string {
-  if (Config.getBackendUrl() == "http://localhost:8080")
+  if (Config.getBackendUrl() === "http://localhost:8080")
     return "i-" + instanceId.toLowerCase() + "@testmail.processhub.com";
   else
     return "i-" + instanceId.toLowerCase() + "@mail.processhub.com";
@@ -45,7 +45,7 @@ export function isRoleOwner(userId: string, roleId: string, instance: InstanceDe
   if (instance.extras.roleOwners == null)
     return false;
 
-  if (roleId == null || roleId == "") {
+  if (roleId == null || roleId === "") {
     // check if user is owner of any role
     for (let role in instance.extras.roleOwners) {
       if (!isDefaultProcessRole(role) && isRoleOwner(userId, role, instance))
@@ -58,7 +58,7 @@ export function isRoleOwner(userId: string, roleId: string, instance: InstanceDe
     return false;
 
   for (let roleOwner of instance.extras.roleOwners[roleId]) {
-    if (roleOwner.memberId == userId)
+    if (roleOwner.memberId === userId)
       return true;
   }
 
@@ -75,18 +75,18 @@ export function fieldContentsExcerpt(instance: InstanceDetails, maxLen: number):
 
     if (isFieldValue(field)) {
       let value = field.value;
-      if (typeof value == "string") {
-        if (field.type == "ProcessHubDate") {
+      if (typeof value === "string") {
+        if (field.type === "ProcessHubDate") {
           // format date
           const date: Date = new Date(value);
           value = date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
         }
-        if (field.type != "ProcessHubTextArea")
+        if (field.type !== "ProcessHubTextArea")
           excerpt += value.toString() + " / ";
       }
     } else {
-      if (typeof (field) == "string"
-        && (field as string).trim() != ""
+      if (typeof (field) === "string"
+        && (field as string).trim() !== ""
         && !(field as string).startsWith("http://")
         && !(field as string).startsWith("https://")) {
         excerpt += instance.extras.fieldContents[key] + " / ";

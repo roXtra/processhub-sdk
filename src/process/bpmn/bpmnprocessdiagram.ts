@@ -93,7 +93,7 @@ export class BpmnProcessDiagram {
     let sortedTasks: Bpmn.FlowNode[] = [];
     if (copyTaskIdsOrderFromTable != null && copyTaskIdsOrderFromTable.length > 0) {
       let tmp = this.bpmnProcess.getExistingActivityObject(copyTaskIdsOrderFromTable[0].taskId);
-      if (tmp != null && tmp.$type == "bpmn:StartEvent") {
+      if (tmp != null && tmp.$type === "bpmn:StartEvent") {
         copyTaskIdsOrderFromTable.splice(0, 1);
       }
     }
@@ -269,7 +269,7 @@ export class BpmnProcessDiagram {
 
         let startEvent = (workingObject as Bpmn.StartEvent);
         if (startEvent.eventDefinitions != null && startEvent.eventDefinitions.length > 0) {
-          if (standardStartEvent.length > 0 || (startEvents.length > 1 && startEvents.last().id == workingObject.id)) {
+          if (standardStartEvent.length > 0 || (startEvents.length > 1 && startEvents.last().id === workingObject.id)) {
             xParam -= iconWidth + BpmnProcessDiagram.SPACE_BETWEEN_TASKS;
           }
 

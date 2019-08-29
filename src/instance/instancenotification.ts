@@ -99,7 +99,7 @@ export function notifyNewInstanceTodos(instanceEnv: PH.InstanceEnvironment): boo
   // detect the date of the latest todo for the user
   let latestAt: Date = null;
   instanceEnv.instance.extras.todos.map(todo => { 
-    if (todo.userId == instanceEnv.user.userId && (latestAt == null || todo.createdAt > latestAt))
+    if (todo.userId === instanceEnv.user.userId && (latestAt == null || todo.createdAt > latestAt))
       latestAt = todo.createdAt; 
   });
   if (latestAt == null)
@@ -122,7 +122,7 @@ export function notifyInstancePin(instanceEnv: PH.InstanceEnvironment): boolean 
 
   let pinned = false;
   instanceEnv.instance.extras.todos.map(todo => { 
-    if (todo.userId == instanceEnv.user.userId && todo.isPinned)
+    if (todo.userId === instanceEnv.user.userId && todo.isPinned)
       pinned = true; 
   });
 

@@ -36,12 +36,12 @@ function sendNotificationIfInstanceWasNotViewed(instance: InstanceDetails) {
 
 export function instanceReducer(instanceState: InstanceState, action: any): InstanceState {
 
-  if (instanceState == null || action && action.type == ResetStore) {
+  if (instanceState == null || action && action.type === ResetStore) {
     // init state
     instanceState = new InstanceState();
     instanceState.instanceCache = {};
   }
-  if (action == null || action.type == ResetStore)
+  if (action == null || action.type === ResetStore)
     return instanceState;
 
   switch (action.type) {

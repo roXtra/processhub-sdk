@@ -12,11 +12,11 @@ import { ResetStore } from "../statehandler/actions";
 
 export function userReducer(userState: UserState, action: any): UserState {
 
-  if (userState == null || action && action.type == ResetStore) {
+  if (userState == null || action && action.type === ResetStore) {
     // init state
     userState = new UserState();
   }
-  if (action == null || action.type == ResetStore)
+  if (action == null || action.type === ResetStore)
     return userState;
 
   switch (action.type) {

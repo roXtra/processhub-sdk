@@ -48,7 +48,7 @@ export async function getJson<Request extends BaseRequest>(path: string, request
         }
         return json;
       case 403:  // API_FORBIDDEN -> server requests redirect to signin
-        if (typeof window != "undefined"  //  not possible on server rendering
+        if (typeof window !== "undefined"  //  not possible on server rendering
           && !window.location.pathname.startsWith("/signin")) {
           window.location.href = "/signin?redirect=" + encodeURIComponent(window.location.pathname);
         }
@@ -172,7 +172,7 @@ export async function getExternalJson<Request extends BaseRequest>(apiEndpointUr
       }
       return json;
     case 403:  // API_FORBIDDEN -> server requests redirect to signin
-      if (typeof window != "undefined"  //  not possible on server rendering
+      if (typeof window !== "undefined"  //  not possible on server rendering
         && !window.location.pathname.startsWith("/signin")) {
         window.location.href = "/signin?redirect=" + encodeURIComponent(window.location.pathname);
       }

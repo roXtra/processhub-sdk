@@ -49,10 +49,10 @@ export function stringExcerpt(source: string, maxLen: number) {
     return source;
   else {
     let dest = source.substr(0, maxLen);
-    if (source.substr(maxLen, 1) != " ") { }
+    if (source.substr(maxLen, 1) !== " ") { }
     // String bis zum letzten vollständigen Wort zurückgeben  
     let last = dest.lastIndexOf(" ");
-    if (last != -1)
+    if (last !== -1)
       dest = dest.substr(0, last);
 
     return dest + "...";
@@ -60,7 +60,7 @@ export function stringExcerpt(source: string, maxLen: number) {
 }
 
 export function getQueryParameter(parameter: string, location?: string) {
-  if (location == null && typeof window != "undefined") {
+  if (location == null && typeof window !== "undefined") {
     location = window.location.href;
   }
 
@@ -83,12 +83,12 @@ export function splitStringOnMultipleSigns(parameter: string, splitSignListOrdne
 
   let splitResult = parameter.split(SPLITSIGN_EMAILADDRESSES[splitSignListOrdner]);
 
-  if (splitResult.length == 1 && (splitSignListOrdner + 1) == SPLITSIGN_EMAILADDRESSES.length) {
+  if (splitResult.length === 1 && (splitSignListOrdner + 1) === SPLITSIGN_EMAILADDRESSES.length) {
     return splitResult;
   }
 
   // Wenn das splitzeichen nicht korrekt war nochmal
-  if (splitResult.length == 1) {
+  if (splitResult.length === 1) {
     return splitStringOnMultipleSigns(parameter, (splitSignListOrdner + 1));
   }
 
@@ -140,7 +140,7 @@ export function getGroupFromQuery(query: string): Group {
 }
 
 export function getQueryFromGroup(group: Group, isChild?: boolean): string {
-  if (group.rules.length == 0) {
+  if (group.rules.length === 0) {
     return isChild ? "()" : null;
   }
 
@@ -230,11 +230,11 @@ export function parseNestedElementsToGroupConstruct(nestedElement: NestedElement
   }
 
   let topEntry: NestedElement = _.cloneDeep(nestedElement[Object.keys(nestedElement).find(k => nestedElement[k].top)]);
-  topGroup.combinator = topEntry.type == "group" ? isCombinatorRegex.exec(topEntry.query)[1] : "&&";
+  topGroup.combinator = topEntry.type === "group" ? isCombinatorRegex.exec(topEntry.query)[1] : "&&";
 
-  let splittedRules = topEntry.type == "group" ? topEntry.query.split(topGroup.combinator).map(item => item.trim()) : [topEntry.query];
+  let splittedRules = topEntry.type === "group" ? topEntry.query.split(topGroup.combinator).map(item => item.trim()) : [topEntry.query];
   for (let i: number = 0; i < splittedRules.length; i++) {
-    if (splittedRules[i] == "") {
+    if (splittedRules[i] === "") {
 
     } else if (!ruleRegex.test(splittedRules[i])) {
       parseNestedElement(splittedRules[i], nestedElement, topGroup);
@@ -258,7 +258,7 @@ export function parseNestedElement(query: string, nestedElements: NestedElements
 export function getFieldOrRoleDisplayName(fieldString: string): string {
   
   let match = fieldString.match(/((field|role)\['([^']*)'\](\.[^\s]+)?)/);
-  let prefix = match[2] == "field" ? tl("Feld") : tl("Rolle");
+  let prefix = match[2] === "field" ? tl("Feld") : tl("Rolle");
   let suffix = "";
   if (match[4]) {
     switch (match[4]) {
@@ -291,9 +291,9 @@ export function parseRule(rule: string): Rule {
     res.operator = match[5];
     if (match[8]) { // normal text
       res.value = match[8];
-    } else if (match[10] == "''") { // empty text
+    } else if (match[10] === "''") { // empty text
       res.value = "";
-    } else if (match[10] == "undefined") { // undefined (object)
+    } else if (match[10] === "undefined") { // undefined (object)
       res.value = undefined;
     } else if (!Number.isNaN(Number(match[10]))) {
       res.value = Number(match[10]); // number

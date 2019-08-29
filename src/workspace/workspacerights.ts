@@ -5,14 +5,14 @@ export function isWorkspaceMember(workspace: WorkspaceDetails): boolean {
   if (workspace == null)
     return false;
 
-  return (workspace.userRole != null && workspace.userRole != WorkspaceRole.None);
+  return (workspace.userRole != null && workspace.userRole !== WorkspaceRole.None);
 }
 
 export function isWorkspaceAdmin(workspace: WorkspaceDetails): boolean {
   if (workspace == null)
     return false;
 
-  return ((workspace.userRole & WorkspaceRole.WorkspaceAdmin) != 0);
+  return ((workspace.userRole & WorkspaceRole.WorkspaceAdmin) !== 0);
 }
 
 // only true if flag is set AND licenseHasWorkspaceProcessManagers()
@@ -20,7 +20,7 @@ export function isWorkspaceProcessManager(workspace: WorkspaceDetails): boolean 
   if (workspace == null || !WorkspaceLicenses.licenseHasWorkspaceProcessManagers(workspace))
     return false;
 
-  return ((workspace.userRole & (WorkspaceRole.WorkspaceAdmin | WorkspaceRole.WorkspaceProcessManager)) != 0);
+  return ((workspace.userRole & (WorkspaceRole.WorkspaceAdmin | WorkspaceRole.WorkspaceProcessManager)) !== 0);
 }
 
 // Access control in code should NOT use the roles above but instead the following can...-checks

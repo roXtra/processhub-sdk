@@ -169,7 +169,7 @@ export async function loadInstance(instanceId: string, instanceExtras?: Instance
       }
     }
 
-    if (instanceExtras == 0) {
+    if (instanceExtras === 0) {
       // all data available from cache
       rootStore.dispatch({
         type: INSTANCELOADED_MESSAGE,

@@ -187,7 +187,7 @@ export async function loadProcess(processId: string, instanceId?: string, getExt
     if ((getExtras & ProcessExtras.ExtrasSvgString) && (cachedProcess.extras.svgString || cachedProcess.extras.svgString === ""))
       getExtras -= ProcessExtras.ExtrasSvgString;
 
-    if (getExtras == 0) {
+    if (getExtras === 0) {
       // all data available from cache
       rootStore.dispatch({
         type: PROCESSLOADED_MESSAGE,

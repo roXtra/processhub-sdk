@@ -28,7 +28,7 @@ export function filterSingleInstance(instances: InstanceDetails[], instanceId: s
   if (!instances)
     return null;
 
-  return instances.find(instance => instance.instanceId == instanceId && !instance.isSimulation);
+  return instances.find(instance => instance.instanceId === instanceId && !instance.isSimulation);
 }
 
 // all instance for a process
@@ -36,7 +36,7 @@ export function filterInstancesForProcess(instances: InstanceDetails[], processI
   if (!instances)
     return [];
 
-  let filteredInstances: InstanceDetails[] = instances.filter(instance => instance.processId == processId && !instance.isSimulation);
+  let filteredInstances: InstanceDetails[] = instances.filter(instance => instance.processId === processId && !instance.isSimulation);
   return filteredInstances;
 }
 
@@ -45,7 +45,7 @@ export function filterInstancesForWorkspace(instances: InstanceDetails[], worksp
   if (!instances)
     return [];
 
-    let filteredInstances: InstanceDetails[] = instances.filter(instance => instance.workspaceId == workspaceId && !instance.isSimulation);
+    let filteredInstances: InstanceDetails[] = instances.filter(instance => instance.workspaceId === workspaceId && !instance.isSimulation);
     return filteredInstances;
 }
 
@@ -60,7 +60,7 @@ export function filterRemainingInstancesForWorkspace(instances: InstanceDetails[
     // getOtherItems lists the todos for processes without read access - filter the others
     let filteredInstances: InstanceDetails[] = []; 
     workspaceInstances.map(instance => {
-      if (workspace.extras.processes.find(process => process.processId == instance.processId) == null) {
+      if (workspace.extras.processes.find(process => process.processId === instance.processId) == null) {
         filteredInstances.push(instance);
       }
     });

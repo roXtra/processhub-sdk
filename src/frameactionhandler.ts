@@ -39,14 +39,14 @@ export class FrameActionHandler extends ActionHandler {
   // Reply format:
   // [PHActionReceiver]Plugin_Component:command:commandId:{data}
   actionReplyListener(event: any) {
-    if (event && event.data && event.data.length >= 18 && event.data.substr(0, 18) == "[PHActionReceiver]") {
+    if (event && event.data && event.data.length >= 18 && event.data.substr(0, 18) === "[PHActionReceiver]") {
       let message = event.data.substr(18);
       let split = message.split(":");
       let command = split[1];    
       let commandId = split[2];
       let data = JSON.parse(message.substr(split[0].length + split[1].length + split[2].length + 3));
       console.log("ActionReplyListener.Received: " + command + " " + commandId);
-      if (command == "init") {
+      if (command === "init") {
         this.parenthost = data.host;
       } else if (waitingCommands[commandId])
         waitingCommands[commandId](data);

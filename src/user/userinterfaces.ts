@@ -99,7 +99,7 @@ export function getUserWorkspace(user: UserDetails, workspaceId: string): Worksp
   // ExtrasWorkspaces required
   isTrue(user.extras.workspaces != null, "getUserWorkspace: user.extras.workspaces == null");
 
-  return user.extras.workspaces.find((workspace) => workspace.workspaceId == workspaceId);
+  return user.extras.workspaces.find((workspace) => workspace.workspaceId === workspaceId);
 }
 
 export enum AccountState {
@@ -132,10 +132,10 @@ export function getDefaultRoleGroup(): string {
 }
 
 export function isPredefinedGroup(groupId: string): boolean {
-  return (groupId == PredefinedGroups.Public
-    || groupId == PredefinedGroups.Everybody
-    || groupId == PredefinedGroups.AllWorkspaceMembers
-    || groupId == PredefinedGroups.AllParticipants);
+  return (groupId === PredefinedGroups.Public
+    || groupId === PredefinedGroups.Everybody
+    || groupId === PredefinedGroups.AllWorkspaceMembers
+    || groupId === PredefinedGroups.AllParticipants);
 }
 
 export function getPredefinedGroupName(groupId: string): string {

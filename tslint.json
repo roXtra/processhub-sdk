@@ -54,11 +54,18 @@
             "spaces"
         ],
         "no-eval": true,
-        "no-floating-promises": [true, "Thenable"], 
+        "no-floating-promises": [
+            true,
+            "Thenable"
+        ],
         "no-internal-module": true,
         "no-trailing-whitespace": false,
         "no-unsafe-finally": true,
         "no-var-keyword": true,
+        "no-unused-variable": [
+            true,
+            "react"
+        ],
         "one-line": [
             true,
             "check-open-brace",
@@ -73,8 +80,9 @@
             "always"
         ],
         "triple-equals": [
-            false,
-            "allow-null-check"
+            true,
+            "allow-null-check",
+            "allow-undefined-check"
         ],
         "typedef-whitespace": [
             true,

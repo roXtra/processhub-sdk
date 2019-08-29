@@ -4,7 +4,7 @@ import { CoreEnvironment } from "../environment";
 export function requireAuthentication(coreEnv: CoreEnvironment): void {
   if (!coreEnv.user) {
     // no user is logged in - redirect to signin
-    if (typeof window != "undefined") {  // otherwise fails on server rendering
+    if (typeof window !== "undefined") {  // otherwise fails on server rendering
       window.location.href = "/signin?redirect=" + encodeURIComponent(window.location.pathname);
     } else
       // 401 will result in redirect in renderroute

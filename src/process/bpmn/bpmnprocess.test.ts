@@ -44,9 +44,9 @@ async function createTestBpmnProcess(): Promise<BpmnProcess> {
   bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 
   let sortedTasks = bpmnProcess.getSortedTasks(bpmnProcess.processId());
-  assert.isTrue(sortedTasks.length == 2, "wrong template process 1");
+  assert.isTrue(sortedTasks.length === 2, "wrong template process 1");
   let start = bpmnProcess.getStartEvents(bpmnProcess.processId());
-  assert.isTrue(start.length == 1, "wrong template process 2");
+  assert.isTrue(start.length === 1, "wrong template process 2");
   let rowDetails: RowDetails[] = [];
 
   let startElem = start.last();
@@ -416,7 +416,7 @@ describe("sdk", function () {
           let testTaskId1: string = rowDetails[1].taskId;
 
           let taskObj = bpmnProcess.getExistingTask(bpmnProcess.processId(), testTaskId1);
-          assert.isTrue(taskObj.outgoing.length == 1, "wrong outgoing");
+          assert.isTrue(taskObj.outgoing.length === 1, "wrong outgoing");
 
           let checkName = "Test Sequence Name 123";
           taskObj.outgoing[taskObj.outgoing.length - 1].name = checkName;
@@ -458,10 +458,10 @@ describe("sdk", function () {
           let testTaskId2: string = rowDetails[2].taskId; 
 
           let taskObj = bpmnProcess.getExistingTask(bpmnProcess.processId(), testTaskId1);
-          assert.isTrue(taskObj.outgoing.length == 1, "wrong outgoing");
+          assert.isTrue(taskObj.outgoing.length === 1, "wrong outgoing");
 
           let taskObj2 = bpmnProcess.getExistingTask(bpmnProcess.processId(), testTaskId2);
-          assert.isTrue(taskObj2.outgoing.length == 1, "wrong outgoing");
+          assert.isTrue(taskObj2.outgoing.length === 1, "wrong outgoing");
 
           taskObj.outgoing.push(taskObj2.outgoing[taskObj2.outgoing.length - 1]);
           taskObj2.outgoing[taskObj2.outgoing.length - 1].sourceRef = taskObj;
@@ -478,9 +478,9 @@ describe("sdk", function () {
           bpmnProcess = await createTestBpmnProcess();
 
           let sortedTasks = bpmnProcess.getSortedTasks(bpmnProcess.processId());
-          assert.isTrue(sortedTasks.length == 2, "wrong template process 1");
+          assert.isTrue(sortedTasks.length === 2, "wrong template process 1");
           let start = bpmnProcess.getStartEvents(bpmnProcess.processId());
-          assert.isTrue(start.length == 1, "wrong template process 2");
+          assert.isTrue(start.length === 1, "wrong template process 2");
           let rowDetails: RowDetails[] = [];
 
           let startElem = start.last();

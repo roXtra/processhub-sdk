@@ -6,7 +6,7 @@ import { ResetStore } from "../statehandler/actions";
 
 export function pathReducer(pathState: PathState, action: any): PathState {
 
-  if (pathState == null || action && action.type == ResetStore) {
+  if (pathState == null || action && action.type === ResetStore) {
     // init state
     pathState = new PathState();
   }

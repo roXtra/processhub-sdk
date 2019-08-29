@@ -8,7 +8,7 @@ export function parseUrl(fullUrl: string): PathDetails {
   let path: PathDetails = {};
 
   // split path
-  isTrue(fullUrl.substr(0, 1) == "/", "Url doesn't start with /");
+  isTrue(fullUrl.substr(0, 1) === "/", "Url doesn't start with /");
   let url = fullUrl.toLowerCase().substr(1);
   if (url.endsWith("/"))  // ignore "/" on end
     url = url.substr(0, url.length - 1);
@@ -16,15 +16,15 @@ export function parseUrl(fullUrl: string): PathDetails {
 
   // pages not related to workspace
   let part = split[0];
-  if ((part == "" && split.length == 1)
+  if ((part === "" && split.length === 1)
     || (part === "profile" && split.length === 1)
-    || (part == "i" && split.length >= 2)) {   // Instance and Todo-links are handled on StartPage
+    || (part === "i" && split.length >= 2)) {   // Instance and Todo-links are handled on StartPage
     path.page = Page.StartPage;
     return path;
-  } else if (part == "signin" && split.length == 1) {
+  } else if (part === "signin" && split.length === 1) {
     path.page = Page.SigninPage;
     return path;
-  } else if (part == "signup" && split.length == 1) {
+  } else if (part === "signup" && split.length === 1) {
     path.page = Page.SignupPage;
     return path;
   } else if (!part.startsWith("@")) {
@@ -40,11 +40,11 @@ export function parseUrl(fullUrl: string): PathDetails {
     path.page = Page.WorkspacePage;
     path.view = <WorkspaceView>part;
     return path;
-  } else if (part == ProcessView.NewProcess) {
+  } else if (part === ProcessView.NewProcess) {
     path.page = Page.ProcessPage;
     path.view = <ProcessView>part;
     return path;
-  } else if (part != "p" || split.length < 3) {
+  } else if (part !== "p" || split.length < 3) {
     // ...otherwise process must follow
     return null;
   }
@@ -65,22 +65,22 @@ export function parseNotificationLink(fullUrl: string): NotificationLinkElements
   let elements: NotificationLinkElements = {};
   
   // split path
-  isTrue(fullUrl.substr(0, 1) == "/", "Url doesn't start with /");
+  isTrue(fullUrl.substr(0, 1) === "/", "Url doesn't start with /");
   let url = fullUrl.toLowerCase().substr(1);
   if (url.endsWith("/"))  // ignore "/" on end
     url = url.substr(0, url.length - 1);
   let split = url.split("/");
 
-  if (split[0] != "i" || split.length < 2)
+  if (split[0] !== "i" || split.length < 2)
     return elements;
 
   let nextPart = split[1];
-  if (nextPart.substr(0, 1) == "@") {
+  if (nextPart.substr(0, 1) === "@") {
     // old links had workspaceUrl - ignore
   } else if (isId(nextPart.toUpperCase()))
     elements.workspaceId = nextPart.toUpperCase();
   
-  if (split.length == 2)
+  if (split.length === 2)
     return elements;
 
   nextPart = split[2];  

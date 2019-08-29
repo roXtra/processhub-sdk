@@ -119,7 +119,7 @@ export class ApiClient {
 }
 
 function getGraphQLClient(apiHost: string = "https://app.processhub.com", accessToken?: string): ApolloClient<{}> {
-  if (!_graphQLClient || apiHost != _apiHost) {
+  if (!_graphQLClient || apiHost !== _apiHost) {
 
     const httpLink = new HttpLink({
       uri: apiHost + "/graphql",

@@ -73,16 +73,16 @@ export interface RoleOwner {
 }
 
 export function isDefaultRole(roleId: string): boolean {
-  return (roleId == DefaultRoles.Manager
-    || roleId == DefaultRoles.Owner
-    || roleId == DefaultRoles.Follower
-    || roleId == DefaultRoles.Viewer);
+  return (roleId === DefaultRoles.Manager
+    || roleId === DefaultRoles.Owner
+    || roleId === DefaultRoles.Follower
+    || roleId === DefaultRoles.Viewer);
 }
 
 export function isDefaultProcessRole(roleId: string): boolean {
-  return (roleId == DefaultRoles.Manager
-    || roleId == DefaultRoles.Owner
-    || roleId == DefaultRoles.Viewer);
+  return (roleId === DefaultRoles.Manager
+    || roleId === DefaultRoles.Owner
+    || roleId === DefaultRoles.Viewer);
 }
 
 export function getProcessRoles(currentRoles: ProcessRoles, bpmnProcess: BpmnProcess, workspace: WorkspaceDetails): ProcessRoles {
@@ -92,7 +92,7 @@ export function getProcessRoles(currentRoles: ProcessRoles, bpmnProcess: BpmnPro
     processRoles = {};
 
   // public processes have been removed for now, does not seem to make sense with current version
-  if (workspace.workspaceType == WorkspaceType.Templates) {
+  if (workspace.workspaceType === WorkspaceType.Templates) {
     processRoles[DefaultRoles.Viewer] = { potentialRoleOwners: [{ memberId: PredefinedGroups.Public }] };
   }
 
@@ -139,8 +139,8 @@ export function getProcessRoles(currentRoles: ProcessRoles, bpmnProcess: BpmnPro
 
     // remove roles that are not used any more
     for (let role in processRoles) {
-      if (role != DefaultRoles.Owner && role != DefaultRoles.Manager && role != DefaultRoles.Viewer && role != DefaultRoles.Follower) {
-        if (lanes.find(lane => lane.id == role) == null)
+      if (role !== DefaultRoles.Owner && role !== DefaultRoles.Manager && role !== DefaultRoles.Viewer && role !== DefaultRoles.Follower) {
+        if (lanes.find(lane => lane.id === role) == null)
           delete (processRoles[role]);
       }
     }
@@ -167,7 +167,7 @@ export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspac
   if (roleId == null) {
     // check if user is PotentialRoleOwner of any role
     for (let role in roles) {
-      if (isPotentialRoleOwner(user, role, workspace, process, ignorePublic) == true)
+      if (isPotentialRoleOwner(user, role, workspace, process, ignorePublic) === true)
         return true;
     }
     return false;
@@ -177,16 +177,16 @@ export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspac
     return false;
 
   for (let member of roles[roleId].potentialRoleOwners) {
-    if (user && member.memberId == user.userId) {
+    if (user && member.memberId === user.userId) {
       // always accept current roleOwners (process might have been changed, we still want to accept existing owners)
       return true;
     }
-    if (!ignorePublic && (member.memberId == PredefinedGroups.Public
-      || member.memberId == PredefinedGroups.Everybody)) {
+    if (!ignorePublic && (member.memberId === PredefinedGroups.Public
+      || member.memberId === PredefinedGroups.Everybody)) {
       return true;
     }
-    if (member.memberId == PredefinedGroups.AllWorkspaceMembers ||
-      (ignorePublic && (member.memberId == PredefinedGroups.Public || member.memberId == PredefinedGroups.Everybody))) {
+    if (member.memberId === PredefinedGroups.AllWorkspaceMembers ||
+      (ignorePublic && (member.memberId === PredefinedGroups.Public || member.memberId === PredefinedGroups.Everybody))) {
       if (isWorkspaceMember(workspace))
         return true;
     }
@@ -200,13 +200,13 @@ export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspac
     }
   }
 
-  if (roleId == DefaultRoles.Viewer) {
-    if (roles[roleId].potentialRoleOwners.find(potentialRoleOwner => potentialRoleOwner.memberId == PredefinedGroups.AllParticipants)
-      || roles[roleId].potentialRoleOwners.find(potentialRoleOwner => potentialRoleOwner.memberId == PredefinedGroups.Public)) {
+  if (roleId === DefaultRoles.Viewer) {
+    if (roles[roleId].potentialRoleOwners.find(potentialRoleOwner => potentialRoleOwner.memberId === PredefinedGroups.AllParticipants)
+      || roles[roleId].potentialRoleOwners.find(potentialRoleOwner => potentialRoleOwner.memberId === PredefinedGroups.Public)) {
       // Bei Sichtbarkeit "AllParticipants" oder "Public" muss geprüft werden, ob User in einer der anderen Rollen eingetragen ist
       // Der Fall Public ist nur bei ignorePublic relevant
       for (let role in roles) {
-        if (role != DefaultRoles.Viewer
+        if (role !== DefaultRoles.Viewer
           // AllParticipants soll allen Teilnehmern, die eine Rolle im Prozess haben, Lesezugriff gewähren. Allerdings 
           // nur den explizit genannten Teilnehmern, nicht der Public-Gruppe, sonst wäre jeder Prozess,
           // bei dem externe Personen teilnehmen dürfen, automatisch Public.
@@ -244,14 +244,14 @@ export function getPotentialRoleOwners(workspaceDetails: WorkspaceDetails, proce
   }
 
   for (let role in processDetails.extras.processRoles) {
-    if ((roleId == null || role == roleId) && processDetails.extras.processRoles[role]) {
+    if ((roleId == null || role === roleId) && processDetails.extras.processRoles[role]) {
       let owners: PotentialRoleOwners = {
         potentialRoleOwner: []
       };
       let addedWsMembers = false;
       for (let potentialOwner of processDetails.extras.processRoles[role].potentialRoleOwners) {
-        if ((potentialOwner.memberId == PredefinedGroups.AllWorkspaceMembers
-          || potentialOwner.memberId == PredefinedGroups.Everybody)
+        if ((potentialOwner.memberId === PredefinedGroups.AllWorkspaceMembers
+          || potentialOwner.memberId === PredefinedGroups.Everybody)
           && !addedWsMembers) {
           // all workspace members are potential owners
           if (workspaceDetails.extras.members) {
@@ -287,7 +287,7 @@ export function getPotentialRoleOwners(workspaceDetails: WorkspaceDetails, proce
 
 export function processIsPublic(process: ProcessDetails): boolean {
   if (process.extras.processRoles)
-    return (process.extras.processRoles[DefaultRoles.Viewer].potentialRoleOwners[0].memberId == PredefinedGroups.Public);
+    return (process.extras.processRoles[DefaultRoles.Viewer].potentialRoleOwners[0].memberId === PredefinedGroups.Public);
 
   else
     return false;
@@ -297,7 +297,7 @@ export function isProcessOwner(process: ProcessDetails): boolean {
   if (process == null)
     return false;
 
-  return ((process.userRights & ProcessAccessRights.EditProcess) != 0);
+  return ((process.userRights & ProcessAccessRights.EditProcess) !== 0);
 }
 
 export function isProcessManager(process: ProcessDetails): boolean {
@@ -305,14 +305,14 @@ export function isProcessManager(process: ProcessDetails): boolean {
     return false;
 
   // owner are managers
-  return isProcessOwner(process) || ((process.userRights & ProcessAccessRights.ManageProcess) != 0);
+  return isProcessOwner(process) || ((process.userRights & ProcessAccessRights.ManageProcess) !== 0);
 }
 
 export function canViewProcess(process: ProcessDetails): boolean {
   if (process == null)
     return false;
 
-  return ((process.userRights & ProcessAccessRights.ViewProcess) != 0);
+  return ((process.userRights & ProcessAccessRights.ViewProcess) !== 0);
 }
 
 export function canEditProcess(process: ProcessDetails): boolean {
@@ -352,41 +352,41 @@ export function canStartProcessOld(process: ProcessDetails): boolean {
     return false;
 
   // Only users in the start lane may start the process - even administrators don't inherit that right!
-  return ((process.userRights & ProcessAccessRights.StartProcess) != 0);
+  return ((process.userRights & ProcessAccessRights.StartProcess) !== 0);
 }
 export function canStartProcessByMail(process: ProcessDetails): boolean {
   if (process == null)
     return false;
 
   // Only users in the start lane may start the process - even administrators don't inherit that right!
-  return ((process.userRights & ProcessAccessRights.StartProcessByMail) != 0);
+  return ((process.userRights & ProcessAccessRights.StartProcessByMail) !== 0);
 }
 export function canStartProcessByTimer(process: ProcessDetails): boolean {
   if (process == null)
     return false;
 
   // Only timer in the start lane may start the process - even administrators don't inherit that right!
-  return ((process.userRights & ProcessAccessRights.StartProcessByTimer) != 0);
+  return ((process.userRights & ProcessAccessRights.StartProcessByTimer) !== 0);
 }
 
 export function canViewTodos(process: ProcessDetails): boolean {
   if (process == null)
     return false;
 
-  return canViewAllTodos(process) || ((process.userRights & ProcessAccessRights.ViewTodos) != 0);
+  return canViewAllTodos(process) || ((process.userRights & ProcessAccessRights.ViewTodos) !== 0);
 }
 export function canViewAllTodos(process: ProcessDetails): boolean {
   if (process == null)
     return false;
 
-  return ((process.userRights & ProcessAccessRights.ViewAllTodos) != 0);
+  return ((process.userRights & ProcessAccessRights.ViewAllTodos) !== 0);
 }
 
 export function canViewArchive(process: ProcessDetails): boolean {
   if (process == null)
     return false;
 
-  return ((process.userRights & ProcessAccessRights.ViewArchive) != 0);
+  return ((process.userRights & ProcessAccessRights.ViewArchive) !== 0);
 }
 
 export function canDeleteProcess(process: ProcessDetails): boolean {

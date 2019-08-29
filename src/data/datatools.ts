@@ -66,7 +66,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
     const placeHolder: string = match[groupIndexForRolePlaceholder];    
     const roleName: string = match[groupIndexForRoleIdentifier];
     let roleProperty: string;
-    if (match.length == 4) {
+    if (match.length === 4) {
       roleProperty = match[groupIndexForRoleProperty];
     }
     if (roleName != null) {

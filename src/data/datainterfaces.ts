@@ -101,7 +101,7 @@ export interface IFormElementProps {
  */
 export function isFieldValue(element: {}): element is FieldValue {
   return element
-    && (element as FieldValue).type !== undefined
+    && (element as FieldValue).type != undefined
     && typeof (element as FieldValue).type === "string";
 }
 
@@ -111,7 +111,7 @@ export interface FieldContentMap {
 
 // returns the name of the best fitting Semantic UI icon for the specified file name
 export function getFiletypeIcon(filename: string): string {
-  if (filename == null || filename.length == 0)
+  if (filename == null || filename.length === 0)
     return "file outline";
 
   let extension = filename.split(".").last().toLowerCase();

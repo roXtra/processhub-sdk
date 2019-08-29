@@ -111,7 +111,7 @@ export async function loadUser(userId: string, getExtras: UserExtras = UserExtra
       && currentUser.extras.workspaces[0].extras.members && currentUser.extras.workspaces[0].extras.processes)
       getExtras -= UserExtras.ExtrasWorkspacesWithMembersAndProcesses;
 
-    if (getExtras == 0) {
+    if (getExtras === 0) {
       updateUserInState(currentUser);
       return currentUser;
     }
