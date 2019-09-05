@@ -16,6 +16,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskE
     workspace: undefined,
     sender: undefined,
     accessToken: "",
-    fileStore: undefined
+    fileStore: undefined,
+    serverConfig: undefined
   };
 }

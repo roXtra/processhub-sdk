@@ -52,3 +52,5 @@ import * as FileStore from "./filestore";
 export { FileStore };
 import * as Test from "./test";
 export {Test};
+import * as ServerConfig from "./serverconfig";
+export {ServerConfig};
