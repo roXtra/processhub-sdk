@@ -3,8 +3,8 @@ import { WorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { InstanceDetails } from "../instance/instanceinterfaces";
 import { FieldContentMap } from "../data/datainterfaces";
 import { IFileStore } from "../filestore";
-import {IConfig} from "../serverconfig"
-import {BpmnProcess} from "../process"
+import { IConfig } from "../serverconfig";
+import { BpmnProcess } from "../process";
 
 export interface ServiceTaskEnvironment {
   bpmnXml: string;
@@ -25,6 +25,6 @@ export async function getFields(environment: ServiceTaskEnvironment) {
   let taskObject = processObject.getExistingTask(processObject.processId(), environment.bpmnTaskId);
   let extensionValues = BpmnProcess.getExtensionValues(taskObject);
   let config = extensionValues.serviceTaskConfigObject;
-  
+
   return config.fields;
 }
