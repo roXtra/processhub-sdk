@@ -15,7 +15,17 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskE
     },
     workspace: undefined,
     sender: undefined,
-    accessToken: "",
+    instances: {
+      updateInstance: async (i) => i,
+      uploadAttachment: async () => undefined,
+      generateInstanceReport: async () => undefined,
+    },
+    mailer: {
+      sendMailTemplate: () => undefined,
+    },
+    processes: {
+      getProcessDetails: () => undefined,
+    },
     fileStore: undefined,
     serverConfig: undefined
   };
