@@ -1,6 +1,5 @@
-# ProcessHub SDK for JavaScript/TypeScript
+# roXtra Electronic forms and procedures SDK for JavaScript/TypeScript
 
-This will be the open source repository for the ProcessHub SDK. It's not yet usable...
+This is the open source repository for the roXtra Electronic forms and procedures SDK.
 
-https://www.processhub.com
-
+https://www.roxtra.com
