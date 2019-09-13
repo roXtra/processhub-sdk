@@ -40,7 +40,7 @@ export interface InstanceDetails {
   parentProcessConfigObject?: ParentProcessConfig;
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
-    instanceState?: any;
+    instanceState?: EngineState;
     fieldContents?: FieldContentMap;
     roleOwners?: RoleOwnerMap;
     todos?: TodoDetails[];
@@ -122,6 +122,7 @@ export interface EngineStateDefinition {
   stopped: boolean;
   processes: EngineStateDefinitionProcess;
   environment: any;
+  entryPointId?: string;
 }
 
 export interface EngineStateDefinitionProcess {
