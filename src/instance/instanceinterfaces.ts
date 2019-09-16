@@ -40,7 +40,7 @@ export interface InstanceDetails {
   parentProcessConfigObject?: ParentProcessConfig;
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
-    instanceState?: EngineState;
+    instanceState: EngineState | null;
     fieldContents?: FieldContentMap;
     roleOwners?: RoleOwnerMap;
     todos?: TodoDetails[];
