@@ -46,7 +46,7 @@
   },
   "scripts": {
     "build": "tsc && babel tsc_out --out-dir lib && npm run copytypings",
-    "test": "cross-env HOTRELOAD=no nyc --reporter=html mocha \"./lib/**/*.test.js\" --exit --timeout 10000 --recursive --require regenerator-runtime",
+    "test": "cross-env HOTRELOAD=no nyc --reporter=html ts-mocha -p tsconfig.json ./src/**/*.test.ts --exit --timeout 10000 --recursive --require regenerator-runtime",
     "lint": "tslint --project tsconfig.json \"./src/**/*.ts*\"",
     "testall": "npm run lint && npm run test",
     "copytypings": "copyfiles -u 1 \"src/**/*.d.ts\" lib && copyfiles -u 1 \"src/*.d.ts\" lib && copyfiles -u 1 \"tsc_out/**/*.d.ts\" lib && copyfiles -u 1 \"tsc_out/*.d.ts\" lib && copyfiles -u 1 src/process/types/index.d.ts lib",
@@ -82,7 +82,8 @@
     "nyc": "^14.1.1",
     "regenerator-runtime": "^0.13.3",
     "ts-loader": "2.3.0",
-    "tslint": "^5.16.0",
+    "ts-mocha": "^6.0.0",
+    "tslint": "^5.20.0",
     "tslint-loader": "^3.5.4",
     "typescript": "^3.2.2"
   },
