@@ -104,6 +104,7 @@ export class ApiClient {
       workspaceId: workspaceId,
       processId: processId,
       extras: {
+        instanceState: null,
         roleOwners: {},
         fieldContents: fieldContents
       }
