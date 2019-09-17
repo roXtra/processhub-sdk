@@ -1,5 +1,5 @@
 import { tl } from "../tl";
-import * as Tools from "../Tools";
+import * as Tools from "../tools";
 import * as _ from "lodash";
 import { createId } from "./guid";
 
