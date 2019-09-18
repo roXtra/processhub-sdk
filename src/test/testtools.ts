@@ -22,6 +22,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskE
       updateInstance: async (i) => i,
       uploadAttachment: async () => undefined,
       generateInstanceReport: async () => undefined,
+      executeInstance: async () => undefined,
     },
     mailer: {
       sendMailTemplate: () => undefined,
