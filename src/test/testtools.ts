@@ -16,6 +16,10 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskE
         fieldContents: {}
       },
     },
+    roxApi: {
+      getApiToken: () => undefined,
+      getEfApiToken: async () => undefined,
+    },
     workspace: undefined,
     sender: undefined,
     instances: {
