@@ -100,7 +100,6 @@ export async function postJson<Request extends BaseRequest>(path: string, reques
     };
   }
   try {
-    console.log("postJson: " + url);
     let response = await fetch(url, req);
     switch (response.status) {
       case 200:

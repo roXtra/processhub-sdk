@@ -25,10 +25,18 @@ export interface IServiceTaskMailer {
 }
 
 /**
- * process methods that SericeTasks can user
+ * process methods that SericeTasks can use
  */
 export interface IServiceTaskProcesses {
   getProcessDetails(processId: string, extras: ProcessExtras): Promise<ProcessDetails>;
+}
+
+/**
+ * roXtra API methods that ServiceTasks can use
+ */
+export interface IServiceTaskRoxApi {
+  getEfApiToken(): Promise<string>;
+  getApiToken(): string;
 }
 
 export interface ServiceTaskEnvironment {
@@ -39,6 +47,7 @@ export interface ServiceTaskEnvironment {
   instanceDetails: InstanceDetails;
   instances: IServiceTaskInstances;
   processes: IServiceTaskProcesses;
+  roxApi: IServiceTaskRoxApi;
   mailer: IServiceTaskMailer;
   workspace: WorkspaceDetails;
   sender: UserDetails;
