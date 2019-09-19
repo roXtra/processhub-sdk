@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git://github.com/processhub/processhub-sdk.git"
   },
-  "version": "8.008.0",
+  "version": "8.9.0-0",
   "author": {
     "name": "ProcessHub",
     "email": "info@processhub.com",
@@ -49,7 +49,10 @@
     "lint": "tslint --project tsconfig.json \"./src/**/*.ts*\"",
     "testall": "npm run lint && npm run test",
     "copytypings": "copyfiles -u 1 \"src/**/*.d.ts\" lib && copyfiles -u 1 \"src/*.d.ts\" lib && copyfiles -u 1 \"tsc_out/**/*.d.ts\" lib && copyfiles -u 1 \"tsc_out/*.d.ts\" lib && copyfiles -u 1 src/process/types/index.d.ts lib",
-    "jscpd": "jscpd ./src --ignore \"*/**/*.test.ts\""
+    "jscpd": "jscpd ./src --ignore \"*/**/*.test.ts\"",
+    "release-switch-to-next-rc": "npm version preminor",
+    "release-dump-preview-version": "npm version prerelease",
+    "release-make-next-rc-final": "npm version minor"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.0",
