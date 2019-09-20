@@ -6,6 +6,9 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskE
     bpmnXml,
     bpmnTaskId: "",
     bpmnTaskName: "",
+    /**
+     * @deprecated use instanceDetails.extras.fieldContents
+     */
     fieldContents: {},
     instanceDetails: {
       instanceId: "",
@@ -35,6 +38,75 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskE
       getProcessDetails: () => undefined,
     },
     fileStore: undefined,
-    serverConfig: undefined
+    serverConfig: {
+      Database: {
+        connection: "localhost",
+        port: 1473,
+        user: "EFormulare",
+        password: "",
+        database: "EFormulare"
+      },
+      Engine: {
+        sleepBeforeEnd: 0
+      },
+      Filestore: {
+        baseDir: "c:\\Roxtra\\doc\\eformulare"
+      },
+      roXtra: {
+        efApiEndpoint: "https://localhost/Roxtra/api/roxefapi.svc/eforms/",
+        url: "http://localhost/Roxtra/",
+        clientSecret: "@@roxApiClients.ClientSecret@@"
+      },
+      Mailbox: {
+        reconnectTime: 3600000,
+        mail: "mailbox@localhost.local",
+        user: "mailbox@localhost.local",
+        password: "",
+        host: "127.0.0.1",
+        port: 143,
+        tls: true,
+      },
+      Mailer: {
+        senderName: "roXtra-Server",
+        senderMail: "no-reply@roxtra.com",
+        smtpPort: 25,
+        smtpServer: "127.0.0.1",
+        smtpUser: "send@localhost.local",
+        smtpPassword: "",
+        requireTls: true
+      },
+      Redis: {
+        serverHost: "",
+        devRedisHost: "",
+        devServerHost: "",
+        redisHost: "localhost",
+        awsApiGatewayEndpoint: "",
+        awsApiGatewayKey: "",
+      },
+      Webserver: {
+        port: 8397,
+        baseUrl: "http://localhost:5051",
+        tls: false,
+        pfxFile: "",
+        certificatePassword: "",
+      },
+      ClientSettings: {
+        extendedErrorMessages: true,
+        statistics: {
+          enabled: true,
+          tabs: [
+            {
+              name: "reports"
+            },
+            {
+              name: "heatmaps"
+            },
+            {
+              name: "table"
+            }
+          ]
+        }
+      },
+    }
   };
 }
