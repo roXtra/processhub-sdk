@@ -6,7 +6,7 @@ import { createId } from "./guid";
 // Mailadresse auf Gültigkeit prüfen
 export function isValidMailAddress(mail: string): boolean {
   // fault tolerant - don't block too many
-  let re = /\S+@\S+\.\S+/;
+  let re = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
   return re.test(mail);
 }
 
