@@ -1,4 +1,5 @@
 import { ServiceTaskEnvironment } from "../servicetask/servicetaskenvironment";
+import { PREVIEW_FILENAME } from "../filestore/ifilestore";
 
 export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskEnvironment {
 
@@ -37,7 +38,24 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskE
     processes: {
       getProcessDetails: () => undefined,
     },
-    fileStore: undefined,
+    fileStore: {
+      getAttachmentFileUrl: () => "",
+      getFile: async () => "",
+      getFileBuffer: async () => new Buffer(""),
+      getPreviewFileUrl: () => PREVIEW_FILENAME,
+      createFile: async () => true,
+      createPreviewFile: async () => true,
+      createProfilePicture: async () => "",
+      deleteFile: async () => true,
+      deleteProcessFile: async () => true,
+      deleteProcessFolder: async () => true,
+      deleteWorkspaceFolder: async () => true,
+      listObjects: async () => [],
+      exists: async () => false,
+      getLastModifiedDate: async () => new Date(),
+      getPhysicalPath: () => "",
+      getDownloadRoute: () => undefined,
+    },
     serverConfig: {
       Database: {
         connection: "localhost",
