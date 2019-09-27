@@ -41,7 +41,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskE
     fileStore: {
       getAttachmentFileUrl: () => "",
       getFile: async () => "",
-      getFileBuffer: async () => new Buffer(""),
+      getFileBuffer: async () => Buffer.from(""),
       getPreviewFileUrl: () => PREVIEW_FILENAME,
       createFile: async () => true,
       createPreviewFile: async () => true,
