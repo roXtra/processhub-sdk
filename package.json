@@ -2,16 +2,16 @@
   "name": "processhub-sdk",
   "repository": {
     "type": "git",
-    "url": "git://github.com/processhub/processhub-sdk.git"
+    "url": "git://github.com/roXtra/processhub-sdk.git"
   },
   "version": "8.10.0-1",
   "author": {
     "name": "ProcessHub",
     "email": "info@processhub.com",
-    "url": "https://github.com/processhub/processhub-sdk"
+    "url": "https://github.com/roXtra/processhub-sdk"
   },
   "bugs": {
-    "url": "https://github.com/processhub/processhub-sdk/issues"
+    "url": "https://github.com/roXtra/processhub-sdk/issues"
   },
   "main": "lib/index.js",
   "types": "lib/index",
