@@ -72,7 +72,7 @@
     "regenerator-runtime": "^0.13.3",
     "ts-mocha": "^6.0.0",
     "tslint": "^5.20.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.6.3"
   },
   "files": [
     "index.js",

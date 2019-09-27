@@ -5785,9 +5785,9 @@
       "integrity": "sha512-N9IvkQslUGYGC24RkJk1ba99foK6TkwC2FHAEBlQFBP0RxQZS8ZpJuAZcwiY/w9ZJHFQb1aOXBI60OdxhTrwEQ=="
     },
     "typescript": {
-      "version": "3.2.2",
-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-3.2.2.tgz",
-      "integrity": "sha512-VCj5UiSyHBjwfYacmDuc/NOk4QQixbE+Wn7MFJuS0nRuPQbof132Pw4u53dm264O8LPc2MVsc7RJNml5szurkg==",
+      "version": "3.6.3",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-3.6.3.tgz",
+      "integrity": "sha512-N7bceJL1CtRQ2RiG0AQME13ksR7DiuQh/QehubYcghzv20tnh+MQnQIuJddTmsbqYj+dztchykemz0zFzlvdQw==",
       "dev": true
     },
     "ultron": {
