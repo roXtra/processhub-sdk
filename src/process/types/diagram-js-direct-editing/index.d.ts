@@ -1,4 +1,4 @@
-// tslint:disable:variable-name
+// Tslint:disable:variable-name
 declare module "diagram-js-direct-editing" {
   import { IPlugin } from "diagram-js";
 

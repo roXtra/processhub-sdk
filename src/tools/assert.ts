@@ -4,7 +4,7 @@
 // die wir später so implementieren, dass sie im Production-Code automatisch entfernt werden.
 
 // Production Environment?
-let isProduction: boolean = false;
+const isProduction = false;
 
 export function error(message?: string): void {
   if (!isProduction) {

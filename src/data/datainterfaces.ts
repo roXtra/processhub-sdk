@@ -54,21 +54,21 @@ export interface FieldValue {
 }
 
 export type FieldType = "ProcessHubTextInput"
-  | "ProcessHubDateTime"
-  | "ProcessHubTextArea"
-  | "ProcessHubInstanceTitle"
-  | "ProcessHubCheckbox"
-  | "ProcessHubFileUpload"
-  | "ProcessHubRoleOwner"
-  | "ProcessHubDate"
-  | "ProcessHubDropdown"
-  | "ProcessHubChecklist"
-  | "ProcessHubDecision"
-  | "ProcessHubRoxFile"
-  | "ProcessHubSignature"
-  | "ProcessHubLabel"
-  | "ProcessHubMail"
-  | "ProcessHubNumber";
+| "ProcessHubDateTime"
+| "ProcessHubTextArea"
+| "ProcessHubInstanceTitle"
+| "ProcessHubCheckbox"
+| "ProcessHubFileUpload"
+| "ProcessHubRoleOwner"
+| "ProcessHubDate"
+| "ProcessHubDropdown"
+| "ProcessHubChecklist"
+| "ProcessHubDecision"
+| "ProcessHubRoxFile"
+| "ProcessHubSignature"
+| "ProcessHubLabel"
+| "ProcessHubMail"
+| "ProcessHubNumber";
 
 export interface IFieldType {
   getType(): FieldType;
@@ -79,7 +79,7 @@ export interface IFieldType {
   getSettingsButton(fieldDefinition: FieldDefinition, onConfigChanged: (fieldDefinition: FieldDefinition) => void, bpmnProcess: Process.BpmnProcess): JSX.Element;
   isVisible(): boolean;
   isValid(fieldDefinition: FieldDefinition, instanceEnv: InstanceEnvironment): boolean;
-  isConfigValid(fieldDefinition: FieldDefinition): { valid: boolean, message?: string };
+  isConfigValid(fieldDefinition: FieldDefinition): { valid: boolean; message?: string };
 }
 
 export interface IFormElementProps {
@@ -109,12 +109,12 @@ export interface FieldContentMap {
   [fieldId: string]: string | boolean | FieldValue;
 }
 
-// returns the name of the best fitting Semantic UI icon for the specified file name
+// Returns the name of the best fitting Semantic UI icon for the specified file name
 export function getFiletypeIcon(filename: string): string {
   if (filename == null || filename.length === 0)
     return "file outline";
 
-  let extension = filename.split(".").last().toLowerCase();
+  const extension = filename.split(".").last().toLowerCase();
 
   switch (extension) {
     case "pdf":
@@ -144,21 +144,21 @@ export function getFiletypeIcon(filename: string): string {
 }
 
 
-/* interfaces for statistics */
+/* Interfaces for statistics */
 export enum StatisticsAction {
-  // process
+  // Process
   processCreated = 1,
   processEdited = 2,
   processDeleted = 3,
 
-  // instance
+  // Instance
   instanceStarted = 10,
   instanceAborted = 11,
   instanceIncomingMail = 12,
   instanceOutgoingMail = 13,
   instanceJumped = 14,
 
-  // todo
+  // Todo
   todoCreated = 20,
   todoCompleted = 21,
   todoUpdated = 22,
@@ -166,14 +166,14 @@ export enum StatisticsAction {
   todoWithDecision = 24,
   todoDeleted = 25,
 
-  // user
+  // User
   userComment = 30,
 }
 
 export interface StatisticTrailEntry {
-  todo?: { todoId?: string, bpmnTaskId: string, bpmnLaneId: string, desicionTaskBpmnTaskId?: string, timeOverDueDate?: number };
+  todo?: { todoId?: string; bpmnTaskId: string; bpmnLaneId: string; desicionTaskBpmnTaskId?: string; timeOverDueDate?: number };
   instance?: { instanceId: string; jumpToBpmnTask?: string };
-  user?: { instanceId: string; };
+  user?: { instanceId: string };
   process?: {};
 }
 

@@ -13,14 +13,14 @@ describe("sdk", function () {
     describe("pathReducer", function () {
 
       it("soll PATHLOADED_MESSAGE korrekt reducen", function () {
-        let oldState: PathState = new PathState();
+        const oldState: PathState = new PathState();
 
-        let message: PathLoadedMessage = {
+        const message: PathLoadedMessage = {
           type: PATHLOADED_MESSAGE,
           pathDetails: parseUrl("/@testworkspace/members")
         };
 
-        let newState = pathReducer(oldState, message);
+        const newState = pathReducer(oldState, message);
 
         assert.deepEqual(newState.currentPath.page, Page.WorkspacePage);
         assert.deepEqual(newState.currentPath.view, WorkspaceView.Members);
@@ -28,23 +28,23 @@ describe("sdk", function () {
       });
 
       it("soll PATHLOADED_MESSAGE mit Fehlermeldung korrekt reducen", function () {
-        let oldState: PathState = new PathState();
+        const oldState: PathState = new PathState();
 
-        let message: PathLoadedMessage = {
+        const message: PathLoadedMessage = {
           type: PATHLOADED_MESSAGE,
           pathDetails: parseUrl("/@invalid"),
           error: ApiResult.API_NOTFOUND
         };
 
-        let newState = pathReducer(oldState, message);
+        const newState = pathReducer(oldState, message);
 
         // Deepequal nicht sínnvoll, da nur Server erkennen kann, ob Workspace gefunden wurde
         assert.equal(newState.lastApiResult, ApiResult.API_NOTFOUND);
       });
 
       it("soll unbekannte Actions korrekt reducen", function () {
-        let oldState: PathState = { currentPath: { page: Page.WorkspacePage } };
-        let newState = pathReducer(oldState, {
+        const oldState: PathState = { currentPath: { page: Page.WorkspacePage } };
+        const newState = pathReducer(oldState, {
           type: "UNKNOWN"
         });
         assert.deepEqual(newState, oldState);

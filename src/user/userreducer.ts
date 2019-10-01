@@ -13,7 +13,7 @@ import { ResetStore } from "../statehandler/actions";
 export function userReducer(userState: UserState, action: any): UserState {
 
   if (userState == null || action && action.type === ResetStore) {
-    // init state
+    // Init state
     userState = new UserState();
   }
   if (action == null || action.type === ResetStore)
@@ -21,11 +21,11 @@ export function userReducer(userState: UserState, action: any): UserState {
 
   switch (action.type) {
 
-    case UserMessages.UserLoadedMessage:
-      let user = (<UserLoadedMessage>action).user;
+    case UserMessages.UserLoadedMessage: {
+      const user = (action as UserLoadedMessage).user;
       userState.currentUser = StateHandler.mergeUserToCache(user);
 
-      let userChanged = !_.isEqual(userState.currentUser, userState.lastDispatchedUser);
+      const userChanged = !_.isEqual(userState.currentUser, userState.lastDispatchedUser);
       userState.lastDispatchedUser = _.cloneDeep(userState.currentUser);
 
       if (userChanged) {
@@ -34,22 +34,22 @@ export function userReducer(userState: UserState, action: any): UserState {
         });
       } else
         return userState;
-
-    case UserActionsType.LoggedIn:
-      let loggedAction: UserActionLoggedIn = action;
+    }
+    case UserActionsType.LoggedIn: {
+      const loggedAction: UserActionLoggedIn = action;
       isTrue(loggedAction.userDetails != null, "loggedAction.userDetails is null");
       return update(userState, {
         currentUser: { $set: loggedAction.userDetails },
         lastApiResult: { $set: ApiResult.API_OK }
       });
-
-    case UserActionsType.Failed:
-      let failedAction: UserActionFailed = action;
+    }
+    case UserActionsType.Failed: {
+      const failedAction: UserActionFailed = action;
       isTrue(failedAction.result != null, "failedAction.result is null");
       return update(userState, {
         lastApiResult: { $set: failedAction.result }
       });
-
+    }
     default:
       return userState;
   }

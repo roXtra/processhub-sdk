@@ -11,9 +11,9 @@ import { AuditTrailEntry } from "../audittrail/audittrailinterfaces";
 export interface ProcessAttachment {
   attachmentId: string;
   fileName: string;
-  url?: string; // url must be set if it is an uploaded file
-  roxFileId?: number; // roxFileId must be set if the attachment is a link to a roXtra document
-  iconLink?: string; // iconLink must be set if the attachment is a link to a roXtra document
+  url?: string; // Url must be set if it is an uploaded file
+  roxFileId?: number; // RoxFileId must be set if the attachment is a link to a roXtra document
+  iconLink?: string; // IconLink must be set if the attachment is a link to a roXtra document
 }
 
 export interface ProcessReportDraft {
@@ -23,13 +23,13 @@ export interface ProcessReportDraft {
 }
 
 /**
- * describes the contents of the service.json file that is located in the services'
+ * Describes the contents of the service.json file that is located in the services'
  */
 export interface ServiceJson {
   id: string;
   minRoXtraVersion: string;
   maxRoXtraVersion: string;
-  name: string;  
+  name: string;
   actions: ServiceActionConfig[];
 }
 
@@ -62,32 +62,32 @@ export interface ProcessDetails {
   displayName: string;
   urlName?: string;
   fullUrl?: string; // @workspace/p/urlname
-  previewUrl?: string;  // full url of preview-svg (including https://)
+  previewUrl?: string;  // Full url of preview-svg (including https://)
   description: string;
   useModeler?: boolean;
   isNewProcess?: boolean;
-  userRights?: ProcessAccessRights; // access rights of the current user
+  userRights?: ProcessAccessRights; // Access rights of the current user
   attachments?: ProcessAttachment[];
   reportDrafts?: ProcessReportDraft[];
   processXmlHash?: string;
-  userStartEvents?: StartButtonMap; // map with starteventid -> start event name
+  userStartEvents?: StartButtonMap; // Map with starteventid -> start event name
   tags?: string[];
   rowDetails?: RowDetails[];
   hasWarnings?: boolean;
-  latestCommentAt?: Date; // datetime of the latest comment
-  retentionPeriod?: number; // retention period for insatances in months
+  latestCommentAt?: Date; // Datetime of the latest comment
+  retentionPeriod?: number; // Retention period for insatances in months
   jumpsDisabled?: boolean;
   xmlVersion?: number;
   parentProcessIds?: string[];
   childProcessIds?: string[];
   extras: {
-    // New Extras must be added to cache-handling in processactions -> loadProcess!   
+    // New Extras must be added to cache-handling in processactions -> loadProcess!
     bpmnXml?: string;
-    bpmnProcess?: BpmnProcess; // available if bpmnXml is available
+    bpmnProcess?: BpmnProcess; // Available if bpmnXml is available
     instances?: InstanceDetails[];
     instancesUsers?: UserDetails[];
     processRoles?: ProcessRoles;
-    svgString?: string; // only used to save preview to server or if requested in extras
+    svgString?: string; // Only used to save preview to server or if requested in extras
     settings?: ProcessSettings;
     auditTrail?: AuditTrailEntry[];
     parentProcessDetails?: ProcessDetails[];
@@ -138,24 +138,24 @@ export const gqlProcessFragments = gql`
 
 export interface ProcessSettings {
   dashboard?: {
-    cardTitle?: string;  // title of the cards in the dashboard
-    cardDesc?: string;  // additional text on the card
-    dashBoardAccess?: ProcessViewAccess;  // who can access todos?
+    cardTitle?: string;  // Title of the cards in the dashboard
+    cardDesc?: string;  // Additional text on the card
+    dashBoardAccess?: ProcessViewAccess;  // Who can access todos?
   };
   library?: {
-    rating?: number;  // process rating, used to sort processes in library
-    copiedFromId?: string;  // processId of the original process    
+    rating?: number;  // Process rating, used to sort processes in library
+    copiedFromId?: string;  // ProcessId of the original process
   };
 }
 
 export enum ProcessViewAccess {
   // DO NOT CHANGE NUMBERS - used in database
-  EverybodySeesAll = 10,  // all todos/instances are public  NOT YET IMPLEMENTED
+  EverybodySeesAll = 10,  // All todos/instances are public  NOT YET IMPLEMENTED
   // Not implemented because Dashboard uses user.extras.todos, which is not available for anonymous guests
-  WorkspaceMembersSeeAll = 20,  // team members see all todos/instances
-  ParticipantsSeeAll = 30,  // process participants see all todos/instances
-  ParticipantsSeeTheirs = 40,  // process participants see their own todos/instances
-  OnlyProcessOwners = 50  // only process managers can see todos/instances    
+  WorkspaceMembersSeeAll = 20,  // Team members see all todos/instances
+  ParticipantsSeeAll = 30,  // Process participants see all todos/instances
+  ParticipantsSeeTheirs = 40,  // Process participants see their own todos/instances
+  OnlyProcessOwners = 50  // Only process managers can see todos/instances
 }
 
 export enum ProcessExtras {
@@ -188,23 +188,23 @@ export type ProcessResult = keyof typeof ProcessResult;
 
 export type TaskSettingsValueType = "List" | "Text" | "Boolean";
 
-export type BpmnExtensionName = 
+export type BpmnExtensionName =
 "description"
-| "processhub-userform" // json: FieldDefinition[]
+| "processhub-userform" // Json: FieldDefinition[]
 | "send-task-receiver"
-| "send-task-with-field-contents" // boolean: include field contents in SendTask notification mail?
-| "send-task-instance-link" // boolean: include a link to the instance in SendTask notification mail?
-| "send-task-subject" // string: mail subject of SendTask notification mail
-| "all-fields-editable" // boolean: all existing fields in task can be edited in current task
-| "view-all-fields" // boolean: view all existing fields
-| "send-mail-notification" // boolean: send notification for task
-| "set-sender-as-role-owner" // boolean: set mail sender as role owner, default: true
+| "send-task-with-field-contents" // Boolean: include field contents in SendTask notification mail?
+| "send-task-instance-link" // Boolean: include a link to the instance in SendTask notification mail?
+| "send-task-subject" // String: mail subject of SendTask notification mail
+| "all-fields-editable" // Boolean: all existing fields in task can be edited in current task
+| "view-all-fields" // Boolean: view all existing fields
+| "send-mail-notification" // Boolean: send notification for task
+| "set-sender-as-role-owner" // Boolean: set mail sender as role owner, default: true
 | "timer-start-configuration"
-| "required-fields-needed" // boolean: means that the task needed previous required fields (not necessary on negative decisions)
+| "required-fields-needed" // Boolean: means that the task needed previous required fields (not necessary on negative decisions)
 | "save-decision-in-fields"
 | "custom-field-contents-value"
-| "roleowners-editable" // boolean: all role owners can be selected
-| "subprocessid" // id of the process a SubProcess references,
+| "roleowners-editable" // Boolean: all role owners can be selected
+| "subprocessid" // Id of the process a SubProcess references,
 | "due-at-can-be-edit"
 | "due-at-duration"
 | "sequenceflow-expression"
@@ -229,7 +229,7 @@ export interface TaskExtensions {
   saveDecisionInFieldContents: boolean;
   customFieldContentsValue: string;
   dueAtDateCanBeEdit: boolean;
-  dueAtDuration: string; // standard dueAtDuration in seconds
+  dueAtDuration: string; // Standard dueAtDuration in seconds
 
   serviceTaskConfigObject: ServiceTaskConfigObject;
   scriptTaskCode: string;
@@ -271,9 +271,9 @@ export interface RunningTaskLane {
 
 export interface StartButtonMap {
   [id: string]: {
-    startEventName: string,
-    laneId: string,
-    onlyRoxFileField: boolean,
+    startEventName: string;
+    laneId: string;
+    onlyRoxFileField: boolean;
   };
 }
 

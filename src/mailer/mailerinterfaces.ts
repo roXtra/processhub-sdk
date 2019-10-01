@@ -3,8 +3,8 @@ import { BaseRequest, BaseReply } from "../legacyapi/apiinterfaces";
 import { InstanceDetails } from "../instance/instanceinterfaces";
 
 export enum MailSender {
-  FromProcessHub,   // noreply@mail.processhub.com
-  FromInstance,     // use the mail address of the current instance as reply-to   
+  FromProcessHub,   // Noreply@mail.processhub.com
+  FromInstance,     // Use the mail address of the current instance as reply-to
 }
 
 export interface MailContent {
@@ -13,7 +13,7 @@ export interface MailContent {
 }
 
 export interface SendMailTemplateRequest extends BaseRequest {
-  instanceUrl?: string;  
+  instanceUrl?: string;
   todoDescription?: string;
   todoTitle?: string;
   fieldContents?: FieldContentMap;
@@ -31,13 +31,13 @@ export interface SendMailTemplateReply extends BaseReply {
 
 export interface ReplyToMailRequest extends BaseRequest {
   sender?: MailSender;
-  instanceUrl?: string;  
+  instanceUrl?: string;
   choosenFieldContents: string[];
   subject: string;
   receiverMails: string[];
   addReceiverAsFollower: boolean;
   mailText: string;
-  instanceId: string;  
+  instanceId: string;
   instance: InstanceDetails;
 }
 

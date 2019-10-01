@@ -15,7 +15,7 @@ const testProcess: ProcessDetails = {
   previewUrl: "https://s3.eu-central-1.amazonaws.com/processhub/2000E70281B5ECD5/8700E70281B5ECD5/preview.svg",
   description: "This is a test process",
   processId: "8700E70281B5ECD5",
-  // userRole gibt für Tests immer volle Rechte, da viele Tests sonst scheitern.
+  // UserRole gibt für Tests immer volle Rechte, da viele Tests sonst scheitern.
   // Für eine Prüfung des Rechtesystems selbst ist das natürlich nicht geeignet
   userRights: ProcessAccessRights.EditProcess,
   extras: {}
@@ -28,8 +28,8 @@ describe("sdk", function () {
       describe("soll PROCESSLOADED_MESSAGE korrekt reducen", function () {
         it("soll currentProcess korrekt setzen", function () {
 
-          let oldState = new ProcessState();
-          let newState = processReducer(oldState, {
+          const oldState = new ProcessState();
+          const newState = processReducer(oldState, {
             type: PROCESSLOADED_MESSAGE,
             processDetails: testProcess
           });
@@ -40,13 +40,13 @@ describe("sdk", function () {
       });
 
       it("soll PROCESSACTION_CREATEINDB korrekt reducen", function () {
-        let workspaceId = createWorkspaceId();
-        let processId = createId();
+        const workspaceId = createWorkspaceId();
+        const processId = createId();
 
         const desc = "Unittest process decription";
         const name = "Unittest process";
-        let oldState = new ProcessState();
-        let newState = processReducer(oldState, {
+        const oldState = new ProcessState();
+        const newState = processReducer(oldState, {
           type: ProcessActionType.CreateInDb,
           workspaceId: workspaceId,
           processId: processId,
@@ -61,13 +61,13 @@ describe("sdk", function () {
       });
 
       it("soll PROCESSACTION_CREATEINDBDONE korrekt reducen", function () {
-        let workspaceId = createWorkspaceId();
-        let processId = createId();
+        const workspaceId = createWorkspaceId();
+        const processId = createId();
 
         const desc = "Unittest process decription";
         const name = "Unittest process";
 
-        let oldState = new ProcessState();
+        const oldState = new ProcessState();
         let newState = processReducer(oldState, {
           type: ProcessActionType.CreateInDb,
           workspaceId: workspaceId,
@@ -88,13 +88,13 @@ describe("sdk", function () {
       });
 
       it("soll PROCESSACTION_FAILED korrekt reducen", function () {
-        let workspaceId = createWorkspaceId();
-        let processId = createId();
+        const workspaceId = createWorkspaceId();
+        const processId = createId();
 
         const desc = "Unittest process decription";
         const name = "Unittest process";
 
-        let oldState = new ProcessState();
+        const oldState = new ProcessState();
         let newState = processReducer(oldState, {
           type: ProcessActionType.CreateInDb,
           workspaceId: workspaceId,
@@ -118,10 +118,10 @@ describe("sdk", function () {
       });
 
       it("soll PROCESSACTION_DELETEFROMDB korrekt reducen", function () {
-        let processId = createId();
+        const processId = createId();
 
-        let oldState = new ProcessState();
-        let newState = processReducer(oldState, {
+        const oldState = new ProcessState();
+        const newState = processReducer(oldState, {
           type: ProcessActionType.DeleteFromDb,
           processId: processId
         });
@@ -130,8 +130,8 @@ describe("sdk", function () {
       });
 
       it("soll PROCESSACTION_DELETEFROMDBDONE korrekt reducen", function () {
-        let oldState = new ProcessState();
-        let processId = createId();
+        const oldState = new ProcessState();
+        const processId = createId();
 
         let newState = processReducer(oldState, {
           type: ProcessActionType.DeleteFromDb,

@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 export interface LibraryTag {
   // Changes must also be reflected in gqlTypes and gqlFragments below!
   tagName: string;
-  tagRelevance: number;  // increased every time a user clicks on a tag
+  tagRelevance: number;  // Increased every time a user clicks on a tag
 }
 export const gqlLibraryTypes = `     
   type LibraryTag {

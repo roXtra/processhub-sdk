@@ -60,7 +60,7 @@ export interface GetFolderContentReply extends BaseReply {
 }
 
 export interface GetFileDetailsRequest {
-  
+
 }
 export interface GetFileDetailsReply {
 

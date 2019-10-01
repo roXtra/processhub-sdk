@@ -10,7 +10,7 @@ declare module "diagram-js/lib/core/Canvas" {
    * The main drawing canvas.
    *
    * @class
-   * @constructor  
+   * @constructor
    */
   export default class Canvas {
 
@@ -116,7 +116,7 @@ declare module "diagram-js/lib/core/Canvas" {
      *
      * @return {Object|djs.model.Root} new root element
      */
-    public setRootElement(element: Object, override: boolean): Object;
+    public setRootElement(element: Record<string, any>, override: boolean): Record<string, any>;
 
     /**
      * Adds an element to the canvas.
@@ -244,7 +244,7 @@ declare module "diagram-js/lib/core/Canvas" {
      * @param {Number} [delta.dx]
      * @param {Number} [delta.dy]
      */
-    public scroll(delta: Object): Object;
+    public scroll(delta: Record<string, any>): Record<string, any>;
 
     /**
      * Gets or sets the current zoom of the canvas, optionally zooming
@@ -266,7 +266,7 @@ declare module "diagram-js/lib/core/Canvas" {
      *
      * @return {Dimensions}
      */
-    public getSize(): Object;
+    public getSize(): Record<string, any>;
 
     /**
      * Return the absolute bounding box for the given element
@@ -286,7 +286,7 @@ declare module "diagram-js/lib/core/Canvas" {
      */
     public resized(): void;
 
-    // display the complete diagram without zooming in.
+    // Display the complete diagram without zooming in.
     // instead of relying on internal zoom, we perform a
     // hard reset on the canvas viewbox to realize this
     //
@@ -314,7 +314,7 @@ declare module "diagram-js/lib/core/Canvas" {
   }
 
   export interface ICanvasConfig {
-    // debounce canvas.viewbox.changed events
+    // Debounce canvas.viewbox.changed events
     // for smoother diagram interaction
     deferUpdate: boolean;
 

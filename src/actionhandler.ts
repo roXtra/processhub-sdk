@@ -15,16 +15,16 @@ export interface ExtrasRequest {
   userExtras?: UserExtras;
 }
 
-export class ActionHandler extends ApiClient { 
+export class ActionHandler extends ApiClient {
 
-  constructor(apiHost: string = "https://app.processhub.com", accessToken?: string) {
+  constructor(apiHost = "https://app.processhub.com", accessToken?: string) {
     super(apiHost, accessToken);
   }
 
   // Load Page "/@workspace/..."
   gotoPage(_path: string): void {
     // TypeScript requires that all functions in classes are defined. We throw an assertion for
-    // functions that must be overridden in derived ActionHandlers 
+    // functions that must be overridden in derived ActionHandlers
     Assert.error();
   }
 
@@ -39,7 +39,7 @@ export class ActionHandler extends ApiClient {
   openAccountPopup(): void {
     Assert.error();
   }
-  
+
   closeInstancePopup(): void {
     Assert.error();
   }

@@ -7,9 +7,9 @@ describe("tools", function () {
     describe("sleep", function () {
       it("should wait", async function () {
 
-        let startat = new Date().getTime();
+        const startat = new Date().getTime();
         await sleep(1200);
-        let endat = new Date().getTime();
+        const endat = new Date().getTime();
         assert.isAtLeast(endat - startat, 1000);
       });
     });

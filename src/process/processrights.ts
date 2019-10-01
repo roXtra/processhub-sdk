@@ -19,15 +19,15 @@ export enum ProcessAccessRights {
   ManageProcess = 1 << 1,
   StartProcess = 1 << 2,
   ViewProcess = 1 << 3,
-  ViewArchive = 1 << 4,  // access to archive tab (available for all workspace members)
-  ViewTodos = 1 << 6,  // access to dashboard tab (available for all members and guests)
-  ViewAllTodos = 1 << 7,  // user can see all instances, not only instance with own role
-  StartProcessByMail = 1 << 8,  // user can start this process by mail
-  StartProcessByTimer = 1 << 9  // user can start this process by timer
+  ViewArchive = 1 << 4,  // Access to archive tab (available for all workspace members)
+  ViewTodos = 1 << 6,  // Access to dashboard tab (available for all members and guests)
+  ViewAllTodos = 1 << 7,  // User can see all instances, not only instance with own role
+  StartProcessByMail = 1 << 8,  // User can start this process by mail
+  StartProcessByTimer = 1 << 9  // User can start this process by timer
 }
 
 export interface ProcessRoles {
-  [roleId: string]: ProcessRole; // roleId ist RollenId bzw. LaneId des Prozesses
+  [roleId: string]: ProcessRole; // RoleId ist RollenId bzw. LaneId des Prozesses
 }
 export const DefaultRoles = {
   Owner: "OWNER", // DO NOT CHANGE - string used in database
@@ -51,13 +51,13 @@ export function getDefaultRoleName(roleId: string): string {
 }
 
 export interface ProcessRole {
-  // DO NOT CHANGE MEMBER NAMES - object stored in Db in json-format 
+  // DO NOT CHANGE MEMBER NAMES - object stored in Db in json-format
   roleName?: string;
   potentialRoleOwners: RoleOwner[];
-  isStartingRole?: boolean;  // this role is allowed to start the process
-  isStartingByMailRole?: boolean;  // this role is allowed to start the process with an incoming mail
-  isStartingByTimerRole?: boolean;  // this role is allowed to start the process with an timer
-  allowMultipleOwners?: boolean;  // role can have multiple simultaneous role owners 
+  isStartingRole?: boolean;  // This role is allowed to start the process
+  isStartingByMailRole?: boolean;  // This role is allowed to start the process with an incoming mail
+  isStartingByTimerRole?: boolean;  // This role is allowed to start the process with an timer
+  allowMultipleOwners?: boolean;  // Role can have multiple simultaneous role owners
 }
 export interface PotentialRoleOwners {
   potentialRoleOwner: RoleOwner[];
@@ -86,12 +86,12 @@ export function isDefaultProcessRole(roleId: string): boolean {
 }
 
 export function getProcessRoles(currentRoles: ProcessRoles, bpmnProcess: BpmnProcess, workspace: WorkspaceDetails): ProcessRoles {
-  // add entries for all existing roles in the process
+  // Add entries for all existing roles in the process
   let processRoles = currentRoles;
   if (processRoles == null)
     processRoles = {};
 
-  // public processes have been removed for now, does not seem to make sense with current version
+  // Public processes have been removed for now, does not seem to make sense with current version
   if (workspace.workspaceType === WorkspaceType.Templates) {
     processRoles[DefaultRoles.Viewer] = { potentialRoleOwners: [{ memberId: PredefinedGroups.Public }] };
   }
@@ -102,31 +102,31 @@ export function getProcessRoles(currentRoles: ProcessRoles, bpmnProcess: BpmnPro
     delete (processRoles[DefaultRoles.Manager]);
   }
 
-  // everybody can be added as a follower
+  // Everybody can be added as a follower
   processRoles[DefaultRoles.Follower] = { potentialRoleOwners: [{ memberId: getDefaultRoleGroup() }], allowMultipleOwners: true };
 
   if (bpmnProcess != null) {
-    // set default owners for all roles
-    let lanes = bpmnProcess.getLanes(false);
+    // Set default owners for all roles
+    const lanes = bpmnProcess.getLanes(false);
     lanes.map(lane => {
       if (processRoles[lane.id] == null) {
         processRoles[lane.id] = { potentialRoleOwners: [{ memberId: getDefaultRoleGroup() }] };
       }
       processRoles[lane.id].roleName = lane.name;
 
-      // clean up starting role setting from all lanes, will be added again in next step
+      // Clean up starting role setting from all lanes, will be added again in next step
       delete (processRoles[lane.id].isStartingRole);
       delete (processRoles[lane.id].isStartingByMailRole);
       delete (processRoles[lane.id].isStartingByTimerRole);
     });
 
-    // set starting roles
+    // Set starting roles
     const startEvents = bpmnProcess.getStartEvents(bpmnProcess.processId());
     startEvents.map(startEvent => {
       const isMessageStartEvent: boolean = startEvent.eventDefinitions != null && startEvent.eventDefinitions.find(e => e.$type === "bpmn:MessageEventDefinition") != null;
       const isTimerStartEvent: boolean = startEvent.eventDefinitions != null && startEvent.eventDefinitions.find(e => e.$type === "bpmn:TimerEventDefinition") != null;
-      let role = bpmnProcess.getLaneOfFlowNode(startEvent.id);
-      if (role) { // in new processes somehow the start element is not in a lane (yet)
+      const role = bpmnProcess.getLaneOfFlowNode(startEvent.id);
+      if (role) { // In new processes somehow the start element is not in a lane (yet)
         if (isMessageStartEvent) {
           processRoles[role.id].isStartingByMailRole = true;
         } else if (isTimerStartEvent) {
@@ -137,8 +137,8 @@ export function getProcessRoles(currentRoles: ProcessRoles, bpmnProcess: BpmnPro
       }
     });
 
-    // remove roles that are not used any more
-    for (let role in processRoles) {
+    // Remove roles that are not used any more
+    for (const role in processRoles) {
       if (role !== DefaultRoles.Owner && role !== DefaultRoles.Manager && role !== DefaultRoles.Viewer && role !== DefaultRoles.Follower) {
         if (lanes.find(lane => lane.id === role) == null)
           delete (processRoles[role]);
@@ -149,10 +149,10 @@ export function getProcessRoles(currentRoles: ProcessRoles, bpmnProcess: BpmnPro
   return processRoles;
 }
 
-export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspace: WorkspaceDetails, process: ProcessDetails, ignorePublic: boolean = false): boolean {
-  // user == null -> check if guest is PotentialRoleOwner
+export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspace: WorkspaceDetails, process: ProcessDetails, ignorePublic = false): boolean {
+  // User == null -> check if guest is PotentialRoleOwner
   // roleId == null -> check if user is PotentialRoleOwner of any role
-  let roles = process.extras.processRoles;
+  const roles = process.extras.processRoles;
   if (roles == null) {
     console.error("isPotentialRoleOwner called without valid process.extras.processRoles");
     return false;
@@ -165,8 +165,8 @@ export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspac
   }
 
   if (roleId == null) {
-    // check if user is PotentialRoleOwner of any role
-    for (let role in roles) {
+    // Check if user is PotentialRoleOwner of any role
+    for (const role in roles) {
       if (isPotentialRoleOwner(user, role, workspace, process, ignorePublic) === true)
         return true;
     }
@@ -176,9 +176,9 @@ export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspac
   if (roles[roleId] == null || roles[roleId].potentialRoleOwners == null)
     return false;
 
-  for (let member of roles[roleId].potentialRoleOwners) {
+  for (const member of roles[roleId].potentialRoleOwners) {
     if (user && member.memberId === user.userId) {
-      // always accept current roleOwners (process might have been changed, we still want to accept existing owners)
+      // Always accept current roleOwners (process might have been changed, we still want to accept existing owners)
       return true;
     }
     if (!ignorePublic && (member.memberId === PredefinedGroups.Public
@@ -205,9 +205,9 @@ export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspac
       || roles[roleId].potentialRoleOwners.find(potentialRoleOwner => potentialRoleOwner.memberId === PredefinedGroups.Public)) {
       // Bei Sichtbarkeit "AllParticipants" oder "Public" muss geprüft werden, ob User in einer der anderen Rollen eingetragen ist
       // Der Fall Public ist nur bei ignorePublic relevant
-      for (let role in roles) {
+      for (const role in roles) {
         if (role !== DefaultRoles.Viewer
-          // AllParticipants soll allen Teilnehmern, die eine Rolle im Prozess haben, Lesezugriff gewähren. Allerdings 
+          // AllParticipants soll allen Teilnehmern, die eine Rolle im Prozess haben, Lesezugriff gewähren. Allerdings
           // nur den explizit genannten Teilnehmern, nicht der Public-Gruppe, sonst wäre jeder Prozess,
           // bei dem externe Personen teilnehmen dürfen, automatisch Public.
           && isPotentialRoleOwner(user, role, workspace, process, true)) {
@@ -237,26 +237,26 @@ function addIfLicenseAllows(owners: PotentialRoleOwners, user: UserDetails): voi
 }
 
 export function getPotentialRoleOwners(workspaceDetails: WorkspaceDetails, processDetails: ProcessDetails, roleId: string = null): { [roleId: string]: PotentialRoleOwners } {
-  let allOwners: { [roleId: string]: PotentialRoleOwners } = {};
+  const allOwners: { [roleId: string]: PotentialRoleOwners } = {};
 
   if (processDetails.extras.processRoles == null) {
     return allOwners;
   }
 
-  for (let role in processDetails.extras.processRoles) {
+  for (const role in processDetails.extras.processRoles) {
     if ((roleId == null || role === roleId) && processDetails.extras.processRoles[role]) {
-      let owners: PotentialRoleOwners = {
+      const owners: PotentialRoleOwners = {
         potentialRoleOwner: []
       };
       let addedWsMembers = false;
-      for (let potentialOwner of processDetails.extras.processRoles[role].potentialRoleOwners) {
+      for (const potentialOwner of processDetails.extras.processRoles[role].potentialRoleOwners) {
         if ((potentialOwner.memberId === PredefinedGroups.AllWorkspaceMembers
           || potentialOwner.memberId === PredefinedGroups.Everybody)
           && !addedWsMembers) {
-          // all workspace members are potential owners
+          // All workspace members are potential owners
           if (workspaceDetails.extras.members) {
-            // if someone is not a workspace member he does not have access to the member list, so this list is empty
-            for (let member of workspaceDetails.extras.members) {
+            // If someone is not a workspace member he does not have access to the member list, so this list is empty
+            for (const member of workspaceDetails.extras.members) {
               addIfLicenseAllows(owners, member.userDetails);
             }
             addedWsMembers = true; // Merken, damit Member nicht mehrfach hinzugefügt werden, falls beide Gruppen genannt werden
@@ -304,7 +304,7 @@ export function isProcessManager(process: ProcessDetails): boolean {
   if (process == null)
     return false;
 
-  // owner are managers
+  // Owner are managers
   return isProcessOwner(process) || ((process.userRights & ProcessAccessRights.ManageProcess) !== 0);
 }
 
@@ -344,7 +344,7 @@ export function canStartProcess(process: ProcessDetails, startEventId: string): 
   if (process.userStartEvents == null || _.isEqual(process.userStartEvents, {}))
     return canStartProcessOld(process);
 
-  // if userStartEvent is in map, user is allowed to start process
+  // If userStartEvent is in map, user is allowed to start process
   return process.userStartEvents[startEventId] != null;
 }
 export function canStartProcessOld(process: ProcessDetails): boolean {

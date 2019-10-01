@@ -64,11 +64,11 @@ export function nullId(): string {
 }
 
 export function isTempUserId(id: string): boolean {
-  let prefixLength = TEMP_USERID_PREFIX.length;
+  const prefixLength = TEMP_USERID_PREFIX.length;
   return (id.substr(0, prefixLength) === TEMP_USERID_PREFIX);
 }
 
-// number format 123.4567.890
+// Number format 123.4567.890
 export function createInstanceNumber(): string {
   return Math.floor(1000 + Math.random() * 1000).toString().substr(1, 3) + "." + Math.floor(10000 + Math.random() * 10000).toString().substr(1, 4) + "." + Math.floor(1000 + Math.random() * 1000).toString().substr(1, 3);
 }

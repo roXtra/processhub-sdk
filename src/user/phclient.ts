@@ -6,11 +6,11 @@ import { ApiResult } from "../legacyapi/apiinterfaces";
 export class UserState {
   currentUser?: UserDetails;
 
-  lastApiResult?: ApiResult;  // result of the last Api call
+  lastApiResult?: ApiResult;  // Result of the last Api call
 
   // updated in reducers, helps React to detect state changes
   cacheState?: string;
-  lastDispatchedUser?: UserDetails; // used in reducer to detect changes
+  lastDispatchedUser?: UserDetails; // Used in reducer to detect changes
 }
 
 export const UserMessages = {

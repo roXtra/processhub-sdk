@@ -136,7 +136,7 @@ export interface DeleteAttachmentReply extends InstanceReply {
 export interface CommentRequest extends InstanceRequest {
   instanceId: string;
   comment: string;
-  trailId: string;  
+  trailId: string;
   attachments: string[];
 }
 export interface DeleteCommentRequest extends InstanceRequest {

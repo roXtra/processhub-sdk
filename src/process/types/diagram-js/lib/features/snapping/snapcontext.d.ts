@@ -1,4 +1,4 @@
-// tslint:disable:max-classes-per-file
+// Tslint:disable:max-classes-per-file
 declare module "diagram-js/lib/features/snapping/SnapContext" {
 
   import { IPoint } from "diagram-js";
@@ -67,7 +67,7 @@ declare module "diagram-js/lib/features/snapping/SnapContext" {
      *
      * @param {Element|String} target
      */
-    public pointsForTarget(target: Element | String): SnapPoints[];
+    public pointsForTarget(target: Element | string): SnapPoints[];
   }
 
   export class SnapPoints {
@@ -78,7 +78,7 @@ declare module "diagram-js/lib/features/snapping/SnapContext" {
      *
      * @type {Object}
      */
-    protected _snapValues: Object;
+    protected _snapValues: Record<string, any>;
 
     /**
      * Creates the snap points and initializes them with the

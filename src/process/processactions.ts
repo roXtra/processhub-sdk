@@ -97,9 +97,9 @@ export function createProcessInDbAction(processDetails: ProcessDetails, accessTo
       description: processDetails.description,
       processName: processDetails.displayName
     });
-    let bpmnProcess = processDetails.extras.bpmnProcess;
+    const bpmnProcess = processDetails.extras.bpmnProcess;
     processDetails.extras.bpmnProcess = null;
-    let response: GetProcessDetailsReply = await Api.postJson(ProcessRequestRoutes.CreateProcess, {
+    const response: GetProcessDetailsReply = await Api.postJson(ProcessRequestRoutes.CreateProcess, {
       processDetails: processDetails
     }, accessToken);
     dispatch(response);
@@ -118,7 +118,7 @@ export function deleteProcessFromDbAction(processId: string, accessToken: string
       type: ProcessActionType.DeleteFromDb as ProcessActionType,
       processId: processId,
     });
-    let response: Api.BaseMessage = await Api.postJson(ProcessRequestRoutes.DeleteProcess, {
+    const response: Api.BaseMessage = await Api.postJson(ProcessRequestRoutes.DeleteProcess, {
       processId: processId,
     }, accessToken);
     dispatch(response);
@@ -126,7 +126,7 @@ export function deleteProcessFromDbAction(processId: string, accessToken: string
   };
 }
 
-// mergeProcessToCache cannot run async because it is used from reducers
+// MergeProcessToCache cannot run async because it is used from reducers
 // completeProcessFromCache also inits bpmnProcess if required
 export async function completeProcessFromCache(process: ProcessDetails): Promise<ProcessDetails> {
   if (process == null)
@@ -153,24 +153,24 @@ export async function getAllServices(): Promise<GetAllServicesReply> {
 
 export function getAllServicesAction(): <S>(dispatch: Dispatch<S>) => Promise<GetAllServicesReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<GetAllServicesReply> => {
-    let response: GetAllServicesReply = await Api.postJson(ProcessRequestRoutes.GetAllServices, {} as GetAllServicesRequest) as GetAllServicesReply;
+    const response: GetAllServicesReply = await Api.postJson(ProcessRequestRoutes.GetAllServices, {} as GetAllServicesRequest) as GetAllServicesReply;
     return response;
   };
 }
 
-export async function loadProcess(processId: string, instanceId?: string, getExtras: ProcessExtras = ProcessExtras.ExtrasBpmnXml, forceReload: boolean = false, accessToken: string = null): Promise<ProcessDetails> {
-  let processState = rootStore.getState().processState;
+export async function loadProcess(processId: string, instanceId?: string, getExtras: ProcessExtras = ProcessExtras.ExtrasBpmnXml, forceReload = false, accessToken: string = null): Promise<ProcessDetails> {
+  const processState = rootStore.getState().processState;
   let cachedProcess = null;
 
   if (!forceReload && processState.processCache)
     cachedProcess = processState.processCache[processId];
   if (cachedProcess != null) {
-    // Ignore call if all data 
+    // Ignore call if all data
     if ((getExtras & ProcessExtras.ExtrasBpmnXml) && cachedProcess.extras.bpmnXml) {
       getExtras -= ProcessExtras.ExtrasBpmnXml;
       if (cachedProcess.extras.bpmnProcess == null) {
-        // special case: Process might be in cache with ExtrasBpmnXml but without bpmnProcess. That can happen when mergeToCache e.g. moves workspace processes to
-        // cache. As mergeToCache can only be used sync it cannot init bpmnProcess. 
+        // Special case: Process might be in cache with ExtrasBpmnXml but without bpmnProcess. That can happen when mergeToCache e.g. moves workspace processes to
+        // cache. As mergeToCache can only be used sync it cannot init bpmnProcess.
         cachedProcess.extras.bpmnProcess = new BpmnProcess();
         await cachedProcess.extras.bpmnProcess.loadXml(cachedProcess.extras.bpmnXml);
       }
@@ -188,7 +188,7 @@ export async function loadProcess(processId: string, instanceId?: string, getExt
       getExtras -= ProcessExtras.ExtrasSvgString;
 
     if (getExtras === 0) {
-      // all data available from cache
+      // All data available from cache
       rootStore.dispatch({
         type: PROCESSLOADED_MESSAGE,
         processDetails: cachedProcess
@@ -203,7 +203,7 @@ export async function loadProcess(processId: string, instanceId?: string, getExt
 
 export function loadProcessAction(processId: string, instanceId?: string, processExtras?: ProcessExtras, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<GetProcessDetailsReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<GetProcessDetailsReply> => {
-    let request: GetProcessDetailsRequest = {
+    const request: GetProcessDetailsRequest = {
       processId: processId,
       getExtras: processExtras
     };
@@ -211,7 +211,7 @@ export function loadProcessAction(processId: string, instanceId?: string, proces
     if (instanceId != null)
       request.instanceId = instanceId;
 
-    let response: GetProcessDetailsReply = await Api.getJson(ProcessRequestRoutes.GetProcessDetails, request, accessToken);
+    const response: GetProcessDetailsReply = await Api.getJson(ProcessRequestRoutes.GetProcessDetails, request, accessToken);
     if (response.processDetails)
       response.processDetails = await completeProcessFromCache(response.processDetails);
 
@@ -221,10 +221,10 @@ export function loadProcessAction(processId: string, instanceId?: string, proces
 }
 
 export function setLocalProcessXml(xmlStr: string) {
-  rootStore.dispatch(<ProcessActionSave>{
+  rootStore.dispatch({
     type: ProcessActionType.Save as ProcessActionType,
     xmlStr: xmlStr
-  });
+  } as ProcessActionSave);
 }
 
 export async function processChanged(bpmnProcess: BpmnProcess) {
@@ -234,27 +234,27 @@ export async function processChanged(bpmnProcess: BpmnProcess) {
 export function processChangedAction(bpmnProcess: BpmnProcess) {
   return async function (dispatch: any) {
     rootStore.getState();
-    let processXml = await bpmnProcess.toXmlString();
+    const processXml = await bpmnProcess.toXmlString();
     if (processXml != null)
-      dispatch(<ProcessActionSave>{
+      dispatch({
         type: ProcessActionType.Save as ProcessActionType,
         xmlStr: processXml,
         bpmnProcess: bpmnProcess
-      });
+      } as ProcessActionSave);
     else
-      dispatch(<ProcessActionSave>{
+      dispatch({
         type: ProcessActionType.Save as ProcessActionType
-        // ohne process ist Aufruf fehlgeschlagen
-      });
+        // Ohne process ist Aufruf fehlgeschlagen
+      } as ProcessActionSave);
   };
 }
 
 export async function createNewLocalProcess(workspaceId: string): Promise<GetProcessDetailsReply> {
-  let process: BpmnProcess = new BpmnProcess();
+  const process: BpmnProcess = new BpmnProcess();
   await process.loadFromTemplate();
-  let xml = await process.toXmlString();
+  const xml = await process.toXmlString();
 
-  let details: ProcessDetails = {
+  const details: ProcessDetails = {
     processId: createId(),
     workspaceId: workspaceId,
     displayName: tl("Neuer Prozess"),
@@ -283,35 +283,35 @@ export async function createNewLocalProcess(workspaceId: string): Promise<GetPro
   };
 }
 
-export async function unloadCurrentProcess(): Promise<void> {
-  await rootStore.dispatch<ProcessLoadedMessage>({
+export function unloadCurrentProcess(): void {
+  rootStore.dispatch<ProcessLoadedMessage>({
     type: PROCESSLOADED_MESSAGE,
     processDetails: null
   });
 }
 
 export async function updateProcess(processDetails: ProcessDetails, accessToken: string = null): Promise<GetProcessDetailsReply> {
-  // siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
+  // Siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
   return await rootStore.dispatch(updateProcessAction(processDetails, accessToken));
 }
 
 export function updateProcessAction(process: ProcessDetails, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<GetProcessDetailsReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<GetProcessDetailsReply> => {
-    dispatch(<ProcessActionGetProcessDetails>{
+    dispatch({
       type: ProcessActionType.GetProcessDetails as ProcessActionType
-    });
+    } as ProcessActionGetProcessDetails);
 
-    // bpmnProcess cannot be serialized    
+    // BpmnProcess cannot be serialized
     process.extras.bpmnProcess = null;
     const requestDetails = _.clone(process);
     requestDetails.extras.instances = undefined;
     requestDetails.extras.auditTrail = undefined;
 
-    let response: GetProcessDetailsReply = await Api.postJson(ProcessRequestRoutes.UpdateProcess, {
+    const response: GetProcessDetailsReply = await Api.postJson(ProcessRequestRoutes.UpdateProcess, {
       processDetails: requestDetails
     }, accessToken);
 
-    // update extras svg string from local change
+    // Update extras svg string from local change
     if (response.processDetails.extras.svgString == null && process.extras.svgString != null) {
       response.processDetails.extras.svgString = process.extras.svgString;
     }
@@ -324,16 +324,16 @@ export function updateProcessAction(process: ProcessDetails, accessToken: string
 }
 
 export async function listPublicProcesses(accessToken: string = null): Promise<GetPublicProcessesReply> {
-  // siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
+  // Siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
   return await rootStore.dispatch(listPublicProcessesAction(accessToken));
 }
 
 export function listPublicProcessesAction(accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<GetPublicProcessesReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<GetProcessDetailsReply> => {
-    dispatch(<ProcessActionGetProcessDetails>{
+    dispatch({
       type: ProcessActionType.GetProcessDetails as ProcessActionType
-    });
-    let response: GetProcessDetailsReply = await Api.postJson(ProcessRequestRoutes.GetPublicProcesses, {}, accessToken);
+    } as ProcessActionGetProcessDetails);
+    const response: GetProcessDetailsReply = await Api.postJson(ProcessRequestRoutes.GetPublicProcesses, {}, accessToken);
     dispatch(response);
     return response;
   };
@@ -345,10 +345,10 @@ export async function copyProcess(processId: string, targetWorkspaceId: string, 
 
 export function copyProcessAction(processId: string, targetWorkspaceId: string, displayName: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<GetProcessDetailsReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<GetProcessDetailsReply> => {
-    dispatch(<ProcessActionGetProcessDetails>{
+    dispatch({
       type: ProcessActionType.GetProcessDetails as ProcessActionType
-    });
-    let response: GetProcessDetailsReply = await Api.postJson(
+    } as ProcessActionGetProcessDetails);
+    const response: GetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.CopyProcess,
       { processId, targetWorkspaceId, displayName } as CopyProcessRequest,
       accessToken);
@@ -365,7 +365,7 @@ export async function rateProcess(processId: string, ratingDiff: number, accessT
 
 export function rateProcessAction(processId: string, ratingDiff: number, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<Api.BaseReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<Api.BaseReply> => {
-    let response: GetProcessDetailsReply = await Api.postJson(
+    const response: GetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.RateProcess,
       { processId, ratingDiff } as RateProcessRequest,
       accessToken);
@@ -388,7 +388,7 @@ export function addRoXtraFileAction(processId: string, fileName: string, fileId:
     iconLink,
   };
   return async <S>(dispatch: Dispatch<S>): Promise<GetProcessDetailsReply> => {
-    let response: GetProcessDetailsReply = await Api.postJson(
+    const response: GetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.AddRoXtraFile,
       request,
       accessToken);
@@ -396,7 +396,7 @@ export function addRoXtraFileAction(processId: string, fileName: string, fileId:
     response.processDetails = await completeProcessFromCache(response.processDetails);
     dispatch(response);
     return response;
-  };  
+  };
 }
 
 export async function uploadFile(processId: string, fileName: string, data: string, accessToken: string = null): Promise<GetProcessDetailsReply> {
@@ -405,7 +405,7 @@ export async function uploadFile(processId: string, fileName: string, data: stri
 
 export function uploadFileAction(processId: string, fileName: string, data: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<GetProcessDetailsReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<GetProcessDetailsReply> => {
-    let response: GetProcessDetailsReply = await Api.postJson(
+    const response: GetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.UploadFile,
       { processId, fileName, data } as UploadFileRequest,
       accessToken);
@@ -423,7 +423,7 @@ export async function uploadReportDraft(processId: string, fileName: string, dat
 
 export function uploadReportDraftAction(processId: string, fileName: string, data: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<GetProcessDetailsReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<GetProcessDetailsReply> => {
-    let response: GetProcessDetailsReply = await Api.postJson(
+    const response: GetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.UploadReportDraft,
       { processId, fileName, data } as UploadReportDraftRequest,
       accessToken);
@@ -440,7 +440,7 @@ export async function deleteReportDraft(processId: string, draftId: string, acce
 
 export function deleteReportDraftAction(processId: string, draftId: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<GetProcessDetailsReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<GetProcessDetailsReply> => {
-    let response: GetProcessDetailsReply = await Api.postJson(
+    const response: GetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.DeleteReportDraft,
       { processId, draftId } as DeleteReportDraftRequest,
       accessToken);
@@ -457,7 +457,7 @@ export async function deleteFile(processId: string, attachmentId: string, access
 
 export function deleteFileAction(processId: string, attachmentId: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<GetProcessDetailsReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<GetProcessDetailsReply> => {
-    let response: GetProcessDetailsReply = await Api.postJson(
+    const response: GetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.DeleteFile,
       { processId, attachmentId } as DeleteFileRequest,
       accessToken);
@@ -469,13 +469,13 @@ export function deleteFileAction(processId: string, attachmentId: string, access
 }
 
 export async function getTimersOfProcess(processId: string, accessToken: string = null): Promise<GetTimersOfProcessReply> {
-  // siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
+  // Siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
   return await rootStore.dispatch(getTimersOfProcessAction(processId, accessToken));
 }
 
 export function getTimersOfProcessAction(processId: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<GetTimersOfProcessReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<GetTimersOfProcessReply> => {
-    let response: GetTimersOfProcessReply = await Api.postJson(ProcessRequestRoutes.GetTimers, {
+    const response: GetTimersOfProcessReply = await Api.postJson(ProcessRequestRoutes.GetTimers, {
       processId: processId
     }, accessToken);
 
@@ -484,13 +484,13 @@ export function getTimersOfProcessAction(processId: string, accessToken: string 
   };
 }
 export async function setTimersOfProcess(processId: string, timers: TimerStartEventConfiguration[], accessToken: string = null): Promise<SetTimersOfProcessReply> {
-  // siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
+  // Siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
   return await rootStore.dispatch(setTimersOfProcessAction(processId, timers, accessToken));
 }
 
 export function setTimersOfProcessAction(processId: string, timers: TimerStartEventConfiguration[], accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<SetTimersOfProcessReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<SetTimersOfProcessReply> => {
-    let response: SetTimersOfProcessReply = await Api.postJson(ProcessRequestRoutes.SetTimers, {
+    const response: SetTimersOfProcessReply = await Api.postJson(ProcessRequestRoutes.SetTimers, {
       processId: processId,
       timers: timers
     }, accessToken);
@@ -501,13 +501,13 @@ export function setTimersOfProcessAction(processId: string, timers: TimerStartEv
 }
 
 export async function getProcessStatistics(processId: string, fromDate: Date = null, tillDate: Date = null, accessToken: string = null): Promise<GetProcessStatisticsReply> {
-  // siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
+  // Siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
   return await rootStore.dispatch(getProcessStatisticsAction(processId, fromDate, tillDate, accessToken));
 }
 
 export function getProcessStatisticsAction(processId: string, fromDate: Date, tillDate: Date, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<GetProcessStatisticsReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<GetProcessStatisticsReply> => {
-    let response: GetProcessStatisticsReply = await Api.postJson(ProcessRequestRoutes.GetProcessStatistics, {
+    const response: GetProcessStatisticsReply = await Api.postJson(ProcessRequestRoutes.GetProcessStatistics, {
       processId: processId,
       fromDate: fromDate,
       tillDate: tillDate

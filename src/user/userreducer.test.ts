@@ -12,27 +12,27 @@ describe("sdk", function () {
     describe("userReducer", function () {
 
       it("soll USERACTION_LOGIN korrekt reducen", function () {
-        let oldState: UserState = { lastApiResult: ApiResult.API_ERROR };
-        let user = { userId: createUserId() };
-        let newState = userReducer(oldState, <UserActionLoggedIn>{
+        const oldState: UserState = { lastApiResult: ApiResult.API_ERROR };
+        const user = { userId: createUserId() };
+        const newState = userReducer(oldState, {
           type: UserActionsType.LoggedIn,
           userDetails: user
-        });
+        } as UserActionLoggedIn);
         assert.deepEqual<any>(newState, { currentUser: user, lastApiResult: ApiResult.API_OK });
       });
 
       it("soll USERACTION_FAILED korrekt reducen", function () {
-        let oldState: UserState = { lastApiResult: ApiResult.API_ERROR };
-        let newState = userReducer(oldState, <UserActionFailed>{
+        const oldState: UserState = { lastApiResult: ApiResult.API_ERROR };
+        const newState = userReducer(oldState, {
           type: UserActionsType.Failed,
           result: ApiResult.API_DENIED
-        });
+        } as UserActionFailed);
         assert.deepEqual<any>(newState, { lastApiResult: ApiResult.API_DENIED });
       });
 
       it("soll unbekannte Actions korrekt reducen", function () {
-        let oldState: UserState = { lastApiResult: ApiResult.API_ERROR };
-        let newState = userReducer(oldState, {
+        const oldState: UserState = { lastApiResult: ApiResult.API_ERROR };
+        const newState = userReducer(oldState, {
           type: "UNKNOWN"
         });
         assert.deepEqual(newState, oldState);

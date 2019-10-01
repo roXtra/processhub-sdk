@@ -54,7 +54,7 @@ declare module "diagram-js/lib/layout/ManhattanLayout" {
    *
    * @return {Array<Point>} connection points
    */
-  export function connectRectangles(source: IBounds, target: IBounds, start: IPoint, end: IPoint, hints: Object): IPoint[];
+  export function connectRectangles(source: IBounds, target: IBounds, start: IPoint, end: IPoint, hints: Record<string, any>): IPoint[];
 
   /**
    * Repair the connection between two rectangles, of which one has been updated.
@@ -84,7 +84,7 @@ declare module "diagram-js/lib/layout/ManhattanLayout" {
    *
    * @return {Array<Point>} waypoints if straight layout worked
    */
-  export function layoutStraight(source: IBounds, target: IBounds, start: IPoint, end: IPoint, hints: Object): IPoint[];
+  export function layoutStraight(source: IBounds, target: IBounds, start: IPoint, end: IPoint, hints: Record<string, any>): IPoint[];
 
   /**
    * Repair a connection from one side that moved.

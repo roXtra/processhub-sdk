@@ -38,7 +38,7 @@ export interface LoginReply extends BaseMessage {
 }
 
 export interface LoadUserRequest extends BaseRequest {
-  userId?: string; // if null userId will be determined by server from AccessToken cookie
+  userId?: string; // If null userId will be determined by server from AccessToken cookie
   getExtras: UserExtras;
 }
 export interface LoadUserReply extends BaseMessage {
@@ -93,7 +93,7 @@ export interface SetArchiveViewStateRequest extends BaseRequest {
   archiveViewId: string;
 }
 
-// nes websocket messages
+// Nes websocket messages
 export interface RemoveInstanceMessage extends BaseMessage {
   type: UserMessages;
   instanceId: string;

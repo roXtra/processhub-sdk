@@ -1,4 +1,4 @@
-// import { assert } from "chai";
+// Import { assert } from "chai";
 // import { fieldContentsExcerpt, parseInstanceMailAddress, getInstanceMailAddress } from "./instancetools";
 // import { createId } from "../tools/guid";
 // import * as InstanceActions from "./instanceactions";
@@ -9,9 +9,9 @@
 // import { InstanceState } from "./phclient";
 
 describe("sdk", function () {
-    describe("instance", function () {
-        
-        /* describe("instanceactions", function () {
+  describe("instance", function () {
+
+    /* Describe("instanceactions", function () {
             it("should check executeInstance Action", async () => {
 
                 let instanceDetails: PH.Instance.InstanceDetails = {
@@ -94,17 +94,17 @@ describe("sdk", function () {
 
                 rootStore.getState().instanceState = { instanceCache: { "xyz": instanceDetails }, lastDispatchedInstance: instanceDetails } as InstanceState;
                 let res = await InstanceActions.loadInstance("xyz",
-                    InstanceExtras.ExtrasAuditTrail | 
-                    InstanceExtras.ExtrasFieldContents | 
-                    InstanceExtras.ExtrasRoleOwners | 
-                    InstanceExtras.ExtrasRoleOwnersWithNames | 
-                    InstanceExtras.ExtrasState | 
-                    InstanceExtras.ExtrasTodos 
+                    InstanceExtras.ExtrasAuditTrail |
+                    InstanceExtras.ExtrasFieldContents |
+                    InstanceExtras.ExtrasRoleOwners |
+                    InstanceExtras.ExtrasRoleOwnersWithNames |
+                    InstanceExtras.ExtrasState |
+                    InstanceExtras.ExtrasTodos
                 );
                 // assert.isTrue(res.result === ApiResult.API_OK, "Wrong Api-Result");
                 // assert.isTrue(res.type === "Test Result", "Wrong api return type");
 
             });
         });*/
-    });
+  });
 });

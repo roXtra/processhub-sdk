@@ -51,7 +51,7 @@
   "scripts": {
     "build": "tsc && babel tsc_out --out-dir lib && npm run copytypings",
     "test": "npm run lint && npm run testcoverage",
-    "lint": "tslint --project tsconfig.json \"./src/**/*.ts*\"",
+    "lint": "eslint --ext .ts,.tsx ./src",
     "testall": "cross-env HOTRELOAD=no ts-mocha -p tsconfig.json ./src/**/*.test.ts --exit --timeout 10000 --recursive --require regenerator-runtime",
     "testcoverage": "nyc --reporter=lcov --reporter=text-summary npm run testall",
     "copytypings": "copyfiles -u 1 \"src/**/*.d.ts\" lib && copyfiles -u 1 \"src/*.d.ts\" lib && copyfiles -u 1 \"tsc_out/**/*.d.ts\" lib && copyfiles -u 1 \"tsc_out/*.d.ts\" lib && copyfiles -u 1 src/process/types/index.d.ts lib",
@@ -76,14 +76,17 @@
     "@types/react-router-redux": "^5.0.18",
     "@types/request": "0.0.44",
     "@types/webpack-env": "^1.14.0",
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
     "chai-exclude": "^2.0.2",
     "copyfiles": "^2.1.1",
     "cross-env": "^6.0.0",
+    "eslint": "^6.5.1",
+    "eslint-plugin-react": "^7.15.0",
     "mocha": "^6.2.0",
     "nyc": "^14.1.1",
     "regenerator-runtime": "^0.13.3",
     "ts-mocha": "^6.0.0",
-    "tslint": "^5.20.0",
     "typescript": "^3.6.3"
   },
   "files": [

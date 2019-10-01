@@ -64,7 +64,7 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
      *
      * @return {djs.model.Connection} the created connection.
      */
-    public createConnection(source: Base, target: Base, attrs: Object, parent: Base, hints: IConnectionHints): Connection;
+    public createConnection(source: Base, target: Base, attrs: Record<string, any>, parent: Base, hints: IConnectionHints): Connection;
     public createConnection(
       source: Base,
       target: Base,
@@ -77,7 +77,7 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
 
     public createLabel(labelTarget: Base, position: IPoint, options: ICreateLabelOptions, parent?: Base): Label;
 
-    public appendShape(source: Shape, shape: Shape, position: IPoint, target: Base, hints: { connection?: {}, connectionParent?: {}, attach?: boolean }): {};
+    public appendShape(source: Shape, shape: Shape, position: IPoint, target: Base, hints: { connection?: {}; connectionParent?: {}; attach?: boolean }): {};
 
     public removeElements(elements: Base[]): void;
 
@@ -85,9 +85,9 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
 
     public removeShape(shape: Shape, hints: IRemoveShapeHints): void;
 
-    public removeConnection(connection: Connection, hints: Object): void;
+    public removeConnection(connection: Connection, hints: Record<string, any>): void;
 
-    public replaceShape(oldshape: Base, newshape: Base, hints: Object): {};
+    public replaceShape(oldshape: Base, newshape: Base, hints: Record<string, any>): {};
 
     public pasteElements(tree: {}, topParent: {}, position: {}): {};
     public alignElements(elements: {}, alignment: {}): {};
@@ -99,7 +99,7 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
     public reconnectStart(connection: {}, newSource: {}, dockingOrPoints: {}): {};
     public reconnectEnd(connection: Connection, newTarget: Shape, dockingOrPoints: IPoint | IPoint[]): {};
 
-    public connect(source: Shape, target: Shape, attrs: Object, hints: IConnectionHints): Connection;
+    public connect(source: Shape, target: Shape, attrs: Record<string, any>, hints: IConnectionHints): Connection;
     public _create(type: {}, attrs: {}): {};
 
     public toggleCollapse(shape: Base, hints: {}): {};
@@ -117,7 +117,7 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
   export interface ICreateLabelOptions {
     id: string;
     hidden: boolean;
-    businessObject?: Object;
+    businessObject?: Record<string, any>;
     width: number;
     height: number;
   }

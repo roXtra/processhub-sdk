@@ -1,4 +1,4 @@
-// tslint:disable:no-empty-interface
+// Tslint:disable:no-empty-interface
 // tslint:disable:interface-name
 declare module "modeler/bpmn/processhub" {
   import Base = require("moddle/lib/base");
@@ -87,6 +87,6 @@ declare module "modeler/bpmn/processhub" {
     export interface OutputParameter extends InputOutputParameter {
       readonly $type: "processhub:OutputParameter";
     }
-    
+
   }
 }

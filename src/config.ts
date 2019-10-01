@@ -2,11 +2,11 @@ import { isRoxtraEdition } from "./settings";
 
 export function getBackendUrl(): string {
   if (process.env.API_URL != null) {
-    // defined by webpack => this code is running in the browser
-    let splittedUrl = window.location.href.split("/");
+    // Defined by webpack => this code is running in the browser
+    const splittedUrl = window.location.href.split("/");
     return splittedUrl[0] + "//" + splittedUrl[2];
   } else {
-    // this code is running on the server
+    // This code is running on the server
     if (isRoxtraEdition) {
       if (process.env.BACKEND_URL) {
         return process.env.BACKEND_URL;
@@ -15,7 +15,7 @@ export function getBackendUrl(): string {
       }
     } else {
       if (process.argv != null && process.argv.length === 3 && process.argv[2].startsWith("production")) {
-        // production flag is used on servers. When servers have to access the api they should NOT
+        // Production flag is used on servers. When servers have to access the api they should NOT
         // use app.processhub.com because this would route over AWS firewalls!
         // instead backendUrl is localhost for servers.
         if (process.argv[2] === "production_eb") {

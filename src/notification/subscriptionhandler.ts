@@ -21,50 +21,43 @@ export const PublishSubscriptionObjects: { [Id: string]: PublishSubscribeRegiste
   updateWorkspace: { wildcard: "{workspaceId}", subscriptionPath: "/ws/updateWorkspace/{workspaceId}", resolvePath: function (value: string) { return resolveFunction(this, value); } },
 };
 
-let subscriptionPaths: string[] = [];
+const subscriptionPaths: string[] = [];
 let notificationClient: any;
 
-let notificationHandler = (update: any, flags: any) => {
+const notificationHandler = (update: any, flags: any) => {
   StateHandler.rootStore.dispatch(update);
 };
 
-export async function initNotificationClient(user: UserDetails) {
+export async function initNotificationClient(user: UserDetails): Promise<void> {
   let wsUrl = getBackendUrl();
   wsUrl = wsUrl.replace("https://", "wss://");
   wsUrl = wsUrl.replace("http://", "ws://");
   notificationClient = new Nes.Client(wsUrl);
-  return new Promise<void>(async (resolve, reject) => {
-
-    // let authResult: any = await getJson("/nes/auth", { auth: user.extras.accessToken });
-
-    // if (authResult.status == "authenticated") {
-    await notificationClient.connect({ auth: { headers: { authorization: user.extras.accessToken } } }, (err: any) => {
+  await new Promise<void>((resolve, reject) => {
+    notificationClient.connect({ auth: { headers: { authorization: user.extras.accessToken } } }, (err: any) => {
       if (err != null) {
         console.log("Error on Websocket connect:");
         console.log(err);
-        reject();
+        reject(err);
       }
       resolve();
     });
-
-    notificationClient.onError = () => {
-      setTimeout(() => {
-        console.info("Site reload because of websocket error.");
-        window.location.reload();
-      }, 15000);
-    };
-
-    notificationClient.onDisconnect = () => {
-      // alert("Websocket disconnected!");
-      setTimeout(() => {
-        console.info("Site reload because of websocket disconnect.");
-        window.location.reload();
-      }, 15000);
-    };
-    // } else {
-    // reject();
-    // }
   });
+
+  notificationClient.onError = () => {
+    setTimeout(() => {
+      console.info("Site reload because of websocket error.");
+      window.location.reload();
+    }, 15000);
+  };
+
+  notificationClient.onDisconnect = () => {
+    setTimeout(() => {
+      console.info("Site reload because of websocket disconnect.");
+      window.location.reload();
+    }, 15000);
+  };
+
 }
 
 export function subscribe(subscriptionPath: string): boolean {
@@ -80,22 +73,22 @@ export function subscribe(subscriptionPath: string): boolean {
 }
 
 export function subscribeUpdateInstance(instanceId: string): boolean {
-  let subPath = PublishSubscriptionObjects.updateInstance.resolvePath(instanceId);
+  const subPath = PublishSubscriptionObjects.updateInstance.resolvePath(instanceId);
   return subscribe(subPath);
 }
 
 export function subscribeNewInstance(userId: string): boolean {
-  let subPath = PublishSubscriptionObjects.newInstance.resolvePath(userId);
+  const subPath = PublishSubscriptionObjects.newInstance.resolvePath(userId);
   return subscribe(subPath);
 }
 
 export function subscribeUpdateProcess(processId: string): boolean {
-  let subPath = PublishSubscriptionObjects.updateProcess.resolvePath(processId);
+  const subPath = PublishSubscriptionObjects.updateProcess.resolvePath(processId);
   return subscribe(subPath);
 }
 
 export function subscribeUpdateUser(userId: string): boolean {
-  let subPath = PublishSubscriptionObjects.updateUser.resolvePath(userId);
+  const subPath = PublishSubscriptionObjects.updateUser.resolvePath(userId);
   return subscribe(subPath);
 }
 

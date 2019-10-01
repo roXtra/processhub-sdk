@@ -14,7 +14,7 @@ declare module "diagram-js/lib/draw/Styles" {
      *
      * @return {Object} the style defintion
      */
-    public cls(className: string, traits: string[], additionalAttrs: Object): Object;
+    public cls(className: string, traits: string[], additionalAttrs: Record<string, any>): Record<string, any>;
 
     /**
      * Builds a style definition from a list of traits and an object of additional attributes.
@@ -24,7 +24,7 @@ declare module "diagram-js/lib/draw/Styles" {
      *
      * @return {Object} the style defintion
      */
-    public style(traits: string[], additionalAttrs: Object): Object;
+    public style(traits: string[], additionalAttrs: Record<string, any>): Record<string, any>;
 
     public computeStyle(custom: {}, traits: string[], defaultStyles: {}): {};
   }

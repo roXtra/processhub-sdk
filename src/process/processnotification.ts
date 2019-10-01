@@ -1,15 +1,15 @@
 import * as PH from "../";
 import _ = require("lodash");
 
-// helper functions to detect if notification symbols should be displayed in dashboard
+// Helper functions to detect if notification symbols should be displayed in dashboard
 
 export function notifyNewInstanceComments(processEnv: PH.ProcessEnvironment): boolean {
-  let instances = PH.Instance.filterInstancesForProcess(processEnv.user.extras.instances, processEnv.process.processId);
+  const instances = PH.Instance.filterInstancesForProcess(processEnv.user.extras.instances, processEnv.process.processId);
   let notify = false;
 
   instances.map(instance => {
-    if (instance.extras.todos && instance.extras.todos.length > 0) {  // no todos = no dashboard entry
-      let instanceEnv: PH.InstanceEnvironment = { instance: instance, ...processEnv };
+    if (instance.extras.todos && instance.extras.todos.length > 0) {  // No todos = no dashboard entry
+      const instanceEnv: PH.InstanceEnvironment = { instance: instance, ...processEnv };
       if (PH.Instance.notifyNewInstanceComments(instanceEnv))
         notify = true;
     }
@@ -18,18 +18,18 @@ export function notifyNewInstanceComments(processEnv: PH.ProcessEnvironment): bo
   return notify;
 }
 
-export async function processHasBeenViewed(processEnv: PH.ProcessEnvironment, actionHandler: PH.ActionHandler): Promise<void> {
+export function processHasBeenViewed(processEnv: PH.ProcessEnvironment, actionHandler: PH.ActionHandler): void {
   if (!processEnv || !processEnv.process || !processEnv.user) {
     return;
   }
 
   if (processEnv.user.extras.viewStates == null) {
-    processEnv.user.extras.viewStates = {};  // initialize
+    processEnv.user.extras.viewStates = {};  // Initialize
   }
 
-  let oldViewState = _.cloneDeep(processEnv.user.extras.viewStates[processEnv.process.processId]);
+  const oldViewState = _.cloneDeep(processEnv.user.extras.viewStates[processEnv.process.processId]);
 
-  let newDate = processEnv.process.latestCommentAt;
+  const newDate = processEnv.process.latestCommentAt;
 
   if (processEnv.user.extras.viewStates[processEnv.process.processId] == null) {
     processEnv.user.extras.viewStates[processEnv.process.processId] = {};
@@ -37,9 +37,9 @@ export async function processHasBeenViewed(processEnv: PH.ProcessEnvironment, ac
 
   processEnv.user.extras.viewStates[processEnv.process.processId].lastViewedAt = newDate;
 
-  // actionHandler causes rerender - only call if viewState was changed
+  // ActionHandler causes rerender - only call if viewState was changed
   if (!_.isEqual(oldViewState, processEnv.user.extras.viewStates[processEnv.process.processId])) {
-    await actionHandler.updateViewState(processEnv.process.processId, processEnv.user.extras.viewStates[processEnv.process.processId]);
+    actionHandler.updateViewState(processEnv.process.processId, processEnv.user.extras.viewStates[processEnv.process.processId]);
   }
 }
 
@@ -52,9 +52,9 @@ export function notifyNewProcessComments(processEnv: PH.ProcessEnvironment): boo
     return false;
   }
 
-  let lastViewedAt = processLastViewedAt(processEnv);
+  const lastViewedAt = processLastViewedAt(processEnv);
   if (lastViewedAt == null) {
-    return true;  // latestCommentAt != null, so there are new comments
+    return true;  // LatestCommentAt != null, so there are new comments
   }
 
   return (processEnv.process.latestCommentAt > lastViewedAt);
@@ -78,11 +78,11 @@ export function processLastViewedAt(processEnv: PH.ProcessEnvironment): Date {
 
 export function notifyNewProcessTodos(processEnv: PH.ProcessEnvironment): boolean {
 
-  let instances = PH.Instance.filterInstancesForProcess(processEnv.user.extras.instances, processEnv.process.processId);
+  const instances = PH.Instance.filterInstancesForProcess(processEnv.user.extras.instances, processEnv.process.processId);
   let notify = false;
 
   instances.map(instance => {
-    let instanceEnv: PH.InstanceEnvironment = { instance: instance, ...processEnv };
+    const instanceEnv: PH.InstanceEnvironment = { instance: instance, ...processEnv };
     if (PH.Instance.notifyNewInstanceTodos(instanceEnv) || PH.Instance.notifyInstancePin(instanceEnv))
       notify = true;
   });
@@ -90,14 +90,14 @@ export function notifyNewProcessTodos(processEnv: PH.ProcessEnvironment): boolea
   return notify;
 }
 
-// notification for workspace-instances analog to filterRemainingInstancesForWorkspace
+// Notification for workspace-instances analog to filterRemainingInstancesForWorkspace
 export function notifyNewRemainingInstanceComments(workspaceEnv: PH.WorkspaceEnvironment): boolean {
 
-  let instances = PH.Instance.filterRemainingInstancesForWorkspace(workspaceEnv.user.extras.instances, workspaceEnv.workspace);
+  const instances = PH.Instance.filterRemainingInstancesForWorkspace(workspaceEnv.user.extras.instances, workspaceEnv.workspace);
   let notify = false;
 
   instances.map(instance => {
-    let instanceEnv: PH.InstanceEnvironment = { instance: instance, process: null, ...workspaceEnv };
+    const instanceEnv: PH.InstanceEnvironment = { instance: instance, process: null, ...workspaceEnv };
     if (PH.Instance.notifyNewInstanceComments(instanceEnv))
       notify = true;
   });
@@ -105,14 +105,14 @@ export function notifyNewRemainingInstanceComments(workspaceEnv: PH.WorkspaceEnv
   return notify;
 }
 
-// notification for workspace-instances analog to filterRemainingInstancesForWorkspace
+// Notification for workspace-instances analog to filterRemainingInstancesForWorkspace
 export function notifyNewRemainingInstanceTodos(workspaceEnv: PH.WorkspaceEnvironment): boolean {
 
-  let instances = PH.Instance.filterRemainingInstancesForWorkspace(workspaceEnv.user.extras.instances, workspaceEnv.workspace);
+  const instances = PH.Instance.filterRemainingInstancesForWorkspace(workspaceEnv.user.extras.instances, workspaceEnv.workspace);
   let notify = false;
 
   instances.map(instance => {
-    let instanceEnv: PH.InstanceEnvironment = { instance: instance, process: null, ...workspaceEnv };
+    const instanceEnv: PH.InstanceEnvironment = { instance: instance, process: null, ...workspaceEnv };
     if (PH.Instance.notifyNewInstanceTodos(instanceEnv))
       notify = true;
   });
@@ -120,15 +120,15 @@ export function notifyNewRemainingInstanceTodos(workspaceEnv: PH.WorkspaceEnviro
   return notify;
 }
 
-// count the number of instances that are currently notifying new todos and/or new comments
+// Count the number of instances that are currently notifying new todos and/or new comments
 export function countNotifyingInstances(processEnv: PH.ProcessEnvironment): number {
-  let count: number = 0;
+  let count = 0;
 
-  let instances = PH.Instance.filterInstancesForProcess(processEnv.user.extras.instances, processEnv.process.processId);
+  const instances = PH.Instance.filterInstancesForProcess(processEnv.user.extras.instances, processEnv.process.processId);
 
   instances.map(instance => {
-    if (instance.extras.todos && instance.extras.todos.length > 0) {  // no todos = no dashboard entry
-      let instanceEnv: PH.InstanceEnvironment = { instance: instance, ...processEnv };
+    if (instance.extras.todos && instance.extras.todos.length > 0) {  // No todos = no dashboard entry
+      const instanceEnv: PH.InstanceEnvironment = { instance: instance, ...processEnv };
       if (PH.Instance.notifyNewInstanceComments(instanceEnv) || PH.Instance.notifyNewInstanceTodos(instanceEnv))
         count++;
     }

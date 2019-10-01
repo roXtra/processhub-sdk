@@ -6,7 +6,7 @@ import { Processhub } from "modeler/bpmn/processhub";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 
 export function getExtensionValues(activityObject: Bpmn.Activity): TaskExtensions {
-  let returnValue: TaskExtensions = {
+  const returnValue: TaskExtensions = {
     description: undefined,
     fieldDefinitions: undefined,
     sendTaskReceiver: undefined,
@@ -42,9 +42,9 @@ export function getExtensionValues(activityObject: Bpmn.Activity): TaskExtension
     return returnValue;
   }
 
-  for (let values of activityObject.extensionElements.values) {
+  for (const values of activityObject.extensionElements.values) {
     if (values != null && values.$children != null) {
-      for (let child of values.$children) {
+      for (const child of values.$children) {
         switch (child.name as BpmnExtensionName) {
           case "sequenceflow-expression":
             returnValue.sequenceFlowExpression = child.$body ? replaceOldFieldSyntax(child.$body) : child.$body;
@@ -72,6 +72,7 @@ export function getExtensionValues(activityObject: Bpmn.Activity): TaskExtension
             break;
           case "roleowners-editable":
             returnValue.roleOwnersEditable = child.$body !== "false";
+            break;
           case "all-fields-editable":
             returnValue.allFieldsEditable = child.$body !== "false";
             break;

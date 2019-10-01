@@ -5,8 +5,8 @@ export enum ApiResult {
   API_NOCONTENT = 204,
   API_INVALID = 400,
   API_DENIED = 401,
-  API_FORBIDDEN = 403,  // is used instead of 401 if no user is authenticated but a function is called that requires authentication
-                        // -> will redirect client to signin page
+  API_FORBIDDEN = 403,  // Is used instead of 401 if no user is authenticated but a function is called that requires authentication
+  // -> will redirect client to signin page
   API_NOTFOUND = 404,
   API_DUPLICATE = 409,
   API_NOTEMPTY = 423,
@@ -14,7 +14,7 @@ export enum ApiResult {
   API_BADGATEWAY = 502,
   API_ERROR_ROXAPI = 512
 }
-// export const API_OK = 200;
+// Export const API_OK = 200;
 // export const API_INVALID = 400;  // ungültige Anfrage
 // export const API_ERROR = 500;  // Serverfehler
 // export const API_DENIED = 401;

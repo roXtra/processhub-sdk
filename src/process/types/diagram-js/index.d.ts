@@ -82,7 +82,7 @@ declare module "diagram-js" {
      * @param {Function|Object[]} fn the function to resolve
      * @param {Object} locals a number of locals to use to resolve certain dependencies
      */
-    public invoke(fn: InvokeFunction, locals: Object): void;
+    public invoke(fn: InvokeFunction, locals: Record<string, any>): void;
 
     /**
      * Destroys the diagram
@@ -104,9 +104,9 @@ declare module "diagram-js" {
 
   export type IType = ("type" | Function)[];
   export type IFactory = ("factory" | Function)[];
-  export type IValue = ("value" | Object)[];
+  export type IValue = ("value" | Record<string, any>)[];
 
-  // export interface Provider {
+  // Export interface Provider {
   //   [key: string]: Type | Factory | Value | Module[];
   // }
 

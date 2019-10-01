@@ -15,7 +15,7 @@ export function isWorkspaceAdmin(workspace: WorkspaceDetails): boolean {
   return ((workspace.userRole & WorkspaceRole.WorkspaceAdmin) !== 0);
 }
 
-// only true if flag is set AND licenseHasWorkspaceProcessManagers()
+// Only true if flag is set AND licenseHasWorkspaceProcessManagers()
 export function isWorkspaceProcessManager(workspace: WorkspaceDetails): boolean {
   if (workspace == null || !WorkspaceLicenses.licenseHasWorkspaceProcessManagers(workspace))
     return false;
@@ -25,7 +25,7 @@ export function isWorkspaceProcessManager(workspace: WorkspaceDetails): boolean 
 
 // Access control in code should NOT use the roles above but instead the following can...-checks
 
-export function canEditWorkspace(workspace: WorkspaceDetails): boolean {  
+export function canEditWorkspace(workspace: WorkspaceDetails): boolean {
   return isWorkspaceAdmin(workspace);
 }
 
@@ -51,6 +51,6 @@ export function canCreateProcess(workspace: WorkspaceDetails): boolean {
 
 export function canStartTrial(workspace: WorkspaceDetails): boolean {
   // Admins can start a trial if they didn't have one before and workspace is Free
-  return isWorkspaceAdmin(workspace) 
+  return isWorkspaceAdmin(workspace)
      && ((WorkspaceLicenses.licenseIsFree(workspace) && workspace.trialExpiresAt == null) || WorkspaceLicenses.licenseIsTrial(workspace));
 }

@@ -47,7 +47,7 @@ declare module "diagram-js/lib/features/resize/Resize" {
 
     constructor(eventBus: EventBus, rules: Rules, modeling: Modeling, dragging: Dragging);
 
-    public canResize(context: Object): boolean;
+    public canResize(context: Record<string, any>): boolean;
 
     /**
      * Activate a resize operation
@@ -59,9 +59,9 @@ declare module "diagram-js/lib/features/resize/Resize" {
      * @param {djs.model.Shape} shape
      * @param {Object|String} contextOrDirection
      */
-    public activate(event: MouseEvent, shape: Shape, contextOrDirection: string | Object): void;
+    public activate(event: MouseEvent, shape: Shape, contextOrDirection: string | Record<string, any>): void;
 
-    public computeMinResizeBox(context: Object): void;
+    public computeMinResizeBox(context: Record<string, any>): void;
 
   }
 }

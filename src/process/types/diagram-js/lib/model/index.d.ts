@@ -1,4 +1,4 @@
-// tslint:disable:max-classes-per-file
+// Tslint:disable:max-classes-per-file
 declare module "diagram-js/lib/model" {
 
   import { IPoint } from "diagram-js";
@@ -24,7 +24,7 @@ declare module "diagram-js/lib/model" {
      * @name Base#businessObject
      * @type Object
      */
-    public businessObject?: Object;
+    public businessObject?: Record<string, any>;
 
     /**
      * The parent shape

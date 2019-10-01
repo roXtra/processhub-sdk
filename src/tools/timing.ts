@@ -25,7 +25,7 @@ export function getFormattedDateTime(dateTime: Date): string {
 export function getFormattedTimeZoneOffset(offset: number): string {
   const offsetHours: number = Math.floor(Math.abs(offset) / 60);
   const offsetMin: number = Math.abs(offset) % 60;
-  let result: string = "GMT";
+  let result = "GMT";
   if (offset <= 0) {
     result += "+";
   } else {

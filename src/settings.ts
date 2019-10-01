@@ -1,3 +1,3 @@
 
-// todo define over startup param
-export const isRoxtraEdition: boolean = true;
+// Todo define over startup param
+export const isRoxtraEdition = true;

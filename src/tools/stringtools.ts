@@ -5,19 +5,19 @@ import { createId } from "./guid";
 
 // Mailadresse auf Gültigkeit prüfen
 export function isValidMailAddress(mail: string): boolean {
-  // fault tolerant - don't block too many
-  let re = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+  // Fault tolerant - don't block too many
+  const re = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
   return re.test(mail);
 }
 
 export function isValidWorkspaceName(workspaceName: string): boolean {
   if ((workspaceName == null)
     || (workspaceName.length < 5)
-    || (workspaceName.indexOf(" ") >= 0)) {
+    || (workspaceName.includes(" "))) {
     return false;
   }
 
-  // all UTF-Characters are allowed, because the workspace name 
+  // All UTF-Characters are allowed, because the workspace name
   // is created from the user name at registration
   return true;
 }
@@ -39,8 +39,8 @@ export function toCleanUrl(text: string): string {
     .replace("ö", "oe")
     .replace("ü", "ue")
     .replace("ß", "ss")
-    .replace(/[\/\\+\.?=&%_#| -]+/g, "-")
-    .replace(/[\(\)]+/g, "")
+    .replace(/[/\\+.?=&%_#| -]+/g, "-")
+    .replace(/[()]+/g, "")
     .trim();
 }
 
@@ -49,9 +49,9 @@ export function stringExcerpt(source: string, maxLen: number) {
     return source;
   else {
     let dest = source.substr(0, maxLen);
-    if (source.substr(maxLen, 1) !== " ") { }
-    // String bis zum letzten vollständigen Wort zurückgeben  
-    let last = dest.lastIndexOf(" ");
+
+    // String bis zum letzten vollständigen Wort zurückgeben
+    const last = dest.lastIndexOf(" ");
     if (last !== -1)
       dest = dest.substr(0, last);
 
@@ -64,8 +64,8 @@ export function getQueryParameter(parameter: string, location?: string) {
     location = window.location.href;
   }
 
-  parameter = parameter.replace(/[\[\]]/g, "\\$&");
-  let regex = new RegExp("[?&]" + parameter + "(=([^&#]*)|&|#|$)"),
+  parameter = parameter.replace(/[[\]]/g, "\\$&");
+  const regex = new RegExp("[?&]" + parameter + "(=([^&#]*)|&|#|$)"),
     results = regex.exec(location);
   if (!results)
     return null;
@@ -76,12 +76,12 @@ export function getQueryParameter(parameter: string, location?: string) {
 
 export const SPLITSIGN_EMAILADDRESSES: string[] = [",", ";", " ", "\n"];
 
-export function splitStringOnMultipleSigns(parameter: string, splitSignListOrdner: number = 0): string[] {
+export function splitStringOnMultipleSigns(parameter: string, splitSignListOrdner = 0): string[] {
   if (parameter.length === 0) {
     return null;
   }
 
-  let splitResult = parameter.split(SPLITSIGN_EMAILADDRESSES[splitSignListOrdner]);
+  const splitResult = parameter.split(SPLITSIGN_EMAILADDRESSES[splitSignListOrdner]);
 
   if (splitResult.length === 1 && (splitSignListOrdner + 1) === SPLITSIGN_EMAILADDRESSES.length) {
     return splitResult;
@@ -92,8 +92,8 @@ export function splitStringOnMultipleSigns(parameter: string, splitSignListOrdne
     return splitStringOnMultipleSigns(parameter, (splitSignListOrdner + 1));
   }
 
-  let result: string[] = [];
-  for (let split of splitResult) {
+  const result: string[] = [];
+  for (const split of splitResult) {
     if (split.trim().length > 0)
       result.push(split.trim());
   }
@@ -101,10 +101,10 @@ export function splitStringOnMultipleSigns(parameter: string, splitSignListOrdne
   return result;
 }
 
-export function getShuffledNumberArray(amountOfElements: number, numberLenght: number = 3) {
-  let array: number[] = [];
+export function getShuffledNumberArray(amountOfElements: number, numberLenght = 3) {
+  const array: number[] = [];
   for (let i = 0; i < amountOfElements; i++) {
-    let value = ("000" + i).slice(-(numberLenght));
+    const value = ("000" + i).slice(-(numberLenght));
     array.push(parseInt(value));
   }
   return shuffleArray(array);
@@ -113,8 +113,8 @@ export function getShuffledNumberArray(amountOfElements: number, numberLenght: n
 // Randomize array element order in-place.
 function shuffleArray(array: number[]) {
   for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    let temp = array[i];
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
     array[i] = array[j];
     array[j] = temp;
   }
@@ -130,7 +130,7 @@ export function removeHtmlTags(html: string): string {
 
 export function replaceOldFieldSyntax(oldValue: string): string {
   if (oldValue) {
-    return oldValue.replace(/([{]{2}[\s]?(field|role)\.(.+?)(\s)*[}]{2})/g, (match, p1, p2, p3, p4, offset, value): string => { return p2 + "['" + p3 + "']"; }); // fallback: rewrite old syntax {{ field.abc }} -> field['abc'];         
+    return oldValue.replace(/([{]{2}[\s]?(field|role)\.(.+?)(\s)*[}]{2})/g, (match, p1, p2, p3, p4, offset, value): string => { return p2 + "['" + p3 + "']"; }); // Fallback: rewrite old syntax {{ field.abc }} -> field['abc'];
   }
   return oldValue;
 }
@@ -144,7 +144,7 @@ export function getQueryFromGroup(group: Group, isChild?: boolean): string {
     return isChild ? "()" : null;
   }
 
-  return "(" + group.rules.map(r => (<Rule>r).field ? getQueryFromRule(r as Rule) : getQueryFromGroup(r as Group, true)).join(" " + group.combinator + " ") + ")";
+  return "(" + group.rules.map(r => (r as Rule).field ? getQueryFromRule(r as Rule) : getQueryFromGroup(r as Group, true)).join(" " + group.combinator + " ") + ")";
 }
 
 export function getQueryFromRule(rule: Rule) {
@@ -168,31 +168,31 @@ export function getQueryFromRule(rule: Rule) {
   return `${rule.field} ${rule.operator} ${value}`;
 }
 
-export class NestedElement {query: string; type: string; top?: boolean; }
-export class NestedElements {[key: string]: NestedElement}
+export class NestedElement { query: string; type: string; top?: boolean; }
+export class NestedElements { [key: string]: NestedElement }
 
-const ruleRegex = /((field|role)\['([^']*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=|\<\>|\>\<)\s(('([^']+)')|(([^()&\|]+)))/; // /((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+)))/
-const nestedRegex = /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role)\['([^']*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=|\<\>|\>\<)\s(('([^']+)')|(([^()&&\|\|]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/; // /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/;
+const ruleRegex = /((field|role)\['([^']*)'\](\.[^\s]+)?)\s(==|!=|<|<=|>|>=|<>|><)\s(('([^']+)')|(([^()&|]+)))/; // /((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+)))/
+const nestedRegex = /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role)\['([^']*)'\](\.[^\s]+)?)\s(==|!=|<|<=|>|>=|<>|><)\s(('([^']+)')|(([^()&&||]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/; // /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/;
 const isCombinatorRegex = /\s(&&|\|\|)\s/;
 
 export function getNestedElements(query: string): NestedElements {
   let match = nestedRegex.exec(query);
   let replacedQuery = query;
-  let res: NestedElements = {};
+  const res: NestedElements = {};
 
   while (match) {
-      let uuid = Tools.createId();
-      if (match[3]) {
-        res[uuid] = { query: "", type: "nested"};
-        replacedQuery = replacedQuery.replace(nestedRegex, (m, p1, p2, p3, p4, offset, full) => { return p2 + uuid + p4; });
-      } else {
-        res[uuid] = { query: match[6], type: isCombinatorRegex.test(match[6]) ? "group" : (ruleRegex.test(match[0]) ? "rule" : "nested")};
-        replacedQuery = replacedQuery.replace(nestedRegex, uuid);
-      }
-      match = nestedRegex.exec(replacedQuery);
-      if (!match) {
-        res[uuid].top = true;
-      }
+    const uuid = Tools.createId();
+    if (match[3]) {
+      res[uuid] = { query: "", type: "nested" };
+      replacedQuery = replacedQuery.replace(nestedRegex, (m, p1, p2, p3, p4, offset, full) => { return p2 + uuid + p4; });
+    } else {
+      res[uuid] = { query: match[6], type: isCombinatorRegex.test(match[6]) ? "group" : (ruleRegex.test(match[0]) ? "rule" : "nested") };
+      replacedQuery = replacedQuery.replace(nestedRegex, uuid);
+    }
+    match = nestedRegex.exec(replacedQuery);
+    if (!match) {
+      res[uuid].top = true;
+    }
   }
 
   return res;
@@ -204,11 +204,11 @@ export class BaseElement {
 
 export class Group extends BaseElement {
   rules: BaseElement[] = new Array<BaseElement>();
-  combinator: string = "&&"; 
+  combinator = "&&";
   isTopGroup?: boolean = false;
 }
 
-export class Rule extends BaseElement {  
+export class Rule extends BaseElement {
   field: string;
   operator: string;
   value: string | number | { [key: string]: boolean };
@@ -221,21 +221,21 @@ export class Rule extends BaseElement {
   }
 }
 
-export function parseNestedElementsToGroupConstruct(nestedElement: NestedElements, isTopGroup: boolean = false): Group {
-  let topGroup: Group = new Group();
+export function parseNestedElementsToGroupConstruct(nestedElement: NestedElements, isTopGroup = false): Group {
+  const topGroup: Group = new Group();
   topGroup.isTopGroup = isTopGroup;
 
   if (_.isEmpty(nestedElement)) {
     return topGroup;
   }
 
-  let topEntry: NestedElement = _.cloneDeep(nestedElement[Object.keys(nestedElement).find(k => nestedElement[k].top)]);
+  const topEntry: NestedElement = _.cloneDeep(nestedElement[Object.keys(nestedElement).find(k => nestedElement[k].top)]);
   topGroup.combinator = topEntry.type === "group" ? isCombinatorRegex.exec(topEntry.query)[1] : "&&";
 
-  let splittedRules = topEntry.type === "group" ? topEntry.query.split(topGroup.combinator).map(item => item.trim()) : [topEntry.query];
-  for (let i: number = 0; i < splittedRules.length; i++) {
+  const splittedRules = topEntry.type === "group" ? topEntry.query.split(topGroup.combinator).map(item => item.trim()) : [topEntry.query];
+  for (let i = 0; i < splittedRules.length; i++) {
     if (splittedRules[i] === "") {
-
+      // Do nothing
     } else if (!ruleRegex.test(splittedRules[i])) {
       parseNestedElement(splittedRules[i], nestedElement, topGroup);
     } else {
@@ -256,20 +256,20 @@ export function parseNestedElement(query: string, nestedElements: NestedElements
 }
 
 export function getFieldOrRoleDisplayName(fieldString: string): string {
-  
-  let match = fieldString.match(/((field|role)\['([^']*)'\](\.[^\s]+)?)/);
-  let prefix = match[2] === "field" ? tl("Feld") : tl("Rolle");
+  const regex = new RegExp(/((field|role)\['([^']*)'\](\.[^\s]+)?)/);
+  const match = regex.exec(fieldString);
+  const prefix = match[2] === "field" ? tl("Feld") : tl("Rolle");
   let suffix = "";
   if (match[4]) {
     switch (match[4]) {
       case ".firstName":
-          suffix = " (" + tl("Vorname")  + ")";
+        suffix = " (" + tl("Vorname") + ")";
         break;
       case ".lastName":
-          suffix = " (" + tl("Nachname")  + ")";
+        suffix = " (" + tl("Nachname") + ")";
         break;
       case ".displayName":
-          suffix = " (" + tl("Anzeigename")  + ")";
+        suffix = " (" + tl("Anzeigename") + ")";
         break;
     }
   }
@@ -283,22 +283,22 @@ export function getFieldOrRoleDisplayName(fieldString: string): string {
  * @return {Rule} the Rule object representing a string expression containing a field, an operator and a value
  */
 export function parseRule(rule: string): Rule {
-  let res: Rule = new Rule();
+  const res: Rule = new Rule();
 
-  let match = ruleRegex.exec(rule);
-  if (match) {    
+  const match = ruleRegex.exec(rule);
+  if (match) {
     res.field = match[1];
     res.operator = match[5];
-    if (match[8]) { // normal text
+    if (match[8]) { // Normal text
       res.value = match[8];
-    } else if (match[10] === "''") { // empty text
+    } else if (match[10] === "''") { // Empty text
       res.value = "";
-    } else if (match[10] === "undefined") { // undefined (object)
+    } else if (match[10] === "undefined") { // Undefined (object)
       res.value = undefined;
     } else if (!Number.isNaN(Number(match[10]))) {
-      res.value = Number(match[10]); // number
+      res.value = Number(match[10]); // Number
     } else {
-      res.value = JSON.parse(match[10]); // object (checklist)
+      res.value = JSON.parse(match[10]); // Object (checklist)
     }
   }
 

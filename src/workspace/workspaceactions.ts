@@ -9,7 +9,7 @@ import { BaseReply } from "../legacyapi";
 
 export async function requireWorkspaceMembers() {
   // Fordert die Workspace-Members an, falls diese in PathState.currentWorkspace noch nicht enthalten sind.
-  let workspaceState = StateHandler.rootStore.getState().workspaceState;
+  const workspaceState = StateHandler.rootStore.getState().workspaceState;
   if (workspaceState.currentWorkspace != null
     && workspaceState.currentWorkspace.extras.members != null) {
     // Members wurden bereits geladen
@@ -18,14 +18,14 @@ export async function requireWorkspaceMembers() {
     await loadWorkspace(workspaceState.currentWorkspace.workspaceId, WorkspaceExtras.ExtrasMembers);
 }
 
-export async function loadWorkspace(workspaceId: string, getExtras: WorkspaceExtras, forceReload: boolean = false, accessToken: string = null): Promise<WorkspaceDetails> {
-  let workspaceState = StateHandler.rootStore.getState().workspaceState;
+export async function loadWorkspace(workspaceId: string, getExtras: WorkspaceExtras, forceReload = false, accessToken: string = null): Promise<WorkspaceDetails> {
+  const workspaceState = StateHandler.rootStore.getState().workspaceState;
   let cachedWorkspace = null;
 
   if (!forceReload && workspaceState.workspaceCache)
     cachedWorkspace = workspaceState.workspaceCache[workspaceId];
   if (cachedWorkspace != null) {
-    // Ignore call if all data 
+    // Ignore call if all data
     if ((getExtras & WorkspaceExtras.ExtrasMembers) && cachedWorkspace.extras.members)
       getExtras -= WorkspaceExtras.ExtrasMembers;
     if ((getExtras & WorkspaceExtras.ExtrasProcesses) && cachedWorkspace.extras.processes)
@@ -34,11 +34,11 @@ export async function loadWorkspace(workspaceId: string, getExtras: WorkspaceExt
       getExtras -= WorkspaceExtras.ExtrasTags;
     if ((getExtras & WorkspaceExtras.ExtrasAuditTrail) && cachedWorkspace.extras.auditTrail)
       getExtras -= WorkspaceExtras.ExtrasAuditTrail;
-      if ((getExtras & WorkspaceExtras.ExtrasGroups) && cachedWorkspace.extras.groups)
+    if ((getExtras & WorkspaceExtras.ExtrasGroups) && cachedWorkspace.extras.groups)
       getExtras -= WorkspaceExtras.ExtrasGroups;
 
     if (getExtras === 0) {
-      // all data available from cache
+      // All data available from cache
       StateHandler.rootStore.dispatch({
         type: WorkspaceMessages.WorkspaceLoadedMessage,
         workspace: cachedWorkspace
@@ -52,11 +52,11 @@ export async function loadWorkspace(workspaceId: string, getExtras: WorkspaceExt
 }
 export function loadWorkspaceAction(workspaceId: string, getExtras: WorkspaceExtras, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<LoadWorkspaceReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<LoadWorkspaceReply> => {
-    let request: LoadWorkspaceRequest = {
+    const request: LoadWorkspaceRequest = {
       workspaceId: workspaceId,
       getExtras: getExtras
     };
-    let response = await Api.getJson(WorkspaceRequestRoutes.LoadWorkspace, request, accessToken) as LoadWorkspaceReply;
+    const response = await Api.getJson(WorkspaceRequestRoutes.LoadWorkspace, request, accessToken) as LoadWorkspaceReply;
     if (response.workspace)
       response.workspace = StateHandler.mergeWorkspaceToCache(response.workspace);
 
@@ -70,7 +70,7 @@ export async function removeWorkspaceMember(workspaceId: string, userId: string,
 }
 export function removeWorkspaceMemberAction(workspaceId: string, userId: string, accessToken: string = null) {
   return function (dispatch: any) {
-    let request: RemoveWorkspaceMemberRequest = {
+    const request: RemoveWorkspaceMemberRequest = {
       workspaceId,
       userId
     };
@@ -85,7 +85,7 @@ export async function inviteWorkspaceMember(workspaceId: string, userIdOrUserMai
 }
 export function inviteWorkspaceMemberAction(workspaceId: string, userIdOrUserMail: string[], memberRole: WorkspaceRole, invitationMessage: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<WorkspaceLoadedMessage> {
   return async <S>(dispatch: Dispatch<S>): Promise<WorkspaceLoadedMessage> => {
-    let request: InviteWorkspaceMemberRequest = {
+    const request: InviteWorkspaceMemberRequest = {
       workspaceId: workspaceId,
       userIdOrUserMail: userIdOrUserMail,
       memberRole: memberRole,
@@ -102,7 +102,7 @@ export async function createWorkspace(workspace: WorkspaceDetails, accessToken: 
 }
 export function createWorkspaceAction(workspace: WorkspaceDetails, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<WorkspaceLoadedMessage> {
   return async <S>(dispatch: Dispatch<S>): Promise<WorkspaceLoadedMessage> => {
-    let request: CreateWorkspaceRequest = {
+    const request: CreateWorkspaceRequest = {
       workspace: workspace
     };
     const response = await Api.postJson(WorkspaceRequestRoutes.CreateWorkspace, request, accessToken) as WorkspaceLoadedMessage;
@@ -120,7 +120,7 @@ export function updateWorkspaceAction(workspace: WorkspaceDetails, accessToken: 
     const requestWorkspace = _.cloneDeep(workspace);
     delete (requestWorkspace.extras.members);
     delete (requestWorkspace.extras.processes);
-    let request: UpdateWorkspaceRequest = {
+    const request: UpdateWorkspaceRequest = {
       workspace: requestWorkspace
     };
     return Api.postJson(WorkspaceRequestRoutes.UpdateWorkspace, request, accessToken).then((response) => {
@@ -135,7 +135,7 @@ export async function deleteWorkspace(workspaceId: string, accessToken: string =
 
 export function deleteWorkspaceAction(workspaceId: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<void> {
   return async <S>(dispatch: Dispatch<S>): Promise<void> => {
-    let request: DeleteWorkspaceRequest = {
+    const request: DeleteWorkspaceRequest = {
       workspaceId: workspaceId
     };
     return Api.postJson(WorkspaceRequestRoutes.DeleteWorkspace, request, accessToken).then((response) => {
@@ -149,7 +149,7 @@ export async function setMemberRole(workspaceId: string, userId: string, memberR
 }
 export function setMemberRoleAction(workspaceId: string, userId: string, memberRole: WorkspaceRole, accessToken: string = null) {
   return function (dispatch: any) {
-    let request: SetMemberRoleRequest = {
+    const request: SetMemberRoleRequest = {
       workspaceId,
       userId,
       memberRole
@@ -165,7 +165,7 @@ export async function startTrial(workspaceId: string, name: string, mail: string
 }
 export function startTrialAction(workspaceId: string, name: string, mail: string, company: string, phone: string, testType: WorkspaceType, userCount: TrialUserCountType, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<BaseReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<BaseReply> => {
-    let request: StartTrialRequest = {
+    const request: StartTrialRequest = {
       workspaceId,
       name,
       mail,

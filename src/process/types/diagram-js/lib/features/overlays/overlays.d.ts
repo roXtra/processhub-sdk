@@ -80,7 +80,7 @@ declare module "diagram-js/lib/features/overlays/Overlays" {
      *
      * @return {Object|Array<Object>} the overlay(s)
      */
-    public get(search: { id: string, element: Base | string, type: string }): {}[];
+    public get(search: { id: string; element: Base | string; type: string }): {}[];
 
     /**
      * Adds a HTML overlay to an element.
@@ -105,17 +105,17 @@ declare module "diagram-js/lib/features/overlays/Overlays" {
       element: string | Base,
       type: string,
       overlay: {
-        html: string | Element,
+        html: string | Element;
         show: {
-          minZoom: number,
-          maxZomm: number,
-        },
+          minZoom: number;
+          maxZomm: number;
+        };
         position: {
-          left: number,
-          top: number,
-          bottom: number,
-          right: number,
-        },
+          left: number;
+          top: number;
+          bottom: number;
+          right: number;
+        };
       }): string;
 
     /**
@@ -126,7 +126,7 @@ declare module "diagram-js/lib/features/overlays/Overlays" {
      * @param {String} [id]
      * @param {Object} [filter]
      */
-    public remove(filter: Object): void;
+    public remove(filter: Record<string, any>): void;
 
     public show(): void;
 

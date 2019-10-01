@@ -18,9 +18,9 @@ export interface PathDetails {
   page?: Page;
   view?: View;
 
-  isMobile?: boolean;  // embedded request from a mobile app
-  isEmbedded?: boolean;  // embedded view mode (NOT IMPLEMENTED YET)
-  isLibraryListing?: boolean;  // process is displayed from the library
+  isMobile?: boolean;  // Embedded request from a mobile app
+  isEmbedded?: boolean;  // Embedded view mode (NOT IMPLEMENTED YET)
+  isLibraryListing?: boolean;  // Process is displayed from the library
 
   workspaceUrlName?: string;
   processUrlName?: string;

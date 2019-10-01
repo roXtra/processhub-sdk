@@ -28,7 +28,7 @@ declare module "diagram-js/lib/core/ElementFactory" {
   namespace ElementFactory {
 
     export interface ICreationAttrs {
-      businessObject?: Object;
+      businessObject?: Record<string, any>;
       x?: number;
       y?: number;
       width?: number;

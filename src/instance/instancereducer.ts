@@ -17,17 +17,17 @@ import { tl } from "../tl";
 import { isRoxtraEdition } from "../settings";
 
 /**
- * Sends a desktop notification if the user should be notified and the instance was not viewed after 15 seconds 
+ * Sends a desktop notification if the user should be notified and the instance was not viewed after 15 seconds
  */
 function sendNotificationIfInstanceWasNotViewed(instance: InstanceDetails) {
   setTimeout(() => {
-    let workspaceEnv: WorkspaceEnvironment = {
+    const workspaceEnv: WorkspaceEnvironment = {
       workspace: rootStore.getState().workspaceState.currentWorkspace,
       path: rootStore.getState().pathState.currentPath,
       user: rootStore.getState().userState.currentUser,
     };
     instance = workspaceEnv.user.extras.instances.find(i => i.instanceId === instance.instanceId);
-    let instanceEnv: InstanceEnvironment = { instance, process: null, ...workspaceEnv };
+    const instanceEnv: InstanceEnvironment = { instance, process: null, ...workspaceEnv };
     if (notifyNewInstanceComments(instanceEnv) || notifyNewInstanceTodos(instanceEnv) || notifyInstancePin(instanceEnv)) {
       sendNotification(tl("ProcessHub"), tl("Neue Benachrichtigungen"));
     }
@@ -37,7 +37,7 @@ function sendNotificationIfInstanceWasNotViewed(instance: InstanceDetails) {
 export function instanceReducer(instanceState: InstanceState, action: any): InstanceState {
 
   if (instanceState == null || action && action.type === ResetStore) {
-    // init state
+    // Init state
     instanceState = new InstanceState();
     instanceState.instanceCache = {};
   }
@@ -46,38 +46,38 @@ export function instanceReducer(instanceState: InstanceState, action: any): Inst
 
   switch (action.type) {
 
-    case INSTANCELOADED_MESSAGE:
+    case INSTANCELOADED_MESSAGE: {
+      instanceState.currentInstance = StateHandler.mergeInstanceToCache((action as InstanceLoadedMessage).instance);
 
-      instanceState.currentInstance = StateHandler.mergeInstanceToCache((<InstanceLoadedMessage>action).instance);
-
-      let instanceChanged = !_.isEqual(instanceState.currentInstance, instanceState.lastDispatchedInstance);
+      const instanceChanged = !_.isEqual(instanceState.currentInstance, instanceState.lastDispatchedInstance);
       instanceState.lastDispatchedInstance = _.cloneDeep(instanceState.currentInstance);
 
       // React cannot detect state changes in objects. Updating cacheState triggers rendering
       // -> only render if data has changed
       if (instanceChanged) {
         if (!isRoxtraEdition) {
-          sendNotificationIfInstanceWasNotViewed((<InstanceLoadedMessage>action).instance);
+          sendNotificationIfInstanceWasNotViewed((action as InstanceLoadedMessage).instance);
         }
 
         return update(instanceState, {
           cacheState: { $set: createId() }
         });
-      } else
+      } else {
         return instanceState;
-
+      }
+    }
     case UserMessages.RemoveInstanceMessage:
-      StateHandler.removeInstanceFromCache((<RemoveInstanceMessage>action).instanceId);
+      StateHandler.removeInstanceFromCache((action as RemoveInstanceMessage).instanceId);
 
       return update(instanceState, {
         cacheState: { $set: createId() }
       });
 
-    case UserMessages.NewInstanceMessage:
-      let instanceId = (<NewInstanceMessage>action).instanceId;
+    case UserMessages.NewInstanceMessage: {
+      const instanceId = (action as NewInstanceMessage).instanceId;
       Notification.subscribeUpdateInstance(instanceId);
       return instanceState;
-
+    }
     default:
       return instanceState;
   }

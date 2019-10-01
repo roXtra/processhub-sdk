@@ -4,11 +4,11 @@ import { BpmnProcess, RoleOwnerMap, RoleOwner } from "../process";
 import { Bpmn } from "../process/bpmn";
 import { replaceOldFieldSyntax } from "../tools";
 
-const fieldNameRegExp: RegExp = /field\['([^'\]]*)'\]/;
-const roleNameRegExp: RegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName))?/;
+const fieldNameRegExp = /field\['([^'\]]*)'\]/;
+const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName))?/;
 
 export function replaceAll(target: string, search: string, replacement: string) {
-  while (target.indexOf(search) >= 0) {
+  while (target.includes(search)) {
     target = target.replace(search, replacement);
   }
   return target;
@@ -39,18 +39,18 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
 
   while (match) {
 
-    let fieldPlaceholder = match[groupIndexForFieldPlaceholder];
-    let fieldName = match[groupIndexForFieldIdentifier];
+    const fieldPlaceholder = match[groupIndexForFieldPlaceholder];
+    const fieldName = match[groupIndexForFieldIdentifier];
 
     if (fieldName != null) {
-      let valueObject = fieldContentMap[fieldName];
+      const valueObject = fieldContentMap[fieldName];
 
       if (isFieldValue(valueObject)) {
         const val: string = fieldValueToString(valueObject);
         result = replaceAll(result, fieldPlaceholder, val);
       } else {
         result = replaceAll(result, fieldPlaceholder, valueObject != null ? valueObject.toString() : "");
-      }      
+      }
     }
 
     match = fieldNameRegExp.exec(result);
@@ -63,7 +63,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
   match = roleNameRegExp.exec(result);
 
   while (match) {
-    const placeHolder: string = match[groupIndexForRolePlaceholder];    
+    const placeHolder: string = match[groupIndexForRolePlaceholder];
     const roleName: string = match[groupIndexForRoleIdentifier];
     let roleProperty: string;
     if (match.length === 4) {
@@ -73,7 +73,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
       const lane: Bpmn.Lane = process.getLanes(false).find(l => l.name === roleName);
       if (lane) {
         const roleOwner: RoleOwner[] = roleOwners[lane.id];
-        if (roleOwner && roleOwner.length) {          
+        if (roleOwner && roleOwner.length) {
           result = replaceAll(result, placeHolder, (roleProperty && roleOwner[0].user) ? ((roleOwner[0]).user as any)[roleProperty] : roleOwner[0].displayName);
         } else {
           result = replaceAll(result, placeHolder, "");
@@ -122,7 +122,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
   return result;
 }
 
-// convert legacy FieldDefinitions in older processes to new array-based format
+// Convert legacy FieldDefinitions in older processes to new array-based format
 interface ILegacyProperty {
   customWidgetClass: string;
   required: boolean;
@@ -134,7 +134,7 @@ interface ILegacySchema {
 export function updateLegacyFieldDefinitions(definitions: any): FieldDefinition[] {
   if (!(definitions instanceof Array)) {
     const properties: { [id: string]: ILegacyProperty } = (definitions as ILegacySchema).properties;
-    let updatedDefinitions: FieldDefinition[] = [];
+    const updatedDefinitions: FieldDefinition[] = [];
     for (const id in properties) {
       if (typeof id === "string") {
         const property: ILegacyProperty = properties[id];

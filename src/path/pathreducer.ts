@@ -7,7 +7,7 @@ import { ResetStore } from "../statehandler/actions";
 export function pathReducer(pathState: PathState, action: any): PathState {
 
   if (pathState == null || action && action.type === ResetStore) {
-    // init state
+    // Init state
     pathState = new PathState();
   }
   if (action == null)
@@ -15,18 +15,18 @@ export function pathReducer(pathState: PathState, action: any): PathState {
 
   switch (action.type) {
 
-    case PATHLOADED_MESSAGE:
+    case PATHLOADED_MESSAGE: {
       const isMobile: boolean = pathState.currentPath && pathState.currentPath.isMobile;
 
-      let loadedAction: PathLoadedMessage = action;
-      let loadstate: PathState  = update(pathState, {
+      const loadedAction: PathLoadedMessage = action;
+      const loadstate: PathState  = update(pathState, {
         currentPath: { $set: _.cloneDeep(loadedAction.pathDetails) },
         lastApiResult: { $set: loadedAction.error }
       });
 
       loadstate.currentPath.isMobile = isMobile;
       return loadstate;
-
+    }
     default:
       return pathState;
   }

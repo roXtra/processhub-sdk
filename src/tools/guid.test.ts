@@ -8,12 +8,12 @@ describe("sdk", function () {
 
       describe("createId", function () {
         it("should create valid Id", function () {
-          let id = Guid.createId();
+          const id = Guid.createId();
           assert(id.length === 16);
           assert(id.toUpperCase() === id);
         });
         it("should create different Ids", function () {
-          let id = Guid.createId();
+          const id = Guid.createId();
           assert(id !== Guid.createId());
         });
       });
@@ -21,18 +21,18 @@ describe("sdk", function () {
       if (!isRoxtraEdition) {
         describe("createUserId_isUserId", function () {
           it("should create and identify UserId", function () {
-            let id = Guid.createUserId();
+            const id = Guid.createUserId();
             assert.isTrue(Guid.isId(id));
             assert.isTrue(Guid.isUserId(id));
             assert.isFalse(Guid.isGroupId(id));
             assert.isTrue(Guid.isUserId("02DDAC85360AB506")); // UserIds beginnen mit "0"
-            assert.isFalse(Guid.isUserId("12DDAC85360AB506")); // UserIds beginnen mit "0"          
+            assert.isFalse(Guid.isUserId("12DDAC85360AB506")); // UserIds beginnen mit "0"
           });
         });
 
         describe("createGroupId_isGroupId", function () {
           it("Should create and identify GroupIds", function () {
-            let id = Guid.createGroupId();
+            const id = Guid.createGroupId();
             assert.isTrue(Guid.isId(id));
             assert.isTrue(Guid.isGroupId(id));
             assert.isFalse(Guid.isUserId(id));
@@ -41,10 +41,10 @@ describe("sdk", function () {
           });
         });
       }
-      
+
       describe("createWorkspaceId_isWorkspaceId", function () {
         it("Should create and identify WorkspaceIds", function () {
-          let id = Guid.createWorkspaceId();
+          const id = Guid.createWorkspaceId();
           assert.isTrue(Guid.isId(id));
           assert.isTrue(Guid.isWorkspaceId(id));
           assert.isTrue(Guid.isWorkspaceId("2000AC85360AB506")); // WorkspaceIds beginnen mit "2"
@@ -71,7 +71,7 @@ describe("sdk", function () {
       });
       describe("createInstanceNumber", function () {
         it("soll gültige Nummern erzeugen", function () {
-          let numStr = Guid.createInstanceNumber();
+          const numStr = Guid.createInstanceNumber();
           assert.equal(numStr.length, 12);
           assert.equal(numStr.substr(3, 1), ".");
           assert.equal(numStr.substr(8, 1), ".");

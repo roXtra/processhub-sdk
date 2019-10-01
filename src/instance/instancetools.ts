@@ -11,7 +11,7 @@ export function parseIdMailAddress(prefix: string, mail: string): string {
   if (!isValidMailAddress(mail) || !mail.startsWith(prefix))
     return null;
 
-  let instanceId = mail.split("@")[0].substr(prefix.length).toUpperCase();
+  const instanceId = mail.split("@")[0].substr(prefix.length).toUpperCase();
   if (isId(instanceId))
     return instanceId;
   else
@@ -27,9 +27,9 @@ export function parseInstanceMailAddress(mail: string): string {
   return parseIdMailAddress("i-", mail);
 }
 export function parseInstanceMailSubject(mail: string): string {
-  const regex: RegExp = /(\[)(i-)(.*?)(\])/gm;
+  const regex = /(\[)(i-)(.*?)(\])/gm;
   let match: RegExpExecArray;
-  // tslint:disable-next-line:no-conditional-assignment
+  // Tslint:disable-next-line:no-conditional-assignment
   while ((match = regex.exec(mail)) != null) {
     let maybeId: string = match[3];
     maybeId = maybeId.toUpperCase();
@@ -40,14 +40,14 @@ export function parseInstanceMailSubject(mail: string): string {
   return null;
 }
 
-// roleID == null -> check for any role membership
+// RoleID == null -> check for any role membership
 export function isRoleOwner(userId: string, roleId: string, instance: InstanceDetails): boolean {
   if (instance.extras.roleOwners == null)
     return false;
 
   if (roleId == null || roleId === "") {
-    // check if user is owner of any role
-    for (let role in instance.extras.roleOwners) {
+    // Check if user is owner of any role
+    for (const role in instance.extras.roleOwners) {
       if (!isDefaultProcessRole(role) && isRoleOwner(userId, role, instance))
         return true;
     }
@@ -57,7 +57,7 @@ export function isRoleOwner(userId: string, roleId: string, instance: InstanceDe
   if (instance.extras.roleOwners[roleId] == null)
     return false;
 
-  for (let roleOwner of instance.extras.roleOwners[roleId]) {
+  for (const roleOwner of instance.extras.roleOwners[roleId]) {
     if (roleOwner.memberId === userId)
       return true;
   }
@@ -77,7 +77,7 @@ export function fieldContentsExcerpt(instance: InstanceDetails, maxLen: number):
       let value = field.value;
       if (typeof value === "string") {
         if (field.type === "ProcessHubDate") {
-          // format date
+          // Format date
           const date: Date = new Date(value);
           value = date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
         }
@@ -86,9 +86,9 @@ export function fieldContentsExcerpt(instance: InstanceDetails, maxLen: number):
       }
     } else {
       if (typeof (field) === "string"
-        && (field as string).trim() !== ""
-        && !(field as string).startsWith("http://")
-        && !(field as string).startsWith("https://")) {
+        && (field).trim() !== ""
+        && !(field).startsWith("http://")
+        && !(field).startsWith("https://")) {
         excerpt += instance.extras.fieldContents[key] + " / ";
       }
     }
@@ -101,7 +101,7 @@ export function fieldContentsExcerpt(instance: InstanceDetails, maxLen: number):
 
 export function getInstanceTitle(instance: InstanceDetails, process: ProcessDetails): string {
   if (process.extras.settings && process.extras.settings.dashboard && process.extras.settings.dashboard.cardTitle) {
-    try {    
+    try {
       return parseAndInsertStringWithFieldContent(process.extras.settings.dashboard.cardTitle, instance.extras.fieldContents, process.extras.bpmnProcess, instance.extras.roleOwners);
     }
     catch (ex) {
