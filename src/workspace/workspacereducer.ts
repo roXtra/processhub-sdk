@@ -9,7 +9,7 @@ import { ResetStore } from "../statehandler/actions";
 export function workspaceReducer(workspaceState: WorkspaceState, action: any): WorkspaceState {
 
   if (workspaceState == null || action && action.type === ResetStore) {
-    // init state
+    // Init state
     workspaceState = new WorkspaceState();
     workspaceState.workspaceCache = {};
   }
@@ -17,24 +17,24 @@ export function workspaceReducer(workspaceState: WorkspaceState, action: any): W
     return workspaceState;
 
   switch (action.type) {
-    case WorkspaceMessages.WorkspaceLoadedMessage:
+    case WorkspaceMessages.WorkspaceLoadedMessage: {
+      workspaceState.currentWorkspace = StateHandler.mergeWorkspaceToCache((action as WorkspaceLoadedMessage).workspace);
 
-      workspaceState.currentWorkspace = StateHandler.mergeWorkspaceToCache((<WorkspaceLoadedMessage>action).workspace);
-
-      let workspaceChanged = !_.isEqual(workspaceState.currentWorkspace, workspaceState.lastDispatchedWorkspace);
+      const workspaceChanged = !_.isEqual(workspaceState.currentWorkspace, workspaceState.lastDispatchedWorkspace);
       workspaceState.lastDispatchedWorkspace = _.cloneDeep(workspaceState.currentWorkspace);
-      
+
       // React cannot detect state changes in objects. Updating cacheState triggers rendering
       // -> only render if data has changed
       if (workspaceChanged) {
         return update(workspaceState, {
           cacheState: { $set: createId() }
         });
-      } else
+      } else {
         return workspaceState;
-        
+      }
+    }
     default:
-      // state not changed
+      // State not changed
       return workspaceState;
   }
 }

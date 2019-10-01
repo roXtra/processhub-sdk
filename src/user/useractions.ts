@@ -23,9 +23,9 @@ export async function updateUser(userDetails: UserDetails): Promise<UpdateUserRe
 }
 export function updateUserAction(userDetails: UserDetails, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<UpdateUserReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<UpdateUserReply> => {
-    let response: UpdateUserReply = await Api.postJson(UserRequestRoutes.UpdateUser, <UpdateUserRequest>{
+    const response: UpdateUserReply = await Api.postJson(UserRequestRoutes.UpdateUser, {
       userDetails: userDetails,
-    });
+    } as UpdateUserRequest);
     dispatch(response);
     return response;
   };
@@ -36,11 +36,11 @@ export async function updatePassword(userId: string, oldPassword: string, newPas
 }
 export function updatePasswordAction(userId: string, oldPassword: string, newPassword: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<UpdatePasswordReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<UpdatePasswordReply> => {
-    let response: UpdatePasswordReply = await Api.postJson(UserRequestRoutes.UpdatePassword, <UpdatePasswordRequest>{
+    const response: UpdatePasswordReply = await Api.postJson(UserRequestRoutes.UpdatePassword, {
       userId: userId,
       oldPassword: oldPassword,
       newPassword: newPassword
-    });
+    } as UpdatePasswordRequest);
     dispatch(response);
     return response;
   };
@@ -48,7 +48,7 @@ export function updatePasswordAction(userId: string, oldPassword: string, newPas
 
 export function updateUserInState(user: UserDetails): void {
   if (user != null) {
-    let message: UserLoadedMessage = {
+    const message: UserLoadedMessage = {
       type: UserMessages.UserLoadedMessage as UserMessages,
       user: user
     };
@@ -68,15 +68,15 @@ export async function loginUserWithGoogleToken(userMail: string, userName: strin
 }
 
 // Diese eigentliche Action wird für Mock-Store Tests genutzt
-export function loginUserAction(mail: string, password: string, accessToken: string = null, isGoogleAccessToken: boolean = false, userNameFromGoogle: string = null, userProfilePictureLink: string = null): <S>(dispatch: Dispatch<S>) => Promise<LoginReply> {
+export function loginUserAction(mail: string, password: string, accessToken: string = null, isGoogleAccessToken = false, userNameFromGoogle: string = null, userProfilePictureLink: string = null): <S>(dispatch: Dispatch<S>) => Promise<LoginReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<LoginReply> => {
-    let response:
-      LoginReply = await Api.postJson(UserRequestRoutes.Login, <LoginRequest>{
-        mail: mail,
-        password: password,
-        accessToken: accessToken,
-        isGoogleAccessToken: isGoogleAccessToken
-      });
+    const response:
+    LoginReply = await Api.postJson(UserRequestRoutes.Login, {
+      mail: mail,
+      password: password,
+      accessToken: accessToken,
+      isGoogleAccessToken: isGoogleAccessToken
+    } as LoginRequest);
 
     dispatch(response);
     return response;
@@ -88,17 +88,17 @@ export async function loginDemoUser(): Promise<LoginDemoUserReply> {
 }
 export function loginDemoUserAction(): <S>(dispatch: Dispatch<S>) => Promise<LoginDemoUserReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<LoginDemoUserReply> => {
-    let response:
-      LoginDemoUserReply = await Api.postJson(UserRequestRoutes.LoginDemoUser, <LoginDemoUserRequest>{});
+    const response:
+    LoginDemoUserReply = await Api.postJson(UserRequestRoutes.LoginDemoUser, {} as LoginDemoUserRequest);
 
     dispatch(response);
     return response;
   };
 }
 
-export async function loadUser(userId: string, getExtras: UserExtras = UserExtras.None, forceReload: boolean = false, accessToken: string = null): Promise<UserDetails> {
-  let userState = StateHandler.rootStore.getState().userState;
-  let currentUser = userState ? userState.currentUser : null;
+export async function loadUser(userId: string, getExtras: UserExtras = UserExtras.None, forceReload = false, accessToken: string = null): Promise<UserDetails> {
+  const userState = StateHandler.rootStore.getState().userState;
+  const currentUser = userState ? userState.currentUser : null;
 
   if (!forceReload && currentUser) {
     if ((getExtras & UserExtras.ExtrasWorkspaces) && currentUser.extras.workspaces)
@@ -121,11 +121,11 @@ export async function loadUser(userId: string, getExtras: UserExtras = UserExtra
 
 export function loadUserAction(userId: string, getExtras: UserExtras, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<LoadUserReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<LoadUserReply> => {
-    let request: LoadUserRequest = {
+    const request: LoadUserRequest = {
       userId: userId,
       getExtras: getExtras
     };
-    let response: LoadUserReply = await Api.postJson(UserRequestRoutes.LoadUser, request);
+    const response: LoadUserReply = await Api.postJson(UserRequestRoutes.LoadUser, request);
     if (response.userDetails != null) {
       updateUserInState(response.userDetails);
     }
@@ -138,7 +138,7 @@ export async function uploadProfilePicture(dataBase64: string): Promise<LoadUser
 }
 export function uploadProfilePictureAction(data: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<LoadUserReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<LoadUserReply> => {
-    let response: LoadUserReply = await Api.postJson(UserRequestRoutes.UploadProfilePicture, {
+    const response: LoadUserReply = await Api.postJson(UserRequestRoutes.UploadProfilePicture, {
       data
     } as UploadProfilePictureRequest);
 
@@ -165,7 +165,7 @@ export async function createUser(mail: string, realName: string, password: strin
 }
 export function createUserAction(mail: string, realName: string, password: string, company: string, phone: string) {
   return function (dispatch: any) {
-    let userDetails: UserDetails = {
+    const userDetails: UserDetails = {
       userId: createUserId(),
       mail: mail,
       realName: realName,
@@ -181,7 +181,7 @@ export function createUserAction(mail: string, realName: string, password: strin
       dispatch(response);
       // Nur Weiterleiten, wenn erfolgreich
       if (response.result === Api.ApiResult.API_OK) {
-        if (typeof window !== "undefined") { // window not available in unit tests
+        if (typeof window !== "undefined") { // Window not available in unit tests
           (window as any).dataLayer.push({ "event": "registered" });
           window.location.href = "/";
         }

@@ -18,13 +18,13 @@ import { ExecuteReply, ProcessEngineApiRoutes } from "./instance/legacyapi";
 // All clients share the same backend client to optimize caching
 // a new client is only created it the host changes (should only happen in tests)
 let _graphQLClient: ApolloClient<{}> = null;
-let _apiHost: string = null;
+const _apiHost: string = null;
 
 export class ApiClient {
   private graphQLClient: ApolloClient<{}>;
   private accessToken: string;
 
-  constructor(apiHost: string = "https://app.processhub.com", accessToken?: string) {
+  constructor(apiHost = "https://app.processhub.com", accessToken?: string) {
     this.graphQLClient = getGraphQLClient(apiHost, accessToken);
     this.accessToken = accessToken;
   }
@@ -36,13 +36,13 @@ export class ApiClient {
       result = await this.graphQLClient.query({
         query: query,
         variables: variables
-      });                                                          
+      });
     } catch (e) {
       console.error(e);
-      // const error: BaseError = { result: 500 as ApiResult, type: API_FAILED };
+      // Const error: BaseError = { result: 500 as ApiResult, type: API_FAILED };
       // getErrorHandlers().forEach(h => h.handleError(error, "/graphql"));
     }
-    
+
     return result.data;
   }
 
@@ -53,17 +53,17 @@ export class ApiClient {
       result = await this.graphQLClient.mutate({
         mutation: mutation,
         variables: variables
-      });                                                          
+      });
     } catch (e) {
       console.error(e);
-      // const error: BaseError = { result: 500 as ApiResult, type: API_FAILED };
+      // Const error: BaseError = { result: 500 as ApiResult, type: API_FAILED };
       // getErrorHandlers().forEach(h => h.handleError(error, "/graphql"));
     }
     return result;
-  }  
+  }
 
   async signIn(userMail: string, password: string): Promise<UserDetails> {
-    let user = (await loginUser(userMail, password)).userDetails;
+    const user = (await loginUser(userMail, password)).userDetails;
     if (user)
       this.accessToken = user.extras.accessToken;
 
@@ -74,14 +74,14 @@ export class ApiClient {
     await logoutUser(accessToken ? accessToken : this.accessToken);
   }
 
-  async updateViewState(objectId: string, viewState: ViewState): Promise<void> {
+  updateViewState(objectId: string, viewState: ViewState): void {
     const mutation = gql`
       mutation updateViewState($objectId: ID!, $viewState: ViewState) {
         updateViewState(objectId: $objectId, viewState: $viewState)
       }`;
 
-    // don't wait for server response
-    // tslint:disable-next-line:no-floating-promises
+    // Don't wait for server response
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.graphQLMutation(mutation, { objectId: objectId, viewState: viewState });
   }
 
@@ -91,15 +91,15 @@ export class ApiClient {
         updateTodo(todo: $todo)
       }`;
 
-    let todo2 = _.cloneDeep(todo);
-    // graphql does not accept invalid fields in mutation
+    const todo2 = _.cloneDeep(todo);
+    // Graphql does not accept invalid fields in mutation
     delete (todo2.user);
 
     await this.graphQLMutation(mutation, { todo: todo2 });
   }
 
   async startProcess(workspaceId: string, processId: string, fieldContents?: FieldContentMap): Promise<string> {
-    let instance: InstanceDetails = {
+    const instance: InstanceDetails = {
       instanceId: createId(),
       workspaceId: workspaceId,
       processId: processId,
@@ -110,7 +110,7 @@ export class ApiClient {
       }
     };
 
-    let response: ExecuteReply = await Api.postJson(ProcessEngineApiRoutes.execute, {
+    const response: ExecuteReply = await Api.postJson(ProcessEngineApiRoutes.execute, {
       processId: processId,
       instance: instance
     }, this.accessToken);
@@ -119,7 +119,7 @@ export class ApiClient {
   }
 }
 
-function getGraphQLClient(apiHost: string = "https://app.processhub.com", accessToken?: string): ApolloClient<{}> {
+function getGraphQLClient(apiHost = "https://app.processhub.com", accessToken?: string): ApolloClient<{}> {
   if (!_graphQLClient || apiHost !== _apiHost) {
 
     const httpLink = new HttpLink({
@@ -129,7 +129,7 @@ function getGraphQLClient(apiHost: string = "https://app.processhub.com", access
 
     const authLink = setContext((_, { headers }) => {
       if (accessToken != null) {
-        // return the headers to the context so httpLink can read them
+        // Return the headers to the context so httpLink can read them
         return {
           headers: {
             ...headers,
@@ -151,12 +151,12 @@ function getGraphQLClient(apiHost: string = "https://app.processhub.com", access
     });
 
     /*
-        const networkInterface = createNetworkInterface({
-            uri: 
-            opts: {   
+        Const networkInterface = createNetworkInterface({
+            uri:
+            opts: {
               credentials: "include",
             }
-          });      
+          });
         if (accessToken != null) {
           networkInterface.use([{
             applyMiddleware(req, next) {
@@ -171,7 +171,7 @@ function getGraphQLClient(apiHost: string = "https://app.processhub.com", access
         _apiHost = apiHost;
         _apiClient = new ApolloClient({
           link: new HttpLink({ uri: apiHost + "/graphql" }),
-    
+
           dataIdFromObject: (object: any) => object.id,
           networkInterface: networkInterface,
           // http://dev.apollodata.com/react/cache-updates.html#cacheRedirect

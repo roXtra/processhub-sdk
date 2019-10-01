@@ -15,13 +15,13 @@ declare module "moddle/lib/base" {
     public name?: string;
 
     public $instanceOf(element: {}, type: {}): boolean;
-    public get(name: string): Object;
-    public set(name: string, value: Object): void;
+    public get(name: string): Record<string, any>;
+    public set(name: string, value: Record<string, any>): void;
   }
 
   namespace Base {
     export interface ITypeDescriptor {
-      $pkg: Object;
+      $pkg: Record<string, any>;
       allTypes: ITypeDescriptor[];
       idProperty: IPropertyDescriptor;
       name: string;

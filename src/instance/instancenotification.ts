@@ -1,7 +1,7 @@
 import * as PH from "../";
 import * as _ from "lodash";
 
-// helper functions to detect if notification symbols should be displayed in dashboard
+// Helper functions to detect if notification symbols should be displayed in dashboard
 
 // latest activity (todo/comment created) - shown in dashboard cards
 export function latestActivityAt(instance: PH.Instance.InstanceDetails): Date {
@@ -13,39 +13,39 @@ export function latestActivityAt(instance: PH.Instance.InstanceDetails): Date {
     latestAt = instance.createdAt;
 
   if (instance.extras.todos) {
-    instance.extras.todos.map(todo => { 
+    instance.extras.todos.map(todo => {
       if (latestAt == null || todo.createdAt > latestAt)
-        latestAt = todo.createdAt; 
+        latestAt = todo.createdAt;
     });
   }
 
   return latestAt;
 }
 
-export async function instanceHasBeenViewed(instanceEnv: PH.InstanceEnvironment, actionHandler: PH.ActionHandler): Promise<void> {
+export function instanceHasBeenViewed(instanceEnv: PH.InstanceEnvironment, actionHandler: PH.ActionHandler): void {
   if (!instanceEnv || !instanceEnv.instance || !instanceEnv.user)
     return;
-    
+
   if (instanceEnv.user.extras.viewStates == null)
-    instanceEnv.user.extras.viewStates = {};  // initialize
+    instanceEnv.user.extras.viewStates = {};  // Initialize
 
-  let oldViewState = _.cloneDeep(instanceEnv.user.extras.viewStates[instanceEnv.instance.instanceId]);
+  const oldViewState = _.cloneDeep(instanceEnv.user.extras.viewStates[instanceEnv.instance.instanceId]);
 
-  // we cannot use client date, this might differ from server
+  // We cannot use client date, this might differ from server
   // set the date to the newest value of
   // - latestCommentAt
   // - createdAt of all todos for the instance (the todo might be newer than the latest comment!)
 
-  let newDate = latestActivityAt(instanceEnv.instance);
+  const newDate = latestActivityAt(instanceEnv.instance);
 
   if (instanceEnv.user.extras.viewStates[instanceEnv.instance.instanceId] == null)
     instanceEnv.user.extras.viewStates[instanceEnv.instance.instanceId] = {};
 
   instanceEnv.user.extras.viewStates[instanceEnv.instance.instanceId].lastViewedAt = newDate;
 
-  // actionHandler causes rerender - only call if viewState was changed
+  // ActionHandler causes rerender - only call if viewState was changed
   if (!_.isEqual(oldViewState, instanceEnv.user.extras.viewStates[instanceEnv.instance.instanceId])) {
-    await actionHandler.updateViewState(instanceEnv.instance.instanceId, instanceEnv.user.extras.viewStates[instanceEnv.instance.instanceId]);
+    actionHandler.updateViewState(instanceEnv.instance.instanceId, instanceEnv.user.extras.viewStates[instanceEnv.instance.instanceId]);
   }
 }
 
@@ -69,61 +69,61 @@ export function hasInstanceComments(instanceEnv: PH.InstanceEnvironment): boolea
   return (instanceEnv.instance.latestCommentAt != null);
 }
 
-// true if there are a) new comments and b) user is a roleOwner - otherwise there should be no notification symbol
+// True if there are a) new comments and b) user is a roleOwner - otherwise there should be no notification symbol
 export function notifyNewInstanceComments(instanceEnv: PH.InstanceEnvironment): boolean {
   if (!instanceEnv || !instanceEnv.instance || !instanceEnv.user)
     return false;
 
-  // is user RoleOwner?
+  // Is user RoleOwner?
   if (!instanceEnv.user || !PH.Instance.isRoleOwner(instanceEnv.user.userId, null, instanceEnv.instance))
     return false;
 
   if (instanceEnv.instance.latestCommentAt == null)
     return false;
 
-  let lastViewedAt = instanceLastViewedAt(instanceEnv);
+  const lastViewedAt = instanceLastViewedAt(instanceEnv);
   if (lastViewedAt == null)
-    return true;  // latestCommentAt != null, so there are new comments
+    return true;  // LatestCommentAt != null, so there are new comments
 
   return (instanceEnv.instance.latestCommentAt > lastViewedAt);
 }
 
-// true if a todo for the current user has been created since last viewing the instance
+// True if a todo for the current user has been created since last viewing the instance
 export function notifyNewInstanceTodos(instanceEnv: PH.InstanceEnvironment): boolean {
   if (!instanceEnv || !instanceEnv.instance || !instanceEnv.user)
     return false;
-    
+
   if (!instanceEnv.instance.extras.todos)
     return false;
 
-  // detect the date of the latest todo for the user
+  // Detect the date of the latest todo for the user
   let latestAt: Date = null;
-  instanceEnv.instance.extras.todos.map(todo => { 
+  instanceEnv.instance.extras.todos.map(todo => {
     if (todo.userId === instanceEnv.user.userId && (latestAt == null || todo.createdAt > latestAt))
-      latestAt = todo.createdAt; 
+      latestAt = todo.createdAt;
   });
   if (latestAt == null)
-    return false;  // no todos for user
+    return false;  // No todos for user
 
-  let lastViewedAt = instanceLastViewedAt(instanceEnv);
+  const lastViewedAt = instanceLastViewedAt(instanceEnv);
   if (lastViewedAt == null)
-    return true;  // latestCommentAt != null, so there are new comments
+    return true;  // LatestCommentAt != null, so there are new comments
 
   return (latestAt > lastViewedAt);
 }
 
-// true if user owns a todo that is pinned
+// True if user owns a todo that is pinned
 export function notifyInstancePin(instanceEnv: PH.InstanceEnvironment): boolean {
   if (!instanceEnv || !instanceEnv.instance || !instanceEnv.user)
     return false;
-    
+
   if (!instanceEnv.instance.extras.todos)
     return false;
 
   let pinned = false;
-  instanceEnv.instance.extras.todos.map(todo => { 
+  instanceEnv.instance.extras.todos.map(todo => {
     if (todo.userId === instanceEnv.user.userId && todo.isPinned)
-      pinned = true; 
+      pinned = true;
   });
 
   return pinned;

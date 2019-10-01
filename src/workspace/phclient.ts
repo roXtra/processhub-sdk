@@ -7,16 +7,16 @@ export class WorkspaceState {
   currentWorkspace: WorkspaceDetails;
 
   // Workspace Cache
-  workspaceCache: { 
-    [workspaceId: string]: WorkspaceDetails
+  workspaceCache: {
+    [workspaceId: string]: WorkspaceDetails;
   };
 
-  cacheState?: string;  // updated in reducers, helps React to detect state changes
-  lastDispatchedWorkspace: WorkspaceDetails; // used in reducer to detect changes
+  cacheState?: string;  // Updated in reducers, helps React to detect state changes
+  lastDispatchedWorkspace: WorkspaceDetails; // Used in reducer to detect changes
 }
 
 export function getDefaultMailSignature() {
-  return tl("Wir verwenden [ProcessHub](https://www.processhub.com) für die Steuerung unserer Geschäftsprozesse.");  
+  return tl("Wir verwenden [ProcessHub](https://www.processhub.com) für die Steuerung unserer Geschäftsprozesse.");
 }
 
 // WorkspaceView
@@ -30,7 +30,7 @@ export const WorkspaceView = {
 export type WorkspaceView = keyof typeof WorkspaceView;
 
 export function isValidWorkspaceView(urlSegment: string) {
-  for (let view in WorkspaceView) {
+  for (const view in WorkspaceView) {
     if ((WorkspaceView as any)[view]  === urlSegment.toLowerCase())
       return true;
   }

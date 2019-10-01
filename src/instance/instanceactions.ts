@@ -46,7 +46,7 @@ export async function executeInstance(processId: string, instanceDetails: Instan
 export function executeInstanceAction(processId: string, instanceDetails: InstanceDetails, startEventId?: string, accessToken?: string): <S>(dispatch: Dispatch<S>) => Promise<ExecuteReply> {
 
   return async <S>(dispatch: Dispatch<S>): Promise<ExecuteReply> => {
-    let response: ExecuteReply = await Api.postJson(ProcessEngineApiRoutes.execute, {
+    const response: ExecuteReply = await Api.postJson(ProcessEngineApiRoutes.execute, {
       processId: processId,
       instance: instanceDetails,
       startEventId: startEventId
@@ -66,14 +66,14 @@ export async function updateInstance(instance: InstanceDetails, accessToken: str
 
 export function updateInstanceAction(instance: InstanceDetails, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<UpdateInstanceReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<UpdateInstanceReply> => {
-    let response: UpdateInstanceReply = await Api.postJson(ProcessEngineApiRoutes.updateInstance, {
+    const response: UpdateInstanceReply = await Api.postJson(ProcessEngineApiRoutes.updateInstance, {
       instance: instance
     }, accessToken);
 
     if (response.instance)
       response.instance = mergeInstanceToCache(response.instance);
 
-    let message: InstanceLoadedMessage = {
+    const message: InstanceLoadedMessage = {
       type: INSTANCELOADED_MESSAGE,
       instance: response.instance
     };
@@ -89,7 +89,7 @@ export async function resumeProcess(resumeDetails: ResumeInstanceDetails): Promi
 
 export function resumeProcessAction(resumeDetails: ResumeInstanceDetails): <S>(dispatch: Dispatch<S>) => Promise<ExecuteReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<ExecuteReply> => {
-    let response: ExecuteReply = await Api.postJson(ProcessEngineApiRoutes.resume, {
+    const response: ExecuteReply = await Api.postJson(ProcessEngineApiRoutes.resume, {
       resumeDetails: resumeDetails
     });
 
@@ -106,7 +106,7 @@ export async function abortInstance(instanceId: string): Promise<AbortReply> {
 
 export function abortInstanceAction(instanceId: string): <S>(dispatch: Dispatch<S>) => Promise<AbortReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<AbortReply> => {
-    let response: AbortReply = await Api.postJson(ProcessEngineApiRoutes.abort, {
+    const response: AbortReply = await Api.postJson(ProcessEngineApiRoutes.abort, {
       instanceId: instanceId
     });
 
@@ -125,7 +125,7 @@ export async function jump(instanceId: string, targetBpmnTaskId: string, resumeD
 
 export function jumpAction(instanceId: string, targetBpmnTaskId: string, resumeDetails: ResumeInstanceDetails): <S>(dispatch: Dispatch<S>) => Promise<JumpReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<JumpReply> => {
-    let response: JumpReply = await Api.postJson(ProcessEngineApiRoutes.jump, {
+    const response: JumpReply = await Api.postJson(ProcessEngineApiRoutes.jump, {
       instanceId: instanceId,
       targetBpmnTaskId: targetBpmnTaskId,
       resumeDetails: resumeDetails
@@ -138,14 +138,14 @@ export function jumpAction(instanceId: string, targetBpmnTaskId: string, resumeD
   };
 }
 
-export async function loadInstance(instanceId: string, instanceExtras?: InstanceExtras, forceReload: boolean = false): Promise<InstanceDetails> {
-  let instanceState = rootStore.getState().instanceState;
+export async function loadInstance(instanceId: string, instanceExtras?: InstanceExtras, forceReload = false): Promise<InstanceDetails> {
+  const instanceState = rootStore.getState().instanceState;
   let cachedInstance = null;
 
   if (!forceReload && instanceState.instanceCache)
     cachedInstance = instanceState.instanceCache[instanceId];
   if (cachedInstance != null) {
-    // Ignore call if all data 
+    // Ignore call if all data
     // PH.Instance.InstanceExtras.ExtrasState is server-only
     if ((instanceExtras & InstanceExtras.ExtrasFieldContents) && cachedInstance.extras.fieldContents)
       instanceExtras -= InstanceExtras.ExtrasFieldContents;
@@ -156,10 +156,10 @@ export async function loadInstance(instanceId: string, instanceExtras?: Instance
     if ((instanceExtras & InstanceExtras.ExtrasTodos) && cachedInstance.extras.todos)
       instanceExtras -= InstanceExtras.ExtrasTodos;
     if ((instanceExtras & InstanceExtras.ExtrasRoleOwnersWithNames) && cachedInstance.extras.roleOwners) {
-      // names available?
-      for (let roleId in cachedInstance.extras.roleOwners) {
-        let roleowners = cachedInstance.extras.roleOwners[roleId];
-        for (let roleowner of roleowners) {
+      // Names available?
+      for (const roleId in cachedInstance.extras.roleOwners) {
+        const roleowners = cachedInstance.extras.roleOwners[roleId];
+        for (const roleowner of roleowners) {
           if (roleowner.displayName != null) {
             if (instanceExtras & InstanceExtras.ExtrasRoleOwnersWithNames)
               instanceExtras -= InstanceExtras.ExtrasRoleOwnersWithNames;
@@ -170,7 +170,7 @@ export async function loadInstance(instanceId: string, instanceExtras?: Instance
     }
 
     if (instanceExtras === 0) {
-      // all data available from cache
+      // All data available from cache
       rootStore.dispatch({
         type: INSTANCELOADED_MESSAGE,
         instance: cachedInstance
@@ -184,14 +184,14 @@ export async function loadInstance(instanceId: string, instanceExtras?: Instance
 }
 export function loadInstanceAction(instanceId: string, getExtras: InstanceExtras = InstanceExtras.None): <S>(dispatch: Dispatch<S>) => Promise<GetInstanceDetailsReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<GetInstanceDetailsReply> => {
-    let response: GetInstanceDetailsReply = await Api.getJson(ProcessEngineApiRoutes.getInstanceDetails, {
+    const response: GetInstanceDetailsReply = await Api.getJson(ProcessEngineApiRoutes.getInstanceDetails, {
       instanceId: instanceId,
       getExtras: getExtras
     });
     if (response.instanceDetails)
       response.instanceDetails = mergeInstanceToCache(response.instanceDetails);
 
-    let message: InstanceLoadedMessage = {
+    const message: InstanceLoadedMessage = {
       type: INSTANCELOADED_MESSAGE,
       instance: response.instanceDetails
     };

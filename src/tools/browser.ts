@@ -9,5 +9,5 @@ export function isIE11(): boolean {
   if (typeof navigator === "undefined" || navigator == null)
     return false;
 
-  return /Trident\/7\./.test(navigator.userAgent);
+  return navigator.userAgent.includes("Trident/7.");
 }

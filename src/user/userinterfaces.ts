@@ -24,24 +24,24 @@ export interface ArchiveViews {
 export class UserDetails {
   userId: string;
   mail: string;
-  realName?: string;     
-  displayName?: string; // realName or mail if no name is defined
+  realName?: string;
+  displayName?: string; // RealName or mail if no name is defined
   firstName?: string;
   lastName?: string;
-  photoUrl?: string;  
-  language?: string; // preferred User language (en, de, ...)
+  photoUrl?: string;
+  language?: string; // Preferred User language (en, de, ...)
   extras: {
     // New Extras must be added to cache-handling in useractions -> loadUser!
     workspaces?: WorkspaceDetails[];
-    accessToken?: string;  // only available in sign in replies
+    accessToken?: string;  // Only available in sign in replies
     instances?: InstanceDetails[];
     viewStates?: ViewStates;
     archiveViews?: ArchiveViews;
-    roXtra?: RoxtraUserDetails;    
+    roXtra?: RoxtraUserDetails;
   };
   accountState?: AccountState;
-  isLibraryAdmin?: boolean; // not available in GraphQL
-  lastSeenAt?: Date; // last time user was online (updated every 12h) / not available in GraphQL
+  isLibraryAdmin?: boolean; // Not available in GraphQL
+  lastSeenAt?: Date; // Last time user was online (updated every 12h) / not available in GraphQL
   lastStatusMailAt?: Date;
   noDailyUpdates?: boolean;
   noWeeklyStatus?: boolean;
@@ -78,11 +78,11 @@ export const gqlUserTypes = `
 
 export enum UserExtras {
   None = 0,
-  ExtrasWorkspaces = 1 << 0, // get workspaces where user is a member
-  ExtrasWorkspacesWithMembersAndProcesses = 1 << 1,  // the sidebar needs fully loaded workspaces to display
-  ExtrasInstances = 1 << 2,  // instances visible to user
-  ExtrasViewStates = 1 << 3,  // user-specific last opening-dates of instances, used to sync notifications on all user devices
-  ExtrasArchiveViews = 1 << 4  // user-specific last viewed archive views by process id
+  ExtrasWorkspaces = 1 << 0, // Get workspaces where user is a member
+  ExtrasWorkspacesWithMembersAndProcesses = 1 << 1,  // The sidebar needs fully loaded workspaces to display
+  ExtrasInstances = 1 << 2,  // Instances visible to user
+  ExtrasViewStates = 1 << 3,  // User-specific last opening-dates of instances, used to sync notifications on all user devices
+  ExtrasArchiveViews = 1 << 4  // User-specific last viewed archive views by process id
 }
 
 export const emptyUser: UserDetails = {
@@ -94,7 +94,7 @@ export const emptyUser: UserDetails = {
 
 export function getUserWorkspace(user: UserDetails, workspaceId: string): WorkspaceDetails {
   if (user == null)
-    return null; 
+    return null;
 
   // ExtrasWorkspaces required
   isTrue(user.extras.workspaces != null, "getUserWorkspace: user.extras.workspaces == null");
@@ -104,9 +104,9 @@ export function getUserWorkspace(user: UserDetails, workspaceId: string): Worksp
 
 export enum AccountState {
   // DON'T CHANGE NUMBER VALUES - used in database
-  Preregistered = 0, // user invited, mail addres known but not yet registered
-  Registered = 1, // user has registered but not yet confirmed mail address
-  Confirmed = 2, // fully registered, mail address confirmed
+  Preregistered = 0, // User invited, mail addres known but not yet registered
+  Registered = 1, // User has registered but not yet confirmed mail address
+  Confirmed = 2, // Fully registered, mail address confirmed
   Deleted = 3,
   Demo = 4,
   System = 5
@@ -125,7 +125,7 @@ export type PredefinedGroups = keyof typeof PredefinedGroups;
 
 export function getDefaultRoleGroup(): string {
   if (isRoxtraEdition) {
-    return PredefinedGroups.AllWorkspaceMembers; 
+    return PredefinedGroups.AllWorkspaceMembers;
   } else {
     return PredefinedGroups.Everybody;
   }
@@ -158,11 +158,11 @@ export const UserActionsType = {
 };
 export type UserActionsType = keyof typeof UserActionsType;
 
-// tracks last view datetimes of instances and/or processes
+// Tracks last view datetimes of instances and/or processes
 // used to sync notification states across devices
 export interface ViewState {
-  lastViewedAt?: Date;  // last time instancePopup for this instance was opened
-  isPinned?: boolean;  // instance/process pinned to sidebar?
+  lastViewedAt?: Date;  // Last time instancePopup for this instance was opened
+  isPinned?: boolean;  // Instance/process pinned to sidebar?
 }
 export interface ViewStates {
   [objectId: string]: ViewState;

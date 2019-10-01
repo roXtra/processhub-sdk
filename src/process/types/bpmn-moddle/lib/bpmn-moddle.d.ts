@@ -1,4 +1,4 @@
-// tslint:disable:interface-name
+// Tslint:disable:interface-name
 declare module "bpmn-moddle/lib/bpmn-moddle" {
   export = BpmnModdle;
 
@@ -33,7 +33,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
      * @param {Object|Array} packages to use for instantiating the model
      * @param {Object} [options] additional options to pass over
      */
-    constructor(packages?: Object[], options?: Object);
+    constructor(packages?: Record<string, any>[], options?: Record<string, any>);
 
     /**
      * Create an instance of the specified type.
@@ -89,7 +89,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
 
     public create(descriptor: "dc:Bounds", attrs: Partial<Dc.Bounds>): Dc.Bounds;
     public create(descriptor: "dc:Point", attrs: Partial<Dc.Point>): Dc.Point;
-    
+
     /**
      * Creates an any-element type to be used within model instances.
      *
@@ -138,7 +138,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
     public fromXML(
       xmlStr: string,
       typeName: Bpmn.ElementType,
-      options: Object,
+      options: Record<string, any>,
       done: (err: Error, result: ModdleElement, parseContext: Context) => void): void;
     public fromXML(xmlStr: string, done: (err: Error, result: Bpmn.Definitions, parseContext: Context) => void): void;
 
@@ -149,7 +149,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
      * @param {Object}   [options]  to pass to the underlying writer
      * @param {Function} done       callback invoked with (err, xmlStr) once the import completes
      */
-    public toXML(element: Bpmn.Definitions, options: Object, done: (err: Object, xmlStr: string) => void): void;
+    public toXML(element: Bpmn.Definitions, options: Record<string, any>, done: (err: Record<string, any>, xmlStr: string) => void): void;
   }
 
   namespace BpmnModdle {
@@ -157,7 +157,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
     }
     export interface IElement extends IElementAttrs {
       readonly $type: Bpmn.ElementType;
-      $attrs?: Object;
+      $attrs?: Record<string, any>;
     }
 
   }

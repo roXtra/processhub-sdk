@@ -19,9 +19,9 @@ interface IHtml5DesktopNotifications {
 let notify: IHtml5DesktopNotifications;
 
 if (typeof window !== "undefined") {
-  // tslint:disable-next-line:no-var-requires
-  /*const notifyPackage: {} = */ require("html5-desktop-notifications");
-  // tslint:disable-next-line:no-any
+  // Tslint:disable-next-line:no-var-requires
+  /* const notifyPackage: {} = */ require("html5-desktop-notifications");
+  // Tslint:disable-next-line:no-any
   notify = (window as any).notify as IHtml5DesktopNotifications;
 }
 
@@ -35,7 +35,7 @@ export function requestPermission(): void {
 }
 
 let lastNotificationSentAt: number = new Date().getTime();
-const notificationInterval: number = 15000;
+const notificationInterval = 15000;
 
 export function sendNotification(title: string, body: string): void {
   if (notify.isSupported

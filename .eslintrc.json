@@ -1,0 +1,111 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+      "ecmaVersion": 2015,
+      "sourceType": "module",
+      "project": "./tsconfig.json"
+  },
+  "plugins": [
+      "@typescript-eslint"
+  ],
+  "env": {
+      "browser": true,
+      "node": true,
+      "es6": true
+  },
+  "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "rules": {
+      "no-cond-assign": "error",
+      "capitalized-comments": [
+          "error",
+          "always",
+          {
+              "ignoreInlineComments": true,
+              "ignoreConsecutiveComments": true
+          }
+      ],
+      "spaced-comment": "error",
+      "no-eval": "error",
+      "no-trailing-spaces": "error",
+      "no-unsafe-finally": "error",
+      "no-var": "error",
+      "quotes": [
+          "error",
+          "double"
+      ],
+      "eqeqeq": [
+          "off",
+          "always",
+          {
+              "null": "ignore"
+          }
+      ],
+      "id-blacklist": "error",
+      // Disabled for now to simplify migration to eslint
+      "camelcase": "warn",
+      // Disabled for now to simplify eslint migration
+      "no-underscore-dangle": "warn",
+      "require-atomic-updates": "warn",
+      // Disabled for now to simplify eslint migration
+      "@typescript-eslint/no-unused-vars": [
+          "warn",
+          {
+              "varsIgnorePattern": ""
+          }
+      ],
+      "@typescript-eslint/indent": [
+          "error",
+          2
+      ],
+      "@typescript-eslint/no-floating-promises": "error",
+      "@typescript-eslint/prefer-namespace-keyword": "error",
+      "semi": "off",
+      "@typescript-eslint/semi": [
+          "error",
+          "always"
+      ],
+      "@typescript-eslint/type-annotation-spacing": [
+          "error"
+      ],
+      "@typescript-eslint/interface-name-prefix": [
+          "warn",
+          {
+              "prefixWithI": "always"
+          }
+      ],
+      // Disabled for now to simplify migration to eslint
+      "@typescript-eslint/no-use-before-define": "warn",
+      // Disabled for now to simplify migration to eslint
+      "@typescript-eslint/no-var-requires": "warn",
+      // Disabled for now to simplify migration to eslint
+      "@typescript-eslint/camelcase": "warn",
+      // Disabled checksVoidReturn for now to simplify migration to eslint
+      "@typescript-eslint/no-misused-promises": [
+        "error",
+        {
+          "checksVoidReturn": false
+        }
+      ],
+      // Disabled for now to simplify migration to eslint
+      "@typescript-eslint/unbound-method": "warn",
+      // Disabled for now to simplify migration to eslint
+      "@typescript-eslint/no-empty-interface": "warn",
+      // Disabled for now to simplify migration to eslint
+      "react/jsx-no-target-blank": "warn",
+      // Disabled for now to simplify migration to eslint
+      "react/jsx-key": "warn",
+      // Disabled for now to simplify migration to eslint
+      "react/no-direct-mutation-state": "warn"
+  },
+  "settings": {
+      "react": {
+          "version": "detect"
+      }
+  }
+}

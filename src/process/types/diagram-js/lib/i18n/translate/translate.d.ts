@@ -21,6 +21,6 @@ declare module "diagram-js/lib/i18n/translate/translate" {
   export default translate;
 
   namespace translate {
-    type ITranslateFunction = (template: string, replacements?: Object) => string;
+    type ITranslateFunction = (template: string, replacements?: Record<string, any>) => string;
   }
 }

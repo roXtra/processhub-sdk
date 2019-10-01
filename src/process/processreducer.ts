@@ -11,7 +11,7 @@ import { ResetStore } from "../statehandler/actions";
 export function processReducer(processState: Process.ProcessState, action: any): Process.ProcessState {
 
   if (processState == null || action && action.type === ResetStore) {
-    // init state
+    // Init state
     processState = new Process.ProcessState();
     processState.processCache = {};
   }
@@ -21,15 +21,14 @@ export function processReducer(processState: Process.ProcessState, action: any):
   isTrue(action.type != null, "processReducer: action.type is undefined");
 
   switch (action.type) {
-    // processState darf NICHT direkt geändert werden, da React sonst die Änderungen nicht erkennen kann
+    // ProcessState darf NICHT direkt geändert werden, da React sonst die Änderungen nicht erkennen kann
     // und kein Rendering auslöst.
     // siehe https://github.com/kolodny/immutability-helper
 
-    case PROCESSLOADED_MESSAGE:
+    case PROCESSLOADED_MESSAGE: {
+      processState.currentProcess = StateHandler.mergeProcessToCache((action as ProcessLoadedMessage).processDetails);
 
-      processState.currentProcess = StateHandler.mergeProcessToCache((<ProcessLoadedMessage>action).processDetails);
-
-      let processChanged = !_.isEqual(processState.currentProcess, processState.lastDispatchedProcess);
+      const processChanged = !_.isEqual(processState.currentProcess, processState.lastDispatchedProcess);
       processState.lastDispatchedProcess = _.cloneDeep(processState.currentProcess);
 
       // React cannot detect state changes in objects. Updating cacheState triggers rendering
@@ -40,14 +39,14 @@ export function processReducer(processState: Process.ProcessState, action: any):
         });
       } else
         return processState;
-
+    }
     case ProcessActions.ProcessActionType.Save:
       if (processState.currentProcess) {
         return update(processState, {
           currentProcess: {
             extras: {
-              bpmnXml: { $set: <ProcessActions.ProcessActionSave><any>action.xmlStr },
-              bpmnProcess: { $set: <ProcessActions.ProcessActionSave><any>action.bpmnProcess }
+              bpmnXml: { $set: action.xmlStr as ProcessActions.ProcessActionSave },
+              bpmnProcess: { $set: action.bpmnProcess as ProcessActions.ProcessActionSave }
             }
           }
         });
@@ -55,8 +54,8 @@ export function processReducer(processState: Process.ProcessState, action: any):
         return processState;
       }
 
-    case ProcessActions.ProcessActionType.CreateInDb:
-      let createInDbAction = <ProcessActions.ProcessActionCreateInDb><any>action;
+    case ProcessActions.ProcessActionType.CreateInDb: {
+      const createInDbAction = action as ProcessActions.ProcessActionCreateInDb;
       isTrue(createInDbAction.workspaceId != null && createInDbAction.workspaceId != null, ProcessActions.ProcessActionType.CreateInDb + ": workspaceId = " + createInDbAction.workspaceId);
       processState.currentProcess = processState.currentProcess || {
         workspaceId: createInDbAction.workspaceId,
@@ -73,19 +72,19 @@ export function processReducer(processState: Process.ProcessState, action: any):
           workspaceId: { $set: createInDbAction.workspaceId },
         }
       });
-
+    }
     case ProcessActions.ProcessActionType.CreateInDbDone:
       return update(processState, {
         cacheState: { $set: createId() }
       });
 
-    case ProcessActions.ProcessActionType.Failed:
-      let failedAction = <ProcessActions.ProcessActionFailed><any>action;
+    case ProcessActions.ProcessActionType.Failed: {
+      const failedAction = action as ProcessActions.ProcessActionFailed;
       processState.errorMessage = failedAction.errorMessage;
       return processState;
-
+    }
     case ProcessActions.ProcessActionType.DeleteFromDb: {
-      let deleteAction = <ProcessActions.ProcessActionDeleteFromDb><any>action;
+      const deleteAction = action as ProcessActions.ProcessActionDeleteFromDb;
       processState.currentProcess = processState.currentProcess
         || { processId: deleteAction.processId, workspaceId: null, displayName: null, description: null, extras: {} };
       return update(processState, {

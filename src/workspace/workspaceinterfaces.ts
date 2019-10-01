@@ -11,7 +11,7 @@ export enum WorkspaceType {
   Demo = 120, // Demo has some features that Free does not have, e.g. graphical modeler
   Team = 200,
   Business = 300,
-  Templates = 310, // used internally for templates. Processes in this workspace are always public
+  Templates = 310, // Used internally for templates. Processes in this workspace are always public
   Enterprise = 400
 }
 export function getWorkspaceTypeName(workspaceType: WorkspaceType): string {
@@ -19,7 +19,7 @@ export function getWorkspaceTypeName(workspaceType: WorkspaceType): string {
     case WorkspaceType.Demo:
       return tl("Demo");
     case WorkspaceType.Free:
-      return tl("Free");      
+      return tl("Free");
     case WorkspaceType.Team:
       return tl("Team");
     case WorkspaceType.Business:
@@ -27,7 +27,7 @@ export function getWorkspaceTypeName(workspaceType: WorkspaceType): string {
     case WorkspaceType.Enterprise:
       return tl("Enterprise");
     default:
-      return workspaceType.toString();            
+      return workspaceType.toString();
   }
 }
 
@@ -36,21 +36,21 @@ export interface WorkspaceDetails {
 
   workspaceId: string;
   workspaceType: WorkspaceType;
-  urlName?: string; // displayName converted to Uri segment
+  urlName?: string; // DisplayName converted to Uri segment
   fullUrl?: string; // @urlname
   displayName: string;
   description?: string;
-  userRole?: WorkspaceRole;  // Rolle des angemeldeten Users im Workspace  
+  userRole?: WorkspaceRole;  // Rolle des angemeldeten Users im Workspace
   trialExpiresAt?: Date;
   licensedUsers?: number;
   colors?: WorkspaceColor[];
-  mailboxAddress?: string; // if defined mailbox is defined in settings
+  mailboxAddress?: string; // If defined mailbox is defined in settings
   extras: {
     // New Extras must be added to cache-handling in workspaceactions -> loadWorkspace!
     members?: WorkspaceMember[];
-    processes?: ProcessDetails[];  // only processes that the current user may access
+    processes?: ProcessDetails[];  // Only processes that the current user may access
     settings?: WorkspaceSettings;
-    tags?: string[]; // all available tags in the workspace
+    tags?: string[]; // All available tags in the workspace
     auditTrail?: AuditTrailEntry[];
     groups?: GroupDetails[];
   };
@@ -116,10 +116,10 @@ export interface WorkspaceSettings {
 }
 
 export enum WorkspaceRole {
-  None = 0, // used to list todos from workspaces where user is not a member
+  None = 0, // Used to list todos from workspaces where user is not a member
   WorkspaceAdmin = 1 << 0,
   WorkspaceProcessManager = 1 << 1,
-  WorkspaceMember = 1 << 2, // regular member
+  WorkspaceMember = 1 << 2, // Regular member
 }
 
 export interface WorkspaceMember {

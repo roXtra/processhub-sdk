@@ -1,4 +1,4 @@
-// tslint:disable:max-classes-per-file
+// Tslint:disable:max-classes-per-file
 // tslint:disable:variable-name
 declare module "diagram-js/lib/core/EventBus" {
 
@@ -109,13 +109,13 @@ declare module "diagram-js/lib/core/EventBus" {
      * @param {Function} callback
      * @param {Object} [that] Pass context (`this`) to the callback
      */
-    public on(events: EventType, priority: number, callback: (Event: EventBusEvent<Object>) => void, that: Object): void;
-    public on(events: EventType, callback: (event: EventBusEvent<Object>) => void): void;
+    public on(events: EventType, priority: number, callback: (Event: EventBusEvent<Record<string, any>>) => void, that: Record<string, any>): void;
+    public on(events: EventType, callback: (event: EventBusEvent<Record<string, any>>) => void): void;
 
     public on(events: "bendpoint.move.ended", priority: number, callback: (Event: BEndpointMoveEndedEvent) => void): void;
     public on(events: "bendpoint.move.ended", callback: (Event: BEndpointMoveEndedEvent) => void): void;
 
-    public on(events: "canvas.init", callback: (event: EventBusEvent<Object>) => void): void;
+    public on(events: "canvas.init", callback: (event: EventBusEvent<Record<string, any>>) => void): void;
 
     public on(events: "create.canceled", callback: (event: CreateCanceledEvent) => void): void;
 
@@ -134,7 +134,7 @@ declare module "diagram-js/lib/core/EventBus" {
 
     public on(events: "connectionSegment.move.ended", callback: (event: ConnectionSegmentMoveEndedEvent) => void): void;
 
-    public on(events: "drag.start", callback: (event: EventBusEvent<Object>) => void): void;
+    public on(events: "drag.start", callback: (event: EventBusEvent<Record<string, any>>) => void): void;
 
     public on(events: "drag.ended", callback: (event: DragEndedEvent) => void): void;
 
@@ -152,7 +152,7 @@ declare module "diagram-js/lib/core/EventBus" {
     public on(events: "shape.added", priority: number, callback: (Event: ShapeAddedEvent) => void): void;
     public on(events: "shape.added", callback: (Event: ShapeAddedEvent) => void): void;
 
-    public on(events: "shape.move.end", priority: number, callback: (Event: EventBusEvent<Object>) => void, that: Object): void;
+    public on(events: "shape.move.end", priority: number, callback: (Event: EventBusEvent<Record<string, any>>) => void, that: Record<string, any>): void;
 
     public on(events: "shape.move.ended", priority: number, callback: (Event: EventBusEvent<IShapeMoveEndContext>) => void): void;
     public on(events: "shape.move.ended", callback: (Event: EventBusEvent<IShapeMoveEndContext>) => void): void;
@@ -170,7 +170,7 @@ declare module "diagram-js/lib/core/EventBus" {
      * @param {Function} callback the callback to execute
      * @param {Object} [that] Pass context (`this`) to the callback
      */
-    public once(event: "element.click", priority: number, callback: (Event: EventBusEvent<Object>) => void, that?: Object): void;
+    public once(event: "element.click", priority: number, callback: (Event: EventBusEvent<Record<string, any>>) => void, that?: Record<string, any>): void;
     public once(events: "selection.changed", priority: number, callback: (Event: SelectionChangedEvent) => void): void;
 
     /**
@@ -213,14 +213,14 @@ declare module "diagram-js/lib/core/EventBus" {
      * @return {Boolean} the events return value, if specified or false if the
      *                   default action was prevented by listeners
      */
-    public fire(type: string, data: Object): boolean;
+    public fire(type: string, data: Record<string, any>): boolean;
     public fire(type: "shape.move.end", data: IShapeMoveEndData): boolean;
     /**
      * Clear the diagram, removing all contents.
      */
     public fire(type: "diagram.clear" | "diagram.init"): void;
-    public fire(type: "render.shape", data: { gfx: SVGElement, element: Shape }): SVGElement;
-    public fire(type: "render.connection", data: { gfx: SVGElement, element: Connection }): SVGElement;
+    public fire(type: "render.shape", data: { gfx: SVGElement; element: Shape }): SVGElement;
+    public fire(type: "render.connection", data: { gfx: SVGElement; element: Connection }): SVGElement;
 
     /*
      * Add new listener with a certain priority to the list
@@ -238,7 +238,7 @@ declare module "diagram-js/lib/core/EventBus" {
      * @param {String} event
      * @param {Object} listener { priority, callback }
      */
-    public _addListener(event: string, newListener: Object): void;
+    public _addListener(event: string, newListener: Record<string, any>): void;
   }
 
   export type ResizeEndedDirection = "se" | "sw" | "ne" | "nw";
@@ -249,7 +249,7 @@ declare module "diagram-js/lib/core/EventBus" {
     direction: ResizeEndedDirection;
     frame: SVGRectElement;
     newBounds: IBounds;
-    resizeConstraints: Object;
+    resizeConstraints: Record<string, any>;
     shape: Shape;
   }
 
@@ -274,7 +274,7 @@ declare module "diagram-js/lib/core/EventBus" {
 
     public stopPropagation(): void;
     public preventDefault(): void;
-    public init(data: Object): void;
+    public init(data: Record<string, any>): void;
   }
 
   export class ElementDblClickEvent extends ElementClickEvent {
@@ -298,14 +298,14 @@ declare module "diagram-js/lib/core/EventBus" {
     public type: "shape.added";
   }
 
-  export class ConnectionSegmentMoveEndedEvent extends EventBusEvent<Object> {
+  export class ConnectionSegmentMoveEndedEvent extends EventBusEvent<Record<string, any>> {
     public connection: Connection;
     public connectionGfx: SVGGElement;
     public hoverGfx: SVGGElement;
     public originalEvent: MouseEvent;
   }
 
-  export class BEndpointMoveEndedEvent extends EventBusEvent<Object> {
+  export class BEndpointMoveEndedEvent extends EventBusEvent<Record<string, any>> {
     public connection: Connection;
     public connectionGfx: SVGGElement;
     public hoverGfx: SVGGElement;

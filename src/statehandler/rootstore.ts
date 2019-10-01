@@ -4,13 +4,13 @@ import { routerMiddleware } from "react-router-redux";
 import { RootState, initState, rootReducer } from "./rootreducer";
 import { ResetStore } from "./actions";
 
-export async function resetStore(): Promise<void> {
-  await rootStore.dispatch({ type: ResetStore });
+export function resetStore(): void {
+  rootStore.dispatch({ type: ResetStore });
 }
 
 export function configureStore(initialState: any): Store<any> {
   const history: History = null;
-  const reduxRouterMiddleware = routerMiddleware(<any>history);
+  const reduxRouterMiddleware = routerMiddleware(history as any);
 
   const store = createStore(
     rootReducer,
@@ -18,7 +18,7 @@ export function configureStore(initialState: any): Store<any> {
     applyMiddleware(
       thunk,
       reduxRouterMiddleware)
-    );
+  );
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
@@ -33,7 +33,7 @@ export function configureStore(initialState: any): Store<any> {
   return store;
 }
 
-let initialState: RootState = typeof window !== "undefined" ? (<any>window).__INITIAL_STATE__ : undefined;
+let initialState: RootState = typeof window !== "undefined" ? (window as any).__INITIAL_STATE__ : undefined;
 if (initialState == null) {
   initialState = initState();
 }

@@ -31,6 +31,6 @@ declare module "diagram-js/lib/features/rules/Rules" {
      * @return {Boolean} returns true, false or null depending on whether the
      *                   operation is allowed, not allowed or should be ignored.
      */
-    public allowed(action: string, context: Object): boolean;
+    public allowed(action: string, context: Record<string, any>): boolean;
   }
 }

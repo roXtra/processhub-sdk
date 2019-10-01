@@ -1,4 +1,4 @@
-// tslint:disable:interface-name
+// Tslint:disable:interface-name
 declare module "modeler/bpmn/dc" {
   namespace Dc {
 

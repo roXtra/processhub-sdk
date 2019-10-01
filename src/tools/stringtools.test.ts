@@ -29,7 +29,7 @@ describe("sdk", function () {
           chai.assert.isFalse(StringTools.isValidWorkspaceName("name with spaces"), "1");
           chai.assert.isFalse(StringTools.isValidWorkspaceName(""), "2");
           chai.assert.isFalse(StringTools.isValidWorkspaceName(null), "3");
-          chai.assert.isFalse(StringTools.isValidWorkspaceName("thom")), "4"; 
+          chai.assert.isFalse(StringTools.isValidWorkspaceName("thom")), "4";
         });
       });
 
@@ -83,18 +83,18 @@ describe("sdk", function () {
 
       describe("splitStringOnMultipleSigns", function () {
         it("soll eingegebene Emailadressen mit Separator als Array zurückliefern", function () {
-          let initSign = StringTools.SPLITSIGN_EMAILADDRESSES[0];
+          const initSign = StringTools.SPLITSIGN_EMAILADDRESSES[0];
           // Should also accept+ignore multiple signs
           let testString = "testuser@processhub.com" + initSign + "testuser2@processhub.com" + initSign + initSign + "testuser3@processhub.com" + initSign + "test@processhub.com" + initSign;
 
           for (let i = 0; i < StringTools.SPLITSIGN_EMAILADDRESSES.length; i++) {
-            let res = StringTools.splitStringOnMultipleSigns(testString);
+            const res = StringTools.splitStringOnMultipleSigns(testString);
             chai.assert.equal(res.length, 4, "Error beim splitten mit Zeichen " + StringTools.SPLITSIGN_EMAILADDRESSES[i] + "\nMit String : " + testString);
             if ((i + 1) < StringTools.SPLITSIGN_EMAILADDRESSES.length)
               testString = testString.replace(new RegExp(StringTools.SPLITSIGN_EMAILADDRESSES[i], "g"), StringTools.SPLITSIGN_EMAILADDRESSES[i + 1]);
           }
 
-          let res = StringTools.splitStringOnMultipleSigns("");
+          const res = StringTools.splitStringOnMultipleSigns("");
           chai.assert.equal(res, null, "Error beim splitten leerem String");
         });
 
@@ -106,129 +106,129 @@ describe("sdk", function () {
       });
 
       describe("replaceOldFieldSyntax", function () {
-        it("soll alte Syntax austauschen", async function () {
-              
-          let testValue = "(({{ field.Feld_1 }} == 1) && ({{ role.Bearbeiter }} == 'Administrator, Admin')) || role['Pruefer'].displayName && role['Ersteller'].firstname";
-          let expectedValue = "((field['Feld_1'] == 1) && (role['Bearbeiter'] == 'Administrator, Admin')) || role['Pruefer'].displayName && role['Ersteller'].firstname";
+        it("soll alte Syntax austauschen", function () {
+
+          const testValue = "(({{ field.Feld_1 }} == 1) && ({{ role.Bearbeiter }} == 'Administrator, Admin')) || role['Pruefer'].displayName && role['Ersteller'].firstname";
+          const expectedValue = "((field['Feld_1'] == 1) && (role['Bearbeiter'] == 'Administrator, Admin')) || role['Pruefer'].displayName && role['Ersteller'].firstname";
 
           const res = StringTools.replaceOldFieldSyntax(testValue);
-          
+
           chai.expect(res).to.be.equal(expectedValue, testValue + " == " + expectedValue);
         });
       });
 
       describe("Querybuilder", function () {
 
-        const editTestParameters: { query: string, expectedGroup: Group, guid: string }[] = [
+        const editTestParameters: { query: string; expectedGroup: Group; guid: string }[] = [
           {
             guid: "300b7a35-5441-48cd-9b62-02e8d5d7c356",
             query: "",
-            expectedGroup: { 
-              rules: [], 
-              combinator: "&&" 
+            expectedGroup: {
+              rules: [],
+              combinator: "&&"
             } as Group
           },
           {
             guid: "b0e8c905-7f79-4a38-ae46-b9ccf6262106",
             query: "()",
-            expectedGroup: { 
-              rules: [], 
-              combinator: "&&" 
+            expectedGroup: {
+              rules: [],
+              combinator: "&&"
             } as Group
           },
           {
             guid: "d5b3362e-83de-450f-8519-043ed7b8566f",
             query: "(())",
-            expectedGroup: { 
-              rules: [ 
-                { 
-                  rules: [], 
-                  combinator: "&&" 
+            expectedGroup: {
+              rules: [
+                {
+                  rules: [],
+                  combinator: "&&"
                 } as Group
               ],
-              combinator: "&&" 
+              combinator: "&&"
             } as Group
           },
           {
             guid: "556712e5-d2e2-4d4e-ab92-1b01aa92d3a8",
             query: "(field['Zahl'] > 5)",
             expectedGroup: {
-              rules: [ 
+              rules: [
                 {
-                   field: "field['Zahl']",
-                   operator: ">",
-                   value: 5
+                  field: "field['Zahl']",
+                  operator: ">",
+                  value: 5
                 } as Rule
               ],
-              combinator: "&&" 
+              combinator: "&&"
             } as Group
           },
           {
             guid: "e65c5a52-6922-4753-bfee-86a48f084f64",
             query: "(field['A&B'] != '[X|Y]')",
             expectedGroup: {
-              rules: [ 
+              rules: [
                 {
-                   field: "field['A&B']",
-                   operator: "!=",
-                   value: "[X|Y]"
+                  field: "field['A&B']",
+                  operator: "!=",
+                  value: "[X|Y]"
                 } as Rule
               ],
-              combinator: "&&" 
+              combinator: "&&"
             } as Group
           },
           {
             guid: "148cd88f-b218-49bc-ba52-b6209a470bda",
             query: "(field['Date'] == undefined)",
             expectedGroup: {
-              rules: [ 
+              rules: [
                 {
-                   field: "field['Date']",
-                   operator: "==",
-                   value: undefined
+                  field: "field['Date']",
+                  operator: "==",
+                  value: undefined
                 } as Rule
               ],
-              combinator: "&&" 
+              combinator: "&&"
             } as Group
           },
           {
             guid: "6a9041ad-a1b6-4cfa-9c35-336e00d9abb9",
             query: "(field['Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von'] == '')",
             expectedGroup: {
-              rules: [ 
+              rules: [
                 {
-                   field: "field['Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von']",
-                   operator: "==",
-                   value: ""
+                  field: "field['Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von']",
+                  operator: "==",
+                  value: ""
                 } as Rule
               ],
-              combinator: "&&" 
+              combinator: "&&"
             } as Group
           },
           {
             guid: "7abebd2c-c13c-4d84-b942-aeb3f819fdde",
             query: "(role['Mitarbeiter'].lastName == 'Mustermann' && role['GF/KB/PL'].firstName == 'Max')",
             expectedGroup: {
-              rules: [ 
+              rules: [
                 {
                   field: "role['Mitarbeiter'].lastName",
                   operator: "==",
-                  value: "Mustermann" 
+                  value: "Mustermann"
                 } as Rule,
                 {
                   field: "role['GF/KB/PL'].firstName",
                   operator: "==",
-                  value: "Max" 
+                  value: "Max"
                 } as Rule
               ],
-              combinator: "&&" 
+              combinator: "&&"
             } as Group
           },
           {
             guid: "67fbd46f-a7eb-418e-b5f5-e4fa156cf7f2",
             query: "(field['Check'] == {\"A\":true,\"B\":true} || field['DATUM'] >= '2019-08-14T22:00:00.000Z')",
             expectedGroup: {
-              rules: [ 
+              rules: [
                 {
                   field: "field['Check']",
                   operator: "==",
@@ -247,31 +247,31 @@ describe("sdk", function () {
             guid: "28bddb73-54ff-42a9-8e9f-e74dc2bc4e3a",
             query: "(role['Abteilungsleitung'] == 'ABC' && field['Dienstbezeichnung'] == 'xyz' && (field['Art der Veranstaltung'] != 'gfdg dfg' || field['Entstehen Teilnehmergebühren?'] == 'nein'))",
             expectedGroup: {
-              rules: [ 
+              rules: [
                 {
-                   field: "role['Abteilungsleitung']",
-                   operator: "==",
-                   value: "ABC" 
+                  field: "role['Abteilungsleitung']",
+                  operator: "==",
+                  value: "ABC"
                 } as Rule,
                 {
-                   field: "field['Dienstbezeichnung']",
-                   operator: "==",
-                   value: "xyz" 
+                  field: "field['Dienstbezeichnung']",
+                  operator: "==",
+                  value: "xyz"
                 } as Rule,
-                { 
-                   rules: [ 
-                      {
-                        field: "field['Art der Veranstaltung']",
-                        operator: "!=",
-                        value: "gfdg dfg"
-                      } as Rule,
-                      {
-                        field: "field['Entstehen Teilnehmergebühren?']",
-                        operator: "==",
-                        value: "nein" 
-                      } as Rule
-                    ], 
-                    combinator: "||"
+                {
+                  rules: [
+                    {
+                      field: "field['Art der Veranstaltung']",
+                      operator: "!=",
+                      value: "gfdg dfg"
+                    } as Rule,
+                    {
+                      field: "field['Entstehen Teilnehmergebühren?']",
+                      operator: "==",
+                      value: "nein"
+                    } as Rule
+                  ],
+                  combinator: "||"
                 } as Group
               ],
               combinator: "&&"
@@ -281,9 +281,9 @@ describe("sdk", function () {
             guid: "812fb4b1-3344-4107-9f43-cc3a42c6ba93",
             query: "((field['Name, Vorname'] == '' && field['Name, Vorname'] == '') && (field['Name, Vorname'] == '' && field['Name, Vorname'] == ''))",
             expectedGroup: {
-              rules: [               
-                { 
-                  rules: [ 
+              rules: [
+                {
+                  rules: [
                     {
                       field: "field['Name, Vorname']",
                       operator: "==",
@@ -294,11 +294,11 @@ describe("sdk", function () {
                       operator: "==",
                       value: ""
                     } as Rule
-                  ], 
+                  ],
                   combinator: "&&"
                 } as Group,
-                { 
-                  rules: [ 
+                {
+                  rules: [
                     {
                       field: "field['Name, Vorname']",
                       operator: "==",
@@ -309,17 +309,17 @@ describe("sdk", function () {
                       operator: "==",
                       value: ""
                     } as Rule
-                  ], 
+                  ],
                   combinator: "&&"
-               } as Group
+                } as Group
               ],
-              combinator: "&&" 
+              combinator: "&&"
             } as Group
           }
         ];
 
         editTestParameters.forEach(p => {
-          it("soll verschachtelte Klammern finden und auflösen, und soll Gruppen und Regeln aus einer Bedingung auslesen und korrekt verarbeiten_" + p.guid, async function () {
+          it("soll verschachtelte Klammern finden und auflösen, und soll Gruppen und Regeln aus einer Bedingung auslesen und korrekt verarbeiten_" + p.guid, function () {
             const res: NestedElements = StringTools.getNestedElements(p.query);
             const res2 = StringTools.parseNestedElementsToGroupConstruct(res);
 
@@ -327,37 +327,37 @@ describe("sdk", function () {
           });
         });
 
-        const editTestParameters2: { expectedQuery: string, group: Group, guid: string }[] = [
+        const editTestParameters2: { expectedQuery: string; group: Group; guid: string }[] = [
           {
             guid: "43c28ab1-0fc4-437f-a27b-63afddb4b850",
             expectedQuery: null,
-            group: { 
-              rules: [], 
-              combinator: "&&" 
+            group: {
+              rules: [],
+              combinator: "&&"
             } as Group
           },
           {
             guid: "25c23455-0952-4dc5-b28f-fce55d8c37c8",
             expectedQuery: "(())",
-            group: { 
-              rules: [ 
-                { 
-                  rules: [], 
-                  combinator: "&&" 
+            group: {
+              rules: [
+                {
+                  rules: [],
+                  combinator: "&&"
                 } as Group
               ],
-              combinator: "&&" 
+              combinator: "&&"
             }
           },
           {
             guid: "6e0f41c2-8eb2-4219-81a4-576350814e37",
             expectedQuery: "(field['Zahl'] > 5)",
             group: {
-              rules: [ 
+              rules: [
                 {
-                   field: "field['Zahl']",
-                   operator: ">",
-                   value: 5
+                  field: "field['Zahl']",
+                  operator: ">",
+                  value: 5
                 } as Rule
               ],
               combinator: "&&"
@@ -367,11 +367,11 @@ describe("sdk", function () {
             guid: "8e5f09b2-65d3-4ebd-ae50-f1e4c7aafd61",
             expectedQuery: "(field['A&B'] != '[X|Y]')",
             group: {
-              rules: [ 
+              rules: [
                 {
-                   field: "field['A&B']",
-                   operator: "!=",
-                   value: "[X|Y]"
+                  field: "field['A&B']",
+                  operator: "!=",
+                  value: "[X|Y]"
                 } as Rule
               ],
               combinator: "&&"
@@ -381,54 +381,54 @@ describe("sdk", function () {
             guid: "a7dd944f-21a7-4589-8cf0-0dcb96b15dbd",
             expectedQuery: "(field['Date'] == undefined)",
             group: {
-              rules: [ 
+              rules: [
                 {
-                   field: "field['Date']",
-                   operator: "==",
-                   value: undefined
+                  field: "field['Date']",
+                  operator: "==",
+                  value: undefined
                 } as Rule
               ],
-              combinator: "&&" 
+              combinator: "&&"
             } as Group
           },
           {
             guid: "ff3e08f9-a3fb-4ad3-bbfd-1e107a4b7990",
             expectedQuery: "(field['Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von'] == '')",
             group: {
-              rules: [ 
+              rules: [
                 {
-                   field: "field['Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von']",
-                   operator: "==",
-                   value: ""
+                  field: "field['Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von']",
+                  operator: "==",
+                  value: ""
                 } as Rule
               ],
-              combinator: "&&" 
+              combinator: "&&"
             } as Group
           },
           {
             guid: "4bf3f6a5-ba6f-4ff7-98be-c8c278f43444",
             expectedQuery: "(role['Mitarbeiter'].lastName == 'Mustermann' && role['GF/KB/PL'].firstName == 'Max')",
             group: {
-              rules: [ 
+              rules: [
                 {
                   field: "role['Mitarbeiter'].lastName",
                   operator: "==",
-                  value: "Mustermann" 
+                  value: "Mustermann"
                 } as Rule,
                 {
                   field: "role['GF/KB/PL'].firstName",
                   operator: "==",
-                  value: "Max" 
+                  value: "Max"
                 } as Rule
               ],
-              combinator: "&&" 
+              combinator: "&&"
             } as Group
           },
           {
             guid: "551cb95f-2264-4bba-b7f1-50d36ef6826f",
             expectedQuery: "(field['Check'] == {\"A\":true,\"B\":true} || field['DATUM'] >= '2019-08-14T22:00:00.000Z')",
             group: {
-              rules: [ 
+              rules: [
                 {
                   field: "field['Check']",
                   operator: "==",
@@ -437,50 +437,50 @@ describe("sdk", function () {
                 {
                   field: "field['DATUM']",
                   operator: ">=",
-                  value: "2019-08-14T22:00:00.000Z" 
+                  value: "2019-08-14T22:00:00.000Z"
                 } as Rule
               ],
-              combinator: "||" 
+              combinator: "||"
             } as Group
           },
           {
             guid: "d9238b9f-047f-4144-b1a3-b5cbdadfe09b",
             expectedQuery: "(role['Abteilungsleitung'] == 'ABC' && field['Dienstbezeichnung'] == 'xyz' && (field['Art der Veranstaltung'] != 'gfdg dfg' || field['Entstehen Teilnehmergebühren?'] == 'nein'))",
             group: {
-              rules: [ 
+              rules: [
                 {
-                   field: "role['Abteilungsleitung']",
-                   operator: "==",
-                   value: "ABC" 
+                  field: "role['Abteilungsleitung']",
+                  operator: "==",
+                  value: "ABC"
                 } as Rule,
                 {
-                   field: "field['Dienstbezeichnung']",
-                   operator: "==",
-                   value: "xyz" 
+                  field: "field['Dienstbezeichnung']",
+                  operator: "==",
+                  value: "xyz"
                 } as Rule,
-                { 
-                   rules: [ 
-                      {
-                        field: "field['Art der Veranstaltung']",
-                        operator: "!=",
-                        value: "gfdg dfg"
-                      } as Rule,
-                      {
-                        field: "field['Entstehen Teilnehmergebühren?']",
-                        operator: "==",
-                        value: "nein" 
-                      } as Rule
-                    ], 
-                    combinator: "||"
+                {
+                  rules: [
+                    {
+                      field: "field['Art der Veranstaltung']",
+                      operator: "!=",
+                      value: "gfdg dfg"
+                    } as Rule,
+                    {
+                      field: "field['Entstehen Teilnehmergebühren?']",
+                      operator: "==",
+                      value: "nein"
+                    } as Rule
+                  ],
+                  combinator: "||"
                 } as Group
               ],
-              combinator: "&&" 
+              combinator: "&&"
             } as Group
           }
         ];
 
         editTestParameters2.forEach(p => {
-          it("should parse Group to valid string expression_" + p.guid, async function () {
+          it("should parse Group to valid string expression_" + p.guid, function () {
             chai.expect(StringTools.getQueryFromGroup(p.group)).to.be.equal(p.expectedQuery);
           });
         });

@@ -11,12 +11,12 @@ export const bpmnModdleInstance: BpmnModdle = new BpmnModdle([], {});
 
 // Basis-Bpmn-Prozess erzeugen
 export async function createBpmnTemplate(): Promise<LoadTemplateReply> {
-  let xmlStr =
+  const xmlStr =
     "<?xml version='1.0' encoding='UTF-8'?>" +
     "<bpmn:definitions xmlns:bpmn='http://www.omg.org/spec/BPMN/20100524/MODEL' id='Definition_" + createId() + "'>" +
     "</bpmn:definitions>";
 
-  let promise = new Promise<LoadTemplateReply>(function (resolve) {
+  const promise = new Promise<LoadTemplateReply>(function (resolve) {
     bpmnModdleInstance.fromXML(xmlStr, (err: any, bpmnXml: any, bpmnContext: any): void => {
       // Basisknoten anlegen - gleichzeitig ein gutes Beispiel für den Umgang mit moddle
 
@@ -24,13 +24,13 @@ export async function createBpmnTemplate(): Promise<LoadTemplateReply> {
       // https://github.com/bpmn-io/bpmn-moddle/tree/master/test/spec/xml
 
       // 1 Prozessknoten mit 1 unbenannten Teilnehmer (=Lane)
-      let processId = BpmnProcess.getBpmnId("bpmn:Process");
-      let startEventObject = bpmnModdleInstance.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
-      let endEventObject = bpmnModdleInstance.create("bpmn:EndEvent", { id: BpmnProcess.getBpmnId("bpmn:EndEvent"), outgoing: [], incoming: [] });
-      let task = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 1", extensionElements: null, incoming: [], outgoing: [] });
-      let task2 = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 2", extensionElements: null, incoming: [], outgoing: [] });
+      const processId = BpmnProcess.getBpmnId("bpmn:Process");
+      const startEventObject = bpmnModdleInstance.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
+      const endEventObject = bpmnModdleInstance.create("bpmn:EndEvent", { id: BpmnProcess.getBpmnId("bpmn:EndEvent"), outgoing: [], incoming: [] });
+      const task = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 1", extensionElements: null, incoming: [], outgoing: [] });
+      const task2 = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 2", extensionElements: null, incoming: [], outgoing: [] });
 
-      let initSequenceFlow = bpmnModdleInstance.create("bpmn:SequenceFlow", {
+      const initSequenceFlow = bpmnModdleInstance.create("bpmn:SequenceFlow", {
         id: BpmnProcess.getBpmnId("bpmn:SequenceFlow"),
         sourceRef: startEventObject,
         targetRef: task
@@ -38,7 +38,7 @@ export async function createBpmnTemplate(): Promise<LoadTemplateReply> {
       task.incoming.push(initSequenceFlow);
       startEventObject.outgoing.push(initSequenceFlow);
 
-      let initSequenceFlow2 = bpmnModdleInstance.create("bpmn:SequenceFlow", {
+      const initSequenceFlow2 = bpmnModdleInstance.create("bpmn:SequenceFlow", {
         id: BpmnProcess.getBpmnId("bpmn:SequenceFlow"),
         sourceRef: task,
         targetRef: task2
@@ -46,7 +46,7 @@ export async function createBpmnTemplate(): Promise<LoadTemplateReply> {
       task2.incoming.push(initSequenceFlow2);
       task.outgoing.push(initSequenceFlow2);
 
-      let initSequenceFlow3 = bpmnModdleInstance.create("bpmn:SequenceFlow", {
+      const initSequenceFlow3 = bpmnModdleInstance.create("bpmn:SequenceFlow", {
         id: BpmnProcess.getBpmnId("bpmn:SequenceFlow"),
         sourceRef: task2,
         targetRef: endEventObject
@@ -54,20 +54,20 @@ export async function createBpmnTemplate(): Promise<LoadTemplateReply> {
       endEventObject.incoming.push(initSequenceFlow3);
       task2.outgoing.push(initSequenceFlow3);
 
-      let lane = bpmnModdleInstance.create("bpmn:Lane",
+      const lane = bpmnModdleInstance.create("bpmn:Lane",
         { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: "Ersteller", flowNodeRef: [startEventObject, task] }
       );
 
-      let lane2 = bpmnModdleInstance.create("bpmn:Lane",
+      const lane2 = bpmnModdleInstance.create("bpmn:Lane",
         { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: "Bearbeiter", flowNodeRef: [task2, endEventObject] }
       );
 
       // ACHTUNG! Wenn hier einmal standardmäßig der "Teilnehmer 1" nicht mehr steht, dann müssen Tests angepasst werden
-      let laneSet = bpmnModdleInstance.create("bpmn:LaneSet", {
+      const laneSet = bpmnModdleInstance.create("bpmn:LaneSet", {
         id: BpmnProcess.getBpmnId("bpmn:LaneSet"), lanes: [lane, lane2]
       });
 
-      let bpmnProcessElement = bpmnModdleInstance.create("bpmn:Process", {
+      const bpmnProcessElement = bpmnModdleInstance.create("bpmn:Process", {
         id: processId,
         laneSets: [
           laneSet
@@ -84,18 +84,18 @@ export async function createBpmnTemplate(): Promise<LoadTemplateReply> {
         ]
       });
 
-      let bpmnParticipant = bpmnModdleInstance.create("bpmn:Participant", {
+      const bpmnParticipant = bpmnModdleInstance.create("bpmn:Participant", {
         id: BpmnProcess.getBpmnId("bpmn:Participant"),
         processRef: bpmnProcessElement,
         name: isRoxtraEdition ? tl("Prozess") : "ProcessHub",
       });
 
-      let bpmnCollaboration = bpmnModdleInstance.create("bpmn:Collaboration", {
+      const bpmnCollaboration = bpmnModdleInstance.create("bpmn:Collaboration", {
         id: BpmnProcess.getBpmnId("bpmn:Collaboration"),
         participants: [bpmnParticipant]
       });
 
-      let bpmnDiagram = bpmnModdleInstance.create("bpmndi:BPMNDiagram", {
+      const bpmnDiagram = bpmnModdleInstance.create("bpmndi:BPMNDiagram", {
         name: BpmnProcess.getBpmnId("bpmndi:BPMNDiagram"),
         plane: bpmnModdleInstance.create("bpmndi:BPMNPlane", {
           bpmnElement: bpmnCollaboration,
@@ -125,7 +125,7 @@ export async function createBpmnTemplate(): Promise<LoadTemplateReply> {
         } as LoadTemplateReply
       );
     });
-    // callback(err, bpmnXml, bpmnContext);
+    // Callback(err, bpmnXml, bpmnContext);
   });
 
   return promise;

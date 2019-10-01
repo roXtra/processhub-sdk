@@ -59,10 +59,10 @@ declare module "diagram-js-direct-editing/lib/DirectEditing" {
   namespace DirectEditing {
     export interface Context {
       bounds: {
-        x: number,
-        y: number,
-        width: number,
-        height: number,
+        x: number;
+        y: number;
+        width: number;
+        height: number;
       };
       text: string;
       options?: {

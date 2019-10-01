@@ -5,16 +5,16 @@ import { WorkspaceView, isValidWorkspaceView } from "../workspace/phclient";
 import { isId } from "../tools/guid";
 
 export function parseUrl(fullUrl: string): PathDetails {
-  let path: PathDetails = {};
+  const path: PathDetails = {};
 
-  // split path
+  // Split path
   isTrue(fullUrl.substr(0, 1) === "/", "Url doesn't start with /");
   let url = fullUrl.toLowerCase().substr(1);
-  if (url.endsWith("/"))  // ignore "/" on end
+  if (url.endsWith("/"))  // Ignore "/" on end
     url = url.substr(0, url.length - 1);
-  let split = url.split("/");
+  const split = url.split("/");
 
-  // pages not related to workspace
+  // Pages not related to workspace
   let part = split[0];
   if ((part === "" && split.length === 1)
     || (part === "profile" && split.length === 1)
@@ -32,17 +32,17 @@ export function parseUrl(fullUrl: string): PathDetails {
     return null;
   }
 
-  // -> Workspace  
+  // -> Workspace
   path.workspaceUrlName = part.substr(1);
 
   part = (split.length >= 2 ? split[1] : WorkspaceView.Processes);
   if (isValidWorkspaceView(part) && split.length <= 2) {
     path.page = Page.WorkspacePage;
-    path.view = <WorkspaceView>part;
+    path.view = part as WorkspaceView;
     return path;
   } else if (part === ProcessView.NewProcess) {
     path.page = Page.ProcessPage;
-    path.view = <ProcessView>part;
+    path.view = part as ProcessView;
     return path;
   } else if (part !== "p" || split.length < 3) {
     // ...otherwise process must follow
@@ -55,35 +55,35 @@ export function parseUrl(fullUrl: string): PathDetails {
   part = (split.length >= 4 ? split[3] : ProcessView.Show);
   if (isValidProcessView(part) && split.length <= 4) {
     path.page = Page.ProcessPage;
-    path.view = <ProcessView>part;
+    path.view = part as ProcessView;
     return path;
   } else
     return null;
-} 
+}
 
 export function parseNotificationLink(fullUrl: string): NotificationLinkElements {
-  let elements: NotificationLinkElements = {};
-  
-  // split path
+  const elements: NotificationLinkElements = {};
+
+  // Split path
   isTrue(fullUrl.substr(0, 1) === "/", "Url doesn't start with /");
   let url = fullUrl.toLowerCase().substr(1);
-  if (url.endsWith("/"))  // ignore "/" on end
+  if (url.endsWith("/"))  // Ignore "/" on end
     url = url.substr(0, url.length - 1);
-  let split = url.split("/");
+  const split = url.split("/");
 
   if (split[0] !== "i" || split.length < 2)
     return elements;
 
   let nextPart = split[1];
   if (nextPart.substr(0, 1) === "@") {
-    // old links had workspaceUrl - ignore
+    // Old links had workspaceUrl - ignore
   } else if (isId(nextPart.toUpperCase()))
     elements.workspaceId = nextPart.toUpperCase();
-  
+
   if (split.length === 2)
     return elements;
 
-  nextPart = split[2];  
+  nextPart = split[2];
   if (!isId(nextPart.toUpperCase()))
     return elements;
   else

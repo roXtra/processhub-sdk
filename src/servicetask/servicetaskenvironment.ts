@@ -8,31 +8,31 @@ import { BpmnProcess, ProcessExtras, ProcessDetails } from "../process";
 import { SendMailTemplateRequest, SendMailTemplateReply } from "../mailer/mailerinterfaces";
 
 /**
- * instance methods that ServiceTasks can use
+ * Instance methods that ServiceTasks can use
  */
 export interface IServiceTaskInstances {
   updateInstance(instanceDetails: InstanceDetails): Promise<InstanceDetails>;
   uploadAttachment(processId: string, instanceId: string, fileName: string, dataBase64: string): Promise<string>;
-  generateInstanceReport(instanceIdStrings: string, draftId: string, type: "docx" | "pdf"): Promise<{ doc: Buffer, fileName: string }>;
+  generateInstanceReport(instanceIdStrings: string, draftId: string, type: "docx" | "pdf"): Promise<{ doc: Buffer; fileName: string }>;
   executeInstance(processId: string, instance: InstanceDetails, startEventId?: string): Promise<string>;
 }
 
 /**
- * mailer methods that ServiceTasks can use
+ * Mailer methods that ServiceTasks can use
  */
 export interface IServiceTaskMailer {
   sendMailTemplate(request: SendMailTemplateRequest): Promise<SendMailTemplateReply>;
 }
 
 /**
- * process methods that SericeTasks can use
+ * Process methods that SericeTasks can use
  */
 export interface IServiceTaskProcesses {
   getProcessDetails(processId: string, extras: ProcessExtras): Promise<ProcessDetails>;
 }
 
 /**
- * roXtra API methods that ServiceTasks can use
+ * RoXtra API methods that ServiceTasks can use
  */
 export interface IServiceTaskRoxApi {
   getEfApiToken(): Promise<string>;
@@ -56,11 +56,11 @@ export interface ServiceTaskEnvironment {
 }
 
 export async function getFields(environment: ServiceTaskEnvironment) {
-  let processObject: BpmnProcess = new BpmnProcess();
+  const processObject: BpmnProcess = new BpmnProcess();
   await processObject.loadXml(environment.bpmnXml);
-  let taskObject = processObject.getExistingTask(processObject.processId(), environment.bpmnTaskId);
-  let extensionValues = BpmnProcess.getExtensionValues(taskObject);
-  let config = extensionValues.serviceTaskConfigObject;
+  const taskObject = processObject.getExistingTask(processObject.processId(), environment.bpmnTaskId);
+  const extensionValues = BpmnProcess.getExtensionValues(taskObject);
+  const config = extensionValues.serviceTaskConfigObject;
 
   return config.fields;
 }

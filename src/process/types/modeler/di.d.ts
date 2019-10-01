@@ -1,4 +1,4 @@
-/// <reference path="./dc.d.ts" />
+// / <reference path="./dc.d.ts" />
 
 // tslint:disable:no-empty-interface
 // tslint:disable:interface-name

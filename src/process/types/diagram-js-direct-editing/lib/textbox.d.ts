@@ -28,9 +28,9 @@ declare module "diagram-js-direct-editing/lib/TextBox" {
      * @param {Function} options.resizeHandler Handler for resize events
      */
     constructor(options: {
-      container: HTMLElement,
-      keyHandler: Function,
-      resizeHandler: Function
+      container: HTMLElement;
+      keyHandler: Function;
+      resizeHandler: Function;
     });
 
     /**

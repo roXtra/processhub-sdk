@@ -19,12 +19,12 @@ export interface ParentProcessConfig {
 }
 
 export interface InstanceDetails {
-  // Changes must also be reflected in gqlTypes and gqlFragments below!  
+  // Changes must also be reflected in gqlTypes and gqlFragments below!
 
   instanceId: string;
   workspaceId: string;
   processId: string;
-  // displayName?: string;
+  // DisplayName?: string;
   // instanceNumber?: string;  // 123.4567.890, created on execution
   fullUrl?: string; // = /i/@workspace/instanceid
   createdAt?: Date;
@@ -32,10 +32,10 @@ export interface InstanceDetails {
   isSimulation?: boolean;
   sendSimulationMails?: boolean;
   state?: State;
-  latestCommentAt?: Date; // datetime of the latest comment or incoming mail
+  latestCommentAt?: Date; // Datetime of the latest comment or incoming mail
   processXmlHash?: string;
   color?: string;
-  runningSubProcesses?: string[]; // contains list for running subinstances
+  runningSubProcesses?: string[]; // Contains list for running subinstances
   subInstanceIds?: string[];
   parentProcessConfigObject?: ParentProcessConfig;
   extras: {
@@ -93,7 +93,7 @@ export enum InstanceExtras {
   None = 0,
   ExtrasState = 1 << 0,
   ExtrasRoleOwners = 1 << 1,
-  ExtrasRoleOwnersWithNames = 1 << 2, // include roleowner-names
+  ExtrasRoleOwnersWithNames = 1 << 2, // Include roleowner-names
   ExtrasFieldContents = 1 << 3,
   ExtrasTodos = 1 << 4,
   ExtrasAuditTrail = 1 << 5

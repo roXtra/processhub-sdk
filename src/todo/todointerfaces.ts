@@ -8,7 +8,7 @@ export enum TodoStatus {
 
 export enum TodoType {
   Regular = 0,
-  Simulation = 1, // deprecated: maybe delete on some point and remove all simulation code
+  Simulation = 1, // Deprecated: maybe delete on some point and remove all simulation code
   SubProcess = 2,
   Intermediate = 3,
   SubProcessWaitingForStart = 4
@@ -19,13 +19,13 @@ export interface TodoDetails {
   todoType?: TodoType;
   userId?: string;
   workspaceId: string;
-  processId: string;  
+  processId: string;
   instanceId: string;
   status?: TodoStatus;
   displayName: string;
   description: string;
   bpmnTaskId: string;
-  bpmnLaneId: string;  
+  bpmnLaneId: string;
   createdAt?: Date;
   user?: UserDetails;
   priority?: number;
@@ -82,5 +82,5 @@ export interface DecisionTask {
   type: DecisionTaskTypes;
   isBoundaryEvent: boolean;
   boundaryEventType?: Bpmn.bpmnType;
-  // routeStack?: string[];
+  // RouteStack?: string[];
 }

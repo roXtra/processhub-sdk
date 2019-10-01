@@ -4,9 +4,9 @@ import * as Config from "../config";
 import { isId } from "../tools/guid";
 
 export function parseProcessMailSubject(mail: string): string {
-  const regex: RegExp = /(\[)(p-)(.*?)(\])/gm;
+  const regex = /(\[)(p-)(.*?)(\])/gm;
   let match: RegExpExecArray;
-  // tslint:disable-next-line:no-conditional-assignment
+  // Tslint:disable-next-line:no-conditional-assignment
   while ((match = regex.exec(mail)) != null) {
     let maybeId: string = match[3];
     maybeId = maybeId.toUpperCase();
@@ -31,12 +31,12 @@ export function initSettings(process: ProcessDetails): void {
   if (!process.extras.settings)
     process.extras.settings = {};
 
-  let settings = process.extras.settings;
+  const settings = process.extras.settings;
 
   if (!settings.dashboard)
     settings.dashboard = {};
   if (!settings.dashboard.dashBoardAccess)
-    settings.dashboard.dashBoardAccess = ProcessViewAccess.WorkspaceMembersSeeAll; // default
+    settings.dashboard.dashBoardAccess = ProcessViewAccess.WorkspaceMembersSeeAll; // Default
 
   if (!settings.library)
     settings.library = {};

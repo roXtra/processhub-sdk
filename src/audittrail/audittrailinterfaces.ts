@@ -2,13 +2,13 @@ import { UserDetails } from "../user/userinterfaces";
 import { FieldValue } from "../data/datainterfaces";
 
 export enum AuditTrailAction {
-  instanceStarted = 1, // deprecated - startEvent is logged for new instances
+  instanceStarted = 1, // Deprecated - startEvent is logged for new instances
   completedTodo = 2,
   comment = 3,
   incomingMail = 4,
   jumpPerformed = 5,
   outgoingMail = 6,
-  instanceStartedByTimer = 7, // deprecated - startEvent is logged for new instances
+  instanceStartedByTimer = 7, // Deprecated - startEvent is logged for new instances
   messageBoundaryEventTriggered = 8,
   bouncedMail = 9,
   errorSubprocess = 10,
@@ -48,74 +48,74 @@ export enum AuditTrailProcessFlag {
 }
 
 export interface AuditTrailEntryDetails {
-  // must be set for completedTodo, todoDueAtDateChanged, decision, errorSubProcees, errorOnEvaluateGatewayDecision, sendTask
+  // Must be set for completedTodo, todoDueAtDateChanged, decision, errorSubProcees, errorOnEvaluateGatewayDecision, sendTask
   todoDisplayName: string;
-  // must be set for AuditTrailAction.comment and processComment
+  // Must be set for AuditTrailAction.comment and processComment
   comment: string;
-  // may be set for AuditTrailAction.comment, if the comment has attachments - links to all attachment files
+  // May be set for AuditTrailAction.comment, if the comment has attachments - links to all attachment files
   commentAttachments: string[];
 
-  // must be set for AuditTrailAction.incomingMail
+  // Must be set for AuditTrailAction.incomingMail
   mailText: string;
-  // must be set for AuditTrailAction.incomingMail, sendTask
+  // Must be set for AuditTrailAction.incomingMail, sendTask
   mailSubject: string;
-  // may be set for AuditTrailAction.incomingMail, if there was html content in the email - link to the HTML document. undefined if there was no HTML content.  
+  // May be set for AuditTrailAction.incomingMail, if there was html content in the email - link to the HTML document. undefined if there was no HTML content.
   mailHtmlLink: string;
-  // may be set for AuditTrailAction.incomingMail, if there were attachments in the mail - links to all attachment files. Empty array if there were no attachments.
+  // May be set for AuditTrailAction.incomingMail, if there were attachments in the mail - links to all attachment files. Empty array if there were no attachments.
   mailAttachments: string[];
-  // may be set for AuditTrailAction.outgoingMail and sendTask
+  // May be set for AuditTrailAction.outgoingMail and sendTask
   mailReceiverList: string[];
-  // must be set for AuditTrailAction.jumpPerformed
+  // Must be set for AuditTrailAction.jumpPerformed
   jumpFromTodoDisplayName: string;
   jumpToTodoDisplayName: string;
 
-  // must be set for AuditTrailAction.bouncedMail
+  // Must be set for AuditTrailAction.bouncedMail
   bouncedAddresses: string[];
   bouncedSubject: string;
 
-  // must be set for AuditTrailAction.processCreated, processEdited, processComment and processDeleted
+  // Must be set for AuditTrailAction.processCreated, processEdited, processComment and processDeleted
   processDisplayName: string;
 
-  // must be set for AuditTrailAction.retentionPeriodChanged
+  // Must be set for AuditTrailAction.retentionPeriodChanged
   oldValue: string;
   newValue: string;
 
-  // must be set for workspaceCreated
+  // Must be set for workspaceCreated
   workspaceDisplayName: string;
 
-  // must be set for instanceRoleChanged
+  // Must be set for instanceRoleChanged
   roleName: string;
 
-  // must be set for todoDueAtDateChanged
+  // Must be set for todoDueAtDateChanged
   todoDueAt: Date;
 
-  // must be set for fieldContentChanged, setFieldForSubProcess, setFieldForParentProcess
+  // Must be set for fieldContentChanged, setFieldForSubProcess, setFieldForParentProcess
   fieldName: string;
   newFieldValue: FieldValue;
 
-  // must be set for startEvent and endEvent
+  // Must be set for startEvent and endEvent
   eventId: string;
   eventName: string;
 
-  // must be set for startEvent
+  // Must be set for startEvent
   startEventType: "TimerStartEvent" | "MessageStartEvent" | "StartEvent";
 
-  // must be set for sendTask
+  // Must be set for sendTask
   htmlMailContent: string;
 
-  // must be set for decision
+  // Must be set for decision
   choosenTaskName: string;
 
   instanceName?: string;
 
-  // can be set for processXmlChanged if there is an old bpmn file
+  // Can be set for processXmlChanged if there is an old bpmn file
   oldXmlFile: string;
-  // can be set for processXmlChanged if there is an old preview file
+  // Can be set for processXmlChanged if there is an old preview file
   oldPreviewFile: string;
-  // must be set for processXmlChanged
+  // Must be set for processXmlChanged
   oldXmlVersion: number;
 
-  // must be set for instanceRoleChanged
+  // Must be set for instanceRoleChanged
   newRoleOwnerDisplayNames: string[];
 }
 
@@ -126,11 +126,11 @@ export type Partial<T> = {
 export interface AuditTrailEntry {
   trailId: string;
   workspaceId: string;
-  processId?: string;  // may be null for entries on workspace-level
-  instanceId?: string;  // may be null for entries on workspace- or process-level
+  processId?: string;  // May be null for entries on workspace-level
+  instanceId?: string;  // May be null for entries on workspace- or process-level
   action: AuditTrailAction;
   user: UserDetails;
-  createdAt: Date;  // time of action in UTC
+  createdAt: Date;  // Time of action in UTC
   entryFrom?: AuditTrailProcessFlag;
   details: Partial<AuditTrailEntryDetails>;
 }

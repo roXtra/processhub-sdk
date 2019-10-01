@@ -83,8 +83,8 @@ declare module "diagram-js/lib/features/context-pad/ContextPad" {
     imageUrl?: string;
     action:
     {
-      click: (originalEvent: MouseEvent, element: Base, autoActivate: boolean) => void,
-      dragStart?: (originalEvent: MouseEvent, element: Base, autoActivate: boolean) => void,
+      click: (originalEvent: MouseEvent, element: Base, autoActivate: boolean) => void;
+      dragStart?: (originalEvent: MouseEvent, element: Base, autoActivate: boolean) => void;
     };
   }
 }

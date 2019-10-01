@@ -9,7 +9,7 @@ export function isProcessDetailsValid(details: ProcessDetails): boolean {
 }
 
 /**
- * check if a given process name is valid
+ * Check if a given process name is valid
  * @param processname {string} the process name to check
  * @return {string} an empty string if the name is valid, an error message otherwise
  */

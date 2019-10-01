@@ -6,9 +6,9 @@ export class InstanceState {
 
   // Instance Cache
   instanceCache: {
-    [instanceId: string]: InstanceDetails
-  };  
+    [instanceId: string]: InstanceDetails;
+  };
 
-  cacheState?: string;  // updated in reducers, helps React to detect state changes
-  lastDispatchedInstance: InstanceDetails; // used in reducer to detect changes
+  cacheState?: string;  // Updated in reducers, helps React to detect state changes
+  lastDispatchedInstance: InstanceDetails; // Used in reducer to detect changes
 }

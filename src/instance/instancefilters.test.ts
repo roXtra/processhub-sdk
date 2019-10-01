@@ -6,9 +6,9 @@ import { TodoDetails } from "../todo/todointerfaces";
 describe("sdk", function () {
   describe("instance", function () {
     describe("instancefilters", function () {
-      it("should check filterUserInstances Method", async () => {
-        let instanceDetails: PH.Instance.InstanceDetails = {
-          instanceId: PH.Tools.createId(), // potential instanceId till execute
+      it("should check filterUserInstances Method", () => {
+        const instanceDetails: PH.Instance.InstanceDetails = {
+          instanceId: PH.Tools.createId(), // Potential instanceId till execute
           processId: "xyz",
           extras: {
             roleOwners: {},

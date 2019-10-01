@@ -45,7 +45,7 @@ declare module "diagram-js/lib/core/GraphicsFactory" {
      * @param {Object} parent
      * @param {String} type the type of the element, i.e. shape | connection
      */
-    public _createContainer(type: string, parentGfx: Object): {};
+    public _createContainer(type: string, parentGfx: Record<string, any>): {};
 
     public create(type: {}, element: {}): {};
 

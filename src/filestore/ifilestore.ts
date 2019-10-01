@@ -1,6 +1,6 @@
 import Hapi = require("hapi");
 
-export const PREVIEW_FILENAME: string = "preview.svg";
+export const PREVIEW_FILENAME = "preview.svg";
 
 export interface IFileStore {
 

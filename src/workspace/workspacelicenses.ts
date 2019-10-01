@@ -8,33 +8,33 @@ export function licenseHasProcessVisibility(workspace: WorkspaceDetails): boolea
   return licenseIsBusinessOrHigher(workspace);
 }
 
-// does license include modeler?
+// Does license include modeler?
 export function licenseHasModeler(workspace: WorkspaceDetails): boolean {
-  return licenseIsDemoOrHigher(workspace); 
+  return licenseIsDemoOrHigher(workspace);
 }
 
-// does license include PotentialRoleOwners?
+// Does license include PotentialRoleOwners?
 export function licenseHasPotentialRoleOwners(workspace: WorkspaceDetails): boolean {
   return licenseIsDemoOrHigher(workspace);
 }
 
-// does license define managers and owners per process?
+// Does license define managers and owners per process?
 export function licenseHasManagersAndOwners(workspace: WorkspaceDetails): boolean {
   return licenseIsBusinessOrHigher(workspace);
 }
 
-// does license allow to select who can see instances?
+// Does license allow to select who can see instances?
 export function licenseHasInstanceVisibility(workspace: WorkspaceDetails): boolean {
   return licenseIsTeamOrHigher(workspace);
 }
 
-// does license allow to select members as admins?
+// Does license allow to select members as admins?
 export function licenseHasWorkspaceAdmins(workspace: WorkspaceDetails): boolean {
   return licenseIsTeamOrHigher(workspace);
 }
-// does license allow to select members as process managers?
+// Does license allow to select members as process managers?
 export function licenseHasWorkspaceProcessManagers(workspace: WorkspaceDetails): boolean {
-  // seems too complicated
+  // Seems too complicated
   return false;
 }
 

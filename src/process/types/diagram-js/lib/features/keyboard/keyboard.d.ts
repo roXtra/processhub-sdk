@@ -57,9 +57,9 @@ declare module "diagram-js/lib/features/keyboard/Keyboard" {
      */
     public addListener(listenerFn: Function): void;
 
-    public hasModifier(modifiers: Object): boolean;
-    public isCmd(modifiers: Object): boolean;
-    public isShift(modifiers: Object): boolean;
+    public hasModifier(modifiers: Record<string, any>): boolean;
+    public isCmd(modifiers: Record<string, any>): boolean;
+    public isShift(modifiers: Record<string, any>): boolean;
   }
 
   export interface IKeyboardConfig {
