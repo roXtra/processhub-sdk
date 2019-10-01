@@ -48,10 +48,15 @@ export interface ServiceActionConfig {
   serviceMethod: string;
 }
 
+/**
+ * predefined functions that set the <select>-Elements options if type is "select"
+ */
+export type ServiceActionFieldOnloadFunction = "fields" | "reportDrafts" | "reportTypes" | "allProcesses";
+
 export interface ServiceActionField {
   name: string;
-  type: string;
-  onload: string;
+  type: "select" | "text";
+  onload: ServiceActionFieldOnloadFunction | string;
 }
 
 export interface ProcessDetails {
@@ -81,7 +86,7 @@ export interface ProcessDetails {
   parentProcessIds?: string[];
   childProcessIds?: string[];
   extras: {
-    // New Extras must be added to cache-handling in processactions -> loadProcess!
+    // New Extras must be added to cache-handling in processactions -> loadProcess!   
     bpmnXml?: string;
     bpmnProcess?: BpmnProcess; // Available if bpmnXml is available
     instances?: InstanceDetails[];
@@ -189,9 +194,9 @@ export type ProcessResult = keyof typeof ProcessResult;
 export type TaskSettingsValueType = "List" | "Text" | "Boolean";
 
 export type BpmnExtensionName =
-"description"
+  "description"
 | "processhub-userform" // Json: FieldDefinition[]
-| "send-task-receiver"
+  | "send-task-receiver"
 | "send-task-with-field-contents" // Boolean: include field contents in SendTask notification mail?
 | "send-task-instance-link" // Boolean: include a link to the instance in SendTask notification mail?
 | "send-task-subject" // String: mail subject of SendTask notification mail
@@ -199,21 +204,21 @@ export type BpmnExtensionName =
 | "view-all-fields" // Boolean: view all existing fields
 | "send-mail-notification" // Boolean: send notification for task
 | "set-sender-as-role-owner" // Boolean: set mail sender as role owner, default: true
-| "timer-start-configuration"
+  | "timer-start-configuration"
 | "required-fields-needed" // Boolean: means that the task needed previous required fields (not necessary on negative decisions)
-| "save-decision-in-fields"
-| "custom-field-contents-value"
+  | "save-decision-in-fields"
+  | "custom-field-contents-value"
 | "roleowners-editable" // Boolean: all role owners can be selected
 | "subprocessid" // Id of the process a SubProcess references,
-| "due-at-can-be-edit"
-| "due-at-duration"
-| "sequenceflow-expression"
-| "isBuilder-expression"
-| "fields-which-should-send"
-| "datefield-for-timercatch"
-| "script-task-code"
-| "service-task-config-object"
-| "roxtra-version";
+  | "due-at-can-be-edit"
+  | "due-at-duration"
+  | "sequenceflow-expression"
+  | "isBuilder-expression"
+  | "fields-which-should-send"
+  | "datefield-for-timercatch"
+  | "script-task-code"
+  | "service-task-config-object"
+  | "roxtra-version";
 
 export interface TaskExtensions {
   description: string;
