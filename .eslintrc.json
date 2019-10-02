@@ -96,12 +96,9 @@
       "@typescript-eslint/unbound-method": "warn",
       // Disabled for now to simplify migration to eslint
       "@typescript-eslint/no-empty-interface": "warn",
-      // Disabled for now to simplify migration to eslint
-      "react/jsx-no-target-blank": "warn",
-      // Disabled for now to simplify migration to eslint
-      "react/jsx-key": "warn",
-      // Disabled for now to simplify migration to eslint
-      "react/no-direct-mutation-state": "warn",
+      "react/jsx-no-target-blank": "error",
+      "react/jsx-key": "error",
+      "react/no-direct-mutation-state": "error",
       "@typescript-eslint/triple-slash-reference": "off"
   },
   "settings": {
