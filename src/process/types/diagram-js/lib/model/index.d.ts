@@ -94,18 +94,6 @@ declare module "diagram-js/lib/model" {
   }
 
   /**
-   * A root graphical object
-   *
-   * @class
-   * @constructor
-   *
-   * @extends Shape
-   */
-  class Root extends Base {
-
-  }
-
-  /**
    * A label for an element
    *
    * @class

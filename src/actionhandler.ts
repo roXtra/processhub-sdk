@@ -2,7 +2,6 @@ import { WorkspaceExtras } from "./workspace/workspaceinterfaces";
 import { ProcessExtras } from "./process/processinterfaces";
 import { InstanceExtras } from "./instance/instanceinterfaces";
 import { UserExtras } from "./user/userinterfaces";
-import * as _ from "lodash";
 import * as Assert from "./tools/assert";
 import { ApiClient } from "./apiclient";
 import { CoreEnvironment } from "./environment";
