@@ -15,41 +15,41 @@ export interface WorkspaceEnvironment extends CoreEnvironment {
 }
 
 export interface ProcessEnvironment extends CoreEnvironment {
-  workspace: WorkspaceDetails;  
+  workspace: WorkspaceDetails;
   process: ProcessDetails;
 }
 
 export interface InstanceEnvironment extends CoreEnvironment {
-  workspace: WorkspaceDetails;  
+  workspace: WorkspaceDetails;
   process: ProcessDetails;
   instance: InstanceDetails;
 }
 
 export interface TodoEnvironment extends CoreEnvironment {
-  workspace: WorkspaceDetails;  
+  workspace: WorkspaceDetails;
   process: ProcessDetails;
   instance: InstanceDetails;
   todo: TodoDetails;
 }
 
-export function isValidCoreEnvironment(coreEnv: {}, requireUser: boolean = true): coreEnv is CoreEnvironment {
+export function isValidCoreEnvironment(coreEnv: {}, requireUser = true): coreEnv is CoreEnvironment {
   if (coreEnv == null)
     return false;
-    
+
   if (!requireUser)
     return true;
   else
     return (coreEnv as CoreEnvironment).user != null;
 }
-export function isValidWorkspaceEnvironment(workspaceEnv: {}, requireUser: boolean = true): workspaceEnv is WorkspaceEnvironment {
+export function isValidWorkspaceEnvironment(workspaceEnv: {}, requireUser = true): workspaceEnv is WorkspaceEnvironment {
   return isValidCoreEnvironment(workspaceEnv, requireUser) && (workspaceEnv as WorkspaceEnvironment).workspace != null;
 }
-export function isValidProcessEnvironment(processEnv: {}, requireUser: boolean = true): processEnv is ProcessEnvironment {
+export function isValidProcessEnvironment(processEnv: {}, requireUser = true): processEnv is ProcessEnvironment {
   return isValidWorkspaceEnvironment(processEnv, requireUser) && (processEnv as ProcessEnvironment).process != null;
 }
-export function isValidInstanceEnvironment(instanceEnv: {}, requireUser: boolean = true): instanceEnv is InstanceEnvironment {
+export function isValidInstanceEnvironment(instanceEnv: {}, requireUser = true): instanceEnv is InstanceEnvironment {
   return isValidProcessEnvironment(instanceEnv, requireUser) && (instanceEnv as InstanceEnvironment).instance != null;
 }
-export function isValidTodoEnvironment(todoEnv: {}, requireUser: boolean = true): todoEnv is TodoEnvironment {
+export function isValidTodoEnvironment(todoEnv: {}, requireUser = true): todoEnv is TodoEnvironment {
   return isValidProcessEnvironment(todoEnv, requireUser) && (todoEnv as TodoEnvironment).todo != null;
 }

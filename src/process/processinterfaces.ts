@@ -49,7 +49,7 @@ export interface ServiceActionConfig {
 }
 
 /**
- * predefined functions that set the <select>-Elements options if type is "select"
+ * Predefined functions that set the <select>-Elements options if type is "select"
  */
 export type ServiceActionFieldOnloadFunction = "fields" | "reportDrafts" | "reportTypes" | "allProcesses";
 
@@ -86,7 +86,7 @@ export interface ProcessDetails {
   parentProcessIds?: string[];
   childProcessIds?: string[];
   extras: {
-    // New Extras must be added to cache-handling in processactions -> loadProcess!   
+    // New Extras must be added to cache-handling in processactions -> loadProcess!
     bpmnXml?: string;
     bpmnProcess?: BpmnProcess; // Available if bpmnXml is available
     instances?: InstanceDetails[];
@@ -195,21 +195,21 @@ export type TaskSettingsValueType = "List" | "Text" | "Boolean";
 
 export type BpmnExtensionName =
   "description"
-| "processhub-userform" // Json: FieldDefinition[]
+  | "processhub-userform" // Json: FieldDefinition[]
   | "send-task-receiver"
-| "send-task-with-field-contents" // Boolean: include field contents in SendTask notification mail?
-| "send-task-instance-link" // Boolean: include a link to the instance in SendTask notification mail?
-| "send-task-subject" // String: mail subject of SendTask notification mail
-| "all-fields-editable" // Boolean: all existing fields in task can be edited in current task
-| "view-all-fields" // Boolean: view all existing fields
-| "send-mail-notification" // Boolean: send notification for task
-| "set-sender-as-role-owner" // Boolean: set mail sender as role owner, default: true
+  | "send-task-with-field-contents" // Boolean: include field contents in SendTask notification mail?
+  | "send-task-instance-link" // Boolean: include a link to the instance in SendTask notification mail?
+  | "send-task-subject" // String: mail subject of SendTask notification mail
+  | "all-fields-editable" // Boolean: all existing fields in task can be edited in current task
+  | "view-all-fields" // Boolean: view all existing fields
+  | "send-mail-notification" // Boolean: send notification for task
+  | "set-sender-as-role-owner" // Boolean: set mail sender as role owner, default: true
   | "timer-start-configuration"
-| "required-fields-needed" // Boolean: means that the task needed previous required fields (not necessary on negative decisions)
+  | "required-fields-needed" // Boolean: means that the task needed previous required fields (not necessary on negative decisions)
   | "save-decision-in-fields"
   | "custom-field-contents-value"
-| "roleowners-editable" // Boolean: all role owners can be selected
-| "subprocessid" // Id of the process a SubProcess references,
+  | "roleowners-editable" // Boolean: all role owners can be selected
+  | "subprocessid" // Id of the process a SubProcess references,
   | "due-at-can-be-edit"
   | "due-at-duration"
   | "sequenceflow-expression"
