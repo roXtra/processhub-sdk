@@ -30,7 +30,7 @@
               "ignoreConsecutiveComments": true
           }
       ],
-      "spaced-comment": "error",
+      "spaced-comment": "off",
       "no-eval": "error",
       "no-trailing-spaces": "error",
       "no-unsafe-finally": "error",
@@ -101,7 +101,8 @@
       // Disabled for now to simplify migration to eslint
       "react/jsx-key": "warn",
       // Disabled for now to simplify migration to eslint
-      "react/no-direct-mutation-state": "warn"
+      "react/no-direct-mutation-state": "warn",
+      "@typescript-eslint/triple-slash-reference": "off"
   },
   "settings": {
       "react": {

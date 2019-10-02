@@ -1,4 +1,4 @@
-// / <reference path="./process/types/index.d.ts" />
+/// <reference path="./process/types/index.d.ts" />
 export * from "./tl";
 import * as Tools from "./tools";
 export { Tools };

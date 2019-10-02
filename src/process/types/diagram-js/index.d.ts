@@ -104,7 +104,7 @@ declare module "diagram-js" {
 
   export type IType = ("type" | Function)[];
   export type IFactory = ("factory" | Function)[];
-  export type IValue = ("value" | Record<string, any>)[];
+  export type IValue = ("value" | any)[];
 
   // Export interface Provider {
   //   [key: string]: Type | Factory | Value | Module[];
