@@ -14,7 +14,7 @@ export interface IServiceTaskInstances {
   updateInstance(instanceDetails: InstanceDetails): Promise<InstanceDetails>;
   uploadAttachment(processId: string, instanceId: string, fileName: string, dataBase64: string): Promise<string>;
   generateInstanceReport(instanceIdStrings: string, draftId: string, type: "docx" | "pdf"): Promise<{ doc: Buffer; fileName: string }>;
-  executeInstance(processId: string, instance: InstanceDetails, startEventId?: string): Promise<string>;
+  executeInstance(processId: string, instance: InstanceDetails, startEventId?: string, accessToken?: string): Promise<string>;
 }
 
 /**
@@ -37,6 +37,7 @@ export interface IServiceTaskProcesses {
 export interface IServiceTaskRoxApi {
   getEfApiToken(): Promise<string>;
   getApiToken(): string;
+  getRoxtraTokenByUserId(userId: string): Promise<string>;
 }
 
 export interface ServiceTaskEnvironment {

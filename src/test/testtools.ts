@@ -24,6 +24,8 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskE
       getApiToken: () => undefined,
       // eslint-disable-next-line @typescript-eslint/require-await
       getEfApiToken: async () => undefined,
+      // eslint-disable-next-line @typescript-eslint/require-await
+      getRoxtraTokenByUserId: async () => undefined,
     },
     workspace: undefined,
     sender: undefined,
