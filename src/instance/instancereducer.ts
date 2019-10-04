@@ -8,31 +8,6 @@ import { createId } from "../tools/guid";
 import { RemoveInstanceMessage, NewInstanceMessage } from "../user/legacyapi";
 import { UserMessages } from "../user/phclient";
 import { ResetStore } from "../statehandler/actions";
-import { rootStore } from "../statehandler";
-import { notifyNewInstanceComments, notifyNewInstanceTodos, notifyInstancePin } from "./instancenotification";
-import { sendNotification } from "../desktopnotification";
-import { InstanceDetails } from "./instanceinterfaces";
-import { WorkspaceEnvironment, InstanceEnvironment } from "../environment";
-import { tl } from "../tl";
-import { isRoxtraEdition } from "../settings";
-
-/**
- * Sends a desktop notification if the user should be notified and the instance was not viewed after 15 seconds
- */
-function sendNotificationIfInstanceWasNotViewed(instance: InstanceDetails) {
-  setTimeout(() => {
-    const workspaceEnv: WorkspaceEnvironment = {
-      workspace: rootStore.getState().workspaceState.currentWorkspace,
-      path: rootStore.getState().pathState.currentPath,
-      user: rootStore.getState().userState.currentUser,
-    };
-    instance = workspaceEnv.user.extras.instances.find(i => i.instanceId === instance.instanceId);
-    const instanceEnv: InstanceEnvironment = { instance, process: null, ...workspaceEnv };
-    if (notifyNewInstanceComments(instanceEnv) || notifyNewInstanceTodos(instanceEnv) || notifyInstancePin(instanceEnv)) {
-      sendNotification(tl("ProcessHub"), tl("Neue Benachrichtigungen"));
-    }
-  }, 15000);
-}
 
 export function instanceReducer(instanceState: InstanceState, action: any): InstanceState {
 
@@ -55,10 +30,6 @@ export function instanceReducer(instanceState: InstanceState, action: any): Inst
       // React cannot detect state changes in objects. Updating cacheState triggers rendering
       // -> only render if data has changed
       if (instanceChanged) {
-        if (!isRoxtraEdition) {
-          sendNotificationIfInstanceWasNotViewed((action as InstanceLoadedMessage).instance);
-        }
-
         return update(instanceState, {
           cacheState: { $set: createId() }
         });

@@ -1,5 +1,3 @@
-import { isRoxtraEdition } from "../settings";
-
 const ID_LENGTH = 16;
 const TEMP_USERID_PREFIX = "tmpUserId_";
 
@@ -40,19 +38,11 @@ export function isId(id: string): boolean {
 }
 
 export function isUserId(id: string): boolean {
-  if (isRoxtraEdition) {
-    return /^\d+$/.test(id);
-  } else {
-    return (isId(id) && id.substr(0, 1) === "0");
-  }
+  return /^\d+$/.test(id);
 }
 
 export function isGroupId(id: string): boolean {
-  if (isRoxtraEdition) {
-    return id.startsWith("G_");
-  } else {
-    return (isId(id) && id.substr(0, 1) === "1");
-  }
+  return id.startsWith("G_");
 }
 
 export function isWorkspaceId(id: string): boolean {

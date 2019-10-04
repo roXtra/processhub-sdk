@@ -1,6 +1,5 @@
 import { assert } from "chai";
 import * as Guid from "./guid";
-import { isRoxtraEdition } from "../settings";
 
 describe("sdk", function () {
   describe("tools", function () {
@@ -17,30 +16,6 @@ describe("sdk", function () {
           assert(id !== Guid.createId());
         });
       });
-
-      if (!isRoxtraEdition) {
-        describe("createUserId_isUserId", function () {
-          it("should create and identify UserId", function () {
-            const id = Guid.createUserId();
-            assert.isTrue(Guid.isId(id));
-            assert.isTrue(Guid.isUserId(id));
-            assert.isFalse(Guid.isGroupId(id));
-            assert.isTrue(Guid.isUserId("02DDAC85360AB506")); // UserIds beginnen mit "0"
-            assert.isFalse(Guid.isUserId("12DDAC85360AB506")); // UserIds beginnen mit "0"
-          });
-        });
-
-        describe("createGroupId_isGroupId", function () {
-          it("Should create and identify GroupIds", function () {
-            const id = Guid.createGroupId();
-            assert.isTrue(Guid.isId(id));
-            assert.isTrue(Guid.isGroupId(id));
-            assert.isFalse(Guid.isUserId(id));
-            assert.isTrue(Guid.isGroupId("12DDAC85360AB506")); // GroupIds beginnen mit "1"
-            assert.isFalse(Guid.isGroupId("02DDAC85360AB506")); // GroupIds beginnen mit "1"
-          });
-        });
-      }
 
       describe("createWorkspaceId_isWorkspaceId", function () {
         it("Should create and identify WorkspaceIds", function () {

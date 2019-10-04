@@ -4,8 +4,6 @@ import { ProcessResult } from "../processinterfaces";
 import { LoadTemplateReply } from "../legacyapi";
 import { createId } from "../../tools/guid";
 import { tl } from "../../tl";
-import { isRoxtraEdition } from "../../settings";
-
 
 export const bpmnModdleInstance: BpmnModdle = new BpmnModdle([], {});
 
@@ -87,7 +85,7 @@ export async function createBpmnTemplate(): Promise<LoadTemplateReply> {
       const bpmnParticipant = bpmnModdleInstance.create("bpmn:Participant", {
         id: BpmnProcess.getBpmnId("bpmn:Participant"),
         processRef: bpmnProcessElement,
-        name: isRoxtraEdition ? tl("Prozess") : "ProcessHub",
+        name: tl("Prozess"),
       });
 
       const bpmnCollaboration = bpmnModdleInstance.create("bpmn:Collaboration", {

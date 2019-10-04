@@ -44,8 +44,6 @@ import * as Group from "./group";
 export { Group };
 import * as PhRoxApi from "./phroxapi";
 export { PhRoxApi };
-import * as Settings from "./settings";
-export { Settings };
 import * as ServiceTask from "./servicetask";
 export { ServiceTask };
 import * as FileStore from "./filestore";
