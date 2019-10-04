@@ -1,18 +1,18 @@
-import { ProcessDetails } from "./processinterfaces";
+import { IProcessDetails } from "./processinterfaces";
 // Internal objects used by ProcessHub client and server
 
 export class ProcessState {
   errorMessage: string;
 
-  currentProcess: ProcessDetails;
+  currentProcess: IProcessDetails;
 
   // Process Cache
   processCache: {
-    [processId: string]: ProcessDetails;
+    [processId: string]: IProcessDetails;
   };
 
   cacheState?: string;  // Updated in reducers, helps React to detect state changes
-  lastDispatchedProcess: ProcessDetails; // Used in reducer to detect changes
+  lastDispatchedProcess: IProcessDetails; // Used in reducer to detect changes
 }
 
 export const ProcessView = {
@@ -35,7 +35,7 @@ export function isValidProcessView(urlSegment: string): boolean {
   return false;
 }
 
-export interface RowDetails {
+export interface IRowDetails {
   rowNumber: number;
   selectedRole: string;
   task: string;

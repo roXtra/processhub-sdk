@@ -1,4 +1,4 @@
-import { ProcessDetails, ProcessViewAccess } from "./processinterfaces";
+import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
 import { parseIdMailAddress } from "../instance/instancetools";
 import * as Config from "../config";
 import { isId } from "../tools/guid";
@@ -27,7 +27,7 @@ export function getProcessMailAddress(processId: string): string {
 }
 
 // Init settings that don't exist with default values
-export function initSettings(process: ProcessDetails): void {
+export function initSettings(process: IProcessDetails): void {
   if (!process.extras.settings)
     process.extras.settings = {};
 

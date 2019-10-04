@@ -1,35 +1,35 @@
-import { FieldContentMap } from "../data/datainterfaces";
-import { BaseRequest, BaseReply } from "../legacyapi/apiinterfaces";
-import { InstanceDetails } from "../instance/instanceinterfaces";
+import { IFieldContentMap } from "../data/datainterfaces";
+import { IBaseRequest, IBaseReply } from "../legacyapi/apiinterfaces";
+import { IInstanceDetails } from "../instance/instanceinterfaces";
 
 export enum MailSender {
   FromProcessHub,   // Noreply@mail.processhub.com
   FromInstance,     // Use the mail address of the current instance as reply-to
 }
 
-export interface MailContent {
+export interface IMailContent {
   recipientId?: string;
   signature?: string;
 }
 
-export interface SendMailTemplateRequest extends BaseRequest {
+export interface ISendMailTemplateRequest extends IBaseRequest {
   instanceUrl?: string;
   todoDescription?: string;
   todoTitle?: string;
-  fieldContents?: FieldContentMap;
+  fieldContents?: IFieldContentMap;
   receiverIdOrMails: string[];
   sender?: MailSender;
   instanceId?: string;
   signature?: string;
   subject: string;
-  instance: InstanceDetails;
+  instance: IInstanceDetails;
 }
 
-export interface SendMailTemplateReply extends BaseReply {
+export interface ISendMailTemplateReply extends IBaseReply {
   errorMessage?: string;
 }
 
-export interface ReplyToMailRequest extends BaseRequest {
+export interface IReplyToMailRequest extends IBaseRequest {
   sender?: MailSender;
   instanceUrl?: string;
   choosenFieldContents: string[];
@@ -38,9 +38,9 @@ export interface ReplyToMailRequest extends BaseRequest {
   addReceiverAsFollower: boolean;
   mailText: string;
   instanceId: string;
-  instance: InstanceDetails;
+  instance: IInstanceDetails;
 }
 
-export interface ReplyToMailReply extends BaseReply {
+export interface IReplyToMailReply extends IBaseReply {
   errorMessage?: string;
 }

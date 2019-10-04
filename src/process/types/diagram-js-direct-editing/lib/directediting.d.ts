@@ -27,7 +27,7 @@ declare module "diagram-js-direct-editing/lib/DirectEditing" {
      *                          Additionally the provider must expose a #update(element, value) method
      *                          to receive direct editing updates.
      */
-    public registerProvider(provider: DirectEditing.DirectEditingProvider): void;
+    public registerProvider(provider: DirectEditing.IDirectEditingProvider): void;
 
     /**
      * Returns true if direct editing is currently active
@@ -57,7 +57,7 @@ declare module "diagram-js-direct-editing/lib/DirectEditing" {
   }
 
   namespace DirectEditing {
-    export interface Context {
+    export interface IContext {
       bounds: {
         x: number;
         y: number;
@@ -70,8 +70,8 @@ declare module "diagram-js-direct-editing/lib/DirectEditing" {
       };
     }
 
-    export interface DirectEditingProvider {
-      activate(element: Base): Context;
+    export interface IDirectEditingProvider {
+      activate(element: Base): IContext;
       update(element: Base, value: string, oldValue: string, bounds: IBounds): void;
     }
   }

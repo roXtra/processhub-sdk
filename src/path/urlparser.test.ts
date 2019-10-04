@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import { parseUrl, parseNotificationLink } from "./urlparser";
-import { PathDetails, Page } from "./pathinterfaces";
+import { IPathDetails, Page } from "./pathinterfaces";
 import { WorkspaceView } from "../workspace/phclient";
 import { ProcessView } from "../process/phclient";
 
@@ -19,7 +19,7 @@ describe("sdk", function () {
           const path = parseUrl("/"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.StartPage
-          } as PathDetails);
+          } as IPathDetails);
         });
 
         it("should parse workspace pages", function () {
@@ -28,21 +28,21 @@ describe("sdk", function () {
             page: Page.WorkspacePage,
             view: WorkspaceView.Processes,
             workspaceUrlName: "testworkspace"
-          } as PathDetails);
+          } as IPathDetails);
 
           path = parseUrl("/@testworkSpace/members"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.WorkspacePage,
             view: WorkspaceView.Members,
             workspaceUrlName: "testworkspace"
-          } as PathDetails);
+          } as IPathDetails);
 
           path = parseUrl("/@testworkSpace/addprocess"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.WorkspacePage,
             view: WorkspaceView.AddProcess,
             workspaceUrlName: "testworkspace"
-          } as PathDetails);
+          } as IPathDetails);
         });
 
         it("should parse process pages", function () {
@@ -52,7 +52,7 @@ describe("sdk", function () {
             view: ProcessView.Show,
             workspaceUrlName: "testworkspace",
             processUrlName: "process"
-          } as PathDetails);
+          } as IPathDetails);
 
           path = parseUrl("/@testworkSpace/p/process/edit"); // Ignore case and / at end
           assert.deepEqual(path, {
@@ -60,14 +60,14 @@ describe("sdk", function () {
             view: ProcessView.Edit,
             workspaceUrlName: "testworkspace",
             processUrlName: "process"
-          } as PathDetails);
+          } as IPathDetails);
 
           path = parseUrl("/@testworkSpace/newprocess"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.ProcessPage,
             view: ProcessView.NewProcess,
             workspaceUrlName: "testworkspace"
-          } as PathDetails);
+          } as IPathDetails);
         });
 
       });

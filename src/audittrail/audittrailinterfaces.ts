@@ -1,5 +1,5 @@
 import { UserDetails } from "../user/userinterfaces";
-import { FieldValue } from "../data/datainterfaces";
+import { IFieldValue } from "../data/datainterfaces";
 
 export enum AuditTrailAction {
   instanceStarted = 1, // Deprecated - startEvent is logged for new instances
@@ -47,7 +47,7 @@ export enum AuditTrailProcessFlag {
   Parentprocess = 2
 }
 
-export interface AuditTrailEntryDetails {
+export interface IAuditTrailEntryDetails {
   // Must be set for completedTodo, todoDueAtDateChanged, decision, errorSubProcees, errorOnEvaluateGatewayDecision, sendTask
   todoDisplayName: string;
   // Must be set for AuditTrailAction.comment and processComment
@@ -91,7 +91,7 @@ export interface AuditTrailEntryDetails {
 
   // Must be set for fieldContentChanged, setFieldForSubProcess, setFieldForParentProcess
   fieldName: string;
-  newFieldValue: FieldValue;
+  newFieldValue: IFieldValue;
 
   // Must be set for startEvent and endEvent
   eventId: string;
@@ -123,7 +123,7 @@ export type Partial<T> = {
   [P in keyof T]?: T[P];
 };
 
-export interface AuditTrailEntry {
+export interface IAuditTrailEntry {
   trailId: string;
   workspaceId: string;
   processId?: string;  // May be null for entries on workspace-level
@@ -132,5 +132,5 @@ export interface AuditTrailEntry {
   user: UserDetails;
   createdAt: Date;  // Time of action in UTC
   entryFrom?: AuditTrailProcessFlag;
-  details: Partial<AuditTrailEntryDetails>;
+  details: Partial<IAuditTrailEntryDetails>;
 }

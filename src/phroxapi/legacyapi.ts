@@ -1,8 +1,8 @@
-import { BaseReply } from "../legacyapi";
+import { IBaseReply } from "../legacyapi";
 import { IRoxFile, IRoxFolder } from ".";
 import { Instance } from "..";
-import { FieldContentMap } from "../data";
-import { TaskExtensions } from "../process/processinterfaces";
+import { IFieldContentMap } from "../data";
+import { ITaskExtensions } from "../process/processinterfaces";
 
 export const RequestRoutes = {
   GetRootFolder: "/api/phroxapi/getrootfolder",
@@ -22,19 +22,19 @@ export const RequestRoutes = {
   EcGetFileLock: "/api/phroxapi/ecgetfilelock",
 };
 
-export interface ProcessItem {
+export interface IProcessItem {
   processName: string;
   processId: string;
-  startButtons: StartButtonItem[];
+  startButtons: IStartButtonItem[];
 }
 
-export interface StartButtonItem {
+export interface IStartButtonItem {
   startButtonName: string;
   startButtonId: string;
   singleRoxFile: boolean;
 }
 
-export interface SetCorporateDesignRequest {
+export interface ISetCorporateDesignRequest {
   ButtonHoverColor: string;
   MainFontColor: string;
   MenuFontColor: string;
@@ -45,28 +45,28 @@ export interface SetCorporateDesignRequest {
   Logo: string;
 }
 
-export interface GetRootFolderReply extends BaseReply {
+export interface IGetRootFolderReply extends IBaseReply {
   folderId: number;
   name: string;
 }
 
-export interface GetFolderContentRequest {
+export interface IGetFolderContentRequest {
   folderId: number;
 }
-export interface GetFolderContentReply extends BaseReply {
+export interface IGetFolderContentReply extends IBaseReply {
   folderId: number;
   files: IRoxFile[];
   folders: IRoxFolder[];
 }
 
-export interface GetFileDetailsRequest {
+export interface IGetFileDetailsRequest {
 
 }
-export interface GetFileDetailsReply {
+export interface IGetFileDetailsReply {
 
 }
 
-export interface GetDocumentRequest {
+export interface IGetDocumentRequest {
   roxFileId: number;
   fieldName: string;
   fileName: string;
@@ -74,32 +74,32 @@ export interface GetDocumentRequest {
   versionId: string;
 }
 
-export interface DownloadRoxDocToServerReply extends BaseReply {
-  fieldContents: FieldContentMap;
+export interface IDownloadRoxDocToServerReply extends IBaseReply {
+  fieldContents: IFieldContentMap;
 }
 
-export interface DownloadRoxDocToServerRequest {
-  instanceDetails: Instance.InstanceDetails;
-  extVals: TaskExtensions;
+export interface IDownloadRoxDocToServerRequest {
+  instanceDetails: Instance.IInstanceDetails;
+  extVals: ITaskExtensions;
 }
 
-export interface GetDocumentReply extends BaseReply {
+export interface IGetDocumentReply extends IBaseReply {
   data: Buffer;
   fileName: string;
 }
 
-export interface GetProcessesForRoxFileRequest {
+export interface IGetProcessesForRoxFileRequest {
   roxFileId: number;
 }
 
-export interface GetProcessesForRoxFileReply extends BaseReply {
-  processes: ProcessItem[];
+export interface IGetProcessesForRoxFileReply extends IBaseReply {
+  processes: IProcessItem[];
 }
 
-export interface GetProcessesWithGroupRequest {
+export interface IGetProcessesWithGroupRequest {
   groupId: string;
 }
-export interface GetProcessesWithGroupReply extends BaseReply {
+export interface IGetProcessesWithGroupReply extends IBaseReply {
   processes: {
     processName: string;
     urlName: string;
@@ -107,10 +107,10 @@ export interface GetProcessesWithGroupReply extends BaseReply {
   }[];
 }
 
-export interface GetProcessesWitUserRequest {
+export interface IGetProcessesWitUserRequest {
   userId: string;
 }
-export interface GetProcessesWitUserReply extends BaseReply {
+export interface IGetProcessesWitUserReply extends IBaseReply {
   processes: {
     processName: string;
     urlName: string;
@@ -118,7 +118,7 @@ export interface GetProcessesWitUserReply extends BaseReply {
   }[];
 }
 
-export interface EcReleaseFileLockReply {
+export interface IEcReleaseFileLockReply {
   LockReleased: boolean;
   ShowMessage: boolean;
   Message: string;

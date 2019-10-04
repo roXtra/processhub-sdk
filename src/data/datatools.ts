@@ -1,6 +1,6 @@
-import { FieldContentMap, isFieldValue, FieldDefinition, FieldType, FieldValue } from "./datainterfaces";
+import { IFieldContentMap, isFieldValue, IFieldDefinition, FieldType, IFieldValue } from "./datainterfaces";
 import { getFormattedDate, getFormattedDateTime, getFormattedTimeZoneOffset } from "../tools/timing";
-import { BpmnProcess, RoleOwnerMap, RoleOwner } from "../process";
+import { BpmnProcess, IRoleOwnerMap, IRoleOwner } from "../process";
 import { Bpmn } from "../process/bpmn";
 import { replaceOldFieldSyntax } from "../tools";
 
@@ -14,7 +14,7 @@ export function replaceAll(target: string, search: string, replacement: string):
   return target;
 }
 
-function fieldValueToString(valueObject: FieldValue): string {
+function fieldValueToString(valueObject: IFieldValue): string {
   if (valueObject.type === "ProcessHubDate") {
     return getFormattedDate(new Date(valueObject.value.toString()));
   } else if (valueObject.type === "ProcessHubDateTime") {
@@ -25,7 +25,7 @@ function fieldValueToString(valueObject: FieldValue): string {
   }
 }
 
-export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: FieldContentMap, process: BpmnProcess, roleOwners: RoleOwnerMap): string {
+export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, process: BpmnProcess, roleOwners: IRoleOwnerMap): string {
   if (inputString == null)
     return null;
   if (fieldContentMap == null)
@@ -70,9 +70,9 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
       roleProperty = match[groupIndexForRoleProperty];
     }
     if (roleName != null) {
-      const lane: Bpmn.Lane = process.getLanes(false).find(l => l.name === roleName);
+      const lane: Bpmn.ILane = process.getLanes(false).find(l => l.name === roleName);
       if (lane) {
-        const roleOwner: RoleOwner[] = roleOwners[lane.id];
+        const roleOwner: IRoleOwner[] = roleOwners[lane.id];
         if (roleOwner && roleOwner.length) {
           result = replaceAll(result, placeHolder, (roleProperty && roleOwner[0].user) ? ((roleOwner[0]).user as any)[roleProperty] : roleOwner[0].displayName);
         } else {
@@ -107,7 +107,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
     const roleName: string = match[1];
 
     if (roleName && roleName.length) {
-      const lane: Bpmn.Lane = process.getLanes(false).find(l => l.name === roleName);
+      const lane: Bpmn.ILane = process.getLanes(false).find(l => l.name === roleName);
       if (lane) {
         const roleOwner = roleOwners[lane.id];
         if (roleOwner && roleOwner.length) {
@@ -131,10 +131,10 @@ interface ILegacyProperty {
 interface ILegacySchema {
   properties: { [id: string]: ILegacyProperty };
 }
-export function updateLegacyFieldDefinitions(definitions: any): FieldDefinition[] {
+export function updateLegacyFieldDefinitions(definitions: any): IFieldDefinition[] {
   if (!(definitions instanceof Array)) {
     const properties: { [id: string]: ILegacyProperty } = (definitions as ILegacySchema).properties;
-    const updatedDefinitions: FieldDefinition[] = [];
+    const updatedDefinitions: IFieldDefinition[] = [];
     for (const id in properties) {
       if (typeof id === "string") {
         const property: ILegacyProperty = properties[id];
@@ -148,5 +148,5 @@ export function updateLegacyFieldDefinitions(definitions: any): FieldDefinition[
     }
     return updatedDefinitions;
   } else
-    return definitions as FieldDefinition[];
+    return definitions as IFieldDefinition[];
 }

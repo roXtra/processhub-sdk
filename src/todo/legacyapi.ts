@@ -1,5 +1,5 @@
-import { BaseReply, BaseMessage } from "../legacyapi/apiinterfaces";
-import { TodoDetails } from "./todointerfaces";
+import { IBaseReply, IBaseMessage } from "../legacyapi/apiinterfaces";
+import { ITodoDetails } from "./todointerfaces";
 
 // API routes
 export const TodoRequestRoutes = {
@@ -17,43 +17,43 @@ export const TodoMessages = {
 export type TodoMessages = keyof typeof TodoMessages;
 
 // API request/reply objects
-export interface TodoReply extends BaseMessage {
+export interface ITodoReply extends IBaseMessage {
   errorMessage?: string;
 }
 
-export interface GetSimulationTodosRequest {
+export interface IGetSimulationTodosRequest {
   workspaceId: string;
   instanceId: string;
 }
-export interface GetSimulationTodosReply extends TodoReply {
-  todos?: Array<TodoDetails>;
+export interface IGetSimulationTodosReply extends ITodoReply {
+  todos?: Array<ITodoDetails>;
 }
 
-export interface UpdateTodoRequest {
+export interface IUpdateTodoRequest {
   workspaceId: string;
   todoId: string;
   dueAt: Date;
 }
-export interface UpdateTodoReply extends BaseReply  {
+export interface IUpdateTodoReply extends IBaseReply  {
 }
 
-export interface GetAmountOfUserTodosRequest {
+export interface IGetAmountOfUserTodosRequest {
 }
-export interface GetAmountOfUserTodosReply extends BaseReply  {
+export interface IGetAmountOfUserTodosReply extends IBaseReply  {
   todoAmount: number;
 }
 
-export interface SetTodoPriorityRequest {
+export interface ISetTodoPriorityRequest {
   workspaceId: string;
   todoId: string;
   priority: number;
 }
-export interface SetTodoPriorityReply extends BaseReply  {
+export interface ISetTodoPriorityReply extends IBaseReply  {
 }
 
-export interface DeleteNotificationTodoRequest {
+export interface IDeleteNotificationTodoRequest {
   workspaceId: string;
   todoId: string;
 }
-export interface DeleteNotificationTodoReply extends BaseReply  {
+export interface IDeleteNotificationTodoReply extends IBaseReply  {
 }

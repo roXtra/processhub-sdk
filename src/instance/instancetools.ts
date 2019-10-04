@@ -1,10 +1,10 @@
 import { isFieldValue } from "../data/datainterfaces";
-import { InstanceDetails } from "./instanceinterfaces";
+import { IInstanceDetails } from "./instanceinterfaces";
 import { isValidMailAddress, stringExcerpt } from "../tools/stringtools";
 import { isId } from "../tools/guid";
 import * as Config from "../config";
 import { parseAndInsertStringWithFieldContent } from "../data";
-import { ProcessDetails, isDefaultProcessRole } from "../process";
+import { IProcessDetails, isDefaultProcessRole } from "../process";
 
 export function parseIdMailAddress(prefix: string, mail: string): string {
   mail = mail.toLowerCase();
@@ -41,7 +41,7 @@ export function parseInstanceMailSubject(mail: string): string {
 }
 
 // RoleID == null -> check for any role membership
-export function isRoleOwner(userId: string, roleId: string, instance: InstanceDetails): boolean {
+export function isRoleOwner(userId: string, roleId: string, instance: IInstanceDetails): boolean {
   if (instance.extras.roleOwners == null)
     return false;
 
@@ -65,7 +65,7 @@ export function isRoleOwner(userId: string, roleId: string, instance: InstanceDe
   return false;
 }
 
-export function fieldContentsExcerpt(instance: InstanceDetails, maxLen: number): string {
+export function fieldContentsExcerpt(instance: IInstanceDetails, maxLen: number): string {
   if (instance == null || instance.extras.fieldContents == null)
     return "";
 
@@ -99,7 +99,7 @@ export function fieldContentsExcerpt(instance: InstanceDetails, maxLen: number):
   return stringExcerpt(excerpt, maxLen);
 }
 
-export function getInstanceTitle(instance: InstanceDetails, process: ProcessDetails): string {
+export function getInstanceTitle(instance: IInstanceDetails, process: IProcessDetails): string {
   if (process.extras.settings && process.extras.settings.dashboard && process.extras.settings.dashboard.cardTitle) {
     try {
       return parseAndInsertStringWithFieldContent(process.extras.settings.dashboard.cardTitle, instance.extras.fieldContents, process.extras.bpmnProcess, instance.extras.roleOwners);

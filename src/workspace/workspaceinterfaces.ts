@@ -1,9 +1,9 @@
-import { ProcessDetails, gqlProcessFragments } from "../process/processinterfaces";
+import { IProcessDetails, gqlProcessFragments } from "../process/processinterfaces";
 import { UserDetails } from "../user/userinterfaces";
 import gql from "graphql-tag";
 import { tl } from "../tl";
-import { AuditTrailEntry } from "../audittrail";
-import { GroupDetails } from "../group/groupinterfaces";
+import { IAuditTrailEntry } from "../audittrail";
+import { IGroupDetails } from "../group/groupinterfaces";
 
 // WorkspaceType
 export enum WorkspaceType {
@@ -31,7 +31,7 @@ export function getWorkspaceTypeName(workspaceType: WorkspaceType): string {
   }
 }
 
-export interface WorkspaceDetails {
+export interface IWorkspaceDetails {
   // Changes must also be reflected in gqlTypes and gqlFragments below!
 
   workspaceId: string;
@@ -43,16 +43,16 @@ export interface WorkspaceDetails {
   userRole?: WorkspaceRole;  // Rolle des angemeldeten Users im Workspace
   trialExpiresAt?: Date;
   licensedUsers?: number;
-  colors?: WorkspaceColor[];
+  colors?: IWorkspaceColor[];
   mailboxAddress?: string; // If defined mailbox is defined in settings
   extras: {
     // New Extras must be added to cache-handling in workspaceactions -> loadWorkspace!
-    members?: WorkspaceMember[];
-    processes?: ProcessDetails[];  // Only processes that the current user may access
-    settings?: WorkspaceSettings;
+    members?: IWorkspaceMember[];
+    processes?: IProcessDetails[];  // Only processes that the current user may access
+    settings?: IWorkspaceSettings;
     tags?: string[]; // All available tags in the workspace
-    auditTrail?: AuditTrailEntry[];
-    groups?: GroupDetails[];
+    auditTrail?: IAuditTrailEntry[];
+    groups?: IGroupDetails[];
   };
 }
 
@@ -111,7 +111,7 @@ export enum WorkspaceExtras {
   ExtrasGroups = 1 << 5,
 }
 
-export interface WorkspaceSettings {
+export interface IWorkspaceSettings {
   mailSignature?: string;
 }
 
@@ -122,12 +122,12 @@ export enum WorkspaceRole {
   WorkspaceMember = 1 << 2, // Regular member
 }
 
-export interface WorkspaceMember {
+export interface IWorkspaceMember {
   userDetails: UserDetails;
   memberRole: WorkspaceRole;
 }
 
-export interface WorkspaceColor {
+export interface IWorkspaceColor {
   color: string;
   title: string;
 }

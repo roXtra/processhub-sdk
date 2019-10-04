@@ -1,10 +1,10 @@
 import * as React from "react";
 
-export interface TLProps {
+export interface ITLProps {
   text: string;
 }
 
-export function TL(props: TLProps): JSX.Element {
+export function TL(props: ITLProps): JSX.Element {
   return <span>{ props.text }</span>;
 }
 

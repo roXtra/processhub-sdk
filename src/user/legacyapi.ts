@@ -1,4 +1,4 @@
-import { BaseRequest, BaseMessage } from "../legacyapi/apiinterfaces";
+import { IBaseRequest, IBaseMessage } from "../legacyapi/apiinterfaces";
 import { UserDetails, UserExtras } from "./userinterfaces";
 import { UserMessages } from "./phclient";
 
@@ -20,85 +20,85 @@ export const UserRequestRoutes = {
 };
 export type UserRequestRoutes = keyof typeof UserRequestRoutes;
 
-export interface CreateUserRequest extends BaseRequest {
+export interface ICreateUserRequest extends IBaseRequest {
   userDetails: UserDetails;
   password: string;
   company: string;
   phone: string;
 }
 
-export interface LoginRequest extends BaseRequest {
+export interface ILoginRequest extends IBaseRequest {
   mail: string;
   password: string;
   accessToken: string;
   isGoogleAccessToken: boolean;
 }
-export interface LoginReply extends BaseMessage {
+export interface ILoginReply extends IBaseMessage {
   userDetails?: UserDetails;
 }
 
-export interface LoadUserRequest extends BaseRequest {
+export interface ILoadUserRequest extends IBaseRequest {
   userId?: string; // If null userId will be determined by server from AccessToken cookie
   getExtras: UserExtras;
 }
-export interface LoadUserReply extends BaseMessage {
+export interface ILoadUserReply extends IBaseMessage {
   userDetails?: UserDetails;
 }
 
-export interface LoginDemoUserRequest extends BaseRequest {
+export interface ILoginDemoUserRequest extends IBaseRequest {
 }
-export interface LoginDemoUserReply extends BaseMessage {
+export interface ILoginDemoUserReply extends IBaseMessage {
   userDetails?: UserDetails;
   accessToken?: string;
 }
 
-export interface UpdateUserRequest extends BaseRequest {
+export interface IUpdateUserRequest extends IBaseRequest {
   userDetails: UserDetails;
 }
-export interface UpdateUserReply extends BaseMessage {
+export interface IUpdateUserReply extends IBaseMessage {
 }
 
-export interface UpdatePasswordRequest extends BaseRequest {
+export interface IUpdatePasswordRequest extends IBaseRequest {
   userId: string;
   oldPassword: string;
   newPassword: string;
 }
-export interface UpdatePasswordReply extends BaseMessage {
+export interface IUpdatePasswordReply extends IBaseMessage {
 }
 
-export interface UserLoadedMessage extends BaseMessage {
+export interface IUserLoadedMessage extends IBaseMessage {
   type: UserMessages;
   user?: UserDetails;
 }
 
-export interface SendPasswordResetLinkRequest extends BaseMessage {
+export interface ISendPasswordResetLinkRequest extends IBaseMessage {
   email: string;
 }
 
-export interface ResetPasswordRequest extends BaseMessage {
+export interface IResetPasswordRequest extends IBaseMessage {
   secret: string;
   password: string;
 }
 
-export interface ConfirmMailRequest extends BaseMessage {
+export interface IConfirmMailRequest extends IBaseMessage {
   token: string;
 }
 
-export interface UploadProfilePictureRequest extends BaseMessage {
+export interface IUploadProfilePictureRequest extends IBaseMessage {
   data: string;
 }
 
-export interface SetArchiveViewStateRequest extends BaseRequest {
+export interface ISetArchiveViewStateRequest extends IBaseRequest {
   processId: string;
   archiveViewId: string;
 }
 
 // Nes websocket messages
-export interface RemoveInstanceMessage extends BaseMessage {
+export interface IRemoveInstanceMessage extends IBaseMessage {
   type: UserMessages;
   instanceId: string;
 }
-export interface NewInstanceMessage extends BaseMessage {
+export interface INewInstanceMessage extends IBaseMessage {
   type: UserMessages;
   instanceId: string;
 }

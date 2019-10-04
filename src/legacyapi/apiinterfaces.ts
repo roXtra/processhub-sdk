@@ -25,20 +25,20 @@ export enum ApiResult {
 
 export type ApiError = 400 | 401 | 409 | 404 | 423 | 500;
 
-export interface BaseReply {
+export interface IBaseReply {
   type?: string;
   result?: ApiResult;
 }
 
-export interface BaseRequest {
+export interface IBaseRequest {
 }
 
-export interface BaseMessage extends BaseReply {
+export interface IBaseMessage extends IBaseReply {
   type: string;
 }
 
 export const API_FAILED = "FAILED";
 export const API_SUCCESS = "OK";
-export interface BaseError extends BaseMessage {
-  request?: BaseRequest;  // Enthält den urprünglichen Aufruf
+export interface IBaseError extends IBaseMessage {
+  request?: IBaseRequest;  // Enthält den urprünglichen Aufruf
 }

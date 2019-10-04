@@ -1,14 +1,14 @@
-import { ProcessAccessRights, ProcessRoles } from "./processrights";
-import { InstanceDetails } from "../instance";
+import { ProcessAccessRights, IProcessRoles } from "./processrights";
+import { IInstanceDetails } from "../instance";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { strEnum } from "../tools/types";
 import gql from "graphql-tag";
-import { FieldDefinition, TaskIdRequiredFieldsNeeded, ServiceActionConfigField } from "../data";
+import { IFieldDefinition, ITaskIdRequiredFieldsNeeded, IServiceActionConfigField } from "../data";
 import { UserDetails } from "../user/userinterfaces";
-import { RowDetails } from ".";
-import { AuditTrailEntry } from "../audittrail/audittrailinterfaces";
+import { IRowDetails } from ".";
+import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 
-export interface ProcessAttachment {
+export interface IProcessAttachment {
   attachmentId: string;
   fileName: string;
   url?: string; // Url must be set if it is an uploaded file
@@ -16,7 +16,7 @@ export interface ProcessAttachment {
   iconLink?: string; // IconLink must be set if the attachment is a link to a roXtra document
 }
 
-export interface ProcessReportDraft {
+export interface IProcessReportDraft {
   draftId: string;
   fileName: string;
   url: string;
@@ -25,25 +25,25 @@ export interface ProcessReportDraft {
 /**
  * Describes the contents of the service.json file that is located in the services'
  */
-export interface ServiceJson {
+export interface IServiceJson {
   id: string;
   minRoXtraVersion: string;
   maxRoXtraVersion: string;
   name: string;
-  actions: ServiceActionConfig[];
+  actions: IServiceActionConfig[];
 }
 
-export interface ServiceDetails extends ServiceJson {
+export interface IServiceDetails extends IServiceJson {
   foldername: string;
 }
 
-export interface ServiceActionConfig {
+export interface IServiceActionConfig {
   id: string;
   label: string;
   configMethod: string;
   settings: string;
   configElement: string;
-  fields: ServiceActionField[];
+  fields: IServiceActionField[];
   serviceFile: string;
   serviceMethod: string;
 }
@@ -53,13 +53,13 @@ export interface ServiceActionConfig {
  */
 export type ServiceActionFieldOnloadFunction = "fields" | "reportDrafts" | "reportTypes" | "allProcesses";
 
-export interface ServiceActionField {
+export interface IServiceActionField {
   name: string;
   type: "select" | "text";
   onload: ServiceActionFieldOnloadFunction | string;
 }
 
-export interface ProcessDetails {
+export interface IProcessDetails {
   // Changes must also be reflected in gqlTypes and gqlFragments below!
 
   processId: string;
@@ -72,12 +72,12 @@ export interface ProcessDetails {
   useModeler?: boolean;
   isNewProcess?: boolean;
   userRights?: ProcessAccessRights; // Access rights of the current user
-  attachments?: ProcessAttachment[];
-  reportDrafts?: ProcessReportDraft[];
+  attachments?: IProcessAttachment[];
+  reportDrafts?: IProcessReportDraft[];
   processXmlHash?: string;
-  userStartEvents?: StartButtonMap; // Map with starteventid -> start event name
+  userStartEvents?: IStartButtonMap; // Map with starteventid -> start event name
   tags?: string[];
-  rowDetails?: RowDetails[];
+  rowDetails?: IRowDetails[];
   hasWarnings?: boolean;
   latestCommentAt?: Date; // Datetime of the latest comment
   retentionPeriod?: number; // Retention period for insatances in months
@@ -89,14 +89,14 @@ export interface ProcessDetails {
     // New Extras must be added to cache-handling in processactions -> loadProcess!
     bpmnXml?: string;
     bpmnProcess?: BpmnProcess; // Available if bpmnXml is available
-    instances?: InstanceDetails[];
+    instances?: IInstanceDetails[];
     instancesUsers?: UserDetails[];
-    processRoles?: ProcessRoles;
+    processRoles?: IProcessRoles;
     svgString?: string; // Only used to save preview to server or if requested in extras
-    settings?: ProcessSettings;
-    auditTrail?: AuditTrailEntry[];
-    parentProcessDetails?: ProcessDetails[];
-    childProcessDetails?: ProcessDetails[];
+    settings?: IProcessSettings;
+    auditTrail?: IAuditTrailEntry[];
+    parentProcessDetails?: IProcessDetails[];
+    childProcessDetails?: IProcessDetails[];
   };
 }
 export const gqlProcessTypes = `     
@@ -141,7 +141,7 @@ export const gqlProcessFragments = gql`
   }
 `;
 
-export interface ProcessSettings {
+export interface IProcessSettings {
   dashboard?: {
     cardTitle?: string;  // Title of the cards in the dashboard
     cardDesc?: string;  // Additional text on the card
@@ -174,12 +174,12 @@ export enum ProcessExtras {
   ExtrasSvgString = 1 << 9
 }
 
-export interface TaskToLaneMapEntry {
+export interface ITaskToLaneMapEntry {
   taskId: string;
   laneId: string;
 }
 
-export interface ModelValidationResult {
+export interface IModelValidationResult {
   isValid: boolean;
   tooManyOutgoings: string[];
   tooManyIncomings: string[];
@@ -220,9 +220,9 @@ export type BpmnExtensionName =
   | "service-task-config-object"
   | "roxtra-version";
 
-export interface TaskExtensions {
+export interface ITaskExtensions {
   description: string;
-  fieldDefinitions: FieldDefinition[];
+  fieldDefinitions: IFieldDefinition[];
   sendTaskReceiver: string[];
   sendTaskWithFieldContents: boolean;
   sendTaskInstanceLink: boolean;
@@ -230,16 +230,16 @@ export interface TaskExtensions {
   allFieldsEditable: boolean;
   viewAllFields: boolean;
   sendMailNotification: boolean;
-  requiredFieldsNeeded: TaskIdRequiredFieldsNeeded[];
+  requiredFieldsNeeded: ITaskIdRequiredFieldsNeeded[];
   saveDecisionInFieldContents: boolean;
   customFieldContentsValue: string;
   dueAtDateCanBeEdit: boolean;
   dueAtDuration: string; // Standard dueAtDuration in seconds
 
-  serviceTaskConfigObject: ServiceTaskConfigObject;
+  serviceTaskConfigObject: IServiceTaskConfigObject;
   scriptTaskCode: string;
 
-  timerStartConfiguration: TimerStartEventConfiguration[];
+  timerStartConfiguration: ITimerStartEventConfiguration[];
   roleOwnersEditable: boolean;
 
   subProcessId: string;
@@ -252,7 +252,7 @@ export interface TaskExtensions {
   roXtraVersion: string;
 }
 
-export interface TimerStartEventConfiguration {
+export interface ITimerStartEventConfiguration {
   rowNumber: number;
   title: string;
   date: Date;
@@ -269,12 +269,12 @@ export enum Frequency {
   Once = 5
 }
 
-export interface RunningTaskLane {
+export interface IRunningTaskLane {
   bpmnTaskId: string;
   bpmnLaneId: string;
 }
 
-export interface StartButtonMap {
+export interface IStartButtonMap {
   [id: string]: {
     startEventName: string;
     laneId: string;
@@ -282,13 +282,13 @@ export interface StartButtonMap {
   };
 }
 
-export interface ServiceTaskConfigObject {
+export interface IServiceTaskConfigObject {
   selectedServiceId: string;
   selectedActionId: string;
-  fields: ServiceActionConfigField[];
+  fields: IServiceActionConfigField[];
 }
 
-export interface ProcessDiagramSize {
+export interface IProcessDiagramSize {
   width: number;
   height: number;
 }

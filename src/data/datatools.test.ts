@@ -1,10 +1,10 @@
 import { assert } from "chai";
 import * as DataTools from "./datatools";
-import { FieldContentMap } from "../data/datainterfaces";
+import { IFieldContentMap } from "../data/datainterfaces";
 import { BpmnProcess } from "../process/bpmn/bpmnprocess";
-import { LoadTemplateReply } from "../process/legacyapi";
+import { ILoadTemplateReply } from "../process/legacyapi";
 import { createBpmnTemplate } from "../process/bpmn/bpmnmoddlehelper";
-import { RoleOwnerMap } from "../process/processrights";
+import { IRoleOwnerMap } from "../process/processrights";
 
 describe("sdk", function () {
   describe("data", function () {
@@ -15,7 +15,7 @@ describe("sdk", function () {
 
           const testString = "Hallo {{ field.existiert }}, wie gehts {{ field.existiertnicht }}\n{trölölö} {{{moepmoep}}}\n{{ field.existiert2 }}\n";
           const resultString = "Hallo Teststring eingesetzt!, wie gehts \n{trölölö} {{{moepmoep}}}\n\n";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as FieldContentMap, null, null);
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, null, null);
 
           assert.equal(res, resultString);
         });
@@ -24,7 +24,7 @@ describe("sdk", function () {
 
           const testString = "Hallo {field['existiert']}, wie gehts {field['existiertnicht']}\n{trölölö} {{{moepmoep}}}\nfield['existiertnicht2']\n";
           const resultString = "Hallo {Teststring eingesetzt!}, wie gehts {}\n{trölölö} {{{moepmoep}}}\n\n";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as FieldContentMap, null, null);
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, null, null);
           console.log(res);
           assert.equal(res, resultString);
         });
@@ -41,7 +41,7 @@ describe("sdk", function () {
 
           const testString = "{{ field.fieldname1 }}{{ field.fieldname2 }}{{ field.fieldname3 }}";
           const resultString = "123";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3", } as FieldContentMap, null, null);
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3", } as IFieldContentMap, null, null);
 
           assert.equal(res, resultString);
         });
@@ -50,7 +50,7 @@ describe("sdk", function () {
 
           const testString = "field['fieldname1']field['fieldname2']field['fieldname3']";
           const resultString = "123";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3", } as FieldContentMap, null, null);
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3", } as IFieldContentMap, null, null);
 
           assert.equal(res, resultString);
         });
@@ -61,11 +61,11 @@ describe("sdk", function () {
           const resultString = "1Administrator, Admin";
 
           const bpmnProcess: BpmnProcess = new BpmnProcess();
-          const reply: LoadTemplateReply = await createBpmnTemplate();
+          const reply: ILoadTemplateReply = await createBpmnTemplate();
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { Anlagen: "1" } as FieldContentMap, bpmnProcess, { [bpmnProcess.getLanes(false).find(l => l.name === "Bearbeiter").id]: [{ memberId: "1", displayName: "Administrator, Admin" }] } as RoleOwnerMap);
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { Anlagen: "1" } as IFieldContentMap, bpmnProcess, { [bpmnProcess.getLanes(false).find(l => l.name === "Bearbeiter").id]: [{ memberId: "1", displayName: "Administrator, Admin" }] } as IRoleOwnerMap);
 
           assert.equal(res, resultString);
         });

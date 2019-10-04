@@ -1,26 +1,26 @@
 export interface IConfig {
-  Redis: RedisConfig;
-  Database: DatabaseConfig;
-  Filestore: FilestoreConfig;
-  roXtra: RoxtraConfig;
-  Mailer: MailerConfig;
-  Mailbox: MailboxConfig;
-  Webserver: WebserverConfig;
-  ClientSettings: ClientSettingsConfig;
-  Engine: EngineConfig;
+  Redis: IRedisConfig;
+  Database: IDatabaseConfig;
+  Filestore: IFilestoreConfig;
+  roXtra: IRoxtraConfig;
+  Mailer: IMailerConfig;
+  Mailbox: IMailboxConfig;
+  Webserver: IWebserverConfig;
+  ClientSettings: IClientSettingsConfig;
+  Engine: IEngineConfig;
 }
 
-export interface EngineConfig {
+export interface IEngineConfig {
   sleepBeforeEnd: number;
 }
 
-export interface RoxtraConfig {
+export interface IRoxtraConfig {
   efApiEndpoint: string;
   url: string;
   clientSecret: string;
 }
 
-export interface RedisConfig {
+export interface IRedisConfig {
   serverHost: string;
   devServerHost: string;
   redisHost: string;
@@ -29,7 +29,7 @@ export interface RedisConfig {
   awsApiGatewayKey: string;
 }
 
-export interface DatabaseConfig {
+export interface IDatabaseConfig {
   connection: string;
   port: number;
   user: string;
@@ -37,11 +37,11 @@ export interface DatabaseConfig {
   database: string;
 }
 
-export interface FilestoreConfig {
+export interface IFilestoreConfig {
   baseDir?: string;
 }
 
-export interface MailboxConfig {
+export interface IMailboxConfig {
   mail: string;
   user: string;
   password: string;
@@ -51,7 +51,7 @@ export interface MailboxConfig {
   reconnectTime: number;
 }
 
-export interface MailerConfig {
+export interface IMailerConfig {
   senderName: string;
   senderMail: string;
   smtpPort: number;
@@ -61,7 +61,7 @@ export interface MailerConfig {
   requireTls: boolean;
 }
 
-export interface WebserverConfig {
+export interface IWebserverConfig {
   port: number;
   baseUrl: string;
   tls: boolean;
@@ -70,16 +70,16 @@ export interface WebserverConfig {
   isTestServer?: boolean;
 }
 
-export interface ClientSettingsConfig {
-  statistics: StatisticsConfig;
+export interface IClientSettingsConfig {
+  statistics: IStatisticsConfig;
   extendedErrorMessages: boolean;
 }
 
-export interface StatisticsConfig {
+export interface IStatisticsConfig {
   enabled: boolean;
-  tabs: TabConfig[];
+  tabs: ITabConfig[];
 }
 
-export interface TabConfig {
+export interface ITabConfig {
   name: string;
 }

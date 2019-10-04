@@ -1,8 +1,8 @@
 import { rootStore } from "./rootstore";
 import { UserDetails } from "../user/userinterfaces";
-import { WorkspaceDetails } from "../workspace/workspaceinterfaces";
-import { ProcessDetails } from "../process/processinterfaces";
-import { InstanceDetails } from "../instance/instanceinterfaces";
+import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { IProcessDetails } from "../process/processinterfaces";
+import { IInstanceDetails } from "../instance/instanceinterfaces";
 import _ = require("lodash");
 
 export function mergeUserToCache(user: UserDetails): UserDetails {
@@ -17,7 +17,7 @@ export function mergeUserToCache(user: UserDetails): UserDetails {
 
   // Merge workspaces
   if (user.extras.workspaces) {
-    const newList: WorkspaceDetails[] = [];
+    const newList: IWorkspaceDetails[] = [];
     user.extras.workspaces.map(workspace => {
       newList.push(mergeWorkspaceToCache(workspace));
     });
@@ -36,7 +36,7 @@ export function mergeUserToCache(user: UserDetails): UserDetails {
   return user;
 }
 
-export function mergeWorkspaceToCache(workspace: WorkspaceDetails): WorkspaceDetails {
+export function mergeWorkspaceToCache(workspace: IWorkspaceDetails): IWorkspaceDetails {
   if (workspace == null)
     return null;
 
@@ -45,7 +45,7 @@ export function mergeWorkspaceToCache(workspace: WorkspaceDetails): WorkspaceDet
 
   // Merge processes
   if (workspace.extras.processes) {
-    const newList: ProcessDetails[] = [];
+    const newList: IProcessDetails[] = [];
     workspace.extras.processes.map(process => {
       newList.push(mergeProcessToCache(process));
     });
@@ -55,7 +55,7 @@ export function mergeWorkspaceToCache(workspace: WorkspaceDetails): WorkspaceDet
   return result;
 }
 
-export function mergeProcessToCache(process: ProcessDetails): ProcessDetails {
+export function mergeProcessToCache(process: IProcessDetails): IProcessDetails {
   if (process == null)
     return null;
 
@@ -64,7 +64,7 @@ export function mergeProcessToCache(process: ProcessDetails): ProcessDetails {
 
   // Merge instances
   if (process.extras.instances) {
-    const newList: InstanceDetails[] = [];
+    const newList: IInstanceDetails[] = [];
     process.extras.instances.map(instance => {
       newList.push(mergeInstanceToCache(instance));
     });
@@ -74,7 +74,7 @@ export function mergeProcessToCache(process: ProcessDetails): ProcessDetails {
   return result;
 }
 
-export function mergeInstanceToCache(instance: InstanceDetails, ignoreUser = false): InstanceDetails {
+export function mergeInstanceToCache(instance: IInstanceDetails, ignoreUser = false): IInstanceDetails {
   if (instance == null)
     return null;
 

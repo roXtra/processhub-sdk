@@ -1,9 +1,9 @@
 import gql from "graphql-tag";
-import { RoleOwnerMap } from "../process";
-import { DecisionTask, TodoDetails } from "../todo";
-import { FieldContentMap } from "../data";
+import { IRoleOwnerMap } from "../process";
+import { IDecisionTask, ITodoDetails } from "../todo";
+import { IFieldContentMap } from "../data";
 import { Bpmn } from "modeler/bpmn/bpmn";
-import { AuditTrailEntry } from "../audittrail/audittrailinterfaces";
+import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 
 export enum State {
   // DON'T CHANGE NUMBERS - used in database
@@ -12,13 +12,13 @@ export enum State {
   Canceled = 3,
 }
 
-export interface ParentProcessConfig {
+export interface IParentProcessConfig {
   parentInstanceId: string;
   parentTodoId: string;
   parentUsedToken: string;
 }
 
-export interface InstanceDetails {
+export interface IInstanceDetails {
   // Changes must also be reflected in gqlTypes and gqlFragments below!
 
   instanceId: string;
@@ -37,14 +37,14 @@ export interface InstanceDetails {
   color?: string;
   runningSubProcesses?: string[]; // Contains list for running subinstances
   subInstanceIds?: string[];
-  parentProcessConfigObject?: ParentProcessConfig;
+  parentProcessConfigObject?: IParentProcessConfig;
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
-    instanceState: EngineState | null;
-    fieldContents?: FieldContentMap;
-    roleOwners?: RoleOwnerMap;
-    todos?: TodoDetails[];
-    auditTrail?: AuditTrailEntry[];
+    instanceState: IEngineState | null;
+    fieldContents?: IFieldContentMap;
+    roleOwners?: IRoleOwnerMap;
+    todos?: ITodoDetails[];
+    auditTrail?: IAuditTrailEntry[];
   };
 }
 
@@ -99,47 +99,47 @@ export enum InstanceExtras {
   ExtrasAuditTrail = 1 << 5
 }
 
-export interface ResumeInstanceDetails {
+export interface IResumeInstanceDetails {
   workspaceId: string;
   instanceId: string;
   completedTodoId: string;
   // Sollte nächste Activity Exclusive Gateway sein, wird hier die Entscheidung über den SF mitgeteilt
-  choosenTask?: DecisionTask;
-  fieldContents?: FieldContentMap;
+  choosenTask?: IDecisionTask;
+  fieldContents?: IFieldContentMap;
 }
 
-export interface EngineState {
+export interface IEngineState {
   name: string;
   state: string;
   engineVersion: string;
-  definitions: EngineStateDefinition[];
+  definitions: IEngineStateDefinition[];
 }
 
-export interface EngineStateDefinition {
+export interface IEngineStateDefinition {
   id: string;
   state: string;
   moddleContext: any;
   stopped: boolean;
-  processes: EngineStateDefinitionProcess;
+  processes: IEngineStateDefinitionProcess;
   environment: any;
   entryPointId?: string;
 }
 
-export interface EngineStateDefinitionProcess {
-  [id: string]: EngineStateDefinitionProcessDetails;
+export interface IEngineStateDefinitionProcess {
+  [id: string]: IEngineStateDefinitionProcessDetails;
 }
 
-export interface EngineStateDefinitionProcessDetails {
+export interface IEngineStateDefinitionProcessDetails {
   id: string;
   type: Bpmn.bpmnType;
   entered: boolean;
   variables: any;
   services: any;
-  children: EngineStateDefinitionChild[];
+  children: IEngineStateDefinitionChild[];
   environment: any;
 }
 
-export interface EngineStateDefinitionChild {
+export interface IEngineStateDefinitionChild {
   id: string;
   type: Bpmn.bpmnType;
   entered?: string[];

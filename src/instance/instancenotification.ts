@@ -4,7 +4,7 @@ import * as _ from "lodash";
 // Helper functions to detect if notification symbols should be displayed in dashboard
 
 // latest activity (todo/comment created) - shown in dashboard cards
-export function latestActivityAt(instance: PH.Instance.InstanceDetails): Date {
+export function latestActivityAt(instance: PH.Instance.IInstanceDetails): Date {
   if (!instance)
     return null;
 
@@ -22,7 +22,7 @@ export function latestActivityAt(instance: PH.Instance.InstanceDetails): Date {
   return latestAt;
 }
 
-export function instanceHasBeenViewed(instanceEnv: PH.InstanceEnvironment, actionHandler: PH.ActionHandler): void {
+export function instanceHasBeenViewed(instanceEnv: PH.IInstanceEnvironment, actionHandler: PH.ActionHandler): void {
   if (!instanceEnv || !instanceEnv.instance || !instanceEnv.user)
     return;
 
@@ -49,7 +49,7 @@ export function instanceHasBeenViewed(instanceEnv: PH.InstanceEnvironment, actio
   }
 }
 
-export function instanceLastViewedAt(instanceEnv: PH.InstanceEnvironment): Date {
+export function instanceLastViewedAt(instanceEnv: PH.IInstanceEnvironment): Date {
   if (!instanceEnv || !instanceEnv.instance || !instanceEnv.user)
     return null;
 
@@ -62,7 +62,7 @@ export function instanceLastViewedAt(instanceEnv: PH.InstanceEnvironment): Date 
   return instanceEnv.user.extras.viewStates[instanceEnv.instance.instanceId].lastViewedAt;
 }
 
-export function hasInstanceComments(instanceEnv: PH.InstanceEnvironment): boolean {
+export function hasInstanceComments(instanceEnv: PH.IInstanceEnvironment): boolean {
   if (!instanceEnv || !instanceEnv.instance || !instanceEnv.user)
     return null;
 
@@ -70,7 +70,7 @@ export function hasInstanceComments(instanceEnv: PH.InstanceEnvironment): boolea
 }
 
 // True if there are a) new comments and b) user is a roleOwner - otherwise there should be no notification symbol
-export function notifyNewInstanceComments(instanceEnv: PH.InstanceEnvironment): boolean {
+export function notifyNewInstanceComments(instanceEnv: PH.IInstanceEnvironment): boolean {
   if (!instanceEnv || !instanceEnv.instance || !instanceEnv.user)
     return false;
 
@@ -89,7 +89,7 @@ export function notifyNewInstanceComments(instanceEnv: PH.InstanceEnvironment): 
 }
 
 // True if a todo for the current user has been created since last viewing the instance
-export function notifyNewInstanceTodos(instanceEnv: PH.InstanceEnvironment): boolean {
+export function notifyNewInstanceTodos(instanceEnv: PH.IInstanceEnvironment): boolean {
   if (!instanceEnv || !instanceEnv.instance || !instanceEnv.user)
     return false;
 
@@ -113,7 +113,7 @@ export function notifyNewInstanceTodos(instanceEnv: PH.InstanceEnvironment): boo
 }
 
 // True if user owns a todo that is pinned
-export function notifyInstancePin(instanceEnv: PH.InstanceEnvironment): boolean {
+export function notifyInstancePin(instanceEnv: PH.IInstanceEnvironment): boolean {
   if (!instanceEnv || !instanceEnv.instance || !instanceEnv.user)
     return false;
 

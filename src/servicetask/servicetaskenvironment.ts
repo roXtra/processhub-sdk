@@ -1,34 +1,34 @@
 import { UserDetails } from "../user/userinterfaces";
-import { WorkspaceDetails } from "../workspace/workspaceinterfaces";
-import { InstanceDetails } from "../instance/instanceinterfaces";
-import { FieldContentMap, ServiceActionConfigField } from "../data/datainterfaces";
+import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { IInstanceDetails } from "../instance/instanceinterfaces";
+import { IFieldContentMap, IServiceActionConfigField } from "../data/datainterfaces";
 import { IFileStore } from "../filestore";
 import { IConfig } from "../serverconfig";
-import { BpmnProcess, ProcessExtras, ProcessDetails } from "../process";
-import { SendMailTemplateRequest, SendMailTemplateReply } from "../mailer/mailerinterfaces";
+import { BpmnProcess, ProcessExtras, IProcessDetails } from "../process";
+import { ISendMailTemplateRequest, ISendMailTemplateReply } from "../mailer/mailerinterfaces";
 
 /**
  * Instance methods that ServiceTasks can use
  */
 export interface IServiceTaskInstances {
-  updateInstance(instanceDetails: InstanceDetails): Promise<InstanceDetails>;
+  updateInstance(instanceDetails: IInstanceDetails): Promise<IInstanceDetails>;
   uploadAttachment(processId: string, instanceId: string, fileName: string, dataBase64: string): Promise<string>;
   generateInstanceReport(instanceIdStrings: string, draftId: string, type: "docx" | "pdf"): Promise<{ doc: Buffer; fileName: string }>;
-  executeInstance(processId: string, instance: InstanceDetails, startEventId?: string, accessToken?: string): Promise<string>;
+  executeInstance(processId: string, instance: IInstanceDetails, startEventId?: string, accessToken?: string): Promise<string>;
 }
 
 /**
  * Mailer methods that ServiceTasks can use
  */
 export interface IServiceTaskMailer {
-  sendMailTemplate(request: SendMailTemplateRequest): Promise<SendMailTemplateReply>;
+  sendMailTemplate(request: ISendMailTemplateRequest): Promise<ISendMailTemplateReply>;
 }
 
 /**
  * Process methods that SericeTasks can use
  */
 export interface IServiceTaskProcesses {
-  getProcessDetails(processId: string, extras: ProcessExtras): Promise<ProcessDetails>;
+  getProcessDetails(processId: string, extras: ProcessExtras): Promise<IProcessDetails>;
 }
 
 /**
@@ -40,23 +40,23 @@ export interface IServiceTaskRoxApi {
   getRoxtraTokenByUserId(userId: string): Promise<string>;
 }
 
-export interface ServiceTaskEnvironment {
+export interface IServiceTaskEnvironment {
   bpmnXml: string;
   bpmnTaskId: string;
   bpmnTaskName: string;
-  fieldContents: FieldContentMap;
-  instanceDetails: InstanceDetails;
+  fieldContents: IFieldContentMap;
+  instanceDetails: IInstanceDetails;
   instances: IServiceTaskInstances;
   processes: IServiceTaskProcesses;
   roxApi: IServiceTaskRoxApi;
   mailer: IServiceTaskMailer;
-  workspace: WorkspaceDetails;
+  workspace: IWorkspaceDetails;
   sender: UserDetails;
   fileStore: IFileStore;
   serverConfig: IConfig;
 }
 
-export async function getFields(environment: ServiceTaskEnvironment): Promise<ServiceActionConfigField[]> {
+export async function getFields(environment: IServiceTaskEnvironment): Promise<IServiceActionConfigField[]> {
   const processObject: BpmnProcess = new BpmnProcess();
   await processObject.loadXml(environment.bpmnXml);
   const taskObject = processObject.getExistingTask(processObject.processId(), environment.bpmnTaskId);

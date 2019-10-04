@@ -8,49 +8,49 @@ declare module "modeler/bpmn/di" {
 
   namespace Di {
 
-    export interface DiagramElement extends Base {
+    export interface IDiagramElement extends Base {
       readonly $type: "di:DiagramElement" | "bpmndi:BPMNPlane" | "bpmndi:BPMNShape" | "bpmndi:BPMNEdge" | "bpmndi:BPMNLabel";
       id: string;
-      extension?: Extension;
+      extension?: IExtension;
     }
 
-    export interface Edge extends DiagramElement {
-      waypoint: Dc.Point[];
+    export interface IEdge extends IDiagramElement {
+      waypoint: Dc.IPoint[];
     }
 
-    export interface Diagram {
+    export interface IDiagram {
       id: string;
       name: string;
       documentation?: string;
       resolution?: number;
     }
 
-    export interface Node extends DiagramElement {
+    export interface INode extends IDiagramElement {
     }
 
-    export interface Shape extends Node {
-      bounds: Dc.Bounds;
+    export interface IShape extends INode {
+      bounds: Dc.IBounds;
     }
 
-    export interface Plane extends Node {
-      planeElement: DiagramElement[];
+    export interface IPlane extends INode {
+      planeElement: IDiagramElement[];
     }
 
-    export interface LabeledEdge extends Edge {
+    export interface ILabeledEdge extends IEdge {
     }
 
-    export interface LabeledShape extends Shape {
+    export interface ILabeledShape extends IShape {
     }
 
-    export interface Label extends Node {
-      bounds: Dc.Bounds;
+    export interface ILabel extends INode {
+      bounds: Dc.IBounds;
     }
 
-    export interface Style {
+    export interface IStyle {
       id: string;
     }
 
-    export interface Extension {
+    export interface IExtension {
       readonly $type: "di:Extension";
       values: Element[];
     }

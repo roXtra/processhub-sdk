@@ -1,11 +1,11 @@
-import { ServiceTaskEnvironment } from "../servicetask/servicetaskenvironment";
+import { IServiceTaskEnvironment } from "../servicetask/servicetaskenvironment";
 import { PREVIEW_FILENAME } from "../filestore/ifilestore";
-import { InstanceDetails } from "../instance";
-import { SendMailTemplateReply } from "../mailer/mailerinterfaces";
-import { ProcessDetails } from "../process/processinterfaces";
+import { IInstanceDetails } from "../instance";
+import { ISendMailTemplateReply } from "../mailer/mailerinterfaces";
+import { IProcessDetails } from "../process/processinterfaces";
 import { ServerRoute } from "hapi";
 
-export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskEnvironment {
+export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTaskEnvironment {
 
   return {
     bpmnXml,
@@ -35,7 +35,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskE
     sender: undefined,
     instances: {
       // eslint-disable-next-line @typescript-eslint/require-await
-      updateInstance: async (i): Promise<InstanceDetails> => i,
+      updateInstance: async (i): Promise<IInstanceDetails> => i,
       // eslint-disable-next-line @typescript-eslint/require-await
       uploadAttachment: async (): Promise<string> => undefined,
       // eslint-disable-next-line @typescript-eslint/require-await
@@ -44,10 +44,10 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskE
       executeInstance: async (): Promise<string> => undefined,
     },
     mailer: {
-      sendMailTemplate: (): Promise<SendMailTemplateReply> => undefined,
+      sendMailTemplate: (): Promise<ISendMailTemplateReply> => undefined,
     },
     processes: {
-      getProcessDetails: (): Promise<ProcessDetails> => undefined,
+      getProcessDetails: (): Promise<IProcessDetails> => undefined,
     },
     fileStore: {
       getAttachmentFileUrl: (): string => "",

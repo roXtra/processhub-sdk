@@ -1,23 +1,23 @@
-import { InstanceEnvironment } from "../environment";
+import { IInstanceEnvironment } from "../environment";
 import { BpmnProcess } from "../process";
-import { InstanceDetails } from "../instance/instanceinterfaces";
+import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { UserDetails } from "../user";
 import { Process } from "..";
 
-export interface FieldDefinition {
+export interface IFieldDefinition {
   name: string;
   type: FieldType;
   isRequired: boolean;
   config: {};
 }
 
-export interface FieldDefinitionItem {
+export interface IFieldDefinitionItem {
   bpmnTaskId: string;
   isStartEvent: boolean;
-  fieldDefinition: FieldDefinition;
+  fieldDefinition: IFieldDefinition;
 }
 
-export interface TaskIdRequiredFieldsNeeded {
+export interface ITaskIdRequiredFieldsNeeded {
   taskId: string;
   requiredFieldsNeeded: boolean;
 }
@@ -34,13 +34,13 @@ export interface ISignatureFieldValue {
   dataPoints: {};
 }
 
-export interface ServiceActionConfigField {
+export interface IServiceActionConfigField {
   key: string;
   type: string;
   value: string;
 }
 
-export interface FieldValue {
+export interface IFieldValue {
   type: FieldType;
   value:
   number | // Number
@@ -73,13 +73,13 @@ export type FieldType = "ProcessHubTextInput"
 export interface IFieldType {
   getType(): FieldType;
   getName(): string;
-  getInput(props: IFormElementProps, instanceEnv: InstanceEnvironment, bpmnProcess: BpmnProcess, onFieldValueChanged: () => void, showInvalidFields: boolean, startEventId?: string): JSX.Element;
-  renderValue(value: {}, instance: InstanceDetails): JSX.Element;
-  renderValueForEmail(value: {}, instance: InstanceDetails): JSX.Element;
-  getSettingsButton(fieldDefinition: FieldDefinition, onConfigChanged: (fieldDefinition: FieldDefinition) => void, bpmnProcess: Process.BpmnProcess): JSX.Element;
+  getInput(props: IFormElementProps, instanceEnv: IInstanceEnvironment, bpmnProcess: BpmnProcess, onFieldValueChanged: () => void, showInvalidFields: boolean, startEventId?: string): JSX.Element;
+  renderValue(value: {}, instance: IInstanceDetails): JSX.Element;
+  renderValueForEmail(value: {}, instance: IInstanceDetails): JSX.Element;
+  getSettingsButton(fieldDefinition: IFieldDefinition, onConfigChanged: (fieldDefinition: IFieldDefinition) => void, bpmnProcess: Process.BpmnProcess): JSX.Element;
   isVisible(): boolean;
-  isValid(fieldDefinition: FieldDefinition, instanceEnv: InstanceEnvironment): boolean;
-  isConfigValid(fieldDefinition: FieldDefinition): { valid: boolean; message?: string };
+  isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): boolean;
+  isConfigValid(fieldDefinition: IFieldDefinition): { valid: boolean; message?: string };
 }
 
 export interface IFormElementProps {
@@ -99,14 +99,14 @@ export interface IFormElementProps {
  * @param element element to check
  * @return {boolean} true, if element implements the FieldValue interface, false otherwise
  */
-export function isFieldValue(element: {}): element is FieldValue {
+export function isFieldValue(element: {}): element is IFieldValue {
   return element
-    && (element as FieldValue).type != undefined
-    && typeof (element as FieldValue).type === "string";
+    && (element as IFieldValue).type != undefined
+    && typeof (element as IFieldValue).type === "string";
 }
 
-export interface FieldContentMap {
-  [fieldId: string]: string | boolean | FieldValue;
+export interface IFieldContentMap {
+  [fieldId: string]: string | boolean | IFieldValue;
 }
 
 // Returns the name of the best fitting Semantic UI icon for the specified file name
@@ -170,18 +170,18 @@ export enum StatisticsAction {
   userComment = 30,
 }
 
-export interface StatisticTrailEntry {
+export interface IStatisticTrailEntry {
   todo?: { todoId?: string; bpmnTaskId: string; bpmnLaneId: string; desicionTaskBpmnTaskId?: string; timeOverDueDate?: number };
   instance?: { instanceId: string; jumpToBpmnTask?: string };
   user?: { instanceId: string };
   process?: {};
 }
 
-export interface StatisticRow {
+export interface IStatisticRow {
   statisticsId: string;
   workspaceId: string;
   processId: string;
-  details: StatisticTrailEntry;
+  details: IStatisticTrailEntry;
   action: StatisticsAction;
   userDetails: UserDetails;
   userId: string;

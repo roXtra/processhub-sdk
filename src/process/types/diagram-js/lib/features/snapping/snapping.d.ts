@@ -14,7 +14,7 @@ declare module "diagram-js/lib/features/snapping/Snapping" {
      */
     constructor(eventBus: EventBus, canvas: Canvas);
 
-    public initSnap(event: Snapping.InitSnapEvent): void;
+    public initSnap(event: Snapping.IInitSnapEvent): void;
     public snap(event: {}): void;
 
     public showSnapLine(orientation: {}, position: {}): void;
@@ -26,7 +26,7 @@ declare module "diagram-js/lib/features/snapping/Snapping" {
 
   namespace Snapping {
 
-    export interface InitSnapEvent {
+    export interface IInitSnapEvent {
       context: {
         canExecute: boolean;
         shape: Shape;

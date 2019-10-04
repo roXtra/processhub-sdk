@@ -1,5 +1,5 @@
-import { BaseReply, BaseMessage } from "../legacyapi/apiinterfaces";
-import { InstanceDetails, ResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces";
+import { IBaseReply, IBaseMessage } from "../legacyapi/apiinterfaces";
+import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces";
 import { UserDetails } from "../user";
 
 // API routes
@@ -27,65 +27,65 @@ export const ProcessEngineApiRoutes = {
 export type ProcessEngineApiRoutes = keyof typeof ProcessEngineApiRoutes;
 
 // API request/reply objects
-export interface InstanceRequest {
+export interface IInstanceRequest {
 }
-export interface InstanceReply extends BaseReply {
+export interface IInstanceReply extends IBaseReply {
   errorMessage?: string;
 }
 
-export interface ExecuteRequest extends InstanceRequest {
+export interface IExecuteRequest extends IInstanceRequest {
   processId: string;
-  instance?: InstanceDetails;
+  instance?: IInstanceDetails;
   startEventId?: string;
 }
-export interface ExecuteReply extends InstanceReply { // ExecuteReply ist das selbe wie ResumeReply
+export interface IExecuteReply extends IInstanceReply { // ExecuteReply ist das selbe wie ResumeReply
   instanceId?: string;
 }
 
-export interface UpdateInstanceRequest extends InstanceRequest {
-  instance: InstanceDetails;
+export interface IUpdateInstanceRequest extends IInstanceRequest {
+  instance: IInstanceDetails;
 }
-export interface UpdateInstanceReply extends InstanceReply {
-  instance?: InstanceDetails;
-}
-
-export interface ResumeRequest extends InstanceRequest {
-  resumeDetails: ResumeInstanceDetails;
+export interface IUpdateInstanceReply extends IInstanceReply {
+  instance?: IInstanceDetails;
 }
 
-export interface AbortRequest extends InstanceRequest {
+export interface IResumeRequest extends IInstanceRequest {
+  resumeDetails: IResumeInstanceDetails;
+}
+
+export interface IAbortRequest extends IInstanceRequest {
   instanceId: string;
 }
-export interface AbortReply extends InstanceReply {
+export interface IAbortReply extends IInstanceReply {
 }
 
-export interface JumpRequest extends InstanceRequest {
+export interface IJumpRequest extends IInstanceRequest {
   instanceId: string;
   targetBpmnTaskId: string;
-  resumeDetails: ResumeInstanceDetails;
+  resumeDetails: IResumeInstanceDetails;
 }
-export interface JumpReply extends InstanceReply {
+export interface IJumpReply extends IInstanceReply {
 }
 
-export interface GetInstanceDetailsRequest extends InstanceRequest {
+export interface IGetInstanceDetailsRequest extends IInstanceRequest {
   instanceId: string;
   getExtras: InstanceExtras;
 }
-export interface GetInstanceDetailsReply extends InstanceReply {
-  instanceDetails?: InstanceDetails;
+export interface IGetInstanceDetailsReply extends IInstanceReply {
+  instanceDetails?: IInstanceDetails;
 }
 
-export interface UploadAttachmentRequest extends InstanceRequest {
+export interface IUploadAttachmentRequest extends IInstanceRequest {
   instanceId: string;
   processId: string;
   fileName: string;
   data: string;
 }
-export interface UploadAttachmentReply extends InstanceReply {
+export interface IUploadAttachmentReply extends IInstanceReply {
   url: string;
 }
 
-export interface UploadRoxFileRequest extends InstanceRequest {
+export interface IUploadRoxFileRequest extends IInstanceRequest {
   instanceId: string;
   processId: string;
   fileName: string;
@@ -93,83 +93,83 @@ export interface UploadRoxFileRequest extends InstanceRequest {
   fieldName: string;
   data: string;
 }
-export interface UploadRoxFileReply extends InstanceReply {
+export interface IUploadRoxFileReply extends IInstanceReply {
   url: string;
 }
 
-export interface GetArchiveRequest extends InstanceRequest {
+export interface IGetArchiveRequest extends IInstanceRequest {
   workspaces: string[];
   roxFileIds: number[];
 }
-export interface GetArchiveReply extends InstanceReply {
-  instances: InstanceDetails[];
+export interface IGetArchiveReply extends IInstanceReply {
+  instances: IInstanceDetails[];
   instanceUsers: UserDetails[];
 }
 
-export interface UploadCommentAttachmentRequest extends InstanceRequest {
+export interface IUploadCommentAttachmentRequest extends IInstanceRequest {
   instanceId: string;
   processId: string;
   fileName: string;
   data: string;
   trailId: string;
 }
-export interface UploadCommentAttachmentReply extends InstanceReply {
+export interface IUploadCommentAttachmentReply extends IInstanceReply {
   url: string;
 }
 
-export interface SetFieldContentRequest extends InstanceRequest {
+export interface ISetFieldContentRequest extends IInstanceRequest {
   instanceId: string;
   fieldName: string;
   fieldValue: string;
 }
-export interface SetFieldContentReply extends InstanceReply {
+export interface ISetFieldContentReply extends IInstanceReply {
 }
 
-export interface DeleteAttachmentRequest extends InstanceRequest {
+export interface IDeleteAttachmentRequest extends IInstanceRequest {
   processId: string;
   instanceId: string;
   fileName: string;
 }
-export interface DeleteAttachmentReply extends InstanceReply {
+export interface IDeleteAttachmentReply extends IInstanceReply {
 }
 
-export interface CommentRequest extends InstanceRequest {
+export interface ICommentRequest extends IInstanceRequest {
   instanceId: string;
   comment: string;
   trailId: string;
   attachments: string[];
 }
-export interface DeleteCommentRequest extends InstanceRequest {
+export interface IDeleteCommentRequest extends IInstanceRequest {
   trailId: string;
 }
 
-export interface DeleteMailRequest extends InstanceRequest {
+export interface IDeleteMailRequest extends IInstanceRequest {
   trailId: string;
 }
 
-export interface DeleteInstancesRequest extends InstanceRequest {
+export interface IDeleteInstancesRequest extends IInstanceRequest {
   instanceIds: string[];
 }
 
 export const INSTANCELOADED_MESSAGE = "InstanceLoadedMessage";
-export interface InstanceLoadedMessage extends BaseMessage {
+export interface IInstanceLoadedMessage extends IBaseMessage {
   type: "InstanceLoadedMessage";
-  instance?: InstanceDetails;
+  instance?: IInstanceDetails;
 }
 
-export interface ExportAuditTrailRequest extends InstanceRequest {
+export interface IExportAuditTrailRequest extends IInstanceRequest {
   instanceId: string;
 }
-export interface ExportAuditTrailReply extends InstanceReply {
+export interface IExportAuditTrailReply extends IInstanceReply {
   doc: any;
 }
 
-export interface GenerateReportRequest extends InstanceRequest {
+export interface IGenerateReportRequest extends IInstanceRequest {
   instanceIds: string;
   draftId: string;
   type: "docx" | "pdf";
 }
-export interface GenerateReportReply extends InstanceReply {
+export interface IGenerateReportReply extends IInstanceReply {
   doc: any;
   fileName: string;
 }

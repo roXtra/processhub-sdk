@@ -4,10 +4,10 @@ import { InstanceExtras } from "./instance/instanceinterfaces";
 import { UserExtras } from "./user/userinterfaces";
 import * as Assert from "./tools/assert";
 import { ApiClient } from "./apiclient";
-import { CoreEnvironment } from "./environment";
+import { ICoreEnvironment } from "./environment";
 
 
-export interface ExtrasRequest {
+export interface IExtrasRequest {
   workspaceExtras?: WorkspaceExtras;
   processExtras?: ProcessExtras;
   instanceExtras?: InstanceExtras;
@@ -27,7 +27,7 @@ export class ActionHandler extends ApiClient {
     Assert.error();
   }
 
-  requestExtras(_environment: CoreEnvironment, _requestedExtras: ExtrasRequest, _forceReload?: boolean): Promise<void> {
+  requestExtras(_environment: ICoreEnvironment, _requestedExtras: IExtrasRequest, _forceReload?: boolean): Promise<void> {
     throw new Error("Method not implemented.");
   }
 

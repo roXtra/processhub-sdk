@@ -13,46 +13,46 @@ declare module "modeler/bpmn/bpmndi" {
     enum ParticipantBandKind { }
     enum MessageVisibleKind { }
 
-    export interface BPMNDiagram extends Di.Diagram {
+    export interface IBPMNDiagram extends Di.IDiagram {
       readonly $type: "bpmndi:BPMNDiagram";
-      plane: BPMNPlane;
-      labelStyle?: BPMNLabelStyle[];
+      plane: IBPMNPlane;
+      labelStyle?: IBPMNLabelStyle[];
     }
 
-    export interface BPMNPlane extends Di.Plane {
+    export interface IBPMNPlane extends Di.IPlane {
       readonly $type: "bpmndi:BPMNPlane";
-      bpmnElement: Bpmn.BaseElement;
+      bpmnElement: Bpmn.IBaseElement;
     }
 
-    export interface BPMNShape extends Di.LabeledShape {
+    export interface IBPMNShape extends Di.ILabeledShape {
       readonly $type: "bpmndi:BPMNShape";
-      bpmnElement: Bpmn.BaseElement;
+      bpmnElement: Bpmn.IBaseElement;
       isHorizontal: boolean;
       isExpanded: boolean;
       isMarkerVisible: boolean;
-      label: BPMNLabel;
+      label: IBPMNLabel;
       isMessageVisible: boolean;
       participantBandKind: ParticipantBandKind;
-      choreographyActivityShape: BPMNShape;
+      choreographyActivityShape: IBPMNShape;
     }
 
-    export interface BPMNEdge extends Di.LabeledEdge {
+    export interface IBPMNEdge extends Di.ILabeledEdge {
       readonly $type: "bpmndi:BPMNEdge";
-      label: BPMNLabel;
-      bpmnElement: Bpmn.BaseElement;
-      sourceElement: Di.DiagramElement;
-      targetElement: Di.DiagramElement;
+      label: IBPMNLabel;
+      bpmnElement: Bpmn.IBaseElement;
+      sourceElement: Di.IDiagramElement;
+      targetElement: Di.IDiagramElement;
       messageVisibleKind: MessageVisibleKind;
     }
 
-    export interface BPMNLabel extends Di.Label {
+    export interface IBPMNLabel extends Di.ILabel {
       readonly $type: "bpmndi:BPMNLabel";
-      labelStyle: BPMNLabelStyle;
+      labelStyle: IBPMNLabelStyle;
     }
 
-    export interface BPMNLabelStyle extends Di.Style {
+    export interface IBPMNLabelStyle extends Di.IStyle {
       readonly $type: "bpmndi:BPMNLabelStyle";
-      font: Dc.Font;
+      font: Dc.IFont;
     }
 
     export type bpmndiType = "bpmndi:BPMNDiagram" | "bpmndi:BPMNPlane" | "bpmndi:BPMNShape" | "bpmndi:BPMNEdge" | "bpmndi:BPMNLabel" | "bpmndi:BPMNLabelStyle";

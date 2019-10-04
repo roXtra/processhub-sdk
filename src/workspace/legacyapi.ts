@@ -1,5 +1,5 @@
-import { BaseRequest, BaseMessage } from "../legacyapi/apiinterfaces";
-import { WorkspaceExtras, WorkspaceDetails, WorkspaceRole, WorkspaceType } from "./workspaceinterfaces";
+import { IBaseRequest, IBaseMessage } from "../legacyapi/apiinterfaces";
+import { WorkspaceExtras, IWorkspaceDetails, WorkspaceRole, WorkspaceType } from "./workspaceinterfaces";
 import { WorkspaceMessages } from "./phclient";
 
 // WorkspaceRequestRoutes
@@ -16,31 +16,31 @@ export const WorkspaceRequestRoutes = {
 export type WorkspaceRequestRoutes = keyof typeof WorkspaceRequestRoutes;
 
 
-export interface LoadWorkspaceRequest extends BaseRequest {
+export interface ILoadWorkspaceRequest extends IBaseRequest {
   workspaceId: string;
   getExtras: WorkspaceExtras;
 }
-export interface LoadWorkspaceReply extends BaseMessage {
+export interface ILoadWorkspaceReply extends IBaseMessage {
   type: WorkspaceMessages;
-  workspace?: WorkspaceDetails;
+  workspace?: IWorkspaceDetails;
 }
 
 
-export interface WorkspaceLoadedMessage extends BaseMessage {
+export interface IWorkspaceLoadedMessage extends IBaseMessage {
   type: WorkspaceMessages;
-  workspace?: WorkspaceDetails;
+  workspace?: IWorkspaceDetails;
 }
-export interface WorkspaceCreatedMessage extends BaseMessage {
+export interface IWorkspaceCreatedMessage extends IBaseMessage {
   type: WorkspaceMessages;
-  workspace?: WorkspaceDetails;
+  workspace?: IWorkspaceDetails;
 }
 
-export interface CreateWorkspaceRequest extends BaseRequest {
-  workspace: WorkspaceDetails;
+export interface ICreateWorkspaceRequest extends IBaseRequest {
+  workspace: IWorkspaceDetails;
 }
 
 export type TrialUserCountType = "10" | "25" | "50" | "100" | "100+";
-export interface StartTrialRequest extends BaseRequest {
+export interface IStartTrialRequest extends IBaseRequest {
   workspaceId: string;
   name: string;
   mail: string;
@@ -50,27 +50,27 @@ export interface StartTrialRequest extends BaseRequest {
   userCount: TrialUserCountType;
 }
 
-export interface UpdateWorkspaceRequest extends BaseRequest {
-  workspace: WorkspaceDetails;
+export interface IUpdateWorkspaceRequest extends IBaseRequest {
+  workspace: IWorkspaceDetails;
 }
 
-export interface DeleteWorkspaceRequest extends BaseRequest {
+export interface IDeleteWorkspaceRequest extends IBaseRequest {
   workspaceId: string;
 }
 
-export interface InviteWorkspaceMemberRequest extends BaseRequest {
+export interface IInviteWorkspaceMemberRequest extends IBaseRequest {
   workspaceId: string;
   userIdOrUserMail: string[];
   memberRole: WorkspaceRole;
   invitationMessage: string; // Nachricht im Markdown-Format
 }
 
-export interface RemoveWorkspaceMemberRequest extends BaseRequest {
+export interface IRemoveWorkspaceMemberRequest extends IBaseRequest {
   workspaceId: string;
   userId: string;
 }
 
-export interface SetMemberRoleRequest extends BaseRequest {
+export interface ISetMemberRoleRequest extends IBaseRequest {
   workspaceId: string;
   userId: string;
   memberRole: WorkspaceRole;

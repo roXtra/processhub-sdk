@@ -3,9 +3,9 @@ import { assert, expect } from "chai";
 import { Bpmn } from "../../process/bpmn";
 import { isId } from "../../tools/guid";
 import { BpmnProcess } from "./bpmnprocess";
-import { LoadTemplateReply } from "../legacyapi";
+import { ILoadTemplateReply } from "../legacyapi";
 import { createBpmnTemplate, bpmnModdleInstance } from "./bpmnmoddlehelper";
-import { RowDetails } from "../phclient";
+import { IRowDetails } from "../phclient";
 import fs = require("fs");
 
 async function readFileAsync(fileName: string): Promise<string> {
@@ -20,9 +20,9 @@ async function readFileAsync(fileName: string): Promise<string> {
   });
 }
 
-let TestRowDetails: RowDetails[] = [];
+let TestRowDetails: IRowDetails[] = [];
 
-function addTask(rowDetails: RowDetails[], rowNumber: number, bpmnProcess: any): void {
+function addTask(rowDetails: IRowDetails[], rowNumber: number, bpmnProcess: any): void {
   rowDetails.splice((rowNumber + 1), 0, { rowNumber: (rowNumber + 1), selectedRole: rowDetails[rowNumber].selectedRole, task: "", taskId: null, laneId: rowDetails[rowNumber].laneId, taskType: "bpmn:UserTask", jumpsTo: rowDetails[rowNumber].jumpsTo });
 
   bpmnProcess.addTaskBetween(rowDetails, (rowNumber + 1));
@@ -39,7 +39,7 @@ function addTask(rowDetails: RowDetails[], rowNumber: number, bpmnProcess: any):
 
 async function createTestBpmnProcess(): Promise<BpmnProcess> {
   const bpmnProcess: BpmnProcess = new BpmnProcess();
-  const reply: LoadTemplateReply = await createBpmnTemplate();
+  const reply: ILoadTemplateReply = await createBpmnTemplate();
 
   bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 
@@ -47,7 +47,7 @@ async function createTestBpmnProcess(): Promise<BpmnProcess> {
   assert.isTrue(sortedTasks.length === 2, "wrong template process 1");
   const start = bpmnProcess.getStartEvents(bpmnProcess.processId());
   assert.isTrue(start.length === 1, "wrong template process 2");
-  let rowDetails: RowDetails[] = [];
+  let rowDetails: IRowDetails[] = [];
 
   const startElem = start.last();
   const testLane = bpmnProcess.getLaneOfFlowNode(startElem.id);
@@ -55,9 +55,9 @@ async function createTestBpmnProcess(): Promise<BpmnProcess> {
   rowDetails.push({ rowNumber: 0, selectedRole: testLane.id, task: startElem.name, taskId: startElem.id, laneId: testLane.id, taskType: startElem.$type, jumpsTo: startElem.outgoing.map(out => out.targetRef.id) });
 
   let counter = 1;
-  rowDetails = rowDetails.concat(sortedTasks.map((r): RowDetails => {
+  rowDetails = rowDetails.concat(sortedTasks.map((r): IRowDetails => {
     const testLane = bpmnProcess.getLaneOfFlowNode(r.id);
-    const row = { rowNumber: counter, selectedRole: testLane.id, task: r.name, taskId: r.id, laneId: testLane.id, taskType: r.$type, jumpsTo: r.outgoing.map(out => out.targetRef.id) } as RowDetails;
+    const row = { rowNumber: counter, selectedRole: testLane.id, task: r.name, taskId: r.id, laneId: testLane.id, taskType: r.$type, jumpsTo: r.outgoing.map(out => out.targetRef.id) } as IRowDetails;
     counter++;
     return row;
   }));
@@ -81,7 +81,7 @@ describe("sdk", function () {
 
           // Load exported xml with moddle
           const moddle: BpmnModdle = new BpmnModdle();
-          const definitions = await new Promise<Bpmn.Definitions>((resolve, reject) => {
+          const definitions = await new Promise<Bpmn.IDefinitions>((resolve, reject) => {
             moddle.fromXML(exportedXmlString, (err, def) => {
               if (err) {
                 reject(err);
@@ -91,7 +91,7 @@ describe("sdk", function () {
           });
 
           // Check if empty lane is still there
-          const process: Bpmn.Process = definitions.rootElements.find(e => e.$type === "bpmn:Process") as Bpmn.Process;
+          const process: Bpmn.IProcess = definitions.rootElements.find(e => e.$type === "bpmn:Process") as Bpmn.IProcess;
           const [laneSet] = process.laneSets;
           expect(laneSet.lanes).not.to.be.undefined;
           expect(laneSet.lanes.length).to.equal(1);
@@ -152,7 +152,7 @@ describe("sdk", function () {
           assert(processes.length > 0);
           assert(processes.length === 1);
 
-          const process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
+          const process: Bpmn.IProcess = bpmnProcess.getProcess(processes[0].id);
 
           assert(process.id != null);
           assert(process.id === processes[0].id);
@@ -165,18 +165,18 @@ describe("sdk", function () {
           assert(processes.length > 0);
           assert(processes.length === 1);
 
-          const process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
+          const process: Bpmn.IProcess = bpmnProcess.getProcess(processes[0].id);
 
           assert(process.id != null);
           assert(process.id === processes[0].id);
 
           // Wie test zuvor bis hier her
 
-          const startEvents: Bpmn.StartEvent[] = bpmnProcess.getStartEvents(process.id);
+          const startEvents: Bpmn.IStartEvent[] = bpmnProcess.getStartEvents(process.id);
           assert(startEvents[0].outgoing[0].targetRef.$type === "bpmn:UserTask");
           assert(startEvents[0].outgoing[0].sourceRef.$type === "bpmn:StartEvent");
 
-          const endEvent: Bpmn.EndEvent = bpmnProcess.getEndEvents(process.id)[0];
+          const endEvent: Bpmn.IEndEvent = bpmnProcess.getEndEvents(process.id)[0];
           assert(endEvent.incoming[0].sourceRef.$type === "bpmn:UserTask");
           assert(endEvent.incoming[0].targetRef.$type === "bpmn:EndEvent");
         });
@@ -184,12 +184,12 @@ describe("sdk", function () {
         it("soll Lane anlegen", async function () {
           const bpmnProcess = await createTestBpmnProcess();
           const processes = bpmnProcess.getProcesses();
-          const process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
+          const process: Bpmn.IProcess = bpmnProcess.getProcess(processes[0].id);
 
           const testId: string = BpmnProcess.getBpmnId("bpmn:Lane");
           const testLaneId: string = bpmnProcess.addLane(process.id, testId, "Test Lane");
 
-          const lanes: Bpmn.Lane[] = bpmnProcess.getLanes(false);
+          const lanes: Bpmn.ILane[] = bpmnProcess.getLanes(false);
 
           assert(lanes.length === 3);
           assert(lanes[lanes.length - 1].id === testLaneId);
@@ -199,12 +199,12 @@ describe("sdk", function () {
         it("soll Task aus Lane entfernen", async function () {
           const bpmnProcess = await createTestBpmnProcess();
           const processes = bpmnProcess.getProcesses();
-          const process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
+          const process: Bpmn.IProcess = bpmnProcess.getProcess(processes[0].id);
 
           const rowDetails = JSON.parse(JSON.stringify(TestRowDetails));
 
           // Wie test zuvor bis hier her
-          const testLane: Bpmn.Lane = bpmnProcess.getProcessLane(process.id, rowDetails[1].laneId);
+          const testLane: Bpmn.ILane = bpmnProcess.getProcessLane(process.id, rowDetails[1].laneId);
 
 
           assert(testLane.flowNodeRef.length === 2);
@@ -223,7 +223,7 @@ describe("sdk", function () {
 
           assert(testLane.flowNodeRef.length === 3);
 
-          const testTaskObject: Bpmn.UserTask = bpmnProcess.getExistingTask(process.id, testTaskId) as Bpmn.UserTask;
+          const testTaskObject: Bpmn.IUserTask = bpmnProcess.getExistingTask(process.id, testTaskId) as Bpmn.IUserTask;
 
           bpmnProcess.removeTaskObjectFromLanes(process.id, testTaskObject);
 
@@ -235,25 +235,25 @@ describe("sdk", function () {
         describe("Extension Values", function () {
 
           let bpmnProcess: BpmnProcess;
-          let testTaskObject: Bpmn.UserTask;
+          let testTaskObject: Bpmn.IUserTask;
 
           before(async () => {
 
             bpmnProcess = await createTestBpmnProcess();
 
             const processes = bpmnProcess.getProcesses();
-            const process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
+            const process: Bpmn.IProcess = bpmnProcess.getProcess(processes[0].id);
 
             // Wie test zuvor bis hier her
             const testLaneName = "Test Lane";
 
             const testId: string = BpmnProcess.getBpmnId("bpmn:Lane");
             bpmnProcess.addLane(process.id, testId, testLaneName);
-            const rowDetails: RowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
+            const rowDetails: IRowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
 
             const testTaskId: string = rowDetails[1].taskId;
 
-            testTaskObject = bpmnProcess.getExistingTask(process.id, testTaskId) as Bpmn.UserTask;
+            testTaskObject = bpmnProcess.getExistingTask(process.id, testTaskId) as Bpmn.IUserTask;
             assert(testTaskObject.name === rowDetails[1].task);
             assert(testTaskObject.id === testTaskId);
             assert(testTaskObject.$type === "bpmn:UserTask");
@@ -311,7 +311,7 @@ describe("sdk", function () {
           it("soll Task löschen und Reihenfolge überprüfen", async function () {
             const bpmnProcess = await createTestBpmnProcess();
             const processes = bpmnProcess.getProcesses();
-            const process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
+            const process: Bpmn.IProcess = bpmnProcess.getProcess(processes[0].id);
 
             // Wie test zuvor bis hier her
             const testLaneName = "Test Lane";
@@ -325,12 +325,12 @@ describe("sdk", function () {
 
             const testTaskName1 = "Test Aufgabe A";
 
-            const rowDetails: RowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
+            const rowDetails: IRowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
 
             const testTaskId1: string = rowDetails[1].taskId;
 
 
-            const testTaskObject1: Bpmn.UserTask = bpmnProcess.getExistingTask(process.id, testTaskId1) as Bpmn.UserTask;
+            const testTaskObject1: Bpmn.IUserTask = bpmnProcess.getExistingTask(process.id, testTaskId1) as Bpmn.IUserTask;
             bpmnProcess.changeTaskName(rowDetails[1].taskId, testTaskName1);
 
             assert(testTaskObject1.name === testTaskName1);
@@ -341,7 +341,7 @@ describe("sdk", function () {
             const testTaskName2 = "Test Aufgabe B";
             const testTaskId2: string = rowDetails[2].taskId;
 
-            const testTaskObject2: Bpmn.UserTask = bpmnProcess.getExistingTask(process.id, testTaskId2) as Bpmn.UserTask;
+            const testTaskObject2: Bpmn.IUserTask = bpmnProcess.getExistingTask(process.id, testTaskId2) as Bpmn.IUserTask;
             bpmnProcess.changeTaskName(rowDetails[2].taskId, testTaskName2);
 
             assert(testTaskObject2.name === testTaskName2);
@@ -352,7 +352,7 @@ describe("sdk", function () {
             const testTaskName3 = "Test Aufgabe C";
             const testTaskId3: string = rowDetails[2].taskId;
 
-            const testTaskObject3: Bpmn.UserTask = bpmnProcess.getExistingTask(process.id, testTaskId3) as Bpmn.UserTask;
+            const testTaskObject3: Bpmn.IUserTask = bpmnProcess.getExistingTask(process.id, testTaskId3) as Bpmn.IUserTask;
             bpmnProcess.changeTaskName(rowDetails[2].taskId, testTaskName3);
 
             assert(testTaskObject3.name === testTaskName3, testTaskObject3.name + " === " + testTaskName3);
@@ -378,7 +378,7 @@ describe("sdk", function () {
 
       describe("getSetSenderAsRoleOwner", function() {
         it("sets and gets SetSenderAsRoleOwner", function() {
-          const startEvent: Bpmn.StartEvent = bpmnModdleInstance.create("bpmn:StartEvent", {});
+          const startEvent: Bpmn.IStartEvent = bpmnModdleInstance.create("bpmn:StartEvent", {});
           BpmnProcess.setSetSenderAsRoleOwner(startEvent, false);
           expect(BpmnProcess.getSetSenderAsRoleOwner(startEvent)).to.equal(false);
           BpmnProcess.setSetSenderAsRoleOwner(startEvent, true);
@@ -391,13 +391,13 @@ describe("sdk", function () {
         it("soll Following Sequence Flow Name zurückgeben", async function () {
           const bpmnProcess = await createTestBpmnProcess();
           const processes = bpmnProcess.getProcesses();
-          const process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
+          const process: Bpmn.IProcess = bpmnProcess.getProcess(processes[0].id);
 
           const testLaneName = "Test Lane";
           const testId: string = BpmnProcess.getBpmnId("bpmn:Lane");
           bpmnProcess.addLane(process.id, testId, testLaneName);
 
-          const rowDetails: RowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
+          const rowDetails: IRowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
 
           const testTaskId1: string = rowDetails[1].taskId;
 
@@ -413,13 +413,13 @@ describe("sdk", function () {
         it("soll Null zurückgeben", async function () {
           const bpmnProcess = await createTestBpmnProcess();
           const processes = bpmnProcess.getProcesses();
-          const process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
+          const process: Bpmn.IProcess = bpmnProcess.getProcess(processes[0].id);
 
           const testLaneName = "Test Lane";
           const testId: string = BpmnProcess.getBpmnId("bpmn:Lane");
           bpmnProcess.addLane(process.id, testId, testLaneName);
 
-          const rowDetails: RowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
+          const rowDetails: IRowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
 
           const testTaskId1: string = rowDetails[1].taskId;
 
@@ -429,13 +429,13 @@ describe("sdk", function () {
         it("soll Null zurückgeben too much outgoings", async function () {
           const bpmnProcess = await createTestBpmnProcess();
           const processes = bpmnProcess.getProcesses();
-          const process: Bpmn.Process = bpmnProcess.getProcess(processes[0].id);
+          const process: Bpmn.IProcess = bpmnProcess.getProcess(processes[0].id);
 
           const testLaneName = "Test Lane";
           const testId: string = BpmnProcess.getBpmnId("bpmn:Lane");
           bpmnProcess.addLane(process.id, testId, testLaneName);
 
-          const rowDetails: RowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
+          const rowDetails: IRowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
 
           const testTaskId1: string = rowDetails[1].taskId;
 
@@ -464,7 +464,7 @@ describe("sdk", function () {
           assert.isTrue(sortedTasks.length === 2, "wrong template process 1");
           const start = bpmnProcess.getStartEvents(bpmnProcess.processId());
           assert.isTrue(start.length === 1, "wrong template process 2");
-          let rowDetails: RowDetails[] = [];
+          let rowDetails: IRowDetails[] = [];
 
           const startElem = start.last();
           const testLane = bpmnProcess.getLaneOfFlowNode(startElem.id);
@@ -472,9 +472,9 @@ describe("sdk", function () {
           rowDetails.push({ rowNumber: 0, selectedRole: testLane.id, task: startElem.name, taskId: startElem.id, laneId: testLane.id, taskType: startElem.$type, jumpsTo: startElem.outgoing.map(out => out.targetRef.id) });
 
           let counter = 1;
-          rowDetails = rowDetails.concat(sortedTasks.map((r): RowDetails => {
+          rowDetails = rowDetails.concat(sortedTasks.map((r): IRowDetails => {
             const testLane = bpmnProcess.getLaneOfFlowNode(r.id);
-            const row = { rowNumber: counter, selectedRole: testLane.id, task: r.name, taskId: r.id, laneId: testLane.id, taskType: r.$type, jumpsTo: r.outgoing.map(out => out.targetRef.id) } as RowDetails;
+            const row = { rowNumber: counter, selectedRole: testLane.id, task: r.name, taskId: r.id, laneId: testLane.id, taskType: r.$type, jumpsTo: r.outgoing.map(out => out.targetRef.id) } as IRowDetails;
             counter++;
             return row;
           }));

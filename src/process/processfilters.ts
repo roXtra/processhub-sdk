@@ -1,7 +1,7 @@
-import { ProcessDetails } from "./processinterfaces";
+import { IProcessDetails } from "./processinterfaces";
 
 // Filter tags that are used in the given processes
-export function filterExistingTags(processes: ProcessDetails[], tags: string[]): string[] {
+export function filterExistingTags(processes: IProcessDetails[], tags: string[]): string[] {
   const filteredTags: string[] = [];
   processes.map(process => {
     if (process.tags) {

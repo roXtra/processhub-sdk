@@ -4,7 +4,7 @@ import * as Process from "../process";
 import * as StateHandler from "../statehandler";
 import * as update from "immutability-helper";
 import { isTrue } from "../tools/assert";
-import { PROCESSLOADED_MESSAGE, ProcessLoadedMessage } from "./legacyapi";
+import { PROCESSLOADED_MESSAGE, IProcessLoadedMessage } from "./legacyapi";
 import { createId } from "../tools/guid";
 import { ResetStore } from "../statehandler/actions";
 
@@ -26,7 +26,7 @@ export function processReducer(processState: Process.ProcessState, action: any):
     // siehe https://github.com/kolodny/immutability-helper
 
     case PROCESSLOADED_MESSAGE: {
-      processState.currentProcess = StateHandler.mergeProcessToCache((action as ProcessLoadedMessage).processDetails);
+      processState.currentProcess = StateHandler.mergeProcessToCache((action as IProcessLoadedMessage).processDetails);
 
       const processChanged = !_.isEqual(processState.currentProcess, processState.lastDispatchedProcess);
       processState.lastDispatchedProcess = _.cloneDeep(processState.currentProcess);
@@ -45,8 +45,8 @@ export function processReducer(processState: Process.ProcessState, action: any):
         return update(processState, {
           currentProcess: {
             extras: {
-              bpmnXml: { $set: action.xmlStr as ProcessActions.ProcessActionSave },
-              bpmnProcess: { $set: action.bpmnProcess as ProcessActions.ProcessActionSave }
+              bpmnXml: { $set: action.xmlStr as ProcessActions.IProcessActionSave },
+              bpmnProcess: { $set: action.bpmnProcess as ProcessActions.IProcessActionSave }
             }
           }
         });
@@ -55,7 +55,7 @@ export function processReducer(processState: Process.ProcessState, action: any):
       }
 
     case ProcessActions.ProcessActionType.CreateInDb: {
-      const createInDbAction = action as ProcessActions.ProcessActionCreateInDb;
+      const createInDbAction = action as ProcessActions.IProcessActionCreateInDb;
       isTrue(createInDbAction.workspaceId != null && createInDbAction.workspaceId != null, ProcessActions.ProcessActionType.CreateInDb + ": workspaceId = " + createInDbAction.workspaceId);
       processState.currentProcess = processState.currentProcess || {
         workspaceId: createInDbAction.workspaceId,
@@ -79,12 +79,12 @@ export function processReducer(processState: Process.ProcessState, action: any):
       });
 
     case ProcessActions.ProcessActionType.Failed: {
-      const failedAction = action as ProcessActions.ProcessActionFailed;
+      const failedAction = action as ProcessActions.IProcessActionFailed;
       processState.errorMessage = failedAction.errorMessage;
       return processState;
     }
     case ProcessActions.ProcessActionType.DeleteFromDb: {
-      const deleteAction = action as ProcessActions.ProcessActionDeleteFromDb;
+      const deleteAction = action as ProcessActions.IProcessActionDeleteFromDb;
       processState.currentProcess = processState.currentProcess
         || { processId: deleteAction.processId, workspaceId: null, displayName: null, description: null, extras: {} };
       return update(processState, {

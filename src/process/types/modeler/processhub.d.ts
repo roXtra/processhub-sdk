@@ -5,86 +5,86 @@ declare module "modeler/bpmn/processhub" {
 
   namespace Processhub {
 
-    export interface AsyncCapable {
+    export interface IAsyncCapable {
       asyncBefore: boolean;
       asyncAfter: boolean;
     }
 
-    export interface Assignable {
+    export interface IAssignable {
       readonly $type: "processhub:Assignable";
       assignee: string;
     }
 
-    export interface Calling {
+    export interface ICalling {
       readonly $type: "processhub:Calling";
       calledElementBinding: string;
       calledElementVersion: number;
     }
 
-    export interface ServiceTaskLike {
+    export interface IServiceTaskLike {
       readonly $type: "processhub:ServiceTaskLike";
       expression: string;
       javaDelegate: string;
       delegateExpression: string;
     }
 
-    export interface Connector extends Element {
+    export interface IConnector extends Element {
       readonly $type: "processhub:Connector";
-      inputOutput: InputOutput;
+      inputOutput: IInputOutput;
       connectorId: string;
     }
 
-    export interface InputOutput extends Base {
+    export interface IInputOutput extends Base {
       readonly $type: "processhub:InputOutput";
-      inputOutput: InputOutput;
+      inputOutput: IInputOutput;
       connectorId: string;
-      inputParameters: InputParameter[];
-      outputParameters: OutputParameter[];
+      inputParameters: IInputParameter[];
+      outputParameters: IOutputParameter[];
     }
 
-    export interface InputOutputParameter extends Base {
+    export interface IInputOutputParameter extends Base {
       readonly $type: "processhub:InputOutputParameter" | "processhub:InputParameter" | "processhub:OutputParameter";
       name: string;
       value: string;
-      definition: InputOutputParameterDefinition;
+      definition: IInputOutputParameterDefinition;
     }
 
-    export interface InputOutputParameterDefinition {
+    export interface IInputOutputParameterDefinition {
 
     }
 
-    export interface List extends InputOutputParameterDefinition {
+    export interface IList extends IInputOutputParameterDefinition {
       readonly $type: "processhub:List";
-      items: InputOutputParameterDefinition[];
+      items: IInputOutputParameterDefinition[];
     }
 
-    export interface Map extends InputOutputParameterDefinition {
+    export interface IMap extends IInputOutputParameterDefinition {
       readonly $type: "processhub:Map";
-      entries: Entry[];
+      entries: IEntry[];
     }
 
-    export interface Entry {
+    export interface IEntry {
       readonly $type: "processhub:Entry";
       key: string;
-      value: InputOutputParameterDefinition;
+      value: IInputOutputParameterDefinition;
     }
 
-    export interface Value extends InputOutputParameterDefinition {
+    export interface IValue extends IInputOutputParameterDefinition {
       readonly $type: "processhub:Value";
       value: string;
     }
 
-    export interface Script extends InputOutputParameterDefinition {
+    export interface IScript extends IInputOutputParameterDefinition {
       readonly $type: "processhub:Script";
       scriptLanguage: string;
       source: string;
     }
 
-    export interface InputParameter extends InputOutputParameter {
+    export interface IInputParameter extends IInputOutputParameter {
       readonly $type: "processhub:InputParameter";
     }
 
-    export interface OutputParameter extends InputOutputParameter {
+    export interface IOutputParameter extends IInputOutputParameter {
       readonly $type: "processhub:OutputParameter";
     }
 

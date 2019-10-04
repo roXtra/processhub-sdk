@@ -3,7 +3,7 @@ import * as StateHandler from "../statehandler";
 import { UserDetails } from "../user/userinterfaces";
 import { getBackendUrl } from "../config";
 
-export interface PublishSubscribeRegisterObject {
+export interface IPublishSubscribeRegisterObject {
   wildcard: string;
   subscriptionPath: string;
   resolvePath: (value: string) => string;
@@ -13,7 +13,7 @@ export const resolveFunction = (obj: any, value: string): string => {
   return obj.subscriptionPath.replace(obj.wildcard, value);
 };
 
-export const PublishSubscriptionObjects: { [Id: string]: PublishSubscribeRegisterObject } = {
+export const PublishSubscriptionObjects: { [Id: string]: IPublishSubscribeRegisterObject } = {
   newInstance: { wildcard: "{userId}", subscriptionPath: "/ws/newInstance/{userId}", resolvePath: function (value: string): string { return resolveFunction(this, value); } },
   updateInstance: { wildcard: "{instanceId}", subscriptionPath: "/ws/updateInstance/{instanceId}", resolvePath: function (value: string): string { return resolveFunction(this, value); } },
   updateProcess: { wildcard: "{processId}", subscriptionPath: "/ws/updateProcess/{processId}", resolvePath: function (value: string): string { return resolveFunction(this, value); } },

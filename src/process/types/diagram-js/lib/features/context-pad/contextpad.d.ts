@@ -31,9 +31,9 @@ declare module "diagram-js/lib/features/context-pad/ContextPad" {
      *
      * @param {djs.element.Base} element
      *
-     * @return {Array<ContextPadEntryDescriptor>} list of entries
+     * @return {Array<IContextPadEntryDescriptor>} list of entries
      */
-    public getEntries(element: Base): ContextPadEntryDescriptor[];
+    public getEntries(element: Base): IContextPadEntryDescriptor[];
 
     /**
      * Trigger an action available on the opened context pad
@@ -72,10 +72,10 @@ declare module "diagram-js/lib/features/context-pad/ContextPad" {
   }
 
   export interface IContextPadProvider {
-    getContextPadEntries(element: Base): ContextPadEntryDescriptor[];
+    getContextPadEntries(element: Base): IContextPadEntryDescriptor[];
   }
 
-  export interface ContextPadEntryDescriptor {
+  export interface IContextPadEntryDescriptor {
     group?: string;
     html?: string;
     className?: string;

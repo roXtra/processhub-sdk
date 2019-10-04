@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { ProcessDetails } from "./processinterfaces";
+import { IProcessDetails } from "./processinterfaces";
 import { ProcessAccessRights } from "./processrights";
 import { ProcessState } from "./phclient";
 import { processReducer } from "./processreducer";
@@ -7,7 +7,7 @@ import { PROCESSLOADED_MESSAGE } from "./legacyapi";
 import { createWorkspaceId, createId } from "../tools/guid";
 import { ProcessActionType } from "./processactions";
 
-const testProcess: ProcessDetails = {
+const testProcess: IProcessDetails = {
   workspaceId: "2000E70281B5ECD5",
   displayName: "Testprocess",
   urlName: "testprocess",

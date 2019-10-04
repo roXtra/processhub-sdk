@@ -1,8 +1,8 @@
 import * as Api from "../legacyapi";
 import { rootStore, mergeInstanceToCache } from "../statehandler";
 import { Dispatch } from "redux";
-import { InstanceDetails, ResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces";
-import { JumpReply, ExecuteReply, ProcessEngineApiRoutes, UpdateInstanceReply, AbortReply, INSTANCELOADED_MESSAGE, InstanceLoadedMessage, GetInstanceDetailsReply } from "./legacyapi";
+import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces";
+import { IJumpReply, IExecuteReply, ProcessEngineApiRoutes, IUpdateInstanceReply, IAbortReply, INSTANCELOADED_MESSAGE, IInstanceLoadedMessage, IGetInstanceDetailsReply } from "./legacyapi";
 
 export const InstanceActionType = {
   Execute: "INSTANCEACTION_EXECUTE",
@@ -14,45 +14,45 @@ export const InstanceActionType = {
 };
 export type InstanceActionType = keyof typeof InstanceActionType;
 
-export interface InstanceAction {
+export interface IInstanceAction {
   readonly type: InstanceActionType;
 }
 
-export interface InstanceActionExecute extends InstanceAction {
+export interface IInstanceActionExecute extends IInstanceAction {
   readonly type: InstanceActionType; // "INSTANCEACTION_EXECUTE";
   processId: string;
 }
 
-export interface InstanceActionUpdateInstance extends InstanceAction {
+export interface IInstanceActionUpdateInstance extends IInstanceAction {
   readonly type: InstanceActionType; // "INSTANCEACTION_EXECUTE";
 }
 
-export interface InstanceActionResume extends InstanceAction {
+export interface IInstanceActionResume extends IInstanceAction {
   readonly type: InstanceActionType; // "INSTANCEACTION_RESUME";
 }
 
-export interface InstanceActionAbort extends InstanceAction {
+export interface IInstanceActionAbort extends IInstanceAction {
   readonly type: InstanceActionType; // "INSTANCEACTION_ABORT";
 }
 
-export interface InstanceActionJump extends InstanceAction {
+export interface IInstanceActionJump extends IInstanceAction {
   readonly type: InstanceActionType; // "INSTANCEACTION_JUMP";
 }
 
-export async function executeInstance(processId: string, instanceDetails: InstanceDetails, startEventId?: string, accessToken?: string): Promise<ExecuteReply> {
+export async function executeInstance(processId: string, instanceDetails: IInstanceDetails, startEventId?: string, accessToken?: string): Promise<IExecuteReply> {
   return await rootStore.dispatch(executeInstanceAction(processId, instanceDetails, startEventId, accessToken));
 }
 
-export function executeInstanceAction(processId: string, instanceDetails: InstanceDetails, startEventId?: string, accessToken?: string): <S>(dispatch: Dispatch<S>) => Promise<ExecuteReply> {
+export function executeInstanceAction(processId: string, instanceDetails: IInstanceDetails, startEventId?: string, accessToken?: string): <S>(dispatch: Dispatch<S>) => Promise<IExecuteReply> {
 
-  return async <S>(dispatch: Dispatch<S>): Promise<ExecuteReply> => {
-    const response: ExecuteReply = await Api.postJson(ProcessEngineApiRoutes.execute, {
+  return async <S>(dispatch: Dispatch<S>): Promise<IExecuteReply> => {
+    const response: IExecuteReply = await Api.postJson(ProcessEngineApiRoutes.execute, {
       processId: processId,
       instance: instanceDetails,
       startEventId: startEventId
     }, accessToken);
 
-    dispatch<InstanceActionExecute>({
+    dispatch<IInstanceActionExecute>({
       type: InstanceActionType.Execute as InstanceActionType,
       processId: processId
     });
@@ -60,20 +60,20 @@ export function executeInstanceAction(processId: string, instanceDetails: Instan
   };
 }
 
-export async function updateInstance(instance: InstanceDetails, accessToken: string = null): Promise<UpdateInstanceReply> {
+export async function updateInstance(instance: IInstanceDetails, accessToken: string = null): Promise<IUpdateInstanceReply> {
   return await rootStore.dispatch(updateInstanceAction(instance, accessToken));
 }
 
-export function updateInstanceAction(instance: InstanceDetails, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<UpdateInstanceReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<UpdateInstanceReply> => {
-    const response: UpdateInstanceReply = await Api.postJson(ProcessEngineApiRoutes.updateInstance, {
+export function updateInstanceAction(instance: IInstanceDetails, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<IUpdateInstanceReply> {
+  return async <S>(dispatch: Dispatch<S>): Promise<IUpdateInstanceReply> => {
+    const response: IUpdateInstanceReply = await Api.postJson(ProcessEngineApiRoutes.updateInstance, {
       instance: instance
     }, accessToken);
 
     if (response.instance)
       response.instance = mergeInstanceToCache(response.instance);
 
-    const message: InstanceLoadedMessage = {
+    const message: IInstanceLoadedMessage = {
       type: INSTANCELOADED_MESSAGE,
       instance: response.instance
     };
@@ -83,34 +83,34 @@ export function updateInstanceAction(instance: InstanceDetails, accessToken: str
   };
 }
 
-export async function resumeProcess(resumeDetails: ResumeInstanceDetails): Promise<ExecuteReply> {
+export async function resumeProcess(resumeDetails: IResumeInstanceDetails): Promise<IExecuteReply> {
   return await rootStore.dispatch(resumeProcessAction(resumeDetails));
 }
 
-export function resumeProcessAction(resumeDetails: ResumeInstanceDetails): <S>(dispatch: Dispatch<S>) => Promise<ExecuteReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<ExecuteReply> => {
-    const response: ExecuteReply = await Api.postJson(ProcessEngineApiRoutes.resume, {
+export function resumeProcessAction(resumeDetails: IResumeInstanceDetails): <S>(dispatch: Dispatch<S>) => Promise<IExecuteReply> {
+  return async <S>(dispatch: Dispatch<S>): Promise<IExecuteReply> => {
+    const response: IExecuteReply = await Api.postJson(ProcessEngineApiRoutes.resume, {
       resumeDetails: resumeDetails
     });
 
-    dispatch<InstanceActionResume>({
+    dispatch<IInstanceActionResume>({
       type: InstanceActionType.Resume as InstanceActionType
     });
     return response;
   };
 }
 
-export async function abortInstance(instanceId: string): Promise<AbortReply> {
+export async function abortInstance(instanceId: string): Promise<IAbortReply> {
   return await rootStore.dispatch(abortInstanceAction(instanceId));
 }
 
-export function abortInstanceAction(instanceId: string): <S>(dispatch: Dispatch<S>) => Promise<AbortReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<AbortReply> => {
-    const response: AbortReply = await Api.postJson(ProcessEngineApiRoutes.abort, {
+export function abortInstanceAction(instanceId: string): <S>(dispatch: Dispatch<S>) => Promise<IAbortReply> {
+  return async <S>(dispatch: Dispatch<S>): Promise<IAbortReply> => {
+    const response: IAbortReply = await Api.postJson(ProcessEngineApiRoutes.abort, {
       instanceId: instanceId
     });
 
-    dispatch<InstanceActionAbort>({
+    dispatch<IInstanceActionAbort>({
       type: InstanceActionType.Abort as InstanceActionType
     });
     return response;
@@ -119,26 +119,26 @@ export function abortInstanceAction(instanceId: string): <S>(dispatch: Dispatch<
 
 
 
-export async function jump(instanceId: string, targetBpmnTaskId: string, resumeDetails: ResumeInstanceDetails): Promise<JumpReply> {
+export async function jump(instanceId: string, targetBpmnTaskId: string, resumeDetails: IResumeInstanceDetails): Promise<IJumpReply> {
   return await rootStore.dispatch(jumpAction(instanceId, targetBpmnTaskId, resumeDetails));
 }
 
-export function jumpAction(instanceId: string, targetBpmnTaskId: string, resumeDetails: ResumeInstanceDetails): <S>(dispatch: Dispatch<S>) => Promise<JumpReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<JumpReply> => {
-    const response: JumpReply = await Api.postJson(ProcessEngineApiRoutes.jump, {
+export function jumpAction(instanceId: string, targetBpmnTaskId: string, resumeDetails: IResumeInstanceDetails): <S>(dispatch: Dispatch<S>) => Promise<IJumpReply> {
+  return async <S>(dispatch: Dispatch<S>): Promise<IJumpReply> => {
+    const response: IJumpReply = await Api.postJson(ProcessEngineApiRoutes.jump, {
       instanceId: instanceId,
       targetBpmnTaskId: targetBpmnTaskId,
       resumeDetails: resumeDetails
     });
 
-    dispatch<InstanceActionJump>({
+    dispatch<IInstanceActionJump>({
       type: InstanceActionType.Jump as InstanceActionType
     });
     return response;
   };
 }
 
-export async function loadInstance(instanceId: string, instanceExtras?: InstanceExtras, forceReload = false): Promise<InstanceDetails> {
+export async function loadInstance(instanceId: string, instanceExtras?: InstanceExtras, forceReload = false): Promise<IInstanceDetails> {
   const instanceState = rootStore.getState().instanceState;
   let cachedInstance = null;
 
@@ -174,7 +174,7 @@ export async function loadInstance(instanceId: string, instanceExtras?: Instance
       rootStore.dispatch({
         type: INSTANCELOADED_MESSAGE,
         instance: cachedInstance
-      } as InstanceLoadedMessage);
+      } as IInstanceLoadedMessage);
 
       return cachedInstance;
     }
@@ -182,16 +182,16 @@ export async function loadInstance(instanceId: string, instanceExtras?: Instance
 
   return (await rootStore.dispatch(loadInstanceAction(instanceId, instanceExtras))).instanceDetails;
 }
-export function loadInstanceAction(instanceId: string, getExtras: InstanceExtras = InstanceExtras.None): <S>(dispatch: Dispatch<S>) => Promise<GetInstanceDetailsReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<GetInstanceDetailsReply> => {
-    const response: GetInstanceDetailsReply = await Api.getJson(ProcessEngineApiRoutes.getInstanceDetails, {
+export function loadInstanceAction(instanceId: string, getExtras: InstanceExtras = InstanceExtras.None): <S>(dispatch: Dispatch<S>) => Promise<IGetInstanceDetailsReply> {
+  return async <S>(dispatch: Dispatch<S>): Promise<IGetInstanceDetailsReply> => {
+    const response: IGetInstanceDetailsReply = await Api.getJson(ProcessEngineApiRoutes.getInstanceDetails, {
       instanceId: instanceId,
       getExtras: getExtras
     });
     if (response.instanceDetails)
       response.instanceDetails = mergeInstanceToCache(response.instanceDetails);
 
-    const message: InstanceLoadedMessage = {
+    const message: IInstanceLoadedMessage = {
       type: INSTANCELOADED_MESSAGE,
       instance: response.instanceDetails
     };

@@ -1,6 +1,6 @@
 import { UserDetails } from "../user";
 
-export interface GroupDetails {
+export interface IGroupDetails {
   groupId: string;
   workspaceId?: string;
   displayName: string;
