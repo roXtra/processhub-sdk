@@ -27,8 +27,8 @@ export class ActionHandler extends ApiClient {
     Assert.error();
   }
 
-  requestExtras(_environment: CoreEnvironment, _requestedExtras: ExtrasRequest, _forceReload?: boolean): void {
-    Assert.error();
+  requestExtras(_environment: CoreEnvironment, _requestedExtras: ExtrasRequest, _forceReload?: boolean): Promise<void> {
+    throw new Error("Method not implemented.");
   }
 
   openInstancePopup(_workspaceId: string, _instanceId: string): void {
