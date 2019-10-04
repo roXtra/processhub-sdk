@@ -89,8 +89,7 @@
     ],
     // Disabled for now to simplify migration to eslint
     "@typescript-eslint/no-var-requires": "warn",
-    // Disabled for now to simplify migration to eslint
-    "@typescript-eslint/camelcase": "warn",
+    "@typescript-eslint/camelcase": "error",
     // Disabled checksVoidReturn for now to simplify migration to eslint
     "@typescript-eslint/no-misused-promises": [
       "error",
