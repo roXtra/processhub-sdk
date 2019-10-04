@@ -1,5 +1,5 @@
 export function sleep(ms = 0): Promise<any> {
-  return new Promise(r => setTimeout(r, ms));
+  return new Promise((r): void => { setTimeout(r, ms); });
 }
 
 export function getFormattedDate(date: Date): string {

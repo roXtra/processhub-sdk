@@ -1,7 +1,7 @@
 const ID_LENGTH = 16;
 const TEMP_USERID_PREFIX = "tmpUserId_";
 
-function idHelper(count: number) {
+function idHelper(count: number): string {
   let out = "";
   for (let i = 0; i < count; i++) {
     out += (((1 + Math.random()) * 0x10000) | 0).toString(ID_LENGTH).substring(1);

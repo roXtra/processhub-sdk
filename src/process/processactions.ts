@@ -220,19 +220,19 @@ export function loadProcessAction(processId: string, instanceId?: string, proces
   };
 }
 
-export function setLocalProcessXml(xmlStr: string) {
+export function setLocalProcessXml(xmlStr: string): void {
   rootStore.dispatch({
     type: ProcessActionType.Save as ProcessActionType,
     xmlStr: xmlStr
   } as ProcessActionSave);
 }
 
-export async function processChanged(bpmnProcess: BpmnProcess) {
+export async function processChanged(bpmnProcess: BpmnProcess): Promise<void> {
   await rootStore.dispatch(processChangedAction(bpmnProcess));
 }
 
-export function processChangedAction(bpmnProcess: BpmnProcess) {
-  return async function (dispatch: any) {
+export function processChangedAction(bpmnProcess: BpmnProcess): (dispatch: any) => Promise<void> {
+  return async function (dispatch: any): Promise<void> {
     rootStore.getState();
     const processXml = await bpmnProcess.toXmlString();
     if (processXml != null)

@@ -26,7 +26,7 @@ export const ProcessView = {
 };
 export type ProcessView = keyof typeof ProcessView;
 
-export function isValidProcessView(urlSegment: string) {
+export function isValidProcessView(urlSegment: string): boolean {
   for (const view in ProcessView) {
     if ((ProcessView as any)[view] === urlSegment.toLowerCase())
       return true;

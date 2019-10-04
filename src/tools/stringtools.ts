@@ -44,7 +44,7 @@ export function toCleanUrl(text: string): string {
     .trim();
 }
 
-export function stringExcerpt(source: string, maxLen: number) {
+export function stringExcerpt(source: string, maxLen: number): string {
   if (source == null || source.length <= maxLen)
     return source;
   else {
@@ -59,7 +59,7 @@ export function stringExcerpt(source: string, maxLen: number) {
   }
 }
 
-export function getQueryParameter(parameter: string, location?: string) {
+export function getQueryParameter(parameter: string, location?: string): string {
   if (location == null && typeof window !== "undefined") {
     location = window.location.href;
   }
@@ -101,7 +101,7 @@ export function splitStringOnMultipleSigns(parameter: string, splitSignListOrdne
   return result;
 }
 
-export function getShuffledNumberArray(amountOfElements: number, numberLenght = 3) {
+export function getShuffledNumberArray(amountOfElements: number, numberLenght = 3): number[] {
   const array: number[] = [];
   for (let i = 0; i < amountOfElements; i++) {
     const value = ("000" + i).slice(-(numberLenght));
@@ -111,7 +111,7 @@ export function getShuffledNumberArray(amountOfElements: number, numberLenght = 
 }
 
 // Randomize array element order in-place.
-function shuffleArray(array: number[]) {
+function shuffleArray(array: number[]): number[] {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     const temp = array[i];
@@ -147,7 +147,7 @@ export function getQueryFromGroup(group: Group, isChild?: boolean): string {
   return "(" + group.rules.map(r => (r as Rule).field ? getQueryFromRule(r as Rule) : getQueryFromGroup(r as Group, true)).join(" " + group.combinator + " ") + ")";
 }
 
-export function getQueryFromRule(rule: Rule) {
+export function getQueryFromRule(rule: Rule): string {
   let value: string | number | { [index: string]: boolean };
 
   switch (typeof rule.value) {
@@ -246,7 +246,7 @@ export function parseNestedElementsToGroupConstruct(nestedElement: NestedElement
   return topGroup;
 }
 
-export function parseNestedElement(query: string, nestedElements: NestedElements, group: Group) {
+export function parseNestedElement(query: string, nestedElements: NestedElements, group: Group): void {
   delete nestedElements[Object.keys(nestedElements).find(k => nestedElements[k].top)];
   nestedElements[query].top = true;
   group.rules.push(parseNestedElementsToGroupConstruct(nestedElements));

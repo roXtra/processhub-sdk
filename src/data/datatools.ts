@@ -7,7 +7,7 @@ import { replaceOldFieldSyntax } from "../tools";
 const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName))?/;
 
-export function replaceAll(target: string, search: string, replacement: string) {
+export function replaceAll(target: string, search: string, replacement: string): string {
   while (target.includes(search)) {
     target = target.replace(search, replacement);
   }

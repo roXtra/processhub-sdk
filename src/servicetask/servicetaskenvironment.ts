@@ -1,7 +1,7 @@
 import { UserDetails } from "../user/userinterfaces";
 import { WorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { InstanceDetails } from "../instance/instanceinterfaces";
-import { FieldContentMap } from "../data/datainterfaces";
+import { FieldContentMap, ServiceActionConfigField } from "../data/datainterfaces";
 import { IFileStore } from "../filestore";
 import { IConfig } from "../serverconfig";
 import { BpmnProcess, ProcessExtras, ProcessDetails } from "../process";
@@ -56,7 +56,7 @@ export interface ServiceTaskEnvironment {
   serverConfig: IConfig;
 }
 
-export async function getFields(environment: ServiceTaskEnvironment) {
+export async function getFields(environment: ServiceTaskEnvironment): Promise<ServiceActionConfigField[]> {
   const processObject: BpmnProcess = new BpmnProcess();
   await processObject.loadXml(environment.bpmnXml);
   const taskObject = processObject.getExistingTask(processObject.processId(), environment.bpmnTaskId);

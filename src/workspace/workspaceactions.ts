@@ -7,7 +7,7 @@ import { LoadWorkspaceReply, LoadWorkspaceRequest, WorkspaceRequestRoutes, Remov
 import { WorkspaceMessages } from "./phclient";
 import { BaseReply } from "../legacyapi";
 
-export async function requireWorkspaceMembers() {
+export async function requireWorkspaceMembers(): Promise<void> {
   // Fordert die Workspace-Members an, falls diese in PathState.currentWorkspace noch nicht enthalten sind.
   const workspaceState = StateHandler.rootStore.getState().workspaceState;
   if (workspaceState.currentWorkspace != null
@@ -69,7 +69,7 @@ export async function removeWorkspaceMember(workspaceId: string, userId: string,
   await StateHandler.rootStore.dispatch(removeWorkspaceMemberAction(workspaceId, userId, accessToken));
 }
 export function removeWorkspaceMemberAction(workspaceId: string, userId: string, accessToken: string = null) {
-  return function (dispatch: any) {
+  return function (dispatch: any): Promise<void> {
     const request: RemoveWorkspaceMemberRequest = {
       workspaceId,
       userId
@@ -144,11 +144,11 @@ export function deleteWorkspaceAction(workspaceId: string, accessToken: string =
   };
 }
 
-export async function setMemberRole(workspaceId: string, userId: string, memberRole: WorkspaceRole, accessToken: string = null) {
+export async function setMemberRole(workspaceId: string, userId: string, memberRole: WorkspaceRole, accessToken: string = null): Promise<void> {
   await StateHandler.rootStore.dispatch(setMemberRoleAction(workspaceId, userId, memberRole, accessToken));
 }
 export function setMemberRoleAction(workspaceId: string, userId: string, memberRole: WorkspaceRole, accessToken: string = null) {
-  return function (dispatch: any) {
+  return function (dispatch: any): Promise<void> {
     const request: SetMemberRoleRequest = {
       workspaceId,
       userId,

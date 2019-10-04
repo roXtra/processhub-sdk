@@ -38,7 +38,7 @@ export class FrameActionHandler extends ActionHandler {
 
   // Reply format:
   // [PHActionReceiver]Plugin_Component:command:commandId:{data}
-  actionReplyListener(event: any) {
+  actionReplyListener(event: any): void {
     if (event && event.data && event.data.length >= 18 && event.data.substr(0, 18) === "[PHActionReceiver]") {
       const message = event.data.substr(18);
       const split = message.split(":");
