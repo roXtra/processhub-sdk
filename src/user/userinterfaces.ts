@@ -4,7 +4,6 @@ import { nullId } from "../tools/guid";
 import { isTrue } from "../tools/assert";
 import { tl } from "../tl";
 import { IEscalation, ITodo } from "../phroxapi";
-import { isRoxtraEdition } from "../settings";
 
 export interface RoxtraUserDetails {
   HasUserManagementAccess: boolean;
@@ -112,7 +111,7 @@ export enum AccountState {
   System = 5
 }
 
-export const SystemUserId: string = isRoxtraEdition ? "-1" : "02A7F339F42ADD6D";
+export const SystemUserId = "-1";
 
 // Erste Gruppendefinitionen - echtes Gruppenmanagement folgt später
 export const PredefinedGroups = {
@@ -124,11 +123,7 @@ export const PredefinedGroups = {
 export type PredefinedGroups = keyof typeof PredefinedGroups;
 
 export function getDefaultRoleGroup(): string {
-  if (isRoxtraEdition) {
-    return PredefinedGroups.AllWorkspaceMembers;
-  } else {
-    return PredefinedGroups.Everybody;
-  }
+  return PredefinedGroups.AllWorkspaceMembers;
 }
 
 export function isPredefinedGroup(groupId: string): boolean {

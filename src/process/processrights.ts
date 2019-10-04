@@ -11,7 +11,6 @@ import { Bpmn } from "./bpmn";
 import * as WorkspaceLicenses from "../workspace/workspacelicenses";
 import { GroupDetails } from "../group";
 import _ = require("lodash");
-import { isRoxtraEdition } from "../settings";
 
 export enum ProcessAccessRights {
   None = 0,
@@ -221,14 +220,7 @@ export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspac
 }
 
 function addIfLicenseAllows(owners: PotentialRoleOwners, user: UserDetails): void {
-  if (isRoxtraEdition) {
-    if (user.extras.roXtra.HasEFormulareEditAccess) {
-      owners.potentialRoleOwner.push({
-        memberId: user.userId,
-        displayName: user.displayName
-      });
-    }
-  } else {
+  if (user.extras.roXtra.HasEFormulareEditAccess) {
     owners.potentialRoleOwner.push({
       memberId: user.userId,
       displayName: user.displayName

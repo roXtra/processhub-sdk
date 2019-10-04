@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git://github.com/roXtra/processhub-sdk.git"
   },
-  "version": "8.10.0-3",
+  "version": "8.10.0-4",
   "author": {
     "name": "ProcessHub",
     "email": "info@processhub.com",
@@ -57,7 +57,7 @@
     "copytypings": "copyfiles -u 1 \"src/**/*.d.ts\" lib && copyfiles -u 1 \"src/*.d.ts\" lib && copyfiles -u 1 \"tsc_out/**/*.d.ts\" lib && copyfiles -u 1 \"tsc_out/*.d.ts\" lib && copyfiles -u 1 src/process/types/index.d.ts lib",
     "jscpd": "jscpd ./src --ignore \"*/**/*.test.ts\"",
     "release-switch-to-next-rc": "npm version preminor",
-    "release-dump-preview-version": "npm version prerelease",
+    "release-bump-preview-version": "npm version prerelease",
     "release-make-next-rc-final": "npm version minor"
   },
   "devDependencies": {
