@@ -4,6 +4,9 @@ import { routerMiddleware } from "react-router-redux";
 import { RootState, initState, rootReducer } from "./rootreducer";
 import { ResetStore } from "./actions";
 
+let initialState: RootState = typeof window !== "undefined" ? (window as any).__INITIAL_STATE__ : undefined;
+export let rootStore: Store<RootState> = configureStore(initialState);
+
 export function resetStore(): void {
   rootStore.dispatch({ type: ResetStore });
 }
@@ -33,9 +36,6 @@ export function configureStore(initialState: any): Store<any> {
   return store;
 }
 
-let initialState: RootState = typeof window !== "undefined" ? (window as any).__INITIAL_STATE__ : undefined;
 if (initialState == null) {
   initialState = initState();
 }
-
-export let rootStore: Store<RootState> = configureStore(initialState);
