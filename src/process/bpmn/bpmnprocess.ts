@@ -470,7 +470,7 @@ export class BpmnProcess {
     return flowElements;
   }
 
-  public getProcessDiagram() {
+  public getProcessDiagram(): BpmnProcessDiagram {
     return this.processDiagram;
   }
 
@@ -482,12 +482,12 @@ export class BpmnProcess {
     return task as Bpmn.Task;
   }
 
-  public changeTaskName(taskId: string, newName: string) {
+  public changeTaskName(taskId: string, newName: string): void {
     const task = this.getExistingTask(this.processId(), taskId);
     task.name = newName;
   }
 
-  public changeRole(rowDetails: RowDetails[], taskId: string, laneId: string) {
+  public changeRole(rowDetails: RowDetails[], taskId: string, laneId: string): void {
     const task = this.getExistingActivityObject(taskId);
     if (task.$type as string === "bpmn:StartEvent") {
       this.getStartEvents(this.processId()).forEach(start => {
@@ -630,7 +630,7 @@ export class BpmnProcess {
     this.addTaskToLane(processId, laneId, taskObject);
   }
 
-  private removeTaskFromContext(taskId: string) {
+  private removeTaskFromContext(taskId: string): void {
     const processContext = this.getProcess(this.processId());
 
     for (let index = 0; index < processContext.flowElements.length; index++) {
@@ -867,7 +867,7 @@ export class BpmnProcess {
     return rows[changedTaskIdx].taskId;
   }
 
-  public addFlowToNode(taskFromObject: RowDetails, targetBpmnTaskId: string, rowDetails: RowDetails[], renderDiagram = true) {
+  public addFlowToNode(taskFromObject: RowDetails, targetBpmnTaskId: string, rowDetails: RowDetails[], renderDiagram = true): void {
 
     const focusedTask: Bpmn.Task = this.getExistingTask(this.processId(), taskFromObject.taskId);
     const targetTask: Bpmn.Task = this.getExistingTask(this.processId(), targetBpmnTaskId);
@@ -905,7 +905,7 @@ export class BpmnProcess {
     }
   }
 
-  public removeSequenceFlowFromJumpsTo(rowDetails: RowDetails[], rowNumber: number, targetBpmnTaskId: string) {
+  public removeSequenceFlowFromJumpsTo(rowDetails: RowDetails[], rowNumber: number, targetBpmnTaskId: string): void {
     const focusedTask: Bpmn.Task = this.getExistingTask(this.processId(), rowDetails[rowNumber].taskId);
 
     const sfObj = focusedTask.outgoing.find(out => out.targetRef.id === targetBpmnTaskId || out.targetRef.$type === "bpmn:ExclusiveGateway");
@@ -1008,7 +1008,7 @@ export class BpmnProcess {
     this.processDiagram.generateBPMNDiagram(this.processId(), rowDetails);
   }
 
-  public addTaskBetween(rowDetails: RowDetails[], focusedRowNumber: number) {
+  public addTaskBetween(rowDetails: RowDetails[], focusedRowNumber: number): void {
     // Important to refresh rowdetails with new TaskId
     const newTaskRowDetails = rowDetails[focusedRowNumber];
     let id: string;
@@ -1109,7 +1109,7 @@ export class BpmnProcess {
 
     this.removeLanesWithoutShape();
 
-    return await new Promise<string>((resolve, reject) => {
+    return await new Promise<string>((resolve, reject): void => {
       bpmnModdleInstance.toXML(this.bpmnXml, { format: true }, function (err: any, xmlStr: string) {
         if (err) reject(err);
         resolve(xmlStr);
@@ -1507,7 +1507,7 @@ export class BpmnProcess {
     return false;
   }
 
-  public getIntermediateCatchEvent(bpmnTaskId: string, type: string) {
+  public getIntermediateCatchEvent(bpmnTaskId: string, type: string): Bpmn.BaseElement {
     const flowElements = this.getEvents(this.processId(), "bpmn:IntermediateCatchEvent");
     const obj = flowElements.find(f => f.id === bpmnTaskId);
     if (obj != null) {

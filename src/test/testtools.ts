@@ -1,5 +1,9 @@
 import { ServiceTaskEnvironment } from "../servicetask/servicetaskenvironment";
 import { PREVIEW_FILENAME } from "../filestore/ifilestore";
+import { InstanceDetails } from "../instance";
+import { SendMailTemplateReply } from "../mailer/mailerinterfaces";
+import { ProcessDetails } from "../process/processinterfaces";
+import { ServerRoute } from "hapi";
 
 export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskEnvironment {
 
@@ -21,59 +25,59 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): ServiceTaskE
       },
     },
     roxApi: {
-      getApiToken: () => undefined,
+      getApiToken: (): string => undefined,
       // eslint-disable-next-line @typescript-eslint/require-await
-      getEfApiToken: async () => undefined,
+      getEfApiToken: async (): Promise<string> => undefined,
       // eslint-disable-next-line @typescript-eslint/require-await
-      getRoxtraTokenByUserId: async () => undefined,
+      getRoxtraTokenByUserId: async (): Promise<string> => undefined,
     },
     workspace: undefined,
     sender: undefined,
     instances: {
       // eslint-disable-next-line @typescript-eslint/require-await
-      updateInstance: async (i) => i,
+      updateInstance: async (i): Promise<InstanceDetails> => i,
       // eslint-disable-next-line @typescript-eslint/require-await
-      uploadAttachment: async () => undefined,
+      uploadAttachment: async (): Promise<string> => undefined,
       // eslint-disable-next-line @typescript-eslint/require-await
-      generateInstanceReport: async () => undefined,
+      generateInstanceReport: async (): Promise<{ doc: Buffer; fileName: string }> => undefined,
       // eslint-disable-next-line @typescript-eslint/require-await
-      executeInstance: async () => undefined,
+      executeInstance: async (): Promise<string> => undefined,
     },
     mailer: {
-      sendMailTemplate: () => undefined,
+      sendMailTemplate: (): Promise<SendMailTemplateReply> => undefined,
     },
     processes: {
-      getProcessDetails: () => undefined,
+      getProcessDetails: (): Promise<ProcessDetails> => undefined,
     },
     fileStore: {
-      getAttachmentFileUrl: () => "",
+      getAttachmentFileUrl: (): string => "",
       // eslint-disable-next-line @typescript-eslint/require-await
-      getFile: async () => "",
+      getFile: async (): Promise<string> => "",
       // eslint-disable-next-line @typescript-eslint/require-await
-      getFileBuffer: async () => Buffer.from(""),
-      getPreviewFileUrl: () => PREVIEW_FILENAME,
+      getFileBuffer: async (): Promise<Buffer> => Buffer.from(""),
+      getPreviewFileUrl: (): string => PREVIEW_FILENAME,
       // eslint-disable-next-line @typescript-eslint/require-await
-      createFile: async () => true,
+      createFile: async (): Promise<boolean> => true,
       // eslint-disable-next-line @typescript-eslint/require-await
-      createPreviewFile: async () => true,
+      createPreviewFile: async (): Promise<boolean> => true,
       // eslint-disable-next-line @typescript-eslint/require-await
-      createProfilePicture: async () => "",
+      createProfilePicture: async (): Promise<string> => "",
       // eslint-disable-next-line @typescript-eslint/require-await
-      deleteFile: async () => true,
+      deleteFile: async (): Promise<boolean> => true,
       // eslint-disable-next-line @typescript-eslint/require-await
-      deleteProcessFile: async () => true,
+      deleteProcessFile: async (): Promise<boolean> => true,
       // eslint-disable-next-line @typescript-eslint/require-await
-      deleteProcessFolder: async () => true,
+      deleteProcessFolder: async (): Promise<boolean> => true,
       // eslint-disable-next-line @typescript-eslint/require-await
-      deleteWorkspaceFolder: async () => true,
+      deleteWorkspaceFolder: async (): Promise<boolean> => true,
       // eslint-disable-next-line @typescript-eslint/require-await
-      listObjects: async () => [],
+      listObjects: async (): Promise<string[]> => [],
       // eslint-disable-next-line @typescript-eslint/require-await
-      exists: async () => false,
+      exists: async (): Promise<boolean> => false,
       // eslint-disable-next-line @typescript-eslint/require-await
-      getLastModifiedDate: async () => new Date(),
-      getPhysicalPath: () => "",
-      getDownloadRoute: () => undefined,
+      getLastModifiedDate: async (): Promise<Date> => new Date(),
+      getPhysicalPath: (): string => "",
+      getDownloadRoute: (): ServerRoute => undefined,
     },
     serverConfig: {
       Database: {

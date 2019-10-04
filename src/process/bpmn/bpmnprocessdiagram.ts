@@ -239,7 +239,7 @@ export class BpmnProcessDiagram {
     }
   }
 
-  private drawAllTasks(diagram: any, laneDictionaries: LaneDictionary[], taskList: Bpmn.FlowNode[], xParam: number) {
+  private drawAllTasks(diagram: any, laneDictionaries: LaneDictionary[], taskList: Bpmn.FlowNode[], xParam: number): void {
     for (const workingObject of taskList) {
       let iconWidth = BpmnProcessDiagram.TASK_WIDTH;
       const sizeStartAndEndEvent = 36;
@@ -290,7 +290,7 @@ export class BpmnProcessDiagram {
     }
   }
 
-  private generateSequenceFlow(diagram: any, flowObject: Bpmn.SequenceFlow, drawJumpFlow: boolean, numberOfJumpEdge = 0, laneDictionaries: LaneDictionary[] = null) {
+  private generateSequenceFlow(diagram: any, flowObject: Bpmn.SequenceFlow, drawJumpFlow: boolean, numberOfJumpEdge = 0, laneDictionaries: LaneDictionary[] = null): void {
     let waypoints: Waypoint[] = [];
     // Hole die beiden Diagramm Objekte von Quell und Ziel Objekt
     const sourceRef = flowObject.sourceRef;

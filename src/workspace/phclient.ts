@@ -15,7 +15,7 @@ export class WorkspaceState {
   lastDispatchedWorkspace: WorkspaceDetails; // Used in reducer to detect changes
 }
 
-export function getDefaultMailSignature() {
+export function getDefaultMailSignature(): string {
   return tl("Wir verwenden [ProcessHub](https://www.processhub.com) für die Steuerung unserer Geschäftsprozesse.");
 }
 
@@ -29,7 +29,7 @@ export const WorkspaceView = {
 };
 export type WorkspaceView = keyof typeof WorkspaceView;
 
-export function isValidWorkspaceView(urlSegment: string) {
+export function isValidWorkspaceView(urlSegment: string): boolean {
   for (const view in WorkspaceView) {
     if ((WorkspaceView as any)[view]  === urlSegment.toLowerCase())
       return true;

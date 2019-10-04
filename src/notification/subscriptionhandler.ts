@@ -14,17 +14,17 @@ export const resolveFunction = (obj: any, value: string): string => {
 };
 
 export const PublishSubscriptionObjects: { [Id: string]: PublishSubscribeRegisterObject } = {
-  newInstance: { wildcard: "{userId}", subscriptionPath: "/ws/newInstance/{userId}", resolvePath: function (value: string) { return resolveFunction(this, value); } },
-  updateInstance: { wildcard: "{instanceId}", subscriptionPath: "/ws/updateInstance/{instanceId}", resolvePath: function (value: string) { return resolveFunction(this, value); } },
-  updateProcess: { wildcard: "{processId}", subscriptionPath: "/ws/updateProcess/{processId}", resolvePath: function (value: string) { return resolveFunction(this, value); } },
-  updateUser: { wildcard: "{userId}", subscriptionPath: "/ws/updateUser/{userId}", resolvePath: function (value: string) { return resolveFunction(this, value); } },
-  updateWorkspace: { wildcard: "{workspaceId}", subscriptionPath: "/ws/updateWorkspace/{workspaceId}", resolvePath: function (value: string) { return resolveFunction(this, value); } },
+  newInstance: { wildcard: "{userId}", subscriptionPath: "/ws/newInstance/{userId}", resolvePath: function (value: string): string { return resolveFunction(this, value); } },
+  updateInstance: { wildcard: "{instanceId}", subscriptionPath: "/ws/updateInstance/{instanceId}", resolvePath: function (value: string): string { return resolveFunction(this, value); } },
+  updateProcess: { wildcard: "{processId}", subscriptionPath: "/ws/updateProcess/{processId}", resolvePath: function (value: string): string { return resolveFunction(this, value); } },
+  updateUser: { wildcard: "{userId}", subscriptionPath: "/ws/updateUser/{userId}", resolvePath: function (value: string): string { return resolveFunction(this, value); } },
+  updateWorkspace: { wildcard: "{workspaceId}", subscriptionPath: "/ws/updateWorkspace/{workspaceId}", resolvePath: function (value: string): string { return resolveFunction(this, value); } },
 };
 
 const subscriptionPaths: string[] = [];
 let notificationClient: any;
 
-const notificationHandler = (update: any, flags: any) => {
+const notificationHandler = (update: any, flags: any): void => {
   StateHandler.rootStore.dispatch(update);
 };
 
@@ -33,7 +33,7 @@ export async function initNotificationClient(user: UserDetails): Promise<void> {
   wsUrl = wsUrl.replace("https://", "wss://");
   wsUrl = wsUrl.replace("http://", "ws://");
   notificationClient = new Nes.Client(wsUrl);
-  await new Promise<void>((resolve, reject) => {
+  await new Promise<void>((resolve, reject): void => {
     notificationClient.connect({ auth: { headers: { authorization: user.extras.accessToken } } }, (err: any) => {
       if (err != null) {
         console.log("Error on Websocket connect:");
@@ -44,14 +44,14 @@ export async function initNotificationClient(user: UserDetails): Promise<void> {
     });
   });
 
-  notificationClient.onError = () => {
+  notificationClient.onError = (): void => {
     setTimeout(() => {
       console.info("Site reload because of websocket error.");
       window.location.reload();
     }, 15000);
   };
 
-  notificationClient.onDisconnect = () => {
+  notificationClient.onDisconnect = (): void => {
     setTimeout(() => {
       console.info("Site reload because of websocket disconnect.");
       window.location.reload();

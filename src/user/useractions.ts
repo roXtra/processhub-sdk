@@ -70,8 +70,7 @@ export async function loginUserWithGoogleToken(userMail: string, userName: strin
 // Diese eigentliche Action wird für Mock-Store Tests genutzt
 export function loginUserAction(mail: string, password: string, accessToken: string = null, isGoogleAccessToken = false, userNameFromGoogle: string = null, userProfilePictureLink: string = null): <S>(dispatch: Dispatch<S>) => Promise<LoginReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<LoginReply> => {
-    const response:
-    LoginReply = await Api.postJson(UserRequestRoutes.Login, {
+    const response: LoginReply = await Api.postJson(UserRequestRoutes.Login, {
       mail: mail,
       password: password,
       accessToken: accessToken,
@@ -88,8 +87,7 @@ export async function loginDemoUser(): Promise<LoginDemoUserReply> {
 }
 export function loginDemoUserAction(): <S>(dispatch: Dispatch<S>) => Promise<LoginDemoUserReply> {
   return async <S>(dispatch: Dispatch<S>): Promise<LoginDemoUserReply> => {
-    const response:
-    LoginDemoUserReply = await Api.postJson(UserRequestRoutes.LoginDemoUser, {} as LoginDemoUserRequest);
+    const response: LoginDemoUserReply = await Api.postJson(UserRequestRoutes.LoginDemoUser, {} as LoginDemoUserRequest);
 
     dispatch(response);
     return response;
@@ -149,22 +147,22 @@ export function uploadProfilePictureAction(data: string, accessToken: string = n
   };
 }
 
-export async function logoutUser(accessToken?: string) {
+export async function logoutUser(accessToken?: string): Promise<void> {
   await rootStore.dispatch(logoutUserAction(accessToken));
 }
 // Diese eigentliche Action wird für Mock-Store Tests genutzt
-export function logoutUserAction(accessToken?: string) {
-  return function (dispatch: any) {
+export function logoutUserAction(accessToken?: string): (dispatch: any) => Promise<void> {
+  return function (dispatch: any): Promise<void> {
     return Api.postJson(UserRequestRoutes.Logout, null, accessToken).then(() => {
     }).catch(reason => error(reason));
   };
 }
 
-export async function createUser(mail: string, realName: string, password: string, company: string, phone: string) {
+export async function createUser(mail: string, realName: string, password: string, company: string, phone: string): Promise<void> {
   await rootStore.dispatch(createUserAction(mail, realName, password, company, phone));
 }
-export function createUserAction(mail: string, realName: string, password: string, company: string, phone: string) {
-  return function (dispatch: any) {
+export function createUserAction(mail: string, realName: string, password: string, company: string, phone: string): (dispatch: any) => Promise<void> {
+  return function (dispatch: any): Promise<void> {
     const userDetails: UserDetails = {
       userId: createUserId(),
       mail: mail,

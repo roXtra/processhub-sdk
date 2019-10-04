@@ -4,7 +4,7 @@ export interface TLProps {
   text: string;
 }
 
-export function TL(props: TLProps) {
+export function TL(props: TLProps): JSX.Element {
   return <span>{ props.text }</span>;
 }
 

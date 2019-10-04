@@ -53,9 +53,9 @@
     "no-underscore-dangle": "warn",
     "require-atomic-updates": "warn",
     "@typescript-eslint/no-unused-vars": [
-          "error",
+      "error",
       {
-              "args": "none",
+        "args": "none",
         "varsIgnorePattern": ""
       }
     ],
@@ -102,10 +102,16 @@
     "@typescript-eslint/unbound-method": "warn",
     // Disabled for now to simplify migration to eslint
     "@typescript-eslint/no-empty-interface": "warn",
-      "react/jsx-no-target-blank": "error",
-      "react/jsx-key": "error",
-      "react/no-direct-mutation-state": "error",
-    "@typescript-eslint/triple-slash-reference": "off"
+    "react/jsx-no-target-blank": "error",
+    "react/jsx-key": "error",
+    "react/no-direct-mutation-state": "error",
+    "@typescript-eslint/triple-slash-reference": "off",
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {        
+        "allowExpressions": true
+      }
+    ]
   },
   "settings": {
     "react": {
