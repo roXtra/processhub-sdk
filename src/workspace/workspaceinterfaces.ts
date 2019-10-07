@@ -57,7 +57,7 @@ export interface IWorkspaceDetails {
 }
 
 export const gqlWorkspaceTypes = `     
-  type WorkspaceDetails {
+  type IWorkspaceDetails {
     workspaceId: String!
     workspaceType: String
     urlName: String
@@ -69,14 +69,14 @@ export const gqlWorkspaceTypes = `
   }
   type ExtrasWorkspace {
     members: [WorkspaceMember]
-    processes: [ProcessDetails]
+    processes: [IProcessDetails]
   }
 
   scalar WorkspaceMember
 `;
 
 export const gqlWorkspaceFragments = gql`
-  fragment WorkspaceDetailsFields on WorkspaceDetails {
+  fragment WorkspaceDetailsFields on IWorkspaceDetails {
     workspaceId
     workspaceType
     urlName

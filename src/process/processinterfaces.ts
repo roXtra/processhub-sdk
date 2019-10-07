@@ -102,17 +102,17 @@ export interface IProcessDetails {
 export const gqlProcessTypes = `     
   type ExtrasProcess {
     bpmnXml: String
-    instances: [InstanceDetails]
+    instances: [IInstanceDetails]
     processRoles: ProcessRoles
   }
 
-  type ProcessAttachment {
+  type IProcessAttachment {
     attachmentId: String
     fileName: String
     url: String
   }
 
-  type ProcessDetails {
+  type IProcessDetails {
     workspaceId: String
     processId: String
     displayName: String
@@ -122,7 +122,7 @@ export const gqlProcessTypes = `
     description: String
     useModeler: Boolean
     userRights: Int
-    attachments: [ProcessAttachment]
+    attachments: [IProcessAttachment]
     extras: ExtrasProcess
   }
 
@@ -132,7 +132,7 @@ export const gqlProcessTypes = `
 `;
 
 export const gqlProcessFragments = gql`
-  fragment ProcessDetailsFields on ProcessDetails {
+  fragment ProcessDetailsFields on IProcessDetails {
     processId
     urlName
     fullUrl
