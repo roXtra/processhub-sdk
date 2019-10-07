@@ -1,11 +1,11 @@
-import { WorkspaceDetails } from "../workspace";
-import { InstanceDetails } from "../instance/instanceinterfaces";
+import { IWorkspaceDetails } from "../workspace";
+import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { nullId } from "../tools/guid";
 import { isTrue } from "../tools/assert";
 import { tl } from "../tl";
 import { IEscalation, ITodo } from "../phroxapi";
 
-export interface RoxtraUserDetails {
+export interface IRoxtraUserDetails {
   HasUserManagementAccess: boolean;
   HasEFormulareEditAccess: boolean;
   HasEFormulareSetCorporateDesignRight: boolean;
@@ -16,7 +16,7 @@ export interface RoxtraUserDetails {
   ReceiveWeeklyReports: boolean;
 }
 
-export interface ArchiveViews {
+export interface IArchiveViews {
   [processId: string]: string;
 }
 
@@ -31,12 +31,12 @@ export class UserDetails {
   language?: string; // Preferred User language (en, de, ...)
   extras: {
     // New Extras must be added to cache-handling in useractions -> loadUser!
-    workspaces?: WorkspaceDetails[];
+    workspaces?: IWorkspaceDetails[];
     accessToken?: string;  // Only available in sign in replies
-    instances?: InstanceDetails[];
-    viewStates?: ViewStates;
-    archiveViews?: ArchiveViews;
-    roXtra?: RoxtraUserDetails;
+    instances?: IInstanceDetails[];
+    viewStates?: IViewStates;
+    archiveViews?: IArchiveViews;
+    roXtra?: IRoxtraUserDetails;
   };
   accountState?: AccountState;
   isLibraryAdmin?: boolean; // Not available in GraphQL
@@ -91,7 +91,7 @@ export const emptyUser: UserDetails = {
   extras: {},
 };
 
-export function getUserWorkspace(user: UserDetails, workspaceId: string): WorkspaceDetails {
+export function getUserWorkspace(user: UserDetails, workspaceId: string): IWorkspaceDetails {
   if (user == null)
     return null;
 
@@ -155,10 +155,10 @@ export type UserActionsType = keyof typeof UserActionsType;
 
 // Tracks last view datetimes of instances and/or processes
 // used to sync notification states across devices
-export interface ViewState {
+export interface IViewState {
   lastViewedAt?: Date;  // Last time instancePopup for this instance was opened
   isPinned?: boolean;  // Instance/process pinned to sidebar?
 }
-export interface ViewStates {
-  [objectId: string]: ViewState;
+export interface IViewStates {
+  [objectId: string]: IViewState;
 }

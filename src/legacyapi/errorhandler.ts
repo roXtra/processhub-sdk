@@ -1,19 +1,19 @@
-import { BaseError } from "./apiinterfaces";
+import { IBaseError } from "./apiinterfaces";
 
-let errorHandlers: ErrorHandler[] = [];
+let errorHandlers: IErrorHandler[] = [];
 
-export function registerErrorHandler(handler: ErrorHandler): void {
+export function registerErrorHandler(handler: IErrorHandler): void {
   errorHandlers.push(handler);
 }
 
-export function removeErrorHandler(handler: ErrorHandler): void {
+export function removeErrorHandler(handler: IErrorHandler): void {
   errorHandlers = errorHandlers.filter(e => e !== handler);
 }
 
-export function getErrorHandlers(): ErrorHandler[] {
+export function getErrorHandlers(): IErrorHandler[] {
   return errorHandlers;
 }
 
-export interface ErrorHandler {
-  handleError(error: BaseError, requestPath: string): void;
+export interface IErrorHandler {
+  handleError(error: IBaseError, requestPath: string): void;
 }

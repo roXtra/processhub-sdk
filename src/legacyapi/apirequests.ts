@@ -1,13 +1,13 @@
 import "fetch-everywhere";
 import { getErrorHandlers } from "./errorhandler";
-import { BaseRequest, ApiResult, BaseError, BaseMessage, API_FAILED } from "./apiinterfaces";
+import { IBaseRequest, ApiResult, IBaseError, IBaseMessage, API_FAILED } from "./apiinterfaces";
 import { getBackendUrl } from "../config";
 import _ = require("lodash");
 
 // Api-Aufruf per GET
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
 // Browser dürfen fehlgeschlagene/verzögerte GET-Aufrufe jederzeit wiederholen, das ist gut, wenn die Verbindung hängt
-export async function getJson<Request extends BaseRequest>(path: string, request: Request, accessToken: string = null): Promise<BaseMessage> {
+export async function getJson<Request extends IBaseRequest>(path: string, request: Request, accessToken: string = null): Promise<IBaseMessage> {
 
   // Request als Querystring serialisieren
   const str = [];
@@ -56,7 +56,7 @@ export async function getJson<Request extends BaseRequest>(path: string, request
         break;
       }
       default: {
-        const error: BaseError = { result: response.status as ApiResult, type: API_FAILED };
+        const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
         getErrorHandlers().forEach(h => h.handleError(error, path));
         return error;
       }
@@ -64,7 +64,7 @@ export async function getJson<Request extends BaseRequest>(path: string, request
   } catch (ex) {
     // For Testing
     if (ex != null && ex.message.startsWith("request to http://localhost:8080/api/processengine/")) {
-      const testResult: BaseMessage = {
+      const testResult: IBaseMessage = {
         type: "Test Result",
         result: ApiResult.API_OK
       };
@@ -77,7 +77,7 @@ export async function getJson<Request extends BaseRequest>(path: string, request
 // Api-Aufruf per POST
 // Gemäß http-Spezifikation soll POST genutzt werden, wenn der Aufruf zu Änderungen auf der Serverseite führt
 // POST-Anforderungen werden ohne explizite Useranforderung vom Browser NICHT wiederholt ausgeführt
-export async function postJson<Request extends BaseRequest>(path: string, request: Request, accessToken: string = null): Promise<BaseMessage> {
+export async function postJson<Request extends IBaseRequest>(path: string, request: Request, accessToken: string = null): Promise<IBaseMessage> {
   const url = getBackendUrl() + path;
 
   let req: RequestInit = null;
@@ -115,7 +115,7 @@ export async function postJson<Request extends BaseRequest>(path: string, reques
         return json;
       }
       default: {
-        const error: BaseError = { result: response.status as ApiResult, type: API_FAILED };
+        const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
         getErrorHandlers().forEach(h => h.handleError(error, path));
         return error;
       }
@@ -123,7 +123,7 @@ export async function postJson<Request extends BaseRequest>(path: string, reques
   } catch (ex) {
     // For Testing
     if (ex != null && ex.message.startsWith("request to http://localhost:8080/api/processengine/")) {
-      const testResult: BaseMessage = {
+      const testResult: IBaseMessage = {
         type: "Test Result",
         result: ApiResult.API_OK
       };
@@ -137,7 +137,7 @@ export async function postJson<Request extends BaseRequest>(path: string, reques
 // Externer Api-Aufruf per GET
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
 // Browser dürfen fehlgeschlagene/verzögerte GET-Aufrufe jederzeit wiederholen, das ist gut, wenn die Verbindung hängt
-export async function getExternalJson<Request extends BaseRequest>(apiEndpointUrl: string, request: Request, accessToken: string = null): Promise<any> {
+export async function getExternalJson<Request extends IBaseRequest>(apiEndpointUrl: string, request: Request, accessToken: string = null): Promise<any> {
 
   // Request als Querystring serialisieren
   const str = [];
@@ -185,7 +185,7 @@ export async function getExternalJson<Request extends BaseRequest>(apiEndpointUr
       break;
     }
     default: {
-      const error: BaseError = { result: response.status as ApiResult, type: API_FAILED };
+      const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
       getErrorHandlers().forEach(h => h.handleError(error, url));
       return error;
     }

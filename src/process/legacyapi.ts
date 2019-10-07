@@ -1,6 +1,6 @@
-import { BaseMessage, BaseRequest, BaseReply } from "../legacyapi/apiinterfaces";
-import { ProcessDetails, ProcessExtras, ProcessResult, TimerStartEventConfiguration, ServiceDetails } from "./processinterfaces";
-import { StatisticRow } from "../data";
+import { IBaseMessage, IBaseRequest, IBaseReply } from "../legacyapi/apiinterfaces";
+import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces";
+import { IStatisticRow } from "../data";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -32,54 +32,54 @@ export const ProcessRequestRoutes = {
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
 // API request/reply objects
-export interface ProcessReply extends BaseMessage {
+export interface IProcessReply extends IBaseMessage {
   errorMessage?: string;
 }
 
-export interface CreateProcessRequest extends BaseRequest {
-  processDetails: ProcessDetails;
+export interface ICreateProcessRequest extends IBaseRequest {
+  processDetails: IProcessDetails;
 }
 
-export interface DeleteProcessRequest extends BaseRequest {
+export interface IDeleteProcessRequest extends IBaseRequest {
   processId: string;
 }
 
-export interface GetProcessDetailsRequest extends BaseRequest {
+export interface IGetProcessDetailsRequest extends IBaseRequest {
   processId: string;
   instanceId?: string;
   getExtras?: ProcessExtras;
 }
-export interface GetProcessDetailsFromUrlRequest extends BaseRequest {
+export interface IGetProcessDetailsFromUrlRequest extends IBaseRequest {
   processUrl: string;
 }
-export interface GetProcessDetailsReply extends ProcessReply {
-  processDetails?: ProcessDetails;
+export interface IGetProcessDetailsReply extends IProcessReply {
+  processDetails?: IProcessDetails;
 }
 
-export interface GetTimersOfProcessRequest extends BaseRequest {
+export interface IGetTimersOfProcessRequest extends IBaseRequest {
   processId: string;
 }
-export interface GetTimersOfProcessReply extends ProcessReply {
-  timers?: TimerStartEventConfiguration[];
+export interface IGetTimersOfProcessReply extends IProcessReply {
+  timers?: ITimerStartEventConfiguration[];
 }
-export interface SetTimersOfProcessRequest extends BaseRequest {
+export interface ISetTimersOfProcessRequest extends IBaseRequest {
   processId: string;
-  timers: TimerStartEventConfiguration[];
+  timers: ITimerStartEventConfiguration[];
 }
-export interface SetTimersOfProcessReply extends ProcessReply {
+export interface ISetTimersOfProcessReply extends IProcessReply {
 }
 
-export interface DownloadProcessRequest extends BaseRequest {
+export interface IDownloadProcessRequest extends IBaseRequest {
   processId: string;
 }
-export interface DownloadProcessReply extends ProcessReply {
+export interface IDownloadProcessReply extends IProcessReply {
   doc: any;
 }
 
-export interface ExportProcessRequest extends BaseRequest {
+export interface IExportProcessRequest extends IBaseRequest {
   processId: string;
 }
-export interface ExportProcessReply extends BaseReply {
+export interface IExportProcessReply extends IBaseReply {
   urlName: string;
   bpmn: string;
 }
@@ -89,102 +89,102 @@ export interface IArchiveViewDetails {
   gridOptions: string;
   publicView: boolean;
 }
-export interface AddArchiveViewRequest extends BaseRequest {
+export interface IAddArchiveViewRequest extends IBaseRequest {
   processId: string;
   publicView: boolean;
   details: IArchiveViewDetails;
 }
-export interface DeleteArchiveViewRequest extends BaseRequest {
+export interface IDeleteArchiveViewRequest extends IBaseRequest {
   processId: string;
   viewId: string;
 }
 
-export interface GetArchiveViewsRequest extends BaseRequest {
+export interface IGetArchiveViewsRequest extends IBaseRequest {
   processId: string;
 }
-export interface GetArchiveViewsReply extends BaseReply {
+export interface IGetArchiveViewsReply extends IBaseReply {
   views: { [viewId: string]: IArchiveViewDetails };
 }
 
-export interface GetAllServicesRequest extends BaseRequest {
+export interface IGetAllServicesRequest extends IBaseRequest {
 }
-export interface GetAllServicesReply extends BaseReply {
-  services: ServiceDetails[];
-}
-
-export interface GetPublicProcessesReply extends ProcessReply {
-  processes?: ProcessDetails[];
+export interface IGetAllServicesReply extends IBaseReply {
+  services: IServiceDetails[];
 }
 
-export interface UpdateProcessDetailsRequest extends BaseRequest {
-  processDetails: ProcessDetails;
+export interface IGetPublicProcessesReply extends IProcessReply {
+  processes?: IProcessDetails[];
 }
 
-export interface CopyProcessRequest extends BaseRequest {
+export interface IUpdateProcessDetailsRequest extends IBaseRequest {
+  processDetails: IProcessDetails;
+}
+
+export interface ICopyProcessRequest extends IBaseRequest {
   processId: string;
   targetWorkspaceId: string;
   displayName: string;
 }
 
-export interface RateProcessRequest extends BaseRequest {
+export interface IRateProcessRequest extends IBaseRequest {
   processId: string;
   ratingDiff: number;
 }
 
-export interface UploadFileRequest extends BaseRequest {
+export interface IUploadFileRequest extends IBaseRequest {
   processId: string;
   fileName: string;
   data: string;
 }
 
-export interface AddRoXtraFileRequest extends BaseRequest {
+export interface IAddRoXtraFileRequest extends IBaseRequest {
   processId: string;
   fileName: string;
   fileId: number;
   iconLink: string;
 }
 
-export interface UploadReportDraftRequest extends BaseRequest {
+export interface IUploadReportDraftRequest extends IBaseRequest {
   processId: string;
   fileName: string;
   data: string;
 }
 
-export interface DeleteReportDraftRequest extends BaseRequest {
+export interface IDeleteReportDraftRequest extends IBaseRequest {
   processId: string;
   draftId: string;
 }
 
-export interface DeleteFileRequest extends BaseRequest {
+export interface IDeleteFileRequest extends IBaseRequest {
   processId: string;
   attachmentId: string;
 }
 
-export interface GetProcessStatisticsRequest extends BaseRequest {
+export interface IGetProcessStatisticsRequest extends IBaseRequest {
   processId: string;
   fromDate?: Date;
   tillDate?: Date;
 }
-export interface GetProcessStatisticsReply extends ProcessReply {
-  statistics: StatisticRow[];
+export interface IGetProcessStatisticsReply extends IProcessReply {
+  statistics: IStatisticRow[];
 }
 
-export interface CommentRequest extends BaseRequest {
+export interface ICommentRequest extends IBaseRequest {
   processId: string;
   comment: string;
   trailId: string;
 }
-export interface DeleteCommentRequest extends BaseRequest {
+export interface IDeleteCommentRequest extends IBaseRequest {
   trailId: string;
 }
 
 export const PROCESSLOADED_MESSAGE = "ProcessLoadedMessage";
-export interface ProcessLoadedMessage extends BaseMessage {
+export interface IProcessLoadedMessage extends IBaseMessage {
   type: "ProcessLoadedMessage";
-  processDetails?: ProcessDetails;
+  processDetails?: IProcessDetails;
 }
 
-export interface LoadTemplateReply {
+export interface ILoadTemplateReply {
   result: ProcessResult;
   bpmnXml: any;
   bpmnContext: any;

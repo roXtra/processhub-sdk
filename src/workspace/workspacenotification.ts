@@ -1,7 +1,7 @@
 import * as PH from "../";
 
 // Any new notifications for the workspace?
-export function notifyNewWorkspaceTodosOrComments(workspaceEnv: PH.WorkspaceEnvironment): boolean {
+export function notifyNewWorkspaceTodosOrComments(workspaceEnv: PH.IWorkspaceEnvironment): boolean {
   if (!workspaceEnv.user || !workspaceEnv.workspace)
     return false;
 
@@ -9,7 +9,7 @@ export function notifyNewWorkspaceTodosOrComments(workspaceEnv: PH.WorkspaceEnvi
   let notify = false;
 
   instances.map(instance => {
-    const instanceEnv: PH.InstanceEnvironment = { instance: instance, process: null, ...workspaceEnv};
+    const instanceEnv: PH.IInstanceEnvironment = { instance: instance, process: null, ...workspaceEnv};
     if (PH.Instance.notifyNewInstanceComments(instanceEnv) || PH.Instance.notifyNewInstanceTodos(instanceEnv) || PH.Instance.notifyInstancePin(instanceEnv))
       notify = true;
   });

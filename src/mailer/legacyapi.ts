@@ -1,4 +1,4 @@
-import { BaseMessage, ApiResult } from "../legacyapi/apiinterfaces";
+import { IBaseMessage, ApiResult } from "../legacyapi/apiinterfaces";
 
 export const MailerRequestRoutes = {
   SendMailTemplate: "/api/mailer/send-mail-template",
@@ -7,7 +7,7 @@ export const MailerRequestRoutes = {
 export type MailerRequestRoutes = keyof typeof MailerRequestRoutes;
 
 export const MAILERSENT_MESSAGE = "MailerSentMessage";
-export interface MailerSentMessage extends BaseMessage {
+export interface IMailerSentMessage extends IBaseMessage {
   type: "MailerSentMessage";
   error?: ApiResult;  // Nur gesetzt, falls Seitenaufruf gescheitert
 }

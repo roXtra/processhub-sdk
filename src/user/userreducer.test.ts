@@ -3,7 +3,7 @@ import { UserState } from "./phclient";
 import { ApiResult } from "../legacyapi/apiinterfaces";
 import { createUserId } from "../tools/guid";
 import { userReducer } from "./userreducer";
-import { UserActionLoggedIn, UserActionFailed } from "./useractions";
+import { IUserActionLoggedIn, IUserActionFailed } from "./useractions";
 import { UserActionsType } from "./userinterfaces";
 
 describe("sdk", function () {
@@ -17,7 +17,7 @@ describe("sdk", function () {
         const newState = userReducer(oldState, {
           type: UserActionsType.LoggedIn,
           userDetails: user
-        } as UserActionLoggedIn);
+        } as IUserActionLoggedIn);
         assert.deepEqual<any>(newState, { currentUser: user, lastApiResult: ApiResult.API_OK });
       });
 
@@ -26,7 +26,7 @@ describe("sdk", function () {
         const newState = userReducer(oldState, {
           type: UserActionsType.Failed,
           result: ApiResult.API_DENIED
-        } as UserActionFailed);
+        } as IUserActionFailed);
         assert.deepEqual<any>(newState, { lastApiResult: ApiResult.API_DENIED });
       });
 

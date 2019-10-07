@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import { PathState } from "./phclient";
-import { PathLoadedMessage, PATHLOADED_MESSAGE } from "./legacyapi";
+import { IPathLoadedMessage, PATHLOADED_MESSAGE } from "./legacyapi";
 import { parseUrl } from "./urlparser";
 import { pathReducer } from "./pathreducer";
 import { Page } from "./pathinterfaces";
@@ -15,7 +15,7 @@ describe("sdk", function () {
       it("soll PATHLOADED_MESSAGE korrekt reducen", function () {
         const oldState: PathState = new PathState();
 
-        const message: PathLoadedMessage = {
+        const message: IPathLoadedMessage = {
           type: PATHLOADED_MESSAGE,
           pathDetails: parseUrl("/@testworkspace/members")
         };
@@ -30,7 +30,7 @@ describe("sdk", function () {
       it("soll PATHLOADED_MESSAGE mit Fehlermeldung korrekt reducen", function () {
         const oldState: PathState = new PathState();
 
-        const message: PathLoadedMessage = {
+        const message: IPathLoadedMessage = {
           type: PATHLOADED_MESSAGE,
           pathDetails: parseUrl("/@invalid"),
           error: ApiResult.API_NOTFOUND

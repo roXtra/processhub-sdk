@@ -1,11 +1,11 @@
-import { PathDetails, Page, NotificationLinkElements } from "./pathinterfaces";
+import { IPathDetails, Page, INotificationLinkElements } from "./pathinterfaces";
 import { isTrue } from "../tools/assert";
 import { ProcessView, isValidProcessView } from "../process/phclient";
 import { WorkspaceView, isValidWorkspaceView } from "../workspace/phclient";
 import { isId } from "../tools/guid";
 
-export function parseUrl(fullUrl: string): PathDetails {
-  const path: PathDetails = {};
+export function parseUrl(fullUrl: string): IPathDetails {
+  const path: IPathDetails = {};
 
   // Split path
   isTrue(fullUrl.substr(0, 1) === "/", "Url doesn't start with /");
@@ -61,8 +61,8 @@ export function parseUrl(fullUrl: string): PathDetails {
     return null;
 }
 
-export function parseNotificationLink(fullUrl: string): NotificationLinkElements {
-  const elements: NotificationLinkElements = {};
+export function parseNotificationLink(fullUrl: string): INotificationLinkElements {
+  const elements: INotificationLinkElements = {};
 
   // Split path
   isTrue(fullUrl.substr(0, 1) === "/", "Url doesn't start with /");

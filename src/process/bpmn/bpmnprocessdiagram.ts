@@ -1,7 +1,7 @@
 import * as BpmnProcess from "./bpmnprocess";
 import { Bpmn, Bpmndi } from "../bpmn";
 import { isTrue } from "../../tools";
-import { RowDetails } from "..";
+import { IRowDetails } from "..";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 
 export class Waypoint {
@@ -14,7 +14,7 @@ export class Waypoint {
   }
 }
 
-export interface LaneDictionary {
+export interface ILaneDictionary {
   rowNumber: number;
   laneId: string;
   ObjectIdsInLane: string[];
@@ -41,43 +41,43 @@ export class BpmnProcessDiagram {
   private diagramYStartParam = 0;
 
   // Gibt erstes Diagram Element aus XML zurück
-  private getDiagramElement(): Bpmndi.BPMNDiagram {
+  private getDiagramElement(): Bpmndi.IBPMNDiagram {
     return this.bpmnProcess.getBpmnDefinitions().diagrams[0];
   }
 
-  public getShapeFromDiagram(shapeId: string): Bpmndi.BPMNShape {
+  public getShapeFromDiagram(shapeId: string): Bpmndi.IBPMNShape {
     const diagram = this.getDiagramElement();
     for (const planeElement of diagram.plane.planeElement) {
-      if (planeElement.$type === "bpmndi:BPMNShape" && (planeElement as Bpmndi.BPMNShape).bpmnElement != null && (planeElement as Bpmndi.BPMNShape).bpmnElement.id === shapeId) {
-        return planeElement as Bpmndi.BPMNShape;
+      if (planeElement.$type === "bpmndi:BPMNShape" && (planeElement as Bpmndi.IBPMNShape).bpmnElement != null && (planeElement as Bpmndi.IBPMNShape).bpmnElement.id === shapeId) {
+        return planeElement as Bpmndi.IBPMNShape;
       }
     }
     return null;
   }
 
-  public getAllShapes(): Bpmndi.BPMNShape[] {
-    const res: Bpmndi.BPMNShape[] = [];
+  public getAllShapes(): Bpmndi.IBPMNShape[] {
+    const res: Bpmndi.IBPMNShape[] = [];
     const diagram = this.getDiagramElement();
     for (const planeElement of diagram.plane.planeElement) {
-      res.push(planeElement as Bpmndi.BPMNShape);
+      res.push(planeElement as Bpmndi.IBPMNShape);
     }
     return res;
   }
 
 
-  public getEndEventShapes(): Bpmndi.BPMNShape[] {
-    const res: Bpmndi.BPMNShape[] = [];
+  public getEndEventShapes(): Bpmndi.IBPMNShape[] {
+    const res: Bpmndi.IBPMNShape[] = [];
     const diagram = this.getDiagramElement();
     for (const planeElement of diagram.plane.planeElement) {
-      if (planeElement.$type === "bpmndi:BPMNShape" && (planeElement as Bpmndi.BPMNShape).bpmnElement.$type === "bpmn:EndEvent") {
-        res.push(planeElement as Bpmndi.BPMNShape);
+      if (planeElement.$type === "bpmndi:BPMNShape" && (planeElement as Bpmndi.IBPMNShape).bpmnElement.$type === "bpmn:EndEvent") {
+        res.push(planeElement as Bpmndi.IBPMNShape);
       }
     }
     return res;
   }
 
-  public generateBPMNDiagram(processId: string, rowDetails: RowDetails[]): void {
-    const copyTaskIdsOrderFromTable: RowDetails[] = JSON.parse(JSON.stringify(rowDetails));
+  public generateBPMNDiagram(processId: string, rowDetails: IRowDetails[]): void {
+    const copyTaskIdsOrderFromTable: IRowDetails[] = JSON.parse(JSON.stringify(rowDetails));
     const diagram = this.getDiagramElement();
     // Für die Berechnung der gesamt Breite
     const process = this.bpmnProcess.getProcess(processId);
@@ -90,7 +90,7 @@ export class BpmnProcessDiagram {
     const amountOfOutgoingsOnGateways = 0;
     let amountOfOutgoingsOnTasksUnderpass = 0;
 
-    let sortedTasks: Bpmn.FlowNode[] = [];
+    let sortedTasks: Bpmn.IFlowNode[] = [];
     if (copyTaskIdsOrderFromTable != null && copyTaskIdsOrderFromTable.length > 0) {
       const tmp = this.bpmnProcess.getExistingActivityObject(copyTaskIdsOrderFromTable[0].taskId);
       if (tmp != null && tmp.$type === "bpmn:StartEvent") {
@@ -120,7 +120,7 @@ export class BpmnProcessDiagram {
     // Lanesets vom Prozess ins Diagramm
     const lanes = this.bpmnProcess.getSortedLanesWithTasks(processId);
 
-    const laneDictionaries: LaneDictionary[] = [];
+    const laneDictionaries: ILaneDictionary[] = [];
     // 20 => buffer and 10 is multiply factor for each extra flow
     const extraFlowFactor: number = allGateways.length === 0 && amountOfOutgoingsOnTasksUnderpass === 0 ? 0 : BpmnProcessDiagram.SPACE_TO_LOWER_JUMP_SF + (amountOfOutgoingsOnGateways * 10) + (amountOfOutgoingsOnTasksUnderpass * 10);
     const lastLaneHeight: number = this.diagramLaneHeight + extraFlowFactor;
@@ -141,7 +141,7 @@ export class BpmnProcessDiagram {
           objectsForLane.push(object.id);
         }
 
-        const laneDictionary: LaneDictionary = {
+        const laneDictionary: ILaneDictionary = {
           laneId: laneObject.id,
           rowNumber: i,
           ObjectIdsInLane: objectsForLane
@@ -169,13 +169,13 @@ export class BpmnProcessDiagram {
       const process = this.bpmnProcess.getProcess(processId);
 
       const flowElements = process.flowElements;
-      let drawObjectList: Bpmn.FlowNode[] = [];
+      let drawObjectList: Bpmn.IFlowNode[] = [];
       let startElementObject = flowElements.filter((e: any) => e.$type === "bpmn:StartEvent");
       startElementObject = startElementObject.sort((a, b) => {
-        if ((a as Bpmn.StartEvent).eventDefinitions == null)
+        if ((a as Bpmn.IStartEvent).eventDefinitions == null)
           return -1;
 
-        if ((b as Bpmn.StartEvent).eventDefinitions == null)
+        if ((b as Bpmn.IStartEvent).eventDefinitions == null)
           return 1;
         return 0;
       });
@@ -183,7 +183,7 @@ export class BpmnProcessDiagram {
 
       drawObjectList = drawObjectList.concat(sortedTasks);
 
-      const gates: Bpmn.FlowNode[] = this.bpmnProcess.getAllExclusiveGateways();
+      const gates: Bpmn.IFlowNode[] = this.bpmnProcess.getAllExclusiveGateways();
       // DrawObjectList = drawObjectList.concat(gats);
 
       // this.recursiveGenerateDiagramTasks(diagram, laneDictionaries, startElementObject[0], (this.diagramXStartParam + 100));
@@ -206,10 +206,10 @@ export class BpmnProcessDiagram {
       this.drawAllTasks(diagram, laneDictionaries, drawObjectList, (this.diagramXStartParam + 100));
 
       // SequenceFlows vom Prozess ins Diagramm
-      const sequenceFlows: Bpmn.SequenceFlow[] = this.bpmnProcess.getSequenceFlowElements();
+      const sequenceFlows: Bpmn.ISequenceFlow[] = this.bpmnProcess.getSequenceFlowElements();
 
       // Get all "normal" sf's
-      const normalSequenceFlows: Bpmn.SequenceFlow[] = [];
+      const normalSequenceFlows: Bpmn.ISequenceFlow[] = [];
 
       for (let i = 0; i < drawObjectList.length; i++) {
         const thisObj = drawObjectList[i];
@@ -239,7 +239,7 @@ export class BpmnProcessDiagram {
     }
   }
 
-  private drawAllTasks(diagram: any, laneDictionaries: LaneDictionary[], taskList: Bpmn.FlowNode[], xParam: number): void {
+  private drawAllTasks(diagram: any, laneDictionaries: ILaneDictionary[], taskList: Bpmn.IFlowNode[], xParam: number): void {
     for (const workingObject of taskList) {
       let iconWidth = BpmnProcessDiagram.TASK_WIDTH;
       const sizeStartAndEndEvent = 36;
@@ -264,10 +264,10 @@ export class BpmnProcessDiagram {
 
         yParam = (this.diagramYStartParam + BpmnProcessDiagram.GATEWAY_WIDTH) + laneNumber * this.diagramLaneHeight;
 
-        const standardStartEvent = taskList.filter(t => t.$type === "bpmn:StartEvent" && (t as Bpmn.StartEvent).eventDefinitions == null);
+        const standardStartEvent = taskList.filter(t => t.$type === "bpmn:StartEvent" && (t as Bpmn.IStartEvent).eventDefinitions == null);
         const startEvents = taskList.filter(t => t.$type === "bpmn:StartEvent");
 
-        const startEvent = (workingObject as Bpmn.StartEvent);
+        const startEvent = (workingObject as Bpmn.IStartEvent);
         if (startEvent.eventDefinitions != null && startEvent.eventDefinitions.length > 0) {
           if (standardStartEvent.length > 0 || (startEvents.length > 1 && startEvents.last().id === workingObject.id)) {
             xParam -= iconWidth + BpmnProcessDiagram.SPACE_BETWEEN_TASKS;
@@ -290,7 +290,7 @@ export class BpmnProcessDiagram {
     }
   }
 
-  private generateSequenceFlow(diagram: any, flowObject: Bpmn.SequenceFlow, drawJumpFlow: boolean, numberOfJumpEdge = 0, laneDictionaries: LaneDictionary[] = null): void {
+  private generateSequenceFlow(diagram: any, flowObject: Bpmn.ISequenceFlow, drawJumpFlow: boolean, numberOfJumpEdge = 0, laneDictionaries: ILaneDictionary[] = null): void {
     let waypoints: Waypoint[] = [];
     // Hole die beiden Diagramm Objekte von Quell und Ziel Objekt
     const sourceRef = flowObject.sourceRef;
@@ -348,7 +348,7 @@ export class BpmnProcessDiagram {
     return shape;
   }
 
-  private createEdge(bpmnElement: any, sourceElement: any, targetElement: any, waypoints: Waypoint[]): Bpmndi.BPMNEdge {
+  private createEdge(bpmnElement: any, sourceElement: any, targetElement: any, waypoints: Waypoint[]): Bpmndi.IBPMNEdge {
 
     const resultWaypoint: any[] = [];
     // Waypoint einfügen
@@ -367,7 +367,7 @@ export class BpmnProcessDiagram {
     return edge;
   }
 
-  private getWaypointsBetweenObjects(sourceObject: Bpmndi.BPMNShape, targetObject: Bpmndi.BPMNShape): Waypoint[] {
+  private getWaypointsBetweenObjects(sourceObject: Bpmndi.IBPMNShape, targetObject: Bpmndi.IBPMNShape): Waypoint[] {
 
     const result: Waypoint[] = [];
 
@@ -399,7 +399,7 @@ export class BpmnProcessDiagram {
     return result;
   }
 
-  private getWaypointsBetweenObjectsUnderpass(sourceObject: Bpmndi.BPMNShape, targetObject: Bpmndi.BPMNShape, numberOfJumpEdge: number, laneDictionaries: LaneDictionary[]): Waypoint[] {
+  private getWaypointsBetweenObjectsUnderpass(sourceObject: Bpmndi.IBPMNShape, targetObject: Bpmndi.IBPMNShape, numberOfJumpEdge: number, laneDictionaries: ILaneDictionary[]): Waypoint[] {
 
     const result: Waypoint[] = [];
 

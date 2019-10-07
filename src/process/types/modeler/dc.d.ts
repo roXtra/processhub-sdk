@@ -2,7 +2,7 @@
 declare module "modeler/bpmn/dc" {
   namespace Dc {
 
-    export interface Font {
+    export interface IFont {
       readonly $type: "dc:Font";
       name: string;
       size: number;
@@ -12,13 +12,13 @@ declare module "modeler/bpmn/dc" {
       isStrikeThrough: boolean;
     }
 
-    export interface Point {
+    export interface IPoint {
       readonly $type: "dc:Point";
       x: number;
       y: number;
     }
 
-    export interface Bounds {
+    export interface IBounds {
       readonly $type: "dc:Bounds";
       x: number;
       y: number;

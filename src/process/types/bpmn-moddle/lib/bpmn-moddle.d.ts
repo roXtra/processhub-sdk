@@ -49,46 +49,46 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
      * @param  {Object} attrs   a number of attributes to initialize the model instance with
      * @return {Object}         model instance
      */
-    public create(descriptor: "bpmn:DataOutputAssociation", attrs: Partial<Bpmn.DataOutputAssociation>): Bpmn.DataOutputAssociation;
-    public create(descriptor: "bpmn:DataInputAssociation", attrs: Partial<Bpmn.DataInputAssociation>): Bpmn.DataInputAssociation;
-    public create(descriptor: "bpmn:DataObjectReference", attrs: Partial<Bpmn.DataObjectReference>): Bpmn.DataObjectReference;
-    public create(descriptor: "bpmn:DataStoreReference", attrs: Partial<Bpmn.DataStoreReference>): Bpmn.DataStoreReference;
-    public create(descriptor: "bpmn:Collaboration", attrs: Partial<Bpmn.Collaboration>): Bpmn.Collaboration;
-    public create(descriptor: "bpmn:BoundaryEvent", attrs: Partial<Bpmn.BoundaryEvent>): Bpmn.BoundaryEvent;
-    public create(descriptor: "bpmn:Definitions", attrs: Partial<Bpmn.Definitions>): Bpmn.Definitions;
-    public create(descriptor: "bpmn:EndEvent", attrs: Partial<Bpmn.EndEvent>): Bpmn.EndEvent;
-    public create(descriptor: "bpmn:ErrorEventDefinition", attrs: Partial<Bpmn.ErrorEventDefinition>): Bpmn.ErrorEventDefinition;
-    public create(descriptor: "bpmn:ExclusiveGateway", attrs: Partial<Bpmn.ExclusiveGateway>): Bpmn.ExclusiveGateway;
-    public create(descriptor: "bpmn:ExtensionElements", attrs: Partial<Bpmn.ExtensionElements>): Bpmn.ExtensionElements;
-    public create(descriptor: "bpmn:FormalExpression", attrs: Partial<Bpmn.FormalExpression>): Bpmn.FormalExpression;
-    public create(descriptor: "bpmn:IntermediateCatchEvent", attrs: Partial<Bpmn.IntermediateCatchEvent>): Bpmn.IntermediateCatchEvent;
-    public create(descriptor: "bpmn:Lane", attrs: Partial<Bpmn.Lane>): Bpmn.Lane;
-    public create(descriptor: "bpmn:LaneSet", attrs: Partial<Bpmn.LaneSet>): Bpmn.LaneSet;
-    public create(descriptor: "bpmn:MessageEventDefinition", attrs: Partial<Bpmn.MessageEventDefinition>): Bpmn.MessageEventDefinition;
-    public create(descriptor: "bpmn:Participant", attrs: Partial<Bpmn.Participant>): Bpmn.Participant;
-    public create(descriptor: "bpmn:ParallelGateway", attrs: Partial<Bpmn.ParallelGateway>): Bpmn.ParallelGateway;
-    public create(descriptor: "bpmn:Process", attrs: Partial<Bpmn.Process>): Bpmn.Process;
-    public create(descriptor: "bpmn:ScriptTask", attrs: Partial<Bpmn.ScriptTask>): Bpmn.ScriptTask;
-    public create(descriptor: "bpmn:SendTask", attrs: Partial<Bpmn.SendTask>): Bpmn.SendTask;
-    public create(descriptor: "bpmn:ServiceTask", attrs: Partial<Bpmn.ServiceTask>): Bpmn.ServiceTask;
-    public create(descriptor: "bpmn:SequenceFlow", attrs: Partial<Bpmn.SequenceFlow>): Bpmn.SequenceFlow;
-    public create(descriptor: "bpmn:SignalEventDefinition", attrs: Partial<Bpmn.SignalEventDefinition>): Bpmn.SignalEventDefinition;
-    public create(descriptor: "bpmn:StartEvent", attrs: Partial<Bpmn.StartEvent>): Bpmn.StartEvent;
-    public create(descriptor: "bpmn:SubProcess", attrs: Partial<Bpmn.SubProcess>): Bpmn.SubProcess;
-    public create(descriptor: "bpmn:TimerEventDefinition", attrs: Partial<Bpmn.TimerEventDefinition>): Bpmn.TimerEventDefinition;
-    public create(descriptor: "bpmn:TerminateEventDefinition", attrs: Partial<Bpmn.TerminateEventDefinition>): Bpmn.TerminateEventDefinition;
-    public create(descriptor: "bpmn:UserTask", attrs: Partial<Bpmn.UserTask>): Bpmn.UserTask;
-    public create(descriptor: "bpmn:TextAnnotation", attrs: Partial<Bpmn.TextAnnotation>): Bpmn.TextAnnotation;
-    public create(descriptor: "bpmn:Association", attrs: Partial<Bpmn.Association>): Bpmn.Association;
+    public create(descriptor: "bpmn:DataOutputAssociation", attrs: Partial<Bpmn.IDataOutputAssociation>): Bpmn.IDataOutputAssociation;
+    public create(descriptor: "bpmn:DataInputAssociation", attrs: Partial<Bpmn.IDataInputAssociation>): Bpmn.IDataInputAssociation;
+    public create(descriptor: "bpmn:DataObjectReference", attrs: Partial<Bpmn.IDataObjectReference>): Bpmn.IDataObjectReference;
+    public create(descriptor: "bpmn:DataStoreReference", attrs: Partial<Bpmn.IDataStoreReference>): Bpmn.IDataStoreReference;
+    public create(descriptor: "bpmn:Collaboration", attrs: Partial<Bpmn.ICollaboration>): Bpmn.ICollaboration;
+    public create(descriptor: "bpmn:BoundaryEvent", attrs: Partial<Bpmn.IBoundaryEvent>): Bpmn.IBoundaryEvent;
+    public create(descriptor: "bpmn:Definitions", attrs: Partial<Bpmn.IDefinitions>): Bpmn.IDefinitions;
+    public create(descriptor: "bpmn:EndEvent", attrs: Partial<Bpmn.IEndEvent>): Bpmn.IEndEvent;
+    public create(descriptor: "bpmn:ErrorEventDefinition", attrs: Partial<Bpmn.IErrorEventDefinition>): Bpmn.IErrorEventDefinition;
+    public create(descriptor: "bpmn:ExclusiveGateway", attrs: Partial<Bpmn.IExclusiveGateway>): Bpmn.IExclusiveGateway;
+    public create(descriptor: "bpmn:ExtensionElements", attrs: Partial<Bpmn.IExtensionElements>): Bpmn.IExtensionElements;
+    public create(descriptor: "bpmn:FormalExpression", attrs: Partial<Bpmn.IFormalExpression>): Bpmn.IFormalExpression;
+    public create(descriptor: "bpmn:IntermediateCatchEvent", attrs: Partial<Bpmn.IIntermediateCatchEvent>): Bpmn.IIntermediateCatchEvent;
+    public create(descriptor: "bpmn:Lane", attrs: Partial<Bpmn.ILane>): Bpmn.ILane;
+    public create(descriptor: "bpmn:LaneSet", attrs: Partial<Bpmn.ILaneSet>): Bpmn.ILaneSet;
+    public create(descriptor: "bpmn:MessageEventDefinition", attrs: Partial<Bpmn.IMessageEventDefinition>): Bpmn.IMessageEventDefinition;
+    public create(descriptor: "bpmn:Participant", attrs: Partial<Bpmn.IParticipant>): Bpmn.IParticipant;
+    public create(descriptor: "bpmn:ParallelGateway", attrs: Partial<Bpmn.IParallelGateway>): Bpmn.IParallelGateway;
+    public create(descriptor: "bpmn:Process", attrs: Partial<Bpmn.IProcess>): Bpmn.IProcess;
+    public create(descriptor: "bpmn:ScriptTask", attrs: Partial<Bpmn.IScriptTask>): Bpmn.IScriptTask;
+    public create(descriptor: "bpmn:SendTask", attrs: Partial<Bpmn.ISendTask>): Bpmn.ISendTask;
+    public create(descriptor: "bpmn:ServiceTask", attrs: Partial<Bpmn.IServiceTask>): Bpmn.IServiceTask;
+    public create(descriptor: "bpmn:SequenceFlow", attrs: Partial<Bpmn.ISequenceFlow>): Bpmn.ISequenceFlow;
+    public create(descriptor: "bpmn:SignalEventDefinition", attrs: Partial<Bpmn.ISignalEventDefinition>): Bpmn.ISignalEventDefinition;
+    public create(descriptor: "bpmn:StartEvent", attrs: Partial<Bpmn.IStartEvent>): Bpmn.IStartEvent;
+    public create(descriptor: "bpmn:SubProcess", attrs: Partial<Bpmn.ISubProcess>): Bpmn.ISubProcess;
+    public create(descriptor: "bpmn:TimerEventDefinition", attrs: Partial<Bpmn.ITimerEventDefinition>): Bpmn.ITimerEventDefinition;
+    public create(descriptor: "bpmn:TerminateEventDefinition", attrs: Partial<Bpmn.ITerminateEventDefinition>): Bpmn.ITerminateEventDefinition;
+    public create(descriptor: "bpmn:UserTask", attrs: Partial<Bpmn.IUserTask>): Bpmn.IUserTask;
+    public create(descriptor: "bpmn:TextAnnotation", attrs: Partial<Bpmn.ITextAnnotation>): Bpmn.ITextAnnotation;
+    public create(descriptor: "bpmn:Association", attrs: Partial<Bpmn.IAssociation>): Bpmn.IAssociation;
 
-    public create(descriptor: "bpmndi:BPMNDiagram", attrs: Partial<Bpmndi.BPMNDiagram>): Bpmndi.BPMNDiagram;
-    public create(descriptor: "bpmndi:BPMNEdge", attrs: Partial<Bpmndi.BPMNEdge>): Bpmndi.BPMNEdge;
-    public create(descriptor: "bpmndi:BPMNPlane", attrs: Partial<Bpmndi.BPMNPlane>): Bpmndi.BPMNPlane;
-    public create(descriptor: "bpmndi:BPMNShape", attrs: Partial<Bpmndi.BPMNShape>): Bpmndi.BPMNShape;
-    public create(descriptor: "bpmndi:BPMNLabel", attrs: Partial<Bpmndi.BPMNLabel>): Bpmndi.BPMNLabel;
+    public create(descriptor: "bpmndi:BPMNDiagram", attrs: Partial<Bpmndi.IBPMNDiagram>): Bpmndi.IBPMNDiagram;
+    public create(descriptor: "bpmndi:BPMNEdge", attrs: Partial<Bpmndi.IBPMNEdge>): Bpmndi.IBPMNEdge;
+    public create(descriptor: "bpmndi:BPMNPlane", attrs: Partial<Bpmndi.IBPMNPlane>): Bpmndi.IBPMNPlane;
+    public create(descriptor: "bpmndi:BPMNShape", attrs: Partial<Bpmndi.IBPMNShape>): Bpmndi.IBPMNShape;
+    public create(descriptor: "bpmndi:BPMNLabel", attrs: Partial<Bpmndi.IBPMNLabel>): Bpmndi.IBPMNLabel;
 
-    public create(descriptor: "dc:Bounds", attrs: Partial<Dc.Bounds>): Dc.Bounds;
-    public create(descriptor: "dc:Point", attrs: Partial<Dc.Point>): Dc.Point;
+    public create(descriptor: "dc:Bounds", attrs: Partial<Dc.IBounds>): Dc.IBounds;
+    public create(descriptor: "dc:Point", attrs: Partial<Dc.IPoint>): Dc.IPoint;
 
     /**
      * Creates an any-element type to be used within model instances.
@@ -120,11 +120,11 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
     public createAny(
       name: "processhub:inputOutput",
       nsUri: "http://processhub.com/schema/1.0/bpmn",
-      properties: Partial<Processhub.InputOutput>): Processhub.InputOutput;
+      properties: Partial<Processhub.IInputOutput>): Processhub.IInputOutput;
     public createAny(
       name: "processhub:inputParameter",
       nsUri: "http://processhub.com/schema/1.0/bpmn",
-      properties: Partial<Processhub.InputParameter>): Processhub.InputParameter;
+      properties: Partial<Processhub.IInputParameter>): Processhub.IInputParameter;
 
     /**
      * Instantiates a BPMN model tree from a given xml string.
@@ -140,7 +140,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
       typeName: Bpmn.ElementType,
       options: Record<string, any>,
       done: (err: Error, result: ModdleElement, parseContext: Context) => void): void;
-    public fromXML(xmlStr: string, done: (err: Error, result: Bpmn.Definitions, parseContext: Context) => void): void;
+    public fromXML(xmlStr: string, done: (err: Error, result: Bpmn.IDefinitions, parseContext: Context) => void): void;
 
     /**
      * Serializes a BPMN 2.0 object tree to XML.
@@ -149,7 +149,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
      * @param {Object}   [options]  to pass to the underlying writer
      * @param {Function} done       callback invoked with (err, xmlStr) once the import completes
      */
-    public toXML(element: Bpmn.Definitions, options: Record<string, any>, done: (err: Record<string, any>, xmlStr: string) => void): void;
+    public toXML(element: Bpmn.IDefinitions, options: Record<string, any>, done: (err: Record<string, any>, xmlStr: string) => void): void;
   }
 
   namespace BpmnModdle {

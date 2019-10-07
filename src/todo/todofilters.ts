@@ -1,13 +1,13 @@
 // Helper functions to filter and/or sort todos
-import { TodoDetails, TodoType } from "./todointerfaces";
-import { InstanceDetails } from "../instance/instanceinterfaces";
+import { ITodoDetails, TodoType } from "./todointerfaces";
+import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { UserDetails } from "../user/index";
 import { filterInstancesForProcess, filterRemainingInstancesForWorkspace } from "../instance/instancefilters";
-import { WorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 
 // Temporary solution during switch from todo.instance -> instances.todos
-export function getTodosFromInstances(instances: InstanceDetails[]): TodoDetails[] {
-  const todos: TodoDetails[] = [];
+export function getTodosFromInstances(instances: IInstanceDetails[]): ITodoDetails[] {
+  const todos: ITodoDetails[] = [];
 
   instances.map(instance => {
     if (instance.extras.todos) {
@@ -19,40 +19,40 @@ export function getTodosFromInstances(instances: InstanceDetails[]): TodoDetails
 }
 
 // Todos assigned to user
-export function filterUserTodos(todos: TodoDetails[], user: UserDetails): TodoDetails[] {
+export function filterUserTodos(todos: ITodoDetails[], user: UserDetails): ITodoDetails[] {
   if (!user || !todos)
     return [];
 
-  const filteredTodos: TodoDetails[] = todos.filter(
+  const filteredTodos: ITodoDetails[] = todos.filter(
     todo => (todo.todoType !== TodoType.Simulation) && (todo.userId === user.userId));
 
   return filteredTodos;
 }
 
 // Unassigned todos
-export function filterUnassignedTodos(todos: TodoDetails[]): TodoDetails[] {
+export function filterUnassignedTodos(todos: ITodoDetails[]): ITodoDetails[] {
   if (!todos)
     return [];
 
-  const filteredTodos: TodoDetails[] = todos.filter(
+  const filteredTodos: ITodoDetails[] = todos.filter(
     todo => (todo.todoType !== TodoType.Simulation) && (todo.userId == null));
 
   return filteredTodos;
 }
 
 // All todos for an instance
-export function filterTodosForInstance(instances: InstanceDetails[], instanceId: string): TodoDetails[] {
+export function filterTodosForInstance(instances: IInstanceDetails[], instanceId: string): ITodoDetails[] {
   if (!instances)
     return [];
 
   const todos = getTodosFromInstances(instances);
 
-  const filteredTodos: TodoDetails[] = todos.filter(todo => todo.instanceId === instanceId);
+  const filteredTodos: ITodoDetails[] = todos.filter(todo => todo.instanceId === instanceId);
   return filteredTodos;
 }
 
 // All todos for a process
-export function filterTodosForProcess(instances: InstanceDetails[], processId: string): TodoDetails[] {
+export function filterTodosForProcess(instances: IInstanceDetails[], processId: string): ITodoDetails[] {
   if (!instances)
     return [];
 
@@ -63,18 +63,18 @@ export function filterTodosForProcess(instances: InstanceDetails[], processId: s
 }
 
 // All todos for workspace
-export function filterTodosForWorkspace(instances: InstanceDetails[], workspaceId: string): TodoDetails[] {
+export function filterTodosForWorkspace(instances: IInstanceDetails[], workspaceId: string): ITodoDetails[] {
   if (!instances)
     return [];
 
   const todos = getTodosFromInstances(instances);
 
-  const filteredTodos: TodoDetails[] = todos.filter(todo => todo.workspaceId === workspaceId);
+  const filteredTodos: ITodoDetails[] = todos.filter(todo => todo.workspaceId === workspaceId);
   return filteredTodos;
 }
 
 // Todos for processes in workspace that user can not see
-export function filterRemainingTodosForWorkspace(instances: InstanceDetails[], workspace: WorkspaceDetails): TodoDetails[] {
+export function filterRemainingTodosForWorkspace(instances: IInstanceDetails[], workspace: IWorkspaceDetails): ITodoDetails[] {
   if (!instances)
     return [];
 

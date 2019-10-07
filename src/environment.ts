@@ -1,55 +1,55 @@
-import { PathDetails } from "./path/pathinterfaces";
+import { IPathDetails } from "./path/pathinterfaces";
 import { UserDetails } from "./user/userinterfaces";
-import { WorkspaceDetails } from "./workspace/workspaceinterfaces";
-import { ProcessDetails } from "./process/processinterfaces";
-import { InstanceDetails } from "./instance/instanceinterfaces";
-import { TodoDetails } from "./todo/todointerfaces";
+import { IWorkspaceDetails } from "./workspace/workspaceinterfaces";
+import { IProcessDetails } from "./process/processinterfaces";
+import { IInstanceDetails } from "./instance/instanceinterfaces";
+import { ITodoDetails } from "./todo/todointerfaces";
 
-export interface CoreEnvironment {
-  path: PathDetails;
+export interface ICoreEnvironment {
+  path: IPathDetails;
   user: UserDetails;
 }
 
-export interface WorkspaceEnvironment extends CoreEnvironment {
-  workspace: WorkspaceDetails;
+export interface IWorkspaceEnvironment extends ICoreEnvironment {
+  workspace: IWorkspaceDetails;
 }
 
-export interface ProcessEnvironment extends CoreEnvironment {
-  workspace: WorkspaceDetails;
-  process: ProcessDetails;
+export interface IProcessEnvironment extends ICoreEnvironment {
+  workspace: IWorkspaceDetails;
+  process: IProcessDetails;
 }
 
-export interface InstanceEnvironment extends CoreEnvironment {
-  workspace: WorkspaceDetails;
-  process: ProcessDetails;
-  instance: InstanceDetails;
+export interface IInstanceEnvironment extends ICoreEnvironment {
+  workspace: IWorkspaceDetails;
+  process: IProcessDetails;
+  instance: IInstanceDetails;
 }
 
-export interface TodoEnvironment extends CoreEnvironment {
-  workspace: WorkspaceDetails;
-  process: ProcessDetails;
-  instance: InstanceDetails;
-  todo: TodoDetails;
+export interface ITodoEnvironment extends ICoreEnvironment {
+  workspace: IWorkspaceDetails;
+  process: IProcessDetails;
+  instance: IInstanceDetails;
+  todo: ITodoDetails;
 }
 
-export function isValidCoreEnvironment(coreEnv: {}, requireUser = true): coreEnv is CoreEnvironment {
+export function isValidCoreEnvironment(coreEnv: {}, requireUser = true): coreEnv is ICoreEnvironment {
   if (coreEnv == null)
     return false;
 
   if (!requireUser)
     return true;
   else
-    return (coreEnv as CoreEnvironment).user != null;
+    return (coreEnv as ICoreEnvironment).user != null;
 }
-export function isValidWorkspaceEnvironment(workspaceEnv: {}, requireUser = true): workspaceEnv is WorkspaceEnvironment {
-  return isValidCoreEnvironment(workspaceEnv, requireUser) && (workspaceEnv as WorkspaceEnvironment).workspace != null;
+export function isValidWorkspaceEnvironment(workspaceEnv: {}, requireUser = true): workspaceEnv is IWorkspaceEnvironment {
+  return isValidCoreEnvironment(workspaceEnv, requireUser) && (workspaceEnv as IWorkspaceEnvironment).workspace != null;
 }
-export function isValidProcessEnvironment(processEnv: {}, requireUser = true): processEnv is ProcessEnvironment {
-  return isValidWorkspaceEnvironment(processEnv, requireUser) && (processEnv as ProcessEnvironment).process != null;
+export function isValidProcessEnvironment(processEnv: {}, requireUser = true): processEnv is IProcessEnvironment {
+  return isValidWorkspaceEnvironment(processEnv, requireUser) && (processEnv as IProcessEnvironment).process != null;
 }
-export function isValidInstanceEnvironment(instanceEnv: {}, requireUser = true): instanceEnv is InstanceEnvironment {
-  return isValidProcessEnvironment(instanceEnv, requireUser) && (instanceEnv as InstanceEnvironment).instance != null;
+export function isValidInstanceEnvironment(instanceEnv: {}, requireUser = true): instanceEnv is IInstanceEnvironment {
+  return isValidProcessEnvironment(instanceEnv, requireUser) && (instanceEnv as IInstanceEnvironment).instance != null;
 }
-export function isValidTodoEnvironment(todoEnv: {}, requireUser = true): todoEnv is TodoEnvironment {
-  return isValidProcessEnvironment(todoEnv, requireUser) && (todoEnv as TodoEnvironment).todo != null;
+export function isValidTodoEnvironment(todoEnv: {}, requireUser = true): todoEnv is ITodoEnvironment {
+  return isValidProcessEnvironment(todoEnv, requireUser) && (todoEnv as ITodoEnvironment).todo != null;
 }

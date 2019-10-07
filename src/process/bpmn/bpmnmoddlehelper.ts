@@ -1,20 +1,20 @@
 import BpmnModdle = require("bpmn-moddle");
 import { BpmnProcess } from "./bpmnprocess";
 import { ProcessResult } from "../processinterfaces";
-import { LoadTemplateReply } from "../legacyapi";
+import { ILoadTemplateReply } from "../legacyapi";
 import { createId } from "../../tools/guid";
 import { tl } from "../../tl";
 
 export const bpmnModdleInstance: BpmnModdle = new BpmnModdle([], {});
 
 // Basis-Bpmn-Prozess erzeugen
-export async function createBpmnTemplate(): Promise<LoadTemplateReply> {
+export async function createBpmnTemplate(): Promise<ILoadTemplateReply> {
   const xmlStr =
     "<?xml version='1.0' encoding='UTF-8'?>" +
     "<bpmn:definitions xmlns:bpmn='http://www.omg.org/spec/BPMN/20100524/MODEL' id='Definition_" + createId() + "'>" +
     "</bpmn:definitions>";
 
-  const promise = new Promise<LoadTemplateReply>(function (resolve) {
+  const promise = new Promise<ILoadTemplateReply>(function (resolve) {
     bpmnModdleInstance.fromXML(xmlStr, (err: any, bpmnXml: any, bpmnContext: any): void => {
       // Basisknoten anlegen - gleichzeitig ein gutes Beispiel für den Umgang mit moddle
 
@@ -120,7 +120,7 @@ export async function createBpmnTemplate(): Promise<LoadTemplateReply> {
           result: ProcessResult.Ok,
           bpmnContext: bpmnContext,
           bpmnXml: bpmnXml
-        } as LoadTemplateReply
+        } as ILoadTemplateReply
       );
     });
     // Callback(err, bpmnXml, bpmnContext);

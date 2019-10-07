@@ -1,4 +1,4 @@
-import { GroupDetails } from "./groupinterfaces";
+import { IGroupDetails } from "./groupinterfaces";
 
 export const GroupRequestRoutes = {
   Create: "/api/group/create",
@@ -11,31 +11,31 @@ export const GroupRequestRoutes = {
 
 export type GroupRequestRoutes = keyof typeof GroupRequestRoutes;
 
-export interface CreateGroupRequest {
-  group: GroupDetails;
+export interface ICreateGroupRequest {
+  group: IGroupDetails;
 }
 
-export interface DeleteGroupRequest {
+export interface IDeleteGroupRequest {
   groupId: string;
 }
 
-export interface EditGroupRequest {
+export interface IEditGroupRequest {
   groupId: string;
   displayName: string;
   description: string;
 }
 
-export interface SetGroupMembersRequest {
+export interface ISetGroupMembersRequest {
   groupId: string;
   memberIds: string[];
 }
 
-export interface AddMemberToGroupRequest {
+export interface IAddMemberToGroupRequest {
   groupId: string;
   memberId: string;
 }
 
-export interface RemoveMemberFromGroupRequest {
+export interface IRemoveMemberFromGroupRequest {
   groupId: string;
   memberId: string;
 }

@@ -1,13 +1,13 @@
 import { assert } from "chai";
 import * as InstanceFilters from "./instancefilters";
 import * as PH from "../";
-import { TodoDetails } from "../todo/todointerfaces";
+import { ITodoDetails } from "../todo/todointerfaces";
 
 describe("sdk", function () {
   describe("instance", function () {
     describe("instancefilters", function () {
       it("should check filterUserInstances Method", () => {
-        const instanceDetails: PH.Instance.InstanceDetails = {
+        const instanceDetails: PH.Instance.IInstanceDetails = {
           instanceId: PH.Tools.createId(), // Potential instanceId till execute
           processId: "xyz",
           extras: {
@@ -24,10 +24,10 @@ describe("sdk", function () {
                 description: "test description",
                 bpmnTaskId: "xyz",
                 bpmnLaneId: "xyz"
-              } as TodoDetails
+              } as ITodoDetails
             ]
           }
-        } as PH.Instance.InstanceDetails;
+        } as PH.Instance.IInstanceDetails;
 
         let resInstDetails = InstanceFilters.filterUserInstances([ instanceDetails ], { userId: "xyz" } as any);
 

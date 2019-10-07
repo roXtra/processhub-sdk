@@ -1,7 +1,7 @@
-import { BaseRequest, BaseReply, BaseMessage, ApiResult } from "../legacyapi/apiinterfaces";
-import { WorkspaceDetails } from "../workspace/workspaceinterfaces";
-import { ProcessDetails } from "../process/processinterfaces";
-import { PathDetails } from "./pathinterfaces";
+import { IBaseRequest, IBaseReply, IBaseMessage, ApiResult } from "../legacyapi/apiinterfaces";
+import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { IProcessDetails } from "../process/processinterfaces";
+import { IPathDetails } from "./pathinterfaces";
 
 export const PathRequestRoutes = {
   Load: "/api/path/load"
@@ -9,21 +9,21 @@ export const PathRequestRoutes = {
 export type PathRequestRoutes = keyof typeof PathRequestRoutes;
 
 // Reply: ApiReply
-export interface GetPathRequest extends BaseRequest {
+export interface IGetPathRequest extends IBaseRequest {
   path: string;
 }
 
-export interface GetPathReply extends BaseReply {
-  workspace?: WorkspaceDetails;
-  process?: ProcessDetails;
+export interface IGetPathReply extends IBaseReply {
+  workspace?: IWorkspaceDetails;
+  process?: IProcessDetails;
 
-  pathDetails?: PathDetails; // Falls ein nicht vorhandener Path angefragt wird, sind pathStack und pathDetails = null
+  pathDetails?: IPathDetails; // Falls ein nicht vorhandener Path angefragt wird, sind pathStack und pathDetails = null
 }
 
 export const PATHLOADED_MESSAGE = "PathLoadedMessage";
-export interface PathLoadedMessage extends BaseMessage {
+export interface IPathLoadedMessage extends IBaseMessage {
   type: "PathLoadedMessage";
-  pathDetails?: PathDetails;
+  pathDetails?: IPathDetails;
   error?: ApiResult;  // Nur gesetzt, falls Seitenaufruf gescheitert
 }
 

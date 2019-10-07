@@ -74,7 +74,7 @@
       "error"
     ],
     "@typescript-eslint/interface-name-prefix": [
-      "warn",
+      "error",
       {
         "prefixWithI": "always"
       }

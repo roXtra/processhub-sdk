@@ -1,10 +1,10 @@
 import * as _ from "lodash";
 import * as update from "immutability-helper";
 import { ApiResult } from "../legacyapi/apiinterfaces";
-import { UserActionLoggedIn, UserActionFailed } from "./useractions";
+import { IUserActionLoggedIn, IUserActionFailed } from "./useractions";
 import * as StateHandler from "../statehandler";
 import { UserState, UserMessages } from "./phclient";
-import { UserLoadedMessage } from "./legacyapi";
+import { IUserLoadedMessage } from "./legacyapi";
 import { createId } from "../tools/guid";
 import { UserActionsType } from "./userinterfaces";
 import { isTrue } from "../tools/assert";
@@ -22,7 +22,7 @@ export function userReducer(userState: UserState, action: any): UserState {
   switch (action.type) {
 
     case UserMessages.UserLoadedMessage: {
-      const user = (action as UserLoadedMessage).user;
+      const user = (action as IUserLoadedMessage).user;
       userState.currentUser = StateHandler.mergeUserToCache(user);
 
       const userChanged = !_.isEqual(userState.currentUser, userState.lastDispatchedUser);
@@ -36,7 +36,7 @@ export function userReducer(userState: UserState, action: any): UserState {
         return userState;
     }
     case UserActionsType.LoggedIn: {
-      const loggedAction: UserActionLoggedIn = action;
+      const loggedAction: IUserActionLoggedIn = action;
       isTrue(loggedAction.userDetails != null, "loggedAction.userDetails is null");
       return update(userState, {
         currentUser: { $set: loggedAction.userDetails },
@@ -44,7 +44,7 @@ export function userReducer(userState: UserState, action: any): UserState {
       });
     }
     case UserActionsType.Failed: {
-      const failedAction: UserActionFailed = action;
+      const failedAction: IUserActionFailed = action;
       isTrue(failedAction.result != null, "failedAction.result is null");
       return update(userState, {
         lastApiResult: { $set: failedAction.result }

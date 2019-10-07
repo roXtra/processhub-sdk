@@ -1,7 +1,7 @@
 import { UserDetails } from "./userinterfaces";
-import { CoreEnvironment } from "../environment";
+import { ICoreEnvironment } from "../environment";
 
-export function requireAuthentication(coreEnv: CoreEnvironment): void {
+export function requireAuthentication(coreEnv: ICoreEnvironment): void {
   if (!coreEnv.user) {
     // No user is logged in - redirect to signin
     if (typeof window !== "undefined") {  // Otherwise fails on server rendering

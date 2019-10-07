@@ -1,7 +1,7 @@
 import * as update from "immutability-helper";
 import * as _ from "lodash";
 import { PathState } from "./phclient";
-import { PATHLOADED_MESSAGE, PathLoadedMessage } from "./legacyapi";
+import { PATHLOADED_MESSAGE, IPathLoadedMessage } from "./legacyapi";
 import { ResetStore } from "../statehandler/actions";
 
 export function pathReducer(pathState: PathState, action: any): PathState {
@@ -18,7 +18,7 @@ export function pathReducer(pathState: PathState, action: any): PathState {
     case PATHLOADED_MESSAGE: {
       const isMobile: boolean = pathState.currentPath && pathState.currentPath.isMobile;
 
-      const loadedAction: PathLoadedMessage = action;
+      const loadedAction: IPathLoadedMessage = action;
       const loadstate: PathState  = update(pathState, {
         currentPath: { $set: _.cloneDeep(loadedAction.pathDetails) },
         lastApiResult: { $set: loadedAction.error }

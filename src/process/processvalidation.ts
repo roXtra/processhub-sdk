@@ -1,7 +1,7 @@
 import { tl } from "../tl";
-import { ProcessDetails } from "./processinterfaces";
+import { IProcessDetails } from "./processinterfaces";
 
-export function isProcessDetailsValid(details: ProcessDetails): boolean {
+export function isProcessDetailsValid(details: IProcessDetails): boolean {
   if (details.displayName.length < 3 || details.displayName.length > 50)
     return false;
 

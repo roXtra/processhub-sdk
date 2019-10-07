@@ -14,7 +14,7 @@ export enum TodoType {
   SubProcessWaitingForStart = 4
 }
 
-export interface TodoDetails {
+export interface ITodoDetails {
   todoId: string;
   todoType?: TodoType;
   userId?: string;
@@ -76,7 +76,7 @@ export const DecisionTaskTypes = {
 };
 export type DecisionTaskTypes = keyof typeof DecisionTaskTypes;
 
-export interface DecisionTask {
+export interface IDecisionTask {
   bpmnTaskId: string;
   name: string;
   type: DecisionTaskTypes;

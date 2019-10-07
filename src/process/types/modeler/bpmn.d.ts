@@ -31,147 +31,147 @@ declare module "modeler/bpmn/bpmn" {
 
     enum ChoreographyLoopType { }
 
-    export interface BaseElement extends Base {
+    export interface IBaseElement extends Base {
       $attrs?: {};
       $type: ElementType;
 
       id: string;
-      documentation?: Documentation[];
-      extensionDefinitions?: ExtensionDefinition[];
-      extensionElements?: ExtensionElements;
+      documentation?: IDocumentation[];
+      extensionDefinitions?: IExtensionDefinition[];
+      extensionElements?: IExtensionElements;
     }
 
-    export interface RootElement extends BaseElement {
+    export interface IRootElement extends IBaseElement {
     }
 
-    export interface Interface extends RootElement {
+    export interface IInterface extends IRootElement {
       readonly $type: "bpmn:Interface";
       name: string;
-      operations: Operation[];
+      operations: IOperation[];
       implementationRef: string;
     }
 
-    export interface Operation extends BaseElement {
+    export interface IOperation extends IBaseElement {
       readonly $type: "bpmn:Operation";
       name: string;
-      inMessageRef: Message;
-      outMessageRef: Message;
-      errorRef: Error[];
+      inMessageRef: IMessage;
+      outMessageRef: IMessage;
+      errorRef: IError[];
       implementationRef: string;
     }
 
-    export interface EndPoint extends RootElement {
+    export interface IEndPoint extends IRootElement {
       readonly $type: "bpmn:EndPoint";
     }
 
-    export interface Auditing extends BaseElement {
+    export interface IAuditing extends IBaseElement {
       readonly $type: "bpmn:Auditing";
     }
 
-    export interface CallableElement extends RootElement {
+    export interface ICallableElement extends IRootElement {
       name?: string;
-      ioSpecification?: InputOutputSpecification;
-      supportedInterfaceRef?: Interface[];
-      ioBinding?: InputOutputBinding[];
+      ioSpecification?: IInputOutputSpecification;
+      supportedInterfaceRef?: IInterface[];
+      ioBinding?: IInputOutputBinding[];
     }
 
-    export interface GlobalTask extends CallableElement {
+    export interface IGlobalTask extends ICallableElement {
       readonly $type: "bpmn:GlobalTask"
       | "bpmn:GlobalManualTask"
       | "bpmn:GlobalUserTask"
       | "bpmn:GlobalScriptTask"
       | "bpmn:GlobalBusinessRuleTask";
-      resources: ResourceRole[];
+      resources: IResourceRole[];
     }
 
-    export interface Monitoring extends BaseElement {
+    export interface IMonitoring extends IBaseElement {
       readonly $type: "bpmn:Monitoring";
     }
 
-    export interface ResourceRole extends BaseElement {
-      resourceRef: Resource;
-      resourceParameterBindings: ResourceParameterBinding[];
-      resourceAssignmentExpression: ResourceAssignmentExpression;
+    export interface IResourceRole extends IBaseElement {
+      resourceRef: IResource;
+      resourceParameterBindings: IResourceParameterBinding[];
+      resourceAssignmentExpression: IResourceAssignmentExpression;
       name: string;
     }
 
-    export interface Performer extends ResourceRole {
+    export interface IPerformer extends IResourceRole {
       readonly $type: "bpmn:Performer"
       | "bpmn:HumanPerformer"
       | "bpmn:PotentialOwner";
     }
 
-    export interface FlowElementsContainer extends BaseElement {
-      laneSets?: LaneSet[];
-      flowElements: FlowElement[];
+    export interface IFlowElementsContainer extends IBaseElement {
+      laneSets?: ILaneSet[];
+      flowElements: IFlowElement[];
     }
 
-    export interface Process extends FlowElementsContainer, CallableElement {
+    export interface IProcess extends IFlowElementsContainer, ICallableElement {
       readonly $type: "bpmn:Process";
       processType?: ProcessType;
       isClosed?: boolean;
-      auditing?: Auditing;
-      monitoring?: Monitoring;
-      properties?: Property[];
-      laneSets?: LaneSet[];
-      flowElements: FlowElement[];
-      artifacts?: Artifact[];
-      resources?: ResourceRole[];
-      correlationSubscriptions?: CorrelationSubscription[];
-      supports?: Process[];
-      definitionalCollaborationRef?: Collaboration;
+      auditing?: IAuditing;
+      monitoring?: IMonitoring;
+      properties?: IProperty[];
+      laneSets?: ILaneSet[];
+      flowElements: IFlowElement[];
+      artifacts?: IArtifact[];
+      resources?: IResourceRole[];
+      correlationSubscriptions?: ICorrelationSubscription[];
+      supports?: IProcess[];
+      definitionalCollaborationRef?: ICollaboration;
       isExecutable?: boolean;
     }
 
-    export interface LaneSet extends BaseElement {
+    export interface ILaneSet extends IBaseElement {
       readonly $type: "bpmn:LaneSet";
-      lanes: Lane[];
+      lanes: ILane[];
       name: string;
     }
 
-    export interface Lane extends BaseElement {
+    export interface ILane extends IBaseElement {
       readonly $type: "bpmn:Lane";
       name: string;
-      partitionElementRef?: BaseElement;
-      partitionElement?: BaseElement;
-      flowNodeRef: FlowNode[];
-      childLaneSet?: LaneSet;
+      partitionElementRef?: IBaseElement;
+      partitionElement?: IBaseElement;
+      flowNodeRef: IFlowNode[];
+      childLaneSet?: ILaneSet;
     }
 
-    export interface GlobalManualTask extends GlobalTask {
+    export interface IGlobalManualTask extends IGlobalTask {
       readonly $type: "bpmn:GlobalManualTask";
     }
 
-    export interface FlowElement extends BaseElement {
+    export interface IFlowElement extends IBaseElement {
       name?: string;
-      auditing?: Auditing;
-      monitoring?: Monitoring;
-      categoryValueRef?: CategoryValue[];
+      auditing?: IAuditing;
+      monitoring?: IMonitoring;
+      categoryValueRef?: ICategoryValue[];
     }
 
-    export interface FlowNode extends FlowElement {
-      incoming?: SequenceFlow[];
-      outgoing?: SequenceFlow[];
+    export interface IFlowNode extends IFlowElement {
+      incoming?: ISequenceFlow[];
+      outgoing?: ISequenceFlow[];
     }
 
-    export interface Activity extends FlowNode {
+    export interface IActivity extends IFlowNode {
       isForCompensation?: boolean;
-      default?: SequenceFlow;
-      ioSpecification?: InputOutputSpecification;
-      boundaryEventRefs?: BoundaryEvent[];
-      properties?: Property[];
-      dataInputAssociations?: DataInputAssociation[];
-      dataOutputAssociations?: DataOutputAssociation[];
+      default?: ISequenceFlow;
+      ioSpecification?: IInputOutputSpecification;
+      boundaryEventRefs?: IBoundaryEvent[];
+      properties?: IProperty[];
+      dataInputAssociations?: IDataInputAssociation[];
+      dataOutputAssociations?: IDataOutputAssociation[];
       startQuantity?: number;
-      resources?: ResourceRole[];
+      resources?: IResourceRole[];
       completionQuantity?: number;
-      loopCharacteristics?: LoopCharacteristics;
+      loopCharacteristics?: ILoopCharacteristics;
     }
 
-    export interface InteractionNode {
+    export interface IInteractionNode {
     }
 
-    export interface Task extends Activity, InteractionNode {
+    export interface ITask extends IActivity, IInteractionNode {
       readonly $type: "bpmn:Task"
       | "bpmn:ManualTask"
       | "bpmn:UserTask"
@@ -182,66 +182,66 @@ declare module "modeler/bpmn/bpmn" {
       | "bpmn:BusinessRuleTask";
     }
 
-    export interface ManualTask extends Task {
+    export interface IManualTask extends ITask {
       readonly $type: "bpmn:ManualTask";
     }
 
-    export interface UserTask extends Task {
+    export interface IUserTask extends ITask {
       readonly $type: "bpmn:UserTask";
-      renderings?: Rendering[];
+      renderings?: IRendering[];
       implementation?: string;
     }
 
-    export interface Rendering extends BaseElement {
+    export interface IRendering extends IBaseElement {
       readonly $type: "bpmn:Rendering";
     }
 
-    export interface HumanPerformer extends Performer {
+    export interface IHumanPerformer extends IPerformer {
       readonly $type: "bpmn:HumanPerformer"
       | "bpmn:PotentialOwner";
     }
 
-    export interface PotentialOwner extends HumanPerformer {
+    export interface IPotentialOwner extends IHumanPerformer {
       readonly $type: "bpmn:PotentialOwner";
     }
 
-    export interface GlobalUserTask extends GlobalTask {
+    export interface IGlobalUserTask extends IGlobalTask {
       readonly $type: "bpmn:GlobalUserTask";
       implementation: string;
-      renderings: Rendering[];
+      renderings: IRendering[];
     }
 
-    export interface Gateway extends FlowNode {
+    export interface IGateway extends IFlowNode {
       gatewayDirection?: GatewayDirection;
     }
 
-    export interface EventBasedGateway extends Gateway {
+    export interface IEventBasedGateway extends IGateway {
       readonly $type: "bpmn:EventBasedGateway";
       instantiate: boolean;
       eventGatewayType: EventBasedGatewayType;
     }
 
-    export interface ComplexGateway extends Gateway {
+    export interface IComplexGateway extends IGateway {
       readonly $type: "bpmn:ComplexGateway";
-      activationCondition: Expression;
-      default: SequenceFlow;
+      activationCondition: IExpression;
+      default: ISequenceFlow;
     }
 
-    export interface ExclusiveGateway extends Gateway {
+    export interface IExclusiveGateway extends IGateway {
       readonly $type: "bpmn:ExclusiveGateway";
-      default?: SequenceFlow;
+      default?: ISequenceFlow;
     }
 
-    export interface InclusiveGateway extends Gateway {
+    export interface IInclusiveGateway extends IGateway {
       readonly $type: "bpmn:InclusiveGateway";
-      default: SequenceFlow;
+      default: ISequenceFlow;
     }
 
-    export interface ParallelGateway extends Gateway {
+    export interface IParallelGateway extends IGateway {
       readonly $type: "bpmn:ParallelGateway";
     }
 
-    export interface Relationship extends BaseElement {
+    export interface IRelationship extends IBaseElement {
       readonly $type: "bpmn:Relationship";
       type: string;
       direction: RelationshipDirection;
@@ -249,163 +249,163 @@ declare module "modeler/bpmn/bpmn" {
       target: Element[];
     }
 
-    export interface Extension {
+    export interface IExtension {
       readonly $type: "bpmn:Extension";
       mustUnderstand: boolean;
-      definition: ExtensionDefinition;
+      definition: IExtensionDefinition;
     }
 
-    export interface ExtensionDefinition {
+    export interface IExtensionDefinition {
       readonly $type: "bpmn:ExtensionDefinition";
       name: string;
-      extensionAttributeDefinitions: ExtensionAttributeDefinition[];
+      extensionAttributeDefinitions: IExtensionAttributeDefinition[];
     }
 
-    export interface ExtensionAttributeDefinition {
+    export interface IExtensionAttributeDefinition {
       readonly $type: "bpmn:ExtensionAttributeDefinition";
       name: string;
       type: string;
       isReference: boolean;
-      extensionDefinition: ExtensionDefinition;
+      extensionDefinition: IExtensionDefinition;
     }
 
-    export interface ExtensionElements {
+    export interface IExtensionElements {
       readonly $type: "bpmn:ExtensionElements";
       valueRef: Element;
       values: Base[];
-      extensionAttributeDefinition: ExtensionAttributeDefinition;
+      extensionAttributeDefinition: IExtensionAttributeDefinition;
     }
 
-    export interface Documentation extends BaseElement {
+    export interface IDocumentation extends IBaseElement {
       readonly $type: "bpmn:Documentation";
       text: string;
       textFormat: string;
     }
 
-    export interface Event extends FlowNode, InteractionNode {
-      properties?: Property[];
+    export interface IEvent extends IFlowNode, IInteractionNode {
+      properties?: IProperty[];
     }
 
-    export interface CatchEvent extends Event {
+    export interface ICatchEvent extends IEvent {
       parallelMultiple?: boolean;
-      dataOutputs?: DataOutput[];
-      dataOutputAssociations?: DataOutputAssociation[];
-      outputSet?: OutputSet;
-      eventDefinitions?: EventDefinition[];
-      eventDefinitionRef?: EventDefinition[];
+      dataOutputs?: IDataOutput[];
+      dataOutputAssociations?: IDataOutputAssociation[];
+      outputSet?: IOutputSet;
+      eventDefinitions?: IEventDefinition[];
+      eventDefinitionRef?: IEventDefinition[];
     }
 
-    export interface IntermediateCatchEvent extends CatchEvent {
+    export interface IIntermediateCatchEvent extends ICatchEvent {
       readonly $type: "bpmn:IntermediateCatchEvent";
     }
 
-    export interface ThrowEvent extends Event {
-      dataInputs?: DataInput[];
-      dataInputAssociations?: DataInputAssociation[];
-      inputSet?: InputSet;
-      eventDefinitions?: EventDefinition[];
-      eventDefinitionRef?: EventDefinition[];
+    export interface IThrowEvent extends IEvent {
+      dataInputs?: IDataInput[];
+      dataInputAssociations?: IDataInputAssociation[];
+      inputSet?: IInputSet;
+      eventDefinitions?: IEventDefinition[];
+      eventDefinitionRef?: IEventDefinition[];
     }
 
-    export interface IntermediateThrowEvent extends ThrowEvent {
+    export interface IIntermediateThrowEvent extends IThrowEvent {
       readonly $type: "bpmn:IntermediateThrowEvent";
     }
 
-    export interface EndEvent extends ThrowEvent {
+    export interface IEndEvent extends IThrowEvent {
       readonly $type: "bpmn:EndEvent";
     }
 
-    export interface StartEvent extends CatchEvent {
+    export interface IStartEvent extends ICatchEvent {
       readonly $type: "bpmn:StartEvent";
       isInterrupting: true;
     }
 
-    export interface BoundaryEvent extends CatchEvent {
+    export interface IBoundaryEvent extends ICatchEvent {
       readonly $type: "bpmn:BoundaryEvent";
       cancelActivity: boolean;
-      attachedToRef: Activity;
+      attachedToRef: IActivity;
     }
 
-    export interface EventDefinition extends RootElement {
+    export interface IEventDefinition extends IRootElement {
     }
 
-    export interface CancelEventDefinition extends EventDefinition {
+    export interface ICancelEventDefinition extends IEventDefinition {
       readonly $type: "bpmn:CancelEventDefinition";
     }
 
-    export interface ErrorEventDefinition extends EventDefinition {
+    export interface IErrorEventDefinition extends IEventDefinition {
       readonly $type: "bpmn:ErrorEventDefinition";
-      errorRef: Error;
+      errorRef: IError;
     }
 
-    export interface TerminateEventDefinition extends EventDefinition {
+    export interface ITerminateEventDefinition extends IEventDefinition {
       readonly $type: "bpmn:TerminateEventDefinition";
     }
 
-    export interface EscalationEventDefinition extends EventDefinition {
+    export interface IEscalationEventDefinition extends IEventDefinition {
       readonly $type: "bpmn:EscalationEventDefinition";
-      escalationRef: Escalation;
+      escalationRef: IEscalation;
     }
 
-    export interface Escalation extends RootElement {
+    export interface IEscalation extends IRootElement {
       readonly $type: "bpmn:Escalation";
-      structureRef: ItemDefinition;
+      structureRef: IItemDefinition;
       name: string;
       escalationCode: string;
     }
 
-    export interface CompensateEventDefinition extends EventDefinition {
+    export interface ICompensateEventDefinition extends IEventDefinition {
       readonly $type: "bpmn:CompensateEventDefinition";
       waitForCompletion: boolean;
-      activityRef: Activity;
+      activityRef: IActivity;
     }
 
-    export interface TimerEventDefinition extends EventDefinition {
+    export interface ITimerEventDefinition extends IEventDefinition {
       readonly $type: "bpmn:TimerEventDefinition";
-      timeDate: Expression;
-      timeCycle: Expression;
-      timeDuration: Expression;
+      timeDate: IExpression;
+      timeCycle: IExpression;
+      timeDuration: IExpression;
     }
 
-    export interface LinkEventDefinition extends EventDefinition {
+    export interface ILinkEventDefinition extends IEventDefinition {
       readonly $type: "bpmn:LinkEventDefinition";
       name: string;
-      target: LinkEventDefinition;
-      source: LinkEventDefinition[];
+      target: ILinkEventDefinition;
+      source: ILinkEventDefinition[];
     }
 
-    export interface MessageEventDefinition extends EventDefinition {
+    export interface IMessageEventDefinition extends IEventDefinition {
       readonly $type: "bpmn:MessageEventDefinition";
-      messageRef: Message;
-      operationRef: Operation;
+      messageRef: IMessage;
+      operationRef: IOperation;
     }
 
-    export interface ConditionalEventDefinition extends EventDefinition {
+    export interface IConditionalEventDefinition extends IEventDefinition {
       readonly $type: "bpmn:ConditionalEventDefinition";
-      condition: Expression;
+      condition: IExpression;
     }
 
-    export interface SignalEventDefinition extends EventDefinition {
+    export interface ISignalEventDefinition extends IEventDefinition {
       readonly $type: "bpmn:SignalEventDefinition";
-      signalRef: Signal;
+      signalRef: ISignal;
     }
 
-    export interface Signal extends RootElement {
+    export interface ISignal extends IRootElement {
       readonly $type: "bpmn:Signal";
-      structureRef: ItemDefinition;
+      structureRef: IItemDefinition;
       name: string;
     }
 
-    export interface ImplicitThrowEvent extends ThrowEvent {
+    export interface IImplicitThrowEvent extends IThrowEvent {
       readonly $type: "bpmn:ImplicitThrowEvent";
     }
 
-    export interface DataState extends BaseElement {
+    export interface IDataState extends IBaseElement {
       readonly $type: "bpmn:DataState";
       name: string;
     }
 
-    export interface ItemAwareElement extends BaseElement {
+    export interface IItemAwareElement extends IBaseElement {
       readonly $type: "bpmn:ItemAwareElement"
       | "bpmn:DataInput"
       | "bpmn:DataOutput"
@@ -414,491 +414,491 @@ declare module "modeler/bpmn/bpmn" {
       | "bpmn:DataStore"
       | "bpmn:DataStoreReference"
       | "bpmn:DataObjectReference";
-      itemSubjectRef: ItemDefinition;
-      dataState: DataState;
+      itemSubjectRef: IItemDefinition;
+      dataState: IDataState;
     }
 
-    export interface DataAssociation extends BaseElement {
+    export interface IDataAssociation extends IBaseElement {
       readonly $type: "bpmn:DataAssociation"
       | "bpmn:DataInputAssociation"
       | "bpmn:DataOutputAssociation";
-      assignment: Assignment[];
-      sourceRef: ItemAwareElement[];
-      targetRef: ItemAwareElement;
-      transformation: FormalExpression;
+      assignment: IAssignment[];
+      sourceRef: IItemAwareElement[];
+      targetRef: IItemAwareElement;
+      transformation: IFormalExpression;
     }
 
-    export interface DataInput extends ItemAwareElement {
+    export interface IDataInput extends IItemAwareElement {
       readonly $type: "bpmn:DataInput";
       name: string;
       isCollection: boolean;
     }
 
-    export interface DataOutput extends ItemAwareElement {
+    export interface IDataOutput extends IItemAwareElement {
       readonly $type: "bpmn:DataOutput";
       name: string;
       isCollection: boolean;
     }
 
-    export interface InputSet extends BaseElement {
+    export interface IInputSet extends IBaseElement {
       readonly $type: "bpmn:InputSet";
       name: string;
-      dataInputRefs: DataInput[];
-      optionalInputRefs: DataInput[];
-      whileExecutingInputRefs: DataInput[];
-      outputSetRefs: OutputSet[];
+      dataInputRefs: IDataInput[];
+      optionalInputRefs: IDataInput[];
+      whileExecutingInputRefs: IDataInput[];
+      outputSetRefs: IOutputSet[];
     }
 
-    export interface OutputSet extends BaseElement {
+    export interface IOutputSet extends IBaseElement {
       readonly $type: "bpmn:OutputSet";
-      dataOutputRefs: DataOutput[];
+      dataOutputRefs: IDataOutput[];
       name: string;
-      inputSetRefs: InputSet[];
-      optionalOutputRefs: DataOutput[];
-      whileExecutingOutputRefs: DataOutput[];
+      inputSetRefs: IInputSet[];
+      optionalOutputRefs: IDataOutput[];
+      whileExecutingOutputRefs: IDataOutput[];
     }
 
-    export interface Property extends ItemAwareElement {
+    export interface IProperty extends IItemAwareElement {
       readonly $type: "bpmn:Property";
       name: string;
     }
 
-    export interface DataInputAssociation extends DataAssociation {
+    export interface IDataInputAssociation extends IDataAssociation {
       readonly $type: "bpmn:DataInputAssociation";
     }
 
-    export interface DataOutputAssociation extends DataAssociation {
+    export interface IDataOutputAssociation extends IDataAssociation {
       readonly $type: "bpmn:DataOutputAssociation";
     }
 
-    export interface InputOutputSpecification extends BaseElement {
+    export interface IInputOutputSpecification extends IBaseElement {
       readonly $type: "bpmn:InputOutputSpecification";
-      dataInputs: DataInput[];
-      dataOutputs: DataOutput[];
-      inputSets: InputSet[];
-      outputSets: OutputSet[];
+      dataInputs: IDataInput[];
+      dataOutputs: IDataOutput[];
+      inputSets: IInputSet[];
+      outputSets: IOutputSet[];
     }
 
-    export interface DataObject extends FlowElement, ItemAwareElement {
+    export interface IDataObject extends IFlowElement, IItemAwareElement {
       readonly $type: "bpmn:DataObject";
       isCollection: boolean;
     }
 
-    export interface InputOutputBinding {
+    export interface IInputOutputBinding {
       readonly $type: "bpmn:InputOutputBinding";
-      inputDataRef: InputSet;
-      outputDataRef: OutputSet;
-      operationRef: Operation;
+      inputDataRef: IInputSet;
+      outputDataRef: IOutputSet;
+      operationRef: IOperation;
     }
 
-    export interface Assignment extends BaseElement {
+    export interface IAssignment extends IBaseElement {
       readonly $type: "bpmn:Assignment";
-      from: Expression;
-      to: Expression;
+      from: IExpression;
+      to: IExpression;
     }
 
-    export interface DataStore extends RootElement, ItemAwareElement {
+    export interface IDataStore extends IRootElement, IItemAwareElement {
       readonly $type: "bpmn:DataStore";
       name: string;
       capacity: number;
       isUnlimited: boolean;
     }
 
-    export interface DataStoreReference extends ItemAwareElement, FlowElement {
+    export interface IDataStoreReference extends IItemAwareElement, IFlowElement {
       readonly $type: "bpmn:DataStoreReference";
-      dataStoreRef: DataStore;
+      dataStoreRef: IDataStore;
     }
 
-    export interface DataObjectReference extends ItemAwareElement, FlowElement {
+    export interface IDataObjectReference extends IItemAwareElement, IFlowElement {
       readonly $type: "bpmn:DataObjectReference";
-      dataObjectRef: DataObject;
+      dataObjectRef: IDataObject;
     }
 
-    export interface ConversationLink extends BaseElement {
+    export interface IConversationLink extends IBaseElement {
       readonly $type: "bpmn:ConversationLink";
-      sourceRef: InteractionNode;
-      targetRef: InteractionNode;
+      sourceRef: IInteractionNode;
+      targetRef: IInteractionNode;
       name: string;
     }
 
-    export interface ConversationAssociation extends BaseElement {
+    export interface IConversationAssociation extends IBaseElement {
       readonly $type: "bpmn:ConversationAssociation";
-      innerConversationNodeRef: ConversationNode;
-      outerConversationNodeRef: ConversationNode;
+      innerConversationNodeRef: IConversationNode;
+      outerConversationNodeRef: IConversationNode;
     }
 
-    export interface ConversationNode extends InteractionNode, BaseElement {
+    export interface IConversationNode extends IInteractionNode, IBaseElement {
       name: string;
-      participantRefs: Participant[];
-      messageFlowRefs: MessageFlow[];
-      correlationKeys: CorrelationKey[];
+      participantRefs: IParticipant[];
+      messageFlowRefs: IMessageFlow[];
+      correlationKeys: ICorrelationKey[];
     }
 
-    export interface CallConversation extends ConversationNode {
+    export interface ICallConversation extends IConversationNode {
       readonly $type: "bpmn:CallConversation";
-      calledCollaborationRef: Collaboration;
-      participantAssociations: ParticipantAssociation[];
+      calledCollaborationRef: ICollaboration;
+      participantAssociations: IParticipantAssociation[];
     }
 
-    export interface Conversation extends ConversationNode {
+    export interface IConversation extends IConversationNode {
       readonly $type: "bpmn:Conversation";
     }
 
-    export interface SubConversation extends ConversationNode {
+    export interface ISubConversation extends IConversationNode {
       readonly $type: "bpmn:SubConversation";
-      conversationNodes: ConversationNode[];
+      conversationNodes: IConversationNode[];
     }
 
-    export interface Collaboration extends RootElement {
+    export interface ICollaboration extends IRootElement {
       readonly $type: "bpmn:Collaboration"
       | "bpmn:GlobalConversation"
       | "bpmn:Choreography"
       | "bpmn:GlobalChoreographyTask";
       name?: string;
       isClosed?: boolean;
-      participants: Participant[];
-      messageFlows?: MessageFlow[];
-      artifacts?: Artifact[];
-      conversations?: ConversationNode[];
-      conversationAssociations?: ConversationAssociation;
-      participantAssociations?: ParticipantAssociation[];
-      messageFlowAssociations?: MessageFlowAssociation[];
-      correlationKeys?: CorrelationKey[];
-      choreographyRef?: Choreography[];
-      conversationLinks?: ConversationLink[];
+      participants: IParticipant[];
+      messageFlows?: IMessageFlow[];
+      artifacts?: IArtifact[];
+      conversations?: IConversationNode[];
+      conversationAssociations?: IConversationAssociation;
+      participantAssociations?: IParticipantAssociation[];
+      messageFlowAssociations?: IMessageFlowAssociation[];
+      correlationKeys?: ICorrelationKey[];
+      choreographyRef?: IChoreography[];
+      conversationLinks?: IConversationLink[];
     }
 
-    export interface GlobalConversation extends Collaboration {
+    export interface IGlobalConversation extends ICollaboration {
       readonly $type: "bpmn:GlobalConversation";
     }
 
-    export interface PartnerEntity extends RootElement {
+    export interface IPartnerEntity extends IRootElement {
       readonly $type: "bpmn:PartnerEntity";
       name: string;
-      participantRef: Participant[];
+      participantRef: IParticipant[];
     }
 
-    export interface PartnerRole extends RootElement {
+    export interface IPartnerRole extends IRootElement {
       readonly $type: "bpmn:PartnerRole";
       name: string;
-      participantRef: Participant[];
+      participantRef: IParticipant[];
     }
 
-    export interface CorrelationProperty extends RootElement {
+    export interface ICorrelationProperty extends IRootElement {
       readonly $type: "bpmn:CorrelationProperty";
-      correlationPropertyRetrievalExpression: CorrelationPropertyRetrievalExpression[];
+      correlationPropertyRetrievalExpression: ICorrelationPropertyRetrievalExpression[];
       name: string;
-      type: ItemDefinition;
+      type: IItemDefinition;
     }
 
-    export interface Error extends RootElement {
+    export interface IError extends IRootElement {
       readonly $type: "bpmn:Error";
-      structureRef: ItemDefinition;
+      structureRef: IItemDefinition;
       name: string;
       errorCode: string;
     }
 
-    export interface CorrelationKey extends BaseElement {
+    export interface ICorrelationKey extends IBaseElement {
       readonly $type: "bpmn:CorrelationKey";
-      correlationPropertyRef: CorrelationProperty[];
+      correlationPropertyRef: ICorrelationProperty[];
       name: string;
     }
 
-    export interface Expression extends BaseElement {
+    export interface IExpression extends IBaseElement {
       readonly $type: "bpmn:Expression"
       | "bpmn:FormalExpression";
       body: string;
     }
 
-    export interface FormalExpression extends Expression {
+    export interface IFormalExpression extends IExpression {
       readonly $type: "bpmn:FormalExpression";
       language: string;
-      evaluatesToTypeRef: ItemDefinition;
+      evaluatesToTypeRef: IItemDefinition;
     }
 
-    export interface Message extends RootElement {
+    export interface IMessage extends IRootElement {
       readonly $type: "bpmn:Message";
       name: string;
-      itemRef: ItemDefinition;
+      itemRef: IItemDefinition;
     }
 
-    export interface ItemDefinition extends RootElement {
+    export interface IItemDefinition extends IRootElement {
       readonly $type: "bpmn:ItemDefinition";
       itemKind: ItemKind;
       structureRef: string;
       isCollection: boolean;
-      import: Import;
+      import: IImport;
     }
 
-    export interface SequenceFlow extends FlowElement {
+    export interface ISequenceFlow extends IFlowElement {
       readonly $type: "bpmn:SequenceFlow";
       isImmediate: boolean;
-      conditionExpression: Expression;
-      sourceRef: FlowNode;
-      targetRef: FlowNode;
+      conditionExpression: IExpression;
+      sourceRef: IFlowNode;
+      targetRef: IFlowNode;
     }
 
-    export interface CorrelationPropertyRetrievalExpression extends BaseElement {
+    export interface ICorrelationPropertyRetrievalExpression extends IBaseElement {
       readonly $type: "bpmn:CorrelationPropertyRetrievalExpression";
-      messagePath: FormalExpression;
-      messageRef: Message;
+      messagePath: IFormalExpression;
+      messageRef: IMessage;
     }
 
-    export interface CorrelationPropertyBinding extends BaseElement {
+    export interface ICorrelationPropertyBinding extends IBaseElement {
       readonly $type: "bpmn:CorrelationPropertyBinding";
-      dataPath: FormalExpression;
-      correlationPropertyRef: CorrelationProperty;
+      dataPath: IFormalExpression;
+      correlationPropertyRef: ICorrelationProperty;
     }
 
-    export interface Resource extends RootElement {
+    export interface IResource extends IRootElement {
       readonly $type: "bpmn:Resource";
       name: string;
-      resourceParameters: ResourceParameter[];
+      resourceParameters: IResourceParameter[];
     }
 
-    export interface ResourceParameter extends BaseElement {
+    export interface IResourceParameter extends IBaseElement {
       readonly $type: "bpmn:ResourceParameter";
       name: string;
       isRequired: boolean;
-      type: ItemDefinition;
+      type: IItemDefinition;
     }
 
-    export interface CorrelationSubscription extends BaseElement {
+    export interface ICorrelationSubscription extends IBaseElement {
       readonly $type: "bpmn:CorrelationSubscription";
-      correlationKeyRef: CorrelationKey;
-      correlationPropertyBinding: CorrelationPropertyBinding[];
+      correlationKeyRef: ICorrelationKey;
+      correlationPropertyBinding: ICorrelationPropertyBinding[];
     }
 
-    export interface MessageFlow extends BaseElement {
+    export interface IMessageFlow extends IBaseElement {
       readonly $type: "bpmn:MessageFlow";
       name: string;
-      sourceRef: InteractionNode;
-      targetRef: InteractionNode;
-      messageRef: Message;
+      sourceRef: IInteractionNode;
+      targetRef: IInteractionNode;
+      messageRef: IMessage;
     }
 
-    export interface MessageFlowAssociation extends BaseElement {
+    export interface IMessageFlowAssociation extends IBaseElement {
       readonly $type: "bpmn:MessageFlowAssociation";
-      innerMessageFlowRef: MessageFlow;
-      outerMessageFlowRef: MessageFlow;
+      innerMessageFlowRef: IMessageFlow;
+      outerMessageFlowRef: IMessageFlow;
     }
 
-    export interface Participant extends InteractionNode, BaseElement {
+    export interface IParticipant extends IInteractionNode, IBaseElement {
       readonly $type: "bpmn:Participant";
       name?: string;
-      interfaceRef?: Interface[];
-      participantMultiplicity?: ParticipantMultiplicity;
-      endPointRefs?: EndPoint[];
-      processRef?: Process;
+      interfaceRef?: IInterface[];
+      participantMultiplicity?: IParticipantMultiplicity;
+      endPointRefs?: IEndPoint[];
+      processRef?: IProcess;
     }
 
-    export interface ParticipantAssociation extends BaseElement {
+    export interface IParticipantAssociation extends IBaseElement {
       readonly $type: "bpmn:ParticipantAssociation";
-      innerParticipantRef: Participant;
-      outerParticipantRef: Participant;
+      innerParticipantRef: IParticipant;
+      outerParticipantRef: IParticipant;
     }
 
-    export interface ParticipantMultiplicity {
+    export interface IParticipantMultiplicity {
       readonly $type: "bpmn:ParticipantMultiplicity";
       minimum: number;
       maximum: number;
     }
 
-    export interface ChoreographyActivity extends FlowNode {
-      participantRefs: Participant[];
-      initiatingParticipantRef: Participant;
-      correlationKeys: CorrelationKey[];
+    export interface IChoreographyActivity extends IFlowNode {
+      participantRefs: IParticipant[];
+      initiatingParticipantRef: IParticipant;
+      correlationKeys: ICorrelationKey[];
       loopType: ChoreographyLoopType;
     }
 
-    export interface CallChoreography extends ChoreographyActivity {
+    export interface ICallChoreography extends IChoreographyActivity {
       readonly $type: "bpmn:CallChoreography";
-      calledChoreographyRef: Choreography;
-      participantAssociations: ParticipantAssociation[];
+      calledChoreographyRef: IChoreography;
+      participantAssociations: IParticipantAssociation[];
     }
 
-    export interface SubChoreography extends ChoreographyActivity, FlowElementsContainer {
+    export interface ISubChoreography extends IChoreographyActivity, IFlowElementsContainer {
       readonly $type: "bpmn:SubChoreography";
-      artifacts: Artifact[];
+      artifacts: IArtifact[];
     }
 
-    export interface ChoreographyTask extends ChoreographyActivity {
+    export interface IChoreographyTask extends IChoreographyActivity {
       readonly $type: "bpmn:ChoreographyTask";
-      messageFlowRef: MessageFlow[];
+      messageFlowRef: IMessageFlow[];
     }
 
-    export interface Choreography extends FlowElementsContainer, Collaboration {
+    export interface IChoreography extends IFlowElementsContainer, ICollaboration {
       readonly $type: "bpmn:Choreography"
       | "bpmn:GlobalChoreographyTask";
     }
 
-    export interface GlobalChoreographyTask extends Choreography {
+    export interface IGlobalChoreographyTask extends IChoreography {
       readonly $type: "bpmn:GlobalChoreographyTask";
-      initiatingParticipantRef: Participant;
+      initiatingParticipantRef: IParticipant;
     }
 
-    export interface Artifact extends BaseElement {
+    export interface IArtifact extends IBaseElement {
     }
 
-    export interface TextAnnotation extends Artifact {
+    export interface ITextAnnotation extends IArtifact {
       readonly $type: "bpmn:TextAnnotation";
       text: string;
       textFormat: string;
     }
 
-    export interface Group extends Artifact {
+    export interface IGroup extends IArtifact {
       readonly $type: "bpmn:Group";
-      categoryValueRef: CategoryValue;
+      categoryValueRef: ICategoryValue;
     }
 
-    export interface Association extends Artifact {
+    export interface IAssociation extends IArtifact {
       readonly $type: "bpmn:Association";
       associationDirection: AssociationDirection;
-      sourceRef: BaseElement;
-      targetRef: BaseElement;
+      sourceRef: IBaseElement;
+      targetRef: IBaseElement;
     }
 
-    export interface Category extends RootElement {
+    export interface ICategory extends IRootElement {
       readonly $type: "bpmn:Category";
-      categoryValue: CategoryValue[];
+      categoryValue: ICategoryValue[];
       name: string;
     }
 
-    export interface CategoryValue extends BaseElement {
+    export interface ICategoryValue extends IBaseElement {
       readonly $type: "bpmn:CategoryValue";
       value: string;
     }
 
-    export interface ServiceTask extends Task {
+    export interface IServiceTask extends ITask {
       readonly $type: "bpmn:ServiceTask";
       implementation: string;
-      operationRef: Operation;
+      operationRef: IOperation;
     }
 
-    export interface SubProcess extends Activity, FlowElementsContainer, InteractionNode {
+    export interface ISubProcess extends IActivity, IFlowElementsContainer, IInteractionNode {
       readonly $type: "bpmn:SubProcess"
       | "bpmn:AdHocSubProcess"
       | "bpmn:Transaction";
       triggeredByEvent: boolean;
-      artifacts: Artifact[];
+      artifacts: IArtifact[];
     }
 
-    export interface LoopCharacteristics extends BaseElement {
+    export interface ILoopCharacteristics extends IBaseElement {
     }
 
-    export interface MultiInstanceLoopCharacteristics extends LoopCharacteristics {
+    export interface IMultiInstanceLoopCharacteristics extends ILoopCharacteristics {
       readonly $type: "bpmn:MultiInstanceLoopCharacteristics";
       isSequential: boolean;
       behavior: MultiInstanceBehavior;
-      loopCardinality: Expression;
-      loopDataInputRef: ItemAwareElement;
-      loopDataOutputRef: ItemAwareElement;
-      inputDataItem: DataInput;
-      outputDataItem: DataOutput;
-      complexBehaviorDefinition: ComplexBehaviorDefinition[];
-      completionCondition: Expression;
-      oneBehaviorEventRef: EventDefinition;
-      noneBehaviorEventRef: EventDefinition;
+      loopCardinality: IExpression;
+      loopDataInputRef: IItemAwareElement;
+      loopDataOutputRef: IItemAwareElement;
+      inputDataItem: IDataInput;
+      outputDataItem: IDataOutput;
+      complexBehaviorDefinition: IComplexBehaviorDefinition[];
+      completionCondition: IExpression;
+      oneBehaviorEventRef: IEventDefinition;
+      noneBehaviorEventRef: IEventDefinition;
     }
 
-    export interface StandardLoopCharacteristics extends LoopCharacteristics {
+    export interface IStandardLoopCharacteristics extends ILoopCharacteristics {
       readonly $type: "bpmn:StandardLoopCharacteristics";
       testBefore: boolean;
-      loopCondition: Expression;
-      loopMaximum: Expression;
+      loopCondition: IExpression;
+      loopMaximum: IExpression;
     }
 
-    export interface CallActivity extends Activity {
+    export interface ICallActivity extends IActivity {
       readonly $type: "bpmn:CallActivity";
       calledElement: string;
     }
 
-    export interface SendTask extends Task {
+    export interface ISendTask extends ITask {
       readonly $type: "bpmn:SendTask";
       implementation: string;
-      operationRef: Operation;
-      messageRef: Message;
+      operationRef: IOperation;
+      messageRef: IMessage;
     }
 
-    export interface ReceiveTask extends Task {
+    export interface IReceiveTask extends ITask {
       readonly $type: "bpmn:ReceiveTask";
       implementation: string;
       instantiate: boolean;
-      operationRef: Operation;
-      messageRef: Message;
+      operationRef: IOperation;
+      messageRef: IMessage;
     }
 
-    export interface ScriptTask extends Task {
+    export interface IScriptTask extends ITask {
       readonly $type: "bpmn:ScriptTask";
       scriptFormat: string;
       script: string;
     }
 
-    export interface BusinessRuleTask extends Task {
+    export interface IBusinessRuleTask extends ITask {
       readonly $type: "bpmn:BusinessRuleTask";
       implementation: string;
     }
 
-    export interface AdHocSubProcess extends SubProcess {
+    export interface IAdHocSubProcess extends ISubProcess {
       readonly $type: "bpmn:AdHocSubProcess";
-      completionCondition: Expression;
+      completionCondition: IExpression;
       ordering: AdHocOrdering;
       cancelRemainingInstances: boolean;
     }
 
-    export interface Transaction extends SubProcess {
+    export interface ITransaction extends ISubProcess {
       readonly $type: "bpmn:Transaction";
       protocol: string;
       method: string;
     }
 
-    export interface GlobalScriptTask extends GlobalTask {
+    export interface IGlobalScriptTask extends IGlobalTask {
       readonly $type: "bpmn:GlobalScriptTask";
       scriptLanguage: string;
       script: string;
     }
 
-    export interface GlobalBusinessRuleTask extends GlobalTask {
+    export interface IGlobalBusinessRuleTask extends IGlobalTask {
       readonly $type: "bpmn:GlobalBusinessRuleTask";
       implementation: string;
     }
 
-    export interface ComplexBehaviorDefinition extends BaseElement {
+    export interface IComplexBehaviorDefinition extends IBaseElement {
       readonly $type: "bpmn:ComplexBehaviorDefinition";
-      condition: FormalExpression;
-      event: ImplicitThrowEvent;
+      condition: IFormalExpression;
+      event: IImplicitThrowEvent;
     }
 
-    export interface ResourceParameterBinding {
+    export interface IResourceParameterBinding {
       readonly $type: "bpmn:ResourceParameterBinding";
-      expression: Expression;
-      parameterRef: ResourceParameter;
+      expression: IExpression;
+      parameterRef: IResourceParameter;
     }
 
-    export interface ResourceAssignmentExpression extends BaseElement {
+    export interface IResourceAssignmentExpression extends IBaseElement {
       readonly $type: "bpmn:ResourceAssignmentExpression";
-      expression: Expression;
+      expression: IExpression;
     }
 
-    export interface Import {
+    export interface IImport {
       readonly $type: "bpmn:Import";
       importType: string;
       location: string;
       namespace: string;
     }
 
-    export interface Definitions extends BaseElement {
+    export interface IDefinitions extends IBaseElement {
       readonly $type: "bpmn:Definitions";
       name?: string;
       targetNamespace?: string;
       expressionLanguage: string;
       typeLanguage: string;
-      imports?: Import[];
-      extensions?: Extension[];
-      rootElements: RootElement[];
-      diagrams: Bpmndi.BPMNDiagram[];
+      imports?: IImport[];
+      extensions?: IExtension[];
+      rootElements: IRootElement[];
+      diagrams: Bpmndi.IBPMNDiagram[];
       exporter?: string;
-      relationships?: Relationship[];
+      relationships?: IRelationship[];
       exporterVersion?: string;
       "xmlns:bpmn": "http://www.omg.org/spec/BPMN/20100524/MODEL";
       "xmlns:bpmndi": "http://www.omg.org/spec/BPMN/20100524/DI";

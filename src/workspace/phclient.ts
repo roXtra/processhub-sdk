@@ -1,18 +1,18 @@
-import { WorkspaceDetails } from "./workspaceinterfaces";
+import { IWorkspaceDetails } from "./workspaceinterfaces";
 import { tl } from "../tl";
 
 // Internal objects used by ProcessHub client and server
 
 export class WorkspaceState {
-  currentWorkspace: WorkspaceDetails;
+  currentWorkspace: IWorkspaceDetails;
 
   // Workspace Cache
   workspaceCache: {
-    [workspaceId: string]: WorkspaceDetails;
+    [workspaceId: string]: IWorkspaceDetails;
   };
 
   cacheState?: string;  // Updated in reducers, helps React to detect state changes
-  lastDispatchedWorkspace: WorkspaceDetails; // Used in reducer to detect changes
+  lastDispatchedWorkspace: IWorkspaceDetails; // Used in reducer to detect changes
 }
 
 export function getDefaultMailSignature(): string {

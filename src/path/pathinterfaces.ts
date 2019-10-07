@@ -14,7 +14,7 @@ export type Page = keyof typeof Page;
 
 export type View = WorkspaceView | ProcessView;
 
-export interface PathDetails {
+export interface IPathDetails {
   page?: Page;
   view?: View;
 
@@ -26,7 +26,7 @@ export interface PathDetails {
   processUrlName?: string;
 }
 
-export interface NotificationLinkElements {
+export interface INotificationLinkElements {
   workspaceId?: string;
   instanceId?: string;
 }

@@ -3,44 +3,44 @@ import { Dispatch } from "redux";
 import * as StateHandler from "../statehandler";
 import * as Api from "../legacyapi";
 import { UserDetails, UserExtras } from "./userinterfaces";
-import { LoadUserReply, UpdateUserReply, UserRequestRoutes, UpdateUserRequest, UpdatePasswordReply, UpdatePasswordRequest, UserLoadedMessage, LoginReply, LoginRequest, LoadUserRequest, UploadProfilePictureRequest, CreateUserRequest, LoginDemoUserReply, LoginDemoUserRequest } from "./legacyapi";
+import { ILoadUserReply, IUpdateUserReply, UserRequestRoutes, IUpdateUserRequest, IUpdatePasswordReply, IUpdatePasswordRequest, IUserLoadedMessage, ILoginReply, ILoginRequest, ILoadUserRequest, IUploadProfilePictureRequest, ICreateUserRequest, ILoginDemoUserReply, ILoginDemoUserRequest } from "./legacyapi";
 import { UserMessages } from "./phclient";
 import { error } from "../tools/assert";
 import { createUserId } from "../tools/guid";
 
-export interface UserActionLoggedIn {
+export interface IUserActionLoggedIn {
   type: string; // USERACTION_LOGGEDIN
   userDetails: UserDetails;
 }
 
-export interface UserActionFailed {
+export interface IUserActionFailed {
   type: string; // USERACTION_FAILED
   result: Api.ApiResult;
 }
 
-export async function updateUser(userDetails: UserDetails): Promise<UpdateUserReply> {
+export async function updateUser(userDetails: UserDetails): Promise<IUpdateUserReply> {
   return await rootStore.dispatch(updateUserAction(userDetails));
 }
-export function updateUserAction(userDetails: UserDetails, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<UpdateUserReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<UpdateUserReply> => {
-    const response: UpdateUserReply = await Api.postJson(UserRequestRoutes.UpdateUser, {
+export function updateUserAction(userDetails: UserDetails, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<IUpdateUserReply> {
+  return async <S>(dispatch: Dispatch<S>): Promise<IUpdateUserReply> => {
+    const response: IUpdateUserReply = await Api.postJson(UserRequestRoutes.UpdateUser, {
       userDetails: userDetails,
-    } as UpdateUserRequest);
+    } as IUpdateUserRequest);
     dispatch(response);
     return response;
   };
 }
 
-export async function updatePassword(userId: string, oldPassword: string, newPassword: string): Promise<UpdatePasswordReply> {
+export async function updatePassword(userId: string, oldPassword: string, newPassword: string): Promise<IUpdatePasswordReply> {
   return await rootStore.dispatch(updatePasswordAction(userId, oldPassword, newPassword));
 }
-export function updatePasswordAction(userId: string, oldPassword: string, newPassword: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<UpdatePasswordReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<UpdatePasswordReply> => {
-    const response: UpdatePasswordReply = await Api.postJson(UserRequestRoutes.UpdatePassword, {
+export function updatePasswordAction(userId: string, oldPassword: string, newPassword: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<IUpdatePasswordReply> {
+  return async <S>(dispatch: Dispatch<S>): Promise<IUpdatePasswordReply> => {
+    const response: IUpdatePasswordReply = await Api.postJson(UserRequestRoutes.UpdatePassword, {
       userId: userId,
       oldPassword: oldPassword,
       newPassword: newPassword
-    } as UpdatePasswordRequest);
+    } as IUpdatePasswordRequest);
     dispatch(response);
     return response;
   };
@@ -48,46 +48,46 @@ export function updatePasswordAction(userId: string, oldPassword: string, newPas
 
 export function updateUserInState(user: UserDetails): void {
   if (user != null) {
-    const message: UserLoadedMessage = {
+    const message: IUserLoadedMessage = {
       type: UserMessages.UserLoadedMessage as UserMessages,
       user: user
     };
-    rootStore.dispatch<UserLoadedMessage>(message);
+    rootStore.dispatch<IUserLoadedMessage>(message);
   }
 }
 
 // Wrapper für einfachen Aufruf aus den Komponenten
-export async function loginUser(user: string, password: string): Promise<LoginReply> {
+export async function loginUser(user: string, password: string): Promise<ILoginReply> {
   return await rootStore.dispatch(loginUserAction(user, password));
 }
-export async function loginUserWithToken(user: string, accessToken: string): Promise<LoginReply> {
+export async function loginUserWithToken(user: string, accessToken: string): Promise<ILoginReply> {
   return await rootStore.dispatch(loginUserAction(user, null, accessToken));
 }
-export async function loginUserWithGoogleToken(userMail: string, userName: string, userProfilePictureLink: string, googleAccessToken: string): Promise<LoginReply> {
+export async function loginUserWithGoogleToken(userMail: string, userName: string, userProfilePictureLink: string, googleAccessToken: string): Promise<ILoginReply> {
   return await rootStore.dispatch(loginUserAction(userMail, null, googleAccessToken, true, userName, userProfilePictureLink));
 }
 
 // Diese eigentliche Action wird für Mock-Store Tests genutzt
-export function loginUserAction(mail: string, password: string, accessToken: string = null, isGoogleAccessToken = false, userNameFromGoogle: string = null, userProfilePictureLink: string = null): <S>(dispatch: Dispatch<S>) => Promise<LoginReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<LoginReply> => {
-    const response: LoginReply = await Api.postJson(UserRequestRoutes.Login, {
+export function loginUserAction(mail: string, password: string, accessToken: string = null, isGoogleAccessToken = false, userNameFromGoogle: string = null, userProfilePictureLink: string = null): <S>(dispatch: Dispatch<S>) => Promise<ILoginReply> {
+  return async <S>(dispatch: Dispatch<S>): Promise<ILoginReply> => {
+    const response: ILoginReply = await Api.postJson(UserRequestRoutes.Login, {
       mail: mail,
       password: password,
       accessToken: accessToken,
       isGoogleAccessToken: isGoogleAccessToken
-    } as LoginRequest);
+    } as ILoginRequest);
 
     dispatch(response);
     return response;
   };
 }
 
-export async function loginDemoUser(): Promise<LoginDemoUserReply> {
+export async function loginDemoUser(): Promise<ILoginDemoUserReply> {
   return await rootStore.dispatch(loginDemoUserAction());
 }
-export function loginDemoUserAction(): <S>(dispatch: Dispatch<S>) => Promise<LoginDemoUserReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<LoginDemoUserReply> => {
-    const response: LoginDemoUserReply = await Api.postJson(UserRequestRoutes.LoginDemoUser, {} as LoginDemoUserRequest);
+export function loginDemoUserAction(): <S>(dispatch: Dispatch<S>) => Promise<ILoginDemoUserReply> {
+  return async <S>(dispatch: Dispatch<S>): Promise<ILoginDemoUserReply> => {
+    const response: ILoginDemoUserReply = await Api.postJson(UserRequestRoutes.LoginDemoUser, {} as ILoginDemoUserRequest);
 
     dispatch(response);
     return response;
@@ -117,13 +117,13 @@ export async function loadUser(userId: string, getExtras: UserExtras = UserExtra
   return (await rootStore.dispatch(loadUserAction(userId, getExtras, accessToken))).userDetails;
 }
 
-export function loadUserAction(userId: string, getExtras: UserExtras, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<LoadUserReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<LoadUserReply> => {
-    const request: LoadUserRequest = {
+export function loadUserAction(userId: string, getExtras: UserExtras, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<ILoadUserReply> {
+  return async <S>(dispatch: Dispatch<S>): Promise<ILoadUserReply> => {
+    const request: ILoadUserRequest = {
       userId: userId,
       getExtras: getExtras
     };
-    const response: LoadUserReply = await Api.postJson(UserRequestRoutes.LoadUser, request);
+    const response: ILoadUserReply = await Api.postJson(UserRequestRoutes.LoadUser, request);
     if (response.userDetails != null) {
       updateUserInState(response.userDetails);
     }
@@ -131,14 +131,14 @@ export function loadUserAction(userId: string, getExtras: UserExtras, accessToke
   };
 }
 
-export async function uploadProfilePicture(dataBase64: string): Promise<LoadUserReply> {
+export async function uploadProfilePicture(dataBase64: string): Promise<ILoadUserReply> {
   return await rootStore.dispatch(uploadProfilePictureAction(dataBase64));
 }
-export function uploadProfilePictureAction(data: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<LoadUserReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<LoadUserReply> => {
-    const response: LoadUserReply = await Api.postJson(UserRequestRoutes.UploadProfilePicture, {
+export function uploadProfilePictureAction(data: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<ILoadUserReply> {
+  return async <S>(dispatch: Dispatch<S>): Promise<ILoadUserReply> => {
+    const response: ILoadUserReply = await Api.postJson(UserRequestRoutes.UploadProfilePicture, {
       data
-    } as UploadProfilePictureRequest);
+    } as IUploadProfilePictureRequest);
 
     if (response.userDetails != null) {
       updateUserInState(response.userDetails);
@@ -169,13 +169,13 @@ export function createUserAction(mail: string, realName: string, password: strin
       realName: realName,
       extras: {}
     };
-    const request: CreateUserRequest = {
+    const request: ICreateUserRequest = {
       userDetails: userDetails,
       password: password,
       company,
       phone,
     };
-    return Api.postJson(UserRequestRoutes.Register, request).then((response: LoginReply) => {
+    return Api.postJson(UserRequestRoutes.Register, request).then((response: ILoginReply) => {
       dispatch(response);
       // Nur Weiterleiten, wenn erfolgreich
       if (response.result === Api.ApiResult.API_OK) {
