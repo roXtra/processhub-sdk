@@ -55,7 +55,7 @@ export const gqlInstanceTypes = `
     roleOwners: RoleOwnerMap
   }
 
-  type InstanceDetails {
+  type IInstanceDetails {
     instanceId: String!
     workspaceId: String
     processId: String
@@ -75,7 +75,7 @@ export const gqlInstanceTypes = `
 `;
 
 export const gqlProcessFragments = gql`
-fragment InstanceDetailsFields on InstanceDetails {
+fragment InstanceDetailsFields on IInstanceDetails {
   instanceId
   workspaceId
   processId
