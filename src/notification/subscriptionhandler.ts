@@ -1,4 +1,4 @@
-const Nes = require("@hapi/nes");
+const Nes = require("nes");
 import * as StateHandler from "../statehandler";
 import { UserDetails } from "../user/userinterfaces";
 import { getBackendUrl } from "../config";
