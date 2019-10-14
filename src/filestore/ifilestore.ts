@@ -1,4 +1,4 @@
-import Hapi = require("hapi");
+import Hapi = require("@hapi/hapi");
 
 export const PREVIEW_FILENAME = "preview.svg";
 
