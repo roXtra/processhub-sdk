@@ -1077,15 +1077,15 @@
       "dev": true
     },
     "@types/boom": {
-      "version": "7.2.1",
-      "resolved": "https://registry.npmjs.org/@types/boom/-/boom-7.2.1.tgz",
-      "integrity": "sha512-kOiap+kSa4DPoookJXQGQyKy1rjZ55tgfKAh9F0m1NUdukkcwVzpSnXPMH42a5L+U++ugdQlh/xFJu/WAdr1aw==",
+      "version": "7.3.0",
+      "resolved": "https://registry.npmjs.org/@types/boom/-/boom-7.3.0.tgz",
+      "integrity": "sha512-PH7bfkt1nu4pnlxz+Ws+wwJJF1HE12W3ia+Iace2JT7q56DLH3hbyjOJyNHJYRxk3PkKaC36fHfHKyeG1rMgCA==",
       "dev": true
     },
     "@types/catbox": {
-      "version": "10.0.0",
-      "resolved": "https://registry.npmjs.org/@types/catbox/-/catbox-10.0.0.tgz",
-      "integrity": "sha512-FVnKcN80WTKLTaCfUqd+L4h8j/SQdA66MMe1mOrWqOpEMnM0aHbBw1qNbRO1Bfhc4i4YXkFv27QAsP5L4VAgXg==",
+      "version": "10.0.6",
+      "resolved": "https://registry.npmjs.org/@types/catbox/-/catbox-10.0.6.tgz",
+      "integrity": "sha512-qS0VHlL6eBUUoUeBnI/ASCffoniS62zdV6IUtLSIjGKmRhZNawotaOMsTYivZOTZVktfe9koAJkD9XFac7tEEg==",
       "dev": true
     },
     "@types/chai": {
@@ -1110,9 +1110,9 @@
       }
     },
     "@types/hapi": {
-      "version": "17.0.12",
-      "resolved": "https://registry.npmjs.org/@types/hapi/-/hapi-17.0.12.tgz",
-      "integrity": "sha512-OdCd3r7IVLM894EGA6jrrxJpbY7r3EG+jJBGveGshMxwxQE58mL7NdRcr4hmdCzsgUl3aVtZkSK4GpAf8C9kMw==",
+      "version": "18.0.2",
+      "resolved": "https://registry.npmjs.org/@types/hapi/-/hapi-18.0.2.tgz",
+      "integrity": "sha512-I3THPpOY0G0bXNLzyaqUzMIbqPrci21C1Vqlnek348SJq2Gp7TLSnQbwOb+v/xunxCTzY3o2fV3h7uffL3Ln0w==",
       "dev": true,
       "requires": {
         "@types/boom": "*",
