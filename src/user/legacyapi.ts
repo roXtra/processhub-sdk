@@ -1,5 +1,5 @@
 import { IBaseRequest, IBaseMessage } from "../legacyapi/apiinterfaces";
-import { UserDetails, UserExtras } from "./userinterfaces";
+import { UserDetails, UserExtras, IViewState } from "./userinterfaces";
 import { UserMessages } from "./phclient";
 
 export const UserRequestRoutes = {
@@ -17,8 +17,14 @@ export const UserRequestRoutes = {
   LoginDemoUser: "/api/user/logindemo",
   DeleteUser: "/api/user/deleteuser",
   SetArchiveViewState: "/api/user/setarchiveviewstate",
+  UpdateViewState: "/api/user/updateviewstate"
 };
 export type UserRequestRoutes = keyof typeof UserRequestRoutes;
+
+export interface IUpdateViewStateRequest extends IBaseRequest {
+  objectId: string;
+  viewState: IViewState;
+}
 
 export interface ICreateUserRequest extends IBaseRequest {
   userDetails: UserDetails;

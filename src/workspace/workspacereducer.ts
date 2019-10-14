@@ -5,8 +5,9 @@ import { WorkspaceState, WorkspaceMessages } from "./phclient";
 import { IWorkspaceLoadedMessage } from "./legacyapi";
 import { createId } from "../tools/guid";
 import { ResetStore } from "../statehandler/actions";
+import { AnyAction } from "redux";
 
-export function workspaceReducer(workspaceState: WorkspaceState, action: any): WorkspaceState {
+export function workspaceReducer(workspaceState: WorkspaceState, action: AnyAction): WorkspaceState {
 
   if (workspaceState == null || action && action.type === ResetStore) {
     // Init state

@@ -2,7 +2,6 @@ import { ProcessAccessRights, IProcessRoles } from "./processrights";
 import { IInstanceDetails } from "../instance";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { strEnum } from "../tools/types";
-import gql from "graphql-tag";
 import { IFieldDefinition, ITaskIdRequiredFieldsNeeded, IServiceActionConfigField } from "../data";
 import { UserDetails } from "../user/userinterfaces";
 import { IRowDetails } from ".";
@@ -129,16 +128,6 @@ export const gqlProcessTypes = `
   scalar PotentialRoleOwners
   scalar DecisionTask
   scalar ProcessRoles
-`;
-
-export const gqlProcessFragments = gql`
-  fragment ProcessDetailsFields on IProcessDetails {
-    processId
-    urlName
-    fullUrl
-    displayName
-    description
-  }
 `;
 
 export interface IProcessSettings {

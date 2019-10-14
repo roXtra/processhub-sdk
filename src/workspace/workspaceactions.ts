@@ -69,7 +69,7 @@ export async function removeWorkspaceMember(workspaceId: string, userId: string,
   await StateHandler.rootStore.dispatch(removeWorkspaceMemberAction(workspaceId, userId, accessToken));
 }
 export function removeWorkspaceMemberAction(workspaceId: string, userId: string, accessToken: string = null) {
-  return function (dispatch: any): Promise<void> {
+  return function (dispatch: Dispatch<{}>): Promise<void> {
     const request: IRemoveWorkspaceMemberRequest = {
       workspaceId,
       userId
@@ -148,7 +148,7 @@ export async function setMemberRole(workspaceId: string, userId: string, memberR
   await StateHandler.rootStore.dispatch(setMemberRoleAction(workspaceId, userId, memberRole, accessToken));
 }
 export function setMemberRoleAction(workspaceId: string, userId: string, memberRole: WorkspaceRole, accessToken: string = null) {
-  return function (dispatch: any): Promise<void> {
+  return function (dispatch: Dispatch<{}>): Promise<void> {
     const request: ISetMemberRoleRequest = {
       workspaceId,
       userId,

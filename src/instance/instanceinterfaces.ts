@@ -1,4 +1,3 @@
-import gql from "graphql-tag";
 import { IRoleOwnerMap } from "../process";
 import { IDecisionTask, ITodoDetails } from "../todo";
 import { IFieldContentMap } from "../data";
@@ -73,21 +72,6 @@ export const gqlInstanceTypes = `
   scalar RoleOwnerMap
   scalar FieldContents
 `;
-
-export const gqlProcessFragments = gql`
-fragment InstanceDetailsFields on IInstanceDetails {
-  instanceId
-  workspaceId
-  processId
-  displayName
-  urlName
-  fullUrl
-  createdAt
-  isSimulation  
-  sendSimulationMails
-  state
-  latestCommentAt
-}`;
 
 export enum InstanceExtras {
   None = 0,

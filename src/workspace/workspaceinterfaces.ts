@@ -1,6 +1,5 @@
-import { IProcessDetails, gqlProcessFragments } from "../process/processinterfaces";
+import { IProcessDetails } from "../process/processinterfaces";
 import { UserDetails } from "../user/userinterfaces";
-import gql from "graphql-tag";
 import { tl } from "../tl";
 import { IAuditTrailEntry } from "../audittrail";
 import { IGroupDetails } from "../group/groupinterfaces";
@@ -73,32 +72,6 @@ export const gqlWorkspaceTypes = `
   }
 
   scalar WorkspaceMember
-`;
-
-export const gqlWorkspaceFragments = gql`
-  fragment WorkspaceDetailsFields on IWorkspaceDetails {
-    workspaceId
-    workspaceType
-    urlName
-    fullUrl
-    displayName
-    description
-    userRole
-  }
-`;
-export const gqlQueryWorkspace = gql`
-  query queryWorkspace($workspaceId: ID, $urlName: String) {
-    workspace(workspaceId: $workspaceId, urlName: $urlName) {
-      ...WorkspaceDetailsFields
-      extras {
-        processes {
-          ...ProcessDetailsFields
-        }
-      }
-    }
-  }
-  ${gqlWorkspaceFragments}  
-  ${gqlProcessFragments}
 `;
 
 export enum WorkspaceExtras {
