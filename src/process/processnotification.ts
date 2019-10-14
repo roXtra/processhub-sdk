@@ -1,5 +1,8 @@
 import * as PH from "../";
 import _ = require("lodash");
+import { updateUserInState } from "../user/useractions";
+import { IUpdateViewStateRequest, UserRequestRoutes } from "../user";
+import { postJson } from "../legacyapi";
 
 // Helper functions to detect if notification symbols should be displayed in dashboard
 
@@ -37,10 +40,15 @@ export function processHasBeenViewed(processEnv: PH.IProcessEnvironment, actionH
 
   processEnv.user.extras.viewStates[processEnv.process.processId].lastViewedAt = newDate;
 
-  // ActionHandler causes rerender - only call if viewState was changed
+  // Causes rerender - only call if viewState was changed
   if (!_.isEqual(oldViewState, processEnv.user.extras.viewStates[processEnv.process.processId])) {
-    // TODO
-    // ActionHandler.updateViewState(processEnv.process.processId, processEnv.user.extras.viewStates[processEnv.process.processId]);
+    updateUserInState(processEnv.user);
+    const request: IUpdateViewStateRequest = {
+      objectId: processEnv.process.processId,
+      viewState: processEnv.user.extras.viewStates[processEnv.process.processId],
+    };
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    postJson(UserRequestRoutes.UpdateViewState, request);
   }
 }
 
