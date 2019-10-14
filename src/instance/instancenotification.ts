@@ -45,7 +45,8 @@ export function instanceHasBeenViewed(instanceEnv: PH.IInstanceEnvironment, acti
 
   // ActionHandler causes rerender - only call if viewState was changed
   if (!_.isEqual(oldViewState, instanceEnv.user.extras.viewStates[instanceEnv.instance.instanceId])) {
-    actionHandler.updateViewState(instanceEnv.instance.instanceId, instanceEnv.user.extras.viewStates[instanceEnv.instance.instanceId]);
+    // TODO
+    // ActionHandler.updateViewState(instanceEnv.instance.instanceId, instanceEnv.user.extras.viewStates[instanceEnv.instance.instanceId]);
   }
 }
 

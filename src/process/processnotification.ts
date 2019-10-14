@@ -39,7 +39,8 @@ export function processHasBeenViewed(processEnv: PH.IProcessEnvironment, actionH
 
   // ActionHandler causes rerender - only call if viewState was changed
   if (!_.isEqual(oldViewState, processEnv.user.extras.viewStates[processEnv.process.processId])) {
-    actionHandler.updateViewState(processEnv.process.processId, processEnv.user.extras.viewStates[processEnv.process.processId]);
+    // TODO
+    // ActionHandler.updateViewState(processEnv.process.processId, processEnv.user.extras.viewStates[processEnv.process.processId]);
   }
 }
 

@@ -9,8 +9,9 @@ import { createId } from "../tools/guid";
 import { UserActionsType } from "./userinterfaces";
 import { isTrue } from "../tools/assert";
 import { ResetStore } from "../statehandler/actions";
+import { AnyAction } from "redux";
 
-export function userReducer(userState: UserState, action: any): UserState {
+export function userReducer(userState: UserState, action: AnyAction): UserState {
 
   if (userState == null || action && action.type === ResetStore) {
     // Init state
@@ -36,7 +37,7 @@ export function userReducer(userState: UserState, action: any): UserState {
         return userState;
     }
     case UserActionsType.LoggedIn: {
-      const loggedAction: IUserActionLoggedIn = action;
+      const loggedAction: IUserActionLoggedIn = action as IUserActionLoggedIn;
       isTrue(loggedAction.userDetails != null, "loggedAction.userDetails is null");
       return update(userState, {
         currentUser: { $set: loggedAction.userDetails },
@@ -44,7 +45,7 @@ export function userReducer(userState: UserState, action: any): UserState {
       });
     }
     case UserActionsType.Failed: {
-      const failedAction: IUserActionFailed = action;
+      const failedAction: IUserActionFailed = action as IUserActionFailed;
       isTrue(failedAction.result != null, "failedAction.result is null");
       return update(userState, {
         lastApiResult: { $set: failedAction.result }

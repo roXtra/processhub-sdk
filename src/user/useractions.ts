@@ -151,8 +151,8 @@ export async function logoutUser(accessToken?: string): Promise<void> {
   await rootStore.dispatch(logoutUserAction(accessToken));
 }
 // Diese eigentliche Action wird für Mock-Store Tests genutzt
-export function logoutUserAction(accessToken?: string): (dispatch: any) => Promise<void> {
-  return function (dispatch: any): Promise<void> {
+export function logoutUserAction(accessToken?: string): (dispatch: Dispatch<{}>) => Promise<void> {
+  return function (dispatch: Dispatch<{}>): Promise<void> {
     return Api.postJson(UserRequestRoutes.Logout, null, accessToken).then(() => {
     }).catch(reason => error(reason));
   };
@@ -161,8 +161,8 @@ export function logoutUserAction(accessToken?: string): (dispatch: any) => Promi
 export async function createUser(mail: string, realName: string, password: string, company: string, phone: string): Promise<void> {
   await rootStore.dispatch(createUserAction(mail, realName, password, company, phone));
 }
-export function createUserAction(mail: string, realName: string, password: string, company: string, phone: string): (dispatch: any) => Promise<void> {
-  return function (dispatch: any): Promise<void> {
+export function createUserAction(mail: string, realName: string, password: string, company: string, phone: string): (dispatch: Dispatch<{}>) => Promise<void> {
+  return function (dispatch: Dispatch<{}>): Promise<void> {
     const userDetails: UserDetails = {
       userId: createUserId(),
       mail: mail,
@@ -180,11 +180,10 @@ export function createUserAction(mail: string, realName: string, password: strin
       // Nur Weiterleiten, wenn erfolgreich
       if (response.result === Api.ApiResult.API_OK) {
         if (typeof window !== "undefined") { // Window not available in unit tests
-          (window as any).dataLayer.push({ "event": "registered" });
           window.location.href = "/";
         }
       }
-    }).catch((reason: any) => error(reason));
+    }).catch((reason: {}) => error(reason.toString()));
   };
 }
 
