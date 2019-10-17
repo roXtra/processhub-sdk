@@ -1,4 +1,4 @@
-export function sleep(ms = 0): Promise<any> {
+export function sleep(ms = 0): Promise<void> {
   return new Promise((r): void => { setTimeout(r, ms); });
 }
 
