@@ -11,7 +11,7 @@ export function resetStore(): void {
   rootStore.dispatch({ type: ResetStore });
 }
 
-export function configureStore(initialState: any): Store<any> {
+export function configureStore(initialState: {}): Store<RootState> {
   const history: History = null;
   const reduxRouterMiddleware = routerMiddleware(history as any);
 
@@ -21,7 +21,7 @@ export function configureStore(initialState: any): Store<any> {
     applyMiddleware(
       thunk,
       reduxRouterMiddleware)
-  );
+  ) as Store<RootState>;
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

@@ -12,7 +12,7 @@ export function error(message?: string): void {
   }
 }
 
-export function equal(actual: any, expected: any, message?: string): void {
+export function equal<T extends string | number | boolean>(actual: T, expected: T, message?: string): void {
   if (!isProduction) {
     if (actual !== expected) {
       if (message) {
