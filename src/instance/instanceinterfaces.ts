@@ -17,6 +17,13 @@ export interface IParentProcessConfig {
   parentUsedToken: string;
 }
 
+export interface IRiskAssessment {
+  date: Date;
+  severity: number;
+  probability: number;
+  comment: string;
+}
+
 export interface IInstanceDetails {
   // Changes must also be reflected in gqlTypes and gqlFragments below!
 
@@ -37,6 +44,7 @@ export interface IInstanceDetails {
   runningSubProcesses?: string[]; // Contains list for running subinstances
   subInstanceIds?: string[];
   parentProcessConfigObject?: IParentProcessConfig;
+  riskAssessments?: IRiskAssessment[];
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
     instanceState: IEngineState | null;
