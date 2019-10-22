@@ -1,6 +1,6 @@
 import { IInstanceEnvironment } from "../environment";
 import { BpmnProcess } from "../process";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
+import { IInstanceDetails, IRiskAssessment } from "../instance/instanceinterfaces";
 import { UserDetails } from "../user";
 import { Process } from "..";
 
@@ -50,7 +50,8 @@ export interface IFieldValue {
   string[] | // FileUpload
   IRoxFileFieldValue | // RoxFile
   ISignatureFieldValue | // Signature
-  { [key: string]: boolean }; // Checklist
+  { [key: string]: boolean } | // Checklist
+  IRiskAssessment; // RiskAssesment
 }
 
 export type FieldType = "ProcessHubTextInput"
@@ -68,7 +69,8 @@ export type FieldType = "ProcessHubTextInput"
 | "ProcessHubSignature"
 | "ProcessHubLabel"
 | "ProcessHubMail"
-| "ProcessHubNumber";
+| "ProcessHubNumber"
+| "ProcessHubRiskAssessment";
 
 export interface IFieldType {
   getType(): FieldType;
@@ -85,7 +87,7 @@ export interface IFieldType {
 export interface IFormElementProps {
   value: number | string | boolean | Date | string[] | IRoxFileFieldValue | ISignatureFieldValue | {
     [key: string]: boolean;
-  };
+  } | IRiskAssessment;
   label: string;
   required: boolean;
   disabled: boolean;
