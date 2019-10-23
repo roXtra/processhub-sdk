@@ -31,7 +31,7 @@ export class ActionHandler extends ApiClient {
     throw new Error("Method not implemented.");
   }
 
-  openInstancePopup(_workspaceId: string, _instanceId: string): void {
+  openInstancePopup(_workspaceId: string, _instanceId: string, todoId?: string): void {
     Assert.error();
   }
 
