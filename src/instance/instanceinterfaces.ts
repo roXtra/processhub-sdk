@@ -17,11 +17,15 @@ export interface IParentProcessConfig {
   parentUsedToken: string;
 }
 
-export interface IRiskAssessment {
-  date: Date;
+export interface IRiskAssessmentValue {
   severity: number;
   probability: number;
   comment: string;
+}
+
+export interface IRiskAssessment extends IRiskAssessmentValue {
+  date: Date;
+  assessmentId: string;
 }
 
 export interface IInstanceDetails {
