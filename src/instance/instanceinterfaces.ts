@@ -20,12 +20,14 @@ export interface IParentProcessConfig {
 export interface IRiskAssessmentValue {
   severity: number;
   probability: number;
-  comment: string;
+  comment: string;  
 }
 
 export interface IRiskAssessment extends IRiskAssessmentValue {
   date: Date;
   assessmentId: string;
+  userId: string;
+  userDisplayName: string;
 }
 
 export interface IInstanceDetails {
