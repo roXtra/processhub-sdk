@@ -26,6 +26,8 @@ export interface IRiskAssessmentValue {
 export interface IRiskAssessment extends IRiskAssessmentValue {
   date: Date;
   assessmentId: string;
+  userId: string;
+  userDisplayName: string;
 }
 
 export interface IInstanceDetails {
