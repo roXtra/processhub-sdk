@@ -69,8 +69,77 @@ describe("sdk", function () {
 
           assert.equal(res, resultString);
         });
-      });
 
+        it("should replace undefined date with empty string", async function () {
+
+          const testString = "{{ field.Date }}{{ field.DateTime }}";
+          const resultString = "";
+
+          const bpmnProcess: BpmnProcess = new BpmnProcess();
+          const reply: ILoadTemplateReply = await createBpmnTemplate();
+
+          bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
+
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, {
+            "Date": {
+              value: undefined,
+              type: "ProcessHubDate"
+            },
+            "DateTime": {
+              value: undefined,
+              type: "ProcessHubDateTime"
+            },
+          }, bpmnProcess, {});
+
+          assert.equal(res, resultString);
+        });
+
+        it("should replace date", async function () {
+
+          const testString = "{{ field.Date }}";
+          const resultString = "25.10.2019";
+
+          const bpmnProcess: BpmnProcess = new BpmnProcess();
+          const reply: ILoadTemplateReply = await createBpmnTemplate();
+
+          bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
+
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, {
+            "Date": {
+              value: new Date(2019, 9, 25, 12, 0, 0),
+              type: "ProcessHubDate"
+            }
+          }, bpmnProcess, {});
+
+          assert.equal(res, resultString);
+        });
+
+        it("should replace missing roles with empty string", async function () {
+
+          const testString = "{{ role.Date }}/{{ role.DateTime }}";
+          const resultString = "/";
+
+          const bpmnProcess: BpmnProcess = new BpmnProcess();
+          const reply: ILoadTemplateReply = await createBpmnTemplate();
+
+          bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
+
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, {
+            "Date": {
+              value: new Date(2019, 10, 25, 12, 0, 0),
+              type: "ProcessHubDate"
+            },
+            "DateTime": {
+              value: new Date(2019, 10, 25, 12, 0, 0),
+              type: "ProcessHubDateTime"
+            },
+          }, bpmnProcess, {});
+
+          assert.equal(res, resultString);
+        });
+
+
+      });
     });
   });
 });
