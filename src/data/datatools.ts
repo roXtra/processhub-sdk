@@ -15,14 +15,19 @@ export function replaceAll(target: string, search: string, replacement: string):
 }
 
 function fieldValueToString(valueObject: IFieldValue): string {
+  if (valueObject.value == null) {
+    return "";
+  }
+  let res: string;
   if (valueObject.type === "ProcessHubDate") {
-    return getFormattedDate(new Date(valueObject.value.toString()));
+    res = getFormattedDate(new Date(valueObject.value.toString()));
   } else if (valueObject.type === "ProcessHubDateTime") {
     const date: Date = new Date(valueObject.value.toString());
-    return getFormattedDateTime(date) + " " + getFormattedTimeZoneOffset(date.getTimezoneOffset());
+    res = getFormattedDateTime(date) + " " + getFormattedTimeZoneOffset(date.getTimezoneOffset());
   } else {
-    return valueObject.value != null ? valueObject.value.toString() : "";
+    res = valueObject.value.toString();
   }
+  return res;
 }
 
 export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, process: BpmnProcess, roleOwners: IRoleOwnerMap): string {
@@ -53,6 +58,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
       }
     }
 
+    result = replaceAll(result, fieldPlaceholder, "");
     match = fieldNameRegExp.exec(result);
   }
 
@@ -81,6 +87,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
       }
     }
 
+    result = replaceAll(result, placeHolder, "");
     match = roleNameRegExp.exec(result);
   }
 
@@ -98,6 +105,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
         result = replaceAll(result, placeHolder, valueObject != null ? valueObject.toString() : "");
       }
     }
+    result = replaceAll(result, placeHolder, "");
   }
 
   const newRoleRegex = /[{]{1}[\s]?role\[['"]?(.+?)['"]?\][\s]?[}]{1}/g;
@@ -112,11 +120,10 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
         const roleOwner = roleOwners[lane.id];
         if (roleOwner && roleOwner.length) {
           result = replaceAll(result, placeHolder, roleOwner[0].displayName);
-        } else {
-          result = replaceAll(result, placeHolder, "");
         }
       }
     }
+    result = replaceAll(result, placeHolder, "");
   }
 
   return result;
