@@ -10,6 +10,8 @@ import * as Instance from "./instance";
 export { Instance };
 import * as Process from "./process";
 export { Process };
+import * as RiskAssessment from "./riskassessment";
+export { RiskAssessment };
 import * as Mailer from "./mailer";
 export { Mailer };
 import * as Components from "./components";
