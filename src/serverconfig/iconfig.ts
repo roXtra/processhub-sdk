@@ -8,6 +8,7 @@ export interface IConfig {
   Webserver: IWebserverConfig;
   ClientSettings: IClientSettingsConfig;
   Engine: IEngineConfig;
+  Features: IFeatureConfig;
 }
 
 export interface IEngineConfig {
@@ -82,4 +83,13 @@ export interface IStatisticsConfig {
 
 export interface ITabConfig {
   name: string;
+}
+
+export interface IFeatureConfig {
+  features: IFeatureFlag[];
+}
+
+export interface IFeatureFlag {
+  feature: string;
+  enabled: boolean;
 }
