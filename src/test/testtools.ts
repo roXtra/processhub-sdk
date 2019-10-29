@@ -148,6 +148,9 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
           ]
         }
       },
+      Features: {
+        features: [],
+      },
     }
   };
 }

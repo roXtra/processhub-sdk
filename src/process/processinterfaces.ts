@@ -140,6 +140,10 @@ export interface IProcessSettings {
     rating?: number;  // Process rating, used to sort processes in library
     copiedFromId?: string;  // ProcessId of the original process
   };
+  riskManagement?: {
+    probabilityValues: string[]; // Possible values to rate the probability, starting with the least probable one
+    severityValues: string[]; // Possible values to rate the severity, starting with the least serious one
+  };
 }
 
 export enum ProcessViewAccess {

@@ -1,6 +1,6 @@
 import { IInstanceEnvironment } from "../environment";
 import { BpmnProcess } from "../process";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
+import { IInstanceDetails, IRiskAssessmentValue } from "../instance/instanceinterfaces";
 import { UserDetails } from "../user";
 import { Process } from "..";
 
@@ -40,9 +40,7 @@ export interface IServiceActionConfigField {
   value: string;
 }
 
-export interface IFieldValue {
-  type: FieldType;
-  value:
+export type FieldValueType =
   number | // Number
   Date | // Date
   string | // TextInput, TextArea, RoleOwner
@@ -50,25 +48,32 @@ export interface IFieldValue {
   string[] | // FileUpload
   IRoxFileFieldValue | // RoxFile
   ISignatureFieldValue | // Signature
-  { [key: string]: boolean }; // Checklist
+  { [key: string]: boolean } | // Checklist
+  IRiskAssessmentValue; // RiskAssesment
+
+export interface IFieldValue {
+  type: FieldType;
+  value: FieldValueType;
 }
 
-export type FieldType = "ProcessHubTextInput"
-| "ProcessHubDateTime"
-| "ProcessHubTextArea"
-| "ProcessHubInstanceTitle"
-| "ProcessHubCheckbox"
-| "ProcessHubFileUpload"
-| "ProcessHubRoleOwner"
-| "ProcessHubDate"
-| "ProcessHubDropdown"
-| "ProcessHubChecklist"
-| "ProcessHubDecision"
-| "ProcessHubRoxFile"
-| "ProcessHubSignature"
-| "ProcessHubLabel"
-| "ProcessHubMail"
-| "ProcessHubNumber";
+export type FieldType =
+  "ProcessHubTextInput"
+  | "ProcessHubDateTime"
+  | "ProcessHubTextArea"
+  | "ProcessHubInstanceTitle"
+  | "ProcessHubCheckbox"
+  | "ProcessHubFileUpload"
+  | "ProcessHubRoleOwner"
+  | "ProcessHubDate"
+  | "ProcessHubDropdown"
+  | "ProcessHubChecklist"
+  | "ProcessHubDecision"
+  | "ProcessHubRoxFile"
+  | "ProcessHubSignature"
+  | "ProcessHubLabel"
+  | "ProcessHubMail"
+  | "ProcessHubNumber"
+  | "ProcessHubRiskAssessment";
 
 export interface IFieldType {
   getType(): FieldType;
@@ -83,9 +88,7 @@ export interface IFieldType {
 }
 
 export interface IFormElementProps {
-  value: number | string | boolean | Date | string[] | IRoxFileFieldValue | ISignatureFieldValue | {
-    [key: string]: boolean;
-  };
+  value: FieldValueType;
   label: string;
   required: boolean;
   disabled: boolean;
