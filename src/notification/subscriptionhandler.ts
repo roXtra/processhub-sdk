@@ -1,4 +1,4 @@
-import Nes = require("@hapi/nes/lib/client");
+const Nes = require("nes");
 import * as StateHandler from "../statehandler";
 import { UserDetails } from "../user/userinterfaces";
 import { getBackendUrl } from "../config";
@@ -22,7 +22,7 @@ export const PublishSubscriptionObjects: { [Id: string]: IPublishSubscribeRegist
 };
 
 const subscriptionPaths: string[] = [];
-let notificationClient: Nes.Client;
+let notificationClient: any;
 
 const notificationHandler = (update: any, flags: any): void => {
   StateHandler.rootStore.dispatch(update);
@@ -33,8 +33,16 @@ export async function initNotificationClient(user: UserDetails): Promise<void> {
   wsUrl = wsUrl.replace("https://", "wss://");
   wsUrl = wsUrl.replace("http://", "ws://");
   notificationClient = new Nes.Client(wsUrl);
-
-  await notificationClient.connect({ auth: { headers: { authorization: user.extras.accessToken } } });
+  await new Promise<void>((resolve, reject): void => {
+    notificationClient.connect({ auth: { headers: { authorization: user.extras.accessToken } } }, (err: any) => {
+      if (err != null) {
+        console.log("Error on Websocket connect:");
+        console.log(err);
+        reject(err);
+      }
+      resolve();
+    });
+  });
 
   notificationClient.onError = (): void => {
     setTimeout(() => {
@@ -53,8 +61,13 @@ export async function initNotificationClient(user: UserDetails): Promise<void> {
 }
 
 export function subscribe(subscriptionPath: string): boolean {
-  // eslint-disable-next-line
-  notificationClient.subscribe(subscriptionPath, notificationHandler);
+  notificationClient.subscribe(subscriptionPath, notificationHandler, (err: any) => {
+    if (err != null) {
+      console.log("Error on subscribe path: " + subscriptionPath);
+      console.log(err);
+      return false;
+    }
+  });
   subscriptionPaths.push(subscriptionPath);
   return true;
 }
