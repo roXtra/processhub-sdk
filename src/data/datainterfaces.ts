@@ -74,7 +74,7 @@ export type FieldType =
   | "ProcessHubMail"
   | "ProcessHubNumber"
   | "ProcessHubRiskAssessment"
-  | "ProcessHubDataGrid";
+  | "ProcessHubSpreadSheet";
 
 export interface IFieldType {
   getType(): FieldType;
