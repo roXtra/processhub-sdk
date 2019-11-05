@@ -114,11 +114,11 @@ export class BpmnProcess {
   public getFieldDefinitions(): IFieldDefinition[] {
     const fieldDefinitions: IFieldDefinition[] = [];
 
-    const process: Bpmn.IProcess = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process") as Bpmn.IProcess;
-    process.flowElements.map(flowElement => {
-      const extVals = getExtensionValues(flowElement);
+    const elements = this.getSortedActivities(this.processId(), ["bpmn:StartEvent", "bpmn:UserTask", "bpmn:BoundaryEvent"]);
+    elements.forEach(element => {
+      const extVals = getExtensionValues(element);
       if (extVals) {
-        const taskFields = getExtensionValues(flowElement).fieldDefinitions;
+        const taskFields = getExtensionValues(element).fieldDefinitions;
         if (taskFields && taskFields.length > 0) {
           // Currently all tasks have their own fieldDefinitions. It might happen that they have different configs
           // -> add the first one we find to the result set
@@ -134,25 +134,7 @@ export class BpmnProcess {
   }
 
   public getFieldDefinitionsOfSpecificType(fieldType: string): IFieldDefinition[] {
-    const fieldDefinitions: IFieldDefinition[] = [];
-
-    const process: Bpmn.IProcess = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process") as Bpmn.IProcess;
-    process.flowElements.map(flowElement => {
-      const extVals = getExtensionValues(flowElement);
-      if (extVals) {
-        const taskFields = getExtensionValues(flowElement).fieldDefinitions;
-        if (taskFields && taskFields.length > 0) {
-          // Currently all tasks have their own fieldDefinitions. It might happen that they have different configs
-          // -> add the first one we find to the result set
-          taskFields.map(taskField => {
-            if (fieldDefinitions.find(fieldDefinition => fieldDefinition.name === taskField.name) == null && taskField.type === fieldType)
-              fieldDefinitions.push(taskField);
-          });
-        }
-      }
-    });
-
-    return fieldDefinitions;
+    return this.getFieldDefinitions().filter(d => d.type === fieldType);
   }
 
   public getFieldDefinitionsForTask(taskObject: Bpmn.ITask | Bpmn.IActivity): IFieldDefinition[] {
@@ -1300,6 +1282,9 @@ export class BpmnProcess {
               flowNodeQueue.push(o.targetRef);
             }
           });
+        }
+        if ((curElem as Bpmn.IActivity).boundaryEventRefs) {
+          (curElem as Bpmn.IActivity).boundaryEventRefs.forEach(b => flowNodeQueue.push(b));
         }
         checkedFlowNodes.push(curElem);
       }

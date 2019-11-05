@@ -288,7 +288,7 @@ describe("sdk", function () {
           });
 
           it("soll List einfügen und lesen", function () {
-            const testValue: string[] = [ "Receiver1", "Receiver2" ];
+            const testValue: string[] = ["Receiver1", "Receiver2"];
             BpmnProcess.addOrUpdateExtension(testTaskObject, "send-task-receiver", testValue, "List");
 
             const extensionValues = BpmnProcess.getExtensionValues(testTaskObject);
@@ -376,8 +376,8 @@ describe("sdk", function () {
         });
       });
 
-      describe("getSetSenderAsRoleOwner", function() {
-        it("sets and gets SetSenderAsRoleOwner", function() {
+      describe("getSetSenderAsRoleOwner", function () {
+        it("sets and gets SetSenderAsRoleOwner", function () {
           const startEvent: Bpmn.IStartEvent = bpmnModdleInstance.create("bpmn:StartEvent", {});
           BpmnProcess.setSetSenderAsRoleOwner(startEvent, false);
           expect(BpmnProcess.getSetSenderAsRoleOwner(startEvent)).to.equal(false);
@@ -508,10 +508,26 @@ describe("sdk", function () {
           assert.isTrue(taskObj != null);
           bpmnProcess.changeTaskName(rowDetails[2].taskId, "TEST 123 a");
           assert.isTrue(taskObj.name === "TEST 123 a", "wrong testtaskname");
-
-
         });
       });
+
+      describe("getFieldDefinitions", function () {
+
+        it("should return the fields in the same order as the tasks and events appear", async () => {
+          const processXml: string = await readFileAsync("./src/test/testfiles/field-order.bpmn");
+          const bpmnProcess: BpmnProcess = new BpmnProcess();
+          await bpmnProcess.loadXml(processXml);
+
+          const fieldDefinitions = bpmnProcess.getFieldDefinitions();
+          expect(fieldDefinitions.length).to.equal(5);
+          expect(fieldDefinitions[0].name).to.equal("Titel");
+          expect(fieldDefinitions[1].name).to.equal("A");
+          expect(fieldDefinitions[2].name).to.equal("B");
+          expect(fieldDefinitions[3].name).to.equal("C");
+          expect(fieldDefinitions[4].name).to.equal("D");
+        });
+      });
+
     });
   });
 });
