@@ -34,6 +34,15 @@ export interface ISignatureFieldValue {
   dataPoints: {};
 }
 
+export interface IRadioButtonFieldValue {
+  name: string;
+}
+
+export interface IRadioButtonGroupFieldValue {
+  radioButtons: IRadioButtonFieldValue[];
+  selectedRadio: number;
+}
+
 export interface IServiceActionConfigField {
   key: string;
   type: string;
@@ -49,6 +58,7 @@ export type FieldValueType =
   IRoxFileFieldValue | // RoxFile
   ISignatureFieldValue | // Signature
   { [key: string]: boolean } | // Checklist
+  IRadioButtonGroupFieldValue | // RadioButtonGroup
   IRiskAssessmentValue; // RiskAssesment
 
 export interface IFieldValue {
@@ -67,6 +77,7 @@ export type FieldType =
   | "ProcessHubDate"
   | "ProcessHubDropdown"
   | "ProcessHubChecklist"
+  | "ProcessHubRadioButton"
   | "ProcessHubDecision"
   | "ProcessHubRoxFile"
   | "ProcessHubSignature"
