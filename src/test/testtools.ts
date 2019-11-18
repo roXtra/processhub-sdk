@@ -3,7 +3,7 @@ import { PREVIEW_FILENAME } from "../filestore/ifilestore";
 import { IInstanceDetails } from "../instance";
 import { ISendMailTemplateReply } from "../mailer/mailerinterfaces";
 import { IProcessDetails } from "../process/processinterfaces";
-import { ServerRoute } from "hapi";
+import { ServerRoute } from "@hapi/hapi";
 
 export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTaskEnvironment {
 
