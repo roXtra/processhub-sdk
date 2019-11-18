@@ -286,14 +286,14 @@ export function processIsPublic(process: IProcessDetails): boolean {
 }
 
 export function isProcessOwner(process: IProcessDetails): boolean {
-  if (process == null)
+  if (process == null || !process.hasUserEFormulareEditAccess)
     return false;
 
   return ((process.userRights & ProcessAccessRights.EditProcess) !== 0);
 }
 
 export function isProcessManager(process: IProcessDetails): boolean {
-  if (process == null)
+  if (process == null || !process.hasUserEFormulareEditAccess)
     return false;
 
   // Owner are managers
@@ -312,7 +312,7 @@ export function canEditProcess(process: IProcessDetails): boolean {
 }
 
 export function canSimulateProcess(process: IProcessDetails): boolean {
-  if (process != null && !process.isNewProcess) {
+  if (process != null && !process.isNewProcess && process.hasUserEFormulareEditAccess) {
     const bpmnProcess: BpmnProcess = process.extras.bpmnProcess;
     if (bpmnProcess) {
       const startEvents: Bpmn.IStartEvent[] = bpmnProcess.getStartEvents(bpmnProcess.processId());
@@ -340,7 +340,7 @@ export function canStartProcess(process: IProcessDetails, startEventId: string):
   return process.userStartEvents[startEventId] != null;
 }
 export function canStartProcessOld(process: IProcessDetails): boolean {
-  if (process == null)
+  if (process == null || !process.hasUserEFormulareEditAccess)
     return false;
 
   // Only users in the start lane may start the process - even administrators don't inherit that right!
@@ -351,14 +351,14 @@ export function canStartProcessByMail(process: IProcessDetails): boolean {
     return false;
 
   // Only users in the start lane may start the process - even administrators don't inherit that right!
-  return ((process.userRights & ProcessAccessRights.StartProcessByMail) !== 0);
+  return (process.hasUserEFormulareEditAccess && (process.userRights & ProcessAccessRights.StartProcessByMail) !== 0);
 }
 export function canStartProcessByTimer(process: IProcessDetails): boolean {
   if (process == null)
     return false;
 
   // Only timer in the start lane may start the process - even administrators don't inherit that right!
-  return ((process.userRights & ProcessAccessRights.StartProcessByTimer) !== 0);
+  return (process.hasUserEFormulareEditAccess && (process.userRights & ProcessAccessRights.StartProcessByTimer) !== 0);
 }
 
 export function canViewTodos(process: IProcessDetails): boolean {
