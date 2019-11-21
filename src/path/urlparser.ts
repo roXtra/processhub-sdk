@@ -27,38 +27,52 @@ export function parseUrl(fullUrl: string): IPathDetails {
   } else if (part === "signup" && split.length === 1) {
     path.page = Page.SignupPage;
     return path;
-  } else if (!part.startsWith("@")) {
-    // ...otherwise workspace must follow
+  } else if (!part.startsWith("@") && !part.startsWith("riskmanagement")) {
+    // ...otherwise workspace or riskmanagement must follow
     return null;
   }
 
-  // -> Workspace
-  path.workspaceUrlName = part.substr(1);
+  // -> Riskmanagement
+  if (part.startsWith("riskmanagement")) {
+    if(split.length == 1)
+      return path;
 
-  part = (split.length >= 2 ? split[1] : WorkspaceView.Processes);
-  if (isValidWorkspaceView(part) && split.length <= 2) {
-    path.page = Page.WorkspacePage;
-    path.view = part as WorkspaceView;
-    return path;
-  } else if (part === ProcessView.NewProcess) {
-    path.page = Page.ProcessPage;
-    path.view = part as ProcessView;
-    return path;
-  } else if (part !== "p" || split.length < 3) {
-    // ...otherwise process must follow
-    return null;
+    path.workspaceUrlName = split[1].substr(1);
+    part = WorkspaceView.Riskmanagement;
+    if (isValidWorkspaceView(part)) {
+      path.page = Page.WorkspacePage;
+      path.view = part as WorkspaceView;
+      return path;
+    }
+  } else {
+    // -> Workspace
+    path.workspaceUrlName = part.substr(1);
+
+    part = (split.length >= 2 ? split[1] : WorkspaceView.Processes);
+    if (isValidWorkspaceView(part) && split.length <= 2) {
+      path.page = Page.WorkspacePage;
+      path.view = part as WorkspaceView;
+      return path;
+    } else if (part === ProcessView.NewProcess) {
+      path.page = Page.ProcessPage;
+      path.view = part as ProcessView;
+      return path;
+    } else if (part !== "p" || split.length < 3) {
+      // ...otherwise process must follow
+      return null;
+    }
+
+    // -> Process
+    path.processUrlName = decodeURIComponent(split[2]);
+
+    part = (split.length >= 4 ? split[3] : ProcessView.Show);
+    if (isValidProcessView(part) && split.length <= 4) {
+      path.page = Page.ProcessPage;
+      path.view = part as ProcessView;
+      return path;
+    } else
+      return null;
   }
-
-  // -> Process
-  path.processUrlName = decodeURIComponent(split[2]);
-
-  part = (split.length >= 4 ? split[3] : ProcessView.Show);
-  if (isValidProcessView(part) && split.length <= 4) {
-    path.page = Page.ProcessPage;
-    path.view = part as ProcessView;
-    return path;
-  } else
-    return null;
 }
 
 export function parseNotificationLink(fullUrl: string): INotificationLinkElements {

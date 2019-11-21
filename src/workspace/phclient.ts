@@ -21,6 +21,7 @@ export function getDefaultMailSignature(): string {
 
 // WorkspaceView
 export const WorkspaceView = {
+  Riskmanagement: "riskmanagement",
   Processes: "processes",
   Members: "members",
   AddProcess: "addprocess",
