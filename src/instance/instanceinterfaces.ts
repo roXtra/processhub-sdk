@@ -18,8 +18,7 @@ export interface IParentProcessConfig {
 }
 
 export interface IRiskAssessmentValue {
-  severity: number;
-  probability: number;
+  assessments: { [dimensionId: string]: number };
   comment: string;
 }
 

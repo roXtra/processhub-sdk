@@ -15,3 +15,34 @@ export interface IAssessment {
   assessmentSeverity: number;
   assessmentProbability: number;
 }
+
+export interface IRiskAssessmentDimensionEntry {
+  name: string;
+  value: number;
+  entryId: string;
+}
+
+export interface IRiskAssessmentDimension {
+  name: string;
+  dimensionId: string;
+  entries: IRiskAssessmentDimensionEntry[];
+}
+
+export interface IRiskManagementColorRange {
+  from: number;
+  to: number;
+}
+
+export interface IRiskManagementColors {
+  green: IRiskManagementColorRange;
+  olive: IRiskManagementColorRange;
+  yellow: IRiskManagementColorRange;
+  orange: IRiskManagementColorRange;
+  red: IRiskManagementColorRange;
+}
+
+export interface IRiskManagementProcessSettings {
+  dimensions: IRiskAssessmentDimension[];
+  colors: IRiskManagementColors;
+  hideMatrix: boolean;
+}
