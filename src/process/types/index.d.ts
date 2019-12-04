@@ -56,5 +56,3 @@
 /// <reference path="./modeler/di.d.ts" />
 /// <reference path="./modeler/dc.d.ts" />
 /// <reference path="./modeler/processhub.d.ts" />
-/// <reference path="./diagram-js-direct-editing/lib/directediting.d.ts" />
-/// <reference path="./diagram-js-direct-editing/index.d.ts" />
