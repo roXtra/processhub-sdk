@@ -1,6 +1,4 @@
 declare module "diagram-js-direct-editing/lib/DirectEditing" {
-  export = DirectEditing;
-
   import Canvas from "diagram-js/lib/core/Canvas";
   import EventBus from "diagram-js/lib/core/EventBus";
   import { Base } from "diagram-js/lib/model";
@@ -10,7 +8,7 @@ declare module "diagram-js-direct-editing/lib/DirectEditing" {
    * A direct editing component that allows users
    * to edit an elements text directly in the diagram
    */
-  class DirectEditing {
+  export default class DirectEditing {
     /**
      * A direct editing component that allows users
      * to edit an elements text directly in the diagram
@@ -27,7 +25,7 @@ declare module "diagram-js-direct-editing/lib/DirectEditing" {
      *                          Additionally the provider must expose a #update(element, value) method
      *                          to receive direct editing updates.
      */
-    public registerProvider(provider: DirectEditing.IDirectEditingProvider): void;
+    public registerProvider(provider: IDirectEditingProvider): void;
 
     /**
      * Returns true if direct editing is currently active
@@ -56,23 +54,21 @@ declare module "diagram-js-direct-editing/lib/DirectEditing" {
 
   }
 
-  namespace DirectEditing {
-    export interface IContext {
-      bounds: {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-      };
-      text: string;
-      options?: {
-        centerVertically: boolean;
-      };
-    }
+  export interface IContext {
+    bounds: {
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+    };
+    text: string;
+    options?: {
+      centerVertically: boolean;
+    };
+  }
 
-    export interface IDirectEditingProvider {
-      activate(element: Base): IContext;
-      update(element: Base, value: string, oldValue: string, bounds: IBounds): void;
-    }
+  export interface IDirectEditingProvider {
+    activate(element: Base): IContext;
+    update(element: Base, value: string, oldValue: string, bounds: IBounds): void;
   }
 }
