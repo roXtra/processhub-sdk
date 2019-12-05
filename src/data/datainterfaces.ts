@@ -8,6 +8,7 @@ export interface IFieldDefinition {
   name: string;
   type: FieldType;
   isRequired: boolean;
+  isRestricted?: boolean;
   config: {};
 }
 
@@ -43,6 +44,11 @@ export interface IRadioButtonGroupFieldValue {
   selectedRadio: number;
 }
 
+export interface ISpreadSheetFieldValue {
+  url: string;
+  value: {};
+}
+
 export interface IServiceActionConfigField {
   key: string;
   type: string;
@@ -59,6 +65,7 @@ export type FieldValueType =
   ISignatureFieldValue | // Signature
   { [key: string]: boolean } | // Checklist
   IRadioButtonGroupFieldValue | // RadioButtonGroup
+  ISpreadSheetFieldValue | // SpreadSheet
   IRiskAssessmentValue; // RiskAssesment
 
 export interface IFieldValue {
@@ -103,6 +110,7 @@ export interface IFormElementProps {
   value: FieldValueType;
   label: string;
   required: boolean;
+  restricted: boolean;
   disabled: boolean;
   config: {};
   key?: string;
