@@ -6,6 +6,7 @@ import { IFieldDefinition, ITaskIdRequiredFieldsNeeded, IServiceActionConfigFiel
 import { UserDetails } from "../user/userinterfaces";
 import { IRowDetails } from ".";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
+import { IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces";
 
 export interface IProcessAttachment {
   attachmentId: string;
@@ -85,6 +86,7 @@ export interface IProcessDetails {
   xmlVersion?: number;
   parentProcessIds?: string[];
   childProcessIds?: string[];
+  riskManagementSettings?: IRiskManagementProcessSettings;
   extras: {
     // New Extras must be added to cache-handling in processactions -> loadProcess!
     bpmnXml?: string;
