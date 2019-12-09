@@ -154,6 +154,7 @@ export async function logoutUser(accessToken?: string): Promise<void> {
 export function logoutUserAction(accessToken?: string): (dispatch: Dispatch<{}>) => Promise<void> {
   return function (dispatch: Dispatch<{}>): Promise<void> {
     return Api.postJson(UserRequestRoutes.Logout, null, accessToken).then(() => {
+      // Do nothing
     }).catch(reason => error(reason));
   };
 }
