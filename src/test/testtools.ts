@@ -146,7 +146,8 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
               name: "table"
             }
           ]
-        }
+        },
+        eformVersion: "DEV"
       },
       Features: {
         features: [],
