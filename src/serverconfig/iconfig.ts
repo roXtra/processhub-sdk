@@ -74,6 +74,7 @@ export interface IWebserverConfig {
 export interface IClientSettingsConfig {
   statistics: IStatisticsConfig;
   extendedErrorMessages: boolean;
+  eformVersion: string;
 }
 
 export interface IStatisticsConfig {
