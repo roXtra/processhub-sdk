@@ -21,6 +21,7 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "rules": {
+    "linebreak-style": ["error", "unix"],
     "no-cond-assign": "error",
     "capitalized-comments": [
       "error",
