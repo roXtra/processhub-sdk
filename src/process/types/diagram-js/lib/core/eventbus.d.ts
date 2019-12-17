@@ -1,5 +1,3 @@
-// Tslint:disable:max-classes-per-file
-// tslint:disable:variable-name
 declare module "diagram-js/lib/core/EventBus" {
 
   import { IBounds, IPoint } from "diagram-js";

@@ -2,15 +2,9 @@ Die Definitionen wurden aus den bpmn-moddle-jsons mit folgendem Code erzeugt und
 
 <code>
 import { expect } from "chai";
-// tslint:disable-next-line:no-unused-variable
 import { bpmnJson } from "./bpmn-json";
 import { bpmndiJson } from "./bpmndi-json";
-// tslint:disable:object-literal-sort-keys
-// tslint:disable-next-line:typedef
 
-
-// tslint:disable:no-console
-// tslint:disable-next-line:typedef
 const json = bpmndiJson;
 
 interface IProp {

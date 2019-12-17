@@ -1,4 +1,3 @@
-// Tslint:disable:max-classes-per-file
 declare module "moddle-xml/lib/reader" {
   import Factory = require("moddle/lib/factory");
 

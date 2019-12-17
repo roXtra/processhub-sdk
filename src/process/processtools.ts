@@ -6,7 +6,7 @@ import { isId } from "../tools/guid";
 export function parseProcessMailSubject(mail: string): string {
   const regex = /(\[)(p-)(.*?)(\])/gm;
   let match: RegExpExecArray;
-  // Tslint:disable-next-line:no-conditional-assignment
+
   while ((match = regex.exec(mail)) != null) {
     let maybeId: string = match[3];
     maybeId = maybeId.toUpperCase();
