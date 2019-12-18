@@ -2,7 +2,6 @@
 /// <reference path="./dc.d.ts" />
 /// <reference path="./di.d.ts" />
 
-// tslint:disable:interface-name
 declare module "modeler/bpmn/bpmndi" {
   import { Bpmn } from "modeler/bpmn/bpmn";
   import { Dc } from "modeler/bpmn/dc";

@@ -1,5 +1,3 @@
-// Tslint:disable:no-empty-interface
-// tslint:disable:interface-name
 declare module "modeler/bpmn/processhub" {
   import Base = require("moddle/lib/base");
 

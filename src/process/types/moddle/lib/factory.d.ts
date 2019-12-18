@@ -1,4 +1,3 @@
-// Tslint:disable:max-classes-per-file
 declare module "moddle/lib/factory" {
   export = Factory;
   import Base = require("moddle/lib/base");

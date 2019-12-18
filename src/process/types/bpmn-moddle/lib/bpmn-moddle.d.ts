@@ -1,4 +1,3 @@
-// Tslint:disable:interface-name
 declare module "bpmn-moddle/lib/bpmn-moddle" {
   export = BpmnModdle;
 

@@ -29,7 +29,7 @@ export function parseInstanceMailAddress(mail: string): string {
 export function parseInstanceMailSubject(mail: string): string {
   const regex = /(\[)(i-)(.*?)(\])/gm;
   let match: RegExpExecArray;
-  // Tslint:disable-next-line:no-conditional-assignment
+
   while ((match = regex.exec(mail)) != null) {
     let maybeId: string = match[3];
     maybeId = maybeId.toUpperCase();

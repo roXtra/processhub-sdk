@@ -1,4 +1,3 @@
-// Tslint:disable:max-classes-per-file
 declare module "diagram-js/lib/features/snapping/SnapContext" {
 
   import { IPoint } from "diagram-js";

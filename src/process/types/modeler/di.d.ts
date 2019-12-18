@@ -1,7 +1,5 @@
 /// <reference path="./dc.d.ts" />
 
-// tslint:disable:no-empty-interface
-// tslint:disable:interface-name
 declare module "modeler/bpmn/di" {
   import { Dc } from "modeler/bpmn/dc";
   import Base = require("moddle/lib/base");

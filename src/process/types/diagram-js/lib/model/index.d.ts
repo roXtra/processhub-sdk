@@ -1,4 +1,3 @@
-// Tslint:disable:max-classes-per-file
 declare module "diagram-js/lib/model" {
 
   import { IPoint } from "diagram-js";
