@@ -23,7 +23,10 @@ export interface IRiskAssessmentValue {
 }
 
 export interface IRiskAssessment extends IRiskAssessmentValue {
+  // The date when the assessment was made
   date: Date;
+  // The date when the assessment was expected
+  todoDate: Date;
   assessmentId: string;
   userId: string;
   userDisplayName: string;
