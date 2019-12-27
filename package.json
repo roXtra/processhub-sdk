@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git://github.com/roXtra/processhub-sdk.git"
   },
-  "version": "8.15.0",
+  "version": "8.15.0-node12-1",
   "author": {
     "name": "ProcessHub",
     "email": "info@processhub.com",
