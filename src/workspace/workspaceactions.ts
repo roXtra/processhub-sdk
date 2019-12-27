@@ -48,10 +48,10 @@ export async function loadWorkspace(workspaceId: string, getExtras: WorkspaceExt
     }
   }
 
-  return (await StateHandler.rootStore.dispatch(loadWorkspaceAction(workspaceId, getExtras, accessToken))).workspace;
+  return (await StateHandler.rootStore.dispatch<any>(loadWorkspaceAction(workspaceId, getExtras, accessToken))).workspace;
 }
-export function loadWorkspaceAction(workspaceId: string, getExtras: WorkspaceExtras, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<ILoadWorkspaceReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<ILoadWorkspaceReply> => {
+export function loadWorkspaceAction(workspaceId: string, getExtras: WorkspaceExtras, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<ILoadWorkspaceReply> {
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<ILoadWorkspaceReply> => {
     const request: ILoadWorkspaceRequest = {
       workspaceId: workspaceId,
       getExtras: getExtras
@@ -60,16 +60,16 @@ export function loadWorkspaceAction(workspaceId: string, getExtras: WorkspaceExt
     if (response.workspace)
       response.workspace = StateHandler.mergeWorkspaceToCache(response.workspace);
 
-    dispatch(response);
+    dispatch<any>(response);
     return response;
   };
 }
 
 export async function removeWorkspaceMember(workspaceId: string, userId: string, accessToken: string = null): Promise<void> {
-  await StateHandler.rootStore.dispatch(removeWorkspaceMemberAction(workspaceId, userId, accessToken));
+  await StateHandler.rootStore.dispatch<any>(removeWorkspaceMemberAction(workspaceId, userId, accessToken));
 }
 export function removeWorkspaceMemberAction(workspaceId: string, userId: string, accessToken: string = null) {
-  return function (dispatch: Dispatch<{}>): Promise<void> {
+  return function (dispatch: Dispatch<any>): Promise<void> {
     const request: IRemoveWorkspaceMemberRequest = {
       workspaceId,
       userId
@@ -81,10 +81,10 @@ export function removeWorkspaceMemberAction(workspaceId: string, userId: string,
 }
 
 export async function inviteWorkspaceMember(workspaceId: string, userIdOrUserMail: string[], memberRole: WorkspaceRole, invitationMessage: string, accessToken: string = null): Promise<IWorkspaceLoadedMessage> {
-  return await StateHandler.rootStore.dispatch(inviteWorkspaceMemberAction(workspaceId, userIdOrUserMail, memberRole, invitationMessage, accessToken));
+  return await StateHandler.rootStore.dispatch<any>(inviteWorkspaceMemberAction(workspaceId, userIdOrUserMail, memberRole, invitationMessage, accessToken));
 }
-export function inviteWorkspaceMemberAction(workspaceId: string, userIdOrUserMail: string[], memberRole: WorkspaceRole, invitationMessage: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<IWorkspaceLoadedMessage> {
-  return async <S>(dispatch: Dispatch<S>): Promise<IWorkspaceLoadedMessage> => {
+export function inviteWorkspaceMemberAction(workspaceId: string, userIdOrUserMail: string[], memberRole: WorkspaceRole, invitationMessage: string, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IWorkspaceLoadedMessage> {
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IWorkspaceLoadedMessage> => {
     const request: IInviteWorkspaceMemberRequest = {
       workspaceId: workspaceId,
       userIdOrUserMail: userIdOrUserMail,
@@ -92,31 +92,31 @@ export function inviteWorkspaceMemberAction(workspaceId: string, userIdOrUserMai
       invitationMessage: invitationMessage
     };
     const response = await Api.postJson(WorkspaceRequestRoutes.InviteWorkspaceMember, request, accessToken) as IWorkspaceLoadedMessage;
-    dispatch(response);
+    dispatch<any>(response);
     return response;
   };
 }
 
 export async function createWorkspace(workspace: IWorkspaceDetails, accessToken: string = null): Promise<IWorkspaceLoadedMessage> {
-  return await StateHandler.rootStore.dispatch(createWorkspaceAction(workspace, accessToken));
+  return await StateHandler.rootStore.dispatch<any>(createWorkspaceAction(workspace, accessToken));
 }
-export function createWorkspaceAction(workspace: IWorkspaceDetails, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<IWorkspaceLoadedMessage> {
-  return async <S>(dispatch: Dispatch<S>): Promise<IWorkspaceLoadedMessage> => {
+export function createWorkspaceAction(workspace: IWorkspaceDetails, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IWorkspaceLoadedMessage> {
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IWorkspaceLoadedMessage> => {
     const request: ICreateWorkspaceRequest = {
       workspace: workspace
     };
     const response = await Api.postJson(WorkspaceRequestRoutes.CreateWorkspace, request, accessToken) as IWorkspaceLoadedMessage;
-    dispatch(response);
+    dispatch<any>(response);
     return response;
   };
 }
 
 export async function updateWorkspace(workspace: IWorkspaceDetails, accessToken: string = null): Promise<void> {
-  await StateHandler.rootStore.dispatch(updateWorkspaceAction(workspace, accessToken));
+  await StateHandler.rootStore.dispatch<any>(updateWorkspaceAction(workspace, accessToken));
 }
 
-export function updateWorkspaceAction(workspace: IWorkspaceDetails, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<void> {
-  return async <S>(dispatch: Dispatch<S>): Promise<void> => {
+export function updateWorkspaceAction(workspace: IWorkspaceDetails, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<void> {
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<void> => {
     const requestWorkspace = _.cloneDeep(workspace);
     delete (requestWorkspace.extras.members);
     delete (requestWorkspace.extras.processes);
@@ -124,28 +124,28 @@ export function updateWorkspaceAction(workspace: IWorkspaceDetails, accessToken:
       workspace: requestWorkspace
     };
     return Api.postJson(WorkspaceRequestRoutes.UpdateWorkspace, request, accessToken).then((response) => {
-      dispatch(response);
+      dispatch<any>(response);
     });
   };
 }
 
 export async function deleteWorkspace(workspaceId: string, accessToken: string = null): Promise<void> {
-  await StateHandler.rootStore.dispatch(deleteWorkspaceAction(workspaceId, accessToken));
+  await StateHandler.rootStore.dispatch<any>(deleteWorkspaceAction(workspaceId, accessToken));
 }
 
-export function deleteWorkspaceAction(workspaceId: string, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<void> {
-  return async <S>(dispatch: Dispatch<S>): Promise<void> => {
+export function deleteWorkspaceAction(workspaceId: string, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<void> {
+  return async <S  extends Action<any>>(dispatch: Dispatch<S>): Promise<void> => {
     const request: IDeleteWorkspaceRequest = {
       workspaceId: workspaceId
     };
     return Api.postJson(WorkspaceRequestRoutes.DeleteWorkspace, request, accessToken).then((response) => {
-      dispatch(response);
+      dispatch<any>(response);
     });
   };
 }
 
 export async function setMemberRole(workspaceId: string, userId: string, memberRole: WorkspaceRole, accessToken: string = null): Promise<void> {
-  await StateHandler.rootStore.dispatch(setMemberRoleAction(workspaceId, userId, memberRole, accessToken));
+  await StateHandler.rootStore.dispatch<any>(setMemberRoleAction(workspaceId, userId, memberRole, accessToken));
 }
 export function setMemberRoleAction(workspaceId: string, userId: string, memberRole: WorkspaceRole, accessToken: string = null) {
   return function (dispatch: Dispatch<any>): Promise<void> {
