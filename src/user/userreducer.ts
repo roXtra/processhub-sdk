@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import * as update from "immutability-helper";
+import update from "immutability-helper";
 import * as StateHandler from "../statehandler";
 import { UserState, UserMessages } from "./phclient";
 import { IUserLoadedMessage } from "./legacyapi";
