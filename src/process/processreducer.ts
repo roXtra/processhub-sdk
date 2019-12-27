@@ -2,7 +2,7 @@ import * as _ from "lodash";
 import * as ProcessActions from "./processactions";
 import * as Process from "../process";
 import * as StateHandler from "../statehandler";
-import * as update from "immutability-helper";
+import update from "immutability-helper";
 import { isTrue } from "../tools/assert";
 import { PROCESSLOADED_MESSAGE, IProcessLoadedMessage } from "./legacyapi";
 import { createId } from "../tools/guid";
@@ -45,8 +45,8 @@ export function processReducer(processState: Process.ProcessState, action: any):
         return update(processState, {
           currentProcess: {
             extras: {
-              bpmnXml: { $set: action.xmlStr as ProcessActions.IProcessActionSave },
-              bpmnProcess: { $set: action.bpmnProcess as ProcessActions.IProcessActionSave }
+              bpmnXml: { $set: action.xmlStr as string },
+              bpmnProcess: { $set: action.bpmnProcess }
             }
           }
         });
