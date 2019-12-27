@@ -19,7 +19,7 @@ export function resetStore(): void {
   rootStore.dispatch({ type: ResetStore });
 }
 
-function configureStore(preloadedState: {}): Store<RootState> {
+export function configureStore(preloadedState: {}): Store<RootState> {
   const store = createStore(
     createRootReducer(history), // Root reducer with router state
     preloadedState,
