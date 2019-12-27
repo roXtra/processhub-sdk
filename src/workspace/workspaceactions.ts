@@ -1,6 +1,6 @@
 import * as StateHandler from "../statehandler";
 import * as Api from "../legacyapi";
-import { Dispatch } from "redux";
+import { Dispatch, Action } from "redux";
 import { WorkspaceExtras, IWorkspaceDetails } from "./workspaceinterfaces";
 import { ILoadWorkspaceReply, ILoadWorkspaceRequest, WorkspaceRequestRoutes } from "./legacyapi";
 import { WorkspaceMessages } from "./phclient";
@@ -46,10 +46,10 @@ export async function loadWorkspace(workspaceId: string, getExtras: WorkspaceExt
     }
   }
 
-  return (await StateHandler.rootStore.dispatch(loadWorkspaceAction(workspaceId, getExtras, accessToken))).workspace;
+  return (await StateHandler.rootStore.dispatch<any>(loadWorkspaceAction(workspaceId, getExtras, accessToken))).workspace;
 }
-export function loadWorkspaceAction(workspaceId: string, getExtras: WorkspaceExtras, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<ILoadWorkspaceReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<ILoadWorkspaceReply> => {
+export function loadWorkspaceAction(workspaceId: string, getExtras: WorkspaceExtras, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<ILoadWorkspaceReply> {
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<ILoadWorkspaceReply> => {
     const request: ILoadWorkspaceRequest = {
       workspaceId: workspaceId,
       getExtras: getExtras
@@ -58,7 +58,7 @@ export function loadWorkspaceAction(workspaceId: string, getExtras: WorkspaceExt
     if (response.workspace)
       response.workspace = StateHandler.mergeWorkspaceToCache(response.workspace);
 
-    dispatch(response);
+    dispatch<any>(response);
     return response;
   };
 }

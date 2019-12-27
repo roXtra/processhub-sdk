@@ -1,5 +1,5 @@
 import { rootStore } from "../statehandler";
-import { Dispatch } from "redux";
+import { Dispatch, Action } from "redux";
 import * as StateHandler from "../statehandler";
 import * as Api from "../legacyapi";
 import { UserDetails, UserExtras } from "./userinterfaces";
@@ -36,11 +36,11 @@ export async function loadUser(userId: string, getExtras: UserExtras = UserExtra
       return currentUser;
     }
   }
-  return (await rootStore.dispatch(loadUserAction(userId, getExtras))).userDetails;
+  return (await rootStore.dispatch<any>(loadUserAction(userId, getExtras, accessToken))).userDetails;
 }
 
-export function loadUserAction(userId: string, getExtras: UserExtras): <S>(dispatch: Dispatch<S>) => Promise<ILoadUserReply> {
-  return async <S>(): Promise<ILoadUserReply> => {
+export function loadUserAction(userId: string, getExtras: UserExtras, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<ILoadUserReply> {
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<ILoadUserReply> => {
     const request: ILoadUserRequest = {
       userId: userId,
       getExtras: getExtras
