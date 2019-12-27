@@ -1,7 +1,7 @@
 import * as _ from "lodash";
 import * as StateHandler from "../statehandler";
 import * as Api from "../legacyapi";
-import { Dispatch } from "redux";
+import { Dispatch, Action } from "redux";
 import { WorkspaceExtras, IWorkspaceDetails, WorkspaceRole, WorkspaceType } from "./workspaceinterfaces";
 import { ILoadWorkspaceReply, ILoadWorkspaceRequest, WorkspaceRequestRoutes, IRemoveWorkspaceMemberRequest, IWorkspaceLoadedMessage, IInviteWorkspaceMemberRequest, ICreateWorkspaceRequest, IUpdateWorkspaceRequest, IDeleteWorkspaceRequest, ISetMemberRoleRequest, IStartTrialRequest, TrialUserCountType } from "./legacyapi";
 import { WorkspaceMessages } from "./phclient";
@@ -148,7 +148,7 @@ export async function setMemberRole(workspaceId: string, userId: string, memberR
   await StateHandler.rootStore.dispatch(setMemberRoleAction(workspaceId, userId, memberRole, accessToken));
 }
 export function setMemberRoleAction(workspaceId: string, userId: string, memberRole: WorkspaceRole, accessToken: string = null) {
-  return function (dispatch: Dispatch<{}>): Promise<void> {
+  return function (dispatch: Dispatch<any>): Promise<void> {
     const request: ISetMemberRoleRequest = {
       workspaceId,
       userId,
@@ -161,10 +161,10 @@ export function setMemberRoleAction(workspaceId: string, userId: string, memberR
 }
 
 export async function startTrial(workspaceId: string, name: string, mail: string, company: string, phone: string, testType: WorkspaceType, userCount: TrialUserCountType, accessToken: string = null): Promise<IBaseReply> {
-  return await StateHandler.rootStore.dispatch(startTrialAction(workspaceId, name, mail, company, phone, testType, userCount, accessToken));
+  return await StateHandler.rootStore.dispatch<any>(startTrialAction(workspaceId, name, mail, company, phone, testType, userCount, accessToken));
 }
-export function startTrialAction(workspaceId: string, name: string, mail: string, company: string, phone: string, testType: WorkspaceType, userCount: TrialUserCountType, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<IBaseReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<IBaseReply> => {
+export function startTrialAction(workspaceId: string, name: string, mail: string, company: string, phone: string, testType: WorkspaceType, userCount: TrialUserCountType, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IBaseReply> {
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IBaseReply> => {
     const request: IStartTrialRequest = {
       workspaceId,
       name,

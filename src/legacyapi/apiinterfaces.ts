@@ -26,7 +26,7 @@ export enum ApiResult {
 export type ApiError = 400 | 401 | 409 | 404 | 423 | 500;
 
 export interface IBaseReply {
-  type?: string;
+  type: string;
   result?: ApiResult;
 }
 
