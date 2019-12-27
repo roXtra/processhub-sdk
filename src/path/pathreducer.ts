@@ -1,4 +1,4 @@
-import * as update from "immutability-helper";
+import update from "immutability-helper";
 import * as _ from "lodash";
 import { PathState } from "./phclient";
 import { PATHLOADED_MESSAGE, IPathLoadedMessage } from "./legacyapi";
