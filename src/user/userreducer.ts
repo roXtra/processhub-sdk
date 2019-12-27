@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import * as update from "immutability-helper";
+import update from "immutability-helper";
 import { ApiResult } from "../legacyapi/apiinterfaces";
 import { IUserActionLoggedIn, IUserActionFailed } from "./useractions";
 import * as StateHandler from "../statehandler";
