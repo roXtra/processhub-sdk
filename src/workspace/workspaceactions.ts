@@ -4,6 +4,7 @@ import { Dispatch, Action } from "redux";
 import { WorkspaceExtras, IWorkspaceDetails } from "./workspaceinterfaces";
 import { ILoadWorkspaceReply, ILoadWorkspaceRequest, WorkspaceRequestRoutes } from "./legacyapi";
 import { WorkspaceMessages } from "./phclient";
+import { Workspace, Process, Instance } from "..";
 
 export async function requireWorkspaceMembers(): Promise<void> {
   // Fordert die Workspace-Members an, falls diese in PathState.currentWorkspace noch nicht enthalten sind.
@@ -46,9 +47,9 @@ export async function loadWorkspace(workspaceId: string, getExtras: WorkspaceExt
     }
   }
 
-  return (await StateHandler.rootStore.dispatch<any>(loadWorkspaceAction(workspaceId, getExtras, accessToken))).workspace;
+  return (await StateHandler.rootStore.dispatch<any>(loadWorkspaceAction(workspaceId, workspaceState, StateHandler.rootStore.getState().processState, StateHandler.rootStore.getState().instanceState, getExtras, accessToken))).workspace;
 }
-export function loadWorkspaceAction(workspaceId: string, getExtras: WorkspaceExtras, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<ILoadWorkspaceReply> {
+export function loadWorkspaceAction(workspaceId: string, workspaceState: Workspace.WorkspaceState, processState: Process.ProcessState, instanceState: Instance.InstanceState, getExtras: WorkspaceExtras, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<ILoadWorkspaceReply> {
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<ILoadWorkspaceReply> => {
     const request: ILoadWorkspaceRequest = {
       workspaceId: workspaceId,
@@ -56,7 +57,7 @@ export function loadWorkspaceAction(workspaceId: string, getExtras: WorkspaceExt
     };
     const response = await Api.getJson(WorkspaceRequestRoutes.LoadWorkspace, request, accessToken) as ILoadWorkspaceReply;
     if (response.workspace)
-      response.workspace = StateHandler.mergeWorkspaceToCache(response.workspace);
+      response.workspace = StateHandler.mergeWorkspaceToCache(response.workspace, workspaceState, processState, instanceState);
 
     dispatch<any>(response);
     return response;
