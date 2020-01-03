@@ -27,7 +27,6 @@ describe("sdk", function () {
 
       describe("soll PROCESSLOADED_MESSAGE korrekt reducen", function () {
         it("soll currentProcess korrekt setzen", function () {
-
           const oldState = new ProcessState();
           const newState = processReducer(oldState, {
             type: PROCESSLOADED_MESSAGE,

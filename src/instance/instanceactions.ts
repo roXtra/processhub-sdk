@@ -3,6 +3,7 @@ import { rootStore, mergeInstanceToCache } from "../statehandler";
 import { Dispatch, Action } from "redux";
 import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces";
 import { IJumpReply, IExecuteReply, ProcessEngineApiRoutes, IUpdateInstanceReply, IAbortReply, INSTANCELOADED_MESSAGE, IInstanceLoadedMessage, IGetInstanceDetailsReply } from "./legacyapi";
+import { Instance } from "..";
 
 export const InstanceActionType = {
   Execute: "INSTANCEACTION_EXECUTE",
@@ -61,17 +62,18 @@ export function executeInstanceAction(processId: string, instanceDetails: IInsta
 }
 
 export async function updateInstance(instance: IInstanceDetails, accessToken: string = null): Promise<IUpdateInstanceReply> {
-  return await rootStore.dispatch<any>(updateInstanceAction(instance, accessToken));
+  const instanceState = rootStore.getState().instanceState;
+  return await rootStore.dispatch<any>(updateInstanceAction(instance, instanceState, accessToken));
 }
 
-export function updateInstanceAction(instance: IInstanceDetails, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IUpdateInstanceReply> {
+export function updateInstanceAction(instance: IInstanceDetails, instanceState: Instance.InstanceState, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IUpdateInstanceReply> {
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IUpdateInstanceReply> => {
     const response: IUpdateInstanceReply = await Api.postJson(ProcessEngineApiRoutes.updateInstance, {
       instance: instance
     }, accessToken);
 
     if (response.instance)
-      response.instance = mergeInstanceToCache(response.instance);
+      response.instance = mergeInstanceToCache(response.instance, instanceState);
 
     const message: IInstanceLoadedMessage = {
       type: INSTANCELOADED_MESSAGE,
@@ -180,16 +182,16 @@ export async function loadInstance(instanceId: string, instanceExtras?: Instance
     }
   }
 
-  return (await rootStore.dispatch<any>(loadInstanceAction(instanceId, instanceExtras))).instanceDetails;
+  return (await rootStore.dispatch<any>(loadInstanceAction(instanceId, instanceState, instanceExtras))).instanceDetails;
 }
-export function loadInstanceAction(instanceId: string, getExtras: InstanceExtras = InstanceExtras.None): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetInstanceDetailsReply> {
+export function loadInstanceAction(instanceId: string, instanceState: Instance.InstanceState, getExtras: InstanceExtras = InstanceExtras.None): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetInstanceDetailsReply> {
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetInstanceDetailsReply> => {
     const response: IGetInstanceDetailsReply = await Api.getJson(ProcessEngineApiRoutes.getInstanceDetails, {
       instanceId: instanceId,
       getExtras: getExtras
     });
     if (response.instanceDetails)
-      response.instanceDetails = mergeInstanceToCache(response.instanceDetails);
+      response.instanceDetails = mergeInstanceToCache(response.instanceDetails, instanceState);
 
     const message: IInstanceLoadedMessage = {
       type: INSTANCELOADED_MESSAGE,
