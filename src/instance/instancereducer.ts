@@ -22,7 +22,7 @@ export function instanceReducer(instanceState: InstanceState, action: any): Inst
   switch (action.type) {
 
     case INSTANCELOADED_MESSAGE: {
-      instanceState.currentInstance = StateHandler.mergeInstanceToCache((action as IInstanceLoadedMessage).instance);
+      instanceState.currentInstance = StateHandler.mergeInstanceToCache((action as IInstanceLoadedMessage).instance, instanceState, action.userState, action.processState);
 
       const instanceChanged = !_.isEqual(instanceState.currentInstance, instanceState.lastDispatchedInstance);
       instanceState.lastDispatchedInstance = _.cloneDeep(instanceState.currentInstance);
@@ -38,7 +38,7 @@ export function instanceReducer(instanceState: InstanceState, action: any): Inst
       }
     }
     case UserMessages.RemoveInstanceMessage:
-      StateHandler.removeInstanceFromCache((action as IRemoveInstanceMessage).instanceId);
+      StateHandler.removeInstanceFromCache((action as IRemoveInstanceMessage).instanceId, action.instanceState, action.userState, action.processState);
 
       return update(instanceState, {
         cacheState: { $set: createId() }

@@ -25,6 +25,8 @@ const subscriptionPaths: string[] = [];
 let notificationClient: Client;
 
 const notificationHandler = (update: any, flags: any): void => {
+  const state = StateHandler.rootStore.getState();
+  Object.assign(update, state);
   StateHandler.rootStore.dispatch(update);
 };
 

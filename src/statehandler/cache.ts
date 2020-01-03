@@ -1,17 +1,17 @@
-import { rootStore } from "./rootstore";
 import { UserDetails } from "../user/userinterfaces";
 import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IProcessDetails } from "../process/processinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import _ = require("lodash");
+import { Process, Workspace, Instance, User } from "..";
 
-export function mergeUserToCache(user: UserDetails): UserDetails {
+export function mergeUserToCache(user: UserDetails, workspaceState: Workspace.WorkspaceState, processState: Process.ProcessState, userState: User.UserState, instanceState: Instance.InstanceState): UserDetails {
   if (user == null)
     return null;
 
   // UserState does not have a userCache but we need to merge into currentUser
   const tmpcache: { [userId: string]: UserDetails } = {
-    [user.userId]: rootStore.getState().userState.currentUser
+    [user.userId]: userState.currentUser
   };
   user = mergeElementToCache(user, tmpcache, "userId");
 
@@ -19,7 +19,7 @@ export function mergeUserToCache(user: UserDetails): UserDetails {
   if (user.extras.workspaces) {
     const newList: IWorkspaceDetails[] = [];
     user.extras.workspaces.map(workspace => {
-      newList.push(mergeWorkspaceToCache(workspace));
+      newList.push(mergeWorkspaceToCache(workspace, workspaceState, processState, instanceState, userState));
     });
     user.extras.workspaces = newList;
   }
@@ -27,27 +27,26 @@ export function mergeUserToCache(user: UserDetails): UserDetails {
   // Merge instances to cache
   if (user.extras.instances) {
     user.extras.instances.map(instance => {
-      mergeInstanceToCache(instance, true);
+      mergeInstanceToCache(instance, instanceState, userState, processState, true);
     });
   }
-
-  rootStore.getState().userState.currentUser = user;
 
   return user;
 }
 
-export function mergeWorkspaceToCache(workspace: IWorkspaceDetails): IWorkspaceDetails {
+export function mergeWorkspaceToCache(workspace: IWorkspaceDetails, workspaceState: Workspace.WorkspaceState, processState: Process.ProcessState, instanceState: Instance.InstanceState, userState: User.UserState): IWorkspaceDetails {
   if (workspace == null)
     return null;
 
   // Merge main element
-  const result = mergeElementToCache(workspace, rootStore.getState().workspaceState.workspaceCache, "workspaceId");
+  workspaceState.workspaceCache = workspaceState.workspaceCache || {};
+  const result = mergeElementToCache(workspace, workspaceState.workspaceCache, "workspaceId");
 
   // Merge processes
   if (workspace.extras.processes) {
     const newList: IProcessDetails[] = [];
     workspace.extras.processes.map(process => {
-      newList.push(mergeProcessToCache(process));
+      newList.push(mergeProcessToCache(process, processState, instanceState, userState));
     });
     workspace.extras.processes = newList;
   }
@@ -55,18 +54,18 @@ export function mergeWorkspaceToCache(workspace: IWorkspaceDetails): IWorkspaceD
   return result;
 }
 
-export function mergeProcessToCache(process: IProcessDetails): IProcessDetails {
+export function mergeProcessToCache(process: IProcessDetails, processState: Process.ProcessState, instanceState: Instance.InstanceState, userState: User.UserState): IProcessDetails {
   if (process == null)
     return null;
 
   // Merge main element
-  const result = mergeElementToCache(process, rootStore.getState().processState.processCache, "processId");
+  const result = mergeElementToCache(process, processState.processCache, "processId");
 
   // Merge instances
   if (process.extras.instances) {
     const newList: IInstanceDetails[] = [];
     process.extras.instances.map(instance => {
-      newList.push(mergeInstanceToCache(instance));
+      newList.push(mergeInstanceToCache(instance, instanceState, userState, processState));
     });
     process.extras.instances = newList;
   }
@@ -74,16 +73,16 @@ export function mergeProcessToCache(process: IProcessDetails): IProcessDetails {
   return result;
 }
 
-export function mergeInstanceToCache(instance: IInstanceDetails, ignoreUser = false): IInstanceDetails {
+export function mergeInstanceToCache(instance: IInstanceDetails, instanceState: Instance.InstanceState, userState: User.UserState, processState: Process.ProcessState, ignoreUser = false): IInstanceDetails {
   if (instance == null)
     return null;
 
   // Merge main element
-  const result = mergeElementToCache(instance, rootStore.getState().instanceState.instanceCache, "instanceId");
+  const result = mergeElementToCache(instance, instanceState.instanceCache, "instanceId");
 
   // Merge back to user.extras.instances
-  if (!ignoreUser && rootStore.getState().userState.currentUser && rootStore.getState().userState.currentUser.extras.instances) {
-    const userInstances = rootStore.getState().userState.currentUser.extras.instances;
+  if (!ignoreUser && userState.currentUser && userState.currentUser.extras.instances) {
+    const userInstances = userState.currentUser.extras.instances;
     const element = userInstances.find(ui => ui.instanceId === instance.instanceId);
     if (element) {
       userInstances.splice(userInstances.indexOf(element), 1);
@@ -93,7 +92,7 @@ export function mergeInstanceToCache(instance: IInstanceDetails, ignoreUser = fa
 
   // Merge back to process.extras.instances
   // ONLY, if extras.instances have already been loaded for the process, otherwise load-request might be ignored in archive
-  const process = rootStore.getState().processState.processCache[instance.processId];
+  const process = processState.processCache[instance.processId];
   if (process && process.extras.instances
     && process.extras.instances.find(instance2 => instance2.instanceId === instance.instanceId) == null) {
     process.extras.instances.push(instance);
@@ -103,19 +102,19 @@ export function mergeInstanceToCache(instance: IInstanceDetails, ignoreUser = fa
 }
 
 
-export function removeInstanceFromCache(instanceId: string): void {
+export function removeInstanceFromCache(instanceId: string, instanceState: Instance.InstanceState, userState: User.UserState, processState: Process.ProcessState): void {
 
-  const instanceCache = rootStore.getState().instanceState.instanceCache;
+  const instanceCache = instanceState.instanceCache;
   if (instanceCache)
     delete (instanceCache[instanceId]);
 
-  if (rootStore.getState().instanceState.currentInstance && rootStore.getState().instanceState.currentInstance.instanceId === instanceId)
-    rootStore.getState().instanceState.currentInstance = null;
+  if (instanceState.currentInstance && instanceState.currentInstance.instanceId === instanceId)
+    instanceState.currentInstance = null;
 
   // Also remove from user.extras.instances
   let processId: string;
-  if (rootStore.getState().userState.currentUser && rootStore.getState().userState.currentUser.extras.instances) {
-    const userInstances = rootStore.getState().userState.currentUser.extras.instances;
+  if (userState.currentUser && userState.currentUser.extras.instances) {
+    const userInstances = userState.currentUser.extras.instances;
     const element = userInstances.find(ui => ui.instanceId === instanceId);
     if (element) {
       processId = element.processId;
@@ -125,7 +124,7 @@ export function removeInstanceFromCache(instanceId: string): void {
 
   // Also remove from process.extras.instances
   if (processId) {
-    const process = rootStore.getState().processState.processCache[processId];
+    const process = processState.processCache[processId];
 
     if (process && process.extras.instances) {
       const instance = process.extras.instances.find(instance2 => instance2.instanceId === instanceId);
