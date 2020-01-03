@@ -12,34 +12,35 @@ import { ResetStore } from "../statehandler/actions";
 import { AnyAction } from "redux";
 
 export function userReducer(userState: UserState, action: AnyAction): UserState {
+  let newState = _.cloneDeep(userState);
 
   if (userState == null || action && action.type === ResetStore) {
     // Init state
-    userState = new UserState();
+    newState = new UserState();
   }
   if (action == null || action.type === ResetStore)
-    return userState;
+    return newState;
 
   switch (action.type) {
 
     case UserMessages.UserLoadedMessage: {
       const user = (action as IUserLoadedMessage).user;
-      userState.currentUser = StateHandler.mergeUserToCache(user);
+      newState.currentUser = StateHandler.mergeUserToCache(user, StateHandler.rootStore.getState().workspaceState, StateHandler.rootStore.getState().processState, StateHandler.rootStore.getState().instanceState);
 
       const userChanged = !_.isEqual(userState.currentUser, userState.lastDispatchedUser);
-      userState.lastDispatchedUser = _.cloneDeep(userState.currentUser);
+      newState.lastDispatchedUser = _.cloneDeep(userState.currentUser);
 
       if (userChanged) {
-        return update(userState, {
+        return update(newState, {
           cacheState: { $set: createId() }
         });
       } else
-        return userState;
+        return newState;
     }
     case UserActionsType.LoggedIn: {
       const loggedAction: IUserActionLoggedIn = action as IUserActionLoggedIn;
       isTrue(loggedAction.userDetails != null, "loggedAction.userDetails is null");
-      return update(userState, {
+      return update(newState, {
         currentUser: { $set: loggedAction.userDetails },
         lastApiResult: { $set: ApiResult.API_OK }
       });
@@ -47,11 +48,11 @@ export function userReducer(userState: UserState, action: AnyAction): UserState 
     case UserActionsType.Failed: {
       const failedAction: IUserActionFailed = action as IUserActionFailed;
       isTrue(failedAction.result != null, "failedAction.result is null");
-      return update(userState, {
+      return update(newState, {
         lastApiResult: { $set: failedAction.result }
       });
     }
     default:
-      return userState;
+      return newState;
   }
 }

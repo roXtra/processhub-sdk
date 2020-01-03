@@ -136,7 +136,9 @@ export async function completeProcessFromCache(process: IProcessDetails): Promis
   if (process.extras.bpmnXml)
     initBpmn = true;
 
-  process = StateHandler.mergeProcessToCache(process);
+  const processState = rootStore.getState().processState;
+  const instanceState = rootStore.getState().instanceState;
+  process = StateHandler.mergeProcessToCache(process, processState, instanceState);
 
   if (initBpmn) {
     // Also init bpmnProcess

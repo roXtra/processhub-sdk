@@ -22,7 +22,7 @@ export function instanceReducer(instanceState: InstanceState, action: any): Inst
   switch (action.type) {
 
     case INSTANCELOADED_MESSAGE: {
-      instanceState.currentInstance = StateHandler.mergeInstanceToCache((action as IInstanceLoadedMessage).instance);
+      instanceState.currentInstance = StateHandler.mergeInstanceToCache((action as IInstanceLoadedMessage).instance, instanceState);
 
       const instanceChanged = !_.isEqual(instanceState.currentInstance, instanceState.lastDispatchedInstance);
       instanceState.lastDispatchedInstance = _.cloneDeep(instanceState.currentInstance);
