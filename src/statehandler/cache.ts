@@ -40,6 +40,7 @@ export function mergeWorkspaceToCache(workspace: IWorkspaceDetails, workspaceSta
     return null;
 
   // Merge main element
+  workspaceState.workspaceCache = workspaceState.workspaceCache || {};
   const result = mergeElementToCache(workspace, workspaceState.workspaceCache, "workspaceId");
 
   // Merge processes

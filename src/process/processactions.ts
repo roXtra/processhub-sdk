@@ -1,7 +1,7 @@
 import * as Api from "../legacyapi";
 import * as _ from "lodash";
 import { rootStore } from "../statehandler";
-import { Dispatch, Action } from "redux";
+import { Dispatch, Action, AnyAction } from "redux";
 import * as StateHandler from "../statehandler";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { IProcessDetails, ProcessExtras, ITimerStartEventConfiguration } from "./processinterfaces";
@@ -99,9 +99,13 @@ export function createProcessInDbAction(processDetails: IProcessDetails, accessT
     });
     const bpmnProcess = processDetails.extras.bpmnProcess;
     processDetails.extras.bpmnProcess = null;
-    const response: IGetProcessDetailsReply = await Api.postJson(ProcessRequestRoutes.CreateProcess, {
+    const response: AnyAction = await Api.postJson(ProcessRequestRoutes.CreateProcess, {
       processDetails: processDetails
     }, accessToken);
+
+    response.processState = rootStore.getState().processState;
+    response.instanceState = rootStore.getState().instanceState;
+
     dispatch<any>(response);
     processDetails.extras.bpmnProcess = bpmnProcess;
     return response;
@@ -213,9 +217,12 @@ export function loadProcessAction(processId: string, instanceId?: string, proces
     if (instanceId != null)
       request.instanceId = instanceId;
 
-    const response: IGetProcessDetailsReply = await Api.getJson(ProcessRequestRoutes.GetProcessDetails, request, accessToken);
+    const response: AnyAction = await Api.getJson(ProcessRequestRoutes.GetProcessDetails, request, accessToken);
     if (response.processDetails)
       response.processDetails = await completeProcessFromCache(response.processDetails);
+
+    response.processState = rootStore.getState().processState;
+    response.instanceState = rootStore.getState().instanceState;
 
     dispatch<any>(response);
     return response;
@@ -309,7 +316,7 @@ export function updateProcessAction(process: IProcessDetails, accessToken: strin
     requestDetails.extras.instances = undefined;
     requestDetails.extras.auditTrail = undefined;
 
-    const response: IGetProcessDetailsReply = await Api.postJson(ProcessRequestRoutes.UpdateProcess, {
+    const response: AnyAction = await Api.postJson(ProcessRequestRoutes.UpdateProcess, {
       processDetails: requestDetails
     }, accessToken);
 
@@ -319,6 +326,7 @@ export function updateProcessAction(process: IProcessDetails, accessToken: strin
     }
 
     response.processDetails = await completeProcessFromCache(response.processDetails);
+    response.instanceState = rootStore.getState().instanceState;
 
     dispatch<any>(response);
     return response;
