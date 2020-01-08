@@ -1,6 +1,6 @@
 {
   "name": "processhub-sdk",
-  "version": "8.15.0-node12-1",
+  "version": "8.15.0-node12-6",
   "lockfileVersion": 1,
   "requires": true,
   "dependencies": {
