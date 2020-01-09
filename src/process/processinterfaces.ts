@@ -60,8 +60,6 @@ export interface IServiceActionField {
 }
 
 export interface IProcessDetails {
-  // Changes must also be reflected in gqlTypes and gqlFragments below!
-
   processId: string;
   workspaceId: string;
   displayName: string;
@@ -101,37 +99,6 @@ export interface IProcessDetails {
     childProcessDetails?: IProcessDetails[];
   };
 }
-export const gqlProcessTypes = `     
-  type ExtrasProcess {
-    bpmnXml: String
-    instances: [IInstanceDetails]
-    processRoles: ProcessRoles
-  }
-
-  type IProcessAttachment {
-    attachmentId: String
-    fileName: String
-    url: String
-  }
-
-  type IProcessDetails {
-    workspaceId: String
-    processId: String
-    displayName: String
-    urlName: String
-    fullUrl: String
-    previewUrl: String
-    description: String
-    useModeler: Boolean
-    userRights: Int
-    attachments: [IProcessAttachment]
-    extras: ExtrasProcess
-  }
-
-  scalar PotentialRoleOwners
-  scalar DecisionTask
-  scalar ProcessRoles
-`;
 
 export interface IProcessSettings {
   dashboard?: {

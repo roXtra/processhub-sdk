@@ -24,8 +24,6 @@ import * as User from "./user";
 export { User };
 import * as Path from "./path";
 export { Path };
-import * as Types from "./types";
-export { Types };
 import * as Config from "./config";
 export { Config };
 import * as LegacyApi from "./legacyapi";

@@ -51,7 +51,15 @@
     // Disabled for now to simplify migration to eslint
     "camelcase": "warn",
     // Disabled for now to simplify eslint migration
-    "no-underscore-dangle": "warn",
+    "no-underscore-dangle": [
+      "warn",
+      {
+        "allow": [
+          "__INITIAL_CONFIG__",
+          "__INITIAL_STATE__"
+        ]
+      }
+    ],
     "require-atomic-updates": "warn",
     "@typescript-eslint/no-unused-vars": [
       "error",
