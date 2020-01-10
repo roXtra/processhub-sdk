@@ -140,9 +140,8 @@ export async function completeProcessFromCache(process: IProcessDetails): Promis
   if (process.extras.bpmnXml)
     initBpmn = true;
 
-  const processState = rootStore.getState().processState;
-  const instanceState = rootStore.getState().instanceState;
-  process = StateHandler.mergeProcessToCache(process, processState, instanceState);
+  const { userState, processState, instanceState } = rootStore.getState();
+  process = StateHandler.mergeProcessToCache(process, processState, instanceState, userState);
 
   if (initBpmn) {
     // Also init bpmnProcess
@@ -165,11 +164,11 @@ export function getAllServicesAction(): <S extends Action<any>>(dispatch: Dispat
 }
 
 export async function loadProcess(processId: string, instanceId?: string, getExtras: ProcessExtras = ProcessExtras.ExtrasBpmnXml, forceReload = false, accessToken: string = null): Promise<IProcessDetails> {
-  const processState = rootStore.getState().processState;
+  const state = rootStore.getState();
   let cachedProcess = null;
 
-  if (!forceReload && processState.processCache)
-    cachedProcess = processState.processCache[processId];
+  if (!forceReload && state.processState.processCache)
+    cachedProcess = state.processState.processCache[processId];
   if (cachedProcess != null) {
     // Ignore call if all data
     if ((getExtras & ProcessExtras.ExtrasBpmnXml) && cachedProcess.extras.bpmnXml) {
@@ -195,10 +194,13 @@ export async function loadProcess(processId: string, instanceId?: string, getExt
 
     if (getExtras === 0) {
       // All data available from cache
-      rootStore.dispatch({
+      const response = {
         type: PROCESSLOADED_MESSAGE,
         processDetails: cachedProcess
-      } as IProcessLoadedMessage);
+      } as IProcessLoadedMessage;
+      Object.assign(response, state);
+
+      rootStore.dispatch(response);
 
       return cachedProcess;
     }
@@ -221,8 +223,8 @@ export function loadProcessAction(processId: string, instanceId?: string, proces
     if (response.processDetails)
       response.processDetails = await completeProcessFromCache(response.processDetails);
 
-    response.processState = rootStore.getState().processState;
-    response.instanceState = rootStore.getState().instanceState;
+    const state = rootStore.getState();
+    Object.assign(response, state);
 
     dispatch<any>(response);
     return response;
@@ -230,10 +232,14 @@ export function loadProcessAction(processId: string, instanceId?: string, proces
 }
 
 export function setLocalProcessXml(xmlStr: string): void {
-  rootStore.dispatch({
+  const state = rootStore.getState();
+  const response = {
     type: ProcessActionType.Save as ProcessActionType,
     xmlStr: xmlStr
-  } as IProcessActionSave);
+  } as IProcessActionSave;
+  Object.assign(response, state);
+
+  rootStore.dispatch(response);
 }
 
 export async function processChanged(bpmnProcess: BpmnProcess): Promise<void> {
@@ -242,19 +248,25 @@ export async function processChanged(bpmnProcess: BpmnProcess): Promise<void> {
 
 export function processChangedAction(bpmnProcess: BpmnProcess): (dispatch: any) => Promise<void> {
   return async function (dispatch: any): Promise<void> {
-    rootStore.getState();
+    const state = rootStore.getState();
     const processXml = await bpmnProcess.toXmlString();
-    if (processXml != null)
-      dispatch({
+    let response;
+    if (processXml != null) {
+      response = {
         type: ProcessActionType.Save as ProcessActionType,
         xmlStr: processXml,
         bpmnProcess: bpmnProcess
-      } as IProcessActionSave);
-    else
-      dispatch({
+      } as IProcessActionSave;
+    }
+    else {
+      response = {
         type: ProcessActionType.Save as ProcessActionType
         // Ohne process ist Aufruf fehlgeschlagen
-      } as IProcessActionSave);
+      } as IProcessActionSave;
+    }
+
+    Object.assign(response, state);
+    dispatch(response);
   };
 }
 
@@ -326,7 +338,8 @@ export function updateProcessAction(process: IProcessDetails, accessToken: strin
     }
 
     response.processDetails = await completeProcessFromCache(response.processDetails);
-    response.instanceState = rootStore.getState().instanceState;
+    const state = rootStore.getState();
+    Object.assign(response, state);
 
     dispatch<any>(response);
     return response;

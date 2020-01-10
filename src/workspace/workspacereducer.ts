@@ -19,7 +19,7 @@ export function workspaceReducer(workspaceState: WorkspaceState, action: AnyActi
 
   switch (action.type) {
     case WorkspaceMessages.WorkspaceLoadedMessage: {
-      workspaceState.currentWorkspace = StateHandler.mergeWorkspaceToCache((action as IWorkspaceLoadedMessage).workspace, workspaceState, action.processState, action.instanceState);
+      workspaceState.currentWorkspace = StateHandler.mergeWorkspaceToCache((action as IWorkspaceLoadedMessage).workspace, workspaceState, action.processState, action.instanceState, action.userState);
 
       const workspaceChanged = !_.isEqual(workspaceState.currentWorkspace, workspaceState.lastDispatchedWorkspace);
       workspaceState.lastDispatchedWorkspace = _.cloneDeep(workspaceState.currentWorkspace);

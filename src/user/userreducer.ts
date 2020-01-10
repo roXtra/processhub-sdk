@@ -21,7 +21,7 @@ export function userReducer(userState: UserState, action: AnyAction): UserState 
 
     case UserMessages.UserLoadedMessage: {
       const user = (action as IUserLoadedMessage).user;
-      newState.currentUser = StateHandler.mergeUserToCache(user, action.workspaceState, action.processState, action.instanceState);
+      newState.currentUser = StateHandler.mergeUserToCache(user, action.workspaceState, action.processState, action.userState, action.instanceState);
 
       const userChanged = !_.isEqual(userState.currentUser, userState.lastDispatchedUser);
       newState.lastDispatchedUser = _.cloneDeep(userState.currentUser);
