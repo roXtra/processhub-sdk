@@ -180,6 +180,8 @@ export function createUserAction(mail: string, realName: string, password: strin
       phone,
     };
     return Api.postJson(UserRequestRoutes.Register, request).then((response: ILoginReply) => {
+      const state = rootStore.getState();
+      Object.assign(response, state);
       dispatch(response);
       // Nur Weiterleiten, wenn erfolgreich
       if (response.result === Api.ApiResult.API_OK) {

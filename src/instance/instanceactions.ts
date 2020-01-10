@@ -72,8 +72,10 @@ export function updateInstanceAction(instance: IInstanceDetails, instanceState: 
       instance: instance
     }, accessToken);
 
-    if (response.instance)
-      response.instance = mergeInstanceToCache(response.instance, instanceState);
+    if (response.instance) {
+      const { userState, processState } = rootStore.getState();
+      response.instance = mergeInstanceToCache(response.instance, instanceState, userState, processState);
+    }
 
     const message: IInstanceLoadedMessage = {
       type: INSTANCELOADED_MESSAGE,
@@ -173,10 +175,13 @@ export async function loadInstance(instanceId: string, instanceExtras?: Instance
 
     if (instanceExtras === 0) {
       // All data available from cache
-      rootStore.dispatch({
+      const response = {
         type: INSTANCELOADED_MESSAGE,
         instance: cachedInstance
-      } as IInstanceLoadedMessage);
+      } as IInstanceLoadedMessage;
+      const state = rootStore.getState();
+      Object.assign(response, state);
+      rootStore.dispatch(response);
 
       return cachedInstance;
     }
@@ -190,8 +195,10 @@ export function loadInstanceAction(instanceId: string, instanceState: Instance.I
       instanceId: instanceId,
       getExtras: getExtras
     });
-    if (response.instanceDetails)
-      response.instanceDetails = mergeInstanceToCache(response.instanceDetails, instanceState);
+    if (response.instanceDetails) {
+      const { userState, processState } = rootStore.getState();
+      response.instanceDetails = mergeInstanceToCache(response.instanceDetails, instanceState, userState, processState);
+    }
 
     const message: IInstanceLoadedMessage = {
       type: INSTANCELOADED_MESSAGE,
