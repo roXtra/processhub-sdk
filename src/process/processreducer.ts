@@ -26,7 +26,7 @@ export function processReducer(processState: Process.ProcessState, action: any):
     // siehe https://github.com/kolodny/immutability-helper
 
     case PROCESSLOADED_MESSAGE: {
-      processState.currentProcess = StateHandler.mergeProcessToCache((action as IProcessLoadedMessage).processDetails, processState, action.instanceState);
+      processState.currentProcess = StateHandler.mergeProcessToCache((action as IProcessLoadedMessage).processDetails, processState, action.instanceState, action.userState);
 
       const processChanged = !_.isEqual(processState.currentProcess, processState.lastDispatchedProcess);
       processState.lastDispatchedProcess = _.cloneDeep(processState.currentProcess);
