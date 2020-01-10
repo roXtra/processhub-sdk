@@ -94,7 +94,7 @@ declare module "diagram-js/lib/features/dragging/Dragging" {
      * @param {String} prefix
      * @param {Object} [options]
      */
-    public init(event: MouseEvent | TouchEvent, relativeTo: IPoint, prefix: string, options: Record<string, any>): void;
+    public init(event: MouseEvent | TouchEvent, relativeTo: IPoint, prefix: string, options: {}): void;
 
     public move(event: {}, activate: {}): void;
     public hover(event: {}): void;
@@ -102,7 +102,7 @@ declare module "diagram-js/lib/features/dragging/Dragging" {
     public end(event: {}): void;
     public cancel(restore: {}): void;
     public context(): Dragging.IContext;
-    public setOptions(options: Record<string, any>): void;
+    public setOptions(options: {}): void;
   }
 
   namespace Dragging {

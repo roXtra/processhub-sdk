@@ -83,14 +83,14 @@ declare module "diagram-js/lib/command/CommandStack" {
      *
      * @type {Object}
      */
-    public _handlerMap: Record<string, any>;
+    public _handlerMap: {};
 
     /**
      * A stack containing all re/undoable actions on the diagram
      *
      * @type {Array<Object>}
      */
-    public _stack: Record<string, any>[];
+    public _stack: {}[];
 
     /**
      * The current index on the stack
@@ -104,7 +104,7 @@ declare module "diagram-js/lib/command/CommandStack" {
      *
      * @type {Object}
      */
-    public _currentExecution: Record<string, any>;
+    public _currentExecution: {};
 
     public _eventBus: EventBus;
 
@@ -120,7 +120,7 @@ declare module "diagram-js/lib/command/CommandStack" {
      * @param {String} command the command to execute
      * @param {Object} context the environment to execute the command in
      */
-    public execute(command: string, context: Record<string, any>): void;
+    public execute(command: string, context: {}): void;
     public execute(command: "shape.resize", context: CommandStack.IShapeResizeContext): void;
 
     /**
@@ -143,7 +143,7 @@ declare module "diagram-js/lib/command/CommandStack" {
      *
      * @return {Boolean} true if the command can be executed
      */
-    public canExecute(command: string, context: Record<string, any>): boolean;
+    public canExecute(command: string, context: {}): boolean;
 
     /**
      * Clear the command stack, erasing all undo / redo history
@@ -181,9 +181,9 @@ declare module "diagram-js/lib/command/CommandStack" {
 
     public canRedo(): boolean;
 
-    public _getRedoAction(): Record<string, any>;
+    public _getRedoAction(): {};
 
-    public _getUndoAction(): Record<string, any>;
+    public _getUndoAction(): {};
   }
 
   namespace CommandStack {

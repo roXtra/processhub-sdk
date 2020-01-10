@@ -31,7 +31,7 @@ declare module "diagram-js/lib/features/snapping/Snapping" {
         canExecute: boolean;
         shape: Shape;
         snapContext: SnapContext;
-        target: Record<string, any>;
+        target: {};
         visual: SVGGElement;
       };
       dx: number;

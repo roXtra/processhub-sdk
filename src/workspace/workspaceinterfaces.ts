@@ -31,7 +31,6 @@ export function getWorkspaceTypeName(workspaceType: WorkspaceType): string {
 }
 
 export interface IWorkspaceDetails {
-  // Changes must also be reflected in gqlTypes and gqlFragments below!
 
   workspaceId: string;
   workspaceType: WorkspaceType;
@@ -54,25 +53,6 @@ export interface IWorkspaceDetails {
     groups?: IGroupDetails[];
   };
 }
-
-export const gqlWorkspaceTypes = `     
-  type IWorkspaceDetails {
-    workspaceId: String!
-    workspaceType: String
-    urlName: String
-    fullUrl: String
-    displayName: String
-    description: String
-    userRole: Int
-    extras: ExtrasWorkspace
-  }
-  type ExtrasWorkspace {
-    members: [WorkspaceMember]
-    processes: [IProcessDetails]
-  }
-
-  scalar WorkspaceMember
-`;
 
 export enum WorkspaceExtras {
   None = 0,

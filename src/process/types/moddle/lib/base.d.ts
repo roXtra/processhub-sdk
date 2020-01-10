@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 declare module "moddle/lib/base" {
   export = Base;
 
@@ -15,13 +16,13 @@ declare module "moddle/lib/base" {
     public name?: string;
 
     public $instanceOf(element: {}, type: {}): boolean;
-    public get(name: string): any;
-    public set(name: string, value: any): void;
+    public get(name: string): unknown;
+    public set(name: string, value: unknown): void;
   }
 
   namespace Base {
     export interface ITypeDescriptor {
-      $pkg: any;
+      $pkg: unknown;
       allTypes: ITypeDescriptor[];
       idProperty: IPropertyDescriptor;
       name: string;
@@ -37,7 +38,7 @@ declare module "moddle/lib/base" {
       name: string;
       ns: INamespaceDescriptor;
       type: string;
-      isMany?: boolean;
+      isMunknown?: boolean;
     }
 
     export interface INamespaceDescriptor {

@@ -71,8 +71,8 @@ declare module "diagram-js/lib/features/rules/RuleProvider" {
     public addRule(actions: "connection.start", fn: (context: IConnectionStartContext) => boolean): void;
     public addRule(actions: "elements.move", fn: (context: IElementsMoveContext) => boolean): void;
     public addRule(actions: "shape.resize", fn: (context: IShapeResizeContext) => boolean): void;
-    public addRule(actions: ModelingAction | ModelingAction[], fn: (context: Record<string, any>) => boolean): void;
-    public addRule(actions: ModelingAction | ModelingAction[], priority: number, fn: (context: Record<string, any>) => boolean): void;
+    public addRule(actions: ModelingAction | ModelingAction[], fn: (context: {}) => boolean): void;
+    public addRule(actions: ModelingAction | ModelingAction[], priority: number, fn: (context: {}) => boolean): void;
     public addRule(actions: "connection.reconnectEnd", fn: (context: IConnectionReconnectEndContext) => boolean): void;
     public addRule(actions: "connection.reconnectStart", fn: (context: IConnectionReconnectStartContext) => boolean): void;
     public addRule(actions: "shape.create", fn: (context: IShapeCreateContext) => boolean): void;
@@ -104,7 +104,7 @@ declare module "diagram-js/lib/features/rules/RuleProvider" {
     insert: boolean;
     newWaypoints: IPoint[];
     originalWaypoints: IPoint[];
-    snapPoints: Record<string, any>;
+    snapPoints: {};
   }
 
   export interface IConnectionReconnectStartContext extends IConnectionReconnectContext {

@@ -14,8 +14,8 @@ declare module "didi/lib/injector" {
      *
      * @return {Object}
      */
-    public get(name: string, strict?: boolean): Record<string, any>;
+    public get(name: string, strict?: boolean): {};
 
-    public invoke(fn: Function, context: Record<string, any>): void;
+    public invoke(fn: Function, context: {}): void;
   }
 }

@@ -42,7 +42,7 @@ declare module "diagram-js/lib/features/space-tool/SpaceTool" {
      *
      * @return {Boolean} true, if successful
      */
-    public initializeMakeSpace(event: Event, context: Record<string, any>): boolean;
+    public initializeMakeSpace(event: Event, context: {}): boolean;
 
     /**
      * Calculate adjustments needed when making space

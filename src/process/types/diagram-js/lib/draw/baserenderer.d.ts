@@ -22,7 +22,7 @@ declare module "diagram-js/lib/draw/BaseRenderer" {
      *
      * @returns {Boolean}
      */
-    public canRender(element: Record<string, any>): boolean;
+    public canRender(element: {}): boolean;
 
     /**
      * Provides the shape's snap svg element to be drawn on the `canvas`.

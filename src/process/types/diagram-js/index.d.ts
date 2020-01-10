@@ -82,7 +82,7 @@ declare module "diagram-js" {
      * @param {Function|Object[]} fn the function to resolve
      * @param {Object} locals a number of locals to use to resolve certain dependencies
      */
-    public invoke(fn: InvokeFunction, locals: Record<string, any>): void;
+    public invoke(fn: InvokeFunction, locals: {}): void;
 
     /**
      * Destroys the diagram

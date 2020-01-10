@@ -1,4 +1,6 @@
 declare module "moddle/lib/moddle" {
+  import Base = require("moddle/lib/base");
+
   export = Moddle;
 
   /**
@@ -84,7 +86,7 @@ declare module "moddle/lib/moddle" {
      * @param  {{}} [properties] a map of properties to initialize the instance with
      * @return {{}} the any type instance
      */
-    public createAny(name: string, nsUri: string, properties: {}): {};
+    public createAny(name: string, nsUri: string, properties: {}): Base;
 
     /**
      * Returns a registered package by uri or prefix

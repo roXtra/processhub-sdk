@@ -77,7 +77,7 @@ declare module "diagram-js/lib/features/snapping/SnapContext" {
      *
      * @type {Object}
      */
-    protected _snapValues: Record<string, any>;
+    protected _snapValues: {};
 
     /**
      * Creates the snap points and initializes them with the

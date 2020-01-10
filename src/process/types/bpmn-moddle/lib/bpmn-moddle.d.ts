@@ -32,7 +32,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
      * @param {Object|Array} packages to use for instantiating the model
      * @param {Object} [options] additional options to pass over
      */
-    constructor(packages?: Record<string, any>[], options?: Record<string, any>);
+    constructor(packages?: {}[], options?: {});
 
     /**
      * Create an instance of the specified type.
@@ -90,22 +90,22 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
     public create(descriptor: "dc:Point", attrs: Partial<Dc.IPoint>): Dc.IPoint;
 
     /**
-     * Creates an any-element type to be used within model instances.
+     * Creates an unknown-element type to be used within model instances.
      *
      * This can be used to create custom elements that lie outside the meta-model.
      * The created element contains all the meta-data required to serialize it
      * as part of meta-model elements.
      *
-     * @method Moddle#createAny
+     * @method Moddle#createunknown
      *
      * @example
      *
-     * var foo = moddle.createAny('vendor:Foo', 'http://vendor', {
+     * var foo = moddle.createunknown('vendor:Foo', 'http://vendor', {
      *   value: 'bar'
      * });
      *
      * var container = moddle.create('my:Container', 'http://my', {
-     *   any: [ foo ]
+     *   unknown: [ foo ]
      * });
      *
      * // go ahead and serialize the stuff
@@ -114,13 +114,13 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
      * @param  {String} name  the name of the element
      * @param  {String} nsUri the namespace uri of the element
      * @param  {Object} [properties] a map of properties to initialize the instance with
-     * @return {Object} the any type instance
+     * @return {Object} the unknown type instance
      */
-    public createAny(
+    public createunknown(
       name: "processhub:inputOutput",
       nsUri: "http://processhub.com/schema/1.0/bpmn",
       properties: Partial<Processhub.IInputOutput>): Processhub.IInputOutput;
-    public createAny(
+    public createunknown(
       name: "processhub:inputParameter",
       nsUri: "http://processhub.com/schema/1.0/bpmn",
       properties: Partial<Processhub.IInputParameter>): Processhub.IInputParameter;
@@ -137,7 +137,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
     public fromXML(
       xmlStr: string,
       typeName: Bpmn.ElementType,
-      options: Record<string, any>,
+      options: {},
       done: (err: Error, result: ModdleElement, parseContext: Context) => void): void;
     public fromXML(xmlStr: string, done: (err: Error, result: Bpmn.IDefinitions, parseContext: Context) => void): void;
 
@@ -148,7 +148,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
      * @param {Object}   [options]  to pass to the underlying writer
      * @param {Function} done       callback invoked with (err, xmlStr) once the import completes
      */
-    public toXML(element: Bpmn.IDefinitions, options: Record<string, any>, done: (err: Record<string, any>, xmlStr: string) => void): void;
+    public toXML(element: Bpmn.IDefinitions, options: {}, done: (err: {}, xmlStr: string) => void): void;
   }
 
   namespace BpmnModdle {
@@ -156,7 +156,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
     }
     export interface IElement extends IElementAttrs {
       readonly $type: Bpmn.ElementType;
-      $attrs?: Record<string, any>;
+      $attrs?: {};
     }
 
   }

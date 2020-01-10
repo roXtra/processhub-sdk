@@ -170,7 +170,7 @@ export function addOrUpdateExtension(baseElement: Bpmn.IBaseElement, key: BpmnEx
   }
   let phInOut = baseElement.extensionElements.values.find(e => e.$type === "processhub:inputOutput") as Processhub.IInputOutput;
   if (!phInOut || phInOut.$children == null) {
-    phInOut = bpmnModdleInstance.createAny("processhub:inputOutput", "http://processhub.com/schema/1.0/bpmn", { $children: [] });
+    phInOut = bpmnModdleInstance.createAny("processhub:inputOutput", "http://processhub.com/schema/1.0/bpmn", { $children: [] }) as Processhub.IInputOutput;
     baseElement.extensionElements.values.push(phInOut);
   }
   let settingsElement = phInOut.$children.find(c => (c as Processhub.IInputParameter).name === key);

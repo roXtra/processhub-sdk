@@ -23,7 +23,7 @@ declare module "diagram-js/lib/model" {
      * @name Base#businessObject
      * @type Object
      */
-    public businessObject?: Record<string, any>;
+    public businessObject?: {};
 
     /**
      * The parent shape
