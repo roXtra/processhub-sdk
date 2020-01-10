@@ -138,9 +138,9 @@ interface ILegacyProperty {
 interface ILegacySchema {
   properties: { [id: string]: ILegacyProperty };
 }
-export function updateLegacyFieldDefinitions(definitions: any): IFieldDefinition[] {
+export function updateLegacyFieldDefinitions(definitions: ILegacySchema): IFieldDefinition[] {
   if (!(definitions instanceof Array)) {
-    const properties: { [id: string]: ILegacyProperty } = (definitions as ILegacySchema).properties;
+    const properties: { [id: string]: ILegacyProperty } = definitions.properties;
     const updatedDefinitions: IFieldDefinition[] = [];
     for (const id in properties) {
       if (typeof id === "string") {

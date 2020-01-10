@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 /// <reference path="./dc.d.ts" />
 
 declare module "modeler/bpmn/di" {

@@ -16,7 +16,7 @@ declare module "moddle-xml/lib/reader" {
      * @param {Model} options.model used to read xml files
      * @param {Boolean} options.lax whether to make parse errors warnings
      */
-    public constructor(options: Record<string, any>);
+    public constructor(options: {});
 
     /**
      * Parse the given XML into a moddle document tree.
@@ -25,7 +25,7 @@ declare module "moddle-xml/lib/reader" {
      * @param {ElementHandler|Object} options or rootHandler
      * @param  {Function} done
      */
-    public fromXML(xml: string, options: Record<string, any>, done: (error: Record<string, any>, rootElement: Factory.ModddleElement, context: Context) => void): void;
+    public fromXML(xml: string, options: {}, done: (error: {}, rootElement: Factory.ModddleElement, context: Context) => void): void;
 
     public handler(name: string): ElementHandler;
   }
@@ -51,7 +51,7 @@ declare module "moddle-xml/lib/reader" {
   export class ElementHandler extends BaseElementHandler {
     public constructor(model: {}, type: {}, context: Context);
 
-    public addReference(reference: Record<string, any>): void;
+    public addReference(reference: {}): void;
 
     public handleEnd(): void;
     /**
@@ -96,7 +96,7 @@ declare module "moddle-xml/lib/reader" {
      */
     public lax: boolean;
 
-    public elementsById: Record<string, any>;
+    public elementsById: {};
     public references: {}[];
     public warnings: {}[];
 
@@ -109,14 +109,14 @@ declare module "moddle-xml/lib/reader" {
      * @param {ElementHandler} options.rootHandler the root handler for parsing a document
      * @param {boolean} [options.lax=false] whether or not to ignore invalid elements
      */
-    public constructor(options: Record<string, any>);
+    public constructor(options: {});
 
     /**
      * Add an unresolved reference.
      *
      * @param {Object} reference
      */
-    public addReference(reference: Record<string, any>): void;
+    public addReference(reference: {}): void;
 
     /**
      * Add a processed element.
@@ -132,6 +132,6 @@ declare module "moddle-xml/lib/reader" {
      * @param {String} warning.message
      * @param {Error} [warning.error]
      */
-    public addWarning(warning: Record<string, any>): void;
+    public addWarning(warning: {}): void;
   }
 }

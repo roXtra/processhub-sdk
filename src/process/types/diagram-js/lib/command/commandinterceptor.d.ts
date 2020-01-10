@@ -69,7 +69,7 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
       priority: number,
       handlerFn: Function,
       unwrap: boolean,
-      that: Record<string, any>): void;
+      that: {}): void;
 
     /**
      * A named hook for plugging into the command execution
@@ -81,7 +81,7 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
      *                          listener instead
      * @param {Object} [that] Pass context (`this`) to the handler function
      */
-    public canExecute(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: Record<string, any>): void;
+    public canExecute(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: {}): void;
 
     /**
      * A named hook for plugging into the command execution
@@ -93,7 +93,7 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
      *                          listener instead
      * @param {Object} [that] Pass context (`this`) to the handler function
      */
-    public preExecute(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: Record<string, any>): void;
+    public preExecute(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: {}): void;
     public preExecute(events: "shape.delete", callback: (event: IShapeDeletePreExecuteEvent) => void, unwrap: boolean): void;
     public preExecute(events: "shape.create", callback: (event: IShapeCreateEvent) => void, unwrap: boolean): void;
     public preExecute(events: "elements.move", callback: (event: IElementsMoveEvent) => void, unwrap: boolean): void;
@@ -108,7 +108,7 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
      *                          listener instead
      * @param {Object} [that] Pass context (`this`) to the handler function
      */
-    public preExecuted(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: Record<string, any>): void;
+    public preExecuted(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: {}): void;
 
     /**
      * A named hook for plugging into the command execution
@@ -120,7 +120,7 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
      *                          listener instead
      * @param {Object} [that] Pass context (`this`) to the handler function
      */
-    public execute(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: Record<string, any>): void;
+    public execute(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: {}): void;
 
     /**
      * A named hook for plugging into the command execution
@@ -132,7 +132,7 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
      *                          listener instead
      * @param {Object} [that] Pass context (`this`) to the handler function
      */
-    public executed(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: Record<string, any>): void;
+    public executed(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: {}): void;
 
     /**
      * A named hook for plugging into the command execution
@@ -144,7 +144,7 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
      *                          listener instead
      * @param {Object} [that] Pass context (`this`) to the handler function
      */
-    public postExecute(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: Record<string, any>): void;
+    public postExecute(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: {}): void;
     public postExecute(events: "shape.resize", callback: (event: IShapeResizeEvent) => void): void;
     public postExecute(events: "shape.delete", callback: (event: IShapeDeleteEvent) => void, unwrap?: boolean): void;
     public postExecute(events: "shape.resize", callback: (event: IShapeResizeEvent) => void, unwrap: boolean): void;
@@ -159,7 +159,7 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
      *                          listener instead
      * @param {Object} [that] Pass context (`this`) to the handler function
      */
-    public postExecuted(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: Record<string, any>): void;
+    public postExecuted(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: {}): void;
     public postExecuted(events: "shape.resize", callback: (event: IShapeResizeEvent) => void): void;
     public postExecuted(event: "elements.move", callback: (event: IElementsMoveEvent) => void, unwrap: boolean): void;
     public postExecuted(event: "shape.create", callback: (event: IShapeCreateEvent) => void, unwrap: boolean): void;
@@ -175,7 +175,7 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
      *                          listener instead
      * @param {Object} [that] Pass context (`this`) to the handler function
      */
-    public revert(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: Record<string, any>): void;
+    public revert(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: {}): void;
 
     /**
      * A named hook for plugging into the command execution
@@ -187,7 +187,7 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
      *                          listener instead
      * @param {Object} [that] Pass context (`this`) to the handler function
      */
-    public reverted(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: Record<string, any>): void;
+    public reverted(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: {}): void;
 
   }
 

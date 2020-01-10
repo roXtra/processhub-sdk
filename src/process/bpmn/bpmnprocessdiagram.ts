@@ -3,6 +3,7 @@ import { Bpmn, Bpmndi } from "../bpmn";
 import { isTrue } from "../../tools";
 import { IRowDetails } from "..";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
+import { Dc } from "modeler/bpmn/dc";
 
 export class Waypoint {
   x: number;
@@ -81,8 +82,8 @@ export class BpmnProcessDiagram {
     const diagram = this.getDiagramElement();
     // Für die Berechnung der gesamt Breite
     const process = this.bpmnProcess.getProcess(processId);
-    const amountOfProcesses = process.flowElements.filter((e: any) => e.$type === "bpmn:UserTask" || e.$type === "bpmn:SendTask").length;
-    const amountOfSequences = process.flowElements.filter((e: any) => e.$type === "bpmn:SequenceFlow").length;
+    const amountOfProcesses = process.flowElements.filter((e) => e.$type === "bpmn:UserTask" || e.$type === "bpmn:SendTask").length;
+    const amountOfSequences = process.flowElements.filter((e) => e.$type === "bpmn:SequenceFlow").length;
 
 
     const allGateways = this.bpmnProcess.getAllExclusiveGateways();
@@ -170,7 +171,7 @@ export class BpmnProcessDiagram {
 
       const flowElements = process.flowElements;
       let drawObjectList: Bpmn.IFlowNode[] = [];
-      let startElementObject = flowElements.filter((e: any) => e.$type === "bpmn:StartEvent");
+      let startElementObject = flowElements.filter((e) => e.$type === "bpmn:StartEvent");
       startElementObject = startElementObject.sort((a, b) => {
         if ((a as Bpmn.IStartEvent).eventDefinitions == null)
           return -1;
@@ -239,7 +240,7 @@ export class BpmnProcessDiagram {
     }
   }
 
-  private drawAllTasks(diagram: any, laneDictionaries: ILaneDictionary[], taskList: Bpmn.IFlowNode[], xParam: number): void {
+  private drawAllTasks(diagram: Bpmndi.IBPMNDiagram, laneDictionaries: ILaneDictionary[], taskList: Bpmn.IFlowNode[], xParam: number): void {
     for (const workingObject of taskList) {
       let iconWidth = BpmnProcessDiagram.TASK_WIDTH;
       const sizeStartAndEndEvent = 36;
@@ -290,7 +291,7 @@ export class BpmnProcessDiagram {
     }
   }
 
-  private generateSequenceFlow(diagram: any, flowObject: Bpmn.ISequenceFlow, drawJumpFlow: boolean, numberOfJumpEdge = 0, laneDictionaries: ILaneDictionary[] = null): void {
+  private generateSequenceFlow(diagram: Bpmndi.IBPMNDiagram, flowObject: Bpmn.ISequenceFlow, drawJumpFlow: boolean, numberOfJumpEdge = 0, laneDictionaries: ILaneDictionary[] = null): void {
     let waypoints: Waypoint[] = [];
     // Hole die beiden Diagramm Objekte von Quell und Ziel Objekt
     const sourceRef = flowObject.sourceRef;
@@ -338,7 +339,7 @@ export class BpmnProcessDiagram {
     diagram.plane.planeElement.push(edgeObj);
   }
 
-  private createShape(bpmnElement: any, xParam: number, yParam: number, widthParam: number, heightParam: number): any {
+  private createShape(bpmnElement: Bpmn.IFlowNode, xParam: number, yParam: number, widthParam: number, heightParam: number): Bpmndi.IBPMNShape {
     const bounds = bpmnModdleInstance.create("dc:Bounds", { x: xParam, y: yParam, width: widthParam, height: heightParam });
     const shape = bpmnModdleInstance.create("bpmndi:BPMNShape", {
       id: BpmnProcess.BpmnProcess.getBpmnId("bpmndi:BPMNShape"),
@@ -348,9 +349,9 @@ export class BpmnProcessDiagram {
     return shape;
   }
 
-  private createEdge(bpmnElement: any, sourceElement: any, targetElement: any, waypoints: Waypoint[]): Bpmndi.IBPMNEdge {
+  private createEdge(bpmnElement: Bpmn.ISequenceFlow, sourceElement: any, targetElement: any, waypoints: Waypoint[]): Bpmndi.IBPMNEdge {
 
-    const resultWaypoint: any[] = [];
+    const resultWaypoint: Dc.IPoint[] = [];
     // Waypoint einfügen
     for (const waypoint of waypoints) {
       const tmpWaypoint =  bpmnModdleInstance.create("dc:Point", { x: waypoint.x, y: waypoint.y });

@@ -126,7 +126,7 @@ declare module "diagram-js/lib/features/overlays/Overlays" {
      * @param {String} [id]
      * @param {Object} [filter]
      */
-    public remove(filter: Record<string, any>): void;
+    public remove(filter: {}): void;
 
     public show(): void;
 

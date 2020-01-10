@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 /// <reference path="./bpmndi.d.ts" />
 /// <reference path="./dc.d.ts" />
 

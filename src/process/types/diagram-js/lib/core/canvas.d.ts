@@ -116,7 +116,7 @@ declare module "diagram-js/lib/core/Canvas" {
      *
      * @return {Object|djs.model.Root} new root element
      */
-    public setRootElement(element: Record<string, any>, override: boolean): Record<string, any>;
+    public setRootElement(element: {}, override: boolean): {};
 
     /**
      * Adds an element to the canvas.
@@ -244,7 +244,7 @@ declare module "diagram-js/lib/core/Canvas" {
      * @param {Number} [delta.dx]
      * @param {Number} [delta.dy]
      */
-    public scroll(delta: Record<string, any>): Record<string, any>;
+    public scroll(delta: {}): {};
 
     /**
      * Gets or sets the current zoom of the canvas, optionally zooming
@@ -266,7 +266,7 @@ declare module "diagram-js/lib/core/Canvas" {
      *
      * @return {Dimensions}
      */
-    public getSize(): Record<string, any>;
+    public getSize(): {};
 
     /**
      * Return the absolute bounding box for the given element

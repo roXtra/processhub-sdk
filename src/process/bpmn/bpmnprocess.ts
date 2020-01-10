@@ -148,7 +148,7 @@ export class BpmnProcess {
   public async loadXml(processXmlStr: string): Promise<void> {
     return await new Promise<void>((resolve, reject): void => {
       if (processXmlStr != null) {
-        bpmnModdleInstance.fromXML(processXmlStr, (err: any, bpmnXml: any) => {
+        bpmnModdleInstance.fromXML(processXmlStr, (err: {}, bpmnXml: Bpmn.IDefinitions) => {
           if (err) {
             console.log(err);
             reject(err);
@@ -1033,9 +1033,9 @@ export class BpmnProcess {
     previousElements != null ? previousElements.forEach(start => {
       targetRefsOfPrev = targetRefsOfPrev.concat(start.outgoing.map(out => out.targetRef.id));
     }) : null;
-    const targetRefsOfPrevUnique: any = [];
+    const targetRefsOfPrevUnique: string[] = [];
     targetRefsOfPrev.forEach(item => {
-      if (targetRefsOfPrevUnique.indexOf(item) === -1) {
+      if (!targetRefsOfPrevUnique.includes(item)) {
         targetRefsOfPrevUnique.push(item);
       }
     });
@@ -1092,7 +1092,7 @@ export class BpmnProcess {
     this.removeLanesWithoutShape();
 
     return await new Promise<string>((resolve, reject): void => {
-      bpmnModdleInstance.toXML(this.bpmnXml, { format: true }, function (err: any, xmlStr: string) {
+      bpmnModdleInstance.toXML(this.bpmnXml, { format: true }, function (err: {}, xmlStr: string) {
         if (err) reject(err);
         resolve(xmlStr);
       });
@@ -1105,7 +1105,7 @@ export class BpmnProcess {
   //  Diagramm Komponente
   // Gibt die notwendigen Elemente für die Erstellung des Diagram-Pars im XML zurück
   public getCollaborationElements(): Bpmn.ICollaboration[] {
-    const elements = this.bpmnXml.rootElements.filter((e: any) => e.$type === "bpmn:Collaboration") as Bpmn.ICollaboration[];
+    const elements = this.bpmnXml.rootElements.filter((e: Bpmn.IBaseElement) => e.$type === "bpmn:Collaboration") as Bpmn.ICollaboration[];
     return elements;
   }
 
@@ -1118,7 +1118,7 @@ export class BpmnProcess {
     const sortedTaskIds: string[] = [this.getStartEvents(processId)[0].id];
     this.getSortedTasks(processId).map(t => sortedTaskIds.push(t.id));
 
-    let laneOfLastTask: any;
+    let laneOfLastTask: Bpmn.ILane;
 
     for (const taskId of sortedTaskIds) {
       for (const laneElement of laneElementsList) {
@@ -1179,10 +1179,10 @@ export class BpmnProcess {
    */
   public getLanes(onlyLanesWithTasks: boolean): Bpmn.ILane[] {
     let laneElementsList: Bpmn.ILane[] = [];
-    const processes: Bpmn.IProcess[] = this.bpmnXml.rootElements.filter((e: any) => e.$type === "bpmn:Process") as Bpmn.IProcess[];
+    const processes: Bpmn.IProcess[] = this.bpmnXml.rootElements.filter((e: Bpmn.IRootElement) => e.$type === "bpmn:Process") as Bpmn.IProcess[];
 
     for (let i = 0; i < processes.length; i++) {
-      const laneSetElements: Bpmn.ILaneSet[] = processes[i].laneSets.filter((e: any) => e.$type === "bpmn:LaneSet");
+      const laneSetElements: Bpmn.ILaneSet[] = processes[i].laneSets.filter((e: Bpmn.ILaneSet) => e.$type === "bpmn:LaneSet");
       for (let t = 0; t < laneSetElements.length; t++) {
 
         if (laneSetElements[t].lanes != null) {
@@ -1206,10 +1206,10 @@ export class BpmnProcess {
 
   public getLaneOfFlowNode(flowNodeId: string): Bpmn.ILane {
     let laneElement: Bpmn.ILane = null;
-    const processes: Bpmn.IProcess[] = this.bpmnXml.rootElements.filter((e: any) => e.$type === "bpmn:Process") as Bpmn.IProcess[];
+    const processes: Bpmn.IProcess[] = this.bpmnXml.rootElements.filter((e: Bpmn.IRootElement) => e.$type === "bpmn:Process") as Bpmn.IProcess[];
 
     for (let i = 0; i < processes.length; i++) {
-      const laneSetElements: Bpmn.ILaneSet[] = processes[i].laneSets.filter((e: any) => e.$type === "bpmn:LaneSet");
+      const laneSetElements: Bpmn.ILaneSet[] = processes[i].laneSets.filter((e: Bpmn.ILaneSet) => e.$type === "bpmn:LaneSet");
       for (let t = 0; t < laneSetElements.length; t++) {
 
         if (laneSetElements[t].lanes != null) {

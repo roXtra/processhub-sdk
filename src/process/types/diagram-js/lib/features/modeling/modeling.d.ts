@@ -64,7 +64,7 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
      *
      * @return {djs.model.Connection} the created connection.
      */
-    public createConnection(source: Base, target: Base, attrs: Record<string, any>, parent: Base, hints: IConnectionHints): Connection;
+    public createConnection(source: Base, target: Base, attrs: {}, parent: Base, hints: IConnectionHints): Connection;
     public createConnection(
       source: Base,
       target: Base,
@@ -85,9 +85,9 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
 
     public removeShape(shape: Shape, hints: IRemoveShapeHints): void;
 
-    public removeConnection(connection: Connection, hints: Record<string, any>): void;
+    public removeConnection(connection: Connection, hints: {}): void;
 
-    public replaceShape(oldshape: Base, newshape: Base, hints: Record<string, any>): {};
+    public replaceShape(oldshape: Base, newshape: Base, hints: {}): {};
 
     public pasteElements(tree: {}, topParent: {}, position: {}): {};
     public alignElements(elements: {}, alignment: {}): {};
@@ -99,7 +99,7 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
     public reconnectStart(connection: {}, newSource: {}, dockingOrPoints: {}): {};
     public reconnectEnd(connection: Connection, newTarget: Shape, dockingOrPoints: IPoint | IPoint[]): {};
 
-    public connect(source: Shape, target: Shape, attrs: Record<string, any>, hints: IConnectionHints): Connection;
+    public connect(source: Shape, target: Shape, attrs: {}, hints: IConnectionHints): Connection;
     public _create(type: {}, attrs: {}): {};
 
     public toggleCollapse(shape: Base, hints: {}): {};
@@ -117,7 +117,7 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
   export interface ICreateLabelOptions {
     id: string;
     hidden: boolean;
-    businessObject?: Record<string, any>;
+    businessObject?: {};
     width: number;
     height: number;
   }

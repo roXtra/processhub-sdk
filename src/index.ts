@@ -30,7 +30,6 @@ import * as LegacyApi from "./legacyapi";
 export { LegacyApi };
 export * from "./apiclient";
 export * from "./actionhandler";
-export * from "./frameactionhandler";
 export * from "./environment";
 import * as StateHandler from "./statehandler";
 export { StateHandler };
