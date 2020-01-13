@@ -57,6 +57,9 @@ export function executeInstanceAction(processId: string, instanceDetails: IInsta
       type: InstanceActionType.Execute as InstanceActionType,
       processId: processId
     });
+    const state = rootStore.getState();
+    Object.assign(response, state);
+
     return response;
   };
 }
@@ -81,6 +84,8 @@ export function updateInstanceAction(instance: IInstanceDetails, instanceState: 
       type: INSTANCELOADED_MESSAGE,
       instance: response.instance
     };
+    const state = rootStore.getState();
+    Object.assign(message, state);
     dispatch<any>(message);
 
     return response;
@@ -100,6 +105,10 @@ export function resumeProcessAction(resumeDetails: IResumeInstanceDetails): <S e
     dispatch<any>({
       type: InstanceActionType.Resume as InstanceActionType
     });
+
+    const state = rootStore.getState();
+    Object.assign(response, state);
+
     return response;
   };
 }
@@ -117,6 +126,10 @@ export function abortInstanceAction(instanceId: string): <S extends Action<any>>
     dispatch<any>({
       type: InstanceActionType.Abort as InstanceActionType
     });
+
+    const state = rootStore.getState();
+    Object.assign(response, state);
+
     return response;
   };
 }
@@ -135,9 +148,9 @@ export function jumpAction(instanceId: string, targetBpmnTaskId: string, resumeD
       resumeDetails: resumeDetails
     });
 
-    dispatch<any>({
-      type: InstanceActionType.Jump as InstanceActionType
-    });
+    const state = rootStore.getState();
+    Object.assign(response, state);
+
     return response;
   };
 }
@@ -189,8 +202,8 @@ export async function loadInstance(instanceId: string, instanceExtras?: Instance
 
   return (await rootStore.dispatch<any>(loadInstanceAction(instanceId, instanceState, instanceExtras))).instanceDetails;
 }
-export function loadInstanceAction(instanceId: string, instanceState: Instance.InstanceState, getExtras: InstanceExtras = InstanceExtras.None): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetInstanceDetailsReply> {
-  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetInstanceDetailsReply> => {
+export function loadInstanceAction(instanceId: string, instanceState: Instance.InstanceState, getExtras: InstanceExtras = InstanceExtras.None): <S extends Action<any>>(dispatch: Dispatch<S>, getState: Function) => Promise<IGetInstanceDetailsReply> {
+  return async <S extends Action<any>>(dispatch: Dispatch<S>, getState: Function): Promise<IGetInstanceDetailsReply> => {
     const response: IGetInstanceDetailsReply = await Api.getJson(ProcessEngineApiRoutes.getInstanceDetails, {
       instanceId: instanceId,
       getExtras: getExtras
@@ -204,6 +217,10 @@ export function loadInstanceAction(instanceId: string, instanceState: Instance.I
       type: INSTANCELOADED_MESSAGE,
       instance: response.instanceDetails
     };
+    const state = getState();
+    Object.assign(message, state);
+    Object.assign(response, state);
+
     dispatch<any>(message);
 
     return response;
