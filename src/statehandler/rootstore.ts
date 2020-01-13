@@ -2,7 +2,7 @@ import { Store, createStore, applyMiddleware, compose, AnyAction, Action } from 
 import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
 import createRootReducer, { RootState, initState } from "./rootreducer";
 import { ResetStore } from "./actions";
-import { createMemoryHistory } from "history";
+import { createBrowserHistory, createMemoryHistory } from "history";
 import { routerMiddleware } from "connected-react-router";
 import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
 
@@ -12,7 +12,7 @@ declare global {
 }
 
 let initialState: RootState = typeof window !== "undefined" ? window.__INITIAL_STATE__ : undefined;
-export const history = createMemoryHistory();
+export const history = typeof window === "undefined" ? createMemoryHistory() : createBrowserHistory();
 export const rootStore: Store<RootState> = configureStore(initialState);
 
 export type AsyncAction<R=void> = ThunkAction<Promise<R>, RootState, undefined, AnyAction>;
