@@ -34,10 +34,15 @@ export function parseUrl(fullUrl: string): IPathDetails {
 
   // -> Riskmanagement
   if (part.startsWith("riskmanagement")) {
-    if(split.length == 1)
+    if (split.length == 1)
       return path;
 
-    path.workspaceUrlName = split[1].substr(1);
+    if (split[1] == "i") {
+      path.workspaceUrlName = split[2];
+    } else {
+      path.workspaceUrlName = split[1].substr(1);
+    }
+
     part = WorkspaceView.Riskmanagement;
     if (isValidWorkspaceView(part)) {
       path.page = Page.WorkspacePage;
@@ -85,10 +90,15 @@ export function parseNotificationLink(fullUrl: string): INotificationLinkElement
     url = url.substr(0, url.length - 1);
   const split = url.split("/");
 
-  if (split[0] !== "i" || split.length < 2)
+  let index = 0;
+  if (url.startsWith("riskmanagement")) {
+    index = 1;
+  }
+
+  if (split[index] !== "i" || split.length < 2)
     return elements;
 
-  let nextPart = split[1];
+  let nextPart = split[index + 1];
   if (nextPart.substr(0, 1) === "@") {
     // Old links had workspaceUrl - ignore
   } else if (isId(nextPart.toUpperCase()))
@@ -97,7 +107,7 @@ export function parseNotificationLink(fullUrl: string): INotificationLinkElement
   if (split.length === 2)
     return elements;
 
-  nextPart = split[2];
+  nextPart = split[index + 2];
   if (!isId(nextPart.toUpperCase()))
     return elements;
   else
