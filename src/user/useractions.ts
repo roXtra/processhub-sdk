@@ -52,9 +52,8 @@ export function updateUserInState(user: UserDetails): void {
       type: UserMessages.UserLoadedMessage as UserMessages,
       user: user
     };
-    message.workspaceState = rootStore.getState().workspaceState;
-    message.instanceState = rootStore.getState().instanceState;
-    message.processState = rootStore.getState().processState;
+    const state = rootStore.getState();
+    Object.assign(message, state);
     rootStore.dispatch<IUserLoadedMessage>(message);
   }
 }

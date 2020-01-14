@@ -10,6 +10,8 @@ import { UserState } from "../user/phclient";
 import { PathState } from "../path/phclient";
 import { InstanceState } from "../instance/phclient";
 import { connectRouter } from "connected-react-router";
+import { History } from "history";
+import { match } from "react-router";
 
 export class RootState {
   workspaceState: WorkspaceState;
@@ -17,6 +19,9 @@ export class RootState {
   userState: UserState;
   pathState: PathState;
   instanceState: InstanceState;
+  history: History;
+  location: Location;
+  match: match;
 }
 
 // Aus irgendwelchen Gründen dürfen die Reducer hier nicht mit User.userReducer angesprochen werden,
@@ -37,7 +42,10 @@ export function initState(): RootState {
     userState: userReducer(null, null),
     pathState: pathReducer(null, null),
     processState: processReducer(null, null),
-    instanceState: instanceReducer(null, null)
+    instanceState: instanceReducer(null, null),
+    history: null,
+    location: null,
+    match: null
   };
 }
 
