@@ -11,7 +11,7 @@ export function mergeUserToCache(user: UserDetails, workspaceState: Workspace.Wo
 
   // UserState does not have a userCache but we need to merge into currentUser
   const tmpcache: { [userId: string]: UserDetails } = {
-    [user.userId]: user
+    [user.userId]: userState.currentUser
   };
   user = mergeElementToCache(user, tmpcache, "userId");
 
