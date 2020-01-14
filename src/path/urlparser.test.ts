@@ -70,6 +70,22 @@ describe("sdk", function () {
           } as IPathDetails);
         });
 
+        describe("riskmanagement", function () {
+          it("should parse top page", function () {
+            const path = parseUrl("/riskmanagement/"); // Ignore case and / at end
+            assert.deepEqual(path, {});
+          });
+
+          it("should parse workspace pages", function () {
+            const path = parseUrl("/riskmanagement/@testworkSpace/"); // Ignore case and / at end
+            assert.deepEqual(path, {
+              page: Page.WorkspacePage,
+              view: WorkspaceView.Riskmanagement,
+              workspaceUrlName: "testworkspace"
+            } as IPathDetails);
+          });
+        });
+
       });
 
       describe("parseNotificationLink", function () {
@@ -91,6 +107,15 @@ describe("sdk", function () {
           const elements = parseNotificationLink("/I/@TestWorkspace/e8B278368B1002d7"); // Ignore case and / at end
           assert.deepEqual(elements, {
             instanceId: "E8B278368B1002D7"
+          });
+        });
+
+        describe("riskmanagement", function () {
+          it("should parse risk todo links", function () {
+            const elements = parseNotificationLink("/riskmanagement/i/TestWorkspace/e8B278368B1002d7"); // Ignore case and / at end
+            assert.deepEqual(elements, {
+              instanceId: "E8B278368B1002D7"
+            });
           });
         });
       });
