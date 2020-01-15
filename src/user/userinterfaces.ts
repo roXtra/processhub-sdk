@@ -120,13 +120,6 @@ export function getPredefinedGroupName(groupId: string): string {
   }
 }
 
-// Sonderfall weil seltsamerweise undefined wenn es in den Actions ist
-export const UserActionsType = {
-  LoggedIn: "USERACTION_LOGGEDIN", // Benutzer hat sich erfolgreich angemeldet
-  Failed: "USERACTION_FAILED" // Allgemeiner Api-Aufruffehler
-};
-export type UserActionsType = keyof typeof UserActionsType;
-
 // Tracks last view datetimes of instances and/or processes
 // used to sync notification states across devices
 export interface IViewState {

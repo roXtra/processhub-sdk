@@ -1,10 +1,8 @@
 import "fetch-everywhere";
 import * as Api from "./legacyapi";
-import { loginUser, logoutUser } from "./user/useractions";
 import { IFieldContentMap } from "./data";
 import { createId } from "./tools";
 import { IInstanceDetails } from "./instance";
-import { UserDetails } from "./user";
 import { IExecuteReply, ProcessEngineApiRoutes } from "./instance/legacyapi";
 
 export class ApiClient {
@@ -12,18 +10,6 @@ export class ApiClient {
 
   constructor(apiHost = "https://app.processhub.com", accessToken?: string) {
     this.accessToken = accessToken;
-  }
-
-  async signIn(userMail: string, password: string): Promise<UserDetails> {
-    const user = (await loginUser(userMail, password)).userDetails;
-    if (user)
-      this.accessToken = user.extras.accessToken;
-
-    return user;
-  }
-
-  async signOut(accessToken?: string): Promise<void> {
-    await logoutUser(accessToken ? accessToken : this.accessToken);
   }
 
   async startProcess(workspaceId: string, processId: string, fieldContents?: IFieldContentMap): Promise<string> {

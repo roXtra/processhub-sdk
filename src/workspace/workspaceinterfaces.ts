@@ -1,6 +1,5 @@
 import { IProcessDetails } from "../process/processinterfaces";
 import { UserDetails } from "../user/userinterfaces";
-import { tl } from "../tl";
 import { IAuditTrailEntry } from "../audittrail";
 import { IGroupDetails } from "../group/groupinterfaces";
 
@@ -12,22 +11,6 @@ export enum WorkspaceType {
   Business = 300,
   Templates = 310, // Used internally for templates. Processes in this workspace are always public
   Enterprise = 400
-}
-export function getWorkspaceTypeName(workspaceType: WorkspaceType): string {
-  switch (workspaceType) {
-    case WorkspaceType.Demo:
-      return tl("Demo");
-    case WorkspaceType.Free:
-      return tl("Free");
-    case WorkspaceType.Team:
-      return tl("Team");
-    case WorkspaceType.Business:
-      return tl("Business");
-    case WorkspaceType.Enterprise:
-      return tl("Enterprise");
-    default:
-      return workspaceType.toString();
-  }
 }
 
 export interface IWorkspaceDetails {

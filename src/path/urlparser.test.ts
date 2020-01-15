@@ -30,13 +30,6 @@ describe("sdk", function () {
             workspaceUrlName: "testworkspace"
           } as IPathDetails);
 
-          path = parseUrl("/@testworkSpace/members"); // Ignore case and / at end
-          assert.deepEqual(path, {
-            page: Page.WorkspacePage,
-            view: WorkspaceView.Members,
-            workspaceUrlName: "testworkspace"
-          } as IPathDetails);
-
           path = parseUrl("/@testworkSpace/addprocess"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.WorkspacePage,
