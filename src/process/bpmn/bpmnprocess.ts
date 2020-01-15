@@ -146,68 +146,58 @@ export class BpmnProcess {
   }
 
   public async loadXml(processXmlStr: string): Promise<void> {
-    return await new Promise<void>((resolve, reject): void => {
-      if (processXmlStr != null) {
-        bpmnModdleInstance.fromXML(processXmlStr, (err: {}, bpmnXml: Bpmn.IDefinitions) => {
-          if (err) {
-            console.log(err);
-            reject(err);
-          }
+    if (processXmlStr == null) {
+      console.log("XML string of process should not be null/undefined!");
 
-          this.bpmnXml = bpmnXml;
+      const stack = new Error().stack;
+      console.log("PRINTING CALL STACK");
+      console.log(stack);
 
-          // Fix für startevent
-          const sequenceFlows: Bpmn.ISequenceFlow[] = this.getSequenceFlowElements();
-          for (const sequenceFlow of sequenceFlows) {
-            if (sequenceFlow.sourceRef && sequenceFlow.sourceRef.outgoing == null) {
-              sequenceFlow.sourceRef.outgoing = [];
-            }
-            if (sequenceFlow.sourceRef && !sequenceFlow.sourceRef.outgoing.includes(sequenceFlow)) {
-              sequenceFlow.sourceRef.outgoing.push(sequenceFlow);
-            }
+      isTrue(processXmlStr != null, "XML string of process should not be null/undefined!");
+    }
 
-            if (sequenceFlow.targetRef && sequenceFlow.targetRef.incoming == null) {
-              sequenceFlow.targetRef.incoming = [];
-            }
-            if (sequenceFlow.targetRef && !sequenceFlow.targetRef.incoming.includes(sequenceFlow)) {
-              sequenceFlow.targetRef.incoming.push(sequenceFlow);
-            }
-          }
-
-          // Fixes für boundary events
-          const boundaryEvents: Bpmn.IBoundaryEvent[] = this.getFlowElementsOfType<Bpmn.IBoundaryEvent>("bpmn:BoundaryEvent");
-
-          // Console.log(boundaryEvents);
-
-          for (const t of boundaryEvents) {
-            // Console.log(this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs);
-
-            if (this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs == null)
-              this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs = [];
-
-            if (!this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs.find(e => e.id === t.id))
-              this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs.push(t);
-          }
-
-          // Console.log(boundaryEvents);
-
-          // fixes ende
-
-          this.processDiagram = new BpmnProcessDiagram(this);
-
-          resolve();
-        });
-      } else {
-        console.log("XML string of process should not be null/undefined!");
-
-        const stack = new Error().stack;
-        console.log("PRINTING CALL STACK");
-        console.log(stack);
-
-        isTrue(processXmlStr != null, "XML string of process should not be null/undefined!");
-        reject();
-      }
+    this.bpmnXml = await new Promise<Bpmn.IDefinitions>((resolve, reject): void => {
+      bpmnModdleInstance.fromXML(processXmlStr, (err: {}, bpmnXml: Bpmn.IDefinitions) => {
+        if (err) {
+          console.log(err);
+          reject(err);
+        } else {
+          resolve(bpmnXml);
+        }
+      });
     });
+
+    // Fix für startevent
+    const sequenceFlows: Bpmn.ISequenceFlow[] = this.getSequenceFlowElements();
+    for (const sequenceFlow of sequenceFlows) {
+      if (sequenceFlow.sourceRef && sequenceFlow.sourceRef.outgoing == null) {
+        sequenceFlow.sourceRef.outgoing = [];
+      }
+      if (sequenceFlow.sourceRef && !sequenceFlow.sourceRef.outgoing.includes(sequenceFlow)) {
+        sequenceFlow.sourceRef.outgoing.push(sequenceFlow);
+      }
+
+      if (sequenceFlow.targetRef && sequenceFlow.targetRef.incoming == null) {
+        sequenceFlow.targetRef.incoming = [];
+      }
+      if (sequenceFlow.targetRef && !sequenceFlow.targetRef.incoming.includes(sequenceFlow)) {
+        sequenceFlow.targetRef.incoming.push(sequenceFlow);
+      }
+    }
+
+    // Fixes für boundary events
+    const boundaryEvents: Bpmn.IBoundaryEvent[] = this.getFlowElementsOfType<Bpmn.IBoundaryEvent>("bpmn:BoundaryEvent");
+    for (const t of boundaryEvents) {
+      // Console.log(this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs);
+
+      if (this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs == null)
+        this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs = [];
+
+      if (!this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs.find(e => e.id === t.id))
+        this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs.push(t);
+    }
+
+    this.processDiagram = new BpmnProcessDiagram(this);
   }
 
   public isOneOfNextActivityOfType(currentTaskId: string, type: Bpmn.bpmnType): boolean {
