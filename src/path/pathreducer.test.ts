@@ -17,13 +17,13 @@ describe("sdk", function () {
 
         const message: IPathLoadedMessage = {
           type: PATHLOADED_MESSAGE,
-          pathDetails: parseUrl("/@testworkspace/members")
+          pathDetails: parseUrl("/@testworkspace/processes")
         };
 
         const newState = pathReducer(oldState, message);
 
         assert.deepEqual(newState.currentPath.page, Page.WorkspacePage);
-        assert.deepEqual(newState.currentPath.view, WorkspaceView.Members);
+        assert.deepEqual(newState.currentPath.view, WorkspaceView.Processes);
 
       });
 

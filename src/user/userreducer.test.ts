@@ -1,34 +1,12 @@
 import { assert } from "chai";
 import { UserState } from "./phclient";
 import { ApiResult } from "../legacyapi/apiinterfaces";
-import { createUserId } from "../tools/guid";
 import { userReducer } from "./userreducer";
-import { IUserActionLoggedIn, IUserActionFailed } from "./useractions";
-import { UserActionsType, UserDetails } from "./userinterfaces";
 
 describe("sdk", function () {
   describe("user", function () {
 
     describe("userReducer", function () {
-
-      it("soll USERACTION_LOGIN korrekt reducen", function () {
-        const oldState: UserState = { lastApiResult: ApiResult.API_ERROR };
-        const user = { userId: createUserId() } as UserDetails;
-        const newState = userReducer(oldState, {
-          type: UserActionsType.LoggedIn,
-          userDetails: user
-        } as IUserActionLoggedIn);
-        assert.deepEqual<UserState>(newState, { currentUser: user, lastApiResult: ApiResult.API_OK });
-      });
-
-      it("soll USERACTION_FAILED korrekt reducen", function () {
-        const oldState: UserState = { lastApiResult: ApiResult.API_ERROR };
-        const newState = userReducer(oldState, {
-          type: UserActionsType.Failed,
-          result: ApiResult.API_DENIED
-        } as IUserActionFailed);
-        assert.deepEqual<UserState>(newState, { lastApiResult: ApiResult.API_DENIED });
-      });
 
       it("soll unbekannte Actions korrekt reducen", function () {
         const oldState: UserState = { lastApiResult: ApiResult.API_ERROR };
@@ -40,6 +18,5 @@ describe("sdk", function () {
 
 
     });
-
   });
 });
