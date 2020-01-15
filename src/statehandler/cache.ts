@@ -9,11 +9,6 @@ export function mergeUserToCache(user: UserDetails, workspaceState: Workspace.Wo
   if (user == null)
     return null;
 
-  // UserState does not have a userCache but we need to merge into currentUser
-  const tmpcache: { [userId: string]: UserDetails } = {
-    [user.userId]: userState.currentUser
-  };
-  user = mergeElementToCache(user, tmpcache, "userId");
 
   // Merge workspaces
   if (user.extras.workspaces) {
@@ -30,6 +25,12 @@ export function mergeUserToCache(user: UserDetails, workspaceState: Workspace.Wo
       mergeInstanceToCache(instance, instanceState, userState, processState, true);
     });
   }
+
+  // UserState does not have a userCache but we need to merge into currentUser
+  const tmpcache: { [userId: string]: UserDetails } = {
+    [user.userId]: userState.currentUser
+  };
+  user = mergeElementToCache(user, tmpcache, "userId");
 
   return user;
 }
@@ -134,7 +135,7 @@ export function removeInstanceFromCache(instanceId: string, instanceState: Insta
 }
 
 // Stores the new elements to cache and merges included extras
-export function mergeElementToCache(newElement: any, cacheElements: {[key: string]: any}, idFieldName: string): any {
+export function mergeElementToCache(newElement: any, cacheElements: { [key: string]: any }, idFieldName: string): any {
   const elementId = (newElement)[idFieldName];
   const cacheElement = cacheElements[elementId];
 
@@ -153,7 +154,7 @@ export function mergeElementToCache(newElement: any, cacheElements: {[key: strin
     // Step 2: remove properties from cacheElement that don't exist in newElement
     for (const property in cacheElement) {
       if (property !== "extras" && newElement[property] == null)
-        delete(cacheElement[property]);
+        delete (cacheElement[property]);
     }
 
     // Step 3: copy extras to cacheElement
