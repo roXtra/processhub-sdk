@@ -8,19 +8,18 @@ import { ResetStore } from "../statehandler/actions";
 import { AnyAction } from "redux";
 
 export function userReducer(userState: UserState, action: AnyAction): UserState {
-  let newState = _.cloneDeep(userState);
-
   if (userState == null || action && action.type === ResetStore) {
     // Init state
-    newState = new UserState();
+    userState = new UserState();
   }
   if (action == null || action.type === ResetStore)
-    return newState;
+    return userState;
 
   switch (action.type) {
 
     case UserMessages.UserLoadedMessage: {
       const user = (action as IUserLoadedMessage).user;
+      const newState = _.cloneDeep(userState);
       newState.currentUser = StateHandler.mergeUserToCache(user, action.workspaceState, action.processState, action.userState, action.instanceState);
 
       const userChanged = !_.isEqual(userState.currentUser, userState.lastDispatchedUser);
@@ -34,6 +33,6 @@ export function userReducer(userState: UserState, action: AnyAction): UserState 
         return newState;
     }
     default:
-      return newState;
+      return userState;
   }
 }
