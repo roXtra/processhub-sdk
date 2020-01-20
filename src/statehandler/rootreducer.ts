@@ -27,6 +27,7 @@ export class RootState {
 // Aus irgendwelchen Gründen dürfen die Reducer hier nicht mit User.userReducer angesprochen werden,
 // sondern müssen separat importiert werden!
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const createRootReducer = (history: any): Reducer<any> => combineReducers({
   router: connectRouter(history),
   workspaceState: workspaceReducer,

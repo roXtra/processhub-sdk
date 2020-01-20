@@ -51,9 +51,13 @@ export async function loadWorkspace(workspaceId: string, getExtras: WorkspaceExt
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (await StateHandler.rootStore.dispatch<any>(loadWorkspaceAction(workspaceId, state.workspaceState, getExtras, accessToken))).workspace;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function loadWorkspaceAction(workspaceId: string, workspaceState: Workspace.WorkspaceState, getExtras: WorkspaceExtras, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<ILoadWorkspaceReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<ILoadWorkspaceReply> => {
     const request: ILoadWorkspaceRequest = {
       workspaceId: workspaceId,
@@ -66,6 +70,7 @@ export function loadWorkspaceAction(workspaceId: string, workspaceState: Workspa
       Object.assign(response, state);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };

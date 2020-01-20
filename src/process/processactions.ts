@@ -84,12 +84,16 @@ export interface IProcessActionChanged extends IProcessAction {
 }
 
 export async function createProcessInDb(processDetails: IProcessDetails, accessToken: string = null): Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(createProcessInDbAction(processDetails, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function createProcessInDbAction(processDetails: IProcessDetails, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetProcessDetailsReply> {
   isTrue(processDetails.workspaceId != null && processDetails.workspaceId != null, "createProcessInDbAction: workspaceId = " + processDetails.workspaceId);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetProcessDetailsReply> => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>({
       type: ProcessActionType.CreateInDb as ProcessActionType,
       workspaceId: processDetails.workspaceId,
@@ -106,6 +110,7 @@ export function createProcessInDbAction(processDetails: IProcessDetails, accessT
     response.processState = rootStore.getState().processState;
     response.instanceState = rootStore.getState().instanceState;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     processDetails.extras.bpmnProcess = bpmnProcess;
     return response;
@@ -113,11 +118,15 @@ export function createProcessInDbAction(processDetails: IProcessDetails, accessT
 }
 
 export async function deleteProcessFromDb(processId: string, accessToken: string = null): Promise<Api.IBaseMessage> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(deleteProcessFromDbAction(processId, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function deleteProcessFromDbAction(processId: string, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<Api.IBaseMessage> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<Api.IBaseMessage> => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>({
       type: ProcessActionType.DeleteFromDb as ProcessActionType,
       processId: processId,
@@ -125,6 +134,7 @@ export function deleteProcessFromDbAction(processId: string, accessToken: string
     const response: Api.IBaseMessage = await Api.postJson(ProcessRequestRoutes.DeleteProcess, {
       processId: processId,
     }, accessToken);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
@@ -153,10 +163,13 @@ export async function completeProcessFromCache(process: IProcessDetails): Promis
 }
 
 export async function getAllServices(): Promise<IGetAllServicesReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(getAllServicesAction());
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getAllServicesAction(): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetAllServicesReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetAllServicesReply> => {
     const response: IGetAllServicesReply = await Api.postJson(ProcessRequestRoutes.GetAllServices, {} as IGetAllServicesRequest) as IGetAllServicesReply;
     return response;
@@ -206,10 +219,13 @@ export async function loadProcess(processId: string, instanceId?: string, getExt
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (await rootStore.dispatch<any>(loadProcessAction(processId, instanceId, getExtras, accessToken))).processDetails;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function loadProcessAction(processId: string, instanceId?: string, processExtras?: ProcessExtras, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetProcessDetailsReply> => {
     const request: IGetProcessDetailsRequest = {
       processId: processId,
@@ -226,6 +242,7 @@ export function loadProcessAction(processId: string, instanceId?: string, proces
     const state = rootStore.getState();
     Object.assign(response, state);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
@@ -243,10 +260,13 @@ export function setLocalProcessXml(xmlStr: string): void {
 }
 
 export async function processChanged(bpmnProcess: BpmnProcess): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await rootStore.dispatch<any>(processChangedAction(bpmnProcess));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function processChangedAction(bpmnProcess: BpmnProcess): (dispatch: any) => Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async function (dispatch: any): Promise<void> {
     const state = rootStore.getState();
     const processXml = await bpmnProcess.toXmlString();
@@ -313,11 +333,15 @@ export function unloadCurrentProcess(): void {
 
 export async function updateProcess(processDetails: IProcessDetails, accessToken: string = null): Promise<IGetProcessDetailsReply> {
   // Siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(updateProcessAction(processDetails, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function updateProcessAction(process: IProcessDetails, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetProcessDetailsReply> => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>({
       type: ProcessActionType.GetProcessDetails as ProcessActionType
     } as IProcessActionGetProcessDetails);
@@ -341,6 +365,7 @@ export function updateProcessAction(process: IProcessDetails, accessToken: strin
     const state = rootStore.getState();
     Object.assign(response, state);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
@@ -348,26 +373,35 @@ export function updateProcessAction(process: IProcessDetails, accessToken: strin
 
 export async function listPublicProcesses(accessToken: string = null): Promise<IGetPublicProcessesReply> {
   // Siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(listPublicProcessesAction(accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function listPublicProcessesAction(accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetPublicProcessesReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetProcessDetailsReply> => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>({
       type: ProcessActionType.GetProcessDetails as ProcessActionType
     } as IProcessActionGetProcessDetails);
     const response: IGetProcessDetailsReply = await Api.postJson(ProcessRequestRoutes.GetPublicProcesses, {}, accessToken);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
 }
 
 export async function copyProcess(processId: string, targetWorkspaceId: string, displayName: string, accessToken: string = null): Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(copyProcessAction(processId, targetWorkspaceId, displayName, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function copyProcessAction(processId: string, targetWorkspaceId: string, displayName: string, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetProcessDetailsReply> => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>({
       type: ProcessActionType.GetProcessDetails as ProcessActionType
     } as IProcessActionGetProcessDetails);
@@ -377,16 +411,20 @@ export function copyProcessAction(processId: string, targetWorkspaceId: string, 
       accessToken);
 
     response.processDetails = await completeProcessFromCache(response.processDetails);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
 }
 
 export async function rateProcess(processId: string, ratingDiff: number, accessToken: string = null): Promise<Api.IBaseReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(rateProcessAction(processId, ratingDiff, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function rateProcessAction(processId: string, ratingDiff: number, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<Api.IBaseReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<Api.IBaseReply> => {
     const response: IGetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.RateProcess,
@@ -394,15 +432,18 @@ export function rateProcessAction(processId: string, ratingDiff: number, accessT
       accessToken);
 
     response.processDetails = await completeProcessFromCache(response.processDetails);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
 }
 
 export async function addRoXtraFile(processId: string, fileName: string, fileId: number, iconLink: string, accessToken: string = null): Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(addRoXtraFileAction(processId, fileName, fileId, iconLink, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function addRoXtraFileAction(processId: string, fileName: string, fileId: number, iconLink: string, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetProcessDetailsReply> {
   const request: IAddRoXtraFileRequest = {
     processId,
@@ -410,6 +451,7 @@ export function addRoXtraFileAction(processId: string, fileName: string, fileId:
     fileName,
     iconLink,
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetProcessDetailsReply> => {
     const response: IGetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.AddRoXtraFile,
@@ -417,16 +459,20 @@ export function addRoXtraFileAction(processId: string, fileName: string, fileId:
       accessToken);
 
     response.processDetails = await completeProcessFromCache(response.processDetails);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
 }
 
 export async function uploadFile(processId: string, fileName: string, data: string, accessToken: string = null): Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(uploadFileAction(processId, fileName, data, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function uploadFileAction(processId: string, fileName: string, data: string, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetProcessDetailsReply> => {
     const response: IGetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.UploadFile,
@@ -434,6 +480,7 @@ export function uploadFileAction(processId: string, fileName: string, data: stri
       accessToken);
 
     response.processDetails = await completeProcessFromCache(response.processDetails);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
@@ -441,10 +488,13 @@ export function uploadFileAction(processId: string, fileName: string, data: stri
 
 
 export async function uploadReportDraft(processId: string, fileName: string, data: string, accessToken: string = null): Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(uploadReportDraftAction(processId, fileName, data, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function uploadReportDraftAction(processId: string, fileName: string, data: string, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetProcessDetailsReply> => {
     const response: IGetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.UploadReportDraft,
@@ -452,16 +502,20 @@ export function uploadReportDraftAction(processId: string, fileName: string, dat
       accessToken);
 
     response.processDetails = await completeProcessFromCache(response.processDetails);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
 }
 
 export async function deleteReportDraft(processId: string, draftId: string, accessToken: string = null): Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(deleteReportDraftAction(processId, draftId, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function deleteReportDraftAction(processId: string, draftId: string, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetProcessDetailsReply> => {
     const response: IGetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.DeleteReportDraft,
@@ -469,16 +523,20 @@ export function deleteReportDraftAction(processId: string, draftId: string, acce
       accessToken);
 
     response.processDetails = await completeProcessFromCache(response.processDetails);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
 }
 
 export async function deleteFile(processId: string, attachmentId: string, accessToken: string = null): Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(deleteFileAction(processId, attachmentId, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function deleteFileAction(processId: string, attachmentId: string, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetProcessDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetProcessDetailsReply> => {
     const response: IGetProcessDetailsReply = await Api.postJson(
       ProcessRequestRoutes.DeleteFile,
@@ -486,6 +544,7 @@ export function deleteFileAction(processId: string, attachmentId: string, access
       accessToken);
 
     response.processDetails = await completeProcessFromCache(response.processDetails);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
@@ -493,31 +552,39 @@ export function deleteFileAction(processId: string, attachmentId: string, access
 
 export async function getTimersOfProcess(processId: string, accessToken: string = null): Promise<IGetTimersOfProcessReply> {
   // Siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(getTimersOfProcessAction(processId, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getTimersOfProcessAction(processId: string, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetTimersOfProcessReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetTimersOfProcessReply> => {
     const response: IGetTimersOfProcessReply = await Api.postJson(ProcessRequestRoutes.GetTimers, {
       processId: processId
     }, accessToken);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
 }
 export async function setTimersOfProcess(processId: string, timers: ITimerStartEventConfiguration[], accessToken: string = null): Promise<ISetTimersOfProcessReply> {
   // Siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(setTimersOfProcessAction(processId, timers, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function setTimersOfProcessAction(processId: string, timers: ITimerStartEventConfiguration[], accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<ISetTimersOfProcessReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<ISetTimersOfProcessReply> => {
     const response: ISetTimersOfProcessReply = await Api.postJson(ProcessRequestRoutes.SetTimers, {
       processId: processId,
       timers: timers
     }, accessToken);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
@@ -525,10 +592,13 @@ export function setTimersOfProcessAction(processId: string, timers: ITimerStartE
 
 export async function getProcessStatistics(processId: string, fromDate: Date = null, tillDate: Date = null, accessToken: string = null): Promise<IGetProcessStatisticsReply> {
   // Siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(getProcessStatisticsAction(processId, fromDate, tillDate, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getProcessStatisticsAction(processId: string, fromDate: Date, tillDate: Date, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IGetProcessStatisticsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IGetProcessStatisticsReply> => {
     const response: IGetProcessStatisticsReply = await Api.postJson(ProcessRequestRoutes.GetProcessStatistics, {
       processId: processId,
@@ -536,6 +606,7 @@ export function getProcessStatisticsAction(processId: string, fromDate: Date, ti
       tillDate: tillDate
     }, accessToken) as IGetProcessStatisticsReply;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(response);
     return response;
   };
