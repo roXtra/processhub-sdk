@@ -3,7 +3,7 @@ import * as Api from "./legacyapi";
 import { IFieldContentMap } from "./data";
 import { createId } from "./tools";
 import { IInstanceDetails } from "./instance";
-import { IExecuteReply, ProcessEngineApiRoutes } from "./instance/legacyapi";
+import { IExecuteReply, ProcessEngineApiRoutes, IExecuteRequest } from "./instance/legacyapi";
 
 export class ApiClient {
   private accessToken: string;
@@ -27,7 +27,7 @@ export class ApiClient {
     const response: IExecuteReply = await Api.postJson(ProcessEngineApiRoutes.execute, {
       processId: processId,
       instance: instance
-    }, this.accessToken);
+    } as IExecuteRequest, this.accessToken);
 
     return response.instanceId;
   }

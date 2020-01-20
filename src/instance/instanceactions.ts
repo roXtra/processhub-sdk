@@ -2,7 +2,7 @@ import * as Api from "../legacyapi";
 import { rootStore, mergeInstanceToCache } from "../statehandler";
 import { Dispatch } from "redux";
 import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces";
-import { IJumpReply, IExecuteReply, ProcessEngineApiRoutes, IUpdateInstanceReply, IAbortReply, INSTANCELOADED_MESSAGE, IInstanceLoadedMessage, IGetInstanceDetailsReply } from "./legacyapi";
+import { IJumpReply, IExecuteReply, ProcessEngineApiRoutes, IUpdateInstanceReply, IAbortReply, INSTANCELOADED_MESSAGE, IInstanceLoadedMessage, IGetInstanceDetailsReply, IGetInstanceDetailsRequest, IJumpRequest, IAbortRequest, IResumeRequest, IUpdateInstanceRequest, IExecuteRequest } from "./legacyapi";
 
 export const InstanceActionType = {
   Execute: "INSTANCEACTION_EXECUTE",
@@ -50,7 +50,7 @@ export function executeInstanceAction(processId: string, instanceDetails: IInsta
       processId: processId,
       instance: instanceDetails,
       startEventId: startEventId
-    }, accessToken);
+    } as IExecuteRequest, accessToken);
 
     dispatch<IInstanceActionExecute>({
       type: InstanceActionType.Execute as InstanceActionType,
@@ -68,7 +68,7 @@ export function updateInstanceAction(instance: IInstanceDetails, accessToken: st
   return async <S>(dispatch: Dispatch<S>): Promise<IUpdateInstanceReply> => {
     const response: IUpdateInstanceReply = await Api.postJson(ProcessEngineApiRoutes.updateInstance, {
       instance: instance
-    }, accessToken);
+    } as IUpdateInstanceRequest, accessToken);
 
     if (response.instance)
       response.instance = mergeInstanceToCache(response.instance);
@@ -91,7 +91,7 @@ export function resumeProcessAction(resumeDetails: IResumeInstanceDetails): <S>(
   return async <S>(dispatch: Dispatch<S>): Promise<IExecuteReply> => {
     const response: IExecuteReply = await Api.postJson(ProcessEngineApiRoutes.resume, {
       resumeDetails: resumeDetails
-    });
+    } as IResumeRequest);
 
     dispatch<IInstanceActionResume>({
       type: InstanceActionType.Resume as InstanceActionType
@@ -108,7 +108,7 @@ export function abortInstanceAction(instanceId: string): <S>(dispatch: Dispatch<
   return async <S>(dispatch: Dispatch<S>): Promise<IAbortReply> => {
     const response: IAbortReply = await Api.postJson(ProcessEngineApiRoutes.abort, {
       instanceId: instanceId
-    });
+    } as IAbortRequest);
 
     dispatch<IInstanceActionAbort>({
       type: InstanceActionType.Abort as InstanceActionType
@@ -129,7 +129,7 @@ export function jumpAction(instanceId: string, targetBpmnTaskId: string, resumeD
       instanceId: instanceId,
       targetBpmnTaskId: targetBpmnTaskId,
       resumeDetails: resumeDetails
-    });
+    } as IJumpRequest);
 
     dispatch<IInstanceActionJump>({
       type: InstanceActionType.Jump as InstanceActionType
@@ -187,7 +187,7 @@ export function loadInstanceAction(instanceId: string, getExtras: InstanceExtras
     const response: IGetInstanceDetailsReply = await Api.getJson(ProcessEngineApiRoutes.getInstanceDetails, {
       instanceId: instanceId,
       getExtras: getExtras
-    });
+    } as IGetInstanceDetailsRequest);
     if (response.instanceDetails)
       response.instanceDetails = mergeInstanceToCache(response.instanceDetails);
 

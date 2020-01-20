@@ -1,4 +1,4 @@
-import { IBaseReply, IBaseMessage } from "../legacyapi/apiinterfaces";
+import { IBaseReply, IBaseMessage, IBaseRequest } from "../legacyapi/apiinterfaces";
 import { ITodoDetails } from "./todointerfaces";
 
 // API routes
@@ -21,7 +21,7 @@ export interface ITodoReply extends IBaseMessage {
   errorMessage?: string;
 }
 
-export interface IGetSimulationTodosRequest {
+export interface IGetSimulationTodosRequest extends IBaseRequest {
   workspaceId: string;
   instanceId: string;
 }
@@ -29,13 +29,12 @@ export interface IGetSimulationTodosReply extends ITodoReply {
   todos?: Array<ITodoDetails>;
 }
 
-export interface IUpdateTodoRequest {
+export interface IUpdateTodoRequest extends IBaseRequest {
   workspaceId: string;
   todoId: string;
   dueAt: Date;
 }
-export interface IUpdateTodoReply extends IBaseReply  {
-}
+export type IUpdateTodoReply = IBaseReply;
 
 export interface IGetAmountOfUserTodosRequest {
 }
@@ -43,17 +42,15 @@ export interface IGetAmountOfUserTodosReply extends IBaseReply  {
   todoAmount: number;
 }
 
-export interface ISetTodoPriorityRequest {
+export interface ISetTodoPriorityRequest extends IBaseRequest {
   workspaceId: string;
   todoId: string;
   priority: number;
 }
-export interface ISetTodoPriorityReply extends IBaseReply  {
-}
+export type ISetTodoPriorityReply = IBaseReply;
 
-export interface IDeleteNotificationTodoRequest {
+export interface IDeleteNotificationTodoRequest extends IBaseRequest {
   workspaceId: string;
   todoId: string;
 }
-export interface IDeleteNotificationTodoReply extends IBaseReply  {
-}
+export type IDeleteNotificationTodoReply = IBaseReply;

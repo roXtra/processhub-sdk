@@ -13,7 +13,6 @@ export const ProcessRequestRoutes = {
   SetTimers: "/api/process/settimers",
   DownloadProcess: "/api/process/download",
   ExportProcess: "/api/process/export",
-  GetPublicProcesses: "/api/process/publicprocesses",
   CopyProcess: "/api/process/copyprocess",
   RateProcess: "/api/process/rateprocess",
   UploadFile: "/api/process/uploadfile",
@@ -66,8 +65,7 @@ export interface ISetTimersOfProcessRequest extends IBaseRequest {
   processId: string;
   timers: ITimerStartEventConfiguration[];
 }
-export interface ISetTimersOfProcessReply extends IProcessReply {
-}
+export type ISetTimersOfProcessReply = IProcessReply;
 
 export interface IDownloadProcessRequest extends IBaseRequest {
   processId: string;
@@ -106,14 +104,9 @@ export interface IGetArchiveViewsReply extends IBaseReply {
   views: { [viewId: string]: IArchiveViewDetails };
 }
 
-export interface IGetAllServicesRequest extends IBaseRequest {
-}
+export type IGetAllServicesRequest = IBaseRequest;
 export interface IGetAllServicesReply extends IBaseReply {
   services: IServiceDetails[];
-}
-
-export interface IGetPublicProcessesReply extends IProcessReply {
-  processes?: IProcessDetails[];
 }
 
 export interface IUpdateProcessDetailsRequest extends IBaseRequest {
