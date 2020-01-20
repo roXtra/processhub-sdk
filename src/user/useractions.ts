@@ -38,10 +38,13 @@ export async function loadUser(userId: string, getExtras: UserExtras = UserExtra
       return currentUser;
     }
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (await rootStore.dispatch<any>(loadUserAction(userId, getExtras, accessToken))).userDetails;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function loadUserAction(userId: string, getExtras: UserExtras, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<ILoadUserReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<ILoadUserReply> => {
     const request: ILoadUserRequest = {
       userId: userId,

@@ -41,11 +41,13 @@ export interface IInstanceActionJump extends IInstanceAction {
 }
 
 export async function executeInstance(processId: string, instanceDetails: IInstanceDetails, startEventId?: string, accessToken?: string): Promise<IExecuteReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(executeInstanceAction(processId, instanceDetails, startEventId, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function executeInstanceAction(processId: string, instanceDetails: IInstanceDetails, startEventId?: string, accessToken?: string): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IExecuteReply> {
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IExecuteReply> => {
     const response: IExecuteReply = await Api.postJson(ProcessEngineApiRoutes.execute, {
       processId: processId,
@@ -53,6 +55,7 @@ export function executeInstanceAction(processId: string, instanceDetails: IInsta
       startEventId: startEventId
     } as IExecuteRequest, accessToken);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>({
       type: InstanceActionType.Execute as InstanceActionType,
       processId: processId
@@ -66,10 +69,13 @@ export function executeInstanceAction(processId: string, instanceDetails: IInsta
 
 export async function updateInstance(instance: IInstanceDetails, accessToken: string = null): Promise<IUpdateInstanceReply> {
   const instanceState = rootStore.getState().instanceState;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(updateInstanceAction(instance, instanceState, accessToken));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function updateInstanceAction(instance: IInstanceDetails, instanceState: Instance.InstanceState, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IUpdateInstanceReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IUpdateInstanceReply> => {
     const response: IUpdateInstanceReply = await Api.postJson(ProcessEngineApiRoutes.updateInstance, {
       instance: instance
@@ -86,6 +92,7 @@ export function updateInstanceAction(instance: IInstanceDetails, instanceState: 
     };
     const state = rootStore.getState();
     Object.assign(message, state);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(message);
 
     return response;
@@ -93,15 +100,19 @@ export function updateInstanceAction(instance: IInstanceDetails, instanceState: 
 }
 
 export async function resumeProcess(resumeDetails: IResumeInstanceDetails): Promise<IExecuteReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(resumeProcessAction(resumeDetails));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function resumeProcessAction(resumeDetails: IResumeInstanceDetails): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IExecuteReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IExecuteReply> => {
     const response: IExecuteReply = await Api.postJson(ProcessEngineApiRoutes.resume, {
       resumeDetails: resumeDetails
     } as IResumeRequest);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>({
       type: InstanceActionType.Resume as InstanceActionType
     });
@@ -114,15 +125,19 @@ export function resumeProcessAction(resumeDetails: IResumeInstanceDetails): <S e
 }
 
 export async function abortInstance(instanceId: string): Promise<IAbortReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(abortInstanceAction(instanceId));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function abortInstanceAction(instanceId: string): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IAbortReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IAbortReply> => {
     const response: IAbortReply = await Api.postJson(ProcessEngineApiRoutes.abort, {
       instanceId: instanceId
     } as IAbortRequest);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>({
       type: InstanceActionType.Abort as InstanceActionType
     });
@@ -137,10 +152,13 @@ export function abortInstanceAction(instanceId: string): <S extends Action<any>>
 
 
 export async function jump(instanceId: string, targetBpmnTaskId: string, resumeDetails: IResumeInstanceDetails): Promise<IJumpReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return await rootStore.dispatch<any>(jumpAction(instanceId, targetBpmnTaskId, resumeDetails));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function jumpAction(instanceId: string, targetBpmnTaskId: string, resumeDetails: IResumeInstanceDetails): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IJumpReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IJumpReply> => {
     const response: IJumpReply = await Api.postJson(ProcessEngineApiRoutes.jump, {
       instanceId: instanceId,
@@ -200,9 +218,13 @@ export async function loadInstance(instanceId: string, instanceExtras?: Instance
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (await rootStore.dispatch<any>(loadInstanceAction(instanceId, instanceState, instanceExtras))).instanceDetails;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function loadInstanceAction(instanceId: string, instanceState: Instance.InstanceState, getExtras: InstanceExtras = InstanceExtras.None): <S extends Action<any>>(dispatch: Dispatch<S>, getState: Function) => Promise<IGetInstanceDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async <S extends Action<any>>(dispatch: Dispatch<S>, getState: Function): Promise<IGetInstanceDetailsReply> => {
     const response: IGetInstanceDetailsReply = await Api.getJson(ProcessEngineApiRoutes.getInstanceDetails, {
       instanceId: instanceId,
@@ -221,6 +243,7 @@ export function loadInstanceAction(instanceId: string, instanceState: Instance.I
     Object.assign(message, state);
     Object.assign(response, state);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(message);
 
     return response;

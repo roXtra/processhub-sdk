@@ -8,6 +8,7 @@ import { PROCESSLOADED_MESSAGE, IProcessLoadedMessage } from "./legacyapi";
 import { createId } from "../tools/guid";
 import { ResetStore } from "../statehandler/actions";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function processReducer(processState: Process.ProcessState, action: any): Process.ProcessState {
 
   if (processState == null || action && action.type === ResetStore) {

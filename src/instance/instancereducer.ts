@@ -9,6 +9,7 @@ import { IRemoveInstanceMessage, INewInstanceMessage } from "../user/legacyapi";
 import { UserMessages } from "../user/phclient";
 import { ResetStore } from "../statehandler/actions";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function instanceReducer(instanceState: InstanceState, action: any): InstanceState {
 
   if (instanceState == null || action && action.type === ResetStore) {
