@@ -9,6 +9,10 @@ import _ = require("lodash");
 // Browser dürfen fehlgeschlagene/verzögerte GET-Aufrufe jederzeit wiederholen, das ist gut, wenn die Verbindung hängt
 export async function getJson<Request extends IBaseRequest>(path: string, request: Request, accessToken: string = null): Promise<IBaseMessage> {
 
+  if (typeof window !== "undefined") {
+    request.moduleId = window.__INITIAL_CONFIG__.moduleId;
+  }
+
   // Request als Querystring serialisieren
   const str = [];
   for (const p in request) {
@@ -79,6 +83,10 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
 // POST-Anforderungen werden ohne explizite Useranforderung vom Browser NICHT wiederholt ausgeführt
 export async function postJson<Request extends IBaseRequest>(path: string, request: Request, accessToken: string = null): Promise<IBaseMessage> {
   const url = getBackendUrl() + path;
+
+  if (typeof window !== "undefined") {
+    request.moduleId = window.__INITIAL_CONFIG__.moduleId;
+  }
 
   let req: RequestInit = null;
   if (accessToken == null) {

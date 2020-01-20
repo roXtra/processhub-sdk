@@ -1,4 +1,4 @@
-import { IBaseReply } from "../legacyapi";
+import { IBaseReply, IBaseRequest } from "../legacyapi";
 import { IRoxFile, IRoxFolder } from ".";
 import { Instance } from "..";
 import { IFieldContentMap } from "../data";
@@ -50,7 +50,7 @@ export interface IGetRootFolderReply extends IBaseReply {
   name: string;
 }
 
-export interface IGetFolderContentRequest {
+export interface IGetFolderContentRequest extends IBaseRequest {
   folderId: number;
 }
 export interface IGetFolderContentReply extends IBaseReply {
@@ -78,7 +78,7 @@ export interface IDownloadRoxDocToServerReply extends IBaseReply {
   fieldContents: IFieldContentMap;
 }
 
-export interface IDownloadRoxDocToServerRequest {
+export interface IDownloadRoxDocToServerRequest extends IBaseRequest {
   instanceDetails: Instance.IInstanceDetails;
   extVals: ITaskExtensions;
 }

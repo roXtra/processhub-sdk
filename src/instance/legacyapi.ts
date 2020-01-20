@@ -1,4 +1,4 @@
-import { IBaseReply, IBaseMessage } from "../legacyapi/apiinterfaces";
+import { IBaseReply, IBaseMessage, IBaseRequest } from "../legacyapi/apiinterfaces";
 import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces";
 import { UserDetails } from "../user";
 
@@ -27,13 +27,11 @@ export const ProcessEngineApiRoutes = {
 export type ProcessEngineApiRoutes = keyof typeof ProcessEngineApiRoutes;
 
 // API request/reply objects
-export interface IInstanceRequest {
-}
 export interface IInstanceReply extends IBaseReply {
   errorMessage?: string;
 }
 
-export interface IExecuteRequest extends IInstanceRequest {
+export interface IExecuteRequest extends IBaseRequest {
   processId: string;
   instance?: IInstanceDetails;
   startEventId?: string;
@@ -42,32 +40,30 @@ export interface IExecuteReply extends IInstanceReply { // ExecuteReply ist das 
   instanceId?: string;
 }
 
-export interface IUpdateInstanceRequest extends IInstanceRequest {
+export interface IUpdateInstanceRequest extends IBaseRequest {
   instance: IInstanceDetails;
 }
 export interface IUpdateInstanceReply extends IInstanceReply {
   instance?: IInstanceDetails;
 }
 
-export interface IResumeRequest extends IInstanceRequest {
+export interface IResumeRequest extends IBaseRequest {
   resumeDetails: IResumeInstanceDetails;
 }
 
-export interface IAbortRequest extends IInstanceRequest {
+export interface IAbortRequest extends IBaseRequest {
   instanceId: string;
 }
-export interface IAbortReply extends IInstanceReply {
-}
+export type IAbortReply = IInstanceReply;
 
-export interface IJumpRequest extends IInstanceRequest {
+export interface IJumpRequest extends IBaseRequest {
   instanceId: string;
   targetBpmnTaskId: string;
   resumeDetails: IResumeInstanceDetails;
 }
-export interface IJumpReply extends IInstanceReply {
-}
+export type IJumpReply = IInstanceReply;
 
-export interface IGetInstanceDetailsRequest extends IInstanceRequest {
+export interface IGetInstanceDetailsRequest extends IBaseRequest {
   instanceId: string;
   getExtras: InstanceExtras;
 }
@@ -75,7 +71,7 @@ export interface IGetInstanceDetailsReply extends IInstanceReply {
   instanceDetails?: IInstanceDetails;
 }
 
-export interface IUploadAttachmentRequest extends IInstanceRequest {
+export interface IUploadAttachmentRequest extends IBaseRequest {
   instanceId: string;
   processId: string;
   fileName: string;
@@ -85,7 +81,7 @@ export interface IUploadAttachmentReply extends IInstanceReply {
   url: string;
 }
 
-export interface IUploadRoxFileRequest extends IInstanceRequest {
+export interface IUploadRoxFileRequest extends IBaseRequest {
   instanceId: string;
   processId: string;
   fileName: string;
@@ -97,7 +93,7 @@ export interface IUploadRoxFileReply extends IInstanceReply {
   url: string;
 }
 
-export interface IGetArchiveRequest extends IInstanceRequest {
+export interface IGetArchiveRequest extends IBaseRequest {
   workspaces: string[];
   roxFileIds: number[];
 }
@@ -106,7 +102,7 @@ export interface IGetArchiveReply extends IInstanceReply {
   instanceUsers: UserDetails[];
 }
 
-export interface IUploadCommentAttachmentRequest extends IInstanceRequest {
+export interface IUploadCommentAttachmentRequest extends IBaseRequest {
   instanceId: string;
   processId: string;
   fileName: string;
@@ -117,37 +113,35 @@ export interface IUploadCommentAttachmentReply extends IInstanceReply {
   url: string;
 }
 
-export interface ISetFieldContentRequest extends IInstanceRequest {
+export interface ISetFieldContentRequest extends IBaseRequest {
   instanceId: string;
   fieldName: string;
   fieldValue: string;
 }
-export interface ISetFieldContentReply extends IInstanceReply {
-}
+export type ISetFieldContentReply = IInstanceReply;
 
-export interface IDeleteAttachmentRequest extends IInstanceRequest {
+export interface IDeleteAttachmentRequest extends IBaseRequest {
   processId: string;
   instanceId: string;
   fileName: string;
 }
-export interface IDeleteAttachmentReply extends IInstanceReply {
-}
+export type IDeleteAttachmentReply = IInstanceReply;
 
-export interface ICommentRequest extends IInstanceRequest {
+export interface ICommentRequest extends IBaseRequest {
   instanceId: string;
   comment: string;
   trailId: string;
   attachments: string[];
 }
-export interface IDeleteCommentRequest extends IInstanceRequest {
+export interface IDeleteCommentRequest extends IBaseRequest {
   trailId: string;
 }
 
-export interface IDeleteMailRequest extends IInstanceRequest {
+export interface IDeleteMailRequest extends IBaseRequest {
   trailId: string;
 }
 
-export interface IDeleteInstancesRequest extends IInstanceRequest {
+export interface IDeleteInstancesRequest extends IBaseRequest {
   instanceIds: string[];
 }
 
@@ -157,14 +151,14 @@ export interface IInstanceLoadedMessage extends IBaseMessage {
   instance?: IInstanceDetails;
 }
 
-export interface IExportAuditTrailRequest extends IInstanceRequest {
+export interface IExportAuditTrailRequest extends IBaseRequest {
   instanceId: string;
 }
 export interface IExportAuditTrailReply extends IInstanceReply {
   doc: any;
 }
 
-export interface IGenerateReportRequest extends IInstanceRequest {
+export interface IGenerateReportRequest extends IBaseRequest {
   instanceIds: string;
   draftId: string;
   type: "docx" | "pdf";

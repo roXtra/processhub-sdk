@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 import * as StateHandler from "../statehandler";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { IProcessDetails, ProcessExtras, ITimerStartEventConfiguration } from "./processinterfaces";
-import { IGetProcessDetailsReply, ProcessRequestRoutes, PROCESSLOADED_MESSAGE, IProcessLoadedMessage, IGetProcessDetailsRequest, IGetPublicProcessesReply, ICopyProcessRequest, IRateProcessRequest, IUploadFileRequest, IDeleteFileRequest, IGetTimersOfProcessReply, ISetTimersOfProcessReply, IGetProcessStatisticsReply, IGetAllServicesReply, IGetAllServicesRequest, IUploadReportDraftRequest, IDeleteReportDraftRequest, IAddRoXtraFileRequest } from "./legacyapi";
+import { IGetProcessDetailsReply, ProcessRequestRoutes, PROCESSLOADED_MESSAGE, IProcessLoadedMessage, IGetProcessDetailsRequest, ICopyProcessRequest, IRateProcessRequest, IUploadFileRequest, IDeleteFileRequest, IGetTimersOfProcessReply, ISetTimersOfProcessReply, IGetProcessStatisticsReply, IGetAllServicesReply, IGetAllServicesRequest, IUploadReportDraftRequest, IDeleteReportDraftRequest, IAddRoXtraFileRequest, IGetProcessStatisticsRequest, ISetTimersOfProcessRequest, IGetTimersOfProcessRequest, IUpdateProcessDetailsRequest, IDeleteProcessRequest, ICreateProcessRequest } from "./legacyapi";
 import { isTrue } from "../tools/assert";
 import { createId } from "../tools/guid";
 import { tl } from "../tl";
@@ -18,7 +18,6 @@ export const ProcessActionType = {
   DeleteFromDb: "PROCESSACTION_DELETEFROMDB",
   DeleteFromDbDone: "PROCESSACTION_DELETEFROMDBDONE",
   GetProcessDetails: "PROCESSACTION_GETPROCESSDETAILS",
-  GetPublicProcessesDone: "PROCESSACTION_GETPUBLICPROCESSESDONE",
   GetProcessTimers: "PROCESSACTION_GETTIMERS",
   SetProcessTimers: "PROCESSACTION_SETTIMERS",
   Update: "PROCESSACTION_UPDATE",
@@ -101,7 +100,7 @@ export function createProcessInDbAction(processDetails: IProcessDetails, accessT
     processDetails.extras.bpmnProcess = null;
     const response: IGetProcessDetailsReply = await Api.postJson(ProcessRequestRoutes.CreateProcess, {
       processDetails: processDetails
-    }, accessToken);
+    } as ICreateProcessRequest, accessToken);
     dispatch(response);
     processDetails.extras.bpmnProcess = bpmnProcess;
     return response;
@@ -120,7 +119,7 @@ export function deleteProcessFromDbAction(processId: string, accessToken: string
     });
     const response: Api.IBaseMessage = await Api.postJson(ProcessRequestRoutes.DeleteProcess, {
       processId: processId,
-    }, accessToken);
+    } as IDeleteProcessRequest, accessToken);
     dispatch(response);
     return response;
   };
@@ -309,7 +308,7 @@ export function updateProcessAction(process: IProcessDetails, accessToken: strin
 
     const response: IGetProcessDetailsReply = await Api.postJson(ProcessRequestRoutes.UpdateProcess, {
       processDetails: requestDetails
-    }, accessToken);
+    } as IUpdateProcessDetailsRequest, accessToken);
 
     // Update extras svg string from local change
     if (response.processDetails.extras.svgString == null && process.extras.svgString != null) {
@@ -318,22 +317,6 @@ export function updateProcessAction(process: IProcessDetails, accessToken: strin
 
     response.processDetails = await completeProcessFromCache(response.processDetails);
 
-    dispatch(response);
-    return response;
-  };
-}
-
-export async function listPublicProcesses(accessToken: string = null): Promise<IGetPublicProcessesReply> {
-  // Siehe https://github.com/jaysoo/todomvc-redux-react-typescript/blob/master/client/todos/actions.ts
-  return await rootStore.dispatch(listPublicProcessesAction(accessToken));
-}
-
-export function listPublicProcessesAction(accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<IGetPublicProcessesReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<IGetProcessDetailsReply> => {
-    dispatch({
-      type: ProcessActionType.GetProcessDetails as ProcessActionType
-    } as IProcessActionGetProcessDetails);
-    const response: IGetProcessDetailsReply = await Api.postJson(ProcessRequestRoutes.GetPublicProcesses, {}, accessToken);
     dispatch(response);
     return response;
   };
@@ -477,7 +460,7 @@ export function getTimersOfProcessAction(processId: string, accessToken: string 
   return async <S>(dispatch: Dispatch<S>): Promise<IGetTimersOfProcessReply> => {
     const response: IGetTimersOfProcessReply = await Api.postJson(ProcessRequestRoutes.GetTimers, {
       processId: processId
-    }, accessToken);
+    } as IGetTimersOfProcessRequest, accessToken);
 
     dispatch(response);
     return response;
@@ -493,7 +476,7 @@ export function setTimersOfProcessAction(processId: string, timers: ITimerStartE
     const response: ISetTimersOfProcessReply = await Api.postJson(ProcessRequestRoutes.SetTimers, {
       processId: processId,
       timers: timers
-    }, accessToken);
+    } as ISetTimersOfProcessRequest, accessToken);
 
     dispatch(response);
     return response;
@@ -511,7 +494,7 @@ export function getProcessStatisticsAction(processId: string, fromDate: Date, ti
       processId: processId,
       fromDate: fromDate,
       tillDate: tillDate
-    }, accessToken) as IGetProcessStatisticsReply;
+    } as IGetProcessStatisticsRequest, accessToken) as IGetProcessStatisticsReply;
 
     dispatch(response);
     return response;

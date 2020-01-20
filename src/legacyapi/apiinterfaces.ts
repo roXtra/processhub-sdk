@@ -1,3 +1,5 @@
+import { ModuleId } from "../modules";
+
 // Die ApiResults werden auch als Http Statuscodes genutzt
 export enum ApiResult {
   API_OK = 200,
@@ -31,6 +33,7 @@ export interface IBaseReply {
 }
 
 export interface IBaseRequest {
+  moduleId?: ModuleId;
 }
 
 export interface IBaseMessage extends IBaseReply {
