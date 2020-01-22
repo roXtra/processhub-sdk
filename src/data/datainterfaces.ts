@@ -98,8 +98,8 @@ export interface IFieldType {
   getType(): FieldType;
   getName(): string;
   getInput(props: IFormElementProps, instanceEnv: IInstanceEnvironment, bpmnProcess: BpmnProcess, onFieldValueChanged: () => void, showInvalidFields: boolean, startEventId?: string): JSX.Element;
-  renderValue(value: {}, instance: IInstanceDetails): JSX.Element;
-  renderValueForEmail(value: {}, instance: IInstanceDetails): JSX.Element;
+  renderValue(value: {}, instance: IInstanceDetails, showDirect?: boolean): JSX.Element;
+  renderValueForEmail(value: {}, instance: IInstanceDetails, showDirect?: boolean): JSX.Element;
   getSettingsButton(fieldDefinition: IFieldDefinition, onConfigChanged: (fieldDefinition: IFieldDefinition) => void, bpmnProcess: Process.BpmnProcess): JSX.Element;
   isVisible(): boolean;
   isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): boolean;
