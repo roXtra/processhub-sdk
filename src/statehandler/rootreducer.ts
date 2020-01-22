@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import { combineReducers, Reducer } from "redux";
 import { userReducer } from "../user/userreducer";
 import { pathReducer } from "../path/pathreducer";
 import { processReducer } from "../process/processreducer";
@@ -9,6 +9,9 @@ import { ProcessState } from "../process/phclient";
 import { UserState } from "../user/phclient";
 import { PathState } from "../path/phclient";
 import { InstanceState } from "../instance/phclient";
+import { connectRouter } from "connected-react-router";
+import { History } from "history";
+import { match } from "react-router";
 
 export class RootState {
   workspaceState: WorkspaceState;
@@ -16,11 +19,17 @@ export class RootState {
   userState: UserState;
   pathState: PathState;
   instanceState: InstanceState;
+  history: History;
+  location: Location;
+  match: match;
 }
 
 // Aus irgendwelchen Gründen dürfen die Reducer hier nicht mit User.userReducer angesprochen werden,
 // sondern müssen separat importiert werden!
-export const rootReducer = combineReducers({
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const createRootReducer = (history: any): Reducer<any> => combineReducers({
+  router: connectRouter(history),
   workspaceState: workspaceReducer,
   userState: userReducer,
   processState: processReducer,
@@ -34,7 +43,11 @@ export function initState(): RootState {
     userState: userReducer(null, null),
     pathState: pathReducer(null, null),
     processState: processReducer(null, null),
-    instanceState: instanceReducer(null, null)
+    instanceState: instanceReducer(null, null),
+    history: null,
+    location: null,
+    match: null
   };
 }
 
+export default createRootReducer;

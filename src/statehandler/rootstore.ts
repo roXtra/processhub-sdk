@@ -1,9 +1,10 @@
-import { Store, createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import { routerMiddleware } from "react-router-redux";
-import { History } from "history";
-import { RootState, initState, rootReducer } from "./rootreducer";
+import { Store, createStore, applyMiddleware, compose, AnyAction, Action } from "redux";
+import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
+import createRootReducer, { RootState, initState } from "./rootreducer";
 import { ResetStore } from "./actions";
+import { createBrowserHistory, createMemoryHistory } from "history";
+import { routerMiddleware } from "connected-react-router";
+import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/interface-name-prefix
@@ -11,33 +12,42 @@ declare global {
 }
 
 let initialState: RootState = typeof window !== "undefined" ? window.__INITIAL_STATE__ : undefined;
-export let rootStore: Store<RootState> = configureStore(initialState);
+export const history = typeof window === "undefined" ? createMemoryHistory() : createBrowserHistory();
+export const rootStore: Store<RootState> = configureStore(initialState);
+
+export type AsyncAction<R=void> = ThunkAction<Promise<R>, RootState, undefined, AnyAction>;
+export type DispatchAction<T extends AnyAction = Action> = ThunkDispatch<RootState, undefined, T>;
+export const useSelectorTs: TypedUseSelectorHook<RootState> = useSelector;
+export const useDispatchTs: () => DispatchAction = useDispatch;
 
 export function resetStore(): void {
   rootStore.dispatch({ type: ResetStore });
 }
 
-export function configureStore(initialState: {}): Store<RootState> {
-  const history: History = null;
-  const reduxRouterMiddleware = routerMiddleware(history);
-
+export function configureStore(preloadedState: {}): Store<RootState> {
   const store = createStore(
-    rootReducer,
-    initialState,
-    applyMiddleware(
-      thunk,
-      reduxRouterMiddleware)
+    createRootReducer(history), // Root reducer with router state
+    preloadedState,
+    compose(
+      applyMiddleware(
+        routerMiddleware(history), // For dispatching history actions
+        thunk
+      ),
+    ),
   ) as Store<RootState>;
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
+    /* For Webpack 2.x
+       Need to disable babel ES2015 modules transformation in .babelrc ?
+       presets: [
+         ["es2015", { "modules": false }]
+       ]
+    */
     module.hot.accept("./rootreducer", () => {
-      const nextReducer = require("./rootreducer").default;
-      store.replaceReducer(nextReducer);
+      store.replaceReducer(createRootReducer(history));
     });
   }
-
-  rootStore = store;
 
   return store;
 }

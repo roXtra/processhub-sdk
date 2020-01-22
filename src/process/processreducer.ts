@@ -2,12 +2,13 @@ import * as _ from "lodash";
 import * as ProcessActions from "./processactions";
 import * as Process from "../process";
 import * as StateHandler from "../statehandler";
-import * as update from "immutability-helper";
+import update from "immutability-helper";
 import { isTrue } from "../tools/assert";
 import { PROCESSLOADED_MESSAGE, IProcessLoadedMessage } from "./legacyapi";
 import { createId } from "../tools/guid";
 import { ResetStore } from "../statehandler/actions";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function processReducer(processState: Process.ProcessState, action: any): Process.ProcessState {
 
   if (processState == null || action && action.type === ResetStore) {
@@ -26,7 +27,7 @@ export function processReducer(processState: Process.ProcessState, action: any):
     // siehe https://github.com/kolodny/immutability-helper
 
     case PROCESSLOADED_MESSAGE: {
-      processState.currentProcess = StateHandler.mergeProcessToCache((action as IProcessLoadedMessage).processDetails);
+      processState.currentProcess = StateHandler.mergeProcessToCache((action as IProcessLoadedMessage).processDetails, processState, action.instanceState, action.userState);
 
       const processChanged = !_.isEqual(processState.currentProcess, processState.lastDispatchedProcess);
       processState.lastDispatchedProcess = _.cloneDeep(processState.currentProcess);
@@ -45,8 +46,8 @@ export function processReducer(processState: Process.ProcessState, action: any):
         return update(processState, {
           currentProcess: {
             extras: {
-              bpmnXml: { $set: action.xmlStr as ProcessActions.IProcessActionSave },
-              bpmnProcess: { $set: action.bpmnProcess as ProcessActions.IProcessActionSave }
+              bpmnXml: { $set: action.xmlStr as string },
+              bpmnProcess: { $set: action.bpmnProcess }
             }
           }
         });

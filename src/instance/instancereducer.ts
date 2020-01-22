@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import * as update from "immutability-helper";
+import update from "immutability-helper";
 import * as StateHandler from "../statehandler";
 import * as Notification from "../notification";
 import { InstanceState } from "./phclient";
@@ -9,6 +9,7 @@ import { IRemoveInstanceMessage, INewInstanceMessage } from "../user/legacyapi";
 import { UserMessages } from "../user/phclient";
 import { ResetStore } from "../statehandler/actions";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function instanceReducer(instanceState: InstanceState, action: any): InstanceState {
 
   if (instanceState == null || action && action.type === ResetStore) {
@@ -22,7 +23,7 @@ export function instanceReducer(instanceState: InstanceState, action: any): Inst
   switch (action.type) {
 
     case INSTANCELOADED_MESSAGE: {
-      instanceState.currentInstance = StateHandler.mergeInstanceToCache((action as IInstanceLoadedMessage).instance);
+      instanceState.currentInstance = StateHandler.mergeInstanceToCache((action as IInstanceLoadedMessage).instance, instanceState, action.userState, action.processState);
 
       const instanceChanged = !_.isEqual(instanceState.currentInstance, instanceState.lastDispatchedInstance);
       instanceState.lastDispatchedInstance = _.cloneDeep(instanceState.currentInstance);
@@ -38,7 +39,7 @@ export function instanceReducer(instanceState: InstanceState, action: any): Inst
       }
     }
     case UserMessages.RemoveInstanceMessage:
-      StateHandler.removeInstanceFromCache((action as IRemoveInstanceMessage).instanceId);
+      StateHandler.removeInstanceFromCache((action as IRemoveInstanceMessage).instanceId, action.instanceState, action.userState, action.processState);
 
       return update(instanceState, {
         cacheState: { $set: createId() }

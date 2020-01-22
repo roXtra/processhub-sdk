@@ -1,8 +1,9 @@
 import * as Api from "../legacyapi";
 import { rootStore, mergeInstanceToCache } from "../statehandler";
-import { Dispatch } from "redux";
+import { Dispatch, Action } from "redux";
 import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces";
 import { IJumpReply, IExecuteReply, ProcessEngineApiRoutes, IUpdateInstanceReply, IAbortReply, INSTANCELOADED_MESSAGE, IInstanceLoadedMessage, IGetInstanceDetailsReply, IGetInstanceDetailsRequest, IJumpRequest, IAbortRequest, IResumeRequest, IUpdateInstanceRequest, IExecuteRequest } from "./legacyapi";
+import { Instance } from "..";
 
 export const InstanceActionType = {
   Execute: "INSTANCEACTION_EXECUTE",
@@ -40,79 +41,110 @@ export interface IInstanceActionJump extends IInstanceAction {
 }
 
 export async function executeInstance(processId: string, instanceDetails: IInstanceDetails, startEventId?: string, accessToken?: string): Promise<IExecuteReply> {
-  return await rootStore.dispatch(executeInstanceAction(processId, instanceDetails, startEventId, accessToken));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return await rootStore.dispatch<any>(executeInstanceAction(processId, instanceDetails, startEventId, accessToken));
 }
 
-export function executeInstanceAction(processId: string, instanceDetails: IInstanceDetails, startEventId?: string, accessToken?: string): <S>(dispatch: Dispatch<S>) => Promise<IExecuteReply> {
-
-  return async <S>(dispatch: Dispatch<S>): Promise<IExecuteReply> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function executeInstanceAction(processId: string, instanceDetails: IInstanceDetails, startEventId?: string, accessToken?: string): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IExecuteReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IExecuteReply> => {
     const response: IExecuteReply = await Api.postJson(ProcessEngineApiRoutes.execute, {
       processId: processId,
       instance: instanceDetails,
       startEventId: startEventId
     } as IExecuteRequest, accessToken);
 
-    dispatch<IInstanceActionExecute>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dispatch<any>({
       type: InstanceActionType.Execute as InstanceActionType,
       processId: processId
     });
+    const state = rootStore.getState();
+    Object.assign(response, state);
+
     return response;
   };
 }
 
 export async function updateInstance(instance: IInstanceDetails, accessToken: string = null): Promise<IUpdateInstanceReply> {
-  return await rootStore.dispatch(updateInstanceAction(instance, accessToken));
+  const instanceState = rootStore.getState().instanceState;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return await rootStore.dispatch<any>(updateInstanceAction(instance, instanceState, accessToken));
 }
 
-export function updateInstanceAction(instance: IInstanceDetails, accessToken: string = null): <S>(dispatch: Dispatch<S>) => Promise<IUpdateInstanceReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<IUpdateInstanceReply> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function updateInstanceAction(instance: IInstanceDetails, instanceState: Instance.InstanceState, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IUpdateInstanceReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IUpdateInstanceReply> => {
     const response: IUpdateInstanceReply = await Api.postJson(ProcessEngineApiRoutes.updateInstance, {
       instance: instance
     } as IUpdateInstanceRequest, accessToken);
 
-    if (response.instance)
-      response.instance = mergeInstanceToCache(response.instance);
+    if (response.instance) {
+      const { userState, processState } = rootStore.getState();
+      response.instance = mergeInstanceToCache(response.instance, instanceState, userState, processState);
+    }
 
     const message: IInstanceLoadedMessage = {
       type: INSTANCELOADED_MESSAGE,
       instance: response.instance
     };
-    dispatch(message);
+    const state = rootStore.getState();
+    Object.assign(message, state);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dispatch<any>(message);
 
     return response;
   };
 }
 
 export async function resumeProcess(resumeDetails: IResumeInstanceDetails): Promise<IExecuteReply> {
-  return await rootStore.dispatch(resumeProcessAction(resumeDetails));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return await rootStore.dispatch<any>(resumeProcessAction(resumeDetails));
 }
 
-export function resumeProcessAction(resumeDetails: IResumeInstanceDetails): <S>(dispatch: Dispatch<S>) => Promise<IExecuteReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<IExecuteReply> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function resumeProcessAction(resumeDetails: IResumeInstanceDetails): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IExecuteReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IExecuteReply> => {
     const response: IExecuteReply = await Api.postJson(ProcessEngineApiRoutes.resume, {
       resumeDetails: resumeDetails
     } as IResumeRequest);
 
-    dispatch<IInstanceActionResume>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dispatch<any>({
       type: InstanceActionType.Resume as InstanceActionType
     });
+
+    const state = rootStore.getState();
+    Object.assign(response, state);
+
     return response;
   };
 }
 
 export async function abortInstance(instanceId: string): Promise<IAbortReply> {
-  return await rootStore.dispatch(abortInstanceAction(instanceId));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return await rootStore.dispatch<any>(abortInstanceAction(instanceId));
 }
 
-export function abortInstanceAction(instanceId: string): <S>(dispatch: Dispatch<S>) => Promise<IAbortReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<IAbortReply> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function abortInstanceAction(instanceId: string): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IAbortReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IAbortReply> => {
     const response: IAbortReply = await Api.postJson(ProcessEngineApiRoutes.abort, {
       instanceId: instanceId
     } as IAbortRequest);
 
-    dispatch<IInstanceActionAbort>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dispatch<any>({
       type: InstanceActionType.Abort as InstanceActionType
     });
+
+    const state = rootStore.getState();
+    Object.assign(response, state);
+
     return response;
   };
 }
@@ -120,20 +152,23 @@ export function abortInstanceAction(instanceId: string): <S>(dispatch: Dispatch<
 
 
 export async function jump(instanceId: string, targetBpmnTaskId: string, resumeDetails: IResumeInstanceDetails): Promise<IJumpReply> {
-  return await rootStore.dispatch(jumpAction(instanceId, targetBpmnTaskId, resumeDetails));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return await rootStore.dispatch<any>(jumpAction(instanceId, targetBpmnTaskId, resumeDetails));
 }
 
-export function jumpAction(instanceId: string, targetBpmnTaskId: string, resumeDetails: IResumeInstanceDetails): <S>(dispatch: Dispatch<S>) => Promise<IJumpReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<IJumpReply> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function jumpAction(instanceId: string, targetBpmnTaskId: string, resumeDetails: IResumeInstanceDetails): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<IJumpReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<IJumpReply> => {
     const response: IJumpReply = await Api.postJson(ProcessEngineApiRoutes.jump, {
       instanceId: instanceId,
       targetBpmnTaskId: targetBpmnTaskId,
       resumeDetails: resumeDetails
     } as IJumpRequest);
 
-    dispatch<IInstanceActionJump>({
-      type: InstanceActionType.Jump as InstanceActionType
-    });
+    const state = rootStore.getState();
+    Object.assign(response, state);
+
     return response;
   };
 }
@@ -171,31 +206,45 @@ export async function loadInstance(instanceId: string, instanceExtras?: Instance
 
     if (instanceExtras === 0) {
       // All data available from cache
-      rootStore.dispatch({
+      const response = {
         type: INSTANCELOADED_MESSAGE,
         instance: cachedInstance
-      } as IInstanceLoadedMessage);
+      } as IInstanceLoadedMessage;
+      const state = rootStore.getState();
+      Object.assign(response, state);
+      rootStore.dispatch(response);
 
       return cachedInstance;
     }
   }
 
-  return (await rootStore.dispatch(loadInstanceAction(instanceId, instanceExtras))).instanceDetails;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (await rootStore.dispatch<any>(loadInstanceAction(instanceId, instanceState, instanceExtras))).instanceDetails;
 }
-export function loadInstanceAction(instanceId: string, getExtras: InstanceExtras = InstanceExtras.None): <S>(dispatch: Dispatch<S>) => Promise<IGetInstanceDetailsReply> {
-  return async <S>(dispatch: Dispatch<S>): Promise<IGetInstanceDetailsReply> => {
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function loadInstanceAction(instanceId: string, instanceState: Instance.InstanceState, getExtras: InstanceExtras = InstanceExtras.None): <S extends Action<any>>(dispatch: Dispatch<S>, getState: Function) => Promise<IGetInstanceDetailsReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return async <S extends Action<any>>(dispatch: Dispatch<S>, getState: Function): Promise<IGetInstanceDetailsReply> => {
     const response: IGetInstanceDetailsReply = await Api.getJson(ProcessEngineApiRoutes.getInstanceDetails, {
       instanceId: instanceId,
       getExtras: getExtras
     } as IGetInstanceDetailsRequest);
-    if (response.instanceDetails)
-      response.instanceDetails = mergeInstanceToCache(response.instanceDetails);
+    if (response.instanceDetails) {
+      const { userState, processState } = rootStore.getState();
+      response.instanceDetails = mergeInstanceToCache(response.instanceDetails, instanceState, userState, processState);
+    }
 
     const message: IInstanceLoadedMessage = {
       type: INSTANCELOADED_MESSAGE,
       instance: response.instanceDetails
     };
-    dispatch(message);
+    const state = getState();
+    Object.assign(message, state);
+    Object.assign(response, state);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    dispatch<any>(message);
 
     return response;
   };

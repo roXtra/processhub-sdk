@@ -1,5 +1,5 @@
 import { rootStore } from "../statehandler";
-import { Dispatch } from "redux";
+import { Dispatch, Action, AnyAction } from "redux";
 import * as StateHandler from "../statehandler";
 import * as Api from "../legacyapi";
 import { UserDetails, UserExtras } from "./userinterfaces";
@@ -8,10 +8,12 @@ import { UserMessages } from "./phclient";
 
 export function updateUserInState(user: UserDetails): void {
   if (user != null) {
-    const message: IUserLoadedMessage = {
+    const message: AnyAction = {
       type: UserMessages.UserLoadedMessage as UserMessages,
       user: user
     };
+    const state = rootStore.getState();
+    Object.assign(message, state);
     rootStore.dispatch<IUserLoadedMessage>(message);
   }
 }
@@ -36,11 +38,14 @@ export async function loadUser(userId: string, getExtras: UserExtras = UserExtra
       return currentUser;
     }
   }
-  return (await rootStore.dispatch(loadUserAction(userId, getExtras))).userDetails;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (await rootStore.dispatch<any>(loadUserAction(userId, getExtras, accessToken))).userDetails;
 }
 
-export function loadUserAction(userId: string, getExtras: UserExtras): <S>(dispatch: Dispatch<S>) => Promise<ILoadUserReply> {
-  return async <S>(): Promise<ILoadUserReply> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function loadUserAction(userId: string, getExtras: UserExtras, accessToken: string = null): <S extends Action<any>>(dispatch: Dispatch<S>) => Promise<ILoadUserReply> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return async <S extends Action<any>>(dispatch: Dispatch<S>): Promise<ILoadUserReply> => {
     const request: ILoadUserRequest = {
       userId: userId,
       getExtras: getExtras

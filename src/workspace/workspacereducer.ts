@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import * as update from "immutability-helper";
+import update from "immutability-helper";
 import * as StateHandler from "../statehandler";
 import { WorkspaceState, WorkspaceMessages } from "./phclient";
 import { IWorkspaceLoadedMessage } from "./legacyapi";
@@ -19,7 +19,7 @@ export function workspaceReducer(workspaceState: WorkspaceState, action: AnyActi
 
   switch (action.type) {
     case WorkspaceMessages.WorkspaceLoadedMessage: {
-      workspaceState.currentWorkspace = StateHandler.mergeWorkspaceToCache((action as IWorkspaceLoadedMessage).workspace);
+      workspaceState.currentWorkspace = StateHandler.mergeWorkspaceToCache((action as IWorkspaceLoadedMessage).workspace, workspaceState, action.processState, action.instanceState, action.userState);
 
       const workspaceChanged = !_.isEqual(workspaceState.currentWorkspace, workspaceState.lastDispatchedWorkspace);
       workspaceState.lastDispatchedWorkspace = _.cloneDeep(workspaceState.currentWorkspace);
