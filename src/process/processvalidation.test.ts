@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import * as ProcessValidation from "./processvalidation";
 import { IProcessDetails } from "./processinterfaces";
-import { createWorkspaceId, createId } from "../tools/guid";
+import { createId } from "../tools/guid";
 
 describe("sdk", function () {
   describe("process", function () {
@@ -49,7 +49,7 @@ describe("sdk", function () {
         assert.isFalse(res, "error: " + obj.displayName + " - " + obj.description);
 
         obj = {
-          workspaceId: createWorkspaceId(),
+          workspaceId: createId(),
           displayName: "Unittest process " + createId(),
           description: "Unittest process decription",
           processId: createId(),

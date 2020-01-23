@@ -8,7 +8,6 @@ import { isWorkspaceMember } from "../workspace/workspacerights";
 import { error } from "../tools/assert";
 import { isGroupId, isUserId } from "../tools/guid";
 import { Bpmn } from "./bpmn";
-import * as WorkspaceLicenses from "../workspace/workspacelicenses";
 import { IGroupDetails } from "../group";
 import _ = require("lodash");
 
@@ -93,12 +92,6 @@ export function getProcessRoles(currentRoles: IProcessRoles, bpmnProcess: BpmnPr
   // Public processes have been removed for now, does not seem to make sense with current version
   if (workspace.workspaceType === WorkspaceType.Templates) {
     processRoles[DefaultRoles.Viewer] = { potentialRoleOwners: [{ memberId: PredefinedGroups.Public }] };
-  }
-
-  // Demo and Free workspaces don't have owners or managers -> remove from roles if they exists
-  if (!WorkspaceLicenses.licenseHasManagersAndOwners(workspace)) {
-    delete (processRoles[DefaultRoles.Owner]);
-    delete (processRoles[DefaultRoles.Manager]);
   }
 
   // Everybody can be added as a follower
