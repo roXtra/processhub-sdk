@@ -1,5 +1,4 @@
 import { IWorkspaceDetails, WorkspaceRole } from "./workspaceinterfaces";
-import * as WorkspaceLicenses from "./workspacelicenses";
 
 export function isWorkspaceMember(workspace: IWorkspaceDetails): boolean {
   if (workspace == null)
@@ -17,7 +16,7 @@ export function isWorkspaceAdmin(workspace: IWorkspaceDetails): boolean {
 
 // Only true if flag is set AND licenseHasWorkspaceProcessManagers()
 export function isWorkspaceProcessManager(workspace: IWorkspaceDetails): boolean {
-  if (workspace == null || !WorkspaceLicenses.licenseHasWorkspaceProcessManagers(workspace))
+  if (workspace == null)
     return false;
 
   return ((workspace.userRole & (WorkspaceRole.WorkspaceAdmin | WorkspaceRole.WorkspaceProcessManager)) !== 0);
@@ -33,24 +32,6 @@ export function canViewMembers(workspace: IWorkspaceDetails): boolean {
   return isWorkspaceMember(workspace);
 }
 
-export function canInviteMembers(workspace: IWorkspaceDetails): boolean {
-  return isWorkspaceAdmin(workspace);
-}
-
-export function canCreateGroups(workspace: IWorkspaceDetails): boolean {
-  return isWorkspaceAdmin(workspace);
-}
-
-export function canEditGroups(workspace: IWorkspaceDetails): boolean {
-  return isWorkspaceAdmin(workspace);
-}
-
 export function canCreateProcess(workspace: IWorkspaceDetails): boolean {
   return isWorkspaceAdmin(workspace);
-}
-
-export function canStartTrial(workspace: IWorkspaceDetails): boolean {
-  // Admins can start a trial if they didn't have one before and workspace is Free
-  return isWorkspaceAdmin(workspace)
-     && ((WorkspaceLicenses.licenseIsFree(workspace) && workspace.trialExpiresAt == null) || WorkspaceLicenses.licenseIsTrial(workspace));
 }

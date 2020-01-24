@@ -1,5 +1,4 @@
 const ID_LENGTH = 16;
-const TEMP_USERID_PREFIX = "tmpUserId_";
 
 function idHelper(count: number): string {
   let out = "";
@@ -16,22 +15,6 @@ export function createId(): string {
   return idHelper(4).toUpperCase();
 }
 
-export function createUserId(): string {
-  // UserIds start with 0
-  return "0" + createId().substr(1);
-}
-
-export function createGroupId(): string {
-  // GroupIds start with 1
-  return "1" + createId().substr(1);
-}
-
-export function createWorkspaceId(): string {
-  // Ids beginnen mit 2 zur Unterscheidung von UserId/GroupIds
-  // 000 reserviert für evtl. Unterscheidung Region/Datenbank
-  return "2000" + createId().substr(4);
-}
-
 // Ist String eine Id?
 export function isId(id: string): boolean {
   return (id != null && id.length === ID_LENGTH && id.toUpperCase() === id);
@@ -45,17 +28,8 @@ export function isGroupId(id: string): boolean {
   return id.startsWith("G_");
 }
 
-export function isWorkspaceId(id: string): boolean {
-  return (isId(id) && id.substr(0, 4) === "2000");
-}
-
 export function nullId(): string {
   return "0000000000000000";
-}
-
-export function isTempUserId(id: string): boolean {
-  const prefixLength = TEMP_USERID_PREFIX.length;
-  return (id.substr(0, prefixLength) === TEMP_USERID_PREFIX);
 }
 
 // Number format 123.4567.890

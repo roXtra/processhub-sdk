@@ -3,7 +3,6 @@ import { ProcessExtras } from "./process/processinterfaces";
 import { InstanceExtras } from "./instance/instanceinterfaces";
 import { UserExtras } from "./user/userinterfaces";
 import * as Assert from "./tools/assert";
-import { ApiClient } from "./apiclient";
 import { ICoreEnvironment } from "./environment";
 
 
@@ -14,11 +13,7 @@ export interface IExtrasRequest {
   userExtras?: UserExtras;
 }
 
-export class ActionHandler extends ApiClient {
-
-  constructor(apiHost = "https://app.processhub.com", accessToken?: string) {
-    super(apiHost, accessToken);
-  }
+export class ActionHandler {
 
   // Load Page "/@workspace/..."
   gotoPage(_path: string): void {
@@ -32,10 +27,6 @@ export class ActionHandler extends ApiClient {
   }
 
   openInstancePopup(_workspaceId: string, _instanceId: string, todoId?: string): void {
-    Assert.error();
-  }
-
-  openAccountPopup(): void {
     Assert.error();
   }
 
