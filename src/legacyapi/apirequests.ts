@@ -1,8 +1,8 @@
-import "fetch-everywhere";
 import { getErrorHandlers } from "./errorhandler";
 import { IBaseRequest, ApiResult, IBaseError, IBaseMessage, API_FAILED } from "./apiinterfaces";
 import { getBackendUrl } from "../config";
 import _ = require("lodash");
+import fetchWithTimeout from "../tools/fetchwithtimeout";
 
 // Api-Aufruf per GET
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
@@ -42,7 +42,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
     };
   }
   try {
-    const response = await fetch(url, req);
+    const response = await fetchWithTimeout(url, req);
     switch (response.status) {
       case 200: {
         const json = await response.json();
@@ -112,7 +112,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
     };
   }
   try {
-    const response = await fetch(url, req);
+    const response = await fetchWithTimeout(url, req);
     switch (response.status) {
       case 200: {
         const json = await response.json();
@@ -174,7 +174,7 @@ export async function getExternalJson<Request extends IBaseRequest>(apiEndpointU
       } as any
     };
   }
-  const response = await fetch(url, req);
+  const response = await fetchWithTimeout(url, req);
 
   switch (response.status) {
     case 200: {
