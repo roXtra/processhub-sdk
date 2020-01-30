@@ -1,7 +1,7 @@
 import { tl } from "../tl";
 import { UserDetails } from "../user/userinterfaces";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
-import { IWorkspaceDetails, WorkspaceType } from "../workspace/workspaceinterfaces";
+import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { PredefinedGroups, getDefaultRoleGroup } from "../user/index";
 import { IProcessDetails } from "./processinterfaces";
 import { isWorkspaceMember } from "../workspace/workspacerights";
@@ -88,11 +88,6 @@ export function getProcessRoles(currentRoles: IProcessRoles, bpmnProcess: BpmnPr
   let processRoles = currentRoles;
   if (processRoles == null)
     processRoles = {};
-
-  // Public processes have been removed for now, does not seem to make sense with current version
-  if (workspace.workspaceType === WorkspaceType.Templates) {
-    processRoles[DefaultRoles.Viewer] = { potentialRoleOwners: [{ memberId: PredefinedGroups.Public }] };
-  }
 
   // Everybody can be added as a follower
   processRoles[DefaultRoles.Follower] = { potentialRoleOwners: [{ memberId: getDefaultRoleGroup() }], allowMultipleOwners: true };

@@ -29,7 +29,6 @@ export interface ITodoDetails {
   createdAt?: Date;
   user?: UserDetails;
   priority?: number;
-  isPinned?: boolean;
   dueAt?: Date;
   subInstanceId?: string;
   token?: string;
