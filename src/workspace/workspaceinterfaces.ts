@@ -3,20 +3,8 @@ import { UserDetails } from "../user/userinterfaces";
 import { IAuditTrailEntry } from "../audittrail";
 import { IGroupDetails } from "../group/groupinterfaces";
 
-// WorkspaceType
-export enum WorkspaceType {
-  Free = 100,
-  Demo = 120, // Demo has some features that Free does not have, e.g. graphical modeler
-  Team = 200,
-  Business = 300,
-  Templates = 310, // Used internally for templates. Processes in this workspace are always public
-  Enterprise = 400
-}
-
 export interface IWorkspaceDetails {
-
   workspaceId: string;
-  workspaceType: WorkspaceType;
   urlName?: string; // DisplayName converted to Uri segment
   fullUrl?: string; // @urlname
   displayName: string;

@@ -124,7 +124,6 @@ export function getPredefinedGroupName(groupId: string): string {
 // used to sync notification states across devices
 export interface IViewState {
   lastViewedAt?: Date;  // Last time instancePopup for this instance was opened
-  isPinned?: boolean;  // Instance/process pinned to sidebar?
 }
 export interface IViewStates {
   [objectId: string]: IViewState;
