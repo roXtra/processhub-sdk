@@ -60,7 +60,7 @@
         ]
       }
     ],
-    "require-atomic-updates": "warn",
+    "require-atomic-updates": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
