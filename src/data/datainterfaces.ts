@@ -129,7 +129,7 @@ export function isFieldValue(element: {}): element is IFieldValue {
 }
 
 export interface IFieldContentMap {
-  [fieldId: string]: string | boolean | IFieldValue;
+  [fieldId: string]: string | string[] | boolean | IFieldValue;
 }
 
 // Returns the name of the best fitting Semantic UI icon for the specified file name
