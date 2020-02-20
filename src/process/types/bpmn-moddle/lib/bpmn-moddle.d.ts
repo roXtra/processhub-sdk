@@ -152,9 +152,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
   }
 
   namespace BpmnModdle {
-    export interface IElementAttrs {
-    }
-    export interface IElement extends IElementAttrs {
+    export interface IElement {
       readonly $type: Bpmn.ElementType;
       $attrs?: {};
     }

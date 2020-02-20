@@ -1,6 +1,8 @@
 import { IBaseMessage, IBaseRequest, IBaseReply } from "../legacyapi/apiinterfaces";
 import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces";
 import { IStatisticRow } from "../data";
+import { Bpmn } from "./bpmn";
+import { Context } from "moddle-xml/lib/reader";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -71,7 +73,7 @@ export interface IDownloadProcessRequest extends IBaseRequest {
   processId: string;
 }
 export interface IDownloadProcessReply extends IProcessReply {
-  doc: any;
+  doc: Buffer;
 }
 
 export interface IExportProcessRequest extends IBaseRequest {
@@ -179,6 +181,6 @@ export interface IProcessLoadedMessage extends IBaseMessage {
 
 export interface ILoadTemplateReply {
   result: ProcessResult;
-  bpmnXml: any;
-  bpmnContext: any;
+  bpmnXml: Bpmn.IDefinitions;
+  bpmnContext: Context;
 }

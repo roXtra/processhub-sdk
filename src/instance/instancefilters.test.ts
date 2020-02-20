@@ -2,6 +2,7 @@ import { assert } from "chai";
 import * as InstanceFilters from "./instancefilters";
 import * as PH from "../";
 import { ITodoDetails } from "../todo/todointerfaces";
+import { UserDetails } from "../user";
 
 describe("sdk", function () {
   describe("instance", function () {
@@ -29,7 +30,7 @@ describe("sdk", function () {
           }
         } as PH.Instance.IInstanceDetails;
 
-        let resInstDetails = InstanceFilters.filterUserInstances([ instanceDetails ], { userId: "xyz" } as any);
+        let resInstDetails = InstanceFilters.filterUserInstances([ instanceDetails ], { userId: "xyz" } as UserDetails);
 
         assert.isTrue(resInstDetails.length === 1);
         assert.isTrue(resInstDetails.last().processId === "xyz");

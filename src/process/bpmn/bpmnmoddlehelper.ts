@@ -15,7 +15,7 @@ export async function createBpmnTemplate(): Promise<ILoadTemplateReply> {
     "</bpmn:definitions>";
 
   const promise = new Promise<ILoadTemplateReply>(function (resolve) {
-    bpmnModdleInstance.fromXML(xmlStr, (err: any, bpmnXml: any, bpmnContext: any): void => {
+    bpmnModdleInstance.fromXML(xmlStr, (err, bpmnXml: any, bpmnContext: any): void => {
       // Basisknoten anlegen - gleichzeitig ein gutes Beispiel für den Umgang mit moddle
 
       // Beispiele für Zugriffe auf Xml siehe

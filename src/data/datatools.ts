@@ -80,7 +80,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
       if (lane) {
         const roleOwner: IRoleOwner[] = roleOwners[lane.id];
         if (roleOwner && roleOwner.length) {
-          result = replaceAll(result, placeHolder, (roleProperty && roleOwner[0].user) ? ((roleOwner[0]).user as any)[roleProperty] : roleOwner[0].displayName);
+          result = replaceAll(result, placeHolder, (roleProperty && roleOwner[0].user) ? ((roleOwner[0]).user as unknown as { [key: string]: string })[roleProperty] : roleOwner[0].displayName);
         } else {
           result = replaceAll(result, placeHolder, "");
         }
