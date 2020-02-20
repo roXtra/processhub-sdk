@@ -28,7 +28,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
     req = {
       headers: {
         "Accept": "application/json"
-      } as any,
+      },
       credentials: "include"
     };
   } else {
@@ -38,7 +38,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
         "Accept": "application/json",
         "x-accesstoken": accessToken,   // X-accesstoken Kleinschreibung erforderlich
         "authorization": accessToken
-      } as any
+      }
     };
   }
   try {
@@ -96,7 +96,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
-      } as any,
+      },
       credentials: "include"
     };
   } else {
@@ -108,7 +108,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
         "Accept": "application/json",
         "Content-Type": "application/json",
         "x-accesstoken": accessToken   // X-accesstoken Kleinschreibung erforderlich
-      } as any
+      }
     };
   }
   try {
@@ -162,7 +162,7 @@ export async function getExternalJson<Request extends IBaseRequest>(apiEndpointU
     req = {
       headers: {
         "Accept": "application/json"
-      } as any,
+      },
       credentials: "include"
     };
   } else {
@@ -171,7 +171,7 @@ export async function getExternalJson<Request extends IBaseRequest>(apiEndpointU
       headers: {
         "Accept": "application/json",
         "x-accesstoken": accessToken   // X-accesstoken Kleinschreibung erforderlich
-      } as any
+      }
     };
   }
   const response = await fetchWithTimeout(url, req);

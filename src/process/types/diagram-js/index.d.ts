@@ -104,7 +104,7 @@ declare module "diagram-js" {
 
   export type IType = ("type" | Function)[];
   export type IFactory = ("factory" | Function)[];
-  export type IValue = ("value" | any)[];
+  export type IValue = ("value" | {})[];
 
   // Export interface Provider {
   //   [key: string]: Type | Factory | Value | Module[];
@@ -117,9 +117,6 @@ declare module "diagram-js" {
   }
 
   export type InvokeFunction = ((canvas: Canvas, renderer: BaseRenderer) => void) | ((canvas: Canvas) => void);
-
-  export interface ICanvasOptions {
-  }
 
   export interface IDiagramOptions {
     modules?: {}[];

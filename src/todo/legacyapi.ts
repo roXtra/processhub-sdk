@@ -36,8 +36,6 @@ export interface IUpdateTodoRequest extends IBaseRequest {
 }
 export type IUpdateTodoReply = IBaseReply;
 
-export interface IGetAmountOfUserTodosRequest {
-}
 export interface IGetAmountOfUserTodosReply extends IBaseReply  {
   todoAmount: number;
 }

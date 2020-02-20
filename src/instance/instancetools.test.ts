@@ -1,6 +1,7 @@
 import { assert } from "chai";
 import { fieldContentsExcerpt, parseInstanceMailAddress, getInstanceMailAddress } from "./instancetools";
 import { createId } from "../tools/guid";
+import { IInstanceDetails } from "./instanceinterfaces";
 
 describe("sdk", function () {
   describe("instance", function () {
@@ -8,8 +9,13 @@ describe("sdk", function () {
 
       describe("fieldContentsExcerpt", function () {
         it("soll Feldinhalte als Übersicht liefern", function () {
-          const instance: any = {
-            extras: {}
+          const instance: IInstanceDetails = {
+            instanceId: createId(),
+            workspaceId: createId(),
+            processId: createId(),
+            extras: {
+              instanceState: undefined,
+            }
           };
           assert.equal(fieldContentsExcerpt(null, 100), "");  // Fault tolerant
           assert.equal(fieldContentsExcerpt(instance, 100), "");

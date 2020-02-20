@@ -155,7 +155,7 @@ export interface IExportAuditTrailRequest extends IBaseRequest {
   instanceId: string;
 }
 export interface IExportAuditTrailReply extends IInstanceReply {
-  doc: any;
+  doc: Buffer;
 }
 
 export interface IGenerateReportRequest extends IBaseRequest {
@@ -164,6 +164,6 @@ export interface IGenerateReportRequest extends IBaseRequest {
   type: "docx" | "pdf";
 }
 export interface IGenerateReportReply extends IInstanceReply {
-  doc: any;
+  doc: Buffer;
   fileName: string;
 }
