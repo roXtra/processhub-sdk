@@ -64,8 +64,7 @@ export interface IInstanceDetails {
 export enum InstanceExtras {
   None = 0,
   ExtrasState = 1 << 0,
-  ExtrasRoleOwners = 1 << 1,
-  ExtrasRoleOwnersWithNames = 1 << 2, // Include roleowner-names
+  ExtrasRoleOwners = 1 << 1, // Include roleowner-names
   ExtrasFieldContents = 1 << 3,
   ExtrasTodos = 1 << 4,
   ExtrasAuditTrail = 1 << 5
