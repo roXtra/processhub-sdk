@@ -1,6 +1,6 @@
 import { getErrorHandlers } from "./errorhandler";
 import { IBaseRequest, ApiResult, IBaseError, IBaseMessage, API_FAILED } from "./apiinterfaces";
-import { getBackendUrl } from "../config";
+import { getBackendUrl, getBasePath } from "../config";
 import _ = require("lodash");
 import fetchWithTimeout from "../tools/fetchwithtimeout";
 
@@ -17,7 +17,9 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
   const str = [];
   for (const p in request) {
     if (Object.prototype.hasOwnProperty.call(request, p)) {
-      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(String(request[p])));
+      const requestedPath = String(request[p]);
+      const requestWithoutBasePath = requestedPath.replace(getBasePath(), "");
+      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(requestWithoutBasePath));
     }
   }
 
