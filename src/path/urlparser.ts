@@ -3,9 +3,12 @@ import { isTrue } from "../tools/assert";
 import { ProcessView, isValidProcessView } from "../process/phclient";
 import { WorkspaceView, isValidWorkspaceView } from "../workspace/phclient";
 import { isId } from "../tools/guid";
+import { getBackendUrl } from "../config";
 
-export function parseUrl(fullUrl: string): IPathDetails {
+export function parseUrl(fullUrlWithBase: string): IPathDetails {
   const path: IPathDetails = {};
+  const backendUrl = getBackendUrl();
+  const fullUrl = fullUrlWithBase !== undefined ? fullUrlWithBase.replace(backendUrl, "") : "";
 
   // Split path
   isTrue(fullUrl.substr(0, 1) === "/", "Url doesn't start with /");
