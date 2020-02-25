@@ -3,7 +3,7 @@ import { isTrue } from "../tools/assert";
 import { ProcessView, isValidProcessView } from "../process/phclient";
 import { WorkspaceView, isValidWorkspaceView } from "../workspace/phclient";
 import { isId } from "../tools/guid";
-import { getBackendUrl } from "../config";
+import { getBackendUrl, getBasePath } from "../config";
 
 export function parseUrl(fullUrlWithBase: string): IPathDetails {
   const path: IPathDetails = {};
@@ -83,8 +83,10 @@ export function parseUrl(fullUrlWithBase: string): IPathDetails {
   }
 }
 
-export function parseNotificationLink(fullUrl: string): INotificationLinkElements {
+export function parseNotificationLink(fullUrlWithBase: string): INotificationLinkElements {
   const elements: INotificationLinkElements = {};
+  const basePath = getBasePath();
+  const fullUrl = fullUrlWithBase !== undefined ? fullUrlWithBase.replace(basePath, "") : "";
 
   // Split path
   isTrue(fullUrl.substr(0, 1) === "/", "Url doesn't start with /");
