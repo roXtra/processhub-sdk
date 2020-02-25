@@ -1,4 +1,4 @@
-import BpmnModdle = require("bpmn-moddle");
+import BpmnModdle from "bpmn-moddle";
 import { BpmnProcess } from "./bpmnprocess";
 import { ProcessResult } from "../processinterfaces";
 import { ILoadTemplateReply } from "../legacyapi";

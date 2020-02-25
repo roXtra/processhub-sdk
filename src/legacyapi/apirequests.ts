@@ -1,7 +1,7 @@
 import { getErrorHandlers } from "./errorhandler";
 import { IBaseRequest, ApiResult, IBaseError, IBaseMessage, API_FAILED } from "./apiinterfaces";
 import { getBackendUrl } from "../config";
-import _ = require("lodash");
+import isEmpty from "lodash/isEmpty";
 import fetchWithTimeout from "../tools/fetchwithtimeout";
 
 // Api-Aufruf per GET
@@ -21,7 +21,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
     }
   }
 
-  const url = (_.isEmpty(request)) ? getBackendUrl() + path : getBackendUrl() + path + "?" + str.join("&");
+  const url = (isEmpty(request)) ? getBackendUrl() + path : getBackendUrl() + path + "?" + str.join("&");
 
   let req: RequestInit = null;
   if (accessToken == null) {

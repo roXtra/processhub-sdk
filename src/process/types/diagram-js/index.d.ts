@@ -5,7 +5,7 @@ declare module "diagram-js" {
   import BaseRenderer from "diagram-js/lib/draw/BaseRenderer";
   import EventBus from "diagram-js/lib/core/EventBus";
   import ElementFactory from "diagram-js/lib/core/ElementFactory";
-  import Injector = require("didi/lib/injector");
+  import Injector from "didi/lib/injector";
 
   /**
    * The main diagram-js entry point that bootstraps the diagram with the given

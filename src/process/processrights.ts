@@ -9,7 +9,7 @@ import { error } from "../tools/assert";
 import { isGroupId, isUserId } from "../tools/guid";
 import { Bpmn } from "./bpmn";
 import { IGroupDetails } from "../group";
-import _ = require("lodash");
+import isEqual from "lodash/isEqual";
 
 export enum ProcessAccessRights {
   None = 0,
@@ -321,7 +321,7 @@ export function canStartProcess(process: IProcessDetails, startEventId: string):
   if (startEventId == null)
     return false;
 
-  if (process.userStartEvents == null || _.isEqual(process.userStartEvents, {}))
+  if (process.userStartEvents == null || isEqual(process.userStartEvents, {}))
     return canStartProcessOld(process);
 
   // If userStartEvent is in map, user is allowed to start process
