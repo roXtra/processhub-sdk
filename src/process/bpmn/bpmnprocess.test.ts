@@ -1,4 +1,4 @@
-import BpmnModdle = require("bpmn-moddle");
+import BpmnModdle from "bpmn-moddle";
 import { assert, expect } from "chai";
 import { Bpmn } from "../../process/bpmn";
 import { isId } from "../../tools/guid";
@@ -6,7 +6,7 @@ import { BpmnProcess } from "./bpmnprocess";
 import { ILoadTemplateReply } from "../legacyapi";
 import { createBpmnTemplate, bpmnModdleInstance } from "./bpmnmoddlehelper";
 import { IRowDetails } from "../phclient";
-import fs = require("fs");
+import fs from "fs";
 
 async function readFileAsync(fileName: string): Promise<string> {
   return await new Promise<string>((resolve, reject) => {
