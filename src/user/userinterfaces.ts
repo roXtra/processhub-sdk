@@ -3,7 +3,6 @@ import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { nullId } from "../tools/guid";
 import { isTrue } from "../tools/assert";
 import { tl } from "../tl";
-import { IEscalation, ITodo } from "../phroxapi";
 
 export interface IRoxtraUserDetails {
   HasUserManagementAccess: boolean;
@@ -35,8 +34,10 @@ export class UserDetails {
     viewStates?: IViewStates;
     archiveViews?: IArchiveViews;
     roXtra?: IRoxtraUserDetails;
-    roXtraTodos?: ITodo[];
-    roXtraEscalations?: IEscalation[];
+    roXtraTodos?: {
+      numOfTodos: number;
+      numOfEscalations: number;
+    };
   };
   accountState?: AccountState;
   isLibraryAdmin?: boolean; // Not available in GraphQL
