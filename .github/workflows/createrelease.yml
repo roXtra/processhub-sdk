@@ -21,11 +21,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm ci
-      - name: Lint and Test
-        run: npm test
-      - name: Build and Pack
+      - name: Lint
+        run: npm run lint
+      - name: Build, Test and Pack
         run: |
           npm run build
+          npm run testcoverage
+          npm run delete:testfiles
           RELEASENAME=$(npm pack)
           mv $RELEASENAME release.tgz
       - name: Release
