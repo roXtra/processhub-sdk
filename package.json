@@ -39,7 +39,7 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "build": "tsc --declaration --emitDeclarationOnly && babel src --out-dir lib --extensions .ts,.tsx --ignore src/**/*.d.ts && npm run copytypings",
+    "build": "rimraf ./tsc_out && rimraf ./lib && tsc --declaration --emitDeclarationOnly && babel src --out-dir lib --extensions .ts,.tsx --ignore src/**/*.d.ts && npm run copytypings",
     "test": "npm run lint && npm run testcoverage",
     "lint": "eslint --ext .ts,.tsx ./src",
     "testall": "cross-env HOTRELOAD=no ts-mocha -p tsconfig.json ./src/**/*.test.ts --exit --timeout 10000 --recursive --require regenerator-runtime",
@@ -77,6 +77,7 @@
     "mocha": "^6.2.2",
     "nyc": "^14.1.1",
     "regenerator-runtime": "^0.13.3",
+    "rimraf": "^3.0.2",
     "ts-mocha": "^6.0.0",
     "typescript": "^3.6.4"
   },
