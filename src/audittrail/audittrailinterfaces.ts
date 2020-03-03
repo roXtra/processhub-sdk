@@ -39,6 +39,7 @@ export enum AuditTrailAction {
   errorInServiceTask = 35,
   timerBoundaryEventTriggered = 36,
   signalBoundaryEventTriggered = 37,
+  fieldTypeChanged = 38,
   workspaceCreated = 100,
 }
 
@@ -89,7 +90,7 @@ export interface IAuditTrailEntryDetails {
   // Must be set for todoDueAtDateChanged
   todoDueAt: Date;
 
-  // Must be set for fieldContentChanged, setFieldForSubProcess, setFieldForParentProcess
+  // Must be set for fieldContentChanged, setFieldForSubProcess, setFieldForParentProcess, fieldTypeChanged
   fieldName: string;
   newFieldValue: IFieldValue;
 
