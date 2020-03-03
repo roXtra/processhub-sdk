@@ -14,15 +14,21 @@ import { ILoadTemplateReply } from "../legacyapi";
 import { IRowDetails } from "../phclient";
 import { getExtensionValues, addOrUpdateExtension, getExtensionBody } from "./bpmnextensions";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
+import { Context } from "moddle-xml/lib/reader";
 
 export class BpmnProcess {
 
+  private moddleContext: Context;
   private bpmnXml: Bpmn.IDefinitions;
   private processDiagram: BpmnProcessDiagram;
 
   constructor() {
     this.bpmnXml = null;
     this.processDiagram = new BpmnProcessDiagram(this);
+  }
+
+  public getModdleContext(): Context {
+    return this.moddleContext;
   }
 
   public static addOrUpdateExtension(baseElement: Bpmn.IBaseElement, key: BpmnExtensionName, value: string | boolean | {}[], extensionValueType: TaskSettingsValueType): void {
@@ -156,16 +162,18 @@ export class BpmnProcess {
       isTrue(processXmlStr != null, "XML string of process should not be null/undefined!");
     }
 
-    this.bpmnXml = await new Promise<Bpmn.IDefinitions>((resolve, reject): void => {
-      bpmnModdleInstance.fromXML(processXmlStr, (err: {}, bpmnXml: Bpmn.IDefinitions) => {
+    const { bpmnXml, moddleContext } = await new Promise<{ bpmnXml: Bpmn.IDefinitions, moddleContext: Context }>((resolve, reject): void => {
+      bpmnModdleInstance.fromXML(processXmlStr, (err: {}, bpmnXml, moddleContext) => {
         if (err) {
           console.log(err);
           reject(err);
         } else {
-          resolve(bpmnXml);
+          resolve({ bpmnXml, moddleContext });
         }
       });
     });
+    this.bpmnXml = bpmnXml;
+    this.moddleContext = moddleContext;
 
     // Fix für startevent
     const sequenceFlows: Bpmn.ISequenceFlow[] = this.getSequenceFlowElements();
