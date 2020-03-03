@@ -162,7 +162,7 @@ export class BpmnProcess {
       isTrue(processXmlStr != null, "XML string of process should not be null/undefined!");
     }
 
-    const { bpmnXml, moddleContext } = await new Promise<{ bpmnXml: Bpmn.IDefinitions, moddleContext: Context }>((resolve, reject): void => {
+    const { bpmnXml, moddleContext } = await new Promise<{ bpmnXml: Bpmn.IDefinitions; moddleContext: Context }>((resolve, reject): void => {
       bpmnModdleInstance.fromXML(processXmlStr, (err: {}, bpmnXml, moddleContext) => {
         if (err) {
           console.log(err);
