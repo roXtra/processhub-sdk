@@ -1,19 +1,21 @@
 {
   "compilerOptions": {
-    "incremental": true,
-    "target": "es2015",
-    "module": "commonjs",
+    "incremental": false,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "sourceMap": false,
     "outDir": "./tsc_out",
     "rootDir": "./src",
     "preserveConstEnums": true,
     "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": false,
     "jsx" : "react",
-    "lib": [      
-      "es2015",
-      "dom",
-      "esnext.asynciterable"
+    "lib": [
+      "esnext",
+      "dom"
     ]
   },
    "include": [

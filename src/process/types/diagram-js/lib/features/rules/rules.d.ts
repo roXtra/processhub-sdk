@@ -1,5 +1,5 @@
 declare module "diagram-js/lib/features/rules/Rules" {
-  import Injector = require("didi/lib/injector");
+  import Injector from "didi/lib/injector";
 
   /**
    * A service that provides rules for certain diagram actions.

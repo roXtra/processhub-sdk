@@ -1,6 +1,7 @@
 import { tl } from "../tl";
 import * as Tools from "../tools";
-import * as _ from "lodash";
+import isEmpty from "lodash/isEmpty";
+import cloneDeep from "lodash/cloneDeep";
 import { createId } from "./guid";
 
 // Mailadresse auf Gültigkeit prüfen
@@ -225,11 +226,11 @@ export function parseNestedElementsToGroupConstruct(nestedElement: NestedElement
   const topGroup: Group = new Group();
   topGroup.isTopGroup = isTopGroup;
 
-  if (_.isEmpty(nestedElement)) {
+  if (isEmpty(nestedElement)) {
     return topGroup;
   }
 
-  const topEntry: NestedElement = _.cloneDeep(nestedElement[Object.keys(nestedElement).find(k => nestedElement[k].top)]);
+  const topEntry: NestedElement = cloneDeep(nestedElement[Object.keys(nestedElement).find(k => nestedElement[k].top)]);
   topGroup.combinator = topEntry.type === "group" ? isCombinatorRegex.exec(topEntry.query)[1] : "&&";
 
   const splittedRules = topEntry.type === "group" ? topEntry.query.split(topGroup.combinator).map(item => item.trim()) : [topEntry.query];

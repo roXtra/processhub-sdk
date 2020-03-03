@@ -1,16 +1,23 @@
 {
-    "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "useBuiltIns": "usage",
-                "corejs": 3,
-                "debug": false,
-                "targets": {
-                    "chrome": "58",
-                    "ie": "11"
-                }
-            }
-        ]
-    ]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "false",
+        "corejs": "3.6",
+        "debug": false,
+        "targets": {
+          "chrome": "58",
+          "ie": "11",
+          "node": "12"
+        }
+      }
+    ],
+    "@babel/preset-typescript",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread"
+  ]
 }

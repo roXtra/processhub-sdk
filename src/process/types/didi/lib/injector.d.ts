@@ -1,9 +1,7 @@
 declare module "didi/lib/injector" {
-  export = Injector;
+  import Module from "didi/lib/module";
 
-  import Module = require("didi/lib/module");
-
-  class Injector {
+  export default class Injector {
     public constructor(modules: Module[], parent?: Injector);
 
     /**
