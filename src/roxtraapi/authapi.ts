@@ -1,5 +1,5 @@
-import { IAuthApi } from "./IApi";
-import { AuthRequestBody } from "./ApiTypes";
+import { IAuthApi } from "./iapi";
+import { AuthRequestBody } from "./apitypes";
 
 async function post(APIUrl: string, body: AuthRequestBody): Promise<Response> {
   const req = {

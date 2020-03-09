@@ -1,7 +1,7 @@
-import { IMailApi } from "./IApi";
-import * as Utils from "./APIUtils";
-import { AuthApi } from "./AuthApi";
-import { IRoxtraCustomMailMessage } from "./ApiTypes";
+import { IMailApi } from "./iapi";
+import * as Utils from "./apiutils";
+import { AuthApi } from "./authapi";
+import { IRoxtraCustomMailMessage } from "./apitypes";
 import { ApiResult } from "../legacyapi";
 
 export class MailApi implements IMailApi {

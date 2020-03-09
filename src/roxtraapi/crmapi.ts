@@ -1,7 +1,7 @@
-import { ICRMApi } from "./IApi";
-import { AuthApi } from "./AuthApi";
-import { CRMNoteRequestBody } from "./ApiTypes";
-import * as Utils from "./APIUtils";
+import { ICRMApi } from "./iapi";
+import { AuthApi } from "./authapi";
+import { CRMNoteRequestBody } from "./apitypes";
+import * as Utils from "./apiutils";
 import { ApiResult } from "../legacyapi";
 
 export class CRMApi implements ICRMApi {
