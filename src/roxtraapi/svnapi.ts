@@ -1,7 +1,7 @@
-import { ISVNApi } from "./IApi";
-import * as Utils from "./APIUtils";
-import { AuthApi } from "./AuthApi";
-import { RoxtraLicenseOrder } from "./ApiTypes";
+import { ISVNApi } from "./iapi";
+import * as Utils from "./apiutils";
+import { AuthApi } from "./authapi";
+import { RoxtraLicenseOrder } from "./apitypes";
 import { ApiResult } from "../legacyapi";
 
 export class SVNApi implements ISVNApi {

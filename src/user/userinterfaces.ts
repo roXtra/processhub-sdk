@@ -87,7 +87,6 @@ export enum AccountState {
 
 export const SystemUserId = "-1";
 
-// Erste Gruppendefinitionen - echtes Gruppenmanagement folgt später
 export const PredefinedGroups = {
   Public: "10000000060F0001", // Fixe GruppenId für öffentlichen Zugriff
   Everybody: "10000000060E0004", // Jeder (entspricht Public mit anderer Bezeichnung für anderen Einsatzbereich)
