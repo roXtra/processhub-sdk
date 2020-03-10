@@ -83,7 +83,7 @@ export function isDefaultProcessRole(roleId: string): boolean {
     || roleId === DefaultRoles.Viewer);
 }
 
-export function getProcessRoles(currentRoles: IProcessRoles, bpmnProcess: BpmnProcess, workspace: IWorkspaceDetails): IProcessRoles {
+export function getProcessRoles(currentRoles: IProcessRoles, bpmnProcess: BpmnProcess, defaultRoleOwnerId: string): IProcessRoles {
   // Add entries for all existing roles in the process
   let processRoles = currentRoles;
   if (processRoles == null)
@@ -97,7 +97,7 @@ export function getProcessRoles(currentRoles: IProcessRoles, bpmnProcess: BpmnPr
     const lanes = bpmnProcess.getLanes(false);
     lanes.map(lane => {
       if (processRoles[lane.id] == null) {
-        processRoles[lane.id] = { potentialRoleOwners: [{ memberId: getDefaultRoleGroup() }] };
+        processRoles[lane.id] = { potentialRoleOwners: [{ memberId: defaultRoleOwnerId }] };
       }
       processRoles[lane.id].roleName = lane.name;
 

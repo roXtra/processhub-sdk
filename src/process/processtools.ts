@@ -36,7 +36,7 @@ export function initSettings(process: IProcessDetails): void {
   if (!settings.dashboard)
     settings.dashboard = {};
   if (!settings.dashboard.dashBoardAccess)
-    settings.dashboard.dashBoardAccess = ProcessViewAccess.WorkspaceMembersSeeAll; // Default
+    settings.dashboard.dashBoardAccess = ProcessViewAccess.ParticipantsSeeTheirs; // Default
 
   if (!settings.library)
     settings.library = {};
