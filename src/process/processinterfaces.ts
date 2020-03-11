@@ -107,7 +107,6 @@ export interface IProcessSettings {
     dashBoardAccess?: ProcessViewAccess;  // Who can access todos?
   };
   library?: {
-    rating?: number;  // Process rating, used to sort processes in library
     copiedFromId?: string;  // ProcessId of the original process
   };
   riskManagement?: {
