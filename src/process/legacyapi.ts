@@ -16,7 +16,6 @@ export const ProcessRequestRoutes = {
   DownloadProcess: "/api/process/download",
   ExportProcess: "/api/process/export",
   CopyProcess: "/api/process/copyprocess",
-  RateProcess: "/api/process/rateprocess",
   UploadFile: "/api/process/uploadfile",
   AddRoXtraFile: "/api/process/addroxtrafile",
   DeleteFile: "/api/process/deletefile",
@@ -119,11 +118,6 @@ export interface ICopyProcessRequest extends IBaseRequest {
   processId: string;
   targetWorkspaceId: string;
   displayName: string;
-}
-
-export interface IRateProcessRequest extends IBaseRequest {
-  processId: string;
-  ratingDiff: number;
 }
 
 export interface IUploadFileRequest extends IBaseRequest {

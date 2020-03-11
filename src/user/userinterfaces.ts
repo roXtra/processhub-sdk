@@ -40,7 +40,6 @@ export class UserDetails {
     };
   };
   accountState?: AccountState;
-  isLibraryAdmin?: boolean; // Not available in GraphQL
   lastSeenAt?: Date; // Last time user was online (updated every 12h) / not available in GraphQL
   lastStatusMailAt?: Date;
   noDailyUpdates?: boolean;
