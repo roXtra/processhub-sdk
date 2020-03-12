@@ -39,7 +39,6 @@ export class UserDetails {
       numOfEscalations: number;
     };
   };
-  accountState?: AccountState;
   lastSeenAt?: Date; // Last time user was online (updated every 12h) / not available in GraphQL
   lastStatusMailAt?: Date;
   noDailyUpdates?: boolean;
@@ -72,16 +71,6 @@ export function getUserWorkspace(user: UserDetails, workspaceId: string): IWorks
   isTrue(user.extras.workspaces != null, "getUserWorkspace: user.extras.workspaces == null");
 
   return user.extras.workspaces.find((workspace) => workspace.workspaceId === workspaceId);
-}
-
-export enum AccountState {
-  // DON'T CHANGE NUMBER VALUES - used in database
-  Preregistered = 0, // User invited, mail addres known but not yet registered
-  Registered = 1, // User has registered but not yet confirmed mail address
-  Confirmed = 2, // Fully registered, mail address confirmed
-  Deleted = 3,
-  Demo = 4,
-  System = 5
 }
 
 export const SystemUserId = "-1";
