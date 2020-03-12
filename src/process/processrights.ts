@@ -168,12 +168,11 @@ export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspac
       // Always accept current roleOwners (process might have been changed, we still want to accept existing owners)
       return true;
     }
-    if (!ignorePublic && (member.memberId === PredefinedGroups.Public
-      || member.memberId === PredefinedGroups.Everybody)) {
+    if (!ignorePublic && (member.memberId === PredefinedGroups.Everybody)) {
       return true;
     }
     if (member.memberId === PredefinedGroups.AllWorkspaceMembers ||
-      (ignorePublic && (member.memberId === PredefinedGroups.Public || member.memberId === PredefinedGroups.Everybody))) {
+      (ignorePublic && (member.memberId === PredefinedGroups.Everybody))) {
       if (isWorkspaceMember(workspace))
         return true;
     }
@@ -188,8 +187,7 @@ export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspac
   }
 
   if (roleId === DefaultRoles.Viewer) {
-    if (roles[roleId].potentialRoleOwners.find(potentialRoleOwner => potentialRoleOwner.memberId === PredefinedGroups.AllParticipants)
-      || roles[roleId].potentialRoleOwners.find(potentialRoleOwner => potentialRoleOwner.memberId === PredefinedGroups.Public)) {
+    if (roles[roleId].potentialRoleOwners.find(potentialRoleOwner => potentialRoleOwner.memberId === PredefinedGroups.AllParticipants)) {
       // Bei Sichtbarkeit "AllParticipants" oder "Public" muss geprüft werden, ob User in einer der anderen Rollen eingetragen ist
       // Der Fall Public ist nur bei ignorePublic relevant
       for (const role in roles) {
@@ -263,14 +261,6 @@ export function getPotentialRoleOwners(IWorkspaceDetails: IWorkspaceDetails, pro
     }
   }
   return allOwners;
-}
-
-export function processIsPublic(process: IProcessDetails): boolean {
-  if (process.extras.processRoles)
-    return (process.extras.processRoles[DefaultRoles.Viewer].potentialRoleOwners[0].memberId === PredefinedGroups.Public);
-
-  else
-    return false;
 }
 
 export function isProcessOwner(process: IProcessDetails): boolean {

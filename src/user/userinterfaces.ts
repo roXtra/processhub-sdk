@@ -39,7 +39,6 @@ export class UserDetails {
       numOfEscalations: number;
     };
   };
-  accountState?: AccountState;
   lastSeenAt?: Date; // Last time user was online (updated every 12h) / not available in GraphQL
   lastStatusMailAt?: Date;
   noDailyUpdates?: boolean;
@@ -74,20 +73,9 @@ export function getUserWorkspace(user: UserDetails, workspaceId: string): IWorks
   return user.extras.workspaces.find((workspace) => workspace.workspaceId === workspaceId);
 }
 
-export enum AccountState {
-  // DON'T CHANGE NUMBER VALUES - used in database
-  Preregistered = 0, // User invited, mail addres known but not yet registered
-  Registered = 1, // User has registered but not yet confirmed mail address
-  Confirmed = 2, // Fully registered, mail address confirmed
-  Deleted = 3,
-  Demo = 4,
-  System = 5
-}
-
 export const SystemUserId = "-1";
 
 export const PredefinedGroups = {
-  Public: "10000000060F0001", // Fixe GruppenId für öffentlichen Zugriff
   Everybody: "10000000060E0004", // Jeder (entspricht Public mit anderer Bezeichnung für anderen Einsatzbereich)
   AllWorkspaceMembers: "100000003A500002", // Fixe GruppenId für alle Workspace-Mitglieder
   AllParticipants: "1000000000445003" // Alle Beteiligten am Prozess
@@ -99,16 +87,13 @@ export function getDefaultRoleGroup(): string {
 }
 
 export function isPredefinedGroup(groupId: string): boolean {
-  return (groupId === PredefinedGroups.Public
-    || groupId === PredefinedGroups.Everybody
+  return (groupId === PredefinedGroups.Everybody
     || groupId === PredefinedGroups.AllWorkspaceMembers
     || groupId === PredefinedGroups.AllParticipants);
 }
 
 export function getPredefinedGroupName(groupId: string): string {
   switch (groupId) {
-    case PredefinedGroups.Public:
-      return tl("ProcessHub Community (öffentlich)");
     case PredefinedGroups.Everybody:
       return tl("Jeder (gestattet externe Teilnahme mit Mailadresse)");
     case PredefinedGroups.AllWorkspaceMembers:
