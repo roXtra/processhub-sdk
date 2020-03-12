@@ -76,7 +76,6 @@ export function getUserWorkspace(user: UserDetails, workspaceId: string): IWorks
 export const SystemUserId = "-1";
 
 export const PredefinedGroups = {
-  Public: "10000000060F0001", // Fixe GruppenId für öffentlichen Zugriff
   Everybody: "10000000060E0004", // Jeder (entspricht Public mit anderer Bezeichnung für anderen Einsatzbereich)
   AllWorkspaceMembers: "100000003A500002", // Fixe GruppenId für alle Workspace-Mitglieder
   AllParticipants: "1000000000445003" // Alle Beteiligten am Prozess
@@ -88,16 +87,13 @@ export function getDefaultRoleGroup(): string {
 }
 
 export function isPredefinedGroup(groupId: string): boolean {
-  return (groupId === PredefinedGroups.Public
-    || groupId === PredefinedGroups.Everybody
+  return (groupId === PredefinedGroups.Everybody
     || groupId === PredefinedGroups.AllWorkspaceMembers
     || groupId === PredefinedGroups.AllParticipants);
 }
 
 export function getPredefinedGroupName(groupId: string): string {
   switch (groupId) {
-    case PredefinedGroups.Public:
-      return tl("ProcessHub Community (öffentlich)");
     case PredefinedGroups.Everybody:
       return tl("Jeder (gestattet externe Teilnahme mit Mailadresse)");
     case PredefinedGroups.AllWorkspaceMembers:
