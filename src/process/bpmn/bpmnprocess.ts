@@ -1276,7 +1276,7 @@ export class BpmnProcess {
 
         if (curElem.outgoing && curElem.outgoing.length) {
           curElem.outgoing.forEach(o => {
-            if (o) {
+            if (o && o.targetRef) {
               flowNodeQueue.push(o.targetRef);
             }
           });
