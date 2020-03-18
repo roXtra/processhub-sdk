@@ -4,44 +4,44 @@ export type AuthRequestBody = {
 };
 
 export type CRMCustomer = {
-  crmCompanyGuid: string;
-  crmCompanyNumber: string;
-  crmCompanyName: string;
-  crmLicense: any;
-  svnCompanyName: string;
-  crmCompanyContact: CRMContact[];
+  CrmCompanyGuid: string;
+  CrmCompanyNumber: string;
+  CrmCompanyName: string;
+  CrmLicense: any;
+  SvnCompanyName: string;
+  CrmCompanyContact: CRMContact[];
 };
 
 export type CRMNoteRequestBody = {
-  title: string;
-  message: string;
+  Title: string;
+  Message: string;
 };
 
 export type CRMContact = {
-  id: string;
-  salutation: string;
-  firstname: string;
-  lastname: string;
-  email: string;
-  language: string;
+  Id: string;
+  Salutation: string;
+  Firstname: string;
+  Lastname: string;
+  Email: string;
+  Language: string;
 };
 
 export type RoxtraLicenseOrder = {
-  orderNumber: string;
-  orderedLicenses: LicenseEntry[];
+  OrderNumber: string;
+  OrderedLicenses: LicenseEntry[];
 };
 
 export type LicenseEntry = {
-  licenceType: LicenseType;
-  licenceCount: number;
-  limited: boolean;
-  timeLimitValue: Date;
+  LicenceType: LicenseType;
+  LicenceCount: number;
+  Limited: boolean;
+  TimeLimitValue: Date;
 };
 
 export type LicenseCommit = {
-  commitMessage: string;
-  licenseData: string; // Base64 encoded
-  error: boolean;
+  CommitMessage: string;
+  LicenseData: string; // Base64 encoded
+  Error: boolean;
 };
 
 export type IRoxtraCustomReceiver = {
