@@ -79,6 +79,13 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       getPhysicalPath: (): string => "",
       getDownloadRoute: (): ServerRoute => undefined,
     },
+    logger: {
+      debug: m => console.debug(m),
+      info: m => console.info(m),
+      warn: m => console.warn(m),
+      error: m => console.error(m),
+      fatal: m => console.error(m)
+    },
     serverConfig: {
       Database: {
         connection: "localhost",

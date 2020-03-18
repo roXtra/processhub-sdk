@@ -8,6 +8,17 @@ import { BpmnProcess, ProcessExtras, IProcessDetails } from "../process";
 import { ISendMailTemplateRequest, ISendMailTemplateReply } from "../mailer/mailerinterfaces";
 
 /**
+ * Provide logging for ServiceTasks
+ */
+export interface IServiceTaskLogger {
+  debug(message: string): void;
+  info(message: string): void;
+  warn(message: string): void;
+  error(message: string): void;
+  fatal(message: string): void;
+}
+
+/**
  * Instance methods that ServiceTasks can use
  */
 export interface IServiceTaskInstances {
@@ -47,6 +58,7 @@ export interface IServiceTaskEnvironment {
   fieldContents: IFieldContentMap;
   instanceDetails: IInstanceDetails;
   instances: IServiceTaskInstances;
+  logger: IServiceTaskLogger;
   processes: IServiceTaskProcesses;
   roxApi: IServiceTaskRoxApi;
   mailer: IServiceTaskMailer;
