@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:processhub="http://processhub.com/schema/1.0/bpmn" id="Definition_41BF6BDF7ED68341">
+	<bpmn:extensionElements>
+		<processhub:inputOutput>
+			<processhub:inputParameter name="roxtra-version">8.19.0</processhub:inputParameter>
+		</processhub:inputOutput>
+	</bpmn:extensionElements>
+	<bpmn:collaboration id="Collaboration_CCCAB8F94DDD7621">
+		<bpmn:participant id="Participant_941D2F9417118856" name="roxtra-freigabe-release2" processRef="Process_9E059630F83D09A0" />
+	</bpmn:collaboration>
+	<bpmn:process id="Process_9E059630F83D09A0" isExecutable="true">
+		<bpmn:laneSet id="LaneSet_CF0DEFCB5D1B1A92">
+			<bpmn:lane id="Lane_AAAA5CEC9CE3E51A" name="Entwicklung">
+				<bpmn:flowNodeRef>StartEvent_FBBFFFA6A1EA2B00</bpmn:flowNodeRef>
+				<bpmn:flowNodeRef>UserTask_4A4C1E3678367F43</bpmn:flowNodeRef>
+				<bpmn:flowNodeRef>ExclusiveGateway_2B69BC9F8A518A72</bpmn:flowNodeRef>
+				<bpmn:flowNodeRef>UserTask_9CBF7D4869989D03</bpmn:flowNodeRef>
+				<bpmn:flowNodeRef>ExclusiveGateway_79601E0B779E639E</bpmn:flowNodeRef>
+				<bpmn:flowNodeRef>ExclusiveGateway_7C5D3E25718AB6BB</bpmn:flowNodeRef>
+				<bpmn:flowNodeRef>ExclusiveGateway_4E9D96C025622364</bpmn:flowNodeRef>
+				<bpmn:flowNodeRef>SubProcess_51C13A1CF5228786</bpmn:flowNodeRef>
+				<bpmn:flowNodeRef>EndEvent_98832E7A4F2BD391</bpmn:flowNodeRef>
+			</bpmn:lane>
+		</bpmn:laneSet>
+		<bpmn:startEvent id="StartEvent_FBBFFFA6A1EA2B00" name="Freigabe Release starten">
+			<bpmn:extensionElements>
+				<processhub:inputOutput>
+					<processhub:inputParameter name="roleowners-editable">true</processhub:inputParameter>
+					<processhub:inputParameter name="description" />
+					<processhub:inputParameter name="processhub-userform">[]</processhub:inputParameter>
+				</processhub:inputOutput>
+			</bpmn:extensionElements>
+			<bpmn:outgoing>SequenceFlow_F0947923141D269C</bpmn:outgoing>
+		</bpmn:startEvent>
+		<bpmn:userTask id="UserTask_4A4C1E3678367F43" name="Release-Build durchführen">
+			<bpmn:extensionElements>
+				<processhub:inputOutput>
+					<processhub:inputParameter name="description" />
+					<processhub:inputParameter name="all-fields-editable">false</processhub:inputParameter>
+					<processhub:inputParameter name="view-all-fields">true</processhub:inputParameter>
+					<processhub:inputParameter name="send-mail-notification">false</processhub:inputParameter>
+					<processhub:inputParameter name="save-decision-in-fields">false</processhub:inputParameter>
+					<processhub:inputParameter name="custom-field-contents-value" />
+					<processhub:inputParameter name="due-at-duration">0</processhub:inputParameter>
+					<processhub:inputParameter name="due-at-can-be-edit">false</processhub:inputParameter>
+				</processhub:inputOutput>
+			</bpmn:extensionElements>
+			<bpmn:incoming>SequenceFlow_B955B4488D0CC3F1</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_867D8D922C1F678D</bpmn:outgoing>
+		</bpmn:userTask>
+		<bpmn:sequenceFlow id="SequenceFlow_867D8D922C1F678D" sourceRef="UserTask_4A4C1E3678367F43" targetRef="ExclusiveGateway_79601E0B779E639E" />
+		<bpmn:exclusiveGateway id="ExclusiveGateway_2B69BC9F8A518A72" name="">
+			<bpmn:incoming>SequenceFlow_8F096EFDC3CCEDE7</bpmn:incoming>
+			<bpmn:incoming>SequenceFlow_B3F7457F99208B13</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_B955B4488D0CC3F1</bpmn:outgoing>
+		</bpmn:exclusiveGateway>
+		<bpmn:sequenceFlow id="SequenceFlow_B955B4488D0CC3F1" sourceRef="ExclusiveGateway_2B69BC9F8A518A72" targetRef="UserTask_4A4C1E3678367F43" />
+		<bpmn:userTask id="UserTask_9CBF7D4869989D03" name="Bugfixes durchführen">
+			<bpmn:extensionElements>
+				<processhub:inputOutput>
+					<processhub:inputParameter name="description" />
+					<processhub:inputParameter name="all-fields-editable">false</processhub:inputParameter>
+					<processhub:inputParameter name="view-all-fields">true</processhub:inputParameter>
+					<processhub:inputParameter name="send-mail-notification">true</processhub:inputParameter>
+					<processhub:inputParameter name="save-decision-in-fields">false</processhub:inputParameter>
+					<processhub:inputParameter name="custom-field-contents-value" />
+					<processhub:inputParameter name="due-at-duration">0</processhub:inputParameter>
+					<processhub:inputParameter name="due-at-can-be-edit">false</processhub:inputParameter>
+				</processhub:inputOutput>
+			</bpmn:extensionElements>
+			<bpmn:incoming>SequenceFlow_EE1CF76220579079</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_8F096EFDC3CCEDE7</bpmn:outgoing>
+		</bpmn:userTask>
+		<bpmn:sequenceFlow id="SequenceFlow_8F096EFDC3CCEDE7" sourceRef="UserTask_9CBF7D4869989D03" targetRef="ExclusiveGateway_2B69BC9F8A518A72" />
+		<bpmn:exclusiveGateway id="ExclusiveGateway_79601E0B779E639E" name="Tests erfolgreich">
+			<bpmn:incoming>SequenceFlow_867D8D922C1F678D</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_EE1CF76220579079</bpmn:outgoing>
+			<bpmn:outgoing>SequenceFlow_85DBF5D64E5C49E7</bpmn:outgoing>
+		</bpmn:exclusiveGateway>
+		<bpmn:sequenceFlow id="SequenceFlow_EE1CF76220579079" name="Nein" sourceRef="ExclusiveGateway_79601E0B779E639E" targetRef="UserTask_9CBF7D4869989D03">
+			<bpmn:extensionElements>
+				<processhub:inputOutput>
+					<processhub:inputParameter name="sequenceflow-expression" />
+				</processhub:inputOutput>
+			</bpmn:extensionElements>
+			<bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="JavaScript">this.variables.taskInput.ExclusiveGateway_79601E0B779E639E.userInput.choosenTaskId == 'UserTask_9CBF7D4869989D03'</bpmn:conditionExpression>
+		</bpmn:sequenceFlow>
+		<bpmn:exclusiveGateway id="ExclusiveGateway_7C5D3E25718AB6BB" name="LanguageBuild erforderlich">
+			<bpmn:incoming>SequenceFlow_F0947923141D269C</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_DEACB46F78B94956</bpmn:outgoing>
+			<bpmn:outgoing>SequenceFlow_1E46B0BF41C41363</bpmn:outgoing>
+		</bpmn:exclusiveGateway>
+		<bpmn:sequenceFlow id="SequenceFlow_DEACB46F78B94956" name="Ja" sourceRef="ExclusiveGateway_7C5D3E25718AB6BB" targetRef="SubProcess_51C13A1CF5228786">
+			<bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="JavaScript">this.variables.taskInput.ExclusiveGateway_7C5D3E25718AB6BB.userInput.choosenTaskId == 'SubProcess_51C13A1CF5228786'</bpmn:conditionExpression>
+		</bpmn:sequenceFlow>
+		<bpmn:exclusiveGateway id="ExclusiveGateway_4E9D96C025622364" name="">
+			<bpmn:incoming>SequenceFlow_1E46B0BF41C41363</bpmn:incoming>
+			<bpmn:incoming>SequenceFlow_6058DB7A225D7D6C</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_B3F7457F99208B13</bpmn:outgoing>
+		</bpmn:exclusiveGateway>
+		<bpmn:sequenceFlow id="SequenceFlow_1E46B0BF41C41363" name="nein" sourceRef="ExclusiveGateway_7C5D3E25718AB6BB" targetRef="ExclusiveGateway_4E9D96C025622364">
+			<bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="JavaScript">this.variables.taskInput.ExclusiveGateway_7C5D3E25718AB6BB.userInput.choosenTaskId == 'ExclusiveGateway_4E9D96C025622364'</bpmn:conditionExpression>
+		</bpmn:sequenceFlow>
+		<bpmn:subProcess id="SubProcess_51C13A1CF5228786" name="LanguageBuild durchführen">
+			<bpmn:extensionElements>
+				<processhub:inputOutput>
+					<processhub:inputParameter name="subprocessid">4F0D7144CE6C203B</processhub:inputParameter>
+				</processhub:inputOutput>
+			</bpmn:extensionElements>
+			<bpmn:incoming>SequenceFlow_DEACB46F78B94956</bpmn:incoming>
+			<bpmn:outgoing>SequenceFlow_6058DB7A225D7D6C</bpmn:outgoing>
+		</bpmn:subProcess>
+		<bpmn:sequenceFlow id="SequenceFlow_6058DB7A225D7D6C" sourceRef="SubProcess_51C13A1CF5228786" targetRef="ExclusiveGateway_4E9D96C025622364" />
+		<bpmn:sequenceFlow id="SequenceFlow_B3F7457F99208B13" sourceRef="ExclusiveGateway_4E9D96C025622364" targetRef="ExclusiveGateway_2B69BC9F8A518A72" />
+		<bpmn:sequenceFlow id="SequenceFlow_F0947923141D269C" sourceRef="StartEvent_FBBFFFA6A1EA2B00" targetRef="ExclusiveGateway_7C5D3E25718AB6BB" />
+		<bpmn:endEvent id="EndEvent_98832E7A4F2BD391">
+			<bpmn:incoming>SequenceFlow_85DBF5D64E5C49E7</bpmn:incoming>
+		</bpmn:endEvent>
+		<bpmn:sequenceFlow id="SequenceFlow_85DBF5D64E5C49E7" sourceRef="ExclusiveGateway_79601E0B779E639E" targetRef="EndEvent_98832E7A4F2BD391">
+			<bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="JavaScript">this.variables.taskInput.ExclusiveGateway_79601E0B779E639E.userInput.choosenTaskId == 'EndEvent_98832E7A4F2BD391'</bpmn:conditionExpression>
+		</bpmn:sequenceFlow>
+	</bpmn:process>
+	<bpmndi:BPMNDiagram name="BPMNDiagram_CB36E6E226872D75">
+		<bpmndi:BPMNPlane bpmnElement="Collaboration_CCCAB8F94DDD7621">
+			<bpmndi:BPMNShape id="BPMNShape_E0C2BEA6940951FA" bpmnElement="Lane_AAAA5CEC9CE3E51A">
+				<dc:Bounds x="274" y="-535" width="1463" height="636" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape id="BPMNShape_78B3736D29B3B5D9" bpmnElement="Participant_941D2F9417118856">
+				<dc:Bounds x="244" y="-535" width="1493" height="636" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape id="BPMNShape_90DBF8161538F915" bpmnElement="StartEvent_FBBFFFA6A1EA2B00">
+				<dc:Bounds x="354" y="-47" width="37.19" height="37.19" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape id="BPMNShape_B67770D168903A80" bpmnElement="UserTask_4A4C1E3678367F43">
+				<dc:Bounds x="838" y="-168.405" width="100" height="80" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge id="BPMNEdge_30FE5EA320874A55" bpmnElement="SequenceFlow_867D8D922C1F678D" sourceElement="BPMNShape_B67770D168903A80" targetElement="BPMNShape_D3217EC45A7A9C9A">
+				<di:waypoint x="938" y="-128.405" />
+				<di:waypoint x="1333.27394637224" y="-127.8185" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNShape id="BPMNShape_0B84735E6CC450BC" bpmnElement="ExclusiveGateway_2B69BC9F8A518A72">
+				<dc:Bounds x="729.1009463722398" y="-148.99053627760247" width="43.173" height="43.173" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge id="BPMNEdge_7DF9C158E787D010" bpmnElement="SequenceFlow_B955B4488D0CC3F1" sourceElement="BPMNShape_0B84735E6CC450BC" targetElement="BPMNShape_B67770D168903A80">
+				<di:waypoint x="772.2739463722398" y="-127.40403627760247" />
+				<di:waypoint x="805.13697318612" y="-127.40403627760247" />
+				<di:waypoint x="805.13697318612" y="-128.405" />
+				<di:waypoint x="838" y="-128.405" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNShape id="BPMNShape_41924A8136C27EE0" bpmnElement="UserTask_9CBF7D4869989D03">
+				<dc:Bounds x="1162.27394637224" y="-298.8185" width="100" height="80" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge id="BPMNEdge_05CEE8FE75110240" bpmnElement="SequenceFlow_8F096EFDC3CCEDE7" sourceElement="BPMNShape_41924A8136C27EE0" targetElement="BPMNShape_0B84735E6CC450BC">
+				<di:waypoint x="1162.27394637224" y="-258.8185" />
+				<di:waypoint x="750.6874463722397" y="-258.8185" />
+				<di:waypoint x="750.6874463722398" y="-148.99053627760247" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNShape id="BPMNShape_D3217EC45A7A9C9A" bpmnElement="ExclusiveGateway_79601E0B779E639E">
+				<dc:Bounds x="1333.27394637224" y="-149.405" width="43.173" height="43.173" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge id="BPMNEdge_548A1BD351386A18" bpmnElement="SequenceFlow_EE1CF76220579079" sourceElement="BPMNShape_D3217EC45A7A9C9A" targetElement="BPMNShape_41924A8136C27EE0">
+				<di:waypoint x="1333.27394637224" y="-127.8185" />
+				<di:waypoint x="1212.27394637224" y="-127.8185" />
+				<di:waypoint x="1212.27394637224" y="-218.81849999999997" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNShape id="BPMNShape_1BF424028CD06279" bpmnElement="ExclusiveGateway_7C5D3E25718AB6BB">
+				<dc:Bounds x="585.7849393746012" y="-329.42596810933946" width="43.173" height="43.173" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge id="BPMNEdge_FC038C450F537296" bpmnElement="SequenceFlow_DEACB46F78B94956" sourceElement="BPMNShape_1BF424028CD06279" targetElement="BPMNShape_72168FBD9EE3F1A3">
+				<di:waypoint x="628.9579393746012" y="-307.83946810933946" />
+				<di:waypoint x="700.8098276962348" y="-308.40778557753674" />
+				<bpmndi:BPMNLabel id="BPMNEdge_FC038C450F537296_label">
+					<dc:Bounds x="559.9579393746012" y="-301.91973405466973" width="200" height="20" />
+				</bpmndi:BPMNLabel>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNShape id="BPMNShape_7E769C2423182C7B" bpmnElement="ExclusiveGateway_4E9D96C025622364">
+				<dc:Bounds x="866" y="-329.42596810933946" width="43.173" height="43.173" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge id="BPMNEdge_7DB8AB2206CA0515" bpmnElement="SequenceFlow_1E46B0BF41C41363" sourceElement="BPMNShape_1BF424028CD06279" targetElement="BPMNShape_7E769C2423182C7B">
+				<di:waypoint x="607.3714393746012" y="-329.42596810933946" />
+				<di:waypoint x="607" y="-377" />
+				<di:waypoint x="888" y="-377" />
+				<di:waypoint x="887.5865" y="-329.42596810933946" />
+				<bpmndi:BPMNLabel id="BPMNEdge_7DB8AB2206CA0515_label">
+					<dc:Bounds x="648.5" y="-375.5" width="200" height="20" />
+				</bpmndi:BPMNLabel>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNShape id="BPMNShape_72168FBD9EE3F1A3" bpmnElement="SubProcess_51C13A1CF5228786">
+				<dc:Bounds x="700.8098276962348" y="-348.40778557753674" width="100" height="80" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge id="BPMNEdge_7E605F197CDDA2F0" bpmnElement="SequenceFlow_6058DB7A225D7D6C" sourceElement="BPMNShape_72168FBD9EE3F1A3" targetElement="BPMNShape_7E769C2423182C7B">
+				<di:waypoint x="800.8098276962348" y="-308.40778557753674" />
+				<di:waypoint x="866" y="-307.83946810933946" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge id="BPMNEdge_CDFDB8086CEDFFCF" bpmnElement="SequenceFlow_B3F7457F99208B13" sourceElement="BPMNShape_7E769C2423182C7B" targetElement="BPMNShape_0B84735E6CC450BC">
+				<di:waypoint x="866" y="-307.83946810933946" />
+				<di:waypoint x="819.13697318612" y="-307.83946810933946" />
+				<di:waypoint x="819.13697318612" y="-127.40403627760247" />
+				<di:waypoint x="772.2739463722398" y="-127.40403627760247" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge id="BPMNEdge_00D24DDED329DF7C" bpmnElement="SequenceFlow_F0947923141D269C" sourceElement="BPMNShape_90DBF8161538F915" targetElement="BPMNShape_1BF424028CD06279">
+				<di:waypoint x="391.19" y="-28.405" />
+				<di:waypoint x="488.48746968730063" y="-28.405" />
+				<di:waypoint x="488.48746968730063" y="-307.83946810933946" />
+				<di:waypoint x="585.7849393746012" y="-307.83946810933946" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNShape id="BPMNShape_C6FE01C5D16A626A" bpmnElement="EndEvent_98832E7A4F2BD391">
+				<dc:Bounds x="1545" y="-147.405" width="37.19" height="37.19" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge id="BPMNEdge_9CCA8A2A673CBBCC" bpmnElement="SequenceFlow_85DBF5D64E5C49E7" sourceElement="BPMNShape_D3217EC45A7A9C9A" targetElement="BPMNShape_C6FE01C5D16A626A">
+				<di:waypoint x="1376.44694637224" y="-127.8185" />
+				<di:waypoint x="1545" y="-128.81" />
+			</bpmndi:BPMNEdge>
+		</bpmndi:BPMNPlane>
+	</bpmndi:BPMNDiagram>
+</bpmn:definitions>
