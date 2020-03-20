@@ -72,6 +72,18 @@ describe("sdk", function () {
   describe("process", function () {
     describe("bpmnprocess", function () {
 
+      describe("getPreviousSequenceFlowName", function () {
+        it("returns the name of the sequence flow that reaches the target element", async function () {
+          const processXml: string = await readFileAsync("./src/test/testfiles/freigabe2.bpmn");
+          const bpmnProcess: BpmnProcess = new BpmnProcess();
+          await bpmnProcess.loadXml(processXml);
+          let name = bpmnProcess.getPreviousSequenceFlowName("ExclusiveGateway_2B69BC9F8A518A72", "ExclusiveGateway_7C5D3E25718AB6BB");
+          assert.equal(name, "nein");
+          name = bpmnProcess.getPreviousSequenceFlowName("SubProcess_51C13A1CF5228786", "ExclusiveGateway_7C5D3E25718AB6BB");
+          assert.equal(name, "Ja");
+        });
+      });
+
       describe("toXmlString", function () {
         it("loads and exports a bpmn file with an empty lane", async function () {
           const processXml: string = await readFileAsync("./src/test/testfiles/emptylane.bpmn");

@@ -1357,18 +1357,50 @@ export class BpmnProcess {
       return null;
   }
 
-  public getPreviousSequenceFlowName(bpmnTaskId: string, sharedSourceElementId: string): string {
-    const taskObj = this.getExistingActivityObject(bpmnTaskId);
-    // Sure that taskObj has only 1 outgoing
-    const seqFlow = taskObj.incoming.find(sf => sf.sourceRef.id === sharedSourceElementId);
-    if (seqFlow.name != null && seqFlow.name.trim().length > 0) // Ignore empty flow names
-      return seqFlow.name;
-    else
-      return null;
+  /**
+   * Returns the name of the sequence flow that reaches the target element, from the source element
+   * @param targetId the target element
+   * @param sourceId the sequence flow whichs name is returned is an outgoing flow from this source element
+   */
+  public getPreviousSequenceFlowName(targetId: string, sourceId: string): string {
+    const sourceObj = this.getExistingActivityObject(sourceId);
+
+    for (const outgoing of sourceObj.outgoing) {
+      if (outgoing.targetRef) {
+        const queue = [outgoing.targetRef];
+        const visited: { [id: string]: boolean } = {
+          [outgoing.targetRef.id]: true
+        };
+        // Check all targets that are reachable directly or connected via ExclusiveGateways
+        while (queue.length) {
+          const curElem = queue.shift();
+          if (curElem.id === targetId) {
+            if (outgoing.name != null && outgoing.name.trim().length > 0) {
+              // Ignore empty flow names
+              return outgoing.name;
+            } else {
+              return undefined;
+            }
+          }
+          if (curElem.$type === "bpmn:ExclusiveGateway") {
+            for (const gwOut of curElem.outgoing) {
+              if (gwOut.targetRef) {
+                if (!visited[gwOut.targetRef.id]) {
+                  visited[gwOut.targetRef.id] = true;
+                  queue.push(gwOut.targetRef);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return undefined;
   }
 
   public getSharedOutgoingElementId(taskIds: string[]): string {
-    const map: any = {};
+    const map: { [key: string]: number } = {};
     taskIds.forEach(taskId => {
       const obj = this.getExistingActivityObject(taskId);
       obj.incoming.forEach(inc => {
