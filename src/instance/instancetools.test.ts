@@ -1,7 +1,8 @@
 import { assert } from "chai";
-import { fieldContentsExcerpt, parseInstanceMailAddress, getInstanceMailAddress } from "./instancetools";
+import { fieldContentsExcerpt, parseInstanceMailAddress, getInstanceMailAddress, getInstanceTitle } from "./instancetools";
 import { createId } from "../tools/guid";
 import { IInstanceDetails } from "./instanceinterfaces";
+import { IProcessDetails } from "../process";
 
 describe("sdk", function () {
   describe("instance", function () {
@@ -45,6 +46,56 @@ describe("sdk", function () {
           // null on invalid ids
           assert.equal(parseInstanceMailAddress(getInstanceMailAddress(id + "0").toUpperCase()), null);
         });
+      });
+
+      describe("getInstanceTitle", function () {
+        const instance: IInstanceDetails = {
+          instanceId: createId(),
+          processId: createId(),
+          workspaceId: createId(),
+          extras: {
+            instanceState: undefined,
+            fieldContents: {
+              Titel: {
+                type: "ProcessHubTextInput",
+                value: ""
+              }
+            }
+          }
+        };
+
+        const process: IProcessDetails = {
+          processId: instance.processId,
+          workspaceId: instance.workspaceId,
+          displayName: "Test",
+          description: "",
+          extras: {
+            settings: {
+              dashboard: {
+                cardTitle: "{{ field.Titel }}"
+              }
+            }
+          }
+        };
+
+        it("should use Titel field", function () {
+          instance.extras.fieldContents["Titel"] = {
+            type: "ProcessHubTextInput",
+            value: "A"
+          };
+          const res = getInstanceTitle(instance, process);
+          assert.equal(res, "A");
+        });
+
+        it("should return instanceId if title field is not set", function () {
+          instance.extras.fieldContents["Titel"] = {
+            type: "ProcessHubTextInput",
+            value: ""
+          };
+          const res = getInstanceTitle(instance, process);
+          assert.isTrue(res.includes(instance.instanceId.toLocaleLowerCase()));
+        });
+
       });
     });
   });
