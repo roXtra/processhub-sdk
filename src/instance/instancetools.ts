@@ -106,13 +106,13 @@ export function getInstanceTitle(instance: IInstanceDetails, process: IProcessDe
       if (parsedTitle && parsedTitle.length) {
         return parsedTitle;
       } else {
-        return process.displayName + " " + instance.instanceId.toLowerCase();
+        return instance.instanceId.toLowerCase();
       }
     }
     catch (ex) {
-      return process.displayName + " " + instance.instanceId.toLowerCase();
+      return instance.instanceId.toLowerCase();
     }
   } else {
-    return process.displayName + " " + instance.instanceId.toLowerCase();
+    return instance.instanceId.toLowerCase();
   }
 }
