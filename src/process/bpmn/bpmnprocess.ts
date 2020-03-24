@@ -252,50 +252,39 @@ export class BpmnProcess {
     return this.getDecisionTasksAfterGateway(exclusiveGateway);
   }
 
-  public getDecisionTasksAfterGateway(gat: Bpmn.IExclusiveGateway, rootTaskId: string = null): Todo.IDecisionTask[] {
-    let decisionTasks: Todo.IDecisionTask[] = [];
+  public getDecisionTasksAfterGateway(gat: Bpmn.IExclusiveGateway): Todo.IDecisionTask[] {
+    const decisionTasks: Todo.IDecisionTask[] = [];
     if (gat.outgoing) {
-      for (const processObject of gat.outgoing) {
-        let tmpRes = null;
-        // Let tmpRouteStack = routeStack == null ? [] : _.cloneDeep(routeStack);
-        if (processObject.targetRef.$type === "bpmn:ExclusiveGateway" && processObject.targetRef.outgoing.length === 1) {
-          // If (processObject.targetRef.outgoing.length == 1)
-          tmpRes = this.getDecisionTasksAfterGateway(processObject.targetRef as Bpmn.IExclusiveGateway, processObject.targetRef.id);
-          //   TmpRouteStack.push(processObject.targetRef.id);
-          //   tmpRes = getDecisionTasksAfterGateway(processObject.targetRef as Bpmn.ExclusiveGateway, tmpRouteStack);
+      for (const outgoing of gat.outgoing) {
+        const target = outgoing.targetRef;
+        const taskId = target.id;
+
+        let nameValue = target.name;
+        // If the current target is an unnamed ExclusiveGateway with exactly one outgoing SequenceFlow, use the name of the SequenceFlows target
+        if ((!nameValue) && (target.$type === "bpmn:ExclusiveGateway") && target.outgoing && (target.outgoing.length === 1) && target.outgoing[0].targetRef) {
+          nameValue = target.outgoing[0].targetRef.name;
         }
 
-        // Wenn es kein gateway ist dann füge zusammen
-        if (tmpRes != null) {
-          decisionTasks = decisionTasks.concat(tmpRes);
-        } else {
-          let taskId: string = processObject.targetRef.id;
-          if (rootTaskId != null)
-            taskId = rootTaskId;
-
-          let nameValue: string = processObject.targetRef.name;
-          if (nameValue == null) {
-            switch (processObject.targetRef.$type) {
-              case "bpmn:EndEvent":
-                nameValue = tl("Ende");
-                break;
-              case "bpmn:ExclusiveGateway":
-                nameValue = tl("Gateway");
-                break;
-              default:
-                nameValue = processObject.targetRef.$type;
-            }
+        if (!nameValue) {
+          switch (target.$type) {
+            case "bpmn:EndEvent":
+              nameValue = tl("Ende");
+              break;
+            case "bpmn:ExclusiveGateway":
+              nameValue = tl("Gateway");
+              break;
+            default:
+              nameValue = target.$type;
           }
-
-          decisionTasks.push({
-            bpmnTaskId: taskId,
-            name: nameValue,
-            type: Todo.DecisionTaskTypes.Normal,
-            isBoundaryEvent: false,
-            // RequiredFieldsNeeded: processObject.
-            // routeStack: tmpRouteStack
-          } as Todo.IDecisionTask);
         }
+
+        decisionTasks.push({
+          bpmnTaskId: taskId,
+          name: nameValue,
+          type: Todo.DecisionTaskTypes.Normal,
+          isBoundaryEvent: false,
+        } as Todo.IDecisionTask);
+
       }
     }
     return decisionTasks;

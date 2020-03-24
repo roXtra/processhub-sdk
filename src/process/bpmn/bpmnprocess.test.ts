@@ -72,11 +72,31 @@ describe("sdk", function () {
   describe("process", function () {
     describe("bpmnprocess", function () {
 
+      let freigabe2Xml: string;
+
+      before(async function () {
+        freigabe2Xml = await readFileAsync("./src/test/testfiles/freigabe2.bpmn");
+      });
+
+      describe("getDecisionTasksForTask", function () {
+        it("returns the possible decision tasks", async function () {
+          const bpmnProcess: BpmnProcess = new BpmnProcess();
+          await bpmnProcess.loadXml(freigabe2Xml);
+          const decisionTasks = bpmnProcess.getDecisionTasksForTask("ExclusiveGateway_7C5D3E25718AB6BB");
+          const expectedBpmnTaskIds = ["SubProcess_51C13A1CF5228786", "ExclusiveGateway_4E9D96C025622364"];
+          for (const expectedBpmnTaskId of expectedBpmnTaskIds) {
+            const decisionTask = decisionTasks.find(d => d.bpmnTaskId === expectedBpmnTaskId);
+            expect(decisionTask).not.to.equal(undefined);
+            expect(decisionTask.name).not.to.eq(null);
+            expect(decisionTask.name.length).to.be.greaterThan(0);
+          }
+        });
+      });
+
       describe("getPreviousSequenceFlowName", function () {
         it("returns the name of the sequence flow that reaches the target element", async function () {
-          const processXml: string = await readFileAsync("./src/test/testfiles/freigabe2.bpmn");
           const bpmnProcess: BpmnProcess = new BpmnProcess();
-          await bpmnProcess.loadXml(processXml);
+          await bpmnProcess.loadXml(freigabe2Xml);
           let name = bpmnProcess.getPreviousSequenceFlowName("ExclusiveGateway_2B69BC9F8A518A72", "ExclusiveGateway_7C5D3E25718AB6BB");
           assert.equal(name, "nein");
           name = bpmnProcess.getPreviousSequenceFlowName("SubProcess_51C13A1CF5228786", "ExclusiveGateway_7C5D3E25718AB6BB");
