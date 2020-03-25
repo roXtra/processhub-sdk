@@ -5,7 +5,6 @@ import { ProcessView } from "../process/phclient";
 export const Page = strEnum([
   "ErrorPage",
   "StartPage",
-  "SigninPage",
   "SignupPage",
   "WorkspacePage",
   "ProcessPage"
