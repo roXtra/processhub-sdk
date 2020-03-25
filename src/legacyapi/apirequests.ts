@@ -55,9 +55,9 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
         return json;
       }
       case 403: {  // API_FORBIDDEN -> server requests redirect to signin
-        if (typeof window !== "undefined"  //  Not possible on server rendering
-          && !window.location.pathname.startsWith("/signin")) {
-          window.location.href = "/signin?redirect=" + encodeURIComponent(window.location.pathname);
+        if (typeof window !== "undefined") {
+          //  Not possible on server rendering
+          window.location.href = window.__INITIAL_CONFIG__.roXtraUrl;
         }
         break;
       }
@@ -188,9 +188,9 @@ export async function getExternalJson<Request extends IBaseRequest>(apiEndpointU
       return json;
     }
     case 403: {  // API_FORBIDDEN -> server requests redirect to signin
-      if (typeof window !== "undefined"  //  Not possible on server rendering
-        && !window.location.pathname.startsWith("/signin")) {
-        window.location.href = "/signin?redirect=" + encodeURIComponent(window.location.pathname);
+      if (typeof window !== "undefined") {
+        //  Not possible on server rendering
+        window.location.href = window.__INITIAL_CONFIG__.roXtraUrl;
       }
       break;
     }

@@ -24,9 +24,6 @@ export function parseUrl(fullUrlWithBase: string): IPathDetails {
     || (part === "i" && split.length >= 2)) {   // Instance and Todo-links are handled on StartPage
     path.page = Page.StartPage;
     return path;
-  } else if (part === "signin" && split.length === 1) {
-    path.page = Page.SigninPage;
-    return path;
   } else if (part === "signup" && split.length === 1) {
     path.page = Page.SignupPage;
     return path;
