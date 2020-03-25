@@ -24,14 +24,19 @@ export function getBackendUrl(): string {
 
 /**
  * Returns the base path as defined in the page without the protocol and the hostname
- * E.g. /Roxtra/modules/eform/
+ * E.g. /Roxtra/modules/f
+ * without trailing slash
  */
 export function getBasePath(): string {
   const backendUrl = getBackendUrl();
-  const strippedBackendUrl = backendUrl.replace("http://", "").replace("https://", "");
-  const firstSlash = strippedBackendUrl.indexOf("/");
-  const backendBasePath = strippedBackendUrl.substring(firstSlash);
-  return backendBasePath;
+  const url = new URL(backendUrl);
+  // Path contains only the path without host and port
+  let path = url.pathname;
+  // Trim ending slash
+  if (path.endsWith("/")) {
+    path = path.slice(0, -1);
+  }
+  return path;
 }
 
 export interface IInitialConfig extends IClientSettingsConfig {
