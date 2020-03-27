@@ -17,67 +17,51 @@ export function parseUrl(fullUrlWithBase: string): IPathDetails {
     url = url.substr(0, url.length - 1);
   const split = url.split("/");
 
+  // Url is f/... for module f
+
   // Pages not related to workspace
-  let part = split[0];
-  if ((part === "" && split.length === 1)
-    || (part === "profile" && split.length === 1)
-    || (part === "i" && split.length >= 2)) {   // Instance and Todo-links are handled on StartPage
+  let part = split[1];
+  if ((part == null || (part === "" && split.length === 2))
+    || (part === "profile" && split.length === 2)
+    || (part === "i" && split.length >= 3)) {   // Instance and Todo-links are handled on StartPage
     path.page = Page.StartPage;
     return path;
-  } else if (part === "signup" && split.length === 1) {
+  } else if (part === "signup" && split.length === 2) {
     path.page = Page.SignupPage;
     return path;
-  } else if (!part.startsWith("@") && !part.startsWith("riskmanagement")) {
-    // ...otherwise workspace or riskmanagement must follow
+  } else if (!part.startsWith("@")) {
     return null;
   }
 
-  // -> Riskmanagement
-  if (part.startsWith("riskmanagement")) {
-    if (split.length == 1)
-      return path;
+  // ...otherwise workspace or riskmanagement must follow
 
-    if (split[1] == "i") {
-      path.workspaceUrlName = split[2];
-    } else {
-      path.workspaceUrlName = split[1].substr(1);
-    }
+  // -> Workspace
+  path.workspaceUrlName = part.substr(1);
 
-    part = WorkspaceView.Riskmanagement;
-    if (isValidWorkspaceView(part)) {
-      path.page = Page.WorkspacePage;
-      path.view = part as WorkspaceView;
-      return path;
-    }
-  } else {
-    // -> Workspace
-    path.workspaceUrlName = part.substr(1);
-
-    part = (split.length >= 2 ? split[1] : WorkspaceView.Processes);
-    if (isValidWorkspaceView(part) && split.length <= 2) {
-      path.page = Page.WorkspacePage;
-      path.view = part as WorkspaceView;
-      return path;
-    } else if (part === ProcessView.NewProcess) {
-      path.page = Page.ProcessPage;
-      path.view = part as ProcessView;
-      return path;
-    } else if (part !== "p" || split.length < 3) {
-      // ...otherwise process must follow
-      return null;
-    }
-
-    // -> Process
-    path.processUrlName = decodeURIComponent(split[2]);
-
-    part = (split.length >= 4 ? split[3] : ProcessView.Show);
-    if (isValidProcessView(part) && split.length <= 4) {
-      path.page = Page.ProcessPage;
-      path.view = part as ProcessView;
-      return path;
-    } else
-      return null;
+  part = (split.length >= 3 ? split[2] : WorkspaceView.Processes);
+  if (isValidWorkspaceView(part) && split.length <= 3) {
+    path.page = Page.WorkspacePage;
+    path.view = part as WorkspaceView;
+    return path;
+  } else if (part === ProcessView.NewProcess) {
+    path.page = Page.ProcessPage;
+    path.view = part as ProcessView;
+    return path;
+  } else if (part !== "p" || split.length < 4) {
+    // ...otherwise process must follow
+    return null;
   }
+
+  // -> Process
+  path.processUrlName = decodeURIComponent(split[3]);
+
+  part = (split.length >= 5 ? split[4] : ProcessView.Show);
+  if (isValidProcessView(part) && split.length <= 5) {
+    path.page = Page.ProcessPage;
+    path.view = part as ProcessView;
+    return path;
+  } else
+    return null;
 }
 
 export function parseNotificationLink(fullUrlWithBase: string): INotificationLinkElements {
@@ -92,12 +76,10 @@ export function parseNotificationLink(fullUrlWithBase: string): INotificationLin
     url = url.substr(0, url.length - 1);
   const split = url.split("/");
 
-  let index = 0;
-  if (url.startsWith("riskmanagement")) {
-    index = 1;
-  }
+  // Index 0 is the module, e.g. f or riskmanagement (f/i/...)
+  const index = 1;
 
-  if (split[index] !== "i" || split.length < 2)
+  if (split[index] !== "i" || split.length < 3)
     return elements;
 
   let nextPart = split[index + 1];
@@ -106,7 +88,7 @@ export function parseNotificationLink(fullUrlWithBase: string): INotificationLin
   } else if (isId(nextPart.toUpperCase()))
     elements.workspaceId = nextPart.toUpperCase();
 
-  if (split.length === 2)
+  if (split.length === 3)
     return elements;
 
   nextPart = split[index + 2];

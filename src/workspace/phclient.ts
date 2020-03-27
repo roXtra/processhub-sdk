@@ -16,7 +16,6 @@ export class WorkspaceState {
 
 // WorkspaceView
 export const WorkspaceView = {
-  Riskmanagement: "riskmanagement",
   Processes: "processes",
   AddProcess: "addprocess",
   Todos: "todos"

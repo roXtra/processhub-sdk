@@ -11,26 +11,29 @@ describe("sdk", function () {
       describe("parseUrl", function () {
 
         it("should detect valid pages", function () {
-          assert.isNull(parseUrl("/@testworkSpace/xx")); // Ignore case and / at end
-          assert.isNull(parseUrl("/xx")); // Ignore case and / at end
+          assert.isNull(parseUrl("/f/@testworkSpace/xx")); // Ignore case and / at end
+          const wrongPath =parseUrl("/xx"); // Ignore case and / at end
+          assert.deepEqual(wrongPath, {
+            page: Page.StartPage
+          } as IPathDetails);
         });
 
         it("should parse top page", function () {
-          const path = parseUrl("/"); // Ignore case and / at end
+          const path = parseUrl("/f/"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.StartPage
           } as IPathDetails);
         });
 
         it("should parse workspace pages", function () {
-          let path = parseUrl("/@testworkSpace/"); // Ignore case and / at end
+          let path = parseUrl("/f/@testworkSpace/"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.WorkspacePage,
             view: WorkspaceView.Processes,
             workspaceUrlName: "testworkspace"
           } as IPathDetails);
 
-          path = parseUrl("/@testworkSpace/addprocess"); // Ignore case and / at end
+          path = parseUrl("/f/@testworkSpace/addprocess"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.WorkspacePage,
             view: WorkspaceView.AddProcess,
@@ -39,7 +42,7 @@ describe("sdk", function () {
         });
 
         it("should parse process pages", function () {
-          let path = parseUrl("/@testworkSpace/p/process"); // Ignore case and / at end
+          let path = parseUrl("/f/@testworkSpace/p/process"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.ProcessPage,
             view: ProcessView.Show,
@@ -47,7 +50,7 @@ describe("sdk", function () {
             processUrlName: "process"
           } as IPathDetails);
 
-          path = parseUrl("/@testworkSpace/p/process/edit"); // Ignore case and / at end
+          path = parseUrl("/f/@testworkSpace/p/process/edit"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.ProcessPage,
             view: ProcessView.Edit,
@@ -55,7 +58,7 @@ describe("sdk", function () {
             processUrlName: "process"
           } as IPathDetails);
 
-          path = parseUrl("/@testworkSpace/newprocess"); // Ignore case and / at end
+          path = parseUrl("/f/@testworkSpace/newprocess"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.ProcessPage,
             view: ProcessView.NewProcess,
@@ -66,14 +69,16 @@ describe("sdk", function () {
         describe("riskmanagement", function () {
           it("should parse top page", function () {
             const path = parseUrl("/riskmanagement/"); // Ignore case and / at end
-            assert.deepEqual(path, {});
+            assert.deepEqual(path, {
+              page: Page.StartPage
+            } as IPathDetails);
           });
 
           it("should parse workspace pages", function () {
             const path = parseUrl("/riskmanagement/@testworkSpace/"); // Ignore case and / at end
             assert.deepEqual(path, {
               page: Page.WorkspacePage,
-              view: WorkspaceView.Riskmanagement,
+              view: WorkspaceView.Processes,
               workspaceUrlName: "testworkspace"
             } as IPathDetails);
           });
@@ -84,12 +89,12 @@ describe("sdk", function () {
       describe("parseNotificationLink", function () {
 
         it("should parse invalid instance links", function () {
-          const elements = parseNotificationLink("/i/invalidid"); // Ignore case and / at end
+          const elements = parseNotificationLink("/f/i/invalidid"); // Ignore case and / at end
           assert.deepEqual(elements, {});
         });
 
         it("should parse current instance links", function () {
-          const elements = parseNotificationLink("/I/ffB278368B1002d7/e8B278368B1002d7"); // Ignore case and / at end
+          const elements = parseNotificationLink("/f/I/ffB278368B1002d7/e8B278368B1002d7"); // Ignore case and / at end
           assert.deepEqual(elements, {
             instanceId: "E8B278368B1002D7",
             workspaceId: "FFB278368B1002D7"
@@ -97,7 +102,7 @@ describe("sdk", function () {
         });
 
         it("should parse old instance/todo links", function () {
-          const elements = parseNotificationLink("/I/@TestWorkspace/e8B278368B1002d7"); // Ignore case and / at end
+          const elements = parseNotificationLink("/f/I/@TestWorkspace/e8B278368B1002d7"); // Ignore case and / at end
           assert.deepEqual(elements, {
             instanceId: "E8B278368B1002D7"
           });
