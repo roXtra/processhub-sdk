@@ -57,7 +57,8 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
       case 403: {  // API_FORBIDDEN -> server requests redirect to signin
         if (typeof window !== "undefined") {
           //  Not possible on server rendering
-          window.location.href = window.__INITIAL_CONFIG__.roXtraUrl;
+          console.log("403 -> redirect to roxtra login page with url: " + window.location.href);
+          window.location.href = window.__INITIAL_CONFIG__.roXtraUrl + "login/weblogin.aspx?redirect=" + encodeURIComponent(window.location.href);
         }
         break;
       }
