@@ -10,6 +10,7 @@ export enum ApiResult {
   API_FORBIDDEN = 403,  // Is used instead of 401 if no user is authenticated but a function is called that requires authentication
   // -> will redirect client to signin page
   API_NOTFOUND = 404,
+  API_REQUESTTIMEOUT = 408,
   API_DUPLICATE = 409,
   API_NOTEMPTY = 423,
   API_ERROR = 500,
