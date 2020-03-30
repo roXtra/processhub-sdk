@@ -6,6 +6,11 @@ declare global {
   interface Window { __INITIAL_CONFIG__: IInitialConfig }
 }
 
+/**
+ * Returns the backendUrl as defined with Hostname and protocol
+ * E.g. http://myhost/Roxtra/modules
+ * without trailing slash
+ */
 export function getBackendUrl(): string {
   if (process.env.API_URL != null) {
     // Defined by webpack => this code is running in the browser
@@ -24,7 +29,7 @@ export function getBackendUrl(): string {
 
 /**
  * Returns the base path as defined in the page without the protocol and the hostname
- * E.g. /Roxtra/modules/f
+ * E.g. /Roxtra/modules
  * without trailing slash
  */
 export function getBasePath(): string {
