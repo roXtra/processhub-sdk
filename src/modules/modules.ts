@@ -4,7 +4,7 @@ import { tl } from "../tl";
 export const modules: IModule[] = [
   {
     moduleId: ModuleId.EForm,
-    urlPrefix: "",
+    urlPrefix: "f",
     name: tl("Elektronische Formulare und Vorgänge"),
   },
   {
