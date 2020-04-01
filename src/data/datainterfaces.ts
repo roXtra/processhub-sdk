@@ -9,7 +9,7 @@ export interface IFieldDefinition {
   type: FieldType;
   isRequired: boolean;
   isRestricted?: boolean;
-  config: {};
+  config: {} | ICheckboxFieldConfig | IChecklistFieldConfig | IDateFieldConfig | IDropdownFieldConfig | IFileUploadFieldConfig | IInstanceTitleFieldConfig | ILabelConfig | IMailFieldConfig | INumberFieldConfig | IRadioButtonGroupEntry | IRadioButtonFieldConfig | IRiskAssessmentFieldConfig | IRoleOwnerFieldConfig | IRoxFileFieldConfig | ISignatureFieldConfig | ISpreadSheetFieldConfig | ITextAreaFieldConfig | ITextInputFieldConfig;
 }
 
 export interface IFieldDefinitionItem {
@@ -199,7 +199,7 @@ export interface IFormElementProps {
   required: boolean;
   restricted: boolean;
   disabled: boolean;
-  config: ICheckboxFieldConfig | IChecklistFieldConfig | IDateFieldConfig | IDropdownFieldConfig | IFileUploadFieldConfig | IInstanceTitleFieldConfig | ILabelConfig | IMailFieldConfig | INumberFieldConfig | IRadioButtonGroupEntry | IRadioButtonFieldConfig | IRiskAssessmentFieldConfig | IRoleOwnerFieldConfig | IRoxFileFieldConfig | ISignatureFieldConfig | ISpreadSheetFieldConfig | ITextAreaFieldConfig | ITextInputFieldConfig;
+  config: {} | ICheckboxFieldConfig | IChecklistFieldConfig | IDateFieldConfig | IDropdownFieldConfig | IFileUploadFieldConfig | IInstanceTitleFieldConfig | ILabelConfig | IMailFieldConfig | INumberFieldConfig | IRadioButtonGroupEntry | IRadioButtonFieldConfig | IRiskAssessmentFieldConfig | IRoleOwnerFieldConfig | IRoxFileFieldConfig | ISignatureFieldConfig | ISpreadSheetFieldConfig | ITextAreaFieldConfig | ITextInputFieldConfig;
   key?: string;
 }
 
