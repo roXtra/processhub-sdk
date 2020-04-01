@@ -55,6 +55,93 @@ export interface IServiceActionConfigField {
   value: string;
 }
 
+export interface IChecklistEntry {
+  name: string;
+}
+export interface ICheckboxFieldConfig {
+  defaultValue: boolean;
+}
+
+export type ChecklistFieldValue = { [key: string]: boolean };
+
+export interface IFieldConfig {
+  conditionExpression: string;
+}
+
+export interface IFieldConfigDefault extends IFieldConfig {
+  validationExpression: string;
+  defaultValue: string | Date | ChecklistFieldValue | IRadioButtonGroupFieldValue | ISpreadSheetFieldValue;
+}
+
+export interface IChecklistFieldConfig extends IFieldConfigDefault {
+  entries: IChecklistEntry[];
+  oneEntryMustBeChecked: boolean;
+}
+
+export interface IDateFieldConfig extends IFieldConfigDefault { }
+
+export interface IDropdownFieldConfig extends IFieldConfigDefault {
+  options: string[];
+}
+
+export interface IFileUploadFieldConfig extends IFieldConfig {
+  validationExpression: string;
+}
+
+export interface IInstanceTitleFieldConfig extends IFieldConfigDefault {
+  evalDefaultValue: boolean;
+}
+
+export interface ILabelConfig extends IFieldConfig {
+  labelHtml: string;
+}
+
+export interface IMailFieldConfig extends IFieldConfigDefault {
+}
+
+export interface INumberFieldConfig extends IFieldConfigDefault {
+  evalDefaultValue: boolean;
+  onlyIntegers: boolean;
+}
+
+export interface IRadioButtonGroupEntry {
+  name: string;
+  value: number;
+  selected: boolean;
+}
+
+export interface IRadioButtonFieldConfig extends IFieldConfigDefault {
+  entries: IRadioButtonGroupEntry[];
+  oneEntryMustBeChecked: boolean;
+}
+
+export interface IRiskAssessmentFieldConfig extends IFieldConfig {
+  validationExpression: string;
+}
+
+export interface IRoleOwnerFieldConfig extends IFieldConfig {
+  validationExpression: string;
+}
+
+export interface IRoxFileFieldConfig extends IFieldConfig {
+  validationExpression: string;
+  roxFileName: string;
+  roxFileId: number;
+  roxFileIconUrl: string;
+}
+
+export interface ISignatureFieldConfig extends IFieldConfig { }
+
+export interface ISpreadSheetFieldConfig extends IFieldConfigDefault { }
+
+export interface ITextAreaFieldConfig extends IFieldConfigDefault {
+  evalDefaultValue: boolean;
+}
+
+export interface ITextInputFieldConfig extends IFieldConfigDefault {
+  evalDefaultValue: boolean;
+}
+
 export type FieldValueType =
   number | // Number
   Date | // Date
@@ -112,7 +199,7 @@ export interface IFormElementProps {
   required: boolean;
   restricted: boolean;
   disabled: boolean;
-  config: {};
+  config: ICheckboxFieldConfig | IChecklistFieldConfig | IDateFieldConfig | IDropdownFieldConfig | IFileUploadFieldConfig | IInstanceTitleFieldConfig | ILabelConfig | IMailFieldConfig | INumberFieldConfig | IRadioButtonGroupEntry | IRadioButtonFieldConfig | IRiskAssessmentFieldConfig | IRoleOwnerFieldConfig | IRoxFileFieldConfig | ISignatureFieldConfig | ISpreadSheetFieldConfig | ITextAreaFieldConfig | ITextInputFieldConfig;
   key?: string;
 }
 
