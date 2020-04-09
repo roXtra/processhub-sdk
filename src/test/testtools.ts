@@ -94,9 +94,6 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         password: "",
         database: "EFormulare"
       },
-      Engine: {
-        sleepBeforeEnd: 0
-      },
       Filestore: {
         baseDir: "c:\\Roxtra\\doc\\eformulare"
       },
@@ -122,14 +119,6 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         smtpUser: "send@localhost.local",
         smtpPassword: "",
         requireTls: true
-      },
-      Redis: {
-        serverHost: "",
-        devRedisHost: "",
-        devServerHost: "",
-        redisHost: "localhost",
-        awsApiGatewayEndpoint: "",
-        awsApiGatewayKey: "",
       },
       Webserver: {
         port: 8397,

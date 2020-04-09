@@ -1,5 +1,8 @@
+/**
+ * IMPORTANT: When adding/changing entries here,
+ * entries must also be adjusted in the Setup project
+ */
 export interface IConfig {
-  Redis: IRedisConfig;
   Database: IDatabaseConfig;
   Filestore: IFilestoreConfig;
   roXtra: IRoxtraConfig;
@@ -7,27 +10,13 @@ export interface IConfig {
   Mailbox: IMailboxConfig;
   Webserver: IWebserverConfig;
   ClientSettings: IClientSettingsConfig;
-  Engine: IEngineConfig;
   Features: IFeatureConfig;
-}
-
-export interface IEngineConfig {
-  sleepBeforeEnd: number;
 }
 
 export interface IRoxtraConfig {
   efApiEndpoint: string;
   url: string;
   clientSecret: string;
-}
-
-export interface IRedisConfig {
-  serverHost: string;
-  devServerHost: string;
-  redisHost: string;
-  devRedisHost: string;
-  awsApiGatewayEndpoint: string;
-  awsApiGatewayKey: string;
 }
 
 export interface IDatabaseConfig {
