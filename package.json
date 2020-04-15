@@ -60,7 +60,7 @@
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
-    "@types/chai": "^4.2.6",
+    "@types/chai": "^4.2.11",
     "@types/hapi__hapi": "^18.2.6",
     "@types/lodash": "^4.14.149",
     "@types/mocha": "^7.0.2",
