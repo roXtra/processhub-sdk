@@ -1,6 +1,4 @@
 import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
-import { parseIdMailAddress } from "../instance/instancetools";
-import * as Config from "../config";
 import { isId } from "../tools/guid";
 
 export function parseProcessMailSubject(mail: string): string {
@@ -15,15 +13,6 @@ export function parseProcessMailSubject(mail: string): string {
     }
   }
   return null;
-}
-export function parseProcessMailAddress(mail: string): string {
-  return parseIdMailAddress("p-", mail);
-}
-export function getProcessMailAddress(processId: string): string {
-  if (Config.getBackendUrl() === "http://localhost:8080")
-    return "p-" + processId.toLowerCase() + "@testmail.processhub.com";
-  else
-    return "p-" + processId.toLowerCase() + "@mail.processhub.com";
 }
 
 // Init settings that don't exist with default values

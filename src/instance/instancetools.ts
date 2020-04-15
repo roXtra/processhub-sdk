@@ -1,31 +1,10 @@
 import { isFieldValue } from "../data/datainterfaces";
 import { IInstanceDetails } from "./instanceinterfaces";
-import { isValidMailAddress, stringExcerpt } from "../tools/stringtools";
+import { stringExcerpt } from "../tools/stringtools";
 import { isId } from "../tools/guid";
-import * as Config from "../config";
 import { parseAndInsertStringWithFieldContent } from "../data";
 import { IProcessDetails, isDefaultProcessRole } from "../process";
 
-export function parseIdMailAddress(prefix: string, mail: string): string {
-  mail = mail.toLowerCase();
-  if (!isValidMailAddress(mail) || !mail.startsWith(prefix))
-    return null;
-
-  const instanceId = mail.split("@")[0].substr(prefix.length).toUpperCase();
-  if (isId(instanceId))
-    return instanceId;
-  else
-    return null;
-}
-export function getInstanceMailAddress(instanceId: string): string {
-  if (Config.getBackendUrl() === "http://localhost:8080")
-    return "i-" + instanceId.toLowerCase() + "@testmail.processhub.com";
-  else
-    return "i-" + instanceId.toLowerCase() + "@mail.processhub.com";
-}
-export function parseInstanceMailAddress(mail: string): string {
-  return parseIdMailAddress("i-", mail);
-}
 export function parseInstanceMailSubject(mail: string): string {
   const regex = /(\[)(i-)(.*?)(\])/gm;
   let match: RegExpExecArray;

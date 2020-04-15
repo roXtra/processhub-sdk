@@ -1,5 +1,5 @@
 import { assert, expect } from "chai";
-import { fieldContentsExcerpt, parseInstanceMailAddress, getInstanceMailAddress, getInstanceTitle } from "./instancetools";
+import { fieldContentsExcerpt,  getInstanceTitle } from "./instancetools";
 import { createId } from "../tools/guid";
 import { IInstanceDetails } from "./instanceinterfaces";
 import { IProcessDetails } from "../process";
@@ -31,20 +31,6 @@ describe("sdk", function () {
           assert.equal(fieldContentsExcerpt(instance, 100), "test / test2");
 
           assert.equal(fieldContentsExcerpt(instance, 8), "test /...");
-        });
-      });
-
-      describe("parseInstanceMailAddress", function () {
-        it("should return 0 if not an instance mail address", function () {
-          assert.equal(parseInstanceMailAddress("test@mail.processhub.com"), null);
-        });
-
-        it("should parse instanceId from mail address", function () {
-          const id = createId();
-          assert.equal(parseInstanceMailAddress(getInstanceMailAddress(id).toUpperCase()), id); // Ignore case
-
-          // null on invalid ids
-          assert.equal(parseInstanceMailAddress(getInstanceMailAddress(id + "0").toUpperCase()), null);
         });
       });
 

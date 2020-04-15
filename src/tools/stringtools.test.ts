@@ -70,41 +70,6 @@ describe("sdk", function () {
         });
       });
 
-      describe("getQueryParameter", function () {
-        it("soll Parameter aus Querystrings ermitteln", function () {
-          chai.assert.equal(StringTools.getQueryParameter("test", "http://processhub.com"), null);
-          chai.assert.equal(StringTools.getQueryParameter("test", "http://processhub.com?test=Test1"), "Test1");
-          chai.assert.equal(StringTools.getQueryParameter("test", "http://processhub.com?test=Test1&test2"), "Test1");
-          chai.assert.equal(StringTools.getQueryParameter("test", "http://processhub.com?test2=x&test=Test1"), "Test1");
-          chai.assert.equal(StringTools.getQueryParameter("test", "http://processhub.com?test2=x&test=Test1&text"), "Test1");
-          chai.assert.equal(StringTools.getQueryParameter("test", "http://processhub.com?test2=x&test=&text"), "");
-        });
-      });
-
-      describe("splitStringOnMultipleSigns", function () {
-        it("soll eingegebene Emailadressen mit Separator als Array zurückliefern", function () {
-          const initSign = StringTools.SPLITSIGN_EMAILADDRESSES[0];
-          // Should also accept+ignore multiple signs
-          let testString = "testuser@processhub.com" + initSign + "testuser2@processhub.com" + initSign + initSign + "testuser3@processhub.com" + initSign + "test@processhub.com" + initSign;
-
-          for (let i = 0; i < StringTools.SPLITSIGN_EMAILADDRESSES.length; i++) {
-            const res = StringTools.splitStringOnMultipleSigns(testString);
-            chai.assert.equal(res.length, 4, "Error beim splitten mit Zeichen " + StringTools.SPLITSIGN_EMAILADDRESSES[i] + "\nMit String : " + testString);
-            if ((i + 1) < StringTools.SPLITSIGN_EMAILADDRESSES.length)
-              testString = testString.replace(new RegExp(StringTools.SPLITSIGN_EMAILADDRESSES[i], "g"), StringTools.SPLITSIGN_EMAILADDRESSES[i + 1]);
-          }
-
-          const res = StringTools.splitStringOnMultipleSigns("");
-          chai.assert.equal(res, null, "Error beim splitten leerem String");
-        });
-
-        it("soll eingegebene Emailadresse als Arrayelement zurückliefern", function () {
-          const res = StringTools.splitStringOnMultipleSigns("caspari@roxtra.com");
-          chai.assert(res, "splitStringOnMultipleSigns lieferte " + res);
-          chai.assert(res.length === 1, "res hat " + res.length + " Einträge");
-        });
-      });
-
       describe("replaceOldFieldSyntax", function () {
         it("soll alte Syntax austauschen", function () {
 
