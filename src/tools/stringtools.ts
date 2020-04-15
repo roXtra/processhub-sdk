@@ -60,48 +60,6 @@ export function stringExcerpt(source: string, maxLen: number): string {
   }
 }
 
-export function getQueryParameter(parameter: string, location?: string): string {
-  if (location == null && typeof window !== "undefined") {
-    location = window.location.href;
-  }
-
-  parameter = parameter.replace(/[[\]]/g, "\\$&");
-  const regex = new RegExp("[?&]" + parameter + "(=([^&#]*)|&|#|$)"),
-    results = regex.exec(location);
-  if (!results)
-    return null;
-  if (!results[2])
-    return "";
-  return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
-export const SPLITSIGN_EMAILADDRESSES: string[] = [",", ";", " ", "\n"];
-
-export function splitStringOnMultipleSigns(parameter: string, splitSignListOrdner = 0): string[] {
-  if (parameter.length === 0) {
-    return null;
-  }
-
-  const splitResult = parameter.split(SPLITSIGN_EMAILADDRESSES[splitSignListOrdner]);
-
-  if (splitResult.length === 1 && (splitSignListOrdner + 1) === SPLITSIGN_EMAILADDRESSES.length) {
-    return splitResult;
-  }
-
-  // Wenn das splitzeichen nicht korrekt war nochmal
-  if (splitResult.length === 1) {
-    return splitStringOnMultipleSigns(parameter, (splitSignListOrdner + 1));
-  }
-
-  const result: string[] = [];
-  for (const split of splitResult) {
-    if (split.trim().length > 0)
-      result.push(split.trim());
-  }
-
-  return result;
-}
-
 export function getShuffledNumberArray(amountOfElements: number, numberLenght = 3): number[] {
   const array: number[] = [];
   for (let i = 0; i < amountOfElements; i++) {

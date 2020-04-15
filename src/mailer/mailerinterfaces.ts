@@ -7,11 +7,6 @@ export enum MailSender {
   FromInstance,     // Use the mail address of the current instance as reply-to
 }
 
-export interface IMailContent {
-  recipientId?: string;
-  signature?: string;
-}
-
 export interface ISendMailTemplateRequest extends IBaseRequest {
   instanceUrl?: string;
   todoDescription?: string;
