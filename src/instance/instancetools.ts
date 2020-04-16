@@ -100,9 +100,9 @@ export function fieldContentsExcerpt(instance: IInstanceDetails, maxLen: number)
 }
 
 export function getInstanceTitle(instance: IInstanceDetails, process: IProcessDetails): string {
-  if (process.extras.settings && process.extras.settings.dashboard && process.extras.settings.dashboard.cardTitle) {
+  if (instance.dashboardTitle) {
     try {
-      const parsedTitle = parseAndInsertStringWithFieldContent(process.extras.settings.dashboard.cardTitle, instance.extras.fieldContents, process.extras.bpmnProcess, instance.extras.roleOwners);
+      const parsedTitle = parseAndInsertStringWithFieldContent(instance.dashboardTitle, instance.extras.fieldContents, process.extras.processRoles, instance.extras.roleOwners);
       if (parsedTitle && parsedTitle.length) {
         return parsedTitle;
       } else {

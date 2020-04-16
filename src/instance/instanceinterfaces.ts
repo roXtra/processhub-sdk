@@ -51,6 +51,7 @@ export interface IInstanceDetails {
   subInstanceIds?: string[];
   parentProcessConfigObject?: IParentProcessConfig;
   riskAssessments?: IRiskAssessment[];
+  dashboardTitle?: string;
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
     instanceState: IEngineState | null;

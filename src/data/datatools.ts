@@ -1,7 +1,6 @@
 import { IFieldContentMap, isFieldValue, IFieldDefinition, FieldType, IFieldValue } from "./datainterfaces";
 import { getFormattedDate, getFormattedDateTime, getFormattedTimeZoneOffset } from "../tools/timing";
-import { BpmnProcess, IRoleOwnerMap, IRoleOwner } from "../process";
-import { Bpmn } from "../process/bpmn";
+import { IRoleOwnerMap, IRoleOwner, IProcessRoles } from "../process";
 import { replaceOldFieldSyntax } from "../tools";
 
 const fieldNameRegExp = /field\['([^'\]]*)'\]/;
@@ -30,7 +29,7 @@ function fieldValueToString(valueObject: IFieldValue): string {
   return res;
 }
 
-export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, process: BpmnProcess, roleOwners: IRoleOwnerMap): string {
+export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, processRoles: IProcessRoles, roleOwners: IRoleOwnerMap): string {
   if (inputString == null)
     return null;
   if (fieldContentMap == null)
@@ -76,9 +75,9 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
       roleProperty = match[groupIndexForRoleProperty];
     }
     if (roleName != null) {
-      const lane: Bpmn.ILane = process.getLanes(false).find(l => l.name === roleName);
-      if (lane) {
-        const roleOwner: IRoleOwner[] = roleOwners[lane.id];
+      const laneId: string = Object.keys(processRoles).find(key => processRoles[key].roleName == roleName);
+      if (laneId) {
+        const roleOwner: IRoleOwner[] = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {
           result = replaceAll(result, placeHolder, (roleProperty && roleOwner[0].user) ? ((roleOwner[0]).user as unknown as { [key: string]: string })[roleProperty] : roleOwner[0].displayName);
         } else {
@@ -115,9 +114,9 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
     const roleName: string = match[1];
 
     if (roleName && roleName.length) {
-      const lane: Bpmn.ILane = process.getLanes(false).find(l => l.name === roleName);
-      if (lane) {
-        const roleOwner = roleOwners[lane.id];
+      const laneId: string = Object.keys(processRoles).find(key => processRoles[key].roleName == roleName);
+      if (laneId) {
+        const roleOwner = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {
           result = replaceAll(result, placeHolder, roleOwner[0].displayName);
         }
