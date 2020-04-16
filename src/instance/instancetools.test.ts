@@ -39,6 +39,7 @@ describe("sdk", function () {
           instanceId: createId(),
           processId: createId(),
           workspaceId: createId(),
+          dashboardTitle: "{{ field.Titel }}",
           extras: {
             instanceState: undefined,
             fieldContents: {
@@ -83,10 +84,10 @@ describe("sdk", function () {
         });
 
         it("should check getInstanceTitle", function () {
-          process.extras.settings.dashboard.cardTitle = undefined;
+          instance.dashboardTitle = undefined;
           let title = getInstanceTitle(instance, process);
           expect(title).is.equal(instance.instanceId.toLowerCase());
-          process.extras.settings.dashboard.cardTitle = "{{ field.Titel }}";
+          instance.dashboardTitle = "{{ field.Titel }}";
 
           title = getInstanceTitle(instance, process);
           expect(title).is.equal(instance.instanceId.toLowerCase());
@@ -97,7 +98,7 @@ describe("sdk", function () {
           expect(title).is.equal(checkTitle);
 
           const checkTitle2 = "Test Titel Neu";
-          process.extras.settings.dashboard.cardTitle = "Testinger {{ field.Titel }}";
+          instance.dashboardTitle = "Testinger {{ field.Titel }}";
           instance.extras.fieldContents["Titel"] = { type: "ProcessHubTextInput", value: checkTitle2 };
           title = getInstanceTitle(instance, process);
           expect(title).is.equal("Testinger " + checkTitle2);

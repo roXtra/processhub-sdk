@@ -5,6 +5,7 @@ import { BpmnProcess } from "../process/bpmn/bpmnprocess";
 import { ILoadTemplateReply } from "../process/legacyapi";
 import { createBpmnTemplate } from "../process/bpmn/bpmnmoddlehelper";
 import { IRoleOwnerMap } from "../process/processrights";
+import { IProcessRoles, getProcessRoles } from "../process";
 
 describe("sdk", function () {
   describe("data", function () {
@@ -65,7 +66,8 @@ describe("sdk", function () {
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { Anlagen: "1" } as IFieldContentMap, bpmnProcess, { [bpmnProcess.getLanes(false).find(l => l.name === "Bearbeiter").id]: [{ memberId: "1", displayName: "Administrator, Admin" }] } as IRoleOwnerMap);
+          const processRoles: IProcessRoles = getProcessRoles(null, bpmnProcess, "1");
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { Anlagen: "1" } as IFieldContentMap, processRoles, { [bpmnProcess.getLanes(false).find(l => l.name === "Bearbeiter").id]: [{ memberId: "1", displayName: "Administrator, Admin" }] } as IRoleOwnerMap);
 
           assert.equal(res, resultString);
         });
@@ -79,6 +81,7 @@ describe("sdk", function () {
           const reply: ILoadTemplateReply = await createBpmnTemplate();
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
+          const processRoles: IProcessRoles = getProcessRoles(null, bpmnProcess, "1");
 
           const res = DataTools.parseAndInsertStringWithFieldContent(testString, {
             "Date": {
@@ -89,7 +92,7 @@ describe("sdk", function () {
               value: undefined,
               type: "ProcessHubDateTime"
             },
-          }, bpmnProcess, {});
+          }, processRoles, {});
 
           assert.equal(res, resultString);
         });
@@ -103,13 +106,14 @@ describe("sdk", function () {
           const reply: ILoadTemplateReply = await createBpmnTemplate();
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
+          const processRoles: IProcessRoles = getProcessRoles(null, bpmnProcess, "1");
 
           const res = DataTools.parseAndInsertStringWithFieldContent(testString, {
             "Date": {
               value: new Date(2019, 9, 25, 12, 0, 0),
               type: "ProcessHubDate"
             }
-          }, bpmnProcess, {});
+          }, processRoles, {});
 
           assert.equal(res, resultString);
         });
@@ -123,6 +127,7 @@ describe("sdk", function () {
           const reply: ILoadTemplateReply = await createBpmnTemplate();
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
+          const processRoles: IProcessRoles = getProcessRoles(null, bpmnProcess, "1");
 
           const res = DataTools.parseAndInsertStringWithFieldContent(testString, {
             "Date": {
@@ -133,7 +138,7 @@ describe("sdk", function () {
               value: new Date(2019, 10, 25, 12, 0, 0),
               type: "ProcessHubDateTime"
             },
-          }, bpmnProcess, {});
+          }, processRoles, {});
 
           assert.equal(res, resultString);
         });
