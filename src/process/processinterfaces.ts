@@ -64,7 +64,6 @@ export interface IProcessDetails {
   workspaceId: string;
   displayName: string;
   urlName?: string;
-  fullUrl?: string; // @workspace/p/urlname
   previewUrl?: string;  // Full url of preview-svg (including https://)
   description: string;
   useModeler?: boolean;

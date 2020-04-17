@@ -78,7 +78,7 @@ export interface IChecklistFieldConfig extends IFieldConfigDefault {
   oneEntryMustBeChecked: boolean;
 }
 
-export interface IDateFieldConfig extends IFieldConfigDefault { }
+export type IDateFieldConfig = IFieldConfigDefault;
 
 export interface IDropdownFieldConfig extends IFieldConfigDefault {
   options: string[];
@@ -96,8 +96,7 @@ export interface ILabelConfig extends IFieldConfig {
   labelHtml: string;
 }
 
-export interface IMailFieldConfig extends IFieldConfigDefault {
-}
+export type IMailFieldConfig = IFieldConfigDefault;
 
 export interface INumberFieldConfig extends IFieldConfigDefault {
   evalDefaultValue: boolean;
@@ -130,9 +129,9 @@ export interface IRoxFileFieldConfig extends IFieldConfig {
   roxFileIconUrl: string;
 }
 
-export interface ISignatureFieldConfig extends IFieldConfig { }
+export type ISignatureFieldConfig = IFieldConfig;
 
-export interface ISpreadSheetFieldConfig extends IFieldConfigDefault { }
+export type ISpreadSheetFieldConfig = IFieldConfigDefault;
 
 export interface ITextAreaFieldConfig extends IFieldConfigDefault {
   evalDefaultValue: boolean;

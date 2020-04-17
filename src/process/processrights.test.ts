@@ -9,7 +9,6 @@ const testProcess: IProcessDetails = {
   workspaceId: "2000E70281B5ECD5",
   displayName: "Testprocess",
   urlName: "testprocess",
-  fullUrl: "/@testworkspace/p/testprocess",
   previewUrl: "https://s3.eu-central-1.amazonaws.com/processhub/2000E70281B5ECD5/8700E70281B5ECD5/preview.svg",
   description: "This is a test process",
   processId: "8700E70281B5ECD5",
