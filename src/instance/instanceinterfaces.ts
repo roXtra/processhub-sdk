@@ -3,6 +3,7 @@ import { IDecisionTask, ITodoDetails } from "../todo";
 import { IFieldContentMap } from "../data";
 import { Bpmn } from "modeler/bpmn/bpmn";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
+import { Context } from "moddle-xml/lib/reader";
 
 export enum State {
   // DON'T CHANGE NUMBERS - used in database
@@ -36,9 +37,6 @@ export interface IInstanceDetails {
   instanceId: string;
   workspaceId: string;
   processId: string;
-  // DisplayName?: string;
-  // instanceNumber?: string;  // 123.4567.890, created on execution
-  fullUrl?: string; // = /i/@workspace/instanceid
   createdAt?: Date;
   completedAt?: Date;
   isSimulation?: boolean;
@@ -90,7 +88,7 @@ export interface IEngineState {
 export interface IEngineStateDefinition {
   id: string;
   state: string;
-  moddleContext: any;
+  moddleContext: Context;
   stopped: boolean;
   processes: IEngineStateDefinitionProcess;
   environment: any;

@@ -55,6 +55,9 @@ export interface IServiceTaskEnvironment {
   bpmnXml: string;
   bpmnTaskId: string;
   bpmnTaskName: string;
+  /**
+   * @deprecated user instanceDetails.fieldContents
+   */
   fieldContents: IFieldContentMap;
   instanceDetails: IInstanceDetails;
   instances: IServiceTaskInstances;

@@ -5,8 +5,6 @@ import { IGroupDetails } from "../group/groupinterfaces";
 
 export interface IWorkspaceDetails {
   workspaceId: string;
-  urlName?: string; // DisplayName converted to Uri segment
-  fullUrl?: string; // @urlname
   displayName: string;
   description?: string;
   userRole?: WorkspaceRole;  // Rolle des angemeldeten Users im Workspace

@@ -22,7 +22,7 @@ async function readFileAsync(fileName: string): Promise<string> {
 
 let TestRowDetails: IRowDetails[] = [];
 
-function addTask(rowDetails: IRowDetails[], rowNumber: number, bpmnProcess: any): void {
+function addTask(rowDetails: IRowDetails[], rowNumber: number, bpmnProcess: BpmnProcess): void {
   rowDetails.splice((rowNumber + 1), 0, { rowNumber: (rowNumber + 1), selectedRole: rowDetails[rowNumber].selectedRole, task: "", taskId: null, laneId: rowDetails[rowNumber].laneId, taskType: "bpmn:UserTask", jumpsTo: rowDetails[rowNumber].jumpsTo });
 
   bpmnProcess.addTaskBetween(rowDetails, (rowNumber + 1));
