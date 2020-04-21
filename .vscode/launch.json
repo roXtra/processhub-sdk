@@ -16,8 +16,7 @@
                 "--inspect"
             ],
             "autoAttachChildProcesses": false,
-            "internalConsoleOptions": "openOnSessionStart",
-            "port": 9229
+            "internalConsoleOptions": "openOnSessionStart"
         },
     ]
 }
