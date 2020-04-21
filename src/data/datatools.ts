@@ -1,6 +1,6 @@
 import { IFieldContentMap, isFieldValue, IFieldDefinition, FieldType, IFieldValue } from "./datainterfaces";
 import { getFormattedDate, getFormattedDateTime, getFormattedTimeZoneOffset } from "../tools/timing";
-import { IRoleOwnerMap, IRoleOwner, IProcessRoles } from "../process";
+import { IRoleOwnerMap, IRoleOwner, IProcessRoles, BpmnProcess } from "../process";
 import { replaceOldFieldSyntax } from "../tools";
 
 const fieldNameRegExp = /field\['([^'\]]*)'\]/;
@@ -29,7 +29,10 @@ function fieldValueToString(valueObject: IFieldValue): string {
   return res;
 }
 
-export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, processRoles: IProcessRoles, roleOwners: IRoleOwnerMap): string {
+// Different types of parameter procesOrRoles to support old services (customer)
+export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, processOrRoles: IProcessRoles, roleOwners: IRoleOwnerMap): string;
+export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, processOrRoles: BpmnProcess, roleOwners: IRoleOwnerMap): string;
+export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, processOrRoles: BpmnProcess | IProcessRoles, roleOwners: IRoleOwnerMap): string {
   if (inputString == null)
     return null;
   if (fieldContentMap == null)
@@ -75,7 +78,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
       roleProperty = match[groupIndexForRoleProperty];
     }
     if (roleName != null) {
-      const laneId: string = Object.keys(processRoles).find(key => processRoles[key].roleName == roleName);
+      const laneId: string = processOrRoles instanceof BpmnProcess ? processOrRoles.getLanes(false).find(l => l.name === roleName).id : Object.keys(processOrRoles).find(key => processOrRoles[key].roleName == roleName);
       if (laneId) {
         const roleOwner: IRoleOwner[] = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {
@@ -114,7 +117,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
     const roleName: string = match[1];
 
     if (roleName && roleName.length) {
-      const laneId: string = Object.keys(processRoles).find(key => processRoles[key].roleName == roleName);
+      const laneId: string = processOrRoles instanceof BpmnProcess ? processOrRoles.getLanes(false).find(l => l.name === roleName).id : Object.keys(processOrRoles).find(key => processOrRoles[key].roleName == roleName);
       if (laneId) {
         const roleOwner = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {
