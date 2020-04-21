@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git://github.com/roXtra/processhub-sdk.git"
   },
-  "version": "8.23.0-2",
+  "version": "8.23.0-3",
   "author": {
     "name": "ProcessHub",
     "email": "info@processhub.com",
@@ -28,7 +28,6 @@
   "deprecated": false,
   "description": "ProcessHub SDK for JavaScript/TypeScript",
   "dependencies": {
-    "@hapi/hapi": "^18.4.1",
     "bpmn-moddle": "^4.0.0",
     "core-js": "^3.6.5",
     "fetch-everywhere": "^1.0.5",
@@ -61,7 +60,6 @@
     "@babel/preset-typescript": "^7.9.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.11",
-    "@types/hapi__hapi": "^18.2.6",
     "@types/lodash": "^4.14.149",
     "@types/mocha": "^7.0.2",
     "@types/node": "^12.7.8",

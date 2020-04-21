@@ -3,7 +3,6 @@ import { PREVIEW_FILENAME } from "../filestore/ifilestore";
 import { IInstanceDetails } from "../instance";
 import { ISendMailTemplateReply } from "../mailer/mailerinterfaces";
 import { IProcessDetails } from "../process/processinterfaces";
-import { ServerRoute } from "@hapi/hapi";
 
 export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTaskEnvironment {
 
@@ -77,7 +76,6 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       // eslint-disable-next-line @typescript-eslint/require-await
       getLastModifiedDate: async (): Promise<Date> => new Date(),
       getPhysicalPath: (): string => "",
-      getDownloadRoute: (): ServerRoute => undefined,
     },
     logger: {
       debug: m => console.debug(m),
