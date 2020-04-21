@@ -1,6 +1,6 @@
 declare module "diagram-js/lib/layout/BaseLayouter" {
   import { IPoint } from "diagram-js";
-  import { Connection } from "diagram-js/lib/model";
+  import { Connection, Shape } from "diagram-js/lib/model";
 
   /**
    * A base connection layouter implementation
@@ -29,6 +29,8 @@ declare module "diagram-js/lib/layout/BaseLayouter" {
   export interface IConnectionHints {
     connectionStart: IPoint | false;
     connectionEnd: IPoint | false;
+    source?: Shape;
+    target?: Shape;
   }
 
 }
