@@ -29,7 +29,7 @@ function fieldValueToString(valueObject: IFieldValue): string {
   return res;
 }
 
-// different types of parameter procesOrRoles to support old services (customer)
+// Different types of parameter procesOrRoles to support old services (customer)
 export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, processOrRoles: IProcessRoles, roleOwners: IRoleOwnerMap): string;
 export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, processOrRoles: BpmnProcess, roleOwners: IRoleOwnerMap): string;
 export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, processOrRoles: BpmnProcess | IProcessRoles, roleOwners: IRoleOwnerMap): string {
