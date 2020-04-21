@@ -1,5 +1,3 @@
-import Hapi from "@hapi/hapi";
-
 export const PREVIEW_FILENAME = "preview.svg";
 
 export interface IFileStore {
@@ -26,7 +24,4 @@ export interface IFileStore {
   getLastModifiedDate(key: string): Promise<Date>;
 
   getPhysicalPath(key: string): string;
-
-  getDownloadRoute(): Hapi.ServerRoute;
-
 }
