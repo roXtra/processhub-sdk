@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git://github.com/roXtra/processhub-sdk.git"
   },
-  "version": "8.23.0-10",
+  "version": "8.23.0-11",
   "author": {
     "name": "ProcessHub",
     "email": "info@processhub.com",
@@ -33,8 +33,8 @@
     "fetch-everywhere": "^1.0.5",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "scripts": {
     "tsc": "tsc",
@@ -60,10 +60,10 @@
     "@babel/preset-typescript": "^7.9.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.11",
-    "@types/lodash": "^4.14.149",
+    "@types/lodash": "^4.14.150",
     "@types/mocha": "^7.0.2",
     "@types/node": "^12.7.8",
-    "@types/react": "^16.9.15",
+    "@types/react": "^16.9.34",
     "@types/webpack-env": "^1.15.1",
     "@typescript-eslint/eslint-plugin": "^2.28.0",
     "@typescript-eslint/parser": "^2.28.0",
