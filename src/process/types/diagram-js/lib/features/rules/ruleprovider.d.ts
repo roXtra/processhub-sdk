@@ -73,8 +73,7 @@ declare module "diagram-js/lib/features/rules/RuleProvider" {
     public addRule(actions: "shape.resize", fn: (context: IShapeResizeContext) => boolean): void;
     public addRule(actions: ModelingAction | ModelingAction[], fn: (context: {}) => boolean): void;
     public addRule(actions: ModelingAction | ModelingAction[], priority: number, fn: (context: {}) => boolean): void;
-    public addRule(actions: "connection.reconnectEnd", fn: (context: IConnectionReconnectEndContext) => boolean): void;
-    public addRule(actions: "connection.reconnectStart", fn: (context: IConnectionReconnectStartContext) => boolean): void;
+    public addRule(actions: "connection.reconnect", fn: (context: IConnectionReconnectContext) => boolean): void;
     public addRule(actions: "shape.create", fn: (context: IShapeCreateContext) => boolean): void;
     public addRule(actions: "shape.append", fn: (context: IShapeAppendContext) => boolean): void;
     public addRule(actions: "elements.delete", fn: (context: IElementsDeleteContext) => boolean): void;
@@ -96,23 +95,9 @@ declare module "diagram-js/lib/features/rules/RuleProvider" {
   }
 
   export interface IConnectionReconnectContext {
-    allowed: boolean;
-    bendpointIndex: number;
     connection: Connection;
-    draggerGfx: SVGGElement;
-    hover: Shape;
-    insert: boolean;
-    newWaypoints: IPoint[];
-    originalWaypoints: IPoint[];
-    snapPoints: {};
-  }
-
-  export interface IConnectionReconnectStartContext extends IConnectionReconnectContext {
-    type: "connection.reconnectStart";
-  }
-
-  export interface IConnectionReconnectEndContext extends IConnectionReconnectContext {
-    type: "connection.reconnectEnd";
+    source: Shape;
+    target: Shape;
   }
 
   export interface IConnectionStartContext {
