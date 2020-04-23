@@ -88,6 +88,8 @@ declare module "diagram-js/lib/features/snapping/SnapContext" {
     constructor(defaultPoints: {});
 
     public add(snapLocation: string, point: IPoint): void;
+
+    public snap(point: IPoint, snapLocation: string, axis: "x" | "y", tolerance: number): number;
   }
 
 }
