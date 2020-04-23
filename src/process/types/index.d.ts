@@ -34,6 +34,7 @@
 /// <reference path="./diagram-js/lib/features/rules/rules.d.ts" />
 /// <reference path="./diagram-js/lib/features/selection/selection.d.ts" />
 /// <reference path="./diagram-js/lib/features/snapping/snapcontext.d.ts" />
+/// <reference path="./diagram-js/lib/features/snapping/createmovesnapping.d.ts" />
 /// <reference path="./diagram-js/lib/features/snapping/snapping.d.ts" />
 /// <reference path="./diagram-js/lib/features/space-tool/spacetool.d.ts" />
 /// <reference path="./diagram-js/lib/features/tooltips/tooltips.d.ts" />
