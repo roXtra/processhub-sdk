@@ -51,6 +51,8 @@ declare module "moddle-xml/lib/reader" {
   export class ElementHandler extends BaseElementHandler {
     public constructor(model: {}, type: {}, context: Context);
 
+    public element: Factory.ModddleElement;
+
     public addReference(reference: {}): void;
 
     public handleEnd(): void;
