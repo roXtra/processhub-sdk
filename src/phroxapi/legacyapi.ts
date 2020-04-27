@@ -59,13 +59,6 @@ export interface IGetFolderContentReply extends IBaseReply {
   folders: IRoxFolder[];
 }
 
-export interface IGetFileDetailsRequest {
-
-}
-export interface IGetFileDetailsReply {
-
-}
-
 export interface IGetDocumentRequest {
   roxFileId: number;
   fieldName: string;
