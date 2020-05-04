@@ -14,7 +14,10 @@ describe("sdk", function () {
       });
 
       it("should return the correct module for views", () => {
+        // Old URL without /f (<= 8.23.0)
         assert.isTrue(getModuleForRequestPath("/view/executebuttonview").moduleId === ModuleId.EForm);
+        // New URL with /f (>= 8.24.0)
+        assert.isTrue(getModuleForRequestPath("/f/view/executebuttonview").moduleId === ModuleId.EForm);
       });
 
     });
