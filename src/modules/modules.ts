@@ -1,17 +1,21 @@
 import { IModule, ModuleId } from "./imodule";
 import { tl } from "../tl";
 
+export const EForm: IModule = {
+  moduleId: ModuleId.EForm,
+  urlPrefix: "f",
+  name: tl("Elektronische Formulare und Vorgänge"),
+};
+
+export const RiskManagement: IModule = {
+  moduleId: ModuleId.RiskManagement,
+  urlPrefix: "r",
+  name: tl("Risikomanagement"),
+};
+
 export const modules: IModule[] = [
-  {
-    moduleId: ModuleId.EForm,
-    urlPrefix: "f",
-    name: tl("Elektronische Formulare und Vorgänge"),
-  },
-  {
-    moduleId: ModuleId.RiskManagement,
-    urlPrefix: "riskmanagement",
-    name: tl("Risikomanagement"),
-  }
+  EForm,
+  RiskManagement
 ];
 
 export function getModuleForRequestPath(requestPath: string): IModule {
