@@ -68,14 +68,14 @@ describe("sdk", function () {
 
         describe("riskmanagement", function () {
           it("should parse top page", function () {
-            const path = parseUrl("/riskmanagement/"); // Ignore case and / at end
+            const path = parseUrl("/r/"); // Ignore case and / at end
             assert.deepEqual(path, {
               page: Page.StartPage
             } as IPathDetails);
           });
 
           it("should parse workspace pages", function () {
-            const path = parseUrl("/riskmanagement/@testworkSpace/"); // Ignore case and / at end
+            const path = parseUrl("/r/@testworkSpace/"); // Ignore case and / at end
             assert.deepEqual(path, {
               page: Page.WorkspacePage,
               view: WorkspaceView.Processes,
@@ -110,7 +110,7 @@ describe("sdk", function () {
 
         describe("riskmanagement", function () {
           it("should parse risk todo links", function () {
-            const elements = parseNotificationLink("/riskmanagement/i/TestWorkspace/e8B278368B1002d7"); // Ignore case and / at end
+            const elements = parseNotificationLink("/r/i/TestWorkspace/e8B278368B1002d7"); // Ignore case and / at end
             assert.deepEqual(elements, {
               instanceId: "E8B278368B1002D7"
             });

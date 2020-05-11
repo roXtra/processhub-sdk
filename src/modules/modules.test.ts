@@ -9,8 +9,10 @@ describe("sdk", function () {
       it("should return the correct module", () => {
         assert.isTrue(getModuleForRequestPath("/").moduleId === ModuleId.EForm);
         assert.isTrue(getModuleForRequestPath("/@3089").moduleId === ModuleId.EForm);
-        assert.isTrue(getModuleForRequestPath("/riskmanagement").moduleId === ModuleId.RiskManagement);
-        assert.isTrue(getModuleForRequestPath("/riskmanagement/@3081").moduleId === ModuleId.RiskManagement);
+        assert.isTrue(getModuleForRequestPath("/f").moduleId === ModuleId.EForm);
+        assert.isTrue(getModuleForRequestPath("/f/@3089").moduleId === ModuleId.EForm);
+        assert.isTrue(getModuleForRequestPath("/r").moduleId === ModuleId.RiskManagement);
+        assert.isTrue(getModuleForRequestPath("/r/@3081").moduleId === ModuleId.RiskManagement);
       });
 
       it("should return the correct module for views", () => {
