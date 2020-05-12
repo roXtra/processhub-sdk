@@ -23,12 +23,9 @@ export function getModuleForRequestPath(requestPath: string): IModule {
   while (prefix.startsWith("/")) {
     prefix = prefix.substr(1);
   }
-  // Remove area id
-  prefix = prefix.split("@")[0];
 
-  while (prefix.endsWith("/")) {
-    prefix = prefix.substr(0, prefix.length - 1);
-  }
+  // Look only at first path segment
+  prefix = prefix.split("/")[0];
 
   for (const m of modules) {
     if (m.urlPrefix === prefix) {
