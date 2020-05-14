@@ -22,21 +22,14 @@ export interface IRiskAssessmentDimension {
   entries: IRiskAssessmentDimensionEntry[];
 }
 
-export interface IRiskManagementColorRange {
+export interface IRiskManagementColor {
   from: number;
   to: number;
-}
-
-export interface IRiskManagementColors {
-  green: IRiskManagementColorRange;
-  olive: IRiskManagementColorRange;
-  yellow: IRiskManagementColorRange;
-  orange: IRiskManagementColorRange;
-  red: IRiskManagementColorRange;
+  code: string;
 }
 
 export interface IRiskManagementProcessSettings {
   dimensions: IRiskAssessmentDimension[];
-  colors: IRiskManagementColors;
+  colors: IRiskManagementColor[];
   hideMatrix: boolean;
 }
