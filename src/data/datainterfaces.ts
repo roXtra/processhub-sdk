@@ -2,7 +2,7 @@ import { IInstanceEnvironment } from "../environment";
 import { BpmnProcess } from "../process";
 import { IInstanceDetails, IRiskAssessmentValue } from "../instance/instanceinterfaces";
 import { UserDetails } from "../user";
-import { Process } from "..";
+import { Process, ActionHandler } from "..";
 
 export interface IFieldDefinition {
   name: string;
@@ -178,12 +178,13 @@ export type FieldType =
   | "ProcessHubMail"
   | "ProcessHubNumber"
   | "ProcessHubRiskAssessment"
+  | "ProcessHubRiskAssessmentTodos"
   | "ProcessHubSpreadSheet";
 
 export interface IFieldType {
   getType(): FieldType;
   getName(): string;
-  getInput(props: IFormElementProps, instanceEnv: IInstanceEnvironment, bpmnProcess: BpmnProcess, onFieldValueChanged: () => void, showInvalidFields: boolean, startEventId?: string): JSX.Element;
+  getInput(props: IFormElementProps, instanceEnv: IInstanceEnvironment, actionHandler: ActionHandler, onFieldValueChanged: () => void, showInvalidFields: boolean, startEventId?: string): JSX.Element;
   renderValue(value: {}, instance: IInstanceDetails, showDirect?: boolean): JSX.Element;
   renderValueForEmail(value: {}, instance: IInstanceDetails, showDirect?: boolean): JSX.Element;
   getSettingsButton(fieldDefinition: IFieldDefinition, onConfigChanged: (fieldDefinition: IFieldDefinition) => void, bpmnProcess: Process.BpmnProcess): JSX.Element;
