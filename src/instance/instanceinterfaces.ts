@@ -4,6 +4,7 @@ import { IFieldContentMap } from "../data";
 import { Bpmn } from "modeler/bpmn/bpmn";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 import { Context } from "moddle-xml/lib/reader";
+import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
 
 export enum State {
   // DON'T CHANGE NUMBERS - used in database
@@ -24,12 +25,17 @@ export interface IRiskAssessmentValue {
 }
 
 export interface IRiskAssessment extends IRiskAssessmentValue {
+  // Id of the assessment
+  assessmentId: string;
   // The date when the assessment was made
   date: Date;
   // The date when the assessment was expected
   todoDate: Date;
-  assessmentId: string;
+  // The assessment cycle at the time when the assessment was expected
+  cycle: RiskAssessmentCycle;
+  // The id of the user that made the assessment
   userId: string;
+  // Displayname of the user that made the assessment
   userDisplayName: string;
 }
 
