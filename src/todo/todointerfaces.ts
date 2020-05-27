@@ -1,5 +1,6 @@
 import { UserDetails } from "../user";
 import { Bpmn } from "../process/bpmn";
+import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
 
 export enum TodoStatus {
   TodoOnTime = 0,
@@ -7,16 +8,21 @@ export enum TodoStatus {
 }
 
 export enum TodoType {
+  // A regular UserTask or ExclusiveGateway
   Regular = 0,
-  Simulation = 1, // Deprecated: maybe delete on some point and remove all simulation code
+  // A simularion todo
+  Simulation = 1,
+  // A running SubProcess
   SubProcess = 2,
+  // Intermediate CatchEvent waiting for timer/mail
   Intermediate = 3,
+  // SubProcess with missing role, will be started as soon as role was set
   SubProcessWaitingForStart = 4
 }
 
 export interface ITodoDetails {
   todoId: string;
-  todoType?: TodoType;
+  todoType: TodoType;
   userId?: string;
   workspaceId: string;
   processId: string;
@@ -32,6 +38,11 @@ export interface ITodoDetails {
   dueAt?: Date;
   subInstanceId?: string;
   token?: string;
+  // Additional data a todo can contain, may depend on the module
+  data: {
+    // The risk assessment cycle of the risk at the time the todo was created
+    riskAssessmentCycle?: RiskAssessmentCycle;
+  };
 }
 
 export const DecisionTaskTypes = {

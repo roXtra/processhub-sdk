@@ -1,8 +1,8 @@
 import { IInstanceEnvironment } from "../environment";
-import { BpmnProcess } from "../process";
 import { IInstanceDetails, IRiskAssessmentValue } from "../instance/instanceinterfaces";
 import { UserDetails } from "../user";
 import { Process, ActionHandler } from "..";
+import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
 
 export interface IFieldDefinition {
   name: string;
@@ -152,7 +152,8 @@ export type FieldValueType =
   { [key: string]: boolean } | // Checklist
   IRadioButtonGroupFieldValue | // RadioButtonGroup
   ISpreadSheetFieldValue | // SpreadSheet
-  IRiskAssessmentValue; // RiskAssesment
+  IRiskAssessmentValue | // RiskAssesment
+  RiskAssessmentCycle; // RiskAssessmentCycle
 
 export interface IFieldValue {
   type: FieldType;
@@ -179,6 +180,7 @@ export type FieldType =
   | "ProcessHubNumber"
   | "ProcessHubRiskAssessment"
   | "ProcessHubRiskAssessmentTodos"
+  | "ProcessHubRiskAssessmentCycle"
   | "ProcessHubSpreadSheet";
 
 export interface IFieldType {
