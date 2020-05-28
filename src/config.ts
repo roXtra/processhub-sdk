@@ -2,7 +2,7 @@ import { IClientSettingsConfig, IFeatureConfig } from "./serverconfig/iconfig";
 import { ModuleId } from "./modules";
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   interface Window { __INITIAL_CONFIG__: IInitialConfig }
 }
 

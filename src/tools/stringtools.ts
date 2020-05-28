@@ -63,7 +63,7 @@ export function stringExcerpt(source: string, maxLen: number): string {
 export function getShuffledNumberArray(amountOfElements: number, numberLenght = 3): number[] {
   const array: number[] = [];
   for (let i = 0; i < amountOfElements; i++) {
-    const value = ("000" + i).slice(-(numberLenght));
+    const value = ("000" + String(i)).slice(-(numberLenght));
     array.push(parseInt(value));
   }
   return shuffleArray(array);
@@ -89,7 +89,7 @@ export function removeHtmlTags(html: string): string {
 
 export function replaceOldFieldSyntax(oldValue: string): string {
   if (oldValue) {
-    return oldValue.replace(/([{]{2}[\s]?(field|role)\.(.+?)(\s)*[}]{2})/g, (match, p1, p2, p3, p4, offset, value): string => { return p2 + "['" + p3 + "']"; }); // Fallback: rewrite old syntax {{ field.abc }} -> field['abc'];
+    return oldValue.replace(/([{]{2}[\s]?(field|role)\.(.+?)(\s)*[}]{2})/g, (match, p1: string, p2: string, p3: string, p4: string, offset, value): string => { return p2 + "['" + p3 + "']"; }); // Fallback: rewrite old syntax {{ field.abc }} -> field['abc'];
   }
   return oldValue;
 }
@@ -124,7 +124,7 @@ export function getQueryFromRule(rule: Rule): string {
       break;
   }
 
-  return `${rule.field} ${rule.operator} ${value}`;
+  return `${rule.field} ${rule.operator} ${String(value)}`;
 }
 
 export class NestedElement { query: string; type: string; top?: boolean; }
@@ -143,7 +143,7 @@ export function getNestedElements(query: string): NestedElements {
     const uuid = Tools.createId();
     if (match[3]) {
       res[uuid] = { query: "", type: "nested" };
-      replacedQuery = replacedQuery.replace(nestedRegex, (m, p1, p2, p3, p4, offset, full) => { return p2 + uuid + p4; });
+      replacedQuery = replacedQuery.replace(nestedRegex, (m, p1: string, p2: string, p3: string, p4: string, offset, full) => { return p2 + uuid + p4; });
     } else {
       res[uuid] = { query: match[6], type: isCombinatorRegex.test(match[6]) ? "group" : (ruleRegex.test(match[0]) ? "rule" : "nested") };
       replacedQuery = replacedQuery.replace(nestedRegex, uuid);

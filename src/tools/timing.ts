@@ -9,7 +9,7 @@ export function getFormattedDate(date: Date): string {
   const days: string = date.getDate() < 10 ? "0" + date.getDate().toString() : date.getDate().toString();
   const months: string = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
 
-  return days + "." + months + "." + date.getFullYear();
+  return days + "." + months + "." + date.getFullYear().toString();
 }
 
 export function getFormattedDateTime(dateTime: Date): string {

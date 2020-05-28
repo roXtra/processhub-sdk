@@ -1,4 +1,4 @@
-export async function get(APIUrl: string, token: string): Promise<Response> {
+export async function get(apiUrl: string, token: string): Promise<Response> {
   const headers = {
     "Authorization": "Bearer " + token
   };
@@ -8,11 +8,11 @@ export async function get(APIUrl: string, token: string): Promise<Response> {
     headers: headers,
   };
 
-  return await fetch(APIUrl, req);
+  return await fetch(apiUrl, req);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function post(APIUrl: string, token: string, body: any): Promise<Response> {
+export async function post(apiUrl: string, token: string, body: any): Promise<Response> {
   const headers = {
     "Content-Type": "application/json",
     "Authorization": "Bearer " + token
@@ -24,5 +24,5 @@ export async function post(APIUrl: string, token: string, body: any): Promise<Re
     body: JSON.stringify(body)
   };
 
-  return await fetch(APIUrl, req);
+  return await fetch(apiUrl, req);
 }

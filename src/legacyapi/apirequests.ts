@@ -49,7 +49,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
       case 200: {
         const json = await response.json();
         if (json.result !== ApiResult.API_OK) {
-          console.log("getJson " + url + ": " + json.result);
+          console.log("getJson " + url + ": " + String(json.result));
           console.log(json);
         }
         return json;
@@ -120,7 +120,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       case 200: {
         const json = await response.json();
         if (json.result !== ApiResult.API_OK) {
-          console.log("postJson " + url + ": " + json.result);
+          console.log("postJson " + url + ": " + String(json.result));
           console.log(json);
         }
         return json;
@@ -183,7 +183,7 @@ export async function getExternalJson<Request extends IBaseRequest>(apiEndpointU
     case 200: {
       const json = await response.json();
       if (json.result !== ApiResult.API_OK) {
-        console.log("getJson " + url + ": " + json.result);
+        console.log("getJson " + url + ": " + String(json.result));
         console.log(json);
       }
       return json;

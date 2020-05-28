@@ -58,7 +58,7 @@ export function fieldContentsExcerpt(instance: IInstanceDetails, maxLen: number)
         if (field.type === "ProcessHubDate") {
           // Format date
           const date: Date = new Date(value);
-          value = date.getDate() + "." + date.getMonth() + "." + date.getFullYear();
+          value = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
         }
         if (field.type !== "ProcessHubTextArea")
           excerpt += value.toString() + " / ";
@@ -68,7 +68,7 @@ export function fieldContentsExcerpt(instance: IInstanceDetails, maxLen: number)
         && (field).trim() !== ""
         && !(field).startsWith("http://")
         && !(field).startsWith("https://")) {
-        excerpt += instance.extras.fieldContents[key] + " / ";
+        excerpt += (instance.extras.fieldContents[key] as string) + " / ";
       }
     }
   }

@@ -298,9 +298,9 @@ export class BpmnProcessDiagram {
     const sourceDiagramObject = this.getShapeFromDiagram(sourceRef.id);
     const targetRef = flowObject.targetRef;
     const targetDiagramObject = this.getShapeFromDiagram(targetRef.id);
-    isTrue(sourceRef != null, "Missing Ref Source: " + flowObject.sourceRef);
+    isTrue(sourceRef != null, "Missing Ref Source: " + String(flowObject.sourceRef));
     isTrue(sourceDiagramObject != null, "Missing Object Source with ID: " + sourceRef.id);
-    isTrue(targetRef != null, "Missing Target Source: " + flowObject.targetRef);
+    isTrue(targetRef != null, "Missing Target Source: " + String(flowObject.targetRef));
     isTrue(targetDiagramObject != null, "Missing Object Target with ID: " + targetRef.id);
 
     if (drawJumpFlow) {

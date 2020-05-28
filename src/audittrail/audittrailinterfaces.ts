@@ -1,6 +1,7 @@
 import { UserDetails } from "../user/userinterfaces";
 import { IFieldValue } from "../data/datainterfaces";
 
+/* eslint-disable @typescript-eslint/naming-convention */
 export enum AuditTrailAction {
   instanceStarted = 1, // Deprecated - startEvent is logged for new instances
   completedTodo = 2,
@@ -42,6 +43,7 @@ export enum AuditTrailAction {
   fieldTypeChanged = 38,
   workspaceCreated = 100,
 }
+/* eslint-enable @typescript-eslint/naming-convention */
 
 export enum AuditTrailProcessFlag {
   Subprocess = 1,
