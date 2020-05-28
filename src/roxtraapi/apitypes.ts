@@ -63,7 +63,7 @@ export type IRoxtraCustomMailMessage = {
   Importance: number;
 };
 
-/* eslint-disable camelcase, @typescript-eslint/camelcase*/
+/* eslint-disable @typescript-eslint/naming-convention */
 export enum LicenseType {
   none,
 
@@ -112,7 +112,7 @@ export enum LicenseType {
   Language_Vietnamesisch,
   Language_Brasilianisch,
 }
-/* eslint-enable camelcase, @typescript-eslint/camelcase*/
+/* eslint-enable @typescript-eslint/naming-convention */
 
 export const moduleMapping: { [key: string]: number } = {
   "e-Formulare": LicenseType.eFormulare,

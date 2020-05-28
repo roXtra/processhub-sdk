@@ -18,7 +18,7 @@ export function equal<T extends string | number | boolean>(actual: T, expected: 
       if (message) {
         throw new Error("Assertion failed: " + message);
       } else {
-        throw new Error("Assertion failed: expected " + actual + " to equal " + expected);
+        throw new Error("Assertion failed: expected " + String(actual) + " to equal " + String(expected));
       }
     }
   }
@@ -30,7 +30,7 @@ export function isTrue(actual: boolean, message?: string): void {
       if (message) {
         throw new Error("Assertion failed: " + message);
       } else {
-        throw new Error("Assertion failed: expected " + actual + " to be true");
+        throw new Error("Assertion failed: expected " + String(actual) + " to be true");
       }
     }
   }
@@ -42,7 +42,7 @@ export function isFalse(actual: boolean, message?: string): void {
       if (message) {
         throw new Error("Assertion failed: " + message);
       } else {
-        throw new Error("Assertion failed: expected " + actual + " to be false");
+        throw new Error("Assertion failed: expected " + String(actual) + " to be false");
       }
     }
   }

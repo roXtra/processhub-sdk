@@ -1,7 +1,7 @@
 import { IAuthApi } from "./iapi";
 import { AuthRequestBody } from "./apitypes";
 
-async function post(APIUrl: string, body: AuthRequestBody): Promise<Response> {
+async function post(apiUrl: string, body: AuthRequestBody): Promise<Response> {
   const req = {
     method: "POST",
     body: JSON.stringify(body),
@@ -10,7 +10,7 @@ async function post(APIUrl: string, body: AuthRequestBody): Promise<Response> {
     }
   };
   try {
-    return await fetch(APIUrl, req);
+    return await fetch(apiUrl, req);
   }
   catch (ex) {
     console.error("Konnte keine Verbindung zur Auth API aufbauen");

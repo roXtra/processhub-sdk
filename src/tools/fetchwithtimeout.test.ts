@@ -23,7 +23,7 @@ describe("sdk", function () {
         // Connect to unreachable url - example.com is defined to be unreachable
         return fetchWithTimeout("http://example.com:81", request, 2000).then(onFulfilled => {
           throw new Error("This must not happen!");
-        }).catch(err => {
+        }).catch((err: Error) => {
           chai.expect(err.message).eq("Fetch request timed out", "Request did not timeout correctly!");
         });
       });
@@ -33,7 +33,7 @@ describe("sdk", function () {
         };
         return fetchWithTimeout("https://www.roxtra.com", request).then(onFulfilled => {
           return Promise.resolve();
-        }).catch(err => {
+        }).catch((err: Error) => {
           throw new Error("This must not happen! " + err.message);
         });
       });

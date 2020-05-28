@@ -316,7 +316,7 @@ describe("sdk", function () {
 
             const extensionValues = BpmnProcess.getExtensionValues(testTaskObject);
 
-            assert(extensionValues.isBuilderExpression === testValue, extensionValues.isBuilderExpression + " == " + testValue);
+            assert(extensionValues.isBuilderExpression === testValue, String(extensionValues.isBuilderExpression) + " == " + String(testValue));
           });
 
           it("soll List einfügen und lesen", function () {
@@ -325,7 +325,7 @@ describe("sdk", function () {
 
             const extensionValues = BpmnProcess.getExtensionValues(testTaskObject);
 
-            expect(extensionValues.sendTaskReceiver).to.eql(testValue, extensionValues.sendTaskReceiver + " == " + testValue);
+            expect(extensionValues.sendTaskReceiver).to.eql(testValue, String(extensionValues.sendTaskReceiver) + " == " + String(testValue));
           });
 
           it("soll alte Syntax korrekt aus XML laden und austauschen", function () {

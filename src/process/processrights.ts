@@ -214,7 +214,7 @@ function addIfLicenseAllows(owners: IPotentialRoleOwners, user: UserDetails): vo
   }
 }
 
-export function getPotentialRoleOwners(IWorkspaceDetails: IWorkspaceDetails, processDetails: IProcessDetails, roleId: string = null): { [roleId: string]: IPotentialRoleOwners } {
+export function getPotentialRoleOwners(workspaceDetails: IWorkspaceDetails, processDetails: IProcessDetails, roleId: string = null): { [roleId: string]: IPotentialRoleOwners } {
   const allOwners: { [roleId: string]: IPotentialRoleOwners } = {};
 
   if (processDetails.extras.processRoles == null) {
@@ -232,9 +232,9 @@ export function getPotentialRoleOwners(IWorkspaceDetails: IWorkspaceDetails, pro
           || potentialOwner.memberId === PredefinedGroups.Everybody)
           && !addedWsMembers) {
           // All workspace members are potential owners
-          if (IWorkspaceDetails.extras.members) {
+          if (workspaceDetails.extras.members) {
             // If someone is not a workspace member he does not have access to the member list, so this list is empty
-            for (const member of IWorkspaceDetails.extras.members) {
+            for (const member of workspaceDetails.extras.members) {
               addIfLicenseAllows(owners, member.userDetails);
             }
             addedWsMembers = true; // Merken, damit Member nicht mehrfach hinzugefügt werden, falls beide Gruppen genannt werden
@@ -245,8 +245,8 @@ export function getPotentialRoleOwners(IWorkspaceDetails: IWorkspaceDetails, pro
             displayName: potentialOwner.displayName
           });
         } else if (isGroupId(potentialOwner.memberId)) {
-          if (IWorkspaceDetails.extras.groups) {
-            const group: IGroupDetails = IWorkspaceDetails.extras.groups.find(g => g.groupId === potentialOwner.memberId);
+          if (workspaceDetails.extras.groups) {
+            const group: IGroupDetails = workspaceDetails.extras.groups.find(g => g.groupId === potentialOwner.memberId);
             if (group && group.members) {
               for (const member of group.members) {
                 addIfLicenseAllows(owners, member);

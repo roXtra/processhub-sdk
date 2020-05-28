@@ -257,6 +257,7 @@ export function getFiletypeIcon(filename: string): string {
 
 
 /* Interfaces for statistics */
+/* eslint-disable @typescript-eslint/naming-convention */
 export enum StatisticsAction {
   // Process
   processCreated = 1,
@@ -281,6 +282,7 @@ export enum StatisticsAction {
   // User
   userComment = 30,
 }
+/* eslint-enable @typescript-eslint/naming-convention */
 
 export interface IStatisticTrailEntry {
   todo?: { todoId?: string; bpmnTaskId: string; bpmnLaneId: string; desicionTaskBpmnTaskId?: string; timeOverDueDate?: number };
