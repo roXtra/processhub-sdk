@@ -20,6 +20,7 @@ export const RequestRoutes = {
   EcReleaseFileLock: "/api/phroxapi/ecreleasefilelock",
   EcReleaseWithoutExecute: "/api/phroxapi/ecreleasewithoutexecute",
   EcGetFileLock: "/api/phroxapi/ecgetfilelock",
+  GetModuleSettings: "/api/phroxapi/getmodulesettings",
 };
 
 export interface IProcessItem {
