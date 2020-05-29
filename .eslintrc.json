@@ -47,9 +47,8 @@
       }
     ],
     "id-blacklist": "error",
-    // Disabled for now to simplify eslint migration
     "no-underscore-dangle": [
-      "warn",
+      "error",
       {
         "allow": [
           "__INITIAL_CONFIG__",
