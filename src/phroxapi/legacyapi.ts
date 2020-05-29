@@ -1,8 +1,9 @@
 import { IBaseReply, IBaseRequest } from "../legacyapi";
-import { IRoxFile, IRoxFolder } from ".";
+import { IRoxFile, IRoxFolder, IModuleSelection } from ".";
 import { Instance } from "..";
 import { IFieldContentMap } from "../data";
 import { ITaskExtensions } from "../process/processinterfaces";
+import { ModuleId } from "../modules";
 
 export const RequestRoutes = {
   GetRootFolder: "/api/phroxapi/getrootfolder",
@@ -116,4 +117,11 @@ export interface IEcReleaseFileLockReply {
   LockReleased: boolean;
   ShowMessage: boolean;
   Message: string;
+}
+
+export interface IGetModuleSettingsReply extends IBaseReply {
+  currentModule: ModuleId;
+  refreshinterval: number;
+  class?: string;
+  mainItems: IModuleSelection[];
 }
