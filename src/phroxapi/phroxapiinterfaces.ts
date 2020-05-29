@@ -23,3 +23,18 @@ export interface ITodo {
   ShortSubject: string;
   Subject: string;
 }
+
+export interface IModuleSelection {
+  id?: string;
+  title: string;
+  items?: IModuleItem[];
+}
+
+export interface IModuleItem {
+  id?: string;
+  title: string;
+  subtitle?: string;
+  class?: string;
+  url?: string;
+  target: string;
+}
