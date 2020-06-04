@@ -181,7 +181,8 @@ export type FieldType =
   | "ProcessHubRiskAssessment"
   | "ProcessHubRiskAssessmentTodos"
   | "ProcessHubRiskAssessmentCycle"
-  | "ProcessHubSpreadSheet";
+  | "ProcessHubSpreadSheet"
+  | "ProcessHubProcessLink";
 
 export interface IFieldType {
   getType(): FieldType;

@@ -18,6 +18,13 @@ export const modules: IModule[] = [
   RiskManagement
 ];
 
+const modulesById: { [id: number]: IModule } = {};
+modules.forEach(m => modulesById[m.moduleId] = m);
+
+export function getModule(moduleId: ModuleId): IModule {
+  return modulesById[moduleId];
+}
+
 export function getModuleForRequestPath(requestPath: string): IModule {
   let prefix = requestPath;
   while (prefix.startsWith("/")) {
