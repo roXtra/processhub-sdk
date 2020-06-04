@@ -3,6 +3,7 @@ import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfigur
 import { IStatisticRow } from "../data";
 import { Bpmn } from "./bpmn";
 import { Context } from "moddle-xml/lib/reader";
+import { ModuleId } from "../modules";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -28,6 +29,7 @@ export const ProcessRequestRoutes = {
   DeleteArchiveView: "/api/process/deletearchiveview",
   UploadReportDraft: "/api/process/uploadreportdraft",
   DeleteReportDraft: "/api/process/deletereportdraft",
+  ListProcesses: "/api/process/listprocesses"
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
@@ -177,4 +179,14 @@ export interface ILoadTemplateReply {
   result: ProcessResult;
   bpmnXml: Bpmn.IDefinitions;
   bpmnContext: Context;
+}
+
+export interface IListProcessesReply extends IBaseReply {
+  processes: {
+    moduleId: ModuleId;
+    displayName: string;
+    processId: string;
+    workspaceId: string;
+    workspaceDisplayName: string;
+  }[];
 }
