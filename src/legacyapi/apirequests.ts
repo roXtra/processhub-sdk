@@ -9,7 +9,7 @@ import fetchWithTimeout from "../tools/fetchwithtimeout";
 // Browser dürfen fehlgeschlagene/verzögerte GET-Aufrufe jederzeit wiederholen, das ist gut, wenn die Verbindung hängt
 export async function getJson<Request extends IBaseRequest>(path: string, request: Request, accessToken: string = null): Promise<IBaseMessage> {
 
-  if (typeof window !== "undefined") {
+  if ((request.moduleId === undefined) && (typeof window !== "undefined")) {
     request.moduleId = window.__INITIAL_CONFIG__.moduleId;
   }
 
@@ -87,7 +87,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
 export async function postJson<Request extends IBaseRequest>(path: string, request: Request, accessToken: string = null): Promise<IBaseMessage> {
   const url = getBackendUrl() + path;
 
-  if (typeof window !== "undefined") {
+  if ((request.moduleId === undefined) && (typeof window !== "undefined")) {
     request.moduleId = window.__INITIAL_CONFIG__.moduleId;
   }
 
