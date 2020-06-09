@@ -15,6 +15,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
      */
     fieldContents: {},
     instanceDetails: {
+      title: "",
       instanceId: "",
       workspaceId: "",
       processId: "",

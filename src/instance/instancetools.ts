@@ -2,8 +2,7 @@ import { isFieldValue } from "../data/datainterfaces";
 import { IInstanceDetails } from "./instanceinterfaces";
 import { stringExcerpt } from "../tools/stringtools";
 import { isId } from "../tools/guid";
-import { parseAndInsertStringWithFieldContent } from "../data";
-import { IProcessDetails, isDefaultProcessRole } from "../process";
+import { isDefaultProcessRole } from "../process";
 
 export function parseInstanceMailSubject(mail: string): string {
   const regex = /(\[)(i-)(.*?)(\])/gm;
@@ -76,22 +75,4 @@ export function fieldContentsExcerpt(instance: IInstanceDetails, maxLen: number)
     excerpt = excerpt.substr(0, excerpt.length - 3);
 
   return stringExcerpt(excerpt, maxLen);
-}
-
-export function getInstanceTitle(instance: IInstanceDetails, process: IProcessDetails): string {
-  if (instance.dashboardTitle) {
-    try {
-      const parsedTitle = parseAndInsertStringWithFieldContent(instance.dashboardTitle, instance.extras.fieldContents, process.extras.processRoles, instance.extras.roleOwners);
-      if (parsedTitle && parsedTitle.length) {
-        return parsedTitle;
-      } else {
-        return instance.instanceId.toLowerCase();
-      }
-    }
-    catch (ex) {
-      return instance.instanceId.toLowerCase();
-    }
-  } else {
-    return instance.instanceId.toLowerCase();
-  }
 }
