@@ -41,6 +41,8 @@ export enum AuditTrailAction {
   timerBoundaryEventTriggered = 36,
   signalBoundaryEventTriggered = 37,
   fieldTypeChanged = 38,
+  // An instance linked in a ProcessLink field was deleted. linkedInstanceTitle is set to title of deleted instance in IAuditTrailEntryDetails.
+  linkedInstanceDeleted = 39,
   workspaceCreated = 100,
 }
 /* eslint-enable @typescript-eslint/naming-convention */
@@ -92,7 +94,7 @@ export interface IAuditTrailEntryDetails {
   // Must be set for todoDueAtDateChanged
   todoDueAt: Date;
 
-  // Must be set for fieldContentChanged, setFieldForSubProcess, setFieldForParentProcess, fieldTypeChanged
+  // Must be set for fieldContentChanged, setFieldForSubProcess, setFieldForParentProcess, fieldTypeChanged, linkedInstanceDeleted
   fieldName: string;
   newFieldValue: IFieldValue;
 
@@ -120,6 +122,9 @@ export interface IAuditTrailEntryDetails {
 
   // Must be set for instanceRoleChanged
   newRoleOwnerDisplayNames: string[];
+
+  // Must be set for linkedInstanceDeleted
+  linkedInstanceTitle: string;
 }
 
 export type Partial<T> = {
