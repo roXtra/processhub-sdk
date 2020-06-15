@@ -3,6 +3,7 @@ import { IInstanceDetails, IRiskAssessmentValue } from "../instance/instanceinte
 import { UserDetails } from "../user";
 import { Process, ActionHandler } from "..";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
+import { ModuleId } from "../modules";
 
 export interface IFieldDefinition {
   name: string;
@@ -47,6 +48,15 @@ export interface IRadioButtonGroupFieldValue {
 export interface ISpreadSheetFieldValue {
   url: string;
   value: {};
+}
+
+export interface IProcessLinkValue {
+  linkedInstances: {
+    instanceId: string;
+    workspaceId: string;
+    title: string;
+    moduleId: ModuleId;
+  }[];
 }
 
 export interface IServiceActionConfigField {
@@ -153,7 +163,8 @@ export type FieldValueType =
   IRadioButtonGroupFieldValue | // RadioButtonGroup
   ISpreadSheetFieldValue | // SpreadSheet
   IRiskAssessmentValue | // RiskAssesment
-  RiskAssessmentCycle; // RiskAssessmentCycle
+  RiskAssessmentCycle | // RiskAssessmentCycle
+  IProcessLinkValue; // ProcessLink
 
 export interface IFieldValue {
   type: FieldType;
