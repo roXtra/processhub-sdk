@@ -69,7 +69,6 @@ export interface IProcessDetails {
   useModeler?: boolean;
   isNewProcess?: boolean;
   userRights?: ProcessAccessRights; // Access rights of the current user
-  hasUserEFormulareEditAccess?: boolean; // Has User access and edit right
   attachments?: IProcessAttachment[];
   reportDrafts?: IProcessReportDraft[];
   processXmlHash?: string;
