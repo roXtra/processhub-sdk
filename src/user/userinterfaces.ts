@@ -25,7 +25,6 @@ export function hasSetCorporateDesignRight(user: UserDetails): boolean {
 }
 
 export interface IRoxtraUserDetails {
-  HasUserManagementAccess: boolean;
   ReceiveMails: boolean;
   ReceiveDailyReports: boolean;
   ReceiveWeeklyReports: boolean;
@@ -54,10 +53,6 @@ export class UserDetails {
     viewStates?: IViewStates;
     archiveViews?: IArchiveViews;
     roXtra?: IRoxtraUserDetails;
-    roXtraTodos?: {
-      numOfTodos: number;
-      numOfEscalations: number;
-    };
   };
   lastSeenAt?: Date; // Last time user was online (updated every 12h) / not available in GraphQL
   lastStatusMailAt?: Date;
@@ -74,7 +69,6 @@ export enum UserExtras {
   ExtrasInstances = 1 << 2,  // Instances visible to user
   ExtrasViewStates = 1 << 3,  // User-specific last opening-dates of instances, used to sync notifications on all user devices
   ExtrasArchiveViews = 1 << 4,  // User-specific last viewed archive views by process id,
-  ExtrasRoXtraTodosEscalations = 1 << 5, // RoXtra todos and escalations
 }
 
 export const emptyUser: UserDetails = {
