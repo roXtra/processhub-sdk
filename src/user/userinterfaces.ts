@@ -15,9 +15,16 @@ export function hasEditAccess(user: UserDetails): boolean {
   return (user.licence === Licence.Writer) || (user.isSystemUser === true);
 }
 
+export type ExtendedRight = "Z1";
+
+export function hasSetCorporateDesignRight(user: UserDetails): boolean {
+  if (user.isSystemUser) {
+    return true;
+  }
+  return user.extendedRights && user.extendedRights.includes("Z1");
+}
+
 export interface IRoxtraUserDetails {
-  HasUserManagementAccess: boolean;
-  HasEFormulareSetCorporateDesignRight: boolean;
   ReceiveMails: boolean;
   ReceiveDailyReports: boolean;
   ReceiveWeeklyReports: boolean;
@@ -36,6 +43,7 @@ export class UserDetails {
   photoUrl?: string;
   language?: string; // Preferred User language (en, de, ...)
   licence: Licence;
+  extendedRights: ExtendedRight[];
   isSystemUser?: boolean;
   extras: {
     // New Extras must be added to cache-handling in useractions -> loadUser!
@@ -45,10 +53,6 @@ export class UserDetails {
     viewStates?: IViewStates;
     archiveViews?: IArchiveViews;
     roXtra?: IRoxtraUserDetails;
-    roXtraTodos?: {
-      numOfTodos: number;
-      numOfEscalations: number;
-    };
   };
   lastSeenAt?: Date; // Last time user was online (updated every 12h) / not available in GraphQL
   lastStatusMailAt?: Date;
@@ -65,7 +69,6 @@ export enum UserExtras {
   ExtrasInstances = 1 << 2,  // Instances visible to user
   ExtrasViewStates = 1 << 3,  // User-specific last opening-dates of instances, used to sync notifications on all user devices
   ExtrasArchiveViews = 1 << 4,  // User-specific last viewed archive views by process id,
-  ExtrasRoXtraTodosEscalations = 1 << 5, // RoXtra todos and escalations
 }
 
 export const emptyUser: UserDetails = {
@@ -73,6 +76,7 @@ export const emptyUser: UserDetails = {
   mail: null,
   extras: {},
   licence: Licence.None,
+  extendedRights: [],
 };
 
 export function getUserWorkspace(user: UserDetails, workspaceId: string): IWorkspaceDetails {

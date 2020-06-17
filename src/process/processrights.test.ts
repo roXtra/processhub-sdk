@@ -24,6 +24,7 @@ const testUser: UserDetails = {
   userId: "1",
   mail: "",
   extras: {},
+  extendedRights: [],
 };
 
 describe("sdk", function () {
