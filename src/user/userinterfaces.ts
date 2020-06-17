@@ -4,11 +4,20 @@ import { nullId } from "../tools/guid";
 import { isTrue } from "../tools/assert";
 import { tl } from "../tl";
 
+export enum Licence {
+  None = "none",
+  Writer = "roXtra.Writer",
+  Reader = "roXtra.Reader",
+  PublicReader = "roXtra.PublicReader",
+}
+
+export function hasEditAccess(user: UserDetails): boolean {
+  return (user.licence === Licence.Writer) || (user.isSystemUser === true);
+}
+
 export interface IRoxtraUserDetails {
   HasUserManagementAccess: boolean;
-  HasEFormulareEditAccess: boolean;
   HasEFormulareSetCorporateDesignRight: boolean;
-  isSystemUser?: boolean;
   ReceiveMails: boolean;
   ReceiveDailyReports: boolean;
   ReceiveWeeklyReports: boolean;
@@ -26,6 +35,8 @@ export class UserDetails {
   lastName?: string;
   photoUrl?: string;
   language?: string; // Preferred User language (en, de, ...)
+  licence: Licence;
+  isSystemUser?: boolean;
   extras: {
     // New Extras must be added to cache-handling in useractions -> loadUser!
     workspaces?: IWorkspaceDetails[];
@@ -61,6 +72,7 @@ export const emptyUser: UserDetails = {
   userId: nullId(),
   mail: null,
   extras: {},
+  licence: Licence.None,
 };
 
 export function getUserWorkspace(user: UserDetails, workspaceId: string): IWorkspaceDetails {

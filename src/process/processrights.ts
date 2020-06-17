@@ -2,7 +2,7 @@ import { tl } from "../tl";
 import { UserDetails } from "../user/userinterfaces";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
-import { PredefinedGroups, getDefaultRoleGroup } from "../user/index";
+import { PredefinedGroups, getDefaultRoleGroup, Licence, hasEditAccess } from "../user/index";
 import { IProcessDetails } from "./processinterfaces";
 import { isWorkspaceMember } from "../workspace/workspacerights";
 import { error } from "../tools/assert";
@@ -205,8 +205,8 @@ export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspac
   return false;
 }
 
-function addIfLicenseAllows(owners: IPotentialRoleOwners, user: UserDetails): void {
-  if (user.extras.roXtra.HasEFormulareEditAccess) {
+function addIfLicenceAllows(owners: IPotentialRoleOwners, user: UserDetails): void {
+  if (user.licence === Licence.Writer) {
     owners.potentialRoleOwner.push({
       memberId: user.userId,
       displayName: user.displayName
@@ -235,7 +235,7 @@ export function getPotentialRoleOwners(workspaceDetails: IWorkspaceDetails, proc
           if (workspaceDetails.extras.members) {
             // If someone is not a workspace member he does not have access to the member list, so this list is empty
             for (const member of workspaceDetails.extras.members) {
-              addIfLicenseAllows(owners, member.userDetails);
+              addIfLicenceAllows(owners, member.userDetails);
             }
             addedWsMembers = true; // Merken, damit Member nicht mehrfach hinzugefügt werden, falls beide Gruppen genannt werden
           }
@@ -249,7 +249,7 @@ export function getPotentialRoleOwners(workspaceDetails: IWorkspaceDetails, proc
             const group: IGroupDetails = workspaceDetails.extras.groups.find(g => g.groupId === potentialOwner.memberId);
             if (group && group.members) {
               for (const member of group.members) {
-                addIfLicenseAllows(owners, member);
+                addIfLicenceAllows(owners, member);
               }
             }
           }
@@ -263,19 +263,19 @@ export function getPotentialRoleOwners(workspaceDetails: IWorkspaceDetails, proc
   return allOwners;
 }
 
-export function isProcessOwner(process: IProcessDetails): boolean {
-  if (process == null || !process.hasUserEFormulareEditAccess)
+export function isProcessOwner(process: IProcessDetails, user: UserDetails): boolean {
+  if (process == null || !hasEditAccess(user))
     return false;
 
   return ((process.userRights & ProcessAccessRights.EditProcess) !== 0);
 }
 
-export function isProcessManager(process: IProcessDetails): boolean {
-  if (process == null || !process.hasUserEFormulareEditAccess)
+export function isProcessManager(process: IProcessDetails, user: UserDetails): boolean {
+  if (process == null || !hasEditAccess(user))
     return false;
 
   // Owner are managers
-  return isProcessOwner(process) || ((process.userRights & ProcessAccessRights.ManageProcess) !== 0);
+  return isProcessOwner(process, user) || ((process.userRights & ProcessAccessRights.ManageProcess) !== 0);
 }
 
 export function canViewProcess(process: IProcessDetails): boolean {
@@ -285,12 +285,12 @@ export function canViewProcess(process: IProcessDetails): boolean {
   return ((process.userRights & ProcessAccessRights.ViewProcess) !== 0);
 }
 
-export function canEditProcess(process: IProcessDetails): boolean {
-  return isProcessOwner(process);
+export function canEditProcess(process: IProcessDetails, user: UserDetails): boolean {
+  return isProcessOwner(process, user);
 }
 
-export function canSimulateProcess(process: IProcessDetails): boolean {
-  if (process != null && !process.isNewProcess && process.hasUserEFormulareEditAccess) {
+export function canSimulateProcess(process: IProcessDetails, user: UserDetails): boolean {
+  if (process != null && !process.isNewProcess && hasEditAccess(user)) {
     const bpmnProcess: BpmnProcess = process.extras.bpmnProcess;
     if (bpmnProcess) {
       const startEvents: Bpmn.IStartEvent[] = bpmnProcess.getStartEvents(bpmnProcess.processId());
@@ -304,7 +304,7 @@ export function canSimulateProcess(process: IProcessDetails): boolean {
   }
 }
 
-export function canStartProcess(process: IProcessDetails, startEventId: string): boolean {
+export function canStartProcess(process: IProcessDetails, startEventId: string, user: UserDetails): boolean {
   if (process == null)
     return false;
 
@@ -312,31 +312,31 @@ export function canStartProcess(process: IProcessDetails, startEventId: string):
     return false;
 
   if (process.userStartEvents == null || isEqual(process.userStartEvents, {}))
-    return canStartProcessOld(process);
+    return canStartProcessOld(process, user);
 
   // If userStartEvent is in map, user is allowed to start process
   return process.userStartEvents[startEventId] != null;
 }
-export function canStartProcessOld(process: IProcessDetails): boolean {
-  if (process == null || !process.hasUserEFormulareEditAccess)
+export function canStartProcessOld(process: IProcessDetails, user: UserDetails): boolean {
+  if (process == null || !hasEditAccess(user))
     return false;
 
   // Only users in the start lane may start the process - even administrators don't inherit that right!
   return ((process.userRights & ProcessAccessRights.StartProcess) !== 0);
 }
-export function canStartProcessByMail(process: IProcessDetails): boolean {
+export function canStartProcessByMail(process: IProcessDetails, user: UserDetails): boolean {
   if (process == null)
     return false;
 
   // Only users in the start lane may start the process - even administrators don't inherit that right!
-  return (process.hasUserEFormulareEditAccess && (process.userRights & ProcessAccessRights.StartProcessByMail) !== 0);
+  return (hasEditAccess(user) && (process.userRights & ProcessAccessRights.StartProcessByMail) !== 0);
 }
-export function canStartProcessByTimer(process: IProcessDetails): boolean {
+export function canStartProcessByTimer(process: IProcessDetails, user: UserDetails): boolean {
   if (process == null)
     return false;
 
   // Only timer in the start lane may start the process - even administrators don't inherit that right!
-  return (process.hasUserEFormulareEditAccess && (process.userRights & ProcessAccessRights.StartProcessByTimer) !== 0);
+  return (hasEditAccess(user) && (process.userRights & ProcessAccessRights.StartProcessByTimer) !== 0);
 }
 
 export function canViewTodos(process: IProcessDetails): boolean {
@@ -359,6 +359,6 @@ export function canViewArchive(process: IProcessDetails): boolean {
   return ((process.userRights & ProcessAccessRights.ViewArchive) !== 0);
 }
 
-export function canDeleteProcess(process: IProcessDetails): boolean {
-  return isProcessOwner(process) && !process.isNewProcess;
+export function canDeleteProcess(process: IProcessDetails, user: UserDetails): boolean {
+  return isProcessOwner(process, user) && !process.isNewProcess;
 }

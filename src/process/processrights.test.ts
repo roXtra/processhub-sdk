@@ -4,6 +4,7 @@ import { IProcessDetails } from "./processinterfaces";
 import { createBpmnTemplate } from "./bpmn/bpmnmoddlehelper";
 import { ILoadTemplateReply } from "./legacyapi";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
+import { UserDetails, Licence } from "../user";
 
 const testProcess: IProcessDetails = {
   workspaceId: "2000E70281B5ECD5",
@@ -12,11 +13,17 @@ const testProcess: IProcessDetails = {
   previewUrl: "https://s3.eu-central-1.amazonaws.com/processhub/2000E70281B5ECD5/8700E70281B5ECD5/preview.svg",
   description: "This is a test process",
   processId: "8700E70281B5ECD5",
-  hasUserEFormulareEditAccess: true,
   // UserRole gibt für Tests immer volle Rechte, da viele Tests sonst scheitern.
   // Für eine Prüfung des Rechtesystems selbst ist das natürlich nicht geeignet
   userRights: ProcessAccessRights.EditProcess,
   extras: {}
+};
+
+const testUser: UserDetails = {
+  licence: Licence.Writer,
+  userId: "1",
+  mail: "",
+  extras: {},
 };
 
 describe("sdk", function () {
@@ -47,31 +54,31 @@ describe("sdk", function () {
 
         before(function () {
           testProcess.userRights = ProcessAccessRights.EditProcess;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         afterEach(function () {
           testProcess.userRights = ProcessAccessRights.EditProcess;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         it("should be owner", function () {
-          expect(isProcessOwner(testProcess)).to.equal(true);
+          expect(isProcessOwner(testProcess, testUser)).to.equal(true);
         });
 
         it("shouldn't be owner because process is null", function () {
           let nullProcess: IProcessDetails;
-          expect(isProcessOwner(nullProcess)).to.equal(false);
+          expect(isProcessOwner(nullProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't be owner because of insufficient userrights", function () {
           testProcess.userRights = ProcessAccessRights.ManageProcess;
-          expect(isProcessOwner(testProcess)).to.equal(false);
+          expect(isProcessOwner(testProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't be owner because of missing eform edit right", function () {
-          testProcess.hasUserEFormulareEditAccess = false;
-          expect(isProcessOwner(testProcess)).to.equal(false);
+          testUser.licence = Licence.Reader;
+          expect(isProcessOwner(testProcess, testUser)).to.equal(false);
         });
 
       });
@@ -80,36 +87,36 @@ describe("sdk", function () {
 
         before(function () {
           testProcess.userRights = ProcessAccessRights.ManageProcess;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         afterEach(function () {
           testProcess.userRights = ProcessAccessRights.ManageProcess;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         it("should be manager because has the userright", function () {
-          expect(isProcessManager(testProcess)).to.equal(true);
+          expect(isProcessManager(testProcess, testUser)).to.equal(true);
         });
 
         it("should be manager because is owner", function () {
           testProcess.userRights = ProcessAccessRights.EditProcess;
-          expect(isProcessManager(testProcess)).to.equal(true);
+          expect(isProcessManager(testProcess, testUser)).to.equal(true);
         });
 
         it("shouldn't be manager because process is null", function () {
           let nullProcess: IProcessDetails;
-          expect(isProcessManager(nullProcess)).to.equal(false);
+          expect(isProcessManager(nullProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't be manager because of insufficient userrights", function () {
           testProcess.userRights = ProcessAccessRights.StartProcess;
-          expect(isProcessManager(testProcess)).to.equal(false);
+          expect(isProcessManager(testProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't be manager because of missing eform edit right", function () {
-          testProcess.hasUserEFormulareEditAccess = false;
-          expect(isProcessManager(testProcess)).to.equal(false);
+          testUser.licence = Licence.Reader;
+          expect(isProcessManager(testProcess, testUser)).to.equal(false);
         });
 
       });
@@ -118,7 +125,7 @@ describe("sdk", function () {
 
         before(function () {
           testProcess.isNewProcess = false;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         beforeEach(async function () {
@@ -130,31 +137,31 @@ describe("sdk", function () {
 
         afterEach(function () {
           testProcess.isNewProcess = false;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         it("should simulate", function () {
-          expect(canSimulateProcess(testProcess)).to.equal(true);
+          expect(canSimulateProcess(testProcess, testUser)).to.equal(true);
         });
 
         it("shouldn't simulate because process is null", function () {
           let nullProcess: IProcessDetails;
-          expect(canSimulateProcess(nullProcess)).to.equal(false);
+          expect(canSimulateProcess(nullProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't simulate because bpmnProcess is null", function () {
           testProcess.extras.bpmnProcess = undefined;
-          expect(canSimulateProcess(testProcess)).to.equal(false);
+          expect(canSimulateProcess(testProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't simulate because process is new", function () {
           testProcess.isNewProcess = true;
-          expect(canSimulateProcess(testProcess)).to.equal(false);
+          expect(canSimulateProcess(testProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't simulate because of missing eform edit right", function () {
-          testProcess.hasUserEFormulareEditAccess = false;
-          expect(canSimulateProcess(testProcess)).to.equal(false);
+          testUser.licence = Licence.Reader;
+          expect(canSimulateProcess(testProcess, testUser)).to.equal(false);
         });
 
       });
@@ -163,7 +170,7 @@ describe("sdk", function () {
 
         before(function () {
           testProcess.userRights = ProcessAccessRights.StartProcess;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         beforeEach(async function () {
@@ -176,32 +183,32 @@ describe("sdk", function () {
 
         afterEach(function () {
           testProcess.userRights = ProcessAccessRights.StartProcess;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         it("should start", function () {
           const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
-          expect(canStartProcess(testProcess, start[0].id)).to.equal(true);
+          expect(canStartProcess(testProcess, start[0].id, testUser)).to.equal(true);
         });
 
         it("shouldn't start because process is null", function () {
           let nullProcess: IProcessDetails;
           const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
-          expect(canStartProcess(nullProcess, start[0].id)).to.equal(false);
+          expect(canStartProcess(nullProcess, start[0].id, testUser)).to.equal(false);
         });
 
         it("shouldn't start because startEvent is null", function () {
-          expect(canStartProcess(testProcess, null)).to.equal(false);
+          expect(canStartProcess(testProcess, null, testUser)).to.equal(false);
         });
 
         it("shouldn't start because startEvent is not in map", function () {
-          expect(canStartProcess(testProcess, "ABC")).to.equal(false);
+          expect(canStartProcess(testProcess, "ABC", testUser)).to.equal(false);
         });
 
         it("should start without eform edit right", function () {
-          testProcess.hasUserEFormulareEditAccess = false;
+          testUser.licence = Licence.Reader;
           const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
-          expect(canStartProcess(testProcess, start[0].id)).to.equal(true);
+          expect(canStartProcess(testProcess, start[0].id, testUser)).to.equal(true);
         });
 
       });
@@ -210,31 +217,31 @@ describe("sdk", function () {
 
         before(function () {
           testProcess.userRights = ProcessAccessRights.StartProcess;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         afterEach(function () {
           testProcess.userRights = ProcessAccessRights.StartProcess;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         it("should start old", function () {
-          expect(canStartProcessOld(testProcess)).to.equal(true);
+          expect(canStartProcessOld(testProcess, testUser)).to.equal(true);
         });
 
         it("shouldn't start old because process is null", function () {
           let nullProcess: IProcessDetails;
-          expect(canStartProcessOld(nullProcess)).to.equal(false);
+          expect(canStartProcessOld(nullProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't start because of insufficient userrights", function () {
           testProcess.userRights = ProcessAccessRights.ViewProcess;
-          expect(canStartProcessOld(testProcess)).to.equal(false);
+          expect(canStartProcessOld(testProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't be owner because of missing eform edit right", function () {
-          testProcess.hasUserEFormulareEditAccess = false;
-          expect(canStartProcessOld(testProcess)).to.equal(false);
+          testUser.licence = Licence.Reader;
+          expect(canStartProcessOld(testProcess, testUser)).to.equal(false);
         });
 
       });
@@ -243,31 +250,31 @@ describe("sdk", function () {
 
         before(function () {
           testProcess.userRights = ProcessAccessRights.StartProcessByMail;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         afterEach(function () {
           testProcess.userRights = ProcessAccessRights.StartProcessByMail;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         it("should start by mail", function () {
-          expect(canStartProcessByMail(testProcess)).to.equal(true);
+          expect(canStartProcessByMail(testProcess, testUser)).to.equal(true);
         });
 
         it("shouldn't start by mail because process is null", function () {
           let nullProcess: IProcessDetails;
-          expect(canStartProcessByMail(nullProcess)).to.equal(false);
+          expect(canStartProcessByMail(nullProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't start by mail because of insufficient userrights", function () {
           testProcess.userRights = ProcessAccessRights.StartProcessByTimer;
-          expect(canStartProcessByMail(testProcess)).to.equal(false);
+          expect(canStartProcessByMail(testProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't start by mail because of missing eform edit right", function () {
-          testProcess.hasUserEFormulareEditAccess = false;
-          expect(canStartProcessByMail(testProcess)).to.equal(false);
+          testUser.licence = Licence.Reader;
+          expect(canStartProcessByMail(testProcess, testUser)).to.equal(false);
         });
 
       });
@@ -276,31 +283,31 @@ describe("sdk", function () {
 
         before(function () {
           testProcess.userRights = ProcessAccessRights.StartProcessByTimer;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         afterEach(function () {
           testProcess.userRights = ProcessAccessRights.StartProcessByTimer;
-          testProcess.hasUserEFormulareEditAccess = true;
+          testUser.licence = Licence.Writer;
         });
 
         it("should start by timer", function () {
-          expect(canStartProcessByTimer(testProcess)).to.equal(true);
+          expect(canStartProcessByTimer(testProcess, testUser)).to.equal(true);
         });
 
         it("shouldn't start by timer because process is null", function () {
           let nullProcess: IProcessDetails;
-          expect(canStartProcessByTimer(nullProcess)).to.equal(false);
+          expect(canStartProcessByTimer(nullProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't start by timer because of insufficient userrights", function () {
           testProcess.userRights = ProcessAccessRights.StartProcessByMail;
-          expect(canStartProcessByTimer(testProcess)).to.equal(false);
+          expect(canStartProcessByTimer(testProcess, testUser)).to.equal(false);
         });
 
         it("shouldn't start by timer because of missing eform edit right", function () {
-          testProcess.hasUserEFormulareEditAccess = false;
-          expect(canStartProcessByTimer(testProcess)).to.equal(false);
+          testUser.licence = Licence.Reader;
+          expect(canStartProcessByTimer(testProcess, testUser)).to.equal(false);
         });
 
       });
