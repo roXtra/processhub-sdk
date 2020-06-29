@@ -26,8 +26,6 @@ export function getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensi
     serviceTaskConfigObject: undefined,
     scriptTaskCode: undefined,
 
-    timerStartConfiguration: undefined,
-
     subProcessId: undefined,
 
     sequenceFlowExpression: undefined,
@@ -137,10 +135,6 @@ export function getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensi
             break;
           case "processhub-userform":
             returnValue.fieldDefinitions = updateLegacyFieldDefinitions(JSON.parse(child.$body));
-            break;
-
-          case "timer-start-configuration":
-            returnValue.timerStartConfiguration = JSON.parse(child.$body);
             break;
 
           default:

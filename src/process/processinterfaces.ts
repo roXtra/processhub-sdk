@@ -164,7 +164,6 @@ export type BpmnExtensionName =
   | "view-all-fields" // Boolean: view all existing fields
   | "send-mail-notification" // Boolean: send notification for task
   | "set-sender-as-role-owner" // Boolean: set mail sender as role owner, default: true
-  | "timer-start-configuration"
   | "required-fields-needed" // Boolean: means that the task needed previous required fields (not necessary on negative decisions)
   | "save-decision-in-fields"
   | "custom-field-contents-value"
@@ -199,7 +198,6 @@ export interface ITaskExtensions {
   serviceTaskConfigObject: IServiceTaskConfigObject;
   scriptTaskCode: string;
 
-  timerStartConfiguration: ITimerStartEventConfiguration[];
   roleOwnersEditable: boolean;
 
   subProcessId: string;
