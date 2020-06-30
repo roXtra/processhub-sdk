@@ -22,6 +22,7 @@ export interface IWorkspaceAssessment {
 export interface IRiskAssessmentDimensionEntry {
   name: string;
   value: number;
+  color: string;
   entryId: string;
 }
 
