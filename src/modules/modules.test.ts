@@ -11,8 +11,8 @@ describe("sdk", function () {
         assert.isTrue(getModuleForRequestPath("/@3089").moduleId === ModuleId.EForm);
         assert.isTrue(getModuleForRequestPath("/f").moduleId === ModuleId.EForm);
         assert.isTrue(getModuleForRequestPath("/f/@3089").moduleId === ModuleId.EForm);
-        assert.isTrue(getModuleForRequestPath("/r").moduleId === ModuleId.RiskManagement);
-        assert.isTrue(getModuleForRequestPath("/r/@3081").moduleId === ModuleId.RiskManagement);
+        assert.isTrue(getModuleForRequestPath("/r").moduleId === ModuleId.Risks);
+        assert.isTrue(getModuleForRequestPath("/r/@3081").moduleId === ModuleId.Risks);
       });
 
       it("should return the correct module for views", () => {
@@ -23,7 +23,7 @@ describe("sdk", function () {
       });
 
       it("should return the correct module for instance links", () => {
-        assert.isTrue(getModuleForRequestPath("/r/i/1/ad903e5743a23a6e").moduleId === ModuleId.RiskManagement);
+        assert.isTrue(getModuleForRequestPath("/r/i/1/ad903e5743a23a6e").moduleId === ModuleId.Risks);
         assert.isTrue(getModuleForRequestPath("/f/i/1/ad903e5743a23a6e").moduleId === ModuleId.EForm);
       });
 

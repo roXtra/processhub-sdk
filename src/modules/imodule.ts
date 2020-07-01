@@ -2,7 +2,7 @@
 export enum ModuleId {
   None = 0,
   EForm = 1,
-  RiskManagement = 2,
+  Risks = 2,
   DocumentManagement = 3
 }
 
