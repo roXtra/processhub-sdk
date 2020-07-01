@@ -7,7 +7,7 @@ export const EForm: IModule = {
   name: tl("Formulare"),
 };
 
-export const RiskManagement: IModule = {
+export const Risks: IModule = {
   moduleId: ModuleId.Risks,
   urlPrefix: "r",
   name: tl("Risiken"),
@@ -15,7 +15,7 @@ export const RiskManagement: IModule = {
 
 export const modules: IModule[] = [
   EForm,
-  RiskManagement
+  Risks
 ];
 
 const modulesById: { [id: number]: IModule } = {};
