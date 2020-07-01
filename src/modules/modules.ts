@@ -8,9 +8,9 @@ export const EForm: IModule = {
 };
 
 export const RiskManagement: IModule = {
-  moduleId: ModuleId.RiskManagement,
+  moduleId: ModuleId.Risks,
   urlPrefix: "r",
-  name: tl("Risikomanagement"),
+  name: tl("Risiken"),
 };
 
 export const modules: IModule[] = [
