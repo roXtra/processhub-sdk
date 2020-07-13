@@ -3,7 +3,6 @@ import { IRoxFile, IRoxFolder, IModuleSelection } from ".";
 import { Instance } from "..";
 import { IFieldContentMap } from "../data";
 import { ITaskExtensions } from "../process/processinterfaces";
-import { ModuleId } from "../modules";
 
 export const RequestRoutes = {
   GetRootFolder: "/api/phroxapi/getrootfolder",
@@ -120,7 +119,7 @@ export interface IEcReleaseFileLockReply {
 }
 
 export interface IGetModuleSettingsReply extends IBaseReply {
-  currentModule: ModuleId;
+  currentModule: string;
   refreshinterval: number;
   class?: string;
   mainItems: IModuleSelection[];
