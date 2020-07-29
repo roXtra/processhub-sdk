@@ -8,7 +8,6 @@ import { isWorkspaceMember } from "../workspace/workspacerights";
 import { error } from "../tools/assert";
 import { isGroupId, isUserId } from "../tools/guid";
 import { Bpmn } from "./bpmn";
-import { IGroupDetails } from "../group";
 import isEqual from "lodash/isEqual";
 
 export enum ProcessAccessRights {
@@ -45,6 +44,8 @@ export function getDefaultRoleName(roleId: string): string {
       return tl("Sichtbarkeit");
     case DefaultRoles.Follower:
       return tl("Weitere Beteiligte");
+    default:
+      return roleId;
   }
 }
 
@@ -177,7 +178,7 @@ export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspac
         return true;
     }
     if (user && isGroupId(member.memberId)) {
-      const group: IGroupDetails = groups.find(g => g.groupId === member.memberId);
+      const group = groups.find(g => g.groupId === member.memberId);
       if (group) {
         if (group.members.find(gm => gm.userId === user.userId) != null) {
           return true;
@@ -214,7 +215,7 @@ function addIfLicenceAllows(owners: IPotentialRoleOwners, user: UserDetails): vo
   }
 }
 
-export function getPotentialRoleOwners(workspaceDetails: IWorkspaceDetails, processDetails: IProcessDetails, roleId: string = null): { [roleId: string]: IPotentialRoleOwners } {
+export function getPotentialRoleOwners(workspaceDetails: IWorkspaceDetails, processDetails: IProcessDetails, roleId?: string): { [roleId: string]: IPotentialRoleOwners } {
   const allOwners: { [roleId: string]: IPotentialRoleOwners } = {};
 
   if (processDetails.extras.processRoles == null) {
@@ -246,7 +247,7 @@ export function getPotentialRoleOwners(workspaceDetails: IWorkspaceDetails, proc
           });
         } else if (isGroupId(potentialOwner.memberId)) {
           if (workspaceDetails.extras.groups) {
-            const group: IGroupDetails = workspaceDetails.extras.groups.find(g => g.groupId === potentialOwner.memberId);
+            const group = workspaceDetails.extras.groups.find(g => g.groupId === potentialOwner.memberId);
             if (group && group.members) {
               for (const member of group.members) {
                 addIfLicenceAllows(owners, member);
@@ -263,14 +264,14 @@ export function getPotentialRoleOwners(workspaceDetails: IWorkspaceDetails, proc
   return allOwners;
 }
 
-export function isProcessOwner(process: IProcessDetails, user: UserDetails): boolean {
+export function isProcessOwner(process: IProcessDetails | undefined, user: UserDetails): boolean {
   if (process == null || !hasEditAccess(user))
     return false;
 
   return ((process.userRights & ProcessAccessRights.EditProcess) !== 0);
 }
 
-export function isProcessManager(process: IProcessDetails, user: UserDetails): boolean {
+export function isProcessManager(process: IProcessDetails | undefined, user: UserDetails): boolean {
   if (process == null || !hasEditAccess(user))
     return false;
 
@@ -289,9 +290,9 @@ export function canEditProcess(process: IProcessDetails, user: UserDetails): boo
   return isProcessOwner(process, user);
 }
 
-export function canSimulateProcess(process: IProcessDetails, user: UserDetails): boolean {
+export function canSimulateProcess(process: IProcessDetails | undefined, user: UserDetails): boolean {
   if (process != null && !process.isNewProcess && hasEditAccess(user)) {
-    const bpmnProcess: BpmnProcess = process.extras.bpmnProcess;
+    const bpmnProcess = process.extras.bpmnProcess;
     if (bpmnProcess) {
       const startEvents: Bpmn.IStartEvent[] = bpmnProcess.getStartEvents(bpmnProcess.processId());
       const startEventsWithoutDefinitions: Bpmn.IStartEvent[] = startEvents.filter(e => e.eventDefinitions == null || e.eventDefinitions.length === 0);
@@ -304,7 +305,7 @@ export function canSimulateProcess(process: IProcessDetails, user: UserDetails):
   }
 }
 
-export function canStartProcess(process: IProcessDetails, startEventId: string, user: UserDetails): boolean {
+export function canStartProcess(process: IProcessDetails | undefined, startEventId: string | undefined, user: UserDetails): boolean {
   if (process == null)
     return false;
 
@@ -317,21 +318,21 @@ export function canStartProcess(process: IProcessDetails, startEventId: string, 
   // If userStartEvent is in map, user is allowed to start process
   return process.userStartEvents[startEventId] != null;
 }
-export function canStartProcessOld(process: IProcessDetails, user: UserDetails): boolean {
+export function canStartProcessOld(process: IProcessDetails | undefined, user: UserDetails): boolean {
   if (process == null || !hasEditAccess(user))
     return false;
 
   // Only users in the start lane may start the process - even administrators don't inherit that right!
   return ((process.userRights & ProcessAccessRights.StartProcess) !== 0);
 }
-export function canStartProcessByMail(process: IProcessDetails, user: UserDetails): boolean {
+export function canStartProcessByMail(process: IProcessDetails | undefined, user: UserDetails): boolean {
   if (process == null)
     return false;
 
   // Only users in the start lane may start the process - even administrators don't inherit that right!
   return (hasEditAccess(user) && (process.userRights & ProcessAccessRights.StartProcessByMail) !== 0);
 }
-export function canStartProcessByTimer(process: IProcessDetails, user: UserDetails): boolean {
+export function canStartProcessByTimer(process: IProcessDetails | undefined, user: UserDetails): boolean {
   if (process == null)
     return false;
 

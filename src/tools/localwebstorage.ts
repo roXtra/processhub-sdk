@@ -3,13 +3,13 @@
  */
 export class LocalWebStorage {
 
-  public static getItem(key: string): string {
+  public static getItem(key: string): string | null {
     try {
       return localStorage.getItem(key);
     } catch (e) {
       console.warn("localStorage.getItem failed");
       console.warn(e);
-      return undefined;
+      return null;
     }
   }
 

@@ -1,9 +1,9 @@
 import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
 import { isId } from "../tools/guid";
 
-export function parseProcessMailSubject(mail: string): string {
+export function parseProcessMailSubject(mail: string): string | undefined {
   const regex = /(\[)(p-)(.*?)(\])/gm;
-  let match: RegExpExecArray;
+  let match: RegExpExecArray | null;
 
   while ((match = regex.exec(mail)) != null) {
     let maybeId: string = match[3];
@@ -12,7 +12,7 @@ export function parseProcessMailSubject(mail: string): string {
       return maybeId;
     }
   }
-  return null;
+  return undefined;
 }
 
 // Init settings that don't exist with default values

@@ -1,7 +1,7 @@
 import { IAuthApi } from "./iapi";
 import { AuthRequestBody } from "./apitypes";
 
-async function post(apiUrl: string, body: AuthRequestBody): Promise<Response> {
+async function post(apiUrl: string, body: AuthRequestBody): Promise<Response | undefined> {
   const req = {
     method: "POST",
     body: JSON.stringify(body),
@@ -20,7 +20,7 @@ async function post(apiUrl: string, body: AuthRequestBody): Promise<Response> {
 
 export class AuthApi implements IAuthApi {
 
-  public async authenticate(baseURL: string, clientId: string, clientSecret: string): Promise<Response> {
+  public async authenticate(baseURL: string, clientId: string, clientSecret: string): Promise<Response | undefined> {
     const apiURL: string = baseURL + "/api/auth/AuthByClientSecret";
 
     return await post(apiURL, {
