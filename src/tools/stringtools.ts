@@ -5,7 +5,10 @@ import cloneDeep from "lodash/cloneDeep";
 import { createId } from "./guid";
 
 // Mailadresse auf Gültigkeit prüfen
-export function isValidMailAddress(mail: string): boolean {
+export function isValidMailAddress(mail: string | null): boolean {
+  if (mail === null)
+    return false;
+
   // Fault tolerant - don't block too many
   const re = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
   return re.test(mail);

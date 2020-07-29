@@ -19,6 +19,9 @@ export function getBackendUrl(): string {
   if (process.env.API_URL != null) {
     // Defined by webpack => this code is running in the browser
     const base = (document.querySelector("base") || {}).href;
+    if (!base) {
+      throw new Error("base path must be set!");
+    }
     // Trim last slash
     return base.slice(0, -1);
   } else {
