@@ -73,20 +73,24 @@ export enum UserExtras {
 
 export const emptyUser: UserDetails = {
   userId: nullId(),
-  mail: null,
+  mail: "",
   extras: {},
   licence: Licence.None,
   extendedRights: [],
 };
 
-export function getUserWorkspace(user: UserDetails, workspaceId: string): IWorkspaceDetails {
-  if (user == null)
-    return null;
+export function getUserWorkspace(user: UserDetails, workspaceId: string): IWorkspaceDetails | undefined {
+  if (user == null) {
+    return undefined;
+  }
 
   // ExtrasWorkspaces required
   isTrue(user.extras.workspaces != null, "getUserWorkspace: user.extras.workspaces == null");
-
-  return user.extras.workspaces.find((workspace) => workspace.workspaceId === workspaceId);
+  if (user.extras.workspaces) {
+    return user.extras.workspaces.find((workspace) => workspace.workspaceId === workspaceId);
+  } else {
+    return undefined;
+  }
 }
 
 export const SystemUserId = "-1";
@@ -116,6 +120,8 @@ export function getPredefinedGroupName(groupId: string): string {
       return tl("Alle Mitglieder des Bereichs");
     case PredefinedGroups.AllParticipants:
       return tl("Nur Prozessbeteiligte Mitglieder des Bereichs");
+    default:
+      return groupId;
   }
 }
 

@@ -1,7 +1,7 @@
 import { RoxtraLicenseOrder, IRoxtraCustomMailMessage, CRMNoteRequestBody } from "./apitypes";
 
 export interface IAuthApi {
-  authenticate(baseURL: string, clientID: string, clientSecret: string): Promise<Response>;
+  authenticate(baseURL: string, clientID: string, clientSecret: string): Promise<Response | undefined>;
 }
 
 export interface ICRMApi {

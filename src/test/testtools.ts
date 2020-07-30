@@ -3,6 +3,8 @@ import { PREVIEW_FILENAME } from "../filestore/ifilestore";
 import { IInstanceDetails } from "../instance";
 import { ISendMailTemplateReply } from "../mailer/mailerinterfaces";
 import { IProcessDetails } from "../process/processinterfaces";
+import { emptyUser } from "../user";
+import { WorkspaceRole } from "../workspace";
 
 export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTaskEnvironment {
 
@@ -25,29 +27,34 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       },
     },
     roxApi: {
-      getApiToken: (): string => undefined,
+      getApiToken: (): string => { throw new Error("Not implemented"); },
       // eslint-disable-next-line @typescript-eslint/require-await
-      getEfApiToken: async (): Promise<string> => undefined,
+      getEfApiToken: async (): Promise<string> => { throw new Error("Not implemented"); },
       // eslint-disable-next-line @typescript-eslint/require-await
-      getRoxtraTokenByUserId: async (): Promise<string> => undefined,
+      getRoxtraTokenByUserId: async (): Promise<string> => { throw new Error("Not implemented"); },
     },
-    workspace: undefined,
-    sender: undefined,
+    workspace: {
+      workspaceId: "",
+      displayName: "",
+      userRole: WorkspaceRole.WorkspaceMember,
+      extras: {}
+    },
+    sender: emptyUser,
     instances: {
       // eslint-disable-next-line @typescript-eslint/require-await
       updateInstance: async (i): Promise<IInstanceDetails> => i,
       // eslint-disable-next-line @typescript-eslint/require-await
-      uploadAttachment: async (): Promise<string> => undefined,
+      uploadAttachment: async (): Promise<string> => { throw new Error("Not implemented"); },
       // eslint-disable-next-line @typescript-eslint/require-await
-      generateInstanceReport: async (): Promise<{ doc: Buffer; fileName: string }> => undefined,
+      generateInstanceReport: async (): Promise<{ doc: Buffer; fileName: string }> => { throw new Error("Not implemented"); },
       // eslint-disable-next-line @typescript-eslint/require-await
-      executeInstance: async (): Promise<string> => undefined,
+      executeInstance: async (): Promise<string> => { throw new Error("Not implemented"); },
     },
     mailer: {
-      sendMailTemplate: (): Promise<ISendMailTemplateReply> => undefined,
+      sendMailTemplate: (): Promise<ISendMailTemplateReply> => { throw new Error("Not implemented"); },
     },
     processes: {
-      getProcessDetails: (): Promise<IProcessDetails> => undefined,
+      getProcessDetails: (): Promise<IProcessDetails> => { throw new Error("Not implemented"); },
     },
     fileStore: {
       getAttachmentFileUrl: (): string => "",

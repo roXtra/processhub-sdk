@@ -46,14 +46,14 @@ export class BpmnProcessDiagram {
     return this.bpmnProcess.getBpmnDefinitions().diagrams[0];
   }
 
-  public getShapeFromDiagram(shapeId: string): Bpmndi.IBPMNShape {
+  public getShapeFromDiagram(shapeId: string): Bpmndi.IBPMNShape | undefined {
     const diagram = this.getDiagramElement();
     for (const planeElement of diagram.plane.planeElement) {
       if (planeElement.$type === "bpmndi:BPMNShape" && (planeElement as Bpmndi.IBPMNShape).bpmnElement != null && (planeElement as Bpmndi.IBPMNShape).bpmnElement.id === shapeId) {
         return planeElement as Bpmndi.IBPMNShape;
       }
     }
-    return null;
+    return undefined;
   }
 
   public getAllShapes(): Bpmndi.IBPMNShape[] {
@@ -194,9 +194,11 @@ export class BpmnProcessDiagram {
       for (let i = 0; i < drawObjectList.length; i++) {
         const task = drawObjectList[i];
         if (task != null && task.$type !== "bpmn:EndEvent" && task.outgoing != null && task.outgoing.find(out => out.targetRef.$type === "bpmn:ExclusiveGateway")) {
-          const gate = gates.find(g => g.incoming.find(inc => inc.sourceRef.id === task.id) != null);
-          if (drawObjectList.find(obj => obj.id === gate.id) == null) {
-            drawObjectList.splice((i + 1), 0, gate);
+          const gate = gates.find(g => g.incoming && g.incoming.find(inc => inc.sourceRef.id === task.id) != null);
+          if (gate) {
+            if (drawObjectList.find(obj => obj.id === gate.id) == null) {
+              drawObjectList.splice((i + 1), 0, gate);
+            }
           }
         }
       }
@@ -291,7 +293,7 @@ export class BpmnProcessDiagram {
     }
   }
 
-  private generateSequenceFlow(diagram: Bpmndi.IBPMNDiagram, flowObject: Bpmn.ISequenceFlow, drawJumpFlow: boolean, numberOfJumpEdge = 0, laneDictionaries: ILaneDictionary[] = null): void {
+  private generateSequenceFlow(diagram: Bpmndi.IBPMNDiagram, flowObject: Bpmn.ISequenceFlow, drawJumpFlow: boolean, numberOfJumpEdge = 0, laneDictionaries: ILaneDictionary[] = []): void {
     let waypoints: Waypoint[] = [];
     // Hole die beiden Diagramm Objekte von Quell und Ziel Objekt
     const sourceRef = flowObject.sourceRef;
@@ -354,7 +356,7 @@ export class BpmnProcessDiagram {
     const resultWaypoint: Dc.IPoint[] = [];
     // Waypoint einfügen
     for (const waypoint of waypoints) {
-      const tmpWaypoint =  bpmnModdleInstance.create("dc:Point", { x: waypoint.x, y: waypoint.y });
+      const tmpWaypoint = bpmnModdleInstance.create("dc:Point", { x: waypoint.x, y: waypoint.y });
       resultWaypoint.push(tmpWaypoint);
     }
 

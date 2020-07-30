@@ -5,6 +5,7 @@ import { createBpmnTemplate } from "./bpmn/bpmnmoddlehelper";
 import { ILoadTemplateReply } from "./legacyapi";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { UserDetails, Licence } from "../user";
+import { assert } from "console";
 
 const testProcess: IProcessDetails = {
   workspaceId: "2000E70281B5ECD5",
@@ -68,8 +69,7 @@ describe("sdk", function () {
         });
 
         it("shouldn't be owner because process is null", function () {
-          let nullProcess: IProcessDetails;
-          expect(isProcessOwner(nullProcess, testUser)).to.equal(false);
+          expect(isProcessOwner(undefined, testUser)).to.equal(false);
         });
 
         it("shouldn't be owner because of insufficient userrights", function () {
@@ -106,8 +106,7 @@ describe("sdk", function () {
         });
 
         it("shouldn't be manager because process is null", function () {
-          let nullProcess: IProcessDetails;
-          expect(isProcessManager(nullProcess, testUser)).to.equal(false);
+          expect(isProcessManager(undefined, testUser)).to.equal(false);
         });
 
         it("shouldn't be manager because of insufficient userrights", function () {
@@ -146,8 +145,7 @@ describe("sdk", function () {
         });
 
         it("shouldn't simulate because process is null", function () {
-          let nullProcess: IProcessDetails;
-          expect(canSimulateProcess(nullProcess, testUser)).to.equal(false);
+          expect(canSimulateProcess(undefined, testUser)).to.equal(false);
         });
 
         it("shouldn't simulate because bpmnProcess is null", function () {
@@ -188,18 +186,23 @@ describe("sdk", function () {
         });
 
         it("should start", function () {
-          const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
-          expect(canStartProcess(testProcess, start[0].id, testUser)).to.equal(true);
+          assert(testProcess.extras.bpmnProcess != null);
+          if (testProcess.extras.bpmnProcess) {
+            const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
+            expect(canStartProcess(testProcess, start[0].id, testUser)).to.equal(true);
+          }
         });
 
         it("shouldn't start because process is null", function () {
-          let nullProcess: IProcessDetails;
-          const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
-          expect(canStartProcess(nullProcess, start[0].id, testUser)).to.equal(false);
+          assert(testProcess.extras.bpmnProcess != null);
+          if (testProcess.extras.bpmnProcess) {
+            const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
+            expect(canStartProcess(undefined, start[0].id, testUser)).to.equal(false);
+          }
         });
 
         it("shouldn't start because startEvent is null", function () {
-          expect(canStartProcess(testProcess, null, testUser)).to.equal(false);
+          expect(canStartProcess(testProcess, undefined, testUser)).to.equal(false);
         });
 
         it("shouldn't start because startEvent is not in map", function () {
@@ -208,8 +211,11 @@ describe("sdk", function () {
 
         it("should start without eform edit right", function () {
           testUser.licence = Licence.Reader;
-          const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
-          expect(canStartProcess(testProcess, start[0].id, testUser)).to.equal(true);
+          assert(testProcess.extras.bpmnProcess != null);
+          if (testProcess.extras.bpmnProcess) {
+            const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
+            expect(canStartProcess(testProcess, start[0].id, testUser)).to.equal(true);
+          }
         });
 
       });
@@ -231,8 +237,7 @@ describe("sdk", function () {
         });
 
         it("shouldn't start old because process is null", function () {
-          let nullProcess: IProcessDetails;
-          expect(canStartProcessOld(nullProcess, testUser)).to.equal(false);
+          expect(canStartProcessOld(undefined, testUser)).to.equal(false);
         });
 
         it("shouldn't start because of insufficient userrights", function () {
@@ -264,8 +269,7 @@ describe("sdk", function () {
         });
 
         it("shouldn't start by mail because process is null", function () {
-          let nullProcess: IProcessDetails;
-          expect(canStartProcessByMail(nullProcess, testUser)).to.equal(false);
+          expect(canStartProcessByMail(undefined, testUser)).to.equal(false);
         });
 
         it("shouldn't start by mail because of insufficient userrights", function () {
@@ -297,8 +301,7 @@ describe("sdk", function () {
         });
 
         it("shouldn't start by timer because process is null", function () {
-          let nullProcess: IProcessDetails;
-          expect(canStartProcessByTimer(nullProcess, testUser)).to.equal(false);
+          expect(canStartProcessByTimer(undefined, testUser)).to.equal(false);
         });
 
         it("shouldn't start by timer because of insufficient userrights", function () {
