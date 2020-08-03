@@ -1,18 +1,4 @@
-import { IWorkspaceDetails } from "./workspaceinterfaces";
-
 // Internal objects used by ProcessHub client and server
-
-export class WorkspaceState {
-  currentWorkspace: IWorkspaceDetails;
-
-  // Workspace Cache
-  workspaceCache: {
-    [workspaceId: string]: IWorkspaceDetails;
-  };
-
-  cacheState?: string;  // Updated in reducers, helps React to detect state changes
-  lastDispatchedWorkspace: IWorkspaceDetails; // Used in reducer to detect changes
-}
 
 // WorkspaceView
 export const WorkspaceView = {

@@ -1,20 +1,3 @@
-import { IProcessDetails } from "./processinterfaces";
-// Internal objects used by ProcessHub client and server
-
-export class ProcessState {
-  errorMessage: string;
-
-  currentProcess: IProcessDetails;
-
-  // Process Cache
-  processCache: {
-    [processId: string]: IProcessDetails;
-  };
-
-  cacheState?: string;  // Updated in reducers, helps React to detect state changes
-  lastDispatchedProcess: IProcessDetails; // Used in reducer to detect changes
-}
-
 export const ProcessView = {
   // Will be used for urlSegments, so elements in lower case
   Show: "show",
