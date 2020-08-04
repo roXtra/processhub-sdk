@@ -4,7 +4,7 @@ import { tl } from "../tl";
 export const EForm: IModule = {
   moduleId: ModuleId.EForm,
   urlPrefix: "f",
-  name: tl("Prozesse"),
+  name: tl("Formulare"),
 };
 
 export const Risks: IModule = {
