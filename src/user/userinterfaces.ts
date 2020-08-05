@@ -65,7 +65,7 @@ export class UserDetails {
 export enum UserExtras {
   None = 0,
   ExtrasWorkspaces = 1 << 0, // Get workspaces where user is a member
-  ExtrasWorkspacesWithMembersAndProcesses = 1 << 1,  // The sidebar needs fully loaded workspaces to display
+  ExtrasWorkspacesWithProcesses = 1 << 1,  // The sidebar needs fully loaded workspaces to display
   ExtrasInstances = 1 << 2,  // Instances visible to user
   ExtrasViewStates = 1 << 3,  // User-specific last opening-dates of instances, used to sync notifications on all user devices
   ExtrasArchiveViews = 1 << 4,  // User-specific last viewed archive views by process id,
