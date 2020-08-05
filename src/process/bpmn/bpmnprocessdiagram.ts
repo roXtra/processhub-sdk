@@ -248,9 +248,9 @@ export class BpmnProcessDiagram {
       const sizeStartAndEndEvent = 36;
       let iconHeight = 80;
       // Jedes element MUSS in einer Lane sein! Wenn hier null returned wird, dann ist das ein FEHLER
-      const laneNumber: number = this.bpmnProcess.getLaneNumberOfElement(workingObject, laneDictionaries);
-      if (laneNumber == null) {
-        console.log("Error: Element has no lane assignment.");
+      const laneNumber = this.bpmnProcess.getLaneNumberOfElement(workingObject, laneDictionaries);
+      if (laneNumber === undefined) {
+        throw new Error("Error: Element has no lane assignment.");
       }
 
       // Berechnung der Y-Koordinate für jedes Element (Task)
@@ -272,11 +272,11 @@ export class BpmnProcessDiagram {
 
         const startEvent = (workingObject as Bpmn.IStartEvent);
         if (startEvent.eventDefinitions != null && startEvent.eventDefinitions.length > 0) {
-          if (standardStartEvent.length > 0 || (startEvents.length > 1 && startEvents.last().id === workingObject.id)) {
+          if (standardStartEvent.length > 0 || (startEvents.length > 1 && startEvents.last()?.id === workingObject.id)) {
             xParam -= iconWidth + BpmnProcessDiagram.SPACE_BETWEEN_TASKS;
           }
 
-          const isMessageStartEvent = startEvent.eventDefinitions.last().$type === "bpmn:MessageEventDefinition";
+          const isMessageStartEvent = startEvent.eventDefinitions.last()?.$type === "bpmn:MessageEventDefinition";
           isMessageStartEvent ?
             yParam -= 40 :
             yParam += 40;
@@ -298,8 +298,14 @@ export class BpmnProcessDiagram {
     // Hole die beiden Diagramm Objekte von Quell und Ziel Objekt
     const sourceRef = flowObject.sourceRef;
     const sourceDiagramObject = this.getShapeFromDiagram(sourceRef.id);
+    if (!sourceDiagramObject) {
+      throw new Error("No diagram shape found for " + sourceRef.id);
+    }
     const targetRef = flowObject.targetRef;
     const targetDiagramObject = this.getShapeFromDiagram(targetRef.id);
+    if (!targetDiagramObject) {
+      throw new Error("No diagram shape found for " + targetRef.id);
+    }
     isTrue(sourceRef != null, "Missing Ref Source: " + String(flowObject.sourceRef));
     isTrue(sourceDiagramObject != null, "Missing Object Source with ID: " + sourceRef.id);
     isTrue(targetRef != null, "Missing Target Source: " + String(flowObject.targetRef));

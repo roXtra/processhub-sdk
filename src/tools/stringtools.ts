@@ -14,7 +14,7 @@ export function isValidMailAddress(mail: string | null): boolean {
   return re.test(mail);
 }
 
-export function isValidWorkspaceName(workspaceName: string): boolean {
+export function isValidWorkspaceName(workspaceName?: string): boolean {
   if ((workspaceName == null)
     || (workspaceName.length < 5)
     || (workspaceName.includes(" "))) {
@@ -27,7 +27,7 @@ export function isValidWorkspaceName(workspaceName: string): boolean {
 }
 
 // Benutzer-Realname auf Gültigkeit prüfen
-export function isValidRealname(realName: string): boolean {
+export function isValidRealname(realName?: string): boolean {
   // Nur Mindestlänge 5 Zeichen einfordern
   if (realName == null || realName.length < 5)
     return false;
@@ -101,9 +101,9 @@ export function getGroupFromQuery(query: string): Group {
   return parseNestedElementsToGroupConstruct(getNestedElements(query), true);
 }
 
-export function getQueryFromGroup(group: Group, isChild?: boolean): string | null {
+export function getQueryFromGroup(group: Group, isChild?: boolean): string | undefined {
   if (group.rules.length === 0) {
-    return isChild ? "()" : null;
+    return isChild ? "()" : undefined;
   }
 
   return "(" + group.rules.map(r => (r as Rule).field ? getQueryFromRule(r as Rule) : getQueryFromGroup(r as Group, true)).join(" " + group.combinator + " ") + ")";

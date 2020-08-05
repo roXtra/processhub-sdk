@@ -28,7 +28,7 @@ describe("sdk", function () {
         it("soll ungültige Workspacenamen ablehnen", function () {
           chai.assert.isFalse(StringTools.isValidWorkspaceName("name with spaces"), "1");
           chai.assert.isFalse(StringTools.isValidWorkspaceName(""), "2");
-          chai.assert.isFalse(StringTools.isValidWorkspaceName(null), "3");
+          chai.assert.isFalse(StringTools.isValidWorkspaceName(undefined), "3");
           chai.assert.isFalse(StringTools.isValidWorkspaceName("thom")), "4";
         });
       });
@@ -42,7 +42,7 @@ describe("sdk", function () {
         it("soll ungültige Benutzernamen ablehnen", function () {
           // Prüft lediglich Länge >= 5
           chai.assert.isFalse(StringTools.isValidRealname("Thom"));
-          chai.assert.isFalse(StringTools.isValidRealname(null));
+          chai.assert.isFalse(StringTools.isValidRealname(undefined));
         });
       });
 
@@ -292,10 +292,10 @@ describe("sdk", function () {
           });
         });
 
-        const editTestParameters2: { expectedQuery: string; group: Group; guid: string }[] = [
+        const editTestParameters2: { expectedQuery?: string; group: Group; guid: string }[] = [
           {
             guid: "43c28ab1-0fc4-437f-a27b-63afddb4b850",
-            expectedQuery: null,
+            expectedQuery: undefined,
             group: {
               rules: [],
               combinator: "&&"
