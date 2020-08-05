@@ -101,7 +101,7 @@ export function getGroupFromQuery(query: string): Group {
   return parseNestedElementsToGroupConstruct(getNestedElements(query), true);
 }
 
-export function getQueryFromGroup(group: Group, isChild?: boolean): string {
+export function getQueryFromGroup(group: Group, isChild?: boolean): string | null {
   if (group.rules.length === 0) {
     return isChild ? "()" : null;
   }
@@ -110,7 +110,7 @@ export function getQueryFromGroup(group: Group, isChild?: boolean): string {
 }
 
 export function getQueryFromRule(rule: Rule): string {
-  let value: string | number | { [index: string]: boolean };
+  let value: string | number | { [index: string]: boolean } | undefined;
 
   switch (typeof rule.value) {
     case "undefined":
@@ -126,6 +126,12 @@ export function getQueryFromRule(rule: Rule): string {
       value = JSON.stringify(rule.value);
       break;
   }
+
+  if (rule.field === undefined)
+    throw new Error("Field in rule is undefined!");
+
+  if (rule.operator === undefined)
+    throw new Error(`Operator for rule with field ${rule.field} is undefined!`);
 
   return `${rule.field} ${rule.operator} ${String(value)}`;
 }
@@ -171,9 +177,9 @@ export class Group extends BaseElement {
 }
 
 export class Rule extends BaseElement {
-  field: string;
-  operator: string;
-  value: string | number | { [key: string]: boolean };
+  field?: string;
+  operator?: string;
+  value?: string | number | { [key: string]: boolean };
 
   constructor(field?: string, operator?: string, value?: string | number | { [key: string]: boolean }) {
     super();
@@ -191,8 +197,22 @@ export function parseNestedElementsToGroupConstruct(nestedElement: NestedElement
     return topGroup;
   }
 
-  const topEntry: NestedElement = cloneDeep(nestedElement[Object.keys(nestedElement).find(k => nestedElement[k].top)]);
-  topGroup.combinator = topEntry.type === "group" ? isCombinatorRegex.exec(topEntry.query)[1] : "&&";
+  const topIndex = Object.keys(nestedElement).find(k => nestedElement[k].top);
+
+  if (topIndex === undefined)
+    throw new Error(`Could not find index for top element in parseNestedElementsToGroupConstruct: ${JSON.stringify(nestedElement)}`);
+
+  const topEntry: NestedElement = cloneDeep(nestedElement[topIndex]);
+
+  if (topEntry.type === "group") {
+    const regexEx = isCombinatorRegex.exec(topEntry.query);
+    if (regexEx === null)
+      throw new Error(`Regex isCombinatorRegex returned null for search with ${topEntry.query}`);
+
+    topGroup.combinator = regexEx[1];
+  } else {
+    topGroup.combinator = "&&";
+  }
 
   const splittedRules = topEntry.type === "group" ? topEntry.query.split(topGroup.combinator).map(item => item.trim()) : [topEntry.query];
   for (let i = 0; i < splittedRules.length; i++) {
@@ -209,7 +229,11 @@ export function parseNestedElementsToGroupConstruct(nestedElement: NestedElement
 }
 
 export function parseNestedElement(query: string, nestedElements: NestedElements, group: Group): void {
-  delete nestedElements[Object.keys(nestedElements).find(k => nestedElements[k].top)];
+  const topIndex = Object.keys(nestedElements).find(k => nestedElements[k].top);
+  if (topIndex !== undefined) {
+    delete nestedElements[topIndex];
+  }
+
   nestedElements[query].top = true;
   group.rules.push(parseNestedElementsToGroupConstruct(nestedElements));
   if (nestedElements[query]) {
@@ -217,9 +241,13 @@ export function parseNestedElement(query: string, nestedElements: NestedElements
   }
 }
 
-export function getFieldOrRoleDisplayName(fieldString: string): string {
+export function getFieldOrRoleDisplayName(fieldString: string): string | null {
   const regex = new RegExp(/((field|role)\['([^']*)'\](\.[^\s]+)?)/);
   const match = regex.exec(fieldString);
+
+  if (match === null)
+    return null;
+
   const prefix = match[2] === "field" ? tl("Feld") : tl("Rolle");
   let suffix = "";
   if (match[4]) {
