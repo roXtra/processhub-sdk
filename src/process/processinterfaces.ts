@@ -177,7 +177,9 @@ export type BpmnExtensionName =
   | "datefield-for-timercatch"
   | "script-task-code"
   | "service-task-config-object"
-  | "roxtra-version";
+  | "roxtra-version"
+  | "anonymous-start"
+  | "anonymous-start-userid";
 
 export interface ITaskExtensions {
   description: string;
@@ -208,6 +210,9 @@ export interface ITaskExtensions {
   fieldsWhichShouldSend: string[];
   dateFieldTimer: string;
   roXtraVersion: string;
+
+  anonymousStart: boolean;
+  anonymousStartUserId: string;
 }
 
 export interface ITimerStartEventConfiguration {

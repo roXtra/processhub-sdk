@@ -34,6 +34,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensi
     fieldsWhichShouldSend: undefined,
     dateFieldTimer: undefined,
     roXtraVersion: undefined,
+
+    anonymousStart: undefined,
+    anonymousStartUserId: undefined,
   };
 
   if (activityObject == null || activityObject.extensionElements == null || (activityObject.extensionElements != null && activityObject.extensionElements.values == null)) {
@@ -70,6 +73,12 @@ export function getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensi
             break;
           case "roleowners-editable":
             returnValue.roleOwnersEditable = child.$body !== "false";
+            break;
+          case "anonymous-start":
+            returnValue.anonymousStart = child.$body === "true";
+            break;
+          case "anonymous-start-userid":
+            returnValue.anonymousStartUserId = child.$body;
             break;
           case "all-fields-editable":
             returnValue.allFieldsEditable = child.$body !== "false";
