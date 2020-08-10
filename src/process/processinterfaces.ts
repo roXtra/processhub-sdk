@@ -242,6 +242,7 @@ export interface IStartButtonMap {
     startEventName: string;
     laneId: string;
     onlyRoxFileField: boolean;
+    anonymousStart: boolean;
   };
 }
 
