@@ -13,6 +13,10 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
     request.moduleId = window.__INITIAL_CONFIG__.moduleId;
   }
 
+  if ((accessToken == null) && (typeof window !== "undefined")) {
+    accessToken = window.__INITIAL_CONFIG__.xAccesstoken;
+  }
+
   // Request als Querystring serialisieren
   const str = [];
   for (const p in request) {
@@ -89,6 +93,10 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
 
   if ((request.moduleId === undefined) && (typeof window !== "undefined")) {
     request.moduleId = window.__INITIAL_CONFIG__.moduleId;
+  }
+
+  if ((accessToken == null) && (typeof window !== "undefined")) {
+    accessToken = window.__INITIAL_CONFIG__.xAccesstoken;
   }
 
   let req: RequestInit = null;
