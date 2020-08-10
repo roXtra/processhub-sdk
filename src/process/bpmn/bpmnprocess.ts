@@ -419,6 +419,7 @@ export class BpmnProcess {
             startEventName: (startEvent.name && startEvent.name.trim() !== "") ? startEvent.name : undefined,
             laneId: this.getLaneOfFlowNode(startEvent.id).id,
             onlyRoxFileField,
+            anonymousStart: extVals ? extVals.anonymousStart : false,
           };
         }
       });

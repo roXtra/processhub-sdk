@@ -125,6 +125,23 @@ export function getProcessRoles(currentRoles: IProcessRoles, bpmnProcess: BpmnPr
       }
     });
 
+    // Add anonymous StartEvent user to process role
+    for (const startEvent of startEvents) {
+      const extensions = BpmnProcess.getExtensionValues(startEvent);
+      if (extensions.anonymousStart && extensions.anonymousStartUserId) {
+        const role = bpmnProcess.getLaneOfFlowNode(startEvent.id);
+        if (role) {
+          const processRole = processRoles[role.id];
+          if (processRole) {
+            processRole.potentialRoleOwners = processRole.potentialRoleOwners || [];
+            if (!processRole.potentialRoleOwners.find(o => o.memberId === extensions.anonymousStartUserId)) {
+              processRole.potentialRoleOwners.push({ memberId: extensions.anonymousStartUserId });
+            }
+          }
+        }
+      }
+    }
+
     // Remove roles that are not used any more
     for (const role in processRoles) {
       if (role !== DefaultRoles.Owner && role !== DefaultRoles.Manager && role !== DefaultRoles.Viewer && role !== DefaultRoles.Follower) {
@@ -132,6 +149,7 @@ export function getProcessRoles(currentRoles: IProcessRoles, bpmnProcess: BpmnPr
           delete (processRoles[role]);
       }
     }
+
   }
 
   return processRoles;
