@@ -139,6 +139,7 @@ export function getProcessRoles(currentRoles: IProcessRoles, bpmnProcess: BpmnPr
             }
           };
           addToRole(processRoles[role.id]);
+          processRoles[DefaultRoles.Viewer] = processRoles[DefaultRoles.Viewer] ||  { potentialRoleOwners: [{ memberId: defaultRoleOwnerId }] };
           addToRole(processRoles[DefaultRoles.Viewer]);
         }
       }
