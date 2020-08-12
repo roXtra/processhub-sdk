@@ -125,19 +125,22 @@ export function getProcessRoles(currentRoles: IProcessRoles, bpmnProcess: BpmnPr
       }
     });
 
-    // Add anonymous StartEvent user to process role
+    // Add anonymous StartEvent user to process role and viewer role
     for (const startEvent of startEvents) {
       const extensions = BpmnProcess.getExtensionValues(startEvent);
       if (extensions.anonymousStart && extensions.anonymousStartUserId) {
         const role = bpmnProcess.getLaneOfFlowNode(startEvent.id);
         if (role) {
-          const processRole = processRoles[role.id];
-          if (processRole) {
-            processRole.potentialRoleOwners = processRole.potentialRoleOwners || [];
-            if (!processRole.potentialRoleOwners.find(o => o.memberId === extensions.anonymousStartUserId)) {
-              processRole.potentialRoleOwners.push({ memberId: extensions.anonymousStartUserId });
+          const addToRole = (role: IProcessRole): void => {
+            if (role) {
+              if (!role.potentialRoleOwners.find(o => o.memberId === extensions.anonymousStartUserId)) {
+                role.potentialRoleOwners.push({ memberId: extensions.anonymousStartUserId });
+              }
             }
-          }
+          };
+          addToRole(processRoles[role.id]);
+          processRoles[DefaultRoles.Viewer] = processRoles[DefaultRoles.Viewer] ||  { potentialRoleOwners: [{ memberId: defaultRoleOwnerId }] };
+          addToRole(processRoles[DefaultRoles.Viewer]);
         }
       }
     }
