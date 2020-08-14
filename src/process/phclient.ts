@@ -23,7 +23,7 @@ export interface IRowDetails {
   selectedRole: string;
   task: string;
   taskId: string;
-  laneId?: string;
+  laneId: string;
   taskType: "bpmn:UserTask" | "bpmn:SendTask" | "bpmn:StartEvent";
   jumpsTo: string[];
 }
