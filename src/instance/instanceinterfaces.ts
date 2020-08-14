@@ -82,6 +82,7 @@ export interface IResumeInstanceDetails {
   // Sollte nächste Activity Exclusive Gateway sein, wird hier die Entscheidung über den SF mitgeteilt
   choosenTask?: IDecisionTask;
   fieldContents?: IFieldContentMap;
+  timerTriggeredManually?: boolean;
 }
 
 export interface IEngineState {
