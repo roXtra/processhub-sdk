@@ -43,6 +43,8 @@ export enum AuditTrailAction {
   fieldTypeChanged = 38,
   // An instance linked in a ProcessLink field was deleted. linkedInstanceTitle is set to title of deleted instance in IAuditTrailEntryDetails.
   linkedInstanceDeleted = 39,
+  // An intermediate timer was triggered manually. todoDisplayName is set in details
+  intermediateTimerTriggeredManually = 40,
   workspaceCreated = 100,
 }
 /* eslint-enable @typescript-eslint/naming-convention */
@@ -53,7 +55,7 @@ export enum AuditTrailProcessFlag {
 }
 
 export interface IAuditTrailEntryDetails {
-  // Must be set for completedTodo, todoDueAtDateChanged, decision, errorSubProcees, errorOnEvaluateGatewayDecision, sendTask
+  // Must be set for completedTodo, todoDueAtDateChanged, decision, errorSubProcees, errorOnEvaluateGatewayDecision, sendTask, intermediateTimerTriggeredManually
   todoDisplayName: string;
   // Must be set for AuditTrailAction.comment and processComment
   comment: string;
