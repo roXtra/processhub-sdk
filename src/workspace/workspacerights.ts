@@ -8,7 +8,7 @@ export function isWorkspaceMember(workspace: IWorkspaceDetails): boolean {
 }
 
 export function isWorkspaceAdmin(workspace: IWorkspaceDetails): boolean {
-  if (workspace == null)
+  if (workspace == null || workspace.userRole == null)
     return false;
 
   return ((workspace.userRole & WorkspaceRole.WorkspaceAdmin) !== 0);
@@ -16,7 +16,7 @@ export function isWorkspaceAdmin(workspace: IWorkspaceDetails): boolean {
 
 // Only true if flag is set AND licenseHasWorkspaceProcessManagers()
 export function isWorkspaceProcessManager(workspace: IWorkspaceDetails): boolean {
-  if (workspace == null)
+  if (workspace == null || workspace.userRole == null)
     return false;
 
   return ((workspace.userRole & (WorkspaceRole.WorkspaceAdmin | WorkspaceRole.WorkspaceProcessManager)) !== 0);

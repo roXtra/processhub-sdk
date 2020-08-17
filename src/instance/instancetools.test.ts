@@ -18,7 +18,7 @@ describe("sdk", function () {
               instanceState: undefined,
             }
           };
-          assert.equal(fieldContentsExcerpt(null, 100), "");  // Fault tolerant
+          assert.equal(fieldContentsExcerpt(undefined, 100), "");  // Fault tolerant
           assert.equal(fieldContentsExcerpt(instance, 100), "");
 
           instance.extras.fieldContents = {

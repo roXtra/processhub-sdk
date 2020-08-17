@@ -4,9 +4,9 @@ import { stringExcerpt } from "../tools/stringtools";
 import { isId } from "../tools/guid";
 import { isDefaultProcessRole } from "../process";
 
-export function parseInstanceMailSubject(mail: string): string {
+export function parseInstanceMailSubject(mail: string): string | undefined {
   const regex = /(\[)(i-)(.*?)(\])/gm;
-  let match: RegExpExecArray;
+  let match: RegExpExecArray | null;
 
   while ((match = regex.exec(mail)) != null) {
     let maybeId: string = match[3];
@@ -15,7 +15,7 @@ export function parseInstanceMailSubject(mail: string): string {
       return maybeId;
     }
   }
-  return null;
+  return undefined;
 }
 
 // RoleID == null -> check for any role membership
@@ -43,7 +43,7 @@ export function isRoleOwner(userId: string, roleId: string, instance: IInstanceD
   return false;
 }
 
-export function fieldContentsExcerpt(instance: IInstanceDetails, maxLen: number): string {
+export function fieldContentsExcerpt(instance: IInstanceDetails | undefined, maxLen: number): string {
   if (instance == null || instance.extras.fieldContents == null)
     return "";
 

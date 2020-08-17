@@ -8,7 +8,11 @@ const isProduction = false;
 
 export function error(message?: string): void {
   if (!isProduction) {
-    throw new Error("Assertion failed: " + message);
+    if (message) {
+      throw new Error("Assertion failed: " + message);
+    } else {
+      throw new Error("Assertion failed");
+    }
   }
 }
 

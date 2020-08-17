@@ -5,7 +5,7 @@ import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 // Helper functions to filter and/or sort instances
 
 // instance where the user owns at least one todo
-export function filterUserInstances(instances: IInstanceDetails[], user: UserDetails): IInstanceDetails[] {
+export function filterUserInstances(instances: IInstanceDetails[], user?: UserDetails): IInstanceDetails[] {
   if (!user || !instances)
     return [];
 
@@ -24,9 +24,9 @@ export function filterUserInstances(instances: IInstanceDetails[], user: UserDet
   return filteredInstances;
 }
 
-export function filterSingleInstance(instances: IInstanceDetails[], instanceId: string): IInstanceDetails {
+export function filterSingleInstance(instances: IInstanceDetails[], instanceId: string): IInstanceDetails | undefined {
   if (!instances)
-    return null;
+    return undefined;
 
   return instances.find(instance => instance.instanceId === instanceId && !instance.isSimulation);
 }
@@ -60,7 +60,7 @@ export function filterRemainingInstancesForWorkspace(instances: IInstanceDetails
     // GetOtherItems lists the todos for processes without read access - filter the others
     const filteredInstances: IInstanceDetails[] = [];
     workspaceInstances.map(instance => {
-      if (workspace.extras.processes.find(process => process.processId === instance.processId) == null) {
+      if (workspace.extras.processes?.find(process => process.processId === instance.processId) == null) {
         filteredInstances.push(instance);
       }
     });

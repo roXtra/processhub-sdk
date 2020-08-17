@@ -12,6 +12,7 @@
     "declaration": true,
     "allowSyntheticDefaultImports": true,
     "noEmit": false,
+    "strictNullChecks": true,
     "jsx" : "react",
     "lib": [
       "esnext",

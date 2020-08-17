@@ -102,7 +102,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensi
             returnValue.scriptTaskCode = child.$body;
             break;
           case "service-task-config-object":
-            returnValue.serviceTaskConfigObject = JSON.parse(child.$body);
+            if (child.$body) {
+              returnValue.serviceTaskConfigObject = JSON.parse(child.$body);
+            }
             break;
           case "fields-which-should-send":
             try {
@@ -118,7 +120,11 @@ export function getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensi
             break;
           case "required-fields-needed": {
             try {
-              returnValue.requiredFieldsNeeded = JSON.parse(child.$body);
+              if (child.$body) {
+                returnValue.requiredFieldsNeeded = JSON.parse(child.$body);
+              } else {
+                returnValue.requiredFieldsNeeded = [];
+              }
             } catch (ex) {
               console.log(ex);
 
@@ -130,11 +136,17 @@ export function getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensi
             returnValue.saveDecisionInFieldContents = child.$body !== "false";
             break;
           case "custom-field-contents-value":
-            returnValue.customFieldContentsValue = child.$body;
+            if (child.$body) {
+              returnValue.customFieldContentsValue = child.$body;
+            }
             break;
           case "send-task-receiver": {
             try {
-              returnValue.sendTaskReceiver = JSON.parse(child.$body);
+              if (child.$body) {
+                returnValue.sendTaskReceiver = JSON.parse(child.$body);
+              } else {
+                returnValue.sendTaskReceiver = [];
+              }
             } catch (ex) {
               console.log(ex);
 
@@ -143,7 +155,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensi
           }
             break;
           case "processhub-userform":
-            returnValue.fieldDefinitions = updateLegacyFieldDefinitions(JSON.parse(child.$body));
+            if (child.$body) {
+              returnValue.fieldDefinitions = updateLegacyFieldDefinitions(JSON.parse(child.$body));
+            }
             break;
 
           default:
@@ -173,7 +187,8 @@ export function addOrUpdateExtension(baseElement: Bpmn.IBaseElement, key: BpmnEx
   }
   let phInOut = baseElement.extensionElements.values.find(e => e.$type === "processhub:inputOutput") as Processhub.IInputOutput;
   if (!phInOut || phInOut.$children == null) {
-    phInOut = bpmnModdleInstance.createAny("processhub:inputOutput", "http://processhub.com/schema/1.0/bpmn", { $children: [] }) as Processhub.IInputOutput;
+    phInOut = bpmnModdleInstance.createAny("processhub:inputOutput", "http://processhub.com/schema/1.0/bpmn", {}) as Processhub.IInputOutput;
+    phInOut.$children = [];
     baseElement.extensionElements.values.push(phInOut);
   }
   let settingsElement = phInOut.$children.find(c => (c as Processhub.IInputParameter).name === key);
@@ -185,7 +200,7 @@ export function addOrUpdateExtension(baseElement: Bpmn.IBaseElement, key: BpmnEx
   settingsElement.$body = value as string;
 }
 
-export function getExtensionBody(flowNode: Bpmn.IFlowNode, settingsName: BpmnExtensionName): string {
+export function getExtensionBody(flowNode: Bpmn.IFlowNode, settingsName: BpmnExtensionName): string | undefined {
   if (flowNode.extensionElements && flowNode.extensionElements.values) {
     const phInOut = flowNode.extensionElements.values.find(e => e.$type === "processhub:inputOutput") as Processhub.IInputOutput;
     if (phInOut && phInOut.$children) {
@@ -195,5 +210,5 @@ export function getExtensionBody(flowNode: Bpmn.IFlowNode, settingsName: BpmnExt
       }
     }
   }
-  return null;
+  return undefined;
 }

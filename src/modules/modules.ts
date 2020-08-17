@@ -41,5 +41,5 @@ export function getModuleForRequestPath(requestPath: string): IModule {
   }
 
   // Default module is EFormulare
-  return modules.find(m => m.moduleId === ModuleId.EForm);
+  return EForm;
 }

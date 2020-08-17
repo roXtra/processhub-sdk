@@ -84,11 +84,9 @@ export function isDefaultProcessRole(roleId: string): boolean {
     || roleId === DefaultRoles.Viewer);
 }
 
-export function getProcessRoles(currentRoles: IProcessRoles, bpmnProcess: BpmnProcess, defaultRoleOwnerId: string): IProcessRoles {
+export function getProcessRoles(currentRoles: IProcessRoles | undefined, bpmnProcess: BpmnProcess, defaultRoleOwnerId: string): IProcessRoles {
   // Add entries for all existing roles in the process
-  let processRoles = currentRoles;
-  if (processRoles == null)
-    processRoles = {};
+  const processRoles = currentRoles || {};
 
   // Everybody can be added as a follower
   processRoles[DefaultRoles.Follower] = { potentialRoleOwners: [{ memberId: getDefaultRoleGroup() }], allowMultipleOwners: true };
@@ -133,13 +131,15 @@ export function getProcessRoles(currentRoles: IProcessRoles, bpmnProcess: BpmnPr
         if (role) {
           const addToRole = (role: IProcessRole): void => {
             if (role) {
-              if (!role.potentialRoleOwners.find(o => o.memberId === extensions.anonymousStartUserId)) {
-                role.potentialRoleOwners.push({ memberId: extensions.anonymousStartUserId });
+              if (extensions.anonymousStartUserId) {
+                if (!role.potentialRoleOwners.find(o => o.memberId === extensions.anonymousStartUserId)) {
+                  role.potentialRoleOwners.push({ memberId: extensions.anonymousStartUserId });
+                }
               }
             }
           };
           addToRole(processRoles[role.id]);
-          processRoles[DefaultRoles.Viewer] = processRoles[DefaultRoles.Viewer] ||  { potentialRoleOwners: [{ memberId: defaultRoleOwnerId }] };
+          processRoles[DefaultRoles.Viewer] = processRoles[DefaultRoles.Viewer] || { potentialRoleOwners: [{ memberId: defaultRoleOwnerId }] };
           addToRole(processRoles[DefaultRoles.Viewer]);
         }
       }
@@ -286,14 +286,14 @@ export function getPotentialRoleOwners(workspaceDetails: IWorkspaceDetails, proc
 }
 
 export function isProcessOwner(process: IProcessDetails | undefined, user: UserDetails): boolean {
-  if (process == null || !hasEditAccess(user))
+  if (process == null || process.userRights == null || !hasEditAccess(user))
     return false;
 
   return ((process.userRights & ProcessAccessRights.EditProcess) !== 0);
 }
 
 export function isProcessManager(process: IProcessDetails | undefined, user: UserDetails): boolean {
-  if (process == null || !hasEditAccess(user))
+  if (process == null || process.userRights == null || !hasEditAccess(user))
     return false;
 
   // Owner are managers
@@ -301,7 +301,7 @@ export function isProcessManager(process: IProcessDetails | undefined, user: Use
 }
 
 export function canViewProcess(process: IProcessDetails): boolean {
-  if (process == null)
+  if (process == null || process.userRights == null)
     return false;
 
   return ((process.userRights & ProcessAccessRights.ViewProcess) !== 0);
@@ -340,21 +340,21 @@ export function canStartProcess(process: IProcessDetails | undefined, startEvent
   return process.userStartEvents[startEventId] != null;
 }
 export function canStartProcessOld(process: IProcessDetails | undefined, user: UserDetails): boolean {
-  if (process == null || !hasEditAccess(user))
+  if (process == null || process.userRights == null || !hasEditAccess(user))
     return false;
 
   // Only users in the start lane may start the process - even administrators don't inherit that right!
   return ((process.userRights & ProcessAccessRights.StartProcess) !== 0);
 }
 export function canStartProcessByMail(process: IProcessDetails | undefined, user: UserDetails): boolean {
-  if (process == null)
+  if (process == null || process.userRights == null)
     return false;
 
   // Only users in the start lane may start the process - even administrators don't inherit that right!
   return (hasEditAccess(user) && (process.userRights & ProcessAccessRights.StartProcessByMail) !== 0);
 }
 export function canStartProcessByTimer(process: IProcessDetails | undefined, user: UserDetails): boolean {
-  if (process == null)
+  if (process == null || process.userRights == null)
     return false;
 
   // Only timer in the start lane may start the process - even administrators don't inherit that right!
@@ -362,20 +362,20 @@ export function canStartProcessByTimer(process: IProcessDetails | undefined, use
 }
 
 export function canViewTodos(process: IProcessDetails): boolean {
-  if (process == null)
+  if (process == null || process.userRights == null)
     return false;
 
   return canViewAllTodos(process) || ((process.userRights & ProcessAccessRights.ViewTodos) !== 0);
 }
 export function canViewAllTodos(process: IProcessDetails): boolean {
-  if (process == null)
+  if (process == null || process.userRights == null)
     return false;
 
   return ((process.userRights & ProcessAccessRights.ViewAllTodos) !== 0);
 }
 
 export function canViewArchive(process: IProcessDetails): boolean {
-  if (process == null)
+  if (process == null || process.userRights == null)
     return false;
 
   return ((process.userRights & ProcessAccessRights.ViewArchive) !== 0);

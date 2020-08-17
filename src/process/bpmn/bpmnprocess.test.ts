@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import BpmnModdle from "bpmn-moddle";
 import { assert, expect } from "chai";
 import { Bpmn } from "../../process/bpmn";
@@ -23,7 +25,7 @@ async function readFileAsync(fileName: string): Promise<string> {
 let TestRowDetails: IRowDetails[] = [];
 
 function addTask(rowDetails: IRowDetails[], rowNumber: number, bpmnProcess: BpmnProcess): void {
-  rowDetails.splice((rowNumber + 1), 0, { rowNumber: (rowNumber + 1), selectedRole: rowDetails[rowNumber].selectedRole, task: "", taskId: null, laneId: rowDetails[rowNumber].laneId, taskType: "bpmn:UserTask", jumpsTo: rowDetails[rowNumber].jumpsTo });
+  rowDetails.splice((rowNumber + 1), 0, { rowNumber: (rowNumber + 1), selectedRole: rowDetails[rowNumber].selectedRole, task: "", taskId: "", laneId: rowDetails[rowNumber].laneId, taskType: "bpmn:UserTask", jumpsTo: rowDetails[rowNumber].jumpsTo });
 
   bpmnProcess.addTaskBetween(rowDetails, (rowNumber + 1));
 
@@ -52,12 +54,12 @@ async function createTestBpmnProcess(): Promise<BpmnProcess> {
   const startElem = start.last();
   const testLane = bpmnProcess.getLaneOfFlowNode(startElem.id);
 
-  rowDetails.push({ rowNumber: 0, selectedRole: testLane.id, task: startElem.name, taskId: startElem.id, laneId: testLane.id, taskType: startElem.$type, jumpsTo: startElem.outgoing.map(out => out.targetRef.id) });
+  rowDetails.push({ rowNumber: 0, selectedRole: testLane!.id, task: startElem.name!, taskId: startElem.id, laneId: testLane!.id, taskType: startElem.$type, jumpsTo: startElem.outgoing!.map(out => out.targetRef.id) });
 
   let counter = 1;
   rowDetails = rowDetails.concat(sortedTasks.map((r): IRowDetails => {
     const testLane = bpmnProcess.getLaneOfFlowNode(r.id);
-    const row = { rowNumber: counter, selectedRole: testLane.id, task: r.name, taskId: r.id, laneId: testLane.id, taskType: r.$type, jumpsTo: r.outgoing.map(out => out.targetRef.id) } as IRowDetails;
+    const row = { rowNumber: counter, selectedRole: testLane!.id, task: r.name, taskId: r.id, laneId: testLane!.id, taskType: r.$type, jumpsTo: r.outgoing!.map(out => out.targetRef.id) } as IRowDetails;
     counter++;
     return row;
   }));
@@ -87,8 +89,8 @@ describe("sdk", function () {
           for (const expectedBpmnTaskId of expectedBpmnTaskIds) {
             const decisionTask = decisionTasks.find(d => d.bpmnTaskId === expectedBpmnTaskId);
             expect(decisionTask).not.to.equal(undefined);
-            expect(decisionTask.name).not.to.eq(null);
-            expect(decisionTask.name.length).to.be.greaterThan(0);
+            expect(decisionTask!.name).not.to.eq(null);
+            expect(decisionTask!.name.length).to.be.greaterThan(0);
           }
         });
       });
@@ -109,12 +111,12 @@ describe("sdk", function () {
           const processXml: string = await readFileAsync("./src/test/testfiles/emptylane.bpmn");
           const bpmnProcess: BpmnProcess = new BpmnProcess();
           await bpmnProcess.loadXml(processXml);
-          const exportedXmlString: string = await bpmnProcess.toXmlString();
+          const exportedXmlString = await bpmnProcess.toXmlString();
 
           // Load exported xml with moddle
           const moddle: BpmnModdle = new BpmnModdle();
           const definitions = await new Promise<Bpmn.IDefinitions>((resolve, reject) => {
-            moddle.fromXML(exportedXmlString, (err, def) => {
+            moddle.fromXML(exportedXmlString!, (err, def) => {
               if (err) {
                 reject(err);
               }
@@ -124,7 +126,7 @@ describe("sdk", function () {
 
           // Check if empty lane is still there
           const process: Bpmn.IProcess = definitions.rootElements.find(e => e.$type === "bpmn:Process") as Bpmn.IProcess;
-          const [laneSet] = process.laneSets;
+          const [laneSet] = process.laneSets!;
           expect(laneSet.lanes).not.to.be.undefined;
           expect(laneSet.lanes.length).to.equal(1);
         });
@@ -205,12 +207,12 @@ describe("sdk", function () {
           // Wie test zuvor bis hier her
 
           const startEvents: Bpmn.IStartEvent[] = bpmnProcess.getStartEvents(process.id);
-          assert(startEvents[0].outgoing[0].targetRef.$type === "bpmn:UserTask");
-          assert(startEvents[0].outgoing[0].sourceRef.$type === "bpmn:StartEvent");
+          assert(startEvents[0].outgoing![0].targetRef.$type === "bpmn:UserTask");
+          assert(startEvents[0].outgoing![0].sourceRef.$type === "bpmn:StartEvent");
 
           const endEvent: Bpmn.IEndEvent = bpmnProcess.getEndEvents(process.id)[0];
-          assert(endEvent.incoming[0].sourceRef.$type === "bpmn:UserTask");
-          assert(endEvent.incoming[0].targetRef.$type === "bpmn:EndEvent");
+          assert(endEvent.incoming![0].sourceRef.$type === "bpmn:UserTask");
+          assert(endEvent.incoming![0].targetRef.$type === "bpmn:EndEvent");
         });
 
         it("soll Lane anlegen", async function () {
@@ -236,10 +238,10 @@ describe("sdk", function () {
           const rowDetails = JSON.parse(JSON.stringify(TestRowDetails));
 
           // Wie test zuvor bis hier her
-          const testLane: Bpmn.ILane = bpmnProcess.getProcessLane(process.id, rowDetails[1].laneId);
+          const testLane = bpmnProcess.getProcessLane(process.id, rowDetails[1].laneId);
 
 
-          assert(testLane.flowNodeRef.length === 2);
+          assert(testLane!.flowNodeRef.length === 2);
 
           const testTaskName = "Test Aufgabe";
 
@@ -253,15 +255,15 @@ describe("sdk", function () {
 
           // +2 hier wegen dem Start und End Event!!!!
 
-          assert(testLane.flowNodeRef.length === 3);
+          assert(testLane!.flowNodeRef.length === 3);
 
           const testTaskObject: Bpmn.IUserTask = bpmnProcess.getExistingTask(process.id, testTaskId) as Bpmn.IUserTask;
 
           bpmnProcess.removeTaskObjectFromLanes(process.id, testTaskObject);
 
-          assert(testLane.flowNodeRef.length === 2);
+          assert(testLane!.flowNodeRef.length === 2);
           bpmnProcess.removeTaskObjectFromLanes(process.id, bpmnProcess.getStartEvents(process.id)[0]);
-          assert(testLane.flowNodeRef.length === 1);
+          assert(testLane!.flowNodeRef.length === 1);
         });
 
         describe("Extension Values", function () {
@@ -297,7 +299,7 @@ describe("sdk", function () {
 
             const extensionValues = BpmnProcess.getExtensionValues(testTaskObject);
 
-            assert(extensionValues.description === testValue, extensionValues.description + " == " + testValue);
+            assert(extensionValues.description === testValue, extensionValues.description! + " == " + testValue);
           });
 
           it("soll Text einfügen und lesen - SequenzFlowExpression", function () {
@@ -307,7 +309,7 @@ describe("sdk", function () {
 
             const extensionValues = BpmnProcess.getExtensionValues(testTaskObject);
 
-            expect(extensionValues.sequenceFlowExpression).to.be.equal(expectedValue, extensionValues.sequenceFlowExpression + " == " + expectedValue);
+            expect(extensionValues.sequenceFlowExpression).to.be.equal(expectedValue, extensionValues.sequenceFlowExpression! + " == " + expectedValue);
           });
 
           it("soll Boolean einfügen und lesen", function () {
@@ -335,7 +337,7 @@ describe("sdk", function () {
 
             const extensionValues = BpmnProcess.getExtensionValues(testTaskObject);
 
-            expect(extensionValues.sequenceFlowExpression).to.be.equal(sollValue, extensionValues.sequenceFlowExpression + " == " + sollValue);
+            expect(extensionValues.sequenceFlowExpression).to.be.equal(sollValue, extensionValues.sequenceFlowExpression! + " == " + sollValue);
           });
         });
 
@@ -387,7 +389,7 @@ describe("sdk", function () {
             const testTaskObject3: Bpmn.IUserTask = bpmnProcess.getExistingTask(process.id, testTaskId3) as Bpmn.IUserTask;
             bpmnProcess.changeTaskName(rowDetails[2].taskId, testTaskName3);
 
-            assert(testTaskObject3.name === testTaskName3, testTaskObject3.name + " === " + testTaskName3);
+            assert(testTaskObject3.name === testTaskName3, testTaskObject3.name! + " === " + testTaskName3);
             assert(testTaskObject3.id === testTaskId3, testTaskObject3.id + " === " + testTaskId3);
             assert(testTaskObject3.$type === "bpmn:UserTask", testTaskObject3.$type + " === " + "bpmn:UserTask");
 
@@ -434,10 +436,10 @@ describe("sdk", function () {
           const testTaskId1: string = rowDetails[1].taskId;
 
           const taskObj = bpmnProcess.getExistingTask(bpmnProcess.processId(), testTaskId1);
-          assert.isTrue(taskObj.outgoing.length === 1, "wrong outgoing");
+          assert.isTrue(taskObj.outgoing!.length === 1, "wrong outgoing");
 
           const checkName = "Test Sequence Name 123";
-          taskObj.outgoing[taskObj.outgoing.length - 1].name = checkName;
+          taskObj.outgoing![taskObj.outgoing!.length - 1].name = checkName;
 
           assert.equal(bpmnProcess.getFollowingSequenceFlowName(testTaskId1), checkName, "Sequence Flow Name wrong");
         });
@@ -474,17 +476,17 @@ describe("sdk", function () {
           const testTaskId2: string = rowDetails[2].taskId;
 
           const taskObj = bpmnProcess.getExistingTask(bpmnProcess.processId(), testTaskId1);
-          assert.isTrue(taskObj.outgoing.length === 1, "wrong outgoing");
+          assert.isTrue(taskObj.outgoing!.length === 1, "wrong outgoing");
 
           const taskObj2 = bpmnProcess.getExistingTask(bpmnProcess.processId(), testTaskId2);
-          assert.isTrue(taskObj2.outgoing.length === 1, "wrong outgoing");
+          assert.isTrue(taskObj2.outgoing!.length === 1, "wrong outgoing");
 
-          taskObj.outgoing.push(taskObj2.outgoing[taskObj2.outgoing.length - 1]);
-          taskObj2.outgoing[taskObj2.outgoing.length - 1].sourceRef = taskObj;
-          taskObj2.outgoing.pop();
+          taskObj.outgoing!.push(taskObj2.outgoing![taskObj2.outgoing!.length - 1]);
+          taskObj2.outgoing![taskObj2.outgoing!.length - 1].sourceRef = taskObj;
+          taskObj2.outgoing!.pop();
 
           const checkName = "Test Sequence Name 123";
-          taskObj.outgoing[taskObj.outgoing.length - 1].name = checkName;
+          taskObj.outgoing![taskObj.outgoing!.length - 1].name = checkName;
 
           assert.equal(bpmnProcess.getFollowingSequenceFlowName(testTaskId1), null, "Sequence Flow Name wrong");
         });
@@ -501,12 +503,12 @@ describe("sdk", function () {
           const startElem = start.last();
           const testLane = bpmnProcess.getLaneOfFlowNode(startElem.id);
 
-          rowDetails.push({ rowNumber: 0, selectedRole: testLane.id, task: startElem.name, taskId: startElem.id, laneId: testLane.id, taskType: startElem.$type, jumpsTo: startElem.outgoing.map(out => out.targetRef.id) });
+          rowDetails.push({ rowNumber: 0, selectedRole: testLane!.id, task: startElem.name!, taskId: startElem.id, laneId: testLane!.id, taskType: startElem.$type, jumpsTo: startElem.outgoing!.map(out => out.targetRef.id) });
 
           let counter = 1;
           rowDetails = rowDetails.concat(sortedTasks.map((r): IRowDetails => {
             const testLane = bpmnProcess.getLaneOfFlowNode(r.id);
-            const row = { rowNumber: counter, selectedRole: testLane.id, task: r.name, taskId: r.id, laneId: testLane.id, taskType: r.$type, jumpsTo: r.outgoing.map(out => out.targetRef.id) } as IRowDetails;
+            const row = { rowNumber: counter, selectedRole: testLane?.id, task: r.name, taskId: r.id, laneId: testLane?.id, taskType: r.$type, jumpsTo: r.outgoing?.map(out => out.targetRef.id) } as IRowDetails;
             counter++;
             return row;
           }));
@@ -515,7 +517,7 @@ describe("sdk", function () {
 
           const rowNumber = 1;
           const testTaskName = "Test Task Name 1337";
-          rowDetails.splice(2, 0, { rowNumber: (rowNumber + 1), selectedRole: rowDetails[rowNumber].selectedRole, task: testTaskName, taskId: null, laneId: rowDetails[rowNumber].laneId, taskType: "bpmn:UserTask", jumpsTo: rowDetails[rowNumber].jumpsTo });
+          rowDetails.splice(2, 0, { rowNumber: (rowNumber + 1), selectedRole: rowDetails[rowNumber].selectedRole, task: testTaskName, taskId: "", laneId: rowDetails[rowNumber].laneId, taskType: "bpmn:UserTask", jumpsTo: rowDetails[rowNumber].jumpsTo });
 
           bpmnProcess.addTaskBetween(rowDetails, 2);
 
@@ -533,8 +535,8 @@ describe("sdk", function () {
           assert.isTrue(rowDetails[2].taskId != null, "taskId is not set after method");
 
           const newLane = bpmnProcess.getLaneOfFlowNode(rowDetails[rowNumber].taskId);
-          assert.isTrue(newLane.id === rowDetails[2].laneId);
-          assert.isTrue(newLane.id === rowDetails[2 - 1].laneId);
+          assert.isTrue(newLane?.id === rowDetails[2].laneId);
+          assert.isTrue(newLane?.id === rowDetails[2 - 1].laneId);
 
           const taskObj = bpmnProcess.getExistingTask(bpmnProcess.processId(), rowDetails[2].taskId);
           assert.isTrue(taskObj != null);

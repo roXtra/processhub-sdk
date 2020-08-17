@@ -632,7 +632,7 @@ declare module "modeler/bpmn/bpmn" {
     export interface ISequenceFlow extends IFlowElement {
       readonly $type: "bpmn:SequenceFlow";
       isImmediate: boolean;
-      conditionExpression: IExpression;
+      conditionExpression?: IExpression;
       sourceRef: IFlowNode;
       targetRef: IFlowNode;
     }
