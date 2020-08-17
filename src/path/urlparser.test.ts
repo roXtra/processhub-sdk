@@ -11,8 +11,8 @@ describe("sdk", function () {
       describe("parseUrl", function () {
 
         it("should detect valid pages", function () {
-          assert.isNull(parseUrl("/f/@testworkSpace/xx")); // Ignore case and / at end
-          const wrongPath =parseUrl("/xx"); // Ignore case and / at end
+          assert.isUndefined(parseUrl("/f/@testworkSpace/xx")); // Ignore case and / at end
+          const wrongPath = parseUrl("/xx"); // Ignore case and / at end
           assert.deepEqual(wrongPath, {
             page: Page.StartPage
           } as IPathDetails);

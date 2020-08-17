@@ -78,5 +78,9 @@ export async function getFields(environment: IServiceTaskEnvironment): Promise<I
   const extensionValues = BpmnProcess.getExtensionValues(taskObject);
   const config = extensionValues.serviceTaskConfigObject;
 
-  return config.fields;
+  if (config) {
+    return config.fields;
+  } else {
+    return [];
+  }
 }

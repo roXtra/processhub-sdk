@@ -5,7 +5,7 @@ import { WorkspaceView, isValidWorkspaceView } from "../workspace/phclient";
 import { isId } from "../tools/guid";
 import { getBackendUrl, getBasePath } from "../config";
 
-export function parseUrl(fullUrlWithBase: string): IPathDetails {
+export function parseUrl(fullUrlWithBase: string): IPathDetails | undefined {
   const path: IPathDetails = {};
   const backendUrl = getBackendUrl();
   const fullUrl = fullUrlWithBase !== undefined ? fullUrlWithBase.replace(backendUrl, "") : "";
@@ -30,7 +30,7 @@ export function parseUrl(fullUrlWithBase: string): IPathDetails {
     path.page = Page.SignupPage;
     return path;
   } else if (!part.startsWith("@")) {
-    return null;
+    return undefined;
   }
 
   // ...otherwise workspace or riskmanagement must follow
@@ -49,7 +49,7 @@ export function parseUrl(fullUrlWithBase: string): IPathDetails {
     return path;
   } else if (part !== "p" || split.length < 4) {
     // ...otherwise process must follow
-    return null;
+    return undefined;
   }
 
   // -> Process
@@ -61,7 +61,7 @@ export function parseUrl(fullUrlWithBase: string): IPathDetails {
     path.view = part as ProcessView;
     return path;
   } else
-    return null;
+    return undefined;
 }
 
 export function parseNotificationLink(fullUrlWithBase: string): INotificationLinkElements {

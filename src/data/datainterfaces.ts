@@ -168,7 +168,7 @@ export type FieldValueType =
 
 export interface IFieldValue {
   type: FieldType;
-  value: FieldValueType;
+  value: FieldValueType | undefined;
 }
 
 export type FieldType =

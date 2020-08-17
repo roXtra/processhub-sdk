@@ -34,10 +34,10 @@ describe("sdk", function () {
 
         assert.isTrue(resInstDetails.length === 1);
         assert.isTrue(resInstDetails.last().processId === "xyz");
-        assert.isTrue(resInstDetails.last().extras.todos.length === 1);
-        assert.isTrue(resInstDetails.last().extras.todos.last().displayName === "test todo");
+        assert.isTrue(resInstDetails.last().extras.todos?.length === 1);
+        assert.isTrue(resInstDetails.last().extras.todos?.last().displayName === "test todo");
 
-        resInstDetails = InstanceFilters.filterUserInstances([ instanceDetails ], null);
+        resInstDetails = InstanceFilters.filterUserInstances([ instanceDetails ], undefined);
         assert.isTrue(resInstDetails.length === 0);
       });
     });

@@ -58,7 +58,7 @@ export interface IInstanceDetails {
   riskAssessments?: IRiskAssessment[];
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
-    instanceState: IEngineState | null;
+    instanceState?: IEngineState;
     fieldContents?: IFieldContentMap;
     roleOwners?: IRoleOwnerMap;
     todos?: ITodoDetails[];

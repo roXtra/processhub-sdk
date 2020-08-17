@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { assert } from "chai";
 import * as DataTools from "./datatools";
 import { IFieldContentMap } from "../data/datainterfaces";
@@ -16,7 +17,7 @@ describe("sdk", function () {
 
           const testString = "Hallo {{ field.existiert }}, wie gehts {{ field.existiertnicht }}\n{trölölö} {{{moepmoep}}}\n{{ field.existiert2 }}\n";
           const resultString = "Hallo Teststring eingesetzt!, wie gehts \n{trölölö} {{{moepmoep}}}\n\n";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, null, null);
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, {}, {});
 
           assert.equal(res, resultString);
         });
@@ -25,7 +26,7 @@ describe("sdk", function () {
 
           const testString = "Hallo {field['existiert']}, wie gehts {field['existiertnicht']}\n{trölölö} {{{moepmoep}}}\nfield['existiertnicht2']\n";
           const resultString = "Hallo {Teststring eingesetzt!}, wie gehts {}\n{trölölö} {{{moepmoep}}}\n\n";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, null, null);
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, {}, {});
           console.log(res);
           assert.equal(res, resultString);
         });
@@ -33,7 +34,7 @@ describe("sdk", function () {
         it("should accept empty field maps", function () {
 
           const testString = "Hallo {{ field.existiert }}, wie gehts {{ field.existiertnicht }}\n{trölölö} {{{moepmoep}}}\n{{ field.existiert2 }}\n";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, null, null, null);
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, undefined, {}, {});
 
           assert.equal(res, testString);
         });
@@ -42,7 +43,7 @@ describe("sdk", function () {
 
           const testString = "{{ field.fieldname1 }}{{ field.fieldname2 }}{{ field.fieldname3 }}";
           const resultString = "123";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3", } as IFieldContentMap, null, null);
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3", } as IFieldContentMap, {}, {});
 
           assert.equal(res, resultString);
         });
@@ -51,7 +52,7 @@ describe("sdk", function () {
 
           const testString = "field['fieldname1']field['fieldname2']field['fieldname3']";
           const resultString = "123";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3", } as IFieldContentMap, null, null);
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3", } as IFieldContentMap, {}, {});
 
           assert.equal(res, resultString);
         });
@@ -66,8 +67,8 @@ describe("sdk", function () {
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 
-          const processRoles: IProcessRoles = getProcessRoles(null, bpmnProcess, "1");
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { Anlagen: "1" } as IFieldContentMap, processRoles, { [bpmnProcess.getLanes(false).find(l => l.name === "Bearbeiter").id]: [{ memberId: "1", displayName: "Administrator, Admin" }] } as IRoleOwnerMap);
+          const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { Anlagen: "1" } as IFieldContentMap, processRoles, { [bpmnProcess.getLanes(false).find(l => l.name === "Bearbeiter")!.id]: [{ memberId: "1", displayName: "Administrator, Admin" }] } as IRoleOwnerMap);
 
           assert.equal(res, resultString);
         });
@@ -81,7 +82,7 @@ describe("sdk", function () {
           const reply: ILoadTemplateReply = await createBpmnTemplate();
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
-          const processRoles: IProcessRoles = getProcessRoles(null, bpmnProcess, "1");
+          const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");
 
           const res = DataTools.parseAndInsertStringWithFieldContent(testString, {
             "Date": {
@@ -106,7 +107,7 @@ describe("sdk", function () {
           const reply: ILoadTemplateReply = await createBpmnTemplate();
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
-          const processRoles: IProcessRoles = getProcessRoles(null, bpmnProcess, "1");
+          const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");
 
           const res = DataTools.parseAndInsertStringWithFieldContent(testString, {
             "Date": {
@@ -127,7 +128,7 @@ describe("sdk", function () {
           const reply: ILoadTemplateReply = await createBpmnTemplate();
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
-          const processRoles: IProcessRoles = getProcessRoles(null, bpmnProcess, "1");
+          const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");
 
           const res = DataTools.parseAndInsertStringWithFieldContent(testString, {
             "Date": {

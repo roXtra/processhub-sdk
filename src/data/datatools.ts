@@ -6,7 +6,10 @@ import { replaceOldFieldSyntax } from "../tools";
 const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName))?/;
 
-export function replaceAll(target: string, search: string, replacement: string): string {
+export function replaceAll(target: string, search: string, replacement?: string): string {
+  if (!replacement) {
+    replacement = "";
+  }
   while (target.includes(search)) {
     target = target.replace(search, replacement);
   }
@@ -30,11 +33,11 @@ function fieldValueToString(valueObject: IFieldValue): string {
 }
 
 // Different types of parameter procesOrRoles to support old services (customer)
-export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, processOrRoles: IProcessRoles, roleOwners: IRoleOwnerMap): string;
-export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, processOrRoles: BpmnProcess, roleOwners: IRoleOwnerMap): string;
-export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap, processOrRoles: BpmnProcess | IProcessRoles, roleOwners: IRoleOwnerMap): string {
+export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap | undefined, processOrRoles: IProcessRoles, roleOwners: IRoleOwnerMap): string | undefined;
+export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap | undefined, processOrRoles: BpmnProcess, roleOwners: IRoleOwnerMap): string | undefined;
+export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap | undefined, processOrRoles: BpmnProcess | IProcessRoles, roleOwners: IRoleOwnerMap): string | undefined {
   if (inputString == null)
-    return null;
+    return undefined;
   if (fieldContentMap == null)
     return inputString;
 
@@ -42,7 +45,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
   const groupIndexForFieldIdentifier = 1;
 
   let result: string = replaceOldFieldSyntax(inputString);
-  let match: RegExpExecArray = fieldNameRegExp.exec(result);
+  let match: RegExpExecArray | null = fieldNameRegExp.exec(result);
 
   while (match) {
 
@@ -73,12 +76,12 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
   while (match) {
     const placeHolder: string = match[groupIndexForRolePlaceholder];
     const roleName: string = match[groupIndexForRoleIdentifier];
-    let roleProperty: string;
+    let roleProperty: string | undefined = undefined;
     if (match.length === 4) {
       roleProperty = match[groupIndexForRoleProperty];
     }
     if (roleName != null) {
-      const laneId: string = processOrRoles instanceof BpmnProcess ? processOrRoles.getLanes(false).find(l => l.name === roleName).id : Object.keys(processOrRoles).find(key => processOrRoles[key].roleName == roleName);
+      const laneId = processOrRoles instanceof BpmnProcess ? processOrRoles.getLanes(false).find(l => l.name === roleName)?.id : Object.keys(processOrRoles).find(key => processOrRoles[key].roleName == roleName);
       if (laneId) {
         const roleOwner: IRoleOwner[] = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {
@@ -117,7 +120,7 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
     const roleName: string = match[1];
 
     if (roleName && roleName.length) {
-      const laneId: string = processOrRoles instanceof BpmnProcess ? processOrRoles.getLanes(false).find(l => l.name === roleName).id : Object.keys(processOrRoles).find(key => processOrRoles[key].roleName == roleName);
+      const laneId = processOrRoles instanceof BpmnProcess ? processOrRoles.getLanes(false).find(l => l.name === roleName)?.id : Object.keys(processOrRoles).find(key => processOrRoles[key].roleName == roleName);
       if (laneId) {
         const roleOwner = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {

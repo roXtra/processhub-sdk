@@ -23,10 +23,16 @@ export async function createBpmnTemplate(): Promise<ILoadTemplateReply> {
 
       // 1 Prozessknoten mit 1 unbenannten Teilnehmer (=Lane)
       const processId = BpmnProcess.getBpmnId("bpmn:Process");
-      const startEventObject = bpmnModdleInstance.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
-      const endEventObject = bpmnModdleInstance.create("bpmn:EndEvent", { id: BpmnProcess.getBpmnId("bpmn:EndEvent"), outgoing: [], incoming: [] });
-      const task = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 1", extensionElements: null, incoming: [], outgoing: [] });
-      const task2 = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 2", extensionElements: null, incoming: [], outgoing: [] });
+      const startEventObject = bpmnModdleInstance.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), incoming: [] });
+      startEventObject.outgoing = [];
+      const endEventObject = bpmnModdleInstance.create("bpmn:EndEvent", { id: BpmnProcess.getBpmnId("bpmn:EndEvent"), outgoing: [] });
+      endEventObject.incoming = [];
+      const task = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 1", extensionElements: undefined });
+      task.incoming = [];
+      task.outgoing = [];
+      const task2 = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 2", extensionElements: undefined });
+      task2.incoming = [];
+      task2.outgoing = [];
 
       const initSequenceFlow = bpmnModdleInstance.create("bpmn:SequenceFlow", {
         id: BpmnProcess.getBpmnId("bpmn:SequenceFlow"),

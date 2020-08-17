@@ -182,37 +182,37 @@ export type BpmnExtensionName =
   | "anonymous-start-userid";
 
 export interface ITaskExtensions {
-  description: string;
-  fieldDefinitions: IFieldDefinition[];
-  sendTaskReceiver: string[];
+  description?: string;
+  fieldDefinitions?: IFieldDefinition[];
+  sendTaskReceiver?: string[];
   sendTaskWithFieldContents: boolean;
   sendTaskInstanceLink: boolean;
-  sendTaskSubject: string;
+  sendTaskSubject?: string;
   allFieldsEditable: boolean;
   viewAllFields: boolean;
   sendMailNotification: boolean;
-  requiredFieldsNeeded: ITaskIdRequiredFieldsNeeded[];
+  requiredFieldsNeeded?: ITaskIdRequiredFieldsNeeded[];
   saveDecisionInFieldContents: boolean;
-  customFieldContentsValue: string;
+  customFieldContentsValue?: string;
   dueAtDateCanBeEdit: boolean;
-  dueAtDuration: string; // Standard dueAtDuration in seconds
+  dueAtDuration?: string; // Standard dueAtDuration in seconds
 
-  serviceTaskConfigObject: IServiceTaskConfigObject;
-  scriptTaskCode: string;
+  serviceTaskConfigObject?: IServiceTaskConfigObject;
+  scriptTaskCode?: string;
 
   roleOwnersEditable: boolean;
 
-  subProcessId: string;
+  subProcessId?: string;
 
-  sequenceFlowExpression: string;
+  sequenceFlowExpression?: string;
   isBuilderExpression: boolean;
 
-  fieldsWhichShouldSend: string[];
-  dateFieldTimer: string;
-  roXtraVersion: string;
+  fieldsWhichShouldSend?: string[];
+  dateFieldTimer?: string;
+  roXtraVersion?: string;
 
-  anonymousStart: boolean;
-  anonymousStartUserId: string;
+  anonymousStart?: boolean;
+  anonymousStartUserId?: string;
 }
 
 export interface ITimerStartEventConfiguration {
@@ -239,10 +239,10 @@ export interface IRunningTaskLane {
 
 export interface IStartButtonMap {
   [id: string]: {
-    startEventName: string;
+    startEventName?: string;
     laneId: string;
     onlyRoxFileField: boolean;
-    anonymousStart: boolean;
+    anonymousStart?: boolean;
   };
 }
 

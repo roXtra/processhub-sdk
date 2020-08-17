@@ -23,7 +23,6 @@ export class BpmnProcess {
   private processDiagram: BpmnProcessDiagram;
 
   constructor() {
-    this.bpmnXml = null;
     this.processDiagram = new BpmnProcessDiagram(this);
   }
 
@@ -39,7 +38,7 @@ export class BpmnProcess {
     return getExtensionValues(activityObject);
   }
 
-  public static getFlowNodeDescription(flowNode: Bpmn.IFlowNode): string {
+  public static getFlowNodeDescription(flowNode: Bpmn.IFlowNode): string | undefined {
     return getExtensionBody(flowNode, "description");
   }
 
@@ -48,7 +47,7 @@ export class BpmnProcess {
   }
 
   public static getSetSenderAsRoleOwner(startEvent: Bpmn.IStartEvent): boolean {
-    const valueAsString: string = getExtensionBody(startEvent, "set-sender-as-role-owner");
+    const valueAsString = getExtensionBody(startEvent, "set-sender-as-role-owner");
     if (valueAsString) {
       return valueAsString === "true";
     } else {
@@ -86,7 +85,7 @@ export class BpmnProcess {
           });
         }
       } else if (exGat.outgoing != null && exGat.outgoing.length === 1) {
-        exGat.outgoing[exGat.outgoing.length - 1].conditionExpression = null;
+        exGat.outgoing[exGat.outgoing.length - 1].conditionExpression = undefined;
       }
     }
   }
@@ -143,7 +142,7 @@ export class BpmnProcess {
     return this.getFieldDefinitions().filter(d => d.type === fieldType);
   }
 
-  public getFieldDefinitionsForTask(taskObject: Bpmn.ITask | Bpmn.IActivity): IFieldDefinition[] | undefined{
+  public getFieldDefinitionsForTask(taskObject: Bpmn.ITask | Bpmn.IActivity): IFieldDefinition[] | undefined {
     const extVals = getExtensionValues(taskObject);
     if (extVals)
       return extVals.fieldDefinitions;
@@ -416,12 +415,15 @@ export class BpmnProcess {
               onlyRoxFileField = true;
             }
           }
-          map[startEvent.id] = {
-            startEventName: (startEvent.name && startEvent.name.trim() !== "") ? startEvent.name : undefined,
-            laneId: this.getLaneOfFlowNode(startEvent.id)?.id,
-            onlyRoxFileField,
-            anonymousStart: extVals ? extVals.anonymousStart : false,
-          };
+          const lane = this.getLaneOfFlowNode(startEvent.id);
+          if (lane) {
+            map[startEvent.id] = {
+              startEventName: (startEvent.name && startEvent.name.trim() !== "") ? startEvent.name : undefined,
+              laneId: lane.id,
+              onlyRoxFileField,
+              anonymousStart: extVals ? extVals.anonymousStart : false,
+            };
+          }
         }
       });
       return map;

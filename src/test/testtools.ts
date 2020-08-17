@@ -22,7 +22,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       workspaceId: "",
       processId: "",
       extras: {
-        instanceState: null,
+        instanceState: undefined,
         fieldContents: {}
       },
     },

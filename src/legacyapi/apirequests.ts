@@ -7,7 +7,7 @@ import fetchWithTimeout from "../tools/fetchwithtimeout";
 // Api-Aufruf per GET
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
 // Browser dürfen fehlgeschlagene/verzögerte GET-Aufrufe jederzeit wiederholen, das ist gut, wenn die Verbindung hängt
-export async function getJson<Request extends IBaseRequest>(path: string, request: Request, accessToken: string = null): Promise<IBaseMessage> {
+export async function getJson<Request extends IBaseRequest>(path: string, request: Request, accessToken?: string): Promise<IBaseMessage> {
 
   if ((request.moduleId === undefined) && (typeof window !== "undefined")) {
     request.moduleId = window.__INITIAL_CONFIG__.moduleId;
@@ -29,7 +29,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
 
   const url = (isEmpty(request)) ? getBackendUrl() + path : getBackendUrl() + path + "?" + str.join("&");
 
-  let req: RequestInit = null;
+  let req: RequestInit;
   if (accessToken == null) {
     req = {
       headers: {
@@ -64,6 +64,8 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
           console.log("403 -> redirect to roxtra login page with url: " + window.location.href);
           window.location.href = window.__INITIAL_CONFIG__.roXtraUrl + "login/weblogin.aspx?redirect=" + encodeURIComponent(window.location.href);
         }
+        const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
+        return error;
         break;
       }
       default: {
@@ -88,7 +90,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
 // Api-Aufruf per POST
 // Gemäß http-Spezifikation soll POST genutzt werden, wenn der Aufruf zu Änderungen auf der Serverseite führt
 // POST-Anforderungen werden ohne explizite Useranforderung vom Browser NICHT wiederholt ausgeführt
-export async function postJson<Request extends IBaseRequest>(path: string, request: Request, accessToken: string = null): Promise<IBaseMessage> {
+export async function postJson<Request extends IBaseRequest>(path: string, request: Request, accessToken?: string): Promise<IBaseMessage> {
   const url = getBackendUrl() + path;
 
   if ((request.moduleId === undefined) && (typeof window !== "undefined")) {
@@ -99,7 +101,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
     accessToken = window.__INITIAL_CONFIG__.xAccesstoken;
   }
 
-  let req: RequestInit = null;
+  let req: RequestInit;
   if (accessToken == null) {
     req = {
       method: "POST",
@@ -156,7 +158,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
 // Externer Api-Aufruf per GET
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
 // Browser dürfen fehlgeschlagene/verzögerte GET-Aufrufe jederzeit wiederholen, das ist gut, wenn die Verbindung hängt
-export async function getExternalJson<Request extends IBaseRequest>(apiEndpointUrl: string, request: Request, accessToken: string = null): Promise<any> {
+export async function getExternalJson<Request extends IBaseRequest>(apiEndpointUrl: string, request: Request, accessToken?: string): Promise<any> {
 
   // Request als Querystring serialisieren
   const str = [];
@@ -168,7 +170,7 @@ export async function getExternalJson<Request extends IBaseRequest>(apiEndpointU
 
   const url = apiEndpointUrl + "?" + str.join("&");
 
-  let req: RequestInit = null;
+  let req: RequestInit;
   if (accessToken == null) {
     req = {
       headers: {
