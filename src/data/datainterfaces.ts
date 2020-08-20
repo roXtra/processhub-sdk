@@ -130,6 +130,7 @@ export interface IRiskAssessmentFieldConfig extends IFieldConfig {
 
 export interface IRoleOwnerFieldConfig extends IFieldConfig {
   validationExpression: string;
+  defaultValue: "NoValue" | "CurrentUser" | undefined;
 }
 
 export interface IRoxFileFieldConfig extends IFieldConfig {
