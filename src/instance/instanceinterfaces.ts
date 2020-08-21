@@ -89,7 +89,7 @@ export interface IEngineState {
   name: string;
   state: string;
   engineVersion: string;
-  definitions: IEngineStateDefinition[];
+  definitions?: IEngineStateDefinition[];
 }
 
 export interface IEngineStateDefinition {
