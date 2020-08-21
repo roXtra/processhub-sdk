@@ -30,7 +30,7 @@ export type ApiError = 400 | 401 | 409 | 404 | 423 | 500;
 
 export interface IBaseReply {
   type?: string;
-  result: ApiResult;
+  result?: ApiResult;
 }
 
 export interface IBaseRequest {
