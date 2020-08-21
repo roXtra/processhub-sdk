@@ -19,7 +19,7 @@ export function parseInstanceMailSubject(mail: string): string | undefined {
 }
 
 // RoleID == null -> check for any role membership
-export function isRoleOwner(userId: string, roleId: string, instance: IInstanceDetails): boolean {
+export function isRoleOwner(userId: string, roleId: string | undefined, instance: IInstanceDetails): boolean {
   if (instance.extras.roleOwners == null)
     return false;
 

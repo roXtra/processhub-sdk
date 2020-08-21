@@ -158,7 +158,7 @@ export function getProcessRoles(currentRoles: IProcessRoles | undefined, bpmnPro
   return processRoles;
 }
 
-export function isPotentialRoleOwner(user: UserDetails, roleId: string, workspace: IWorkspaceDetails, process: IProcessDetails, ignorePublic = false): boolean {
+export function isPotentialRoleOwner(user: UserDetails, roleId: string | undefined, workspace: IWorkspaceDetails, process: IProcessDetails, ignorePublic = false): boolean {
   // User == null -> check if guest is PotentialRoleOwner
   // roleId == null -> check if user is PotentialRoleOwner of any role
   const roles = process.extras.processRoles;
