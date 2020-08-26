@@ -36,6 +36,7 @@ export interface IRiskManagementColor {
   from: number;
   to: number;
   code: string;
+  name: string;
 }
 
 export interface IRiskManagementProcessSettings {
