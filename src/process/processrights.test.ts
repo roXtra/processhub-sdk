@@ -24,6 +24,7 @@ const testUser: UserDetails = {
   licence: Licence.Writer,
   userId: "1",
   mail: "",
+  displayName: "",
   extras: {},
   extendedRights: [],
 };

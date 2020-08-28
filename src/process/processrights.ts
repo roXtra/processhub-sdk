@@ -84,7 +84,7 @@ export function isDefaultProcessRole(roleId: string): boolean {
     || roleId === DefaultRoles.Viewer);
 }
 
-export function getProcessRoles(currentRoles: IProcessRoles | undefined, bpmnProcess: BpmnProcess, defaultRoleOwnerId: string): IProcessRoles {
+export function getProcessRoles(currentRoles: IProcessRoles | undefined, bpmnProcess: BpmnProcess | undefined, defaultRoleOwnerId: string): IProcessRoles {
   // Add entries for all existing roles in the process
   const processRoles = currentRoles || {};
 

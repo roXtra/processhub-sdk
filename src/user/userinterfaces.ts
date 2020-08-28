@@ -37,7 +37,7 @@ export interface IArchiveViews {
 export class UserDetails {
   userId: string;
   mail: string;
-  displayName?: string; // RealName or mail if no name is defined
+  displayName: string; // RealName or mail if no name is defined
   firstName?: string;
   lastName?: string;
   photoUrl?: string;
@@ -74,6 +74,7 @@ export enum UserExtras {
 export const emptyUser: UserDetails = {
   userId: nullId(),
   mail: "",
+  displayName: "",
   extras: {},
   licence: Licence.None,
   extendedRights: [],
