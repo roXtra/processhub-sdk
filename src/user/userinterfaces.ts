@@ -26,8 +26,8 @@ export function hasSetCorporateDesignRight(user: UserDetails): boolean {
 
 export interface IRoxtraUserDetails {
   ReceiveMails: boolean;
-  ReceiveDailyReports: boolean;
-  ReceiveWeeklyReports: boolean;
+  ReceiveDailyReports: boolean | undefined;
+  ReceiveWeeklyReports: boolean | undefined;
 }
 
 export interface IArchiveViews {

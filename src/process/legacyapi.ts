@@ -85,10 +85,16 @@ export interface IExportProcessReply extends IBaseReply {
   bpmn: string;
 }
 
+enum ArchiveViewType {
+  Default = 0,
+  MyOpenRiskAssessments = 1,
+}
+
 export interface IArchiveViewDetails {
   viewName: string;
   gridOptions: string;
   publicView: boolean;
+  specialViewType?: ArchiveViewType;
 }
 export interface IAddArchiveViewRequest extends IBaseRequest {
   processId: string;
