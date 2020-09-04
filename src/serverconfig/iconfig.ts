@@ -28,7 +28,7 @@ export interface IDatabaseConfig {
 }
 
 export interface IFilestoreConfig {
-  baseDir?: string;
+  baseDir: string;
 }
 
 export interface IMailboxConfig {
