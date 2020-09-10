@@ -1,9 +1,9 @@
 // Must match the values defined in Enums_Module.cs in Roxtra.DataProvider
 export enum ModuleId {
   None = 0,
-  EForm = 1,
+  Processes = 1,
   Risks = 2,
-  DocumentManagement = 3
+  Documents = 3
 }
 
 export interface IModule {

@@ -1,8 +1,8 @@
 import { IModule, ModuleId } from "./imodule";
 import { tl } from "../tl";
 
-export const EForm: IModule = {
-  moduleId: ModuleId.EForm,
+export const Processes: IModule = {
+  moduleId: ModuleId.Processes,
   urlPrefix: "p",
   name: tl("Prozesse"),
 };
@@ -14,7 +14,7 @@ export const Risks: IModule = {
 };
 
 export const modules: IModule[] = [
-  EForm,
+  Processes,
   Risks
 ];
 
@@ -41,5 +41,5 @@ export function getModuleForRequestPath(requestPath: string): IModule {
   }
 
   // Default module is EFormulare
-  return EForm;
+  return Processes;
 }
