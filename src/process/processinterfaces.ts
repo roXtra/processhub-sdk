@@ -83,6 +83,7 @@ export interface IProcessDetails {
   parentProcessIds?: string[];
   childProcessIds?: string[];
   riskManagementSettings?: IRiskManagementProcessSettings;
+  hasMailStartEvent?: boolean;
   extras: {
     // New Extras must be added to cache-handling in processactions -> loadProcess!
     bpmnXml?: string;
