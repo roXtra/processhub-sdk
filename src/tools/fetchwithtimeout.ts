@@ -1,4 +1,4 @@
-import "fetch-everywhere";
+import fetch from "cross-fetch";
 
 export default function (url: string, options: RequestInit, timeoutMS = 60000): Promise<Response> {
   return Promise.race([
