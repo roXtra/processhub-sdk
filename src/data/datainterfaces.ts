@@ -50,13 +50,15 @@ export interface ISpreadSheetFieldValue {
   value: {};
 }
 
+export interface IProcessLinkInstance {
+  instanceId: string;
+  workspaceId: string;
+  title: string;
+  moduleId: ModuleId;
+}
+
 export interface IProcessLinkValue {
-  linkedInstances: {
-    instanceId: string;
-    workspaceId: string;
-    title: string;
-    moduleId: ModuleId;
-  }[];
+  linkedInstances: IProcessLinkInstance[];
 }
 
 export interface IServiceActionConfigField {
