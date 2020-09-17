@@ -1,6 +1,6 @@
 import { IRoleOwnerMap } from "../process";
 import { IDecisionTask, ITodoDetails } from "../todo";
-import { IFieldContentMap } from "../data";
+import { IFieldContentMap, IProcessLinkInstance } from "../data";
 import { Bpmn } from "modeler/bpmn/bpmn";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 import { Context } from "moddle-xml/lib/reader";
@@ -56,6 +56,8 @@ export interface IInstanceDetails {
   subInstanceIds?: string[];
   parentProcessConfigObject?: IParentProcessConfig;
   riskAssessments?: IRiskAssessment[];
+  // Instances with ProcessLink fields that have the current instance as target
+  linkingInstances?: IProcessLinkInstance[];
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
     instanceState?: IEngineState;
