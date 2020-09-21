@@ -151,7 +151,7 @@ export function updateLegacyFieldDefinitions(definitions: ILegacySchema): IField
       if (typeof id === "string") {
         const property: ILegacyProperty = properties[id];
         updatedDefinitions.push({
-          config: {},
+          config: { conditionExpression: undefined },
           isRequired: property.required,
           name: property.title,
           type: property.customWidgetClass as FieldType,

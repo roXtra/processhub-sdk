@@ -58,6 +58,7 @@ export interface IInstanceDetails {
   riskAssessments?: IRiskAssessment[];
   // Instances with ProcessLink fields that have the current instance as target
   linkingInstances?: IProcessLinkInstance[];
+  instanceNumber?: number;
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
     instanceState?: IEngineState;
