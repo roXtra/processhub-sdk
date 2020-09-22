@@ -4,6 +4,7 @@ import { UserDetails } from "../user";
 import { Process, ActionHandler } from "..";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
 import { ModuleId } from "../modules";
+import { IProcessDetails } from "../process";
 
 export interface IFieldDefinition {
   name: string;
@@ -204,8 +205,8 @@ export interface IFieldType {
   getType(): FieldType;
   getName(): string;
   getInput(props: IFormElementProps, instanceEnv: IInstanceEnvironment, actionHandler: ActionHandler, onFieldValueChanged: () => void, showInvalidFields: boolean, startEventId?: string): JSX.Element;
-  renderValue(value: {}, instance: IInstanceDetails, config: IFieldConfig, showDirect?: boolean): JSX.Element;
-  renderValueForEmail(value: {}, instance: IInstanceDetails, config: IFieldConfig, showDirect?: boolean): JSX.Element;
+  renderValue(value: {}, instance: IInstanceDetails, process: IProcessDetails, config: IFieldConfig, showDirect?: boolean): JSX.Element;
+  renderValueForEmail(value: {}, instance: IInstanceDetails, process: IProcessDetails, config: IFieldConfig, showDirect?: boolean): JSX.Element;
   getSettingsButton(fieldDefinition: IFieldDefinition, onConfigChanged: (fieldDefinition: IFieldDefinition) => void, bpmnProcess: Process.BpmnProcess): JSX.Element;
   isVisible(): boolean;
   isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): boolean;
