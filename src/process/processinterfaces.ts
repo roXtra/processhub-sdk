@@ -83,6 +83,7 @@ export interface IProcessDetails {
   parentProcessIds?: string[];
   childProcessIds?: string[];
   riskManagementSettings?: IRiskManagementProcessSettings;
+  instanceCount?: number;
   extras: {
     // New Extras must be added to cache-handling in processactions -> loadProcess!
     bpmnXml?: string;

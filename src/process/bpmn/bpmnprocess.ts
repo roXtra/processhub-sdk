@@ -304,25 +304,25 @@ export class BpmnProcess {
         name: tl("Titel"),
         type: "ProcessHubTextInput",
         isRequired: false,
-        config: {}
+        config: { conditionExpression: undefined }
       },
       {
         name: tl("Feld_1"),
         type: "ProcessHubTextInput",
         isRequired: false,
-        config: {}
+        config: { conditionExpression: undefined }
       },
       {
         name: tl("Feld_2"),
         type: "ProcessHubTextArea",
         isRequired: false,
-        config: {}
+        config: { conditionExpression: undefined }
       },
       {
         name: tl("Anlagen"),
         type: "ProcessHubFileUpload",
         isRequired: false,
-        config: {}
+        config: { conditionExpression: undefined }
       }
     ];
 

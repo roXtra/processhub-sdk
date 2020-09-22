@@ -10,7 +10,7 @@ export interface IFieldDefinition {
   type: FieldType;
   isRequired: boolean;
   isRestricted?: boolean;
-  config: {} | ICheckboxFieldConfig | IChecklistFieldConfig | IDateFieldConfig | IDropdownFieldConfig | IFileUploadFieldConfig | IInstanceTitleFieldConfig | ILabelConfig | IMailFieldConfig | INumberFieldConfig | IRadioButtonGroupEntry | IRadioButtonFieldConfig | IRiskAssessmentFieldConfig | IRoleOwnerFieldConfig | IRoxFileFieldConfig | ISignatureFieldConfig | ISpreadSheetFieldConfig | ITextAreaFieldConfig | ITextInputFieldConfig;
+  config: IFieldConfig;
 }
 
 export interface IFieldDefinitionItem {
@@ -70,14 +70,15 @@ export interface IServiceActionConfigField {
 export interface IChecklistEntry {
   name: string;
 }
-export interface ICheckboxFieldConfig {
+
+export interface ICheckboxFieldConfig extends IFieldConfig {
   defaultValue: boolean;
 }
 
 export type ChecklistFieldValue = { [key: string]: boolean };
 
 export interface IFieldConfig {
-  conditionExpression: string;
+  conditionExpression: string | undefined;
 }
 
 export interface IFieldConfigDefault extends IFieldConfig {
@@ -196,14 +197,15 @@ export type FieldType =
   | "ProcessHubRiskAssessmentTodos"
   | "ProcessHubRiskAssessmentCycle"
   | "ProcessHubSpreadSheet"
-  | "ProcessHubProcessLink";
+  | "ProcessHubProcessLink"
+  | "ProcessHubInstanceNumber";
 
 export interface IFieldType {
   getType(): FieldType;
   getName(): string;
   getInput(props: IFormElementProps, instanceEnv: IInstanceEnvironment, actionHandler: ActionHandler, onFieldValueChanged: () => void, showInvalidFields: boolean, startEventId?: string): JSX.Element;
-  renderValue(value: {}, instance: IInstanceDetails, showDirect?: boolean): JSX.Element;
-  renderValueForEmail(value: {}, instance: IInstanceDetails, showDirect?: boolean): JSX.Element;
+  renderValue(value: {}, instance: IInstanceDetails, config: IFieldConfig, showDirect?: boolean): JSX.Element;
+  renderValueForEmail(value: {}, instance: IInstanceDetails, config: IFieldConfig, showDirect?: boolean): JSX.Element;
   getSettingsButton(fieldDefinition: IFieldDefinition, onConfigChanged: (fieldDefinition: IFieldDefinition) => void, bpmnProcess: Process.BpmnProcess): JSX.Element;
   isVisible(): boolean;
   isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): boolean;
@@ -216,7 +218,7 @@ export interface IFormElementProps {
   required: boolean;
   restricted: boolean;
   disabled: boolean;
-  config: {} | ICheckboxFieldConfig | IChecklistFieldConfig | IDateFieldConfig | IDropdownFieldConfig | IFileUploadFieldConfig | IInstanceTitleFieldConfig | ILabelConfig | IMailFieldConfig | INumberFieldConfig | IRadioButtonGroupEntry | IRadioButtonFieldConfig | IRiskAssessmentFieldConfig | IRoleOwnerFieldConfig | IRoxFileFieldConfig | ISignatureFieldConfig | ISpreadSheetFieldConfig | ITextAreaFieldConfig | ITextInputFieldConfig;
+  config: IFieldConfig;
   key?: string;
 }
 
