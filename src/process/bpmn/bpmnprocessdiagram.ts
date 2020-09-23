@@ -23,9 +23,9 @@ export interface ILaneDictionary {
 
 export class BpmnProcessDiagram {
 
-  public static readonly SPACE_BETWEEN_TASKS: number = 62;
+  public static readonly SPACE_BETWEEN_TASKS: number = 60;
   public static readonly TASK_WIDTH: number = 100;
-  public static readonly GATEWAY_WIDTH: number = 45;
+  public static readonly GATEWAY_Y_POS: number = 42;
 
 
   public static readonly SPACE_TO_LOWER_JUMP_SF: number = 20;
@@ -37,7 +37,7 @@ export class BpmnProcessDiagram {
   }
 
   // Diagram properties
-  private diagramLaneHeight = 125;
+  private diagramLaneHeight = 120;
   private diagramXStartParam = 400;
   private diagramYStartParam = 0;
 
@@ -255,7 +255,7 @@ export class BpmnProcessDiagram {
 
       // Berechnung der Y-Koordinate für jedes Element (Task)
       // 30 ist hier der optimal eingerückte wert für die LaneHöhe
-      let yParam = (this.diagramYStartParam + 23) + laneNumber * this.diagramLaneHeight;
+      let yParam = (this.diagramYStartParam + 20) + laneNumber * this.diagramLaneHeight;
 
       // Weil größe des icons anders
       if (workingObject.$type === "bpmn:StartEvent" || workingObject.$type === "bpmn:EndEvent" || workingObject.$type === "bpmn:ExclusiveGateway") {
@@ -265,7 +265,7 @@ export class BpmnProcessDiagram {
         iconWidth = sizeStartAndEndEvent;
         iconHeight = sizeStartAndEndEvent;
 
-        yParam = (this.diagramYStartParam + BpmnProcessDiagram.GATEWAY_WIDTH) + laneNumber * this.diagramLaneHeight;
+        yParam = (this.diagramYStartParam + BpmnProcessDiagram.GATEWAY_Y_POS) + laneNumber * this.diagramLaneHeight;
 
         const standardStartEvent = taskList.filter(t => t.$type === "bpmn:StartEvent" && (t as Bpmn.IStartEvent).eventDefinitions == null);
         const startEvents = taskList.filter(t => t.$type === "bpmn:StartEvent");
