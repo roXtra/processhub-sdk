@@ -58,10 +58,10 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
         }
         return json;
       }
-      case 403: {  // API_FORBIDDEN -> server requests redirect to signin
+      case 401: {  // API_UNAUTHORIZED -> server requests redirect to signin
         if (typeof window !== "undefined") {
           //  Not possible on server rendering
-          console.log("403 -> redirect to roxtra login page with url: " + window.location.href);
+          console.log("401 -> redirect to roxtra login page with url: " + window.location.href);
           window.location.href = window.__INITIAL_CONFIG__.roXtraUrl + "login/weblogin.aspx?redirect=" + encodeURIComponent(window.location.href);
         }
         const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
@@ -198,7 +198,7 @@ export async function getExternalJson<Request extends IBaseRequest>(apiEndpointU
       }
       return json;
     }
-    case 403: {  // API_FORBIDDEN -> server requests redirect to signin
+    case 401: {  // API_UNAUTHORIZED -> server requests redirect to signin
       if (typeof window !== "undefined") {
         //  Not possible on server rendering
         window.location.href = window.__INITIAL_CONFIG__.roXtraUrl;

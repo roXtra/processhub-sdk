@@ -6,9 +6,8 @@ export enum ApiResult {
   API_CREATED = 201,
   API_NOCONTENT = 204,
   API_INVALID = 400,
-  API_DENIED = 401,
-  API_FORBIDDEN = 403,  // Is used instead of 401 if no user is authenticated but a function is called that requires authentication
-  // -> will redirect client to signin page
+  API_UNAUTHORIZED = 401, // User must be signed in
+  API_FORBIDDEN = 403, // User is signed in but has insufficient rights
   API_NOTFOUND = 404,
   API_REQUESTTIMEOUT = 408,
   API_DUPLICATE = 409,
@@ -17,14 +16,6 @@ export enum ApiResult {
   API_BADGATEWAY = 502,
   API_ERROR_ROXAPI = 512
 }
-// Export const API_OK = 200;
-// export const API_INVALID = 400;  // ungültige Anfrage
-// export const API_ERROR = 500;  // Serverfehler
-// export const API_DENIED = 401;
-// export const API_DUPLICATE = 409; // Datensatz gibt es bereits
-// export const API_NOTFOUND = 404;
-// export const API_NOTEMPTY = 423; // Workspace/Bucket kann nicht entfernt werden, da er noch Elemente enthält
-// export type ApiResult = 200 | 400 | 401 | 409 | 404 | 423 | 500;
 
 export type ApiError = 400 | 401 | 409 | 404 | 423 | 500;
 
