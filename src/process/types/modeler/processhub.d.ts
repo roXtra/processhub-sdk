@@ -2,7 +2,6 @@ declare module "modeler/bpmn/processhub" {
   import Base = require("moddle/lib/base");
 
   namespace Processhub {
-
     export interface IAsyncCapable {
       asyncBefore: boolean;
       asyncAfter: boolean;
@@ -48,9 +47,7 @@ declare module "modeler/bpmn/processhub" {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    export interface IInputOutputParameterDefinition {
-
-    }
+    export interface IInputOutputParameterDefinition {}
 
     export interface IList extends IInputOutputParameterDefinition {
       readonly $type: "processhub:List";
@@ -86,6 +83,5 @@ declare module "modeler/bpmn/processhub" {
     export interface IOutputParameter extends IInputOutputParameter {
       readonly $type: "processhub:OutputParameter";
     }
-
   }
 }

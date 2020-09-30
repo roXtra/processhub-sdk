@@ -1,5 +1,4 @@
 declare module "diagram-js/lib/features/resize/Resize" {
-
   import EventBus from "diagram-js/lib/core/EventBus";
   import Rules from "diagram-js/lib/features/rules/Rules";
   import Modeling from "diagram-js/lib/features/modeling/Modeling";
@@ -44,7 +43,6 @@ declare module "diagram-js/lib/features/resize/Resize" {
    * ```
    */
   export default class Resize {
-
     constructor(eventBus: EventBus, rules: Rules, modeling: Modeling, dragging: Dragging);
 
     public canResize(context: {}): boolean;
@@ -62,6 +60,5 @@ declare module "diagram-js/lib/features/resize/Resize" {
     public activate(event: MouseEvent, shape: Shape, contextOrDirection: string | {}): void;
 
     public computeMinResizeBox(context: {}): void;
-
   }
 }

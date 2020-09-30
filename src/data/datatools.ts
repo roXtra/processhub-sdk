@@ -33,13 +33,26 @@ function fieldValueToString(valueObject: IFieldValue): string {
 }
 
 // Different types of parameter procesOrRoles to support old services (customer)
-export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap | undefined, processOrRoles: IProcessRoles, roleOwners: IRoleOwnerMap): string | undefined;
-export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap | undefined, processOrRoles: BpmnProcess, roleOwners: IRoleOwnerMap): string | undefined;
-export function parseAndInsertStringWithFieldContent(inputString: string, fieldContentMap: IFieldContentMap | undefined, processOrRoles: BpmnProcess | IProcessRoles, roleOwners: IRoleOwnerMap): string | undefined {
-  if (inputString == null)
-    return undefined;
-  if (fieldContentMap == null)
-    return inputString;
+export function parseAndInsertStringWithFieldContent(
+  inputString: string,
+  fieldContentMap: IFieldContentMap | undefined,
+  processOrRoles: IProcessRoles,
+  roleOwners: IRoleOwnerMap,
+): string | undefined;
+export function parseAndInsertStringWithFieldContent(
+  inputString: string,
+  fieldContentMap: IFieldContentMap | undefined,
+  processOrRoles: BpmnProcess,
+  roleOwners: IRoleOwnerMap,
+): string | undefined;
+export function parseAndInsertStringWithFieldContent(
+  inputString: string,
+  fieldContentMap: IFieldContentMap | undefined,
+  processOrRoles: BpmnProcess | IProcessRoles,
+  roleOwners: IRoleOwnerMap,
+): string | undefined {
+  if (inputString == null) return undefined;
+  if (fieldContentMap == null) return inputString;
 
   const groupIndexForFieldPlaceholder = 0;
   const groupIndexForFieldIdentifier = 1;
@@ -48,7 +61,6 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
   let match: RegExpExecArray | null = fieldNameRegExp.exec(result);
 
   while (match) {
-
     const fieldPlaceholder = match[groupIndexForFieldPlaceholder];
     const fieldName = match[groupIndexForFieldIdentifier];
 
@@ -81,11 +93,18 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
       roleProperty = match[groupIndexForRoleProperty];
     }
     if (roleName != null) {
-      const laneId = processOrRoles instanceof BpmnProcess ? processOrRoles.getLanes(false).find(l => l.name === roleName)?.id : Object.keys(processOrRoles).find(key => processOrRoles[key].roleName == roleName);
+      const laneId =
+        processOrRoles instanceof BpmnProcess
+          ? processOrRoles.getLanes(false).find((l) => l.name === roleName)?.id
+          : Object.keys(processOrRoles).find((key) => processOrRoles[key].roleName == roleName);
       if (laneId) {
         const roleOwner: IRoleOwner[] = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {
-          result = replaceAll(result, placeHolder, (roleProperty && roleOwner[0].user) ? ((roleOwner[0]).user as unknown as { [key: string]: string })[roleProperty] : roleOwner[0].displayName);
+          result = replaceAll(
+            result,
+            placeHolder,
+            roleProperty && roleOwner[0].user ? ((roleOwner[0].user as unknown) as { [key: string]: string })[roleProperty] : roleOwner[0].displayName,
+          );
         } else {
           result = replaceAll(result, placeHolder, "");
         }
@@ -115,12 +134,14 @@ export function parseAndInsertStringWithFieldContent(inputString: string, fieldC
 
   const newRoleRegex = /[{]{1}[\s]?role\[['"]?(.+?)['"]?\][\s]?[}]{1}/g;
   while ((match = newRoleRegex.exec(result)) != null) {
-
     const placeHolder: string = match[0];
     const roleName: string = match[1];
 
     if (roleName && roleName.length) {
-      const laneId = processOrRoles instanceof BpmnProcess ? processOrRoles.getLanes(false).find(l => l.name === roleName)?.id : Object.keys(processOrRoles).find(key => processOrRoles[key].roleName == roleName);
+      const laneId =
+        processOrRoles instanceof BpmnProcess
+          ? processOrRoles.getLanes(false).find((l) => l.name === roleName)?.id
+          : Object.keys(processOrRoles).find((key) => processOrRoles[key].roleName == roleName);
       if (laneId) {
         const roleOwner = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {
@@ -159,6 +180,5 @@ export function updateLegacyFieldDefinitions(definitions: ILegacySchema): IField
       }
     }
     return updatedDefinitions;
-  } else
-    return definitions as IFieldDefinition[];
+  } else return definitions as IFieldDefinition[];
 }

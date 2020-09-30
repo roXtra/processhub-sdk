@@ -12,7 +12,7 @@ export enum Licence {
 }
 
 export function hasEditAccess(user: UserDetails): boolean {
-  return (user.licence === Licence.Writer) || (user.isSystemUser === true);
+  return user.licence === Licence.Writer || user.isSystemUser === true;
 }
 
 export type ExtendedRight = "Z1";
@@ -48,7 +48,7 @@ export class UserDetails {
   extras: {
     // New Extras must be added to cache-handling in useractions -> loadUser!
     workspaces?: IWorkspaceDetails[];
-    accessToken?: string;  // Only available in sign in replies
+    accessToken?: string; // Only available in sign in replies
     instances?: IInstanceDetails[];
     viewStates?: IViewStates;
     archiveViews?: IArchiveViews;
@@ -65,10 +65,10 @@ export class UserDetails {
 export enum UserExtras {
   None = 0,
   ExtrasWorkspaces = 1 << 0, // Get workspaces where user is a member
-  ExtrasWorkspacesWithProcesses = 1 << 1,  // The sidebar needs fully loaded workspaces to display
-  ExtrasInstances = 1 << 2,  // Instances visible to user
-  ExtrasViewStates = 1 << 3,  // User-specific last opening-dates of instances, used to sync notifications on all user devices
-  ExtrasArchiveViews = 1 << 4,  // User-specific last viewed archive views by process id,
+  ExtrasWorkspacesWithProcesses = 1 << 1, // The sidebar needs fully loaded workspaces to display
+  ExtrasInstances = 1 << 2, // Instances visible to user
+  ExtrasViewStates = 1 << 3, // User-specific last opening-dates of instances, used to sync notifications on all user devices
+  ExtrasArchiveViews = 1 << 4, // User-specific last viewed archive views by process id,
 }
 
 export const emptyUser: UserDetails = {
@@ -99,7 +99,7 @@ export const SystemUserId = "-1";
 export const PredefinedGroups = {
   Everybody: "10000000060E0004", // Jeder (entspricht Public mit anderer Bezeichnung für anderen Einsatzbereich)
   AllWorkspaceMembers: "100000003A500002", // Fixe GruppenId für alle Workspace-Mitglieder
-  AllParticipants: "1000000000445003" // Alle Beteiligten am Prozess
+  AllParticipants: "1000000000445003", // Alle Beteiligten am Prozess
 };
 export type PredefinedGroups = keyof typeof PredefinedGroups;
 
@@ -108,9 +108,7 @@ export function getDefaultRoleGroup(): string {
 }
 
 export function isPredefinedGroup(groupId: string): boolean {
-  return (groupId === PredefinedGroups.Everybody
-    || groupId === PredefinedGroups.AllWorkspaceMembers
-    || groupId === PredefinedGroups.AllParticipants);
+  return groupId === PredefinedGroups.Everybody || groupId === PredefinedGroups.AllWorkspaceMembers || groupId === PredefinedGroups.AllParticipants;
 }
 
 export function getPredefinedGroupName(groupId: string): string {
@@ -129,7 +127,7 @@ export function getPredefinedGroupName(groupId: string): string {
 // Tracks last view datetimes of instances and/or processes
 // used to sync notification states across devices
 export interface IViewState {
-  lastViewedAt?: Date;  // Last time instancePopup for this instance was opened
+  lastViewedAt?: Date; // Last time instancePopup for this instance was opened
 }
 export interface IViewStates {
   [objectId: string]: IViewState;

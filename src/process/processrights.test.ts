@@ -1,5 +1,16 @@
 import { expect } from "chai";
-import { isDefaultRole, DefaultRoles, ProcessAccessRights, isProcessOwner, isProcessManager, canSimulateProcess, canStartProcessOld, canStartProcess, canStartProcessByMail, canStartProcessByTimer } from "./processrights";
+import {
+  isDefaultRole,
+  DefaultRoles,
+  ProcessAccessRights,
+  isProcessOwner,
+  isProcessManager,
+  canSimulateProcess,
+  canStartProcessOld,
+  canStartProcess,
+  canStartProcessByMail,
+  canStartProcessByTimer,
+} from "./processrights";
 import { IProcessDetails } from "./processinterfaces";
 import { createBpmnTemplate } from "./bpmn/bpmnmoddlehelper";
 import { ILoadTemplateReply } from "./legacyapi";
@@ -17,7 +28,7 @@ const testProcess: IProcessDetails = {
   // UserRole gibt für Tests immer volle Rechte, da viele Tests sonst scheitern.
   // Für eine Prüfung des Rechtesystems selbst ist das natürlich nicht geeignet
   userRights: ProcessAccessRights.EditProcess,
-  extras: {}
+  extras: {},
 };
 
 const testUser: UserDetails = {
@@ -32,9 +43,7 @@ const testUser: UserDetails = {
 describe("sdk", function () {
   describe("process", function () {
     describe("processrights", function () {
-
       describe("isDefaultRole", function () {
-
         it("Follower", function () {
           expect(isDefaultRole(DefaultRoles.Follower)).to.equal(true);
         });
@@ -50,11 +59,9 @@ describe("sdk", function () {
         it("Viewer", function () {
           expect(isDefaultRole(DefaultRoles.Viewer)).to.equal(true);
         });
-
       });
 
       describe("isProcessOwner", function () {
-
         before(function () {
           testProcess.userRights = ProcessAccessRights.EditProcess;
           testUser.licence = Licence.Writer;
@@ -82,11 +89,9 @@ describe("sdk", function () {
           testUser.licence = Licence.Reader;
           expect(isProcessOwner(testProcess, testUser)).to.equal(false);
         });
-
       });
 
       describe("isProcessManager", function () {
-
         before(function () {
           testProcess.userRights = ProcessAccessRights.ManageProcess;
           testUser.licence = Licence.Writer;
@@ -119,11 +124,9 @@ describe("sdk", function () {
           testUser.licence = Licence.Reader;
           expect(isProcessManager(testProcess, testUser)).to.equal(false);
         });
-
       });
 
       describe("canSimulateProcess", function () {
-
         before(function () {
           testProcess.isNewProcess = false;
           testUser.licence = Licence.Writer;
@@ -163,11 +166,9 @@ describe("sdk", function () {
           testUser.licence = Licence.Reader;
           expect(canSimulateProcess(testProcess, testUser)).to.equal(false);
         });
-
       });
 
       describe("canStartProcess", function () {
-
         before(function () {
           testProcess.userRights = ProcessAccessRights.StartProcess;
           testUser.licence = Licence.Writer;
@@ -218,11 +219,9 @@ describe("sdk", function () {
             expect(canStartProcess(testProcess, start[0].id, testUser)).to.equal(true);
           }
         });
-
       });
 
       describe("canStartProcessOld", function () {
-
         before(function () {
           testProcess.userRights = ProcessAccessRights.StartProcess;
           testUser.licence = Licence.Writer;
@@ -250,11 +249,9 @@ describe("sdk", function () {
           testUser.licence = Licence.Reader;
           expect(canStartProcessOld(testProcess, testUser)).to.equal(false);
         });
-
       });
 
       describe("canStartProcessByMail", function () {
-
         before(function () {
           testProcess.userRights = ProcessAccessRights.StartProcessByMail;
           testUser.licence = Licence.Writer;
@@ -282,11 +279,9 @@ describe("sdk", function () {
           testUser.licence = Licence.Reader;
           expect(canStartProcessByMail(testProcess, testUser)).to.equal(false);
         });
-
       });
 
       describe("canStartProcessByTimer", function () {
-
         before(function () {
           testProcess.userRights = ProcessAccessRights.StartProcessByTimer;
           testUser.licence = Licence.Writer;
@@ -314,9 +309,7 @@ describe("sdk", function () {
           testUser.licence = Licence.Reader;
           expect(canStartProcessByTimer(testProcess, testUser)).to.equal(false);
         });
-
       });
     });
-
   });
 });

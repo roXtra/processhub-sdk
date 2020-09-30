@@ -1,5 +1,4 @@
 declare module "diagram-js/lib/core/ElementRegistry" {
-
   import { Base } from "diagram-js/lib/model";
 
   /**

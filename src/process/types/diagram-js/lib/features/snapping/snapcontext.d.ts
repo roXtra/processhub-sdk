@@ -1,5 +1,4 @@
 declare module "diagram-js/lib/features/snapping/SnapContext" {
-
   import { IPoint } from "diagram-js";
 
   /**
@@ -70,7 +69,6 @@ declare module "diagram-js/lib/features/snapping/SnapContext" {
   }
 
   export class SnapPoints {
-
     /**
      * Map<String, Map<(x|y), Array<Number>>> mapping snap locations,
      * i.e. top-left, bottom-right, center to actual snap values.
@@ -91,5 +89,4 @@ declare module "diagram-js/lib/features/snapping/SnapContext" {
 
     public snap(point: IPoint, snapLocation: string, axis: "x" | "y", tolerance: number): number;
   }
-
 }

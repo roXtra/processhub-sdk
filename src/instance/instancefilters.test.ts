@@ -24,20 +24,20 @@ describe("sdk", function () {
                 displayName: "test todo",
                 description: "test description",
                 bpmnTaskId: "xyz",
-                bpmnLaneId: "xyz"
-              } as ITodoDetails
-            ]
-          }
+                bpmnLaneId: "xyz",
+              } as ITodoDetails,
+            ],
+          },
         } as PH.Instance.IInstanceDetails;
 
-        let resInstDetails = InstanceFilters.filterUserInstances([ instanceDetails ], { userId: "xyz" } as UserDetails);
+        let resInstDetails = InstanceFilters.filterUserInstances([instanceDetails], { userId: "xyz" } as UserDetails);
 
         assert.isTrue(resInstDetails.length === 1);
         assert.isTrue(resInstDetails.last().processId === "xyz");
         assert.isTrue(resInstDetails.last().extras.todos?.length === 1);
         assert.isTrue(resInstDetails.last().extras.todos?.last().displayName === "test todo");
 
-        resInstDetails = InstanceFilters.filterUserInstances([ instanceDetails ], undefined);
+        resInstDetails = InstanceFilters.filterUserInstances([instanceDetails], undefined);
         assert.isTrue(resInstDetails.length === 0);
       });
     });

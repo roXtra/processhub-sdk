@@ -6,7 +6,7 @@ export interface ITLProps {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function TL(props: ITLProps): JSX.Element {
-  return <span>{ props.text }</span>;
+  return <span>{props.text}</span>;
 }
 
 // Variante für Strings, die nicht im JSX eingefügt werden

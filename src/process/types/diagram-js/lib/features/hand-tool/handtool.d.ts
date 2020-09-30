@@ -8,5 +8,4 @@ declare module "diagram-js/lib/features/hand-tool/HandTool" {
     public isActive(): boolean;
     public activateHand(event: Event): void;
   }
-
 }

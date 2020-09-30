@@ -1,5 +1,7 @@
 export function sleep(ms = 0): Promise<void> {
-  return new Promise((r): void => { setTimeout(r, ms); });
+  return new Promise((r): void => {
+    setTimeout(r, ms);
+  });
 }
 
 export function getFormattedDate(date: Date): string {
@@ -62,11 +64,13 @@ export function durationToSeconds(duration: IDuration): number {
     months: duration.months || 0,
     years: duration.years || 0,
   };
-  return (d.seconds ? d.seconds : 0)
-    + (d.minutes ? (d.minutes * 60) : 0)
-    + (d.hours ? (d.hours * 60 * 60) : 0)
-    + (d.days ? (d.days * 24 * 60 * 60) : 0)
-    + (d.weeks ? (d.weeks * 7 * 24 * 60 * 60) : 0)
-    + (d.months ? (d.months * 30 * 24 * 60 * 60) : 0)
-    + (d.years ? (d.years * 365 * 24 * 60 * 60) : 0);
+  return (
+    (d.seconds ? d.seconds : 0) +
+    (d.minutes ? d.minutes * 60 : 0) +
+    (d.hours ? d.hours * 60 * 60 : 0) +
+    (d.days ? d.days * 24 * 60 * 60 : 0) +
+    (d.weeks ? d.weeks * 7 * 24 * 60 * 60 : 0) +
+    (d.months ? d.months * 30 * 24 * 60 * 60 : 0) +
+    (d.years ? d.years * 365 * 24 * 60 * 60 : 0)
+  );
 }

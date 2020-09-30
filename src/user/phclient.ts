@@ -6,7 +6,7 @@ import { ApiResult } from "../legacyapi/apiinterfaces";
 export class UserState {
   currentUser?: UserDetails;
 
-  lastApiResult?: ApiResult;  // Result of the last Api call
+  lastApiResult?: ApiResult; // Result of the last Api call
 
   // updated in reducers, helps React to detect state changes
   cacheState?: string;
@@ -19,7 +19,6 @@ export const UserMessages = {
   RemoveInstanceMessage: "RemoveInstanceMessage",
   NewInstanceMessage: "NewInstanceMessage",
 
-  Failed: "FAILED"
+  Failed: "FAILED",
 };
 export type UserMessages = keyof typeof UserMessages;
-

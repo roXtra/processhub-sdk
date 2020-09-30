@@ -14,7 +14,7 @@ Moment.locale("de", {
     L: "DD/MM/YYYY",
     LL: "D MMMM YYYY",
     LLL: "D MMMM YYYY HH:mm",
-    LLLL: "dddd D MMMM YYYY HH:mm"
+    LLLL: "dddd D MMMM YYYY HH:mm",
   },
   calendar: {
     sameDay: "[Heute um] LT",
@@ -22,7 +22,7 @@ Moment.locale("de", {
     nextWeek: "dddd [um] LT",
     lastDay: "[Gestern um] LT",
     lastWeek: "[Letzten] dddd [um] LT",
-    sameElse: "L"
+    sameElse: "L",
   },
   relativeTime: {
     future: "in %s",
@@ -37,7 +37,7 @@ Moment.locale("de", {
     M: "einem Monat",
     MM: "%d Monaten",
     y: "einem Jahr",
-    yy: "%d Jahren"
+    yy: "%d Jahren",
   },
 });
 

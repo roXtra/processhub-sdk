@@ -64,7 +64,7 @@ export interface IProcessDetails {
   workspaceId: string;
   displayName: string;
   urlName?: string;
-  previewUrl?: string;  // Full url of preview-svg (including https://)
+  previewUrl?: string; // Full url of preview-svg (including https://)
   description: string;
   useModeler?: boolean;
   isNewProcess?: boolean;
@@ -101,12 +101,12 @@ export interface IProcessDetails {
 
 export interface IProcessSettings {
   dashboard?: {
-    cardTitle?: string;  // Title of the cards in the dashboard
-    cardDesc?: string;  // Additional text on the card
-    dashBoardAccess?: ProcessViewAccess;  // Who can access todos?
+    cardTitle?: string; // Title of the cards in the dashboard
+    cardDesc?: string; // Additional text on the card
+    dashBoardAccess?: ProcessViewAccess; // Who can access todos?
   };
   library?: {
-    copiedFromId?: string;  // ProcessId of the original process
+    copiedFromId?: string; // ProcessId of the original process
   };
   riskManagement?: {
     probabilityValues: string[]; // Possible values to rate the probability, starting with the least probable one
@@ -116,12 +116,12 @@ export interface IProcessSettings {
 
 export enum ProcessViewAccess {
   // DO NOT CHANGE NUMBERS - used in database
-  EverybodySeesAll = 10,  // All todos/instances are public  NOT YET IMPLEMENTED
+  EverybodySeesAll = 10, // All todos/instances are public  NOT YET IMPLEMENTED
   // Not implemented because Dashboard uses user.extras.todos, which is not available for anonymous guests
-  WorkspaceMembersSeeAll = 20,  // Team members see all todos/instances
-  ParticipantsSeeAll = 30,  // Process participants see all todos/instances
-  ParticipantsSeeTheirs = 40,  // Process participants see their own todos/instances
-  OnlyProcessOwners = 50  // Only process managers can see todos/instances
+  WorkspaceMembersSeeAll = 20, // Team members see all todos/instances
+  ParticipantsSeeAll = 30, // Process participants see all todos/instances
+  ParticipantsSeeTheirs = 40, // Process participants see their own todos/instances
+  OnlyProcessOwners = 50, // Only process managers can see todos/instances
 }
 
 export enum ProcessExtras {
@@ -132,7 +132,7 @@ export enum ProcessExtras {
   ExtrasSettings = 1 << 6,
   ExtrasAuditTrail = 1 << 7,
   ExtrasParentAndChildDetails = 1 << 8,
-  ExtrasSvgString = 1 << 9
+  ExtrasSvgString = 1 << 9,
 }
 
 export interface ITaskToLaneMapEntry {
@@ -146,16 +146,13 @@ export interface IModelValidationResult {
   tooManyIncomings: string[];
 }
 
-export const ProcessResult = strEnum([
-  "Ok",
-  "Error"
-]);
+export const ProcessResult = strEnum(["Ok", "Error"]);
 export type ProcessResult = keyof typeof ProcessResult;
 
 export type TaskSettingsValueType = "List" | "Text" | "Boolean";
 
 export type BpmnExtensionName =
-  "description"
+  | "description"
   | "processhub-userform" // Json: FieldDefinition[]
   | "send-task-receiver"
   | "send-task-with-field-contents" // Boolean: include field contents in SendTask notification mail?
@@ -230,7 +227,7 @@ export enum Frequency {
   Weekly = 2,
   Monthly = 3,
   Yearly = 4,
-  Once = 5
+  Once = 5,
 }
 
 export interface IRunningTaskLane {

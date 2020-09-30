@@ -20,32 +20,27 @@ export function parseInstanceMailSubject(mail: string): string | undefined {
 
 // RoleID == null -> check for any role membership
 export function isRoleOwner(userId: string, roleId: string | undefined, instance: IInstanceDetails): boolean {
-  if (instance.extras.roleOwners == null)
-    return false;
+  if (instance.extras.roleOwners == null) return false;
 
   if (roleId == null || roleId === "") {
     // Check if user is owner of any role
     for (const role in instance.extras.roleOwners) {
-      if (!isDefaultProcessRole(role) && isRoleOwner(userId, role, instance))
-        return true;
+      if (!isDefaultProcessRole(role) && isRoleOwner(userId, role, instance)) return true;
     }
     return false;
   }
 
-  if (instance.extras.roleOwners[roleId] == null)
-    return false;
+  if (instance.extras.roleOwners[roleId] == null) return false;
 
   for (const roleOwner of instance.extras.roleOwners[roleId]) {
-    if (roleOwner.memberId === userId)
-      return true;
+    if (roleOwner.memberId === userId) return true;
   }
 
   return false;
 }
 
 export function fieldContentsExcerpt(instance: IInstanceDetails | undefined, maxLen: number): string {
-  if (instance == null || instance.extras.fieldContents == null)
-    return "";
+  if (instance == null || instance.extras.fieldContents == null) return "";
 
   let excerpt = "";
   for (const key in instance.extras.fieldContents) {
@@ -59,20 +54,15 @@ export function fieldContentsExcerpt(instance: IInstanceDetails | undefined, max
           const date: Date = new Date(value);
           value = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
         }
-        if (field.type !== "ProcessHubTextArea")
-          excerpt += value.toString() + " / ";
+        if (field.type !== "ProcessHubTextArea") excerpt += value.toString() + " / ";
       }
     } else {
-      if (typeof (field) === "string"
-        && (field).trim() !== ""
-        && !(field).startsWith("http://")
-        && !(field).startsWith("https://")) {
+      if (typeof field === "string" && field.trim() !== "" && !field.startsWith("http://") && !field.startsWith("https://")) {
         excerpt += (instance.extras.fieldContents[key] as string) + " / ";
       }
     }
   }
-  if (excerpt.endsWith(" / "))
-    excerpt = excerpt.substr(0, excerpt.length - 3);
+  if (excerpt.endsWith(" / ")) excerpt = excerpt.substr(0, excerpt.length - 3);
 
   return stringExcerpt(excerpt, maxLen);
 }

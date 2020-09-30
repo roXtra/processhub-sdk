@@ -11,8 +11,7 @@ export type ProcessView = keyof typeof ProcessView;
 
 export function isValidProcessView(urlSegment: string): boolean {
   for (const view in ProcessView) {
-    if ((ProcessView as { [name: string]: string })[view] === urlSegment.toLowerCase())
-      return true;
+    if ((ProcessView as { [name: string]: string })[view] === urlSegment.toLowerCase()) return true;
   }
 
   return false;

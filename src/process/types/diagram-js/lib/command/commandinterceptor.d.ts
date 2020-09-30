@@ -69,7 +69,8 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
       priority: number,
       handlerFn: Function,
       unwrap: boolean,
-      that: {}): void;
+      that: {},
+    ): void;
 
     /**
      * A named hook for plugging into the command execution
@@ -188,7 +189,6 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
      * @param {Object} [that] Pass context (`this`) to the handler function
      */
     public reverted(events: string | string[], priority: number, handlerFn: Function, unwrap: boolean, that: {}): void;
-
   }
 
   export interface IShapeResizeEvent {
@@ -229,5 +229,4 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
     position: IPoint;
     shape: Shape;
   }
-
 }

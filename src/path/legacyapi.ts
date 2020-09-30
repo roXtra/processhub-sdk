@@ -4,7 +4,7 @@ import { IProcessDetails } from "../process/processinterfaces";
 import { IPathDetails } from "./pathinterfaces";
 
 export const PathRequestRoutes = {
-  Load: "/api/path/load"
+  Load: "/api/path/load",
 };
 export type PathRequestRoutes = keyof typeof PathRequestRoutes;
 
@@ -24,6 +24,5 @@ export const PATHLOADED_MESSAGE = "PathLoadedMessage";
 export interface IPathLoadedMessage extends IBaseMessage {
   type: "PathLoadedMessage";
   pathDetails?: IPathDetails;
-  error?: ApiResult;  // Nur gesetzt, falls Seitenaufruf gescheitert
+  error?: ApiResult; // Nur gesetzt, falls Seitenaufruf gescheitert
 }
-

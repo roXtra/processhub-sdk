@@ -5,7 +5,6 @@ import { momentFromUtcDate } from "./moment";
 describe("sdk", function () {
   describe("tools", function () {
     describe("moment", function () {
-
       describe("momentFromUtcDate", function () {
         it("should return now for 30 secs ago", () => {
           const now: Date = new Date();
@@ -24,7 +23,6 @@ describe("sdk", function () {
           const ninetySecsAgo = new Date(now.getTime() - 90 * 1000);
           expect(momentFromUtcDate(ninetySecsAgo)).not.to.equal(tl("jetzt"));
         });
-
       });
     });
   });

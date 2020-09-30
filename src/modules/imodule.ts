@@ -3,7 +3,7 @@ export enum ModuleId {
   None = 0,
   Processes = 1,
   Risks = 2,
-  Documents = 3
+  Documents = 3,
 }
 
 export interface IModule {

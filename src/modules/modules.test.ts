@@ -5,7 +5,6 @@ import { ModuleId } from "./imodule";
 describe("sdk", function () {
   describe("modules", function () {
     describe("getModuleForRequestPath", function () {
-
       it("should return the correct module", () => {
         assert.isTrue(getModuleForRequestPath("/").moduleId === ModuleId.Processes);
         assert.isTrue(getModuleForRequestPath("/@3089").moduleId === ModuleId.Processes);
@@ -31,7 +30,6 @@ describe("sdk", function () {
         assert.isTrue(getModuleForRequestPath("/f/i/1/ad903e5743a23a6e").moduleId === ModuleId.Processes);
         assert.isTrue(getModuleForRequestPath("/p/i/1/ad903e5743a23a6e").moduleId === ModuleId.Processes);
       });
-
     });
   });
 });

@@ -4,7 +4,6 @@ import * as Guid from "./guid";
 describe("sdk", function () {
   describe("tools", function () {
     describe("guid", function () {
-
       describe("createId", function () {
         it("should create valid Id", function () {
           const id = Guid.createId();
@@ -21,7 +20,6 @@ describe("sdk", function () {
         it("should create empty NullId", function () {
           assert.equal(Guid.nullId(), "0000000000000000");
         });
-
       });
       describe("createInstanceNumber", function () {
         it("soll gültige Nummern erzeugen", function () {
@@ -31,7 +29,6 @@ describe("sdk", function () {
           assert.equal(numStr.substr(8, 1), ".");
         });
       });
-
     });
   });
 });

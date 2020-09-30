@@ -32,5 +32,4 @@ declare module "diagram-js/lib/layout/BaseLayouter" {
     source?: Shape;
     target?: Shape;
   }
-
 }

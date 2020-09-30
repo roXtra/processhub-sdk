@@ -3,7 +3,6 @@ import { compareRoXtraVersions } from "./version";
 
 describe("tools", function () {
   describe("version", function () {
-
     describe("compareRoXtraVersions", function () {
       it("a < b", function () {
         expect(compareRoXtraVersions("7.0.0", "8.0.0")).to.be.lessThan(0);
@@ -21,6 +20,5 @@ describe("tools", function () {
         expect(compareRoXtraVersions("8.006.0", "8.006.0")).to.equal(0);
       });
     });
-
   });
 });

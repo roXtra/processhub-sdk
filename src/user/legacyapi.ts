@@ -6,7 +6,7 @@ export const UserRequestRoutes = {
   GetAllUserFromWorkspace: "/api/user/getallfromworkspace",
   LoadUser: "/api/user/loaduser",
   SetArchiveViewState: "/api/user/setarchiveviewstate",
-  UpdateViewState: "/api/user/updateviewstate"
+  UpdateViewState: "/api/user/updateviewstate",
 };
 export type UserRequestRoutes = keyof typeof UserRequestRoutes;
 
