@@ -2,7 +2,7 @@ export const PREVIEW_FILENAME = "preview.svg";
 
 export interface IFileStore {
 
-  getFile(workspaceId: string, processId: string, fileName: string): Promise<string>;
+  getFile(workspaceId: string, processId: string, fileName: string): Promise<string | undefined>;
   getFileBuffer(workspaceId: string, processId: string, fileName: string): Promise<Buffer>;
 
   getAttachmentFileUrl(workspaceId: string, processId: string, fileName: string): string;
@@ -21,7 +21,7 @@ export interface IFileStore {
   listObjects(key: string): Promise<string[]>;
   exists(key: string): Promise<boolean>;
 
-  getLastModifiedDate(key: string): Promise<Date>;
+  getLastModifiedDate(key: string): Promise<Date | undefined>;
 
   getPhysicalPath(key: string): string;
 }
