@@ -13,13 +13,10 @@ export const Risks: IModule = {
   name: tl("Risiken"),
 };
 
-export const modules: IModule[] = [
-  Processes,
-  Risks
-];
+export const modules: IModule[] = [Processes, Risks];
 
 const modulesById: { [id: number]: IModule } = {};
-modules.forEach(m => modulesById[m.moduleId] = m);
+modules.forEach((m) => (modulesById[m.moduleId] = m));
 
 export function getModule(moduleId: ModuleId): IModule {
   return modulesById[moduleId];

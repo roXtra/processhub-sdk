@@ -1,5 +1,4 @@
 declare module "diagram-js/lib/core/ElementFactory" {
-
   import { IPoint } from "diagram-js";
   import { Base, Shape } from "diagram-js/lib/model";
 
@@ -26,7 +25,6 @@ declare module "diagram-js/lib/core/ElementFactory" {
   }
 
   namespace ElementFactory {
-
     export interface ICreationAttrs {
       businessObject?: {};
       x?: number;

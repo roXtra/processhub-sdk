@@ -61,5 +61,4 @@ declare module "diagram-js/lib/features/space-tool/SpaceTool" {
     movingShapes: Shape[];
     resizingShapes: Shape[];
   }
-
 }

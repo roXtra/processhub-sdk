@@ -36,7 +36,8 @@ export interface IExecuteRequest extends IBaseRequest {
   instance?: IInstanceDetails;
   startEventId?: string;
 }
-export interface IExecuteReply extends IInstanceReply { // ExecuteReply ist das selbe wie ResumeReply
+export interface IExecuteReply extends IInstanceReply {
+  // ExecuteReply ist das selbe wie ResumeReply
   // instanceId is obsolete as the whole instance is returned but may not be removed from the stable API
   instanceId: string;
   instance: IInstanceDetails;

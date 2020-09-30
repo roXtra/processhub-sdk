@@ -1,5 +1,4 @@
 declare module "diagram-js/lib/features/keyboard/Keyboard" {
-
   import EventBus from "diagram-js/lib/core/EventBus";
 
   /**
@@ -67,5 +66,4 @@ declare module "diagram-js/lib/features/keyboard/Keyboard" {
     invertY?: boolean;
     speed?: number;
   }
-
 }

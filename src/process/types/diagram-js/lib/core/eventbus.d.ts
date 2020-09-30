@@ -1,5 +1,4 @@
 declare module "diagram-js/lib/core/EventBus" {
-
   import { IBounds, IPoint } from "diagram-js";
   import { Base, Connection, Shape } from "diagram-js/lib/model";
   import SnapContext from "diagram-js/lib/features/snapping/SnapContext";
@@ -275,8 +274,7 @@ declare module "diagram-js/lib/core/EventBus" {
     public init(data: {}): void;
   }
 
-  export class ElementDblClickEvent extends ElementClickEvent {
-  }
+  export class ElementDblClickEvent extends ElementClickEvent {}
 
   export class ElementClickEvent extends EventBusEvent<void> {
     public element: Base;
@@ -340,8 +338,7 @@ declare module "diagram-js/lib/core/EventBus" {
     y: number;
   }
 
-  export class CreateRejectedEvent extends CreateCanceledEvent {
-  }
+  export class CreateRejectedEvent extends CreateCanceledEvent {}
 
   export interface ISpaceToolEndedContext {
     axis: "x" | "y";
@@ -427,5 +424,4 @@ declare module "diagram-js/lib/core/EventBus" {
     x: number;
     y: number;
   }
-
 }

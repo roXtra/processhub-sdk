@@ -28,6 +28,5 @@ declare module "diagram-js/lib/features/selection/Selection" {
      * @param  {boolean} [add] whether the element(s) should be appended to the current selection, defaults to false
      */
     public select(elements: {}[], add?: boolean): void;
-
   }
 }

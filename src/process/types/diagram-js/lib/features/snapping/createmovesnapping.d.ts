@@ -1,5 +1,4 @@
 declare module "diagram-js/lib/features/snapping/CreateMoveSnapping" {
-
   import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
   import EventBus from "diagram-js/lib/core/EventBus";
   import { Base, Shape } from "diagram-js/lib/model";

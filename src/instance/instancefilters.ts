@@ -6,17 +6,15 @@ import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 
 // instance where the user owns at least one todo
 export function filterUserInstances(instances: IInstanceDetails[], user?: UserDetails): IInstanceDetails[] {
-  if (!user || !instances)
-    return [];
+  if (!user || !instances) return [];
 
   const filteredInstances: IInstanceDetails[] = [];
 
-  instances.map(instance => {
+  instances.map((instance) => {
     const instanceAdded = false;
     if (instance.extras.todos && !instance.isSimulation) {
-      instance.extras.todos.map(todo => {
-        if (!instanceAdded && (todo.userId === user.userId))
-          filteredInstances.push(instance);
+      instance.extras.todos.map((todo) => {
+        if (!instanceAdded && todo.userId === user.userId) filteredInstances.push(instance);
       });
     }
   });
@@ -25,42 +23,38 @@ export function filterUserInstances(instances: IInstanceDetails[], user?: UserDe
 }
 
 export function filterSingleInstance(instances: IInstanceDetails[], instanceId: string): IInstanceDetails | undefined {
-  if (!instances)
-    return undefined;
+  if (!instances) return undefined;
 
-  return instances.find(instance => instance.instanceId === instanceId && !instance.isSimulation);
+  return instances.find((instance) => instance.instanceId === instanceId && !instance.isSimulation);
 }
 
 // All instance for a process
 export function filterInstancesForProcess(instances: IInstanceDetails[], processId: string): IInstanceDetails[] {
-  if (!instances)
-    return [];
+  if (!instances) return [];
 
-  const filteredInstances: IInstanceDetails[] = instances.filter(instance => instance.processId === processId && !instance.isSimulation);
+  const filteredInstances: IInstanceDetails[] = instances.filter((instance) => instance.processId === processId && !instance.isSimulation);
   return filteredInstances;
 }
 
 // All instance for workspace
 export function filterInstancesForWorkspace(instances: IInstanceDetails[], workspaceId: string): IInstanceDetails[] {
-  if (!instances)
-    return [];
+  if (!instances) return [];
 
-  const filteredInstances: IInstanceDetails[] = instances.filter(instance => instance.workspaceId === workspaceId && !instance.isSimulation);
+  const filteredInstances: IInstanceDetails[] = instances.filter((instance) => instance.workspaceId === workspaceId && !instance.isSimulation);
   return filteredInstances;
 }
 
 // Instances for processes in workspace that user can not see
 export function filterRemainingInstancesForWorkspace(instances: IInstanceDetails[], workspace: IWorkspaceDetails): IInstanceDetails[] {
-  if (!instances)
-    return [];
+  if (!instances) return [];
 
   let workspaceInstances = filterInstancesForWorkspace(instances, workspace.workspaceId);
 
   if (workspace.extras.processes) {
     // GetOtherItems lists the todos for processes without read access - filter the others
     const filteredInstances: IInstanceDetails[] = [];
-    workspaceInstances.map(instance => {
-      if (workspace.extras.processes?.find(process => process.processId === instance.processId) == null) {
+    workspaceInstances.map((instance) => {
+      if (workspace.extras.processes?.find((process) => process.processId === instance.processId) == null) {
         filteredInstances.push(instance);
       }
     });

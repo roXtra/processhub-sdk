@@ -8,9 +8,8 @@ declare module "modeler/bpmn/bpmndi" {
   import { Di } from "modeler/bpmn/di";
 
   namespace Bpmndi {
-
-    enum ParticipantBandKind { }
-    enum MessageVisibleKind { }
+    enum ParticipantBandKind {}
+    enum MessageVisibleKind {}
 
     export interface IBPMNDiagram extends Di.IDiagram {
       readonly $type: "bpmndi:BPMNDiagram";

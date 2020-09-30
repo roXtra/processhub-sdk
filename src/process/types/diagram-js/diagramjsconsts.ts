@@ -1,4 +1,3 @@
-
 // S. diagram-js/lib/draw/BaseRenderer.js
 export const DEFAULT_RENDER_PRIORITY = 1000;
 

@@ -1,5 +1,4 @@
 declare module "diagram-js" {
-
   import Keyboard, { IKeyboardConfig } from "diagram-js/lib/features/keyboard/Keyboard";
   import Canvas, { ICanvasConfig } from "diagram-js/lib/core/Canvas";
   import BaseRenderer from "diagram-js/lib/draw/BaseRenderer";
@@ -12,7 +11,6 @@ declare module "diagram-js" {
    * configuration.
    */
   export default class Diagram {
-
     public injector: Injector;
 
     /**

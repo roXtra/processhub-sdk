@@ -8,7 +8,6 @@ chai.use(chaiExclude);
 describe("sdk", function () {
   describe("tools", function () {
     describe("stringtools", function () {
-
       describe("isValidMailAddress", function () {
         it("soll gültige Mailadressen akzeptieren", function () {
           chai.assert.isTrue(StringTools.isValidMailAddress("tr@processhub-nomail.com"));
@@ -63,7 +62,7 @@ describe("sdk", function () {
 
       describe("stringExcerpt", function () {
         it("soll Strings kürzen", function () {
-          chai.assert.equal(StringTools.stringExcerpt("Mein schöner Titel", 100), "Mein schöner Titel");  // Unter Limit
+          chai.assert.equal(StringTools.stringExcerpt("Mein schöner Titel", 100), "Mein schöner Titel"); // Unter Limit
           chai.assert.equal(StringTools.stringExcerpt("Mein schöner Titel", 4), "Mein...");
           chai.assert.equal(StringTools.stringExcerpt("Mein schöner Titel", 3), "Mei...");
           chai.assert.equal(StringTools.stringExcerpt("Mein schöner Titel", 10), "Mein...");
@@ -72,7 +71,6 @@ describe("sdk", function () {
 
       describe("replaceOldFieldSyntax", function () {
         it("soll alte Syntax austauschen", function () {
-
           const testValue = "(({{ field.Feld_1 }} == 1) && ({{ role.Bearbeiter }} == 'Administrator, Admin')) || role['Pruefer'].displayName && role['Ersteller'].firstname";
           const expectedValue = "((field['Feld_1'] == 1) && (role['Bearbeiter'] == 'Administrator, Admin')) || role['Pruefer'].displayName && role['Ersteller'].firstname";
 
@@ -83,23 +81,22 @@ describe("sdk", function () {
       });
 
       describe("Querybuilder", function () {
-
         const editTestParameters: { query: string; expectedGroup: Group; guid: string }[] = [
           {
             guid: "300b7a35-5441-48cd-9b62-02e8d5d7c356",
             query: "",
             expectedGroup: {
               rules: [],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "b0e8c905-7f79-4a38-ae46-b9ccf6262106",
             query: "()",
             expectedGroup: {
               rules: [],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "d5b3362e-83de-450f-8519-043ed7b8566f",
@@ -108,11 +105,11 @@ describe("sdk", function () {
               rules: [
                 {
                   rules: [],
-                  combinator: "&&"
-                } as Group
+                  combinator: "&&",
+                } as Group,
               ],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "556712e5-d2e2-4d4e-ab92-1b01aa92d3a8",
@@ -122,11 +119,11 @@ describe("sdk", function () {
                 {
                   field: "field['Zahl']",
                   operator: ">",
-                  value: 5
-                } as Rule
+                  value: 5,
+                } as Rule,
               ],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "e65c5a52-6922-4753-bfee-86a48f084f64",
@@ -136,11 +133,11 @@ describe("sdk", function () {
                 {
                   field: "field['A&B']",
                   operator: "!=",
-                  value: "[X|Y]"
-                } as Rule
+                  value: "[X|Y]",
+                } as Rule,
               ],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "148cd88f-b218-49bc-ba52-b6209a470bda",
@@ -150,11 +147,11 @@ describe("sdk", function () {
                 {
                   field: "field['Date']",
                   operator: "==",
-                  value: undefined
-                } as Rule
+                  value: undefined,
+                } as Rule,
               ],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "6a9041ad-a1b6-4cfa-9c35-336e00d9abb9",
@@ -164,11 +161,11 @@ describe("sdk", function () {
                 {
                   field: "field['Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von']",
                   operator: "==",
-                  value: ""
-                } as Rule
+                  value: "",
+                } as Rule,
               ],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "7abebd2c-c13c-4d84-b942-aeb3f819fdde",
@@ -178,16 +175,16 @@ describe("sdk", function () {
                 {
                   field: "role['Mitarbeiter'].lastName",
                   operator: "==",
-                  value: "Mustermann"
+                  value: "Mustermann",
                 } as Rule,
                 {
                   field: "role['GF/KB/PL'].firstName",
                   operator: "==",
-                  value: "Max"
-                } as Rule
+                  value: "Max",
+                } as Rule,
               ],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "67fbd46f-a7eb-418e-b5f5-e4fa156cf7f2",
@@ -197,50 +194,51 @@ describe("sdk", function () {
                 {
                   field: "field['Check']",
                   operator: "==",
-                  value: {A: true, B: true }
+                  value: { A: true, B: true },
                 } as Rule,
                 {
                   field: "field['DATUM']",
                   operator: ">=",
-                  value: "2019-08-14T22:00:00.000Z"
-                } as Rule
+                  value: "2019-08-14T22:00:00.000Z",
+                } as Rule,
               ],
-              combinator: "||"
-            } as Group
+              combinator: "||",
+            } as Group,
           },
           {
             guid: "28bddb73-54ff-42a9-8e9f-e74dc2bc4e3a",
-            query: "(role['Abteilungsleitung'] == 'ABC' && field['Dienstbezeichnung'] == 'xyz' && (field['Art der Veranstaltung'] != 'gfdg dfg' || field['Entstehen Teilnehmergebühren?'] == 'nein'))",
+            query:
+              "(role['Abteilungsleitung'] == 'ABC' && field['Dienstbezeichnung'] == 'xyz' && (field['Art der Veranstaltung'] != 'gfdg dfg' || field['Entstehen Teilnehmergebühren?'] == 'nein'))",
             expectedGroup: {
               rules: [
                 {
                   field: "role['Abteilungsleitung']",
                   operator: "==",
-                  value: "ABC"
+                  value: "ABC",
                 } as Rule,
                 {
                   field: "field['Dienstbezeichnung']",
                   operator: "==",
-                  value: "xyz"
+                  value: "xyz",
                 } as Rule,
                 {
                   rules: [
                     {
                       field: "field['Art der Veranstaltung']",
                       operator: "!=",
-                      value: "gfdg dfg"
+                      value: "gfdg dfg",
                     } as Rule,
                     {
                       field: "field['Entstehen Teilnehmergebühren?']",
                       operator: "==",
-                      value: "nein"
-                    } as Rule
+                      value: "nein",
+                    } as Rule,
                   ],
-                  combinator: "||"
-                } as Group
+                  combinator: "||",
+                } as Group,
               ],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "812fb4b1-3344-4107-9f43-cc3a42c6ba93",
@@ -252,38 +250,38 @@ describe("sdk", function () {
                     {
                       field: "field['Name, Vorname']",
                       operator: "==",
-                      value: ""
+                      value: "",
                     } as Rule,
                     {
                       field: "field['Name, Vorname']",
                       operator: "==",
-                      value: ""
-                    } as Rule
+                      value: "",
+                    } as Rule,
                   ],
-                  combinator: "&&"
+                  combinator: "&&",
                 } as Group,
                 {
                   rules: [
                     {
                       field: "field['Name, Vorname']",
                       operator: "==",
-                      value: ""
+                      value: "",
                     } as Rule,
                     {
                       field: "field['Name, Vorname']",
                       operator: "==",
-                      value: ""
-                    } as Rule
+                      value: "",
+                    } as Rule,
                   ],
-                  combinator: "&&"
-                } as Group
+                  combinator: "&&",
+                } as Group,
               ],
-              combinator: "&&"
-            } as Group
-          }
+              combinator: "&&",
+            } as Group,
+          },
         ];
 
-        editTestParameters.forEach(p => {
+        editTestParameters.forEach((p) => {
           it("soll verschachtelte Klammern finden und auflösen, und soll Gruppen und Regeln aus einer Bedingung auslesen und korrekt verarbeiten_" + p.guid, function () {
             const res: NestedElements = StringTools.getNestedElements(p.query);
             const res2 = StringTools.parseNestedElementsToGroupConstruct(res);
@@ -298,8 +296,8 @@ describe("sdk", function () {
             expectedQuery: undefined,
             group: {
               rules: [],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "25c23455-0952-4dc5-b28f-fce55d8c37c8",
@@ -308,11 +306,11 @@ describe("sdk", function () {
               rules: [
                 {
                   rules: [],
-                  combinator: "&&"
-                } as Group
+                  combinator: "&&",
+                } as Group,
               ],
-              combinator: "&&"
-            }
+              combinator: "&&",
+            },
           },
           {
             guid: "6e0f41c2-8eb2-4219-81a4-576350814e37",
@@ -322,11 +320,11 @@ describe("sdk", function () {
                 {
                   field: "field['Zahl']",
                   operator: ">",
-                  value: 5
-                } as Rule
+                  value: 5,
+                } as Rule,
               ],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "8e5f09b2-65d3-4ebd-ae50-f1e4c7aafd61",
@@ -336,11 +334,11 @@ describe("sdk", function () {
                 {
                   field: "field['A&B']",
                   operator: "!=",
-                  value: "[X|Y]"
-                } as Rule
+                  value: "[X|Y]",
+                } as Rule,
               ],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "a7dd944f-21a7-4589-8cf0-0dcb96b15dbd",
@@ -350,25 +348,26 @@ describe("sdk", function () {
                 {
                   field: "field['Date']",
                   operator: "==",
-                  value: undefined
-                } as Rule
+                  value: undefined,
+                } as Rule,
               ],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "ff3e08f9-a3fb-4ad3-bbfd-1e107a4b7990",
-            expectedQuery: "(field['Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von'] == '')",
+            expectedQuery:
+              "(field['Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von'] == '')",
             group: {
               rules: [
                 {
                   field: "field['Gewährung eines Übernachtungszuschusses (Höchstbetrag 80 €; Höhere Erstattung nur in begründeten Ausnahmefällen möglich) in Höhe von']",
                   operator: "==",
-                  value: ""
-                } as Rule
+                  value: "",
+                } as Rule,
               ],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "4bf3f6a5-ba6f-4ff7-98be-c8c278f43444",
@@ -378,16 +377,16 @@ describe("sdk", function () {
                 {
                   field: "role['Mitarbeiter'].lastName",
                   operator: "==",
-                  value: "Mustermann"
+                  value: "Mustermann",
                 } as Rule,
                 {
                   field: "role['GF/KB/PL'].firstName",
                   operator: "==",
-                  value: "Max"
-                } as Rule
+                  value: "Max",
+                } as Rule,
               ],
-              combinator: "&&"
-            } as Group
+              combinator: "&&",
+            } as Group,
           },
           {
             guid: "551cb95f-2264-4bba-b7f1-50d36ef6826f",
@@ -397,54 +396,55 @@ describe("sdk", function () {
                 {
                   field: "field['Check']",
                   operator: "==",
-                  value: { A: true, B: true }
+                  value: { A: true, B: true },
                 } as Rule,
                 {
                   field: "field['DATUM']",
                   operator: ">=",
-                  value: "2019-08-14T22:00:00.000Z"
-                } as Rule
+                  value: "2019-08-14T22:00:00.000Z",
+                } as Rule,
               ],
-              combinator: "||"
-            } as Group
+              combinator: "||",
+            } as Group,
           },
           {
             guid: "d9238b9f-047f-4144-b1a3-b5cbdadfe09b",
-            expectedQuery: "(role['Abteilungsleitung'] == 'ABC' && field['Dienstbezeichnung'] == 'xyz' && (field['Art der Veranstaltung'] != 'gfdg dfg' || field['Entstehen Teilnehmergebühren?'] == 'nein'))",
+            expectedQuery:
+              "(role['Abteilungsleitung'] == 'ABC' && field['Dienstbezeichnung'] == 'xyz' && (field['Art der Veranstaltung'] != 'gfdg dfg' || field['Entstehen Teilnehmergebühren?'] == 'nein'))",
             group: {
               rules: [
                 {
                   field: "role['Abteilungsleitung']",
                   operator: "==",
-                  value: "ABC"
+                  value: "ABC",
                 } as Rule,
                 {
                   field: "field['Dienstbezeichnung']",
                   operator: "==",
-                  value: "xyz"
+                  value: "xyz",
                 } as Rule,
                 {
                   rules: [
                     {
                       field: "field['Art der Veranstaltung']",
                       operator: "!=",
-                      value: "gfdg dfg"
+                      value: "gfdg dfg",
                     } as Rule,
                     {
                       field: "field['Entstehen Teilnehmergebühren?']",
                       operator: "==",
-                      value: "nein"
-                    } as Rule
+                      value: "nein",
+                    } as Rule,
                   ],
-                  combinator: "||"
-                } as Group
+                  combinator: "||",
+                } as Group,
               ],
-              combinator: "&&"
-            } as Group
-          }
+              combinator: "&&",
+            } as Group,
+          },
         ];
 
-        editTestParameters2.forEach(p => {
+        editTestParameters2.forEach((p) => {
           it("should parse Group to valid string expression_" + p.guid, function () {
             chai.expect(StringTools.getQueryFromGroup(p.group)).to.be.equal(p.expectedQuery);
           });

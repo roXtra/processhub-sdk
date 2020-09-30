@@ -1,4 +1,3 @@
-
 declare module "diagram-js/lib/features/connect/Connect" {
   import { Base } from "diagram-js/lib/model";
   import EventBus from "diagram-js/lib/core/EventBus";
@@ -22,4 +21,3 @@ declare module "diagram-js/lib/features/connect/Connect" {
     public start(event: MouseEvent, source: Base): void;
   }
 }
-

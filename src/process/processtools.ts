@@ -17,16 +17,12 @@ export function parseProcessMailSubject(mail: string): string | undefined {
 
 // Init settings that don't exist with default values
 export function initSettings(process: IProcessDetails): void {
-  if (!process.extras.settings)
-    process.extras.settings = {};
+  if (!process.extras.settings) process.extras.settings = {};
 
   const settings = process.extras.settings;
 
-  if (!settings.dashboard)
-    settings.dashboard = {};
-  if (!settings.dashboard.dashBoardAccess)
-    settings.dashboard.dashBoardAccess = ProcessViewAccess.ParticipantsSeeTheirs; // Default
+  if (!settings.dashboard) settings.dashboard = {};
+  if (!settings.dashboard.dashBoardAccess) settings.dashboard.dashBoardAccess = ProcessViewAccess.ParticipantsSeeTheirs; // Default
 
-  if (!settings.library)
-    settings.library = {};
+  if (!settings.library) settings.library = {};
 }

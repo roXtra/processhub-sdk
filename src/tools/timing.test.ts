@@ -3,10 +3,8 @@ import { sleep, getFormattedTimeZoneOffset } from "./timing";
 
 describe("tools", function () {
   describe("timing", function () {
-
     describe("sleep", function () {
       it("should wait", async function () {
-
         const startat = new Date().getTime();
         await sleep(1200);
         const endat = new Date().getTime();
@@ -31,6 +29,5 @@ describe("tools", function () {
         expect(getFormattedTimeZoneOffset(0)).to.equal("GMT+00:00");
       });
     });
-
   });
 });

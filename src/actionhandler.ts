@@ -4,7 +4,6 @@ import { InstanceExtras } from "./instance/instanceinterfaces";
 import { UserExtras } from "./user/userinterfaces";
 import { ICoreEnvironment } from "./environment";
 
-
 export interface IExtrasRequest {
   workspaceExtras?: WorkspaceExtras;
   processExtras?: ProcessExtras;
@@ -13,7 +12,6 @@ export interface IExtrasRequest {
 }
 
 export abstract class ActionHandler {
-
   // Load Page "/@workspace/..."
   public abstract gotoPage(_path: string): void;
   public abstract async requestExtras(environment: ICoreEnvironment, requestedExtras: IExtrasRequest, forceReload?: boolean): Promise<void>;

@@ -7,7 +7,7 @@ export interface IWorkspaceDetails {
   workspaceId: string;
   displayName: string;
   description?: string;
-  userRole?: WorkspaceRole;  // Rolle des angemeldeten Users im Workspace
+  userRole?: WorkspaceRole; // Rolle des angemeldeten Users im Workspace
   trialExpiresAt?: Date;
   licensedUsers?: number;
   colors?: IWorkspaceColor[];
@@ -15,7 +15,7 @@ export interface IWorkspaceDetails {
   extras: {
     // New Extras must be added to cache-handling in workspaceactions -> loadWorkspace!
     members?: IWorkspaceMember[];
-    processes?: IProcessDetails[];  // Only processes that the current user may access
+    processes?: IProcessDetails[]; // Only processes that the current user may access
     settings?: IWorkspaceSettings;
     tags?: string[]; // All available tags in the workspace
     auditTrail?: IAuditTrailEntry[];

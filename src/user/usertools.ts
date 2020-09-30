@@ -5,8 +5,7 @@ import { UserDetails } from "./userinterfaces";
 // getBestUserLanguage returns the best language for the user that also exists in ProcessHub
 export function getBestUserLanguage(user: UserDetails): string {
   // Currently we only have de...
-  if (user == null)
-    return "de";
+  if (user == null) return "de";
 
   return "de";
 }

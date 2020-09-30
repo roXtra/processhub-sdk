@@ -29,7 +29,7 @@ export const ProcessRequestRoutes = {
   DeleteArchiveView: "/api/process/deletearchiveview",
   UploadReportDraft: "/api/process/uploadreportdraft",
   DeleteReportDraft: "/api/process/deletereportdraft",
-  ListProcesses: "/api/process/listprocesses"
+  ListProcesses: "/api/process/listprocesses",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 

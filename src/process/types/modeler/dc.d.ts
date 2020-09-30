@@ -1,6 +1,5 @@
 declare module "modeler/bpmn/dc" {
   namespace Dc {
-
     export interface IFont {
       readonly $type: "dc:Font";
       name: string;

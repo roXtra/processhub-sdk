@@ -1,5 +1,4 @@
 declare module "diagram-js/lib/features/modeling/Modeling" {
-
   import EventBus from "diagram-js/lib/core/EventBus";
   import CommandStack from "diagram-js/lib/command/CommandStack";
   import CommandHandler from "diagram-js/lib/command/CommandHandler";
@@ -65,13 +64,7 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
      * @return {djs.model.Connection} the created connection.
      */
     public createConnection(source: Base, target: Base, attrs: {}, parent: Base, hints: IConnectionHints): Connection;
-    public createConnection(
-      source: Base,
-      target: Base,
-      targetIndex: number,
-      connection: Connection,
-      parent: Base,
-      hints: IConnectionHints): Connection;
+    public createConnection(source: Base, target: Base, targetIndex: number, connection: Connection, parent: Base, hints: IConnectionHints): Connection;
 
     public createShape(shape: Base, position: {}, target: Base, targetIndex: number, hints: { attach: boolean }): {};
 

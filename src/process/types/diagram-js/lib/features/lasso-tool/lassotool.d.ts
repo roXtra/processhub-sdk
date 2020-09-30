@@ -11,5 +11,4 @@ declare module "diagram-js/lib/features/lasso-tool/LassoTool" {
     public toggle(): void;
     public isActive(): boolean;
   }
-
 }

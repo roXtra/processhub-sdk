@@ -1,5 +1,4 @@
 declare module "diagram-js/lib/features/tooltips/Tooltips" {
-
   import EventBus from "diagram-js/lib/core/EventBus";
   import Canvas from "diagram-js/lib/core/Canvas";
 

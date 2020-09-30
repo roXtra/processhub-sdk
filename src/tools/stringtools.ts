@@ -6,8 +6,7 @@ import { createId } from "./guid";
 
 // Mailadresse auf Gültigkeit prüfen
 export function isValidMailAddress(mail: string | null): boolean {
-  if (mail === null)
-    return false;
+  if (mail === null) return false;
 
   // Fault tolerant - don't block too many
   const re = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
@@ -15,9 +14,7 @@ export function isValidMailAddress(mail: string | null): boolean {
 }
 
 export function isValidWorkspaceName(workspaceName?: string): boolean {
-  if ((workspaceName == null)
-    || (workspaceName.length < 5)
-    || (workspaceName.includes(" "))) {
+  if (workspaceName == null || workspaceName.length < 5 || workspaceName.includes(" ")) {
     return false;
   }
 
@@ -29,16 +26,15 @@ export function isValidWorkspaceName(workspaceName?: string): boolean {
 // Benutzer-Realname auf Gültigkeit prüfen
 export function isValidRealname(realName?: string): boolean {
   // Nur Mindestlänge 5 Zeichen einfordern
-  if (realName == null || realName.length < 5)
-    return false;
-  else
-    return true;
+  if (realName == null || realName.length < 5) return false;
+  else return true;
 }
 
 // Konvertiert einen String in ein Url-taugliches Format
 // Bsp.: Mein schöner Titel -> Mein-schoner-Titel
 export function toCleanUrl(text: string): string {
-  return text.toLowerCase()
+  return text
+    .toLowerCase()
     .replace("ä", "ae")
     .replace("ö", "oe")
     .replace("ü", "ue")
@@ -49,15 +45,13 @@ export function toCleanUrl(text: string): string {
 }
 
 export function stringExcerpt(source: string, maxLen: number): string {
-  if (source == null || source.length <= maxLen)
-    return source;
+  if (source == null || source.length <= maxLen) return source;
   else {
     let dest = source.substr(0, maxLen);
 
     // String bis zum letzten vollständigen Wort zurückgeben
     const last = dest.lastIndexOf(" ");
-    if (last !== -1)
-      dest = dest.substr(0, last);
+    if (last !== -1) dest = dest.substr(0, last);
 
     return dest + "...";
   }
@@ -66,7 +60,7 @@ export function stringExcerpt(source: string, maxLen: number): string {
 export function getShuffledNumberArray(amountOfElements: number, numberLenght = 3): number[] {
   const array: number[] = [];
   for (let i = 0; i < amountOfElements; i++) {
-    const value = ("000" + String(i)).slice(-(numberLenght));
+    const value = ("000" + String(i)).slice(-numberLenght);
     array.push(parseInt(value));
   }
   return shuffleArray(array);
@@ -92,7 +86,9 @@ export function removeHtmlTags(html: string): string {
 
 export function replaceOldFieldSyntax(oldValue: string): string {
   if (oldValue) {
-    return oldValue.replace(/([{]{2}[\s]?(field|role)\.(.+?)(\s)*[}]{2})/g, (match, p1: string, p2: string, p3: string, p4: string, offset, value): string => { return p2 + "['" + p3 + "']"; }); // Fallback: rewrite old syntax {{ field.abc }} -> field['abc'];
+    return oldValue.replace(/([{]{2}[\s]?(field|role)\.(.+?)(\s)*[}]{2})/g, (match, p1: string, p2: string, p3: string, p4: string, offset, value): string => {
+      return p2 + "['" + p3 + "']";
+    }); // Fallback: rewrite old syntax {{ field.abc }} -> field['abc'];
   }
   return oldValue;
 }
@@ -106,7 +102,7 @@ export function getQueryFromGroup(group: Group, isChild?: boolean): string | und
     return isChild ? "()" : undefined;
   }
 
-  return "(" + group.rules.map(r => (r as Rule).field ? getQueryFromRule(r as Rule) : getQueryFromGroup(r as Group, true)).join(" " + group.combinator + " ") + ")";
+  return "(" + group.rules.map((r) => ((r as Rule).field ? getQueryFromRule(r as Rule) : getQueryFromGroup(r as Group, true))).join(" " + group.combinator + " ") + ")";
 }
 
 export function getQueryFromRule(rule: Rule): string {
@@ -127,17 +123,21 @@ export function getQueryFromRule(rule: Rule): string {
       break;
   }
 
-  if (rule.field === undefined)
-    throw new Error("Field in rule is undefined!");
+  if (rule.field === undefined) throw new Error("Field in rule is undefined!");
 
-  if (rule.operator === undefined)
-    throw new Error(`Operator for rule with field ${rule.field} is undefined!`);
+  if (rule.operator === undefined) throw new Error(`Operator for rule with field ${rule.field} is undefined!`);
 
   return `${rule.field} ${rule.operator} ${String(value)}`;
 }
 
-export class NestedElement { query: string; type: string; top?: boolean; }
-export class NestedElements { [key: string]: NestedElement }
+export class NestedElement {
+  query: string;
+  type: string;
+  top?: boolean;
+}
+export class NestedElements {
+  [key: string]: NestedElement;
+}
 
 const ruleRegex = /((field|role)\['([^']*)'\](\.[^\s]+)?)\s(==|!=|<|<=|>|>=|<>|><)\s(('([^']+)')|(([^()&|]+)))/; // /((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+)))/
 const nestedRegex = /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role)\['([^']*)'\](\.[^\s]+)?)\s(==|!=|<|<=|>|>=|<>|><)\s(('([^']+)')|(([^()&&||]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/; // /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/;
@@ -152,9 +152,11 @@ export function getNestedElements(query: string): NestedElements {
     const uuid = Tools.createId();
     if (match[3]) {
       res[uuid] = { query: "", type: "nested" };
-      replacedQuery = replacedQuery.replace(nestedRegex, (m, p1: string, p2: string, p3: string, p4: string, offset, full) => { return p2 + uuid + p4; });
+      replacedQuery = replacedQuery.replace(nestedRegex, (m, p1: string, p2: string, p3: string, p4: string, offset, full) => {
+        return p2 + uuid + p4;
+      });
     } else {
-      res[uuid] = { query: match[6], type: isCombinatorRegex.test(match[6]) ? "group" : (ruleRegex.test(match[0]) ? "rule" : "nested") };
+      res[uuid] = { query: match[6], type: isCombinatorRegex.test(match[6]) ? "group" : ruleRegex.test(match[0]) ? "rule" : "nested" };
       replacedQuery = replacedQuery.replace(nestedRegex, uuid);
     }
     match = nestedRegex.exec(replacedQuery);
@@ -197,24 +199,22 @@ export function parseNestedElementsToGroupConstruct(nestedElement: NestedElement
     return topGroup;
   }
 
-  const topIndex = Object.keys(nestedElement).find(k => nestedElement[k].top);
+  const topIndex = Object.keys(nestedElement).find((k) => nestedElement[k].top);
 
-  if (topIndex === undefined)
-    throw new Error(`Could not find index for top element in parseNestedElementsToGroupConstruct: ${JSON.stringify(nestedElement)}`);
+  if (topIndex === undefined) throw new Error(`Could not find index for top element in parseNestedElementsToGroupConstruct: ${JSON.stringify(nestedElement)}`);
 
   const topEntry: NestedElement = cloneDeep(nestedElement[topIndex]);
 
   if (topEntry.type === "group") {
     const regexEx = isCombinatorRegex.exec(topEntry.query);
-    if (regexEx === null)
-      throw new Error(`Regex isCombinatorRegex returned null for search with ${topEntry.query}`);
+    if (regexEx === null) throw new Error(`Regex isCombinatorRegex returned null for search with ${topEntry.query}`);
 
     topGroup.combinator = regexEx[1];
   } else {
     topGroup.combinator = "&&";
   }
 
-  const splittedRules = topEntry.type === "group" ? topEntry.query.split(topGroup.combinator).map(item => item.trim()) : [topEntry.query];
+  const splittedRules = topEntry.type === "group" ? topEntry.query.split(topGroup.combinator).map((item) => item.trim()) : [topEntry.query];
   for (let i = 0; i < splittedRules.length; i++) {
     if (splittedRules[i] === "") {
       // Do nothing
@@ -229,7 +229,7 @@ export function parseNestedElementsToGroupConstruct(nestedElement: NestedElement
 }
 
 export function parseNestedElement(query: string, nestedElements: NestedElements, group: Group): void {
-  const topIndex = Object.keys(nestedElements).find(k => nestedElements[k].top);
+  const topIndex = Object.keys(nestedElements).find((k) => nestedElements[k].top);
   if (topIndex !== undefined) {
     delete nestedElements[topIndex];
   }
@@ -245,8 +245,7 @@ export function getFieldOrRoleDisplayName(fieldString: string): string | null {
   const regex = new RegExp(/((field|role)\['([^']*)'\](\.[^\s]+)?)/);
   const match = regex.exec(fieldString);
 
-  if (match === null)
-    return null;
+  if (match === null) return null;
 
   const prefix = match[2] === "field" ? tl("Feld") : tl("Rolle");
   let suffix = "";
@@ -279,11 +278,14 @@ export function parseRule(rule: string): Rule {
   if (match) {
     res.field = match[1];
     res.operator = match[5];
-    if (match[8]) { // Normal text
+    if (match[8]) {
+      // Normal text
       res.value = match[8];
-    } else if (match[10] === "''") { // Empty text
+    } else if (match[10] === "''") {
+      // Empty text
       res.value = "";
-    } else if (match[10] === "undefined") { // Undefined (object)
+    } else if (match[10] === "undefined") {
+      // Undefined (object)
       res.value = undefined;
     } else if (!Number.isNaN(Number(match[10]))) {
       res.value = Number(match[10]); // Number

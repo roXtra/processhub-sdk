@@ -94,5 +94,4 @@ declare module "diagram-js/lib/features/palette/Palette" {
   export interface IPaletteProvider {
     getPaletteEntries(): { [name: string]: IPaletteEntryDescriptor };
   }
-
 }

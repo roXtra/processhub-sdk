@@ -33,13 +33,10 @@ export interface ITodoEnvironment extends ICoreEnvironment {
 }
 
 export function isValidCoreEnvironment(coreEnv: {}, requireUser = true): coreEnv is ICoreEnvironment {
-  if (coreEnv == null)
-    return false;
+  if (coreEnv == null) return false;
 
-  if (!requireUser)
-    return true;
-  else
-    return (coreEnv as ICoreEnvironment).user != null;
+  if (!requireUser) return true;
+  else return (coreEnv as ICoreEnvironment).user != null;
 }
 export function isValidWorkspaceEnvironment(workspaceEnv: {}, requireUser = true): workspaceEnv is IWorkspaceEnvironment {
   return isValidCoreEnvironment(workspaceEnv, requireUser) && (workspaceEnv as IWorkspaceEnvironment).workspace != null;

@@ -9,26 +9,25 @@ declare module "modeler/bpmn/bpmn" {
   import Base = require("moddle/lib/base");
 
   namespace Bpmn {
-
     export type ElementType = Bpmn.bpmnType | Bpmndi.bpmndiType | Dc.dcType;
 
-    enum AdHocOrdering { }
+    enum AdHocOrdering {}
 
-    enum MultiInstanceBehavior { }
+    enum MultiInstanceBehavior {}
 
-    enum AssociationDirection { }
+    enum AssociationDirection {}
 
-    enum RelationshipDirection { }
+    enum RelationshipDirection {}
 
-    enum ProcessType { }
+    enum ProcessType {}
 
-    enum GatewayDirection { }
+    enum GatewayDirection {}
 
-    enum EventBasedGatewayType { }
+    enum EventBasedGatewayType {}
 
-    enum ItemKind { }
+    enum ItemKind {}
 
-    enum ChoreographyLoopType { }
+    enum ChoreographyLoopType {}
 
     export interface IBaseElement extends Base {
       $attrs?: {};
@@ -40,8 +39,7 @@ declare module "modeler/bpmn/bpmn" {
       extensionElements?: IExtensionElements;
     }
 
-    export interface IRootElement extends IBaseElement {
-    }
+    export interface IRootElement extends IBaseElement {}
 
     export interface IInterface extends IRootElement {
       readonly $type: "bpmn:Interface";
@@ -75,11 +73,7 @@ declare module "modeler/bpmn/bpmn" {
     }
 
     export interface IGlobalTask extends ICallableElement {
-      readonly $type: "bpmn:GlobalTask"
-      | "bpmn:GlobalManualTask"
-      | "bpmn:GlobalUserTask"
-      | "bpmn:GlobalScriptTask"
-      | "bpmn:GlobalBusinessRuleTask";
+      readonly $type: "bpmn:GlobalTask" | "bpmn:GlobalManualTask" | "bpmn:GlobalUserTask" | "bpmn:GlobalScriptTask" | "bpmn:GlobalBusinessRuleTask";
       resources: IResourceRole[];
     }
 
@@ -95,9 +89,7 @@ declare module "modeler/bpmn/bpmn" {
     }
 
     export interface IPerformer extends IResourceRole {
-      readonly $type: "bpmn:Performer"
-      | "bpmn:HumanPerformer"
-      | "bpmn:PotentialOwner";
+      readonly $type: "bpmn:Performer" | "bpmn:HumanPerformer" | "bpmn:PotentialOwner";
     }
 
     export interface IFlowElementsContainer extends IBaseElement {
@@ -167,18 +159,18 @@ declare module "modeler/bpmn/bpmn" {
       loopCharacteristics?: ILoopCharacteristics;
     }
 
-    export interface IInteractionNode {
-    }
+    export interface IInteractionNode {}
 
     export interface ITask extends IActivity, IInteractionNode {
-      readonly $type: "bpmn:Task"
-      | "bpmn:ManualTask"
-      | "bpmn:UserTask"
-      | "bpmn:ServiceTask"
-      | "bpmn:SendTask"
-      | "bpmn:ReceiveTask"
-      | "bpmn:ScriptTask"
-      | "bpmn:BusinessRuleTask";
+      readonly $type:
+        | "bpmn:Task"
+        | "bpmn:ManualTask"
+        | "bpmn:UserTask"
+        | "bpmn:ServiceTask"
+        | "bpmn:SendTask"
+        | "bpmn:ReceiveTask"
+        | "bpmn:ScriptTask"
+        | "bpmn:BusinessRuleTask";
     }
 
     export interface IManualTask extends ITask {
@@ -196,8 +188,7 @@ declare module "modeler/bpmn/bpmn" {
     }
 
     export interface IHumanPerformer extends IPerformer {
-      readonly $type: "bpmn:HumanPerformer"
-      | "bpmn:PotentialOwner";
+      readonly $type: "bpmn:HumanPerformer" | "bpmn:PotentialOwner";
     }
 
     export interface IPotentialOwner extends IHumanPerformer {
@@ -325,8 +316,7 @@ declare module "modeler/bpmn/bpmn" {
       attachedToRef: IActivity;
     }
 
-    export interface IEventDefinition extends IRootElement {
-    }
+    export interface IEventDefinition extends IRootElement {}
 
     export interface ICancelEventDefinition extends IEventDefinition {
       readonly $type: "bpmn:CancelEventDefinition";
@@ -405,22 +395,21 @@ declare module "modeler/bpmn/bpmn" {
     }
 
     export interface IItemAwareElement extends IBaseElement {
-      readonly $type: "bpmn:ItemAwareElement"
-      | "bpmn:DataInput"
-      | "bpmn:DataOutput"
-      | "bpmn:Property"
-      | "bpmn:DataObject"
-      | "bpmn:DataStore"
-      | "bpmn:DataStoreReference"
-      | "bpmn:DataObjectReference";
+      readonly $type:
+        | "bpmn:ItemAwareElement"
+        | "bpmn:DataInput"
+        | "bpmn:DataOutput"
+        | "bpmn:Property"
+        | "bpmn:DataObject"
+        | "bpmn:DataStore"
+        | "bpmn:DataStoreReference"
+        | "bpmn:DataObjectReference";
       itemSubjectRef: IItemDefinition;
       dataState: IDataState;
     }
 
     export interface IDataAssociation extends IBaseElement {
-      readonly $type: "bpmn:DataAssociation"
-      | "bpmn:DataInputAssociation"
-      | "bpmn:DataOutputAssociation";
+      readonly $type: "bpmn:DataAssociation" | "bpmn:DataInputAssociation" | "bpmn:DataOutputAssociation";
       assignment: IAssignment[];
       sourceRef: IItemAwareElement[];
       targetRef: IItemAwareElement;
@@ -549,10 +538,7 @@ declare module "modeler/bpmn/bpmn" {
     }
 
     export interface ICollaboration extends IRootElement {
-      readonly $type: "bpmn:Collaboration"
-      | "bpmn:GlobalConversation"
-      | "bpmn:Choreography"
-      | "bpmn:GlobalChoreographyTask";
+      readonly $type: "bpmn:Collaboration" | "bpmn:GlobalConversation" | "bpmn:Choreography" | "bpmn:GlobalChoreographyTask";
       name?: string;
       isClosed?: boolean;
       participants: IParticipant[];
@@ -604,8 +590,7 @@ declare module "modeler/bpmn/bpmn" {
     }
 
     export interface IExpression extends IBaseElement {
-      readonly $type: "bpmn:Expression"
-      | "bpmn:FormalExpression";
+      readonly $type: "bpmn:Expression" | "bpmn:FormalExpression";
       body: string;
     }
 
@@ -727,8 +712,7 @@ declare module "modeler/bpmn/bpmn" {
     }
 
     export interface IChoreography extends IFlowElementsContainer, ICollaboration {
-      readonly $type: "bpmn:Choreography"
-      | "bpmn:GlobalChoreographyTask";
+      readonly $type: "bpmn:Choreography" | "bpmn:GlobalChoreographyTask";
     }
 
     export interface IGlobalChoreographyTask extends IChoreography {
@@ -736,8 +720,7 @@ declare module "modeler/bpmn/bpmn" {
       initiatingParticipantRef: IParticipant;
     }
 
-    export interface IArtifact extends IBaseElement {
-    }
+    export interface IArtifact extends IBaseElement {}
 
     export interface ITextAnnotation extends IArtifact {
       readonly $type: "bpmn:TextAnnotation";
@@ -775,15 +758,12 @@ declare module "modeler/bpmn/bpmn" {
     }
 
     export interface ISubProcess extends IActivity, IFlowElementsContainer, IInteractionNode {
-      readonly $type: "bpmn:SubProcess"
-      | "bpmn:AdHocSubProcess"
-      | "bpmn:Transaction";
+      readonly $type: "bpmn:SubProcess" | "bpmn:AdHocSubProcess" | "bpmn:Transaction";
       triggeredByEvent: boolean;
       artifacts: IArtifact[];
     }
 
-    export interface ILoopCharacteristics extends IBaseElement {
-    }
+    export interface ILoopCharacteristics extends IBaseElement {}
 
     export interface IMultiInstanceLoopCharacteristics extends ILoopCharacteristics {
       readonly $type: "bpmn:MultiInstanceLoopCharacteristics";
@@ -907,125 +887,126 @@ declare module "modeler/bpmn/bpmn" {
       "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance";
     }
 
-    export type bpmnType = "bpmn:Interface"
-    | "bpmn:Operation"
-    | "bpmn:EndPoint"
-    | "bpmn:Auditing"
-    | "bpmn:GlobalTask"
-    | "bpmn:Monitoring"
-    | "bpmn:Performer"
-    | "bpmn:Process"
-    | "bpmn:LaneSet"
-    | "bpmn:Lane"
-    | "bpmn:GlobalManualTask"
-    | "bpmn:ManualTask"
-    | "bpmn:UserTask"
-    | "bpmn:Rendering"
-    | "bpmn:HumanPerformer"
-    | "bpmn:PotentialOwner"
-    | "bpmn:GlobalUserTask"
-    | "bpmn:EventBasedGateway"
-    | "bpmn:ComplexGateway"
-    | "bpmn:ExclusiveGateway"
-    | "bpmn:InclusiveGateway"
-    | "bpmn:ParallelGateway"
-    | "bpmn:Relationship"
-    | "bpmn:Extension"
-    | "bpmn:ExtensionDefinition"
-    | "bpmn:ExtensionAttributeDefinition"
-    | "bpmn:ExtensionElements"
-    | "bpmn:Documentation"
-    | "bpmn:IntermediateCatchEvent"
-    | "bpmn:IntermediateThrowEvent"
-    | "bpmn:EndEvent"
-    | "bpmn:StartEvent"
-    | "bpmn:BoundaryEvent"
-    | "bpmn:CancelEventDefinition"
-    | "bpmn:ErrorEventDefinition"
-    | "bpmn:TerminateEventDefinition"
-    | "bpmn:EscalationEventDefinition"
-    | "bpmn:Escalation"
-    | "bpmn:CompensateEventDefinition"
-    | "bpmn:TimerEventDefinition"
-    | "bpmn:LinkEventDefinition"
-    | "bpmn:MessageEventDefinition"
-    | "bpmn:ConditionalEventDefinition"
-    | "bpmn:SignalEventDefinition"
-    | "bpmn:Signal"
-    | "bpmn:ImplicitThrowEvent"
-    | "bpmn:DataState"
-    | "bpmn:ItemAwareElement"
-    | "bpmn:DataAssociation"
-    | "bpmn:DataInput"
-    | "bpmn:DataOutput"
-    | "bpmn:InputSet"
-    | "bpmn:OutputSet"
-    | "bpmn:Property"
-    | "bpmn:DataInputAssociation"
-    | "bpmn:DataOutputAssociation"
-    | "bpmn:InputOutputSpecification"
-    | "bpmn:DataObject"
-    | "bpmn:InputOutputBinding"
-    | "bpmn:Assignment"
-    | "bpmn:DataStore"
-    | "bpmn:DataStoreReference"
-    | "bpmn:DataObjectReference"
-    | "bpmn:ConversationLink"
-    | "bpmn:ConversationAssociation"
-    | "bpmn:CallConversation"
-    | "bpmn:Conversation"
-    | "bpmn:SubConversation"
-    | "bpmn:GlobalConversation"
-    | "bpmn:PartnerEntity"
-    | "bpmn:PartnerRole"
-    | "bpmn:CorrelationProperty"
-    | "bpmn:Error"
-    | "bpmn:CorrelationKey"
-    | "bpmn:Expression"
-    | "bpmn:FormalExpression"
-    | "bpmn:Message"
-    | "bpmn:ItemDefinition"
-    | "bpmn:SequenceFlow"
-    | "bpmn:CorrelationPropertyRetrievalExpression"
-    | "bpmn:CorrelationPropertyBinding"
-    | "bpmn:Resource"
-    | "bpmn:ResourceParameter"
-    | "bpmn:CorrelationSubscription"
-    | "bpmn:MessageFlow"
-    | "bpmn:MessageFlowAssociation"
-    | "bpmn:Participant"
-    | "bpmn:ParticipantAssociation"
-    | "bpmn:ParticipantMultiplicity"
-    | "bpmn:Collaboration"
-    | "bpmn:CallChoreography"
-    | "bpmn:SubChoreography"
-    | "bpmn:ChoreographyTask"
-    | "bpmn:Choreography"
-    | "bpmn:GlobalChoreographyTask"
-    | "bpmn:TextAnnotation"
-    | "bpmn:Group"
-    | "bpmn:Association"
-    | "bpmn:Category"
-    | "bpmn:CategoryValue"
-    | "bpmn:ServiceTask"
-    | "bpmn:SubProcess"
-    | "bpmn:MultiInstanceLoopCharacteristics"
-    | "bpmn:StandardLoopCharacteristics"
-    | "bpmn:CallActivity"
-    | "bpmn:Task"
-    | "bpmn:SendTask"
-    | "bpmn:ReceiveTask"
-    | "bpmn:ScriptTask"
-    | "bpmn:BusinessRuleTask"
-    | "bpmn:AdHocSubProcess"
-    | "bpmn:Transaction"
-    | "bpmn:GlobalScriptTask"
-    | "bpmn:GlobalBusinessRuleTask"
-    | "bpmn:ComplexBehaviorDefinition"
-    | "bpmn:ResourceRole"
-    | "bpmn:ResourceParameterBinding"
-    | "bpmn:ResourceAssignmentExpression"
-    | "bpmn:Import"
-    | "bpmn:Definitions";
+    export type bpmnType =
+      | "bpmn:Interface"
+      | "bpmn:Operation"
+      | "bpmn:EndPoint"
+      | "bpmn:Auditing"
+      | "bpmn:GlobalTask"
+      | "bpmn:Monitoring"
+      | "bpmn:Performer"
+      | "bpmn:Process"
+      | "bpmn:LaneSet"
+      | "bpmn:Lane"
+      | "bpmn:GlobalManualTask"
+      | "bpmn:ManualTask"
+      | "bpmn:UserTask"
+      | "bpmn:Rendering"
+      | "bpmn:HumanPerformer"
+      | "bpmn:PotentialOwner"
+      | "bpmn:GlobalUserTask"
+      | "bpmn:EventBasedGateway"
+      | "bpmn:ComplexGateway"
+      | "bpmn:ExclusiveGateway"
+      | "bpmn:InclusiveGateway"
+      | "bpmn:ParallelGateway"
+      | "bpmn:Relationship"
+      | "bpmn:Extension"
+      | "bpmn:ExtensionDefinition"
+      | "bpmn:ExtensionAttributeDefinition"
+      | "bpmn:ExtensionElements"
+      | "bpmn:Documentation"
+      | "bpmn:IntermediateCatchEvent"
+      | "bpmn:IntermediateThrowEvent"
+      | "bpmn:EndEvent"
+      | "bpmn:StartEvent"
+      | "bpmn:BoundaryEvent"
+      | "bpmn:CancelEventDefinition"
+      | "bpmn:ErrorEventDefinition"
+      | "bpmn:TerminateEventDefinition"
+      | "bpmn:EscalationEventDefinition"
+      | "bpmn:Escalation"
+      | "bpmn:CompensateEventDefinition"
+      | "bpmn:TimerEventDefinition"
+      | "bpmn:LinkEventDefinition"
+      | "bpmn:MessageEventDefinition"
+      | "bpmn:ConditionalEventDefinition"
+      | "bpmn:SignalEventDefinition"
+      | "bpmn:Signal"
+      | "bpmn:ImplicitThrowEvent"
+      | "bpmn:DataState"
+      | "bpmn:ItemAwareElement"
+      | "bpmn:DataAssociation"
+      | "bpmn:DataInput"
+      | "bpmn:DataOutput"
+      | "bpmn:InputSet"
+      | "bpmn:OutputSet"
+      | "bpmn:Property"
+      | "bpmn:DataInputAssociation"
+      | "bpmn:DataOutputAssociation"
+      | "bpmn:InputOutputSpecification"
+      | "bpmn:DataObject"
+      | "bpmn:InputOutputBinding"
+      | "bpmn:Assignment"
+      | "bpmn:DataStore"
+      | "bpmn:DataStoreReference"
+      | "bpmn:DataObjectReference"
+      | "bpmn:ConversationLink"
+      | "bpmn:ConversationAssociation"
+      | "bpmn:CallConversation"
+      | "bpmn:Conversation"
+      | "bpmn:SubConversation"
+      | "bpmn:GlobalConversation"
+      | "bpmn:PartnerEntity"
+      | "bpmn:PartnerRole"
+      | "bpmn:CorrelationProperty"
+      | "bpmn:Error"
+      | "bpmn:CorrelationKey"
+      | "bpmn:Expression"
+      | "bpmn:FormalExpression"
+      | "bpmn:Message"
+      | "bpmn:ItemDefinition"
+      | "bpmn:SequenceFlow"
+      | "bpmn:CorrelationPropertyRetrievalExpression"
+      | "bpmn:CorrelationPropertyBinding"
+      | "bpmn:Resource"
+      | "bpmn:ResourceParameter"
+      | "bpmn:CorrelationSubscription"
+      | "bpmn:MessageFlow"
+      | "bpmn:MessageFlowAssociation"
+      | "bpmn:Participant"
+      | "bpmn:ParticipantAssociation"
+      | "bpmn:ParticipantMultiplicity"
+      | "bpmn:Collaboration"
+      | "bpmn:CallChoreography"
+      | "bpmn:SubChoreography"
+      | "bpmn:ChoreographyTask"
+      | "bpmn:Choreography"
+      | "bpmn:GlobalChoreographyTask"
+      | "bpmn:TextAnnotation"
+      | "bpmn:Group"
+      | "bpmn:Association"
+      | "bpmn:Category"
+      | "bpmn:CategoryValue"
+      | "bpmn:ServiceTask"
+      | "bpmn:SubProcess"
+      | "bpmn:MultiInstanceLoopCharacteristics"
+      | "bpmn:StandardLoopCharacteristics"
+      | "bpmn:CallActivity"
+      | "bpmn:Task"
+      | "bpmn:SendTask"
+      | "bpmn:ReceiveTask"
+      | "bpmn:ScriptTask"
+      | "bpmn:BusinessRuleTask"
+      | "bpmn:AdHocSubProcess"
+      | "bpmn:Transaction"
+      | "bpmn:GlobalScriptTask"
+      | "bpmn:GlobalBusinessRuleTask"
+      | "bpmn:ComplexBehaviorDefinition"
+      | "bpmn:ResourceRole"
+      | "bpmn:ResourceParameterBinding"
+      | "bpmn:ResourceAssignmentExpression"
+      | "bpmn:Import"
+      | "bpmn:Definitions";
   }
 }

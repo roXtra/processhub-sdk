@@ -1,8 +1,7 @@
 export const PREVIEW_FILENAME = "preview.svg";
 
 export interface IFileStore {
-
-  getFile(workspaceId: string, processId: string, fileName: string): Promise<string | undefined>;
+  getFile(workspaceId: string, processId: string, fileName: string): Promise<string>;
   getFileBuffer(workspaceId: string, processId: string, fileName: string): Promise<Buffer>;
 
   getAttachmentFileUrl(workspaceId: string, processId: string, fileName: string): string;
