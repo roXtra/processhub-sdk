@@ -1064,13 +1064,13 @@ export class BpmnProcess {
     }
 
     let targetRefsOfPrev: string[] = [];
-    previousElements != null
-      ? previousElements.forEach((start) => {
-          if (start.outgoing) {
-            targetRefsOfPrev = targetRefsOfPrev.concat(start.outgoing.map((out) => out.targetRef.id));
-          }
-        })
-      : null;
+    if (previousElements != null) {
+      previousElements.forEach((start) => {
+        if (start.outgoing) {
+          targetRefsOfPrev = targetRefsOfPrev.concat(start.outgoing.map((out) => out.targetRef.id));
+        }
+      });
+    }
     const targetRefsOfPrevUnique: string[] = [];
     targetRefsOfPrev.forEach((item) => {
       if (!targetRefsOfPrevUnique.includes(item)) {
