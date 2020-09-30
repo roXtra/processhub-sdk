@@ -23,7 +23,7 @@ jobs:
         run: npm ci
       - name: Run Format Checker
         run: npm run check:format
-        working-directory: ./app
+        working-directory: ./
         timeout-minutes: 10
       - name: Lint
         run: npm run lint
