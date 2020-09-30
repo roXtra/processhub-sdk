@@ -1,5 +1,4 @@
 declare module "diagram-js/lib/features/snapping/Snapping" {
-
   import Canvas from "diagram-js/lib/core/Canvas";
   import EventBus from "diagram-js/lib/core/EventBus";
   import { Base, Shape } from "diagram-js/lib/model";
@@ -25,7 +24,6 @@ declare module "diagram-js/lib/features/snapping/Snapping" {
   }
 
   namespace Snapping {
-
     export interface IInitSnapEvent {
       context: {
         canExecute: boolean;

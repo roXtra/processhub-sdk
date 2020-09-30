@@ -4,7 +4,7 @@ import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces"
 
 export enum TodoStatus {
   TodoOnTime = 0,
-  TodoOverdue = 2
+  TodoOverdue = 2,
 }
 
 export enum TodoType {
@@ -17,7 +17,7 @@ export enum TodoType {
   // Intermediate CatchEvent waiting for timer/mail
   Intermediate = 3,
   // SubProcess with missing role, will be started as soon as role was set
-  SubProcessWaitingForStart = 4
+  SubProcessWaitingForStart = 4,
 }
 
 export interface ITodoDetails {
@@ -47,7 +47,7 @@ export interface ITodoDetails {
 
 export const DecisionTaskTypes = {
   Normal: "normal",
-  Boundary: "boundary"
+  Boundary: "boundary",
 };
 export type DecisionTaskTypes = keyof typeof DecisionTaskTypes;
 

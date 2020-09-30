@@ -8,7 +8,6 @@ export const WorkspaceRequestRoutes = {
 };
 export type WorkspaceRequestRoutes = keyof typeof WorkspaceRequestRoutes;
 
-
 export interface ILoadWorkspaceRequest extends IBaseRequest {
   workspaceId: string;
   getExtras: WorkspaceExtras;
@@ -17,7 +16,6 @@ export interface ILoadWorkspaceReply extends IBaseMessage {
   type: WorkspaceMessages;
   workspace?: IWorkspaceDetails;
 }
-
 
 export interface IWorkspaceLoadedMessage extends IBaseMessage {
   type: WorkspaceMessages;

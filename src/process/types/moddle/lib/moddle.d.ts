@@ -25,7 +25,6 @@ declare module "moddle/lib/moddle" {
    * @param {Array<Package>} packages the packages to contain
    */
   class Moddle {
-
     public constructor(packages: {}[]);
 
     /**
@@ -124,6 +123,5 @@ declare module "moddle/lib/moddle" {
      * Returns a mapped type's descriptor
      */
     public getTypeDescriptor(type: {}): {};
-
   }
 }

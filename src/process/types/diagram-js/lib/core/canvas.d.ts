@@ -1,5 +1,4 @@
 declare module "diagram-js/lib/core/Canvas" {
-
   import EventBus from "diagram-js/lib/core/EventBus";
   import GraphicsFactory from "diagram-js/lib/core/GraphicsFactory";
   import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
@@ -13,7 +12,6 @@ declare module "diagram-js/lib/core/Canvas" {
    * @constructor
    */
   export default class Canvas {
-
     public static $inject: string[];
 
     /**
@@ -323,5 +321,4 @@ declare module "diagram-js/lib/core/Canvas" {
     width: number | string;
     height: number | string;
   }
-
 }

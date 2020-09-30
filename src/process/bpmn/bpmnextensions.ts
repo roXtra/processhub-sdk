@@ -118,19 +118,20 @@ export function getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensi
               returnValue.fieldsWhichShouldSend = [];
             }
             break;
-          case "required-fields-needed": {
-            try {
-              if (child.$body) {
-                returnValue.requiredFieldsNeeded = JSON.parse(child.$body);
-              } else {
+          case "required-fields-needed":
+            {
+              try {
+                if (child.$body) {
+                  returnValue.requiredFieldsNeeded = JSON.parse(child.$body);
+                } else {
+                  returnValue.requiredFieldsNeeded = [];
+                }
+              } catch (ex) {
+                console.log(ex);
+
                 returnValue.requiredFieldsNeeded = [];
               }
-            } catch (ex) {
-              console.log(ex);
-
-              returnValue.requiredFieldsNeeded = [];
             }
-          }
             break;
           case "save-decision-in-fields":
             returnValue.saveDecisionInFieldContents = child.$body !== "false";
@@ -140,19 +141,20 @@ export function getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensi
               returnValue.customFieldContentsValue = child.$body;
             }
             break;
-          case "send-task-receiver": {
-            try {
-              if (child.$body) {
-                returnValue.sendTaskReceiver = JSON.parse(child.$body);
-              } else {
+          case "send-task-receiver":
+            {
+              try {
+                if (child.$body) {
+                  returnValue.sendTaskReceiver = JSON.parse(child.$body);
+                } else {
+                  returnValue.sendTaskReceiver = [];
+                }
+              } catch (ex) {
+                console.log(ex);
+
                 returnValue.sendTaskReceiver = [];
               }
-            } catch (ex) {
-              console.log(ex);
-
-              returnValue.sendTaskReceiver = [];
             }
-          }
             break;
           case "processhub-userform":
             if (child.$body) {
@@ -170,7 +172,6 @@ export function getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensi
 }
 
 export function addOrUpdateExtension(baseElement: Bpmn.IBaseElement, key: BpmnExtensionName, value: string | boolean | {}[], extensionValueType: TaskSettingsValueType): void {
-
   if (extensionValueType === "List") {
     value = JSON.stringify(value);
   }
@@ -179,19 +180,18 @@ export function addOrUpdateExtension(baseElement: Bpmn.IBaseElement, key: BpmnEx
     value = Boolean(value).toString();
   }
 
-  if (value == null)
-    value = "";
+  if (value == null) value = "";
 
   if (!baseElement.extensionElements) {
     baseElement.extensionElements = bpmnModdleInstance.create("bpmn:ExtensionElements", { values: [] });
   }
-  let phInOut = baseElement.extensionElements.values.find(e => e.$type === "processhub:inputOutput") as Processhub.IInputOutput;
+  let phInOut = baseElement.extensionElements.values.find((e) => e.$type === "processhub:inputOutput") as Processhub.IInputOutput;
   if (!phInOut || phInOut.$children == null) {
     phInOut = bpmnModdleInstance.createAny("processhub:inputOutput", "http://processhub.com/schema/1.0/bpmn", {}) as Processhub.IInputOutput;
     phInOut.$children = [];
     baseElement.extensionElements.values.push(phInOut);
   }
-  let settingsElement = phInOut.$children.find(c => (c as Processhub.IInputParameter).name === key);
+  let settingsElement = phInOut.$children.find((c) => (c as Processhub.IInputParameter).name === key);
   if (!settingsElement) {
     settingsElement = bpmnModdleInstance.createAny("processhub:inputParameter", "http://processhub.com/schema/1.0/bpmn", { name: key });
     phInOut.$children.push(settingsElement);
@@ -202,9 +202,9 @@ export function addOrUpdateExtension(baseElement: Bpmn.IBaseElement, key: BpmnEx
 
 export function getExtensionBody(flowNode: Bpmn.IFlowNode, settingsName: BpmnExtensionName): string | undefined {
   if (flowNode.extensionElements && flowNode.extensionElements.values) {
-    const phInOut = flowNode.extensionElements.values.find(e => e.$type === "processhub:inputOutput") as Processhub.IInputOutput;
+    const phInOut = flowNode.extensionElements.values.find((e) => e.$type === "processhub:inputOutput") as Processhub.IInputOutput;
     if (phInOut && phInOut.$children) {
-      const descriptionElement = phInOut.$children.find(c => (c as Processhub.IInputParameter).name === settingsName);
+      const descriptionElement = phInOut.$children.find((c) => (c as Processhub.IInputParameter).name === settingsName);
       if (descriptionElement && descriptionElement.$body) {
         return descriptionElement.$body;
       }

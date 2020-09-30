@@ -14,7 +14,7 @@ export enum ApiResult {
   API_NOTEMPTY = 423,
   API_ERROR = 500,
   API_BADGATEWAY = 502,
-  API_ERROR_ROXAPI = 512
+  API_ERROR_ROXAPI = 512,
 }
 
 export type ApiError = 400 | 401 | 409 | 404 | 423 | 500;
@@ -35,5 +35,5 @@ export interface IBaseMessage extends IBaseReply {
 export const API_FAILED = "FAILED";
 export const API_SUCCESS = "OK";
 export interface IBaseError extends IBaseMessage {
-  request?: IBaseRequest;  // Enthält den urprünglichen Aufruf
+  request?: IBaseRequest; // Enthält den urprünglichen Aufruf
 }

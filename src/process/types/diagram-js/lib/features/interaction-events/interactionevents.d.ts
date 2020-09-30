@@ -109,6 +109,5 @@ declare module "diagram-js/lib/features/interaction-events/InteractionEvents" {
      * @property {SVGElement} gfx
      * @property {Event} originalEvent
      */
-
   }
 }

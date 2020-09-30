@@ -25,5 +25,4 @@ declare module "diagram-js/lib/features/global-connect/GlobalConnect" {
      */
     public canStartConnect(startTarget: Base): boolean;
   }
-
 }

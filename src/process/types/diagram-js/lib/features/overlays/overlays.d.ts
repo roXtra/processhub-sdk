@@ -116,7 +116,8 @@ declare module "diagram-js/lib/features/overlays/Overlays" {
           bottom: number;
           right: number;
         };
-      }): string;
+      },
+    ): string;
 
     /**
      * Remove an overlay with the given id or all overlays matching the given filter.

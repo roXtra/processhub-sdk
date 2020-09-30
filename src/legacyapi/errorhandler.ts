@@ -7,7 +7,7 @@ export function registerErrorHandler(handler: IErrorHandler): void {
 }
 
 export function removeErrorHandler(handler: IErrorHandler): void {
-  errorHandlers = errorHandlers.filter(e => e !== handler);
+  errorHandlers = errorHandlers.filter((e) => e !== handler);
 }
 
 export function getErrorHandlers(): IErrorHandler[] {

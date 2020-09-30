@@ -21,6 +21,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm ci
+      - name: Run Format Checker
+        run: npm run check:format
+        working-directory: ./app
+        timeout-minutes: 10
       - name: Lint
         run: npm run lint
       - name: Build, Test and Pack

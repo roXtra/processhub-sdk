@@ -6,7 +6,6 @@ import { createId } from "../tools/guid";
 describe("sdk", function () {
   describe("process", function () {
     describe("validation", function () {
-
       it("soll Process-Details Validierung testen", function () {
         let obj = { displayName: "test1234", description: "hallo test" };
         let res = ProcessValidation.isProcessDetailsValid(obj as IProcessDetails);
@@ -54,7 +53,7 @@ describe("sdk", function () {
           description: "Unittest process decription",
           processId: createId(),
           useModeler: false,
-          extras: {}
+          extras: {},
         } as IProcessDetails;
 
         res = ProcessValidation.isProcessDetailsValid(obj as IProcessDetails);

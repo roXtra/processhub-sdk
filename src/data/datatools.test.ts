@@ -11,10 +11,8 @@ import { IProcessRoles, getProcessRoles } from "../process";
 describe("sdk", function () {
   describe("data", function () {
     describe("datatools", function () {
-
       describe("parseAndInsertStringWithFieldContent", function () {
         it("should replace field values", function () {
-
           const testString = "Hallo {{ field.existiert }}, wie gehts {{ field.existiertnicht }}\n{trölölö} {{{moepmoep}}}\n{{ field.existiert2 }}\n";
           const resultString = "Hallo Teststring eingesetzt!, wie gehts \n{trölölö} {{{moepmoep}}}\n\n";
           const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, {}, {});
@@ -23,7 +21,6 @@ describe("sdk", function () {
         });
 
         it("should replace field values with {field['name']} notation", function () {
-
           const testString = "Hallo {field['existiert']}, wie gehts {field['existiertnicht']}\n{trölölö} {{{moepmoep}}}\nfield['existiertnicht2']\n";
           const resultString = "Hallo {Teststring eingesetzt!}, wie gehts {}\n{trölölö} {{{moepmoep}}}\n\n";
           const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, {}, {});
@@ -32,7 +29,6 @@ describe("sdk", function () {
         });
 
         it("should accept empty field maps", function () {
-
           const testString = "Hallo {{ field.existiert }}, wie gehts {{ field.existiertnicht }}\n{trölölö} {{{moepmoep}}}\n{{ field.existiert2 }}\n";
           const res = DataTools.parseAndInsertStringWithFieldContent(testString, undefined, {}, {});
 
@@ -40,25 +36,22 @@ describe("sdk", function () {
         });
 
         it("should replace long field old names with short values", function () {
-
           const testString = "{{ field.fieldname1 }}{{ field.fieldname2 }}{{ field.fieldname3 }}";
           const resultString = "123";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3", } as IFieldContentMap, {}, {});
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3" } as IFieldContentMap, {}, {});
 
           assert.equal(res, resultString);
         });
 
         it("should replace long field names with short values", function () {
-
           const testString = "field['fieldname1']field['fieldname2']field['fieldname3']";
           const resultString = "123";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3", } as IFieldContentMap, {}, {});
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3" } as IFieldContentMap, {}, {});
 
           assert.equal(res, resultString);
         });
 
         it("should replace field and role", async function () {
-
           const testString = "{{ field.Anlagen }}{{ role.Bearbeiter }}";
           const resultString = "1Administrator, Admin";
 
@@ -68,13 +61,14 @@ describe("sdk", function () {
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 
           const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { Anlagen: "1" } as IFieldContentMap, processRoles, { [bpmnProcess.getLanes(false).find(l => l.name === "Bearbeiter")!.id]: [{ memberId: "1", displayName: "Administrator, Admin" }] } as IRoleOwnerMap);
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { Anlagen: "1" } as IFieldContentMap, processRoles, {
+            [bpmnProcess.getLanes(false).find((l) => l.name === "Bearbeiter")!.id]: [{ memberId: "1", displayName: "Administrator, Admin" }],
+          } as IRoleOwnerMap);
 
           assert.equal(res, resultString);
         });
 
         it("should replace undefined date with empty string", async function () {
-
           const testString = "{{ field.Date }}{{ field.DateTime }}";
           const resultString = "";
 
@@ -84,22 +78,26 @@ describe("sdk", function () {
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
           const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");
 
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, {
-            "Date": {
-              value: undefined,
-              type: "ProcessHubDate"
+          const res = DataTools.parseAndInsertStringWithFieldContent(
+            testString,
+            {
+              Date: {
+                value: undefined,
+                type: "ProcessHubDate",
+              },
+              DateTime: {
+                value: undefined,
+                type: "ProcessHubDateTime",
+              },
             },
-            "DateTime": {
-              value: undefined,
-              type: "ProcessHubDateTime"
-            },
-          }, processRoles, {});
+            processRoles,
+            {},
+          );
 
           assert.equal(res, resultString);
         });
 
         it("should replace date", async function () {
-
           const testString = "{{ field.Date }}";
           const resultString = "25.10.2019";
 
@@ -109,18 +107,22 @@ describe("sdk", function () {
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
           const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");
 
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, {
-            "Date": {
-              value: new Date(2019, 9, 25, 12, 0, 0),
-              type: "ProcessHubDate"
-            }
-          }, processRoles, {});
+          const res = DataTools.parseAndInsertStringWithFieldContent(
+            testString,
+            {
+              Date: {
+                value: new Date(2019, 9, 25, 12, 0, 0),
+                type: "ProcessHubDate",
+              },
+            },
+            processRoles,
+            {},
+          );
 
           assert.equal(res, resultString);
         });
 
         it("should replace missing roles with empty string", async function () {
-
           const testString = "{{ role.Date }}/{{ role.DateTime }}";
           const resultString = "/";
 
@@ -130,21 +132,24 @@ describe("sdk", function () {
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
           const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");
 
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, {
-            "Date": {
-              value: new Date(2019, 10, 25, 12, 0, 0),
-              type: "ProcessHubDate"
+          const res = DataTools.parseAndInsertStringWithFieldContent(
+            testString,
+            {
+              Date: {
+                value: new Date(2019, 10, 25, 12, 0, 0),
+                type: "ProcessHubDate",
+              },
+              DateTime: {
+                value: new Date(2019, 10, 25, 12, 0, 0),
+                type: "ProcessHubDateTime",
+              },
             },
-            "DateTime": {
-              value: new Date(2019, 10, 25, 12, 0, 0),
-              type: "ProcessHubDateTime"
-            },
-          }, processRoles, {});
+            processRoles,
+            {},
+          );
 
           assert.equal(res, resultString);
         });
-
-
       });
     });
   });

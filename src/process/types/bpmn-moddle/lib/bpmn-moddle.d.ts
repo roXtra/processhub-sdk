@@ -119,11 +119,13 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
     public createunknown(
       name: "processhub:inputOutput",
       nsUri: "http://processhub.com/schema/1.0/bpmn",
-      properties: Partial<Processhub.IInputOutput>): Processhub.IInputOutput;
+      properties: Partial<Processhub.IInputOutput>,
+    ): Processhub.IInputOutput;
     public createunknown(
       name: "processhub:inputParameter",
       nsUri: "http://processhub.com/schema/1.0/bpmn",
-      properties: Partial<Processhub.IInputParameter>): Processhub.IInputParameter;
+      properties: Partial<Processhub.IInputParameter>,
+    ): Processhub.IInputParameter;
 
     /**
      * Instantiates a BPMN model tree from a given xml string.
@@ -134,11 +136,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
      * @param {Function} done       callback that is invoked with (err, result, parseContext)
      *                              once the import completes
      */
-    public fromXML(
-      xmlStr: string,
-      typeName: Bpmn.ElementType,
-      options: {},
-      done: (err: Error, result: ModdleElement, parseContext: Context) => void): void;
+    public fromXML(xmlStr: string, typeName: Bpmn.ElementType, options: {}, done: (err: Error, result: ModdleElement, parseContext: Context) => void): void;
     public fromXML(xmlStr: string, done: (err: Error, result: Bpmn.IDefinitions, parseContext: Context) => void): void;
 
     /**
@@ -156,6 +154,5 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
       readonly $type: Bpmn.ElementType;
       $attrs?: {};
     }
-
   }
 }

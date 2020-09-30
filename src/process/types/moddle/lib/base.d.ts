@@ -41,8 +41,6 @@ declare module "moddle/lib/base" {
       isMunknown?: boolean;
     }
 
-    export interface INamespaceDescriptor {
-
-    }
+    export interface INamespaceDescriptor {}
   }
 }

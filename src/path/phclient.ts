@@ -6,6 +6,5 @@ import { ApiResult } from "../legacyapi/apiinterfaces";
 export class PathState {
   currentPath: IPathDetails;
 
-  lastApiResult?: ApiResult;  // Ergebnis des letzten Api-Aufrufs
+  lastApiResult?: ApiResult; // Ergebnis des letzten Api-Aufrufs
 }
-

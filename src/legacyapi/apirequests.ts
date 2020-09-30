@@ -8,12 +8,11 @@ import fetchWithTimeout from "../tools/fetchwithtimeout";
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
 // Browser dürfen fehlgeschlagene/verzögerte GET-Aufrufe jederzeit wiederholen, das ist gut, wenn die Verbindung hängt
 export async function getJson<Request extends IBaseRequest>(path: string, request: Request, accessToken?: string): Promise<IBaseMessage> {
-
-  if ((request.moduleId === undefined) && (typeof window !== "undefined")) {
+  if (request.moduleId === undefined && typeof window !== "undefined") {
     request.moduleId = window.__INITIAL_CONFIG__.moduleId;
   }
 
-  if ((accessToken == null) && (typeof window !== "undefined")) {
+  if (accessToken == null && typeof window !== "undefined") {
     accessToken = window.__INITIAL_CONFIG__.xAccesstoken;
   }
 
@@ -27,24 +26,24 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
     }
   }
 
-  const url = (isEmpty(request)) ? getBackendUrl() + path : getBackendUrl() + path + "?" + str.join("&");
+  const url = isEmpty(request) ? getBackendUrl() + path : getBackendUrl() + path + "?" + str.join("&");
 
   let req: RequestInit;
   if (accessToken == null) {
     req = {
       headers: {
-        "Accept": "application/json"
+        Accept: "application/json",
       },
-      credentials: "include"
+      credentials: "include",
     };
   } else {
     // In Tests wird AccessToken manuell übergeben, um Anmeldungen zu prüfen
     req = {
       headers: {
-        "Accept": "application/json",
-        "x-accesstoken": accessToken,   // X-accesstoken Kleinschreibung erforderlich
-        "authorization": accessToken
-      }
+        Accept: "application/json",
+        "x-accesstoken": accessToken, // X-accesstoken Kleinschreibung erforderlich
+        authorization: accessToken,
+      },
     };
   }
   try {
@@ -52,13 +51,17 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
     switch (response.status) {
       case 200: {
         const json = await response.json();
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (json.result !== ApiResult.API_OK) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           console.log("getJson " + url + ": " + String(json.result));
           console.log(json);
         }
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return json;
       }
-      case 401: {  // API_UNAUTHORIZED -> server requests redirect to signin
+      case 401: {
+        // API_UNAUTHORIZED -> server requests redirect to signin
         if (typeof window !== "undefined") {
           //  Not possible on server rendering
           console.log("401 -> redirect to roxtra login page with url: " + window.location.href);
@@ -66,23 +69,25 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
         }
         const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
         return error;
-        break;
       }
       default: {
         const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
-        getErrorHandlers().forEach(h => h.handleError(error, path));
+        getErrorHandlers().forEach((h) => h.handleError(error, path));
         return error;
       }
     }
   } catch (ex) {
     // For Testing
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
     if (ex != null && ex.message.startsWith("request to http://localhost:8080/api/processengine/")) {
       const testResult: IBaseMessage = {
         type: "Test Result",
-        result: ApiResult.API_OK
+        result: ApiResult.API_OK,
       };
       return testResult;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     throw new Error(ex.message);
   }
 }
@@ -93,11 +98,11 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
 export async function postJson<Request extends IBaseRequest>(path: string, request: Request, accessToken?: string): Promise<IBaseMessage> {
   const url = getBackendUrl() + path;
 
-  if ((request.moduleId === undefined) && (typeof window !== "undefined")) {
+  if (request.moduleId === undefined && typeof window !== "undefined") {
     request.moduleId = window.__INITIAL_CONFIG__.moduleId;
   }
 
-  if ((accessToken == null) && (typeof window !== "undefined")) {
+  if (accessToken == null && typeof window !== "undefined") {
     accessToken = window.__INITIAL_CONFIG__.xAccesstoken;
   }
 
@@ -107,10 +112,10 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       method: "POST",
       body: JSON.stringify(request),
       headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      credentials: "include"
+      credentials: "include",
     };
   } else {
     // In Tests wird AccessToken manuell übergeben, um Anmeldungen zu prüfen
@@ -118,10 +123,10 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       method: "POST",
       body: JSON.stringify(request),
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "x-accesstoken": accessToken   // X-accesstoken Kleinschreibung erforderlich
-      }
+        "x-accesstoken": accessToken, // X-accesstoken Kleinschreibung erforderlich
+      },
     };
   }
   try {
@@ -129,37 +134,41 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
     switch (response.status) {
       case 200: {
         const json = await response.json();
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (json.result !== ApiResult.API_OK) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           console.log("postJson " + url + ": " + String(json.result));
           console.log(json);
         }
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return json;
       }
       default: {
         const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
-        getErrorHandlers().forEach(h => h.handleError(error, path));
+        getErrorHandlers().forEach((h) => h.handleError(error, path));
         return error;
       }
     }
   } catch (ex) {
     // For Testing
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
     if (ex != null && ex.message.startsWith("request to http://localhost:8080/api/processengine/")) {
       const testResult: IBaseMessage = {
         type: "Test Result",
-        result: ApiResult.API_OK
+        result: ApiResult.API_OK,
       };
       return testResult;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     throw new Error(ex.message);
   }
 }
 
-
 // Externer Api-Aufruf per GET
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
 // Browser dürfen fehlgeschlagene/verzögerte GET-Aufrufe jederzeit wiederholen, das ist gut, wenn die Verbindung hängt
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getExternalJson<Request extends IBaseRequest>(apiEndpointUrl: string, request: Request, accessToken?: string): Promise<any> {
-
   // Request als Querystring serialisieren
   const str = [];
   for (const p in request) {
@@ -174,17 +183,17 @@ export async function getExternalJson<Request extends IBaseRequest>(apiEndpointU
   if (accessToken == null) {
     req = {
       headers: {
-        "Accept": "application/json"
+        Accept: "application/json",
       },
-      credentials: "include"
+      credentials: "include",
     };
   } else {
     // In Tests wird AccessToken manuell übergeben, um Anmeldungen zu prüfen
     req = {
       headers: {
-        "Accept": "application/json",
-        "x-accesstoken": accessToken   // X-accesstoken Kleinschreibung erforderlich
-      }
+        Accept: "application/json",
+        "x-accesstoken": accessToken, // X-accesstoken Kleinschreibung erforderlich
+      },
     };
   }
   const response = await fetchWithTimeout(url, req);
@@ -192,13 +201,17 @@ export async function getExternalJson<Request extends IBaseRequest>(apiEndpointU
   switch (response.status) {
     case 200: {
       const json = await response.json();
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (json.result !== ApiResult.API_OK) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         console.log("getJson " + url + ": " + String(json.result));
         console.log(json);
       }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return json;
     }
-    case 401: {  // API_UNAUTHORIZED -> server requests redirect to signin
+    case 401: {
+      // API_UNAUTHORIZED -> server requests redirect to signin
       if (typeof window !== "undefined") {
         //  Not possible on server rendering
         window.location.href = window.__INITIAL_CONFIG__.roXtraUrl;
@@ -207,7 +220,7 @@ export async function getExternalJson<Request extends IBaseRequest>(apiEndpointU
     }
     default: {
       const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
-      getErrorHandlers().forEach(h => h.handleError(error, url));
+      getErrorHandlers().forEach((h) => h.handleError(error, url));
       return error;
     }
   }

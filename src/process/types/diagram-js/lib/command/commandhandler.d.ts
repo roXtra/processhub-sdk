@@ -6,7 +6,6 @@ declare module "diagram-js/lib/command/CommandHandler" {
    * {@link CommandStack} via {@link CommandStack#registerHandler}.
    */
   export default class CommandHandler {
-
     /**
      * Execute changes described in the passed action context.
      *
@@ -16,7 +15,6 @@ declare module "diagram-js/lib/command/CommandHandler" {
      */
     public execute(context: {}): Base[];
 
-
     /**
      * Revert changes described in the passed action context.
      *
@@ -25,7 +23,6 @@ declare module "diagram-js/lib/command/CommandHandler" {
      * @return {Array<djs.model.Base>} list of touched (áka dirty) diagram elements
      */
     public revert(context: {}): Base[];
-
 
     /**
      * Return true if the handler may execute in the given context.
@@ -37,7 +34,6 @@ declare module "diagram-js/lib/command/CommandHandler" {
      * @return {Boolean} true if executing in the context is possible
      */
     public canExecute(context: {}): boolean;
-
 
     /**
      * Execute actions after the actual command execution but

@@ -75,7 +75,7 @@ export enum InstanceExtras {
   ExtrasRoleOwners = 1 << 1, // Include roleowner-names
   ExtrasFieldContents = 1 << 3,
   ExtrasTodos = 1 << 4,
-  ExtrasAuditTrail = 1 << 5
+  ExtrasAuditTrail = 1 << 5,
 }
 
 export interface IResumeInstanceDetails {
@@ -101,6 +101,7 @@ export interface IEngineStateDefinition {
   moddleContext: Context;
   stopped: boolean;
   processes: IEngineStateDefinitionProcess;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   environment: any;
   entryPointId?: string;
 }
@@ -113,9 +114,12 @@ export interface IEngineStateDefinitionProcessDetails {
   id: string;
   type: Bpmn.bpmnType;
   entered: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   variables: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   services: any;
   children: IEngineStateDefinitionChild[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   environment: any;
 }
 

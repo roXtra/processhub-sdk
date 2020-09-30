@@ -51,7 +51,7 @@ export enum AuditTrailAction {
 
 export enum AuditTrailProcessFlag {
   Subprocess = 1,
-  Parentprocess = 2
+  Parentprocess = 2,
 }
 
 export interface IAuditTrailEntryDetails {
@@ -136,11 +136,11 @@ export type Partial<T> = {
 export interface IAuditTrailEntry {
   trailId: string;
   workspaceId: string;
-  processId?: string;  // May be null for entries on workspace-level
-  instanceId?: string;  // May be null for entries on workspace- or process-level
+  processId?: string; // May be null for entries on workspace-level
+  instanceId?: string; // May be null for entries on workspace- or process-level
   action: AuditTrailAction;
   user: UserDetails;
-  createdAt: Date;  // Time of action in UTC
+  createdAt: Date; // Time of action in UTC
   entryFrom?: AuditTrailProcessFlag;
   details: Partial<IAuditTrailEntryDetails>;
 }

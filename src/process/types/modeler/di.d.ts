@@ -6,7 +6,6 @@ declare module "modeler/bpmn/di" {
   import Base = require("moddle/lib/base");
 
   namespace Di {
-
     export interface IDiagramElement extends Base {
       readonly $type: "di:DiagramElement" | "bpmndi:BPMNPlane" | "bpmndi:BPMNShape" | "bpmndi:BPMNEdge" | "bpmndi:BPMNLabel";
       id: string;
@@ -24,8 +23,7 @@ declare module "modeler/bpmn/di" {
       resolution?: number;
     }
 
-    export interface INode extends IDiagramElement {
-    }
+    export interface INode extends IDiagramElement {}
 
     export interface IShape extends INode {
       bounds: Dc.IBounds;
@@ -35,11 +33,9 @@ declare module "modeler/bpmn/di" {
       planeElement: IDiagramElement[];
     }
 
-    export interface ILabeledEdge extends IEdge {
-    }
+    export interface ILabeledEdge extends IEdge {}
 
-    export interface ILabeledShape extends IShape {
-    }
+    export interface ILabeledShape extends IShape {}
 
     export interface ILabel extends INode {
       bounds: Dc.IBounds;

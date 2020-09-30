@@ -17,7 +17,7 @@ export function createId(): string {
 
 // Ist String eine Id?
 export function isId(id: string): boolean {
-  return (id != null && id.length === ID_LENGTH && id.toUpperCase() === id);
+  return id != null && id.length === ID_LENGTH && id.toUpperCase() === id;
 }
 
 export function isUserId(id: string): boolean {
@@ -34,5 +34,17 @@ export function nullId(): string {
 
 // Number format 123.4567.890
 export function createInstanceNumber(): string {
-  return Math.floor(1000 + Math.random() * 1000).toString().substr(1, 3) + "." + Math.floor(10000 + Math.random() * 10000).toString().substr(1, 4) + "." + Math.floor(1000 + Math.random() * 1000).toString().substr(1, 3);
+  return (
+    Math.floor(1000 + Math.random() * 1000)
+      .toString()
+      .substr(1, 3) +
+    "." +
+    Math.floor(10000 + Math.random() * 10000)
+      .toString()
+      .substr(1, 4) +
+    "." +
+    Math.floor(1000 + Math.random() * 1000)
+      .toString()
+      .substr(1, 3)
+  );
 }

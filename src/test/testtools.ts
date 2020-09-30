@@ -7,7 +7,6 @@ import { emptyUser } from "../user";
 import { WorkspaceRole } from "../workspace";
 
 export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTaskEnvironment {
-
   return {
     bpmnXml,
     bpmnTaskId: "",
@@ -23,38 +22,54 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       processId: "",
       extras: {
         instanceState: undefined,
-        fieldContents: {}
+        fieldContents: {},
       },
     },
     roxApi: {
-      getApiToken: (): string => { throw new Error("Not implemented"); },
+      getApiToken: (): string => {
+        throw new Error("Not implemented");
+      },
       // eslint-disable-next-line @typescript-eslint/require-await
-      getEfApiToken: async (): Promise<string> => { throw new Error("Not implemented"); },
+      getEfApiToken: async (): Promise<string> => {
+        throw new Error("Not implemented");
+      },
       // eslint-disable-next-line @typescript-eslint/require-await
-      getRoxtraTokenByUserId: async (): Promise<string> => { throw new Error("Not implemented"); },
+      getRoxtraTokenByUserId: async (): Promise<string> => {
+        throw new Error("Not implemented");
+      },
     },
     workspace: {
       workspaceId: "",
       displayName: "",
       userRole: WorkspaceRole.WorkspaceMember,
-      extras: {}
+      extras: {},
     },
     sender: emptyUser,
     instances: {
       // eslint-disable-next-line @typescript-eslint/require-await
       updateInstance: async (i): Promise<IInstanceDetails> => i,
       // eslint-disable-next-line @typescript-eslint/require-await
-      uploadAttachment: async (): Promise<string> => { throw new Error("Not implemented"); },
+      uploadAttachment: async (): Promise<string> => {
+        throw new Error("Not implemented");
+      },
       // eslint-disable-next-line @typescript-eslint/require-await
-      generateInstanceReport: async (): Promise<{ doc: Buffer; fileName: string }> => { throw new Error("Not implemented"); },
+      generateInstanceReport: async (): Promise<{ doc: Buffer; fileName: string }> => {
+        throw new Error("Not implemented");
+      },
       // eslint-disable-next-line @typescript-eslint/require-await
-      executeInstance: async (): Promise<string> => { throw new Error("Not implemented"); },
+      executeInstance: async (): Promise<string> => {
+        throw new Error("Not implemented");
+      },
     },
     mailer: {
-      sendMailTemplate: (): Promise<ISendMailTemplateReply> => { throw new Error("Not implemented"); },
+      sendMailTemplate: (): Promise<ISendMailTemplateReply> => {
+        throw new Error("Not implemented");
+      },
     },
     processes: {
-      getProcessDetails: (): Promise<IProcessDetails> => { throw new Error("Not implemented"); },
+      getProcessDetails: (): Promise<IProcessDetails> => {
+        throw new Error("Not implemented");
+      },
     },
     fileStore: {
       getAttachmentFileUrl: (): string => "",
@@ -86,11 +101,11 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       getPhysicalPath: (): string => "",
     },
     logger: {
-      debug: m => console.debug(m),
-      info: m => console.info(m),
-      warn: m => console.warn(m),
-      error: m => console.error(m),
-      fatal: m => console.error(m)
+      debug: (m) => console.debug(m),
+      info: (m) => console.info(m),
+      warn: (m) => console.warn(m),
+      error: (m) => console.error(m),
+      fatal: (m) => console.error(m),
     },
     serverConfig: {
       Database: {
@@ -98,15 +113,15 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         port: 1473,
         user: "EFormulare",
         password: "",
-        database: "EFormulare"
+        database: "EFormulare",
       },
       Filestore: {
-        baseDir: "c:\\Roxtra\\doc\\eformulare"
+        baseDir: "c:\\Roxtra\\doc\\eformulare",
       },
       roXtra: {
         efApiEndpoint: "https://localhost/Roxtra/api/roxefapi.svc/eforms/",
         url: "http://localhost/Roxtra/",
-        clientSecret: "@@roxApiClients.ClientSecret@@"
+        clientSecret: "@@roxApiClients.ClientSecret@@",
       },
       Mailbox: {
         reconnectTime: 3600000,
@@ -124,7 +139,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         smtpServer: "127.0.0.1",
         smtpUser: "send@localhost.local",
         smtpPassword: "",
-        requireTls: true
+        requireTls: true,
       },
       Webserver: {
         port: 8397,
@@ -139,21 +154,21 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
           enabled: true,
           tabs: [
             {
-              name: "reports"
+              name: "reports",
             },
             {
-              name: "heatmaps"
+              name: "heatmaps",
             },
             {
-              name: "table"
-            }
-          ]
+              name: "table",
+            },
+          ],
         },
-        eformVersion: "DEV"
+        eformVersion: "DEV",
       },
       Features: {
         features: [],
       },
-    }
+    },
   };
 }

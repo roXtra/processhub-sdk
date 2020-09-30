@@ -157,19 +157,19 @@ export interface ITextInputFieldConfig extends IFieldConfigDefault {
 }
 
 export type FieldValueType =
-  number | // Number
-  Date | // Date
-  string | // TextInput, TextArea, RoleOwner
-  boolean | // Checkbox
-  string[] | // FileUpload
-  IRoxFileFieldValue | // RoxFile
-  ISignatureFieldValue | // Signature
-  { [key: string]: boolean } | // Checklist
-  IRadioButtonGroupFieldValue | // RadioButtonGroup
-  ISpreadSheetFieldValue | // SpreadSheet
-  IRiskAssessmentValue | // RiskAssesment
-  RiskAssessmentCycle | // RiskAssessmentCycle
-  IProcessLinkValue; // ProcessLink
+  | number // Number
+  | Date // Date
+  | string // TextInput, TextArea, RoleOwner
+  | boolean // Checkbox
+  | string[] // FileUpload
+  | IRoxFileFieldValue // RoxFile
+  | ISignatureFieldValue // Signature
+  | { [key: string]: boolean } // Checklist
+  | IRadioButtonGroupFieldValue // RadioButtonGroup
+  | ISpreadSheetFieldValue // SpreadSheet
+  | IRiskAssessmentValue // RiskAssesment
+  | RiskAssessmentCycle // RiskAssessmentCycle
+  | IProcessLinkValue; // ProcessLink
 
 export interface IFieldValue {
   type: FieldType;
@@ -177,7 +177,7 @@ export interface IFieldValue {
 }
 
 export type FieldType =
-  "ProcessHubTextInput"
+  | "ProcessHubTextInput"
   | "ProcessHubDateTime"
   | "ProcessHubTextArea"
   | "ProcessHubInstanceTitle"
@@ -204,7 +204,14 @@ export type FieldType =
 export interface IFieldType {
   getType(): FieldType;
   getName(): string;
-  getInput(props: IFormElementProps, instanceEnv: IInstanceEnvironment, actionHandler: ActionHandler, onFieldValueChanged: () => void, showInvalidFields: boolean, startEventId?: string): JSX.Element;
+  getInput(
+    props: IFormElementProps,
+    instanceEnv: IInstanceEnvironment,
+    actionHandler: ActionHandler,
+    onFieldValueChanged: () => void,
+    showInvalidFields: boolean,
+    startEventId?: string,
+  ): JSX.Element;
   renderValue(value: {}, instance: IInstanceDetails, process: IProcessDetails, config: IFieldConfig, showDirect?: boolean): JSX.Element;
   renderValueForEmail(value: {}, instance: IInstanceDetails, process: IProcessDetails, config: IFieldConfig, showDirect?: boolean): JSX.Element;
   getSettingsButton(fieldDefinition: IFieldDefinition, onConfigChanged: (fieldDefinition: IFieldDefinition) => void, bpmnProcess: Process.BpmnProcess): JSX.Element;
@@ -223,16 +230,13 @@ export interface IFormElementProps {
   key?: string;
 }
 
-
 /**
  * Check if an element implements the FieldValue interface
  * @param element element to check
  * @return {boolean} true, if element implements the FieldValue interface, false otherwise
  */
 export function isFieldValue(element: {}): element is IFieldValue {
-  return element
-    && (element as IFieldValue).type != undefined
-    && typeof (element as IFieldValue).type === "string";
+  return element && (element as IFieldValue).type != undefined && typeof (element as IFieldValue).type === "string";
 }
 
 export interface IFieldContentMap {
@@ -241,8 +245,7 @@ export interface IFieldContentMap {
 
 // Returns the name of the best fitting Semantic UI icon for the specified file name
 export function getFiletypeIcon(filename: string): string {
-  if (filename == null || filename.length === 0)
-    return "file outline";
+  if (filename == null || filename.length === 0) return "file outline";
 
   const extension = filename.split(".").last().toLowerCase();
 
@@ -272,7 +275,6 @@ export function getFiletypeIcon(filename: string): string {
       return "file outline";
   }
 }
-
 
 /* Interfaces for statistics */
 /* eslint-disable @typescript-eslint/naming-convention */

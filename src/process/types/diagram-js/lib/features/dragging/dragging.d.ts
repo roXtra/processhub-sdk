@@ -1,5 +1,4 @@
 declare module "diagram-js/lib/features/dragging/Dragging" {
-
   import Canvas from "diagram-js/lib/core/Canvas";
   import EventBus from "diagram-js/lib/core/EventBus";
   import { IPoint } from "diagram-js";

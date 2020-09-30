@@ -25,11 +25,19 @@ async function readFileAsync(fileName: string): Promise<string> {
 let TestRowDetails: IRowDetails[] = [];
 
 function addTask(rowDetails: IRowDetails[], rowNumber: number, bpmnProcess: BpmnProcess): void {
-  rowDetails.splice((rowNumber + 1), 0, { rowNumber: (rowNumber + 1), selectedRole: rowDetails[rowNumber].selectedRole, task: "", taskId: "", laneId: rowDetails[rowNumber].laneId, taskType: "bpmn:UserTask", jumpsTo: rowDetails[rowNumber].jumpsTo });
+  rowDetails.splice(rowNumber + 1, 0, {
+    rowNumber: rowNumber + 1,
+    selectedRole: rowDetails[rowNumber].selectedRole,
+    task: "",
+    taskId: "",
+    laneId: rowDetails[rowNumber].laneId,
+    taskType: "bpmn:UserTask",
+    jumpsTo: rowDetails[rowNumber].jumpsTo,
+  });
 
-  bpmnProcess.addTaskBetween(rowDetails, (rowNumber + 1));
+  bpmnProcess.addTaskBetween(rowDetails, rowNumber + 1);
 
-  rowDetails[rowNumber].jumpsTo = [rowDetails[(rowNumber + 1)].taskId];
+  rowDetails[rowNumber].jumpsTo = [rowDetails[rowNumber + 1].taskId];
 
   // Update higher rownumbers
   let counter: number = rowNumber + 1;
@@ -54,15 +62,35 @@ async function createTestBpmnProcess(): Promise<BpmnProcess> {
   const startElem = start.last();
   const testLane = bpmnProcess.getLaneOfFlowNode(startElem.id);
 
-  rowDetails.push({ rowNumber: 0, selectedRole: testLane!.id, task: startElem.name!, taskId: startElem.id, laneId: testLane!.id, taskType: startElem.$type, jumpsTo: startElem.outgoing!.map(out => out.targetRef.id) });
+  rowDetails.push({
+    rowNumber: 0,
+    selectedRole: testLane!.id,
+    task: startElem.name!,
+    taskId: startElem.id,
+    laneId: testLane!.id,
+    taskType: startElem.$type,
+    jumpsTo: startElem.outgoing!.map((out) => out.targetRef.id),
+  });
 
   let counter = 1;
-  rowDetails = rowDetails.concat(sortedTasks.map((r): IRowDetails => {
-    const testLane = bpmnProcess.getLaneOfFlowNode(r.id);
-    const row = { rowNumber: counter, selectedRole: testLane!.id, task: r.name, taskId: r.id, laneId: testLane!.id, taskType: r.$type, jumpsTo: r.outgoing!.map(out => out.targetRef.id) } as IRowDetails;
-    counter++;
-    return row;
-  }));
+  rowDetails = rowDetails.concat(
+    sortedTasks.map(
+      (r): IRowDetails => {
+        const testLane = bpmnProcess.getLaneOfFlowNode(r.id);
+        const row = {
+          rowNumber: counter,
+          selectedRole: testLane!.id,
+          task: r.name,
+          taskId: r.id,
+          laneId: testLane!.id,
+          taskType: r.$type,
+          jumpsTo: r.outgoing!.map((out) => out.targetRef.id),
+        } as IRowDetails;
+        counter++;
+        return row;
+      },
+    ),
+  );
 
   assert.isTrue(rowDetails.length === 3, "wrong template 3");
   TestRowDetails = rowDetails;
@@ -73,7 +101,6 @@ async function createTestBpmnProcess(): Promise<BpmnProcess> {
 describe("sdk", function () {
   describe("process", function () {
     describe("bpmnprocess", function () {
-
       let freigabe2Xml: string;
 
       before(async function () {
@@ -87,7 +114,7 @@ describe("sdk", function () {
           const decisionTasks = bpmnProcess.getDecisionTasksForTask("ExclusiveGateway_7C5D3E25718AB6BB");
           const expectedBpmnTaskIds = ["SubProcess_51C13A1CF5228786", "ExclusiveGateway_4E9D96C025622364"];
           for (const expectedBpmnTaskId of expectedBpmnTaskIds) {
-            const decisionTask = decisionTasks.find(d => d.bpmnTaskId === expectedBpmnTaskId);
+            const decisionTask = decisionTasks.find((d) => d.bpmnTaskId === expectedBpmnTaskId);
             expect(decisionTask).not.to.equal(undefined);
             expect(decisionTask!.name).not.to.eq(null);
             expect(decisionTask!.name.length).to.be.greaterThan(0);
@@ -125,7 +152,7 @@ describe("sdk", function () {
           });
 
           // Check if empty lane is still there
-          const process: Bpmn.IProcess = definitions.rootElements.find(e => e.$type === "bpmn:Process") as Bpmn.IProcess;
+          const process: Bpmn.IProcess = definitions.rootElements.find((e) => e.$type === "bpmn:Process") as Bpmn.IProcess;
           const [laneSet] = process.laneSets!;
           expect(laneSet.lanes).not.to.be.undefined;
           expect(laneSet.lanes.length).to.equal(1);
@@ -142,7 +169,6 @@ describe("sdk", function () {
           const id: string = BpmnProcess.getBpmnId("bpmn:UserTask");
           assert(id.length > 16);
         });
-
       });
 
       describe("BpmnProcessClass", function () {
@@ -227,7 +253,6 @@ describe("sdk", function () {
 
           assert(lanes.length === 3);
           assert(lanes[lanes.length - 1].id === testLaneId);
-
         });
 
         it("soll Task aus Lane entfernen", async function () {
@@ -238,19 +263,19 @@ describe("sdk", function () {
           const rowDetails = JSON.parse(JSON.stringify(TestRowDetails));
 
           // Wie test zuvor bis hier her
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           const testLane = bpmnProcess.getProcessLane(process.id, rowDetails[1].laneId);
-
 
           assert(testLane!.flowNodeRef.length === 2);
 
           const testTaskName = "Test Aufgabe";
 
           addTask(rowDetails, 1, bpmnProcess);
-
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           bpmnProcess.changeTaskName(rowDetails[2].taskId, testTaskName);
-
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           assert.isTrue(bpmnProcess.getExistingTask(bpmnProcess.processId(), rowDetails[2].taskId).name === testTaskName);
-
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           const testTaskId: string = rowDetails[2].taskId;
 
           // +2 hier wegen dem Start und End Event!!!!
@@ -267,12 +292,10 @@ describe("sdk", function () {
         });
 
         describe("Extension Values", function () {
-
           let bpmnProcess: BpmnProcess;
           let testTaskObject: Bpmn.IUserTask;
 
           before(async () => {
-
             bpmnProcess = await createTestBpmnProcess();
 
             const processes = bpmnProcess.getProcesses();
@@ -356,13 +379,11 @@ describe("sdk", function () {
             const testId2: string = BpmnProcess.getBpmnId("bpmn:Lane");
             bpmnProcess.addLane(process.id, testId2, testLaneName2);
 
-
             const testTaskName1 = "Test Aufgabe A";
 
             const rowDetails: IRowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
 
             const testTaskId1: string = rowDetails[1].taskId;
-
 
             const testTaskObject1: Bpmn.IUserTask = bpmnProcess.getExistingTask(process.id, testTaskId1) as Bpmn.IUserTask;
             bpmnProcess.changeTaskName(rowDetails[1].taskId, testTaskName1);
@@ -370,7 +391,6 @@ describe("sdk", function () {
             assert(testTaskObject1.name === testTaskName1);
             assert(testTaskObject1.id === testTaskId1);
             assert(testTaskObject1.$type === "bpmn:UserTask");
-
 
             const testTaskName2 = "Test Aufgabe B";
             const testTaskId2: string = rowDetails[2].taskId;
@@ -381,7 +401,6 @@ describe("sdk", function () {
             assert(testTaskObject2.name === testTaskName2);
             assert(testTaskObject2.id === testTaskId2);
             assert(testTaskObject2.$type === "bpmn:UserTask");
-
 
             const testTaskName3 = "Test Aufgabe C";
             const testTaskId3: string = rowDetails[2].taskId;
@@ -421,7 +440,6 @@ describe("sdk", function () {
       });
 
       describe("getFollowingSequenceFlowName", function () {
-
         it("soll Following Sequence Flow Name zurückgeben", async function () {
           const bpmnProcess = await createTestBpmnProcess();
           const processes = bpmnProcess.getProcesses();
@@ -503,25 +521,53 @@ describe("sdk", function () {
           const startElem = start.last();
           const testLane = bpmnProcess.getLaneOfFlowNode(startElem.id);
 
-          rowDetails.push({ rowNumber: 0, selectedRole: testLane!.id, task: startElem.name!, taskId: startElem.id, laneId: testLane!.id, taskType: startElem.$type, jumpsTo: startElem.outgoing!.map(out => out.targetRef.id) });
+          rowDetails.push({
+            rowNumber: 0,
+            selectedRole: testLane!.id,
+            task: startElem.name!,
+            taskId: startElem.id,
+            laneId: testLane!.id,
+            taskType: startElem.$type,
+            jumpsTo: startElem.outgoing!.map((out) => out.targetRef.id),
+          });
 
           let counter = 1;
-          rowDetails = rowDetails.concat(sortedTasks.map((r): IRowDetails => {
-            const testLane = bpmnProcess.getLaneOfFlowNode(r.id);
-            const row = { rowNumber: counter, selectedRole: testLane?.id, task: r.name, taskId: r.id, laneId: testLane?.id, taskType: r.$type, jumpsTo: r.outgoing?.map(out => out.targetRef.id) } as IRowDetails;
-            counter++;
-            return row;
-          }));
+          rowDetails = rowDetails.concat(
+            sortedTasks.map(
+              (r): IRowDetails => {
+                const testLane = bpmnProcess.getLaneOfFlowNode(r.id);
+                const row = {
+                  rowNumber: counter,
+                  selectedRole: testLane?.id,
+                  task: r.name,
+                  taskId: r.id,
+                  laneId: testLane?.id,
+                  taskType: r.$type,
+                  jumpsTo: r.outgoing?.map((out) => out.targetRef.id),
+                } as IRowDetails;
+                counter++;
+                return row;
+              },
+            ),
+          );
 
           assert.isTrue(rowDetails.length === 3, "wrong template 3");
 
           const rowNumber = 1;
           const testTaskName = "Test Task Name 1337";
-          rowDetails.splice(2, 0, { rowNumber: (rowNumber + 1), selectedRole: rowDetails[rowNumber].selectedRole, task: testTaskName, taskId: "", laneId: rowDetails[rowNumber].laneId, taskType: "bpmn:UserTask", jumpsTo: rowDetails[rowNumber].jumpsTo });
+          rowDetails.splice(2, 0, {
+            rowNumber: rowNumber + 1,
+            selectedRole: rowDetails[rowNumber].selectedRole,
+            task: testTaskName,
+            taskId: "",
+            laneId: rowDetails[rowNumber].laneId,
+            taskType: "bpmn:UserTask",
+            jumpsTo: rowDetails[rowNumber].jumpsTo,
+          });
 
           bpmnProcess.addTaskBetween(rowDetails, 2);
 
-          rowDetails[1].jumpsTo = [rowDetails[(2)].taskId];
+          rowDetails[1].jumpsTo = [rowDetails[2].taskId];
 
           // Update higher rownumbers
           let counter2: number = 1 + 1;
@@ -546,7 +592,6 @@ describe("sdk", function () {
       });
 
       describe("getFieldDefinitions", function () {
-
         it("should return the fields in the same order as the tasks and events appear", async () => {
           const processXml: string = await readFileAsync("./src/test/testfiles/field-order.bpmn");
           const bpmnProcess: BpmnProcess = new BpmnProcess();
@@ -561,7 +606,6 @@ describe("sdk", function () {
           expect(fieldDefinitions[4].name).to.equal("D");
         });
       });
-
     });
   });
 });

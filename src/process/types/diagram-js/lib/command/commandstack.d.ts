@@ -77,7 +77,6 @@ declare module "diagram-js/lib/command/CommandStack" {
    * @see CommandHandler
    */
   export default class CommandStack {
-
     /**
      * A map of all registered command handlers.
      *

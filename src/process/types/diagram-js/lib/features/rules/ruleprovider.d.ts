@@ -12,7 +12,6 @@ declare module "diagram-js/lib/features/rules/RuleProvider" {
    * @param {EventBus} eventBus
    */
   export default class RuleProvider {
-
     /**
      * A basic provider that may be extended to implement modeling rules.
      *
@@ -82,7 +81,6 @@ declare module "diagram-js/lib/features/rules/RuleProvider" {
      * Implement this method to add new rules during provider initialization.
      */
     public init(): void;
-
   }
 
   export type ModelingAction = "elements.move";
@@ -130,5 +128,4 @@ declare module "diagram-js/lib/features/rules/RuleProvider" {
     source: Shape;
     target: Shape;
   }
-
 }
