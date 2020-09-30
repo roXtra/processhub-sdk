@@ -41,6 +41,8 @@ export interface IRiskManagementColor {
 
 export interface IRiskManagementProcessSettings {
   dimensions: IRiskAssessmentDimension[];
+  // JavaScript expression to calculate the risk metrics
+  metricsExpression: string | undefined;
   colors: IRiskManagementColor[];
   hideMatrix: boolean;
 }
