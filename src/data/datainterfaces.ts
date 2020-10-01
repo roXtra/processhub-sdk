@@ -27,9 +27,9 @@ export interface ITaskIdRequiredFieldsNeeded {
 
 export interface IRoxFileFieldValue {
   url: string;
-  lockedAt: Date;
-  lockedByUserName: string;
-  lockedByUserId: string;
+  lockedAt?: Date;
+  lockedByUserName?: string;
+  lockedByUserId?: string;
 }
 
 export interface ISignatureFieldValue {
@@ -212,8 +212,8 @@ export interface IFieldType {
     showInvalidFields: boolean,
     startEventId?: string,
   ): JSX.Element;
-  renderValue(value: {}, instance: IInstanceDetails, process: IProcessDetails, config: IFieldConfig, showDirect?: boolean): JSX.Element;
-  renderValueForEmail(value: {}, instance: IInstanceDetails, process: IProcessDetails, config: IFieldConfig, showDirect?: boolean): JSX.Element;
+  renderValue(value: {}, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element;
+  renderValueForEmail(value: {}, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element;
   getSettingsButton(fieldDefinition: IFieldDefinition, onConfigChanged: (fieldDefinition: IFieldDefinition) => void, bpmnProcess: Process.BpmnProcess): JSX.Element;
   isVisible(): boolean;
   isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): boolean;
@@ -317,7 +317,7 @@ export interface IStatisticRow {
   processId: string;
   details: IStatisticTrailEntry;
   action: StatisticsAction;
-  userDetails: UserDetails;
+  userDetails?: UserDetails;
   userId: string;
   createdAt: Date;
 }

@@ -63,7 +63,7 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
      *
      * @return {djs.model.Connection} the created connection.
      */
-    public createConnection(source: Base, target: Base, attrs: {}, parent: Base, hints: IConnectionHints): Connection;
+    public createConnection(source: Base, target: Base, attrs: {}, parent: Base | undefined, hints: IConnectionHints): Connection;
     public createConnection(source: Base, target: Base, targetIndex: number, connection: Connection, parent: Base, hints: IConnectionHints): Connection;
 
     public createShape(shape: Base, position: {}, target: Base, targetIndex: number, hints: { attach: boolean }): {};
@@ -78,7 +78,7 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
 
     public removeShape(shape: Shape, hints: IRemoveShapeHints): void;
 
-    public removeConnection(connection: Connection, hints: {}): void;
+    public removeConnection(connection: Connection, hints?: {}): void;
 
     public replaceShape(oldshape: Base, newshape: Base, hints: {}): {};
 
@@ -99,8 +99,8 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
   }
 
   export interface IConnectionHints {
-    connectionStart: IPoint;
-    connectionEnd: IPoint;
+    connectionStart?: IPoint;
+    connectionEnd?: IPoint;
   }
 
   export interface IRemoveShapeHints {

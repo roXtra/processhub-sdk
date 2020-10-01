@@ -139,7 +139,7 @@ export interface IAuditTrailEntry {
   processId?: string; // May be null for entries on workspace-level
   instanceId?: string; // May be null for entries on workspace- or process-level
   action: AuditTrailAction;
-  user: UserDetails;
+  user?: UserDetails;
   createdAt: Date; // Time of action in UTC
   entryFrom?: AuditTrailProcessFlag;
   details: Partial<IAuditTrailEntryDetails>;

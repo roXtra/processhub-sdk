@@ -81,7 +81,7 @@ export enum InstanceExtras {
 export interface IResumeInstanceDetails {
   workspaceId: string;
   instanceId: string;
-  completedTodoId: string;
+  completedTodoId?: string;
   // Sollte nächste Activity Exclusive Gateway sein, wird hier die Entscheidung über den SF mitgeteilt
   choosenTask?: IDecisionTask;
   fieldContents?: IFieldContentMap;

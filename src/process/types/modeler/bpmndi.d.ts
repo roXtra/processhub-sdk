@@ -36,10 +36,10 @@ declare module "modeler/bpmn/bpmndi" {
 
     export interface IBPMNEdge extends Di.ILabeledEdge {
       readonly $type: "bpmndi:BPMNEdge";
-      label: IBPMNLabel;
+      label?: IBPMNLabel;
       bpmnElement: Bpmn.IBaseElement;
-      sourceElement: Di.IDiagramElement;
-      targetElement: Di.IDiagramElement;
+      sourceElement?: Di.IDiagramElement;
+      targetElement?: Di.IDiagramElement;
       messageVisibleKind: MessageVisibleKind;
     }
 

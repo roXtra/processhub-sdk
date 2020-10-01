@@ -23,7 +23,7 @@ declare module "diagram-js/lib/layout/BaseLayouter" {
      *
      * @return {Array<Point>} the layouted connection waypoints
      */
-    public layoutConnection(connection: Connection, hints: IConnectionHints): IPoint[];
+    public layoutConnection(connection: Connection, hints?: IConnectionHints): IPoint[];
   }
 
   export interface IConnectionHints {
