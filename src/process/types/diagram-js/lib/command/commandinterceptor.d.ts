@@ -218,13 +218,13 @@ declare module "diagram-js/lib/command/CommandInterceptor" {
     closure: {};
     delta: IPoint;
     hints: {};
-    newParent: Base;
+    newParent?: Base;
     shapes: Shape[];
   }
 
   export interface IShapeCreateEvent {
     hints: {};
-    parent: Base;
+    parent?: Base;
     parentIndex: {};
     position: IPoint;
     shape: Shape;

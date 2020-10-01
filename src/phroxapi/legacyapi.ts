@@ -30,7 +30,7 @@ export interface IProcessItem {
 }
 
 export interface IStartButtonItem {
-  startButtonName: string;
+  startButtonName?: string;
   startButtonId: string;
   singleRoxFile: boolean;
 }
@@ -115,7 +115,7 @@ export interface IGetProcessesWitUserReply extends IBaseReply {
 export interface IEcReleaseFileLockReply {
   LockReleased: boolean;
   ShowMessage: boolean;
-  Message: string;
+  Message?: string;
 }
 
 export interface IGetModuleSettingsReply extends IBaseReply {
