@@ -30,12 +30,17 @@ export const ProcessRequestRoutes = {
   UploadReportDraft: "/api/process/uploadreportdraft",
   DeleteReportDraft: "/api/process/deletereportdraft",
   ListProcesses: "/api/process/listprocesses",
+  TemplateProcesses: "/api/process/templateprocesses",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
 // API request/reply objects
 export interface IProcessReply extends IBaseMessage {
   errorMessage?: string;
+}
+
+export interface ITemplateProcessesReply extends IBaseReply {
+  templates: {name: string, xml: string}[];
 }
 
 export interface ICreateProcessRequest extends IBaseRequest {
