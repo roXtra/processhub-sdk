@@ -40,7 +40,7 @@ export interface IProcessReply extends IBaseMessage {
 }
 
 export interface ITemplateProcessesReply extends IBaseReply {
-  templates: {name: string, xml: string}[];
+  templates: { name: string; xml: string }[];
 }
 
 export interface ICreateProcessRequest extends IBaseRequest {
@@ -56,9 +56,11 @@ export interface IGetProcessDetailsRequest extends IBaseRequest {
   instanceId?: string;
   getExtras?: ProcessExtras;
 }
+
 export interface IGetProcessDetailsFromUrlRequest extends IBaseRequest {
   processUrl: string;
 }
+
 export interface IGetProcessDetailsReply extends IProcessReply {
   processDetails?: IProcessDetails;
 }
@@ -66,18 +68,22 @@ export interface IGetProcessDetailsReply extends IProcessReply {
 export interface IGetTimersOfProcessRequest extends IBaseRequest {
   processId: string;
 }
+
 export interface IGetTimersOfProcessReply extends IProcessReply {
   timers?: ITimerStartEventConfiguration[];
 }
+
 export interface ISetTimersOfProcessRequest extends IBaseRequest {
   processId: string;
   timers: ITimerStartEventConfiguration[];
 }
+
 export type ISetTimersOfProcessReply = IProcessReply;
 
 export interface IDownloadProcessRequest extends IBaseRequest {
   processId: string;
 }
+
 export interface IDownloadProcessReply extends IProcessReply {
   doc: Buffer;
 }
@@ -85,6 +91,7 @@ export interface IDownloadProcessReply extends IProcessReply {
 export interface IExportProcessRequest extends IBaseRequest {
   processId: string;
 }
+
 export interface IExportProcessReply extends IBaseReply {
   urlName: string;
   bpmn: string;
@@ -101,11 +108,13 @@ export interface IArchiveViewDetails {
   publicView: boolean;
   specialViewType?: ArchiveViewType;
 }
+
 export interface IAddArchiveViewRequest extends IBaseRequest {
   processId: string;
   publicView: boolean;
   details: IArchiveViewDetails;
 }
+
 export interface IDeleteArchiveViewRequest extends IBaseRequest {
   processId: string;
   viewId: string;
@@ -114,11 +123,13 @@ export interface IDeleteArchiveViewRequest extends IBaseRequest {
 export interface IGetArchiveViewsRequest extends IBaseRequest {
   processId: string;
 }
+
 export interface IGetArchiveViewsReply extends IBaseReply {
   views: { [viewId: string]: IArchiveViewDetails };
 }
 
 export type IGetAllServicesRequest = IBaseRequest;
+
 export interface IGetAllServicesReply extends IBaseReply {
   services: IServiceDetails[];
 }
@@ -167,6 +178,7 @@ export interface IGetProcessStatisticsRequest extends IBaseRequest {
   fromDate?: Date;
   tillDate?: Date;
 }
+
 export interface IGetProcessStatisticsReply extends IProcessReply {
   statistics: IStatisticRow[];
 }
@@ -176,11 +188,13 @@ export interface ICommentRequest extends IBaseRequest {
   comment: string;
   trailId: string;
 }
+
 export interface IDeleteCommentRequest extends IBaseRequest {
   trailId: string;
 }
 
 export const PROCESSLOADED_MESSAGE = "ProcessLoadedMessage";
+
 export interface IProcessLoadedMessage extends IBaseMessage {
   type: "ProcessLoadedMessage";
   processDetails?: IProcessDetails;
