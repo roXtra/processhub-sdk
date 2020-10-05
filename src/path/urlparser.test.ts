@@ -128,24 +128,19 @@ describe("sdk", function () {
       });
 
       describe("parseNotificationLink", function () {
-        it("should parse invalid instance links", function () {
-          let elements = parseNotificationLink("/f/i/invalidid"); // Ignore case and / at end
-          assert.deepEqual(elements, {});
-          elements = parseNotificationLink("/p/i/invalidid"); // Ignore case and / at end
-          assert.deepEqual(elements, {});
-        });
-
         it("should parse current instance links", function () {
-          let elements = parseNotificationLink("/f/I/ffB278368B1002d7/e8B278368B1002d7"); // Ignore case and / at end
+          let elements = parseNotificationLink("/f/I/2/e8B278368B1002d7"); // Ignore case and / at end
+          console.log(elements);
           assert.deepEqual(elements, {
+            workspaceId: "2",
             instanceId: "E8B278368B1002D7",
-            workspaceId: "FFB278368B1002D7",
           });
 
-          elements = parseNotificationLink("/p/I/ffB278368B1002d7/e8B278368B1002d7"); // Ignore case and / at end
+          elements = parseNotificationLink("/p/I/2/e8B278368B1002d7"); // Ignore case and / at end
+          console.log(elements);
           assert.deepEqual(elements, {
             instanceId: "E8B278368B1002D7",
-            workspaceId: "FFB278368B1002D7",
+            workspaceId: "2",
           });
         });
 
