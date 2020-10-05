@@ -31,6 +31,7 @@ export const ProcessRequestRoutes = {
   DeleteReportDraft: "/api/process/deletereportdraft",
   ListProcesses: "/api/process/listprocesses",
   TemplateProcesses: "/api/process/templateprocesses",
+  TemplateCustomProcesses: "/api/process/templatecustomprocesses",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 

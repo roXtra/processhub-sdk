@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git://github.com/roXtra/processhub-sdk.git"
   },
-  "version": "8.35.0-6",
+  "version": "8.35.0-7",
   "author": {
     "name": "ProcessHub",
     "email": "info@processhub.com",
@@ -46,9 +46,9 @@
     "testcoverage": "nyc --reporter=lcov --reporter=text-summary npm run testall",
     "copytypings": "copyfiles -u 1 \"src/**/*.d.ts\" lib && copyfiles -u 1 \"src/*.d.ts\" lib && copyfiles -u 1 \"tsc_out/**/*.d.ts\" lib && copyfiles -u 1 \"tsc_out/*.d.ts\" lib && copyfiles -u 1 src/process/types/index.d.ts lib",
     "jscpd": "jscpd ./src --ignore \"*/**/*.test.ts\"",
-    "release-switch-to-next-rc": "npm run check:format && npm version preminor",
-    "release-bump-preview-version": "npm run check:format && npm version prerelease",
-    "release-make-next-rc-final": "npm run check:format && npm version minor",
+    "release-switch-to-next-rc": "npm run check:format && npm run lint && npm version preminor",
+    "release-bump-preview-version": "npm run check:format && npm run lint && npm version prerelease",
+    "release-make-next-rc-final": "npm run check:format && npm run lint && npm version minor",
     "check:format": "prettier --config .prettierrc -c ./src",
     "format": "prettier --config .prettierrc -w ./src"
   },
