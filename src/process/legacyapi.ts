@@ -40,7 +40,7 @@ export interface IProcessReply extends IBaseMessage {
 }
 
 export interface ITemplateProcessesReply extends IBaseReply {
-  templates: { name: string; xml: string }[];
+  templates: { name: string; xml: string; metaData: { shortDescription: string; description: string } }[];
 }
 
 export interface ICreateProcessRequest extends IBaseRequest {
