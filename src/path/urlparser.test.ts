@@ -161,11 +161,20 @@ describe("sdk", function () {
           });
         });
 
+        it("should parse area id", function () {
+          const elements = parseNotificationLink("/p/i/6/7d419e29a9cd1432");
+          assert.deepEqual(elements, {
+            workspaceId: "6",
+            instanceId: "7D419E29A9CD1432",
+          });
+        });
+
         describe("riskmanagement", function () {
           it("should parse risk todo links", function () {
-            const elements = parseNotificationLink("/r/i/TestWorkspace/e8B278368B1002d7"); // Ignore case and / at end
+            const elements = parseNotificationLink("/r/i/1/e8B278368B1002d7"); // Ignore case and / at end
             assert.deepEqual(elements, {
               instanceId: "E8B278368B1002D7",
+              workspaceId: "1",
             });
           });
         });

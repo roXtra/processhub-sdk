@@ -84,7 +84,9 @@ export function parseNotificationLink(fullUrlWithBase: string): INotificationLin
   let nextPart = split[index + 1];
   if (nextPart.substr(0, 1) === "@") {
     // Old links had workspaceUrl - ignore
-  } else if (isId(nextPart.toUpperCase())) elements.workspaceId = nextPart.toUpperCase();
+  } else {
+    elements.workspaceId = nextPart;
+  }
 
   if (split.length === 3) return elements;
 
