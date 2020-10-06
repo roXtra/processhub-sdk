@@ -72,10 +72,6 @@ export interface IChecklistEntry {
   name: string;
 }
 
-export interface ICheckboxFieldConfig extends IFieldConfig {
-  defaultValue: boolean;
-}
-
 export type ChecklistFieldValue = { [key: string]: boolean };
 
 export interface IFieldConfig {
@@ -83,8 +79,8 @@ export interface IFieldConfig {
 }
 
 export interface IFieldConfigDefault extends IFieldConfig {
-  validationExpression: string;
-  defaultValue: string | Date | ChecklistFieldValue | IRadioButtonGroupFieldValue | ISpreadSheetFieldValue;
+  validationExpression?: string;
+  defaultValue?: string | Date | ChecklistFieldValue | IRadioButtonGroupFieldValue | ISpreadSheetFieldValue;
 }
 
 export interface IChecklistFieldConfig extends IFieldConfigDefault {
@@ -160,7 +156,6 @@ export type FieldValueType =
   | number // Number
   | Date // Date
   | string // TextInput, TextArea, RoleOwner
-  | boolean // Checkbox
   | string[] // FileUpload
   | IRoxFileFieldValue // RoxFile
   | ISignatureFieldValue // Signature
@@ -181,7 +176,6 @@ export type FieldType =
   | "ProcessHubDateTime"
   | "ProcessHubTextArea"
   | "ProcessHubInstanceTitle"
-  | "ProcessHubCheckbox"
   | "ProcessHubFileUpload"
   | "ProcessHubRoleOwner"
   | "ProcessHubDate"
@@ -211,7 +205,7 @@ export interface IFieldType {
     onFieldValueChanged: () => void,
     showInvalidFields: boolean,
     startEventId?: string,
-  ): JSX.Element;
+  ): JSX.Element | undefined;
   renderValue(value: {}, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element;
   renderValueForEmail(value: {}, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element;
   getSettingsButton(fieldDefinition: IFieldDefinition, onConfigChanged: (fieldDefinition: IFieldDefinition) => void, bpmnProcess: Process.BpmnProcess): JSX.Element;
