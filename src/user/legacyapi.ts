@@ -30,7 +30,7 @@ export interface IUserLoadedMessage extends IBaseMessage {
 
 export interface ISetArchiveViewStateRequest extends IBaseRequest {
   processId: string;
-  archiveViewId: string;
+  archiveViewId: string | undefined;
 }
 
 // Nes websocket messages
