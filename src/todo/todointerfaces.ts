@@ -42,6 +42,8 @@ export interface ITodoDetails {
   data: {
     // The risk assessment cycle of the risk at the time the todo was created
     riskAssessmentCycle?: RiskAssessmentCycle;
+    // Does the task contain "ProcessHubRiskAssessment"-fields?
+    isAssessmentTodo?: boolean;
   };
 }
 

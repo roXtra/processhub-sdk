@@ -32,11 +32,13 @@ export interface IRiskAssessment extends IRiskAssessmentValue {
   // The date when the assessment was expected
   todoDate: Date;
   // The assessment cycle at the time when the assessment was expected
-  cycle: RiskAssessmentCycle;
+  cycle: RiskAssessmentCycle | undefined;
   // The id of the user that made the assessment
   userId: string;
   // Displayname of the user that made the assessment
   userDisplayName: string;
+  // The name of the field (type "ProcessHubRiskAssessment") the assessment was made with
+  fieldName: string | undefined;
 }
 
 export interface IInstanceDetails {
