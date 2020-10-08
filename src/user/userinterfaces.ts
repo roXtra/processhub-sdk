@@ -31,7 +31,7 @@ export interface IRoxtraUserDetails {
 }
 
 export interface IArchiveViews {
-  [processId: string]: string;
+  [processId: string]: string | undefined;
 }
 
 export class UserDetails {
