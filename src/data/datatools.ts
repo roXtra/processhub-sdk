@@ -57,7 +57,8 @@ export function parseAndInsertStringWithFieldContent(
   const groupIndexForFieldPlaceholder = 0;
   const groupIndexForFieldIdentifier = 1;
 
-  let result: string = replaceOldFieldSyntax(inputString);
+  let result = replaceOldFieldSyntax(inputString);
+  if (result == null) return undefined;
   let match: RegExpExecArray | null = fieldNameRegExp.exec(result);
 
   while (match) {

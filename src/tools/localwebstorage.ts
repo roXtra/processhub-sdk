@@ -12,7 +12,7 @@ export class LocalWebStorage {
     }
   }
 
-  public static setItem(key: string, data: string): void {
+  public static setItem(key: string, data: string | undefined): void {
     try {
       if (data != null) localStorage.setItem(key, data);
       else localStorage.removeItem(key);

@@ -19,32 +19,6 @@ describe("sdk", function () {
         });
       });
 
-      describe("isValidWorkspaceName", function () {
-        it("soll gültige Workspacenamen akzeptieren", function () {
-          chai.assert.isTrue(StringTools.isValidWorkspaceName("ThomasTes-t"));
-          chai.assert.isTrue(StringTools.isValidWorkspaceName("thomas32"));
-        });
-        it("soll ungültige Workspacenamen ablehnen", function () {
-          chai.assert.isFalse(StringTools.isValidWorkspaceName("name with spaces"), "1");
-          chai.assert.isFalse(StringTools.isValidWorkspaceName(""), "2");
-          chai.assert.isFalse(StringTools.isValidWorkspaceName(undefined), "3");
-          chai.assert.isFalse(StringTools.isValidWorkspaceName("thom")), "4";
-        });
-      });
-
-      describe("isValidRealname", function () {
-        it("soll gültige Benutzernamen akzeptieren", function () {
-          chai.assert.isTrue(StringTools.isValidRealname("Thomas Müller"));
-          chai.assert.isTrue(StringTools.isValidRealname("Thoma"));
-        });
-
-        it("soll ungültige Benutzernamen ablehnen", function () {
-          // Prüft lediglich Länge >= 5
-          chai.assert.isFalse(StringTools.isValidRealname("Thom"));
-          chai.assert.isFalse(StringTools.isValidRealname(undefined));
-        });
-      });
-
       describe("toCleanUrl", function () {
         it("soll Text url-tauglich formatieren", function () {
           chai.assert.equal(StringTools.toCleanUrl("Mein schöner Titel"), "mein-schoener-titel");

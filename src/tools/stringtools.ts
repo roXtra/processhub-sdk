@@ -13,23 +13,6 @@ export function isValidMailAddress(mail: string | null): boolean {
   return re.test(mail);
 }
 
-export function isValidWorkspaceName(workspaceName?: string): boolean {
-  if (workspaceName == null || workspaceName.length < 5 || workspaceName.includes(" ")) {
-    return false;
-  }
-
-  // All UTF-Characters are allowed, because the workspace name
-  // is created from the user name at registration
-  return true;
-}
-
-// Benutzer-Realname auf Gültigkeit prüfen
-export function isValidRealname(realName?: string): boolean {
-  // Nur Mindestlänge 5 Zeichen einfordern
-  if (realName == null || realName.length < 5) return false;
-  else return true;
-}
-
 // Konvertiert einen String in ein Url-taugliches Format
 // Bsp.: Mein schöner Titel -> Mein-schoner-Titel
 export function toCleanUrl(text: string): string {
@@ -84,7 +67,7 @@ export function removeHtmlTags(html: string): string {
   return html.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/g, "");
 }
 
-export function replaceOldFieldSyntax(oldValue: string): string {
+export function replaceOldFieldSyntax(oldValue: string | undefined): string | undefined {
   if (oldValue) {
     return oldValue.replace(/([{]{2}[\s]?(field|role)\.(.+?)(\s)*[}]{2})/g, (match, p1: string, p2: string, p3: string, p4: string, offset, value): string => {
       return p2 + "['" + p3 + "']";
