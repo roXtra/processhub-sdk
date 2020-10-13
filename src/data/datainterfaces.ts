@@ -43,7 +43,7 @@ export interface IRadioButtonFieldValue {
 
 export interface IRadioButtonGroupFieldValue {
   radioButtons: IRadioButtonFieldValue[];
-  selectedRadio: number;
+  selectedRadio: number | undefined;
 }
 
 export interface ISpreadSheetFieldValue {
@@ -95,7 +95,7 @@ export interface IDropdownFieldConfig extends IFieldConfigDefault {
 }
 
 export interface IFileUploadFieldConfig extends IFieldConfig {
-  validationExpression: string;
+  validationExpression?: string;
 }
 
 export interface IInstanceTitleFieldConfig extends IFieldConfigDefault {
@@ -103,7 +103,7 @@ export interface IInstanceTitleFieldConfig extends IFieldConfigDefault {
 }
 
 export interface ILabelConfig extends IFieldConfig {
-  labelHtml: string;
+  labelHtml?: string;
 }
 
 export type IMailFieldConfig = IFieldConfigDefault;
@@ -129,15 +129,15 @@ export interface IRiskAssessmentFieldConfig extends IFieldConfig {
 }
 
 export interface IRoleOwnerFieldConfig extends IFieldConfig {
-  validationExpression: string;
+  validationExpression?: string;
   defaultValue: "NoValue" | "CurrentUser" | undefined;
 }
 
 export interface IRoxFileFieldConfig extends IFieldConfig {
-  validationExpression: string;
-  roxFileName: string;
-  roxFileId: number;
-  roxFileIconUrl: string;
+  validationExpression: string | undefined;
+  roxFileName: string | undefined;
+  roxFileId: number | undefined;
+  roxFileIconUrl: string | undefined;
 }
 
 export type ISignatureFieldConfig = IFieldConfig;
@@ -206,9 +206,13 @@ export interface IFieldType {
     showInvalidFields: boolean,
     startEventId?: string,
   ): JSX.Element | undefined;
-  renderValue(value: {}, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element;
-  renderValueForEmail(value: {}, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element;
-  getSettingsButton(fieldDefinition: IFieldDefinition, onConfigChanged: (fieldDefinition: IFieldDefinition) => void, bpmnProcess: Process.BpmnProcess): JSX.Element;
+  renderValue(value: {}, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element | undefined;
+  renderValueForEmail(value: {}, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element | undefined;
+  getSettingsButton(
+    fieldDefinition: IFieldDefinition,
+    onConfigChanged: (fieldDefinition: IFieldDefinition) => void,
+    bpmnProcess: Process.BpmnProcess,
+  ): JSX.Element | undefined;
   isVisible(): boolean;
   isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): boolean;
   isConfigValid(fieldDefinition: IFieldDefinition): { valid: boolean; message?: string };
@@ -229,8 +233,8 @@ export interface IFormElementProps {
  * @param element element to check
  * @return {boolean} true, if element implements the FieldValue interface, false otherwise
  */
-export function isFieldValue(element: {}): element is IFieldValue {
-  return element && (element as IFieldValue).type != undefined && typeof (element as IFieldValue).type === "string";
+export function isFieldValue(element: {} | undefined): element is IFieldValue {
+  return element != null && (element as IFieldValue).type != undefined && typeof (element as IFieldValue).type === "string";
 }
 
 export interface IFieldContentMap {
