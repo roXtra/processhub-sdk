@@ -33,6 +33,7 @@ export const ProcessRequestRoutes = {
   TemplateProcesses: "/api/process/templateprocesses",
   TemplateCustomProcesses: "/api/process/templatecustomprocesses",
   UpdateFieldDefinition: "/api/process/updatefielddefinition",
+  UploadRiskFile: "/api/process/uploadriskfile",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
@@ -168,6 +169,10 @@ export interface IAddRoXtraFileRequest extends IBaseRequest {
 export interface IUploadReportDraftRequest extends IBaseRequest {
   processId: string;
   fileName: string;
+  data: string;
+}
+
+export interface IUploadRiskFileRequest extends IBaseRequest {
   data: string;
 }
 
