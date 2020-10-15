@@ -37,6 +37,6 @@ export function getModuleForRequestPath(requestPath: string): IModule {
     }
   }
 
-  // Default module is EFormulare
+  // Default module is Processes
   return Processes;
 }
