@@ -26,7 +26,7 @@ export interface ITaskIdRequiredFieldsNeeded {
 }
 
 export interface IRoxFileFieldValue {
-  url: string;
+  url?: string;
   lockedAt?: Date;
   lockedByUserName?: string;
   lockedByUserId?: string;
@@ -219,7 +219,7 @@ export interface IFieldType {
 }
 
 export interface IFormElementProps {
-  value: FieldValueType;
+  value: FieldValueType | undefined;
   label: string;
   required: boolean;
   restricted: boolean;

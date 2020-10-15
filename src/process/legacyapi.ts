@@ -1,6 +1,6 @@
 import { IBaseMessage, IBaseRequest, IBaseReply } from "../legacyapi/apiinterfaces";
 import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces";
-import { IStatisticRow } from "../data";
+import { IFieldDefinition, IStatisticRow } from "../data";
 import { Bpmn } from "./bpmn";
 import { Context } from "moddle-xml/lib/reader";
 import { ModuleId } from "../modules";
@@ -32,8 +32,15 @@ export const ProcessRequestRoutes = {
   ListProcesses: "/api/process/listprocesses",
   TemplateProcesses: "/api/process/templateprocesses",
   TemplateCustomProcesses: "/api/process/templatecustomprocesses",
+  UpdateFieldDefinition: "/api/process/updatefielddefinition",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
+
+export interface IUpdateFieldDefinitionRequest extends IBaseRequest {
+  processId: string;
+  bpmnElementId: string;
+  fieldDefinition: IFieldDefinition;
+}
 
 // API request/reply objects
 export interface IProcessReply extends IBaseMessage {

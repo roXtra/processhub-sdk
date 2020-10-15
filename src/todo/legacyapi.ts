@@ -32,7 +32,7 @@ export interface IGetSimulationTodosReply extends ITodoReply {
 export interface IUpdateTodoRequest extends IBaseRequest {
   workspaceId: string;
   todoId: string;
-  dueAt: Date;
+  dueAt: Date | undefined;
 }
 export type IUpdateTodoReply = IBaseReply;
 
