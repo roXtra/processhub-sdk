@@ -175,6 +175,7 @@ export function updateLegacyFieldDefinitions(definitions: ILegacySchema): IField
         updatedDefinitions.push({
           config: { conditionExpression: undefined },
           isRequired: property.required,
+          inlineEditingActive: false,
           name: property.title,
           type: property.customWidgetClass as FieldType,
         });

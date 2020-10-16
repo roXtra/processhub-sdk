@@ -11,6 +11,8 @@ export interface IFieldDefinition {
   type: FieldType;
   isRequired: boolean;
   isRestricted?: boolean;
+  // Is it allowed to edit the field config directly from a running instance (for process managers)?
+  inlineEditingActive: boolean | undefined;
   config: IFieldConfig;
 }
 
@@ -223,6 +225,8 @@ export interface IFormElementProps {
   label: string;
   required: boolean;
   restricted: boolean;
+  // Is it allowed to edit the field config directly from a running instance (for process managers)?
+  inlineEditingActive: boolean | undefined;
   disabled: boolean;
   config: IFieldConfig;
   key?: string;

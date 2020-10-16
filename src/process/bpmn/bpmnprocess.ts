@@ -308,24 +308,28 @@ export class BpmnProcess {
         type: "ProcessHubTextInput",
         isRequired: false,
         config: { conditionExpression: undefined },
+        inlineEditingActive: false,
       },
       {
         name: tl("Feld_1"),
         type: "ProcessHubTextInput",
         isRequired: false,
         config: { conditionExpression: undefined },
+        inlineEditingActive: false,
       },
       {
         name: tl("Feld_2"),
         type: "ProcessHubTextArea",
         isRequired: false,
         config: { conditionExpression: undefined },
+        inlineEditingActive: false,
       },
       {
         name: tl("Anlagen"),
         type: "ProcessHubFileUpload",
         isRequired: false,
         config: { conditionExpression: undefined },
+        inlineEditingActive: false,
       },
     ];
 
