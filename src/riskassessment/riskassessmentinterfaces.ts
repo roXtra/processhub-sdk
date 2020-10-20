@@ -1,5 +1,5 @@
-import { IBaseReply } from "../legacyapi";
 import { IRiskAssessment } from "../instance/instanceinterfaces";
+import { IBaseReply } from "../legacyapi";
 
 export enum RiskAssessmentCycle {
   // Explicit values that may not be changed as this is stored in the DB
@@ -45,4 +45,5 @@ export interface IRiskManagementProcessSettings {
   metricsExpression: string | undefined;
   colors: IRiskManagementColor[];
   hideMatrix: boolean;
+  defaultRPZField: string;
 }
