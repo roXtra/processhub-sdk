@@ -45,5 +45,5 @@ export interface IRiskManagementProcessSettings {
   metricsExpression: string | undefined;
   colors: IRiskManagementColor[];
   hideMatrix: boolean;
-  defaultRPZField: string;
+  defaultRPZField: string | undefined;
 }
