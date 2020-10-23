@@ -264,7 +264,7 @@ declare module "diagram-js/lib/core/Canvas" {
      *
      * @return {Dimensions}
      */
-    public getSize(): {};
+    public getSize(): { width: number; height: number };
 
     /**
      * Return the absolute bounding box for the given element

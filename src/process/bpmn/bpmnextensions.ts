@@ -5,7 +5,7 @@ import { updateLegacyFieldDefinitions } from "../../data/datatools";
 import { Processhub } from "modeler/bpmn/processhub";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 
-export function getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensions {
+export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): ITaskExtensions {
   const returnValue: ITaskExtensions = {
     description: undefined,
     fieldDefinitions: undefined,

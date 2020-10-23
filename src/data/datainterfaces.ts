@@ -127,7 +127,7 @@ export interface IRadioButtonFieldConfig extends IFieldConfigDefault {
 }
 
 export interface IRiskAssessmentFieldConfig extends IFieldConfig {
-  validationExpression: string;
+  validationExpression: string | undefined;
 }
 
 export interface IRoleOwnerFieldConfig extends IFieldConfig {
