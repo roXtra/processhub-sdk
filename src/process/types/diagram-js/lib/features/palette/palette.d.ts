@@ -13,7 +13,7 @@ declare module "diagram-js/lib/features/palette/Palette" {
     public _container: HTMLElement;
     public _toolsContainer: HTMLElement;
 
-    constructor(eventBus: EventBus, canvas: Canvas, dragging: {});
+    constructor(eventBus: EventBus, canvas: Canvas);
 
     /**
      * Register a provider with the palette
@@ -35,6 +35,15 @@ declare module "diagram-js/lib/features/palette/Palette" {
     public _init(): void;
 
     public _update(): void;
+
+    public _toggleState(state?: { open?: boolean; twoColumn?: boolean }): void;
+
+    /**
+     * Get container the palette lives in.
+     *
+     * @return {Element}
+     */
+    public _getParentContainer(): Element;
 
     /**
      * Trigger an action available on the palette
