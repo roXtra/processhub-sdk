@@ -38,7 +38,7 @@ export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
 export interface IUpdateFieldDefinitionRequest extends IBaseRequest {
   processId: string;
-  bpmnElementId: string;
+  bpmnElementId: string | undefined;
   fieldDefinition: IFieldDefinition;
 }
 
@@ -162,7 +162,7 @@ export interface IAddRoXtraFileRequest extends IBaseRequest {
   processId: string;
   fileName: string;
   fileId: number;
-  iconLink: string;
+  iconLink: string | undefined;
 }
 
 export interface IUploadReportDraftRequest extends IBaseRequest {

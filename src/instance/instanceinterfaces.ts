@@ -21,7 +21,7 @@ export interface IParentProcessConfig {
 
 export interface IRiskAssessmentValue {
   assessments: { [dimensionId: string]: number };
-  comment: string;
+  comment: string | undefined;
 }
 
 export interface IRiskAssessment extends IRiskAssessmentValue {

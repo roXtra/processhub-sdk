@@ -33,7 +33,7 @@ export class BpmnProcess {
     addOrUpdateExtension(baseElement, key, value, extensionValueType);
   }
 
-  public static getExtensionValues(activityObject: Bpmn.IActivity): ITaskExtensions {
+  public static getExtensionValues(activityObject: Bpmn.IActivity | undefined): ITaskExtensions {
     return getExtensionValues(activityObject);
   }
 
