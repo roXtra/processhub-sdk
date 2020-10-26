@@ -150,6 +150,15 @@ describe("sdk", function () {
 
           assert.equal(res, resultString);
         });
+
+        it.only("should escape field placeholders_422e1b17-af66-4336-8185-1ddf682ef2c3", function () {
+          const testString = "SELECT * FROM Users WHERE UserName = field['userId'];";
+          const resultString = "SELECT * FROM Users WHERE UserName = 'Hans OR 1=1';";
+
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { userId: "Hans OR 1=1" } as IFieldContentMap, {}, {}, true);
+
+          assert.equal(res, resultString);
+        });
       });
     });
   });
