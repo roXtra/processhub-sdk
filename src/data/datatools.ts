@@ -2,16 +2,24 @@ import { IFieldContentMap, isFieldValue, IFieldDefinition, FieldType, IFieldValu
 import { getFormattedDate, getFormattedDateTime, getFormattedTimeZoneOffset } from "../tools/timing";
 import { IRoleOwnerMap, IRoleOwner, IProcessRoles, BpmnProcess } from "../process";
 import { replaceOldFieldSyntax } from "../tools";
+import SqlString from "sqlstring";
 
 const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName))?/;
 
-export function replaceAll(target: string, search: string, replacement?: string): string {
+export function replaceAll(target: string, search: string, replacement?: string, isQuery?: boolean): string {
   if (!replacement) {
     replacement = "";
   }
   while (target.includes(search)) {
-    target = target.replace(search, replacement);
+    if (isQuery) {
+      // Is any type in the official @types/sqlstring package
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      const queryReplacement = SqlString.escape(replacement);
+      target = target.replace(search, queryReplacement);
+    } else {
+      target = target.replace(search, replacement);
+    }
   }
   return target;
 }
@@ -38,18 +46,21 @@ export function parseAndInsertStringWithFieldContent(
   fieldContentMap: IFieldContentMap | undefined,
   processOrRoles: IProcessRoles,
   roleOwners: IRoleOwnerMap,
+  isQuery?: boolean,
 ): string | undefined;
 export function parseAndInsertStringWithFieldContent(
   inputString: string,
   fieldContentMap: IFieldContentMap | undefined,
   processOrRoles: BpmnProcess,
   roleOwners: IRoleOwnerMap,
+  isQuery?: boolean,
 ): string | undefined;
 export function parseAndInsertStringWithFieldContent(
   inputString: string,
   fieldContentMap: IFieldContentMap | undefined,
   processOrRoles: BpmnProcess | IProcessRoles,
   roleOwners: IRoleOwnerMap,
+  isQuery?: boolean,
 ): string | undefined {
   if (inputString == null) return undefined;
   if (fieldContentMap == null) return inputString;
@@ -70,13 +81,13 @@ export function parseAndInsertStringWithFieldContent(
 
       if (isFieldValue(valueObject)) {
         const val: string = fieldValueToString(valueObject);
-        result = replaceAll(result, fieldPlaceholder, val);
+        result = replaceAll(result, fieldPlaceholder, val, isQuery);
       } else {
-        result = replaceAll(result, fieldPlaceholder, valueObject != null ? valueObject.toString() : "");
+        result = replaceAll(result, fieldPlaceholder, valueObject != null ? valueObject.toString() : "", isQuery);
       }
     }
 
-    result = replaceAll(result, fieldPlaceholder, "");
+    result = replaceAll(result, fieldPlaceholder, "", isQuery);
     match = fieldNameRegExp.exec(result);
   }
 
@@ -105,14 +116,15 @@ export function parseAndInsertStringWithFieldContent(
             result,
             placeHolder,
             roleProperty && roleOwner[0].user ? ((roleOwner[0].user as unknown) as { [key: string]: string })[roleProperty] : roleOwner[0].displayName,
+            isQuery,
           );
         } else {
-          result = replaceAll(result, placeHolder, "");
+          result = replaceAll(result, placeHolder, "", isQuery);
         }
       }
     }
 
-    result = replaceAll(result, placeHolder, "");
+    result = replaceAll(result, placeHolder, "", isQuery);
     match = roleNameRegExp.exec(result);
   }
 
@@ -125,12 +137,12 @@ export function parseAndInsertStringWithFieldContent(
       const valueObject = fieldContentMap[fieldName];
       if (isFieldValue(valueObject)) {
         const val: string = fieldValueToString(valueObject);
-        result = replaceAll(result, placeHolder, val);
+        result = replaceAll(result, placeHolder, val, isQuery);
       } else {
-        result = replaceAll(result, placeHolder, valueObject != null ? valueObject.toString() : "");
+        result = replaceAll(result, placeHolder, valueObject != null ? valueObject.toString() : "", isQuery);
       }
     }
-    result = replaceAll(result, placeHolder, "");
+    result = replaceAll(result, placeHolder, "", isQuery);
   }
 
   const newRoleRegex = /[{]{1}[\s]?role\[['"]?(.+?)['"]?\][\s]?[}]{1}/g;
@@ -146,11 +158,11 @@ export function parseAndInsertStringWithFieldContent(
       if (laneId) {
         const roleOwner = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {
-          result = replaceAll(result, placeHolder, roleOwner[0].displayName);
+          result = replaceAll(result, placeHolder, roleOwner[0].displayName, isQuery);
         }
       }
     }
-    result = replaceAll(result, placeHolder, "");
+    result = replaceAll(result, placeHolder, "", isQuery);
   }
 
   return result;
