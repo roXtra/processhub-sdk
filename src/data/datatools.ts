@@ -15,7 +15,8 @@ export function replaceAll(target: string, search: string, replacement?: string,
     if (isQuery) {
       // Is any type in the official @types/sqlstring package
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      const queryReplacement = SqlString.escape(replacement);
+      let queryReplacement = SqlString.escape(replacement);
+      queryReplacement = queryReplacement.slice(1, -1);
       target = target.replace(search, queryReplacement);
     } else {
       target = target.replace(search, replacement);

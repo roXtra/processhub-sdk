@@ -151,11 +151,21 @@ describe("sdk", function () {
           assert.equal(res, resultString);
         });
 
-        it.only("should escape field placeholders_422e1b17-af66-4336-8185-1ddf682ef2c3", function () {
-          const testString = "SELECT * FROM Users WHERE UserName = field['userId'];";
-          const resultString = "SELECT * FROM Users WHERE UserName = 'Hans OR 1=1';";
+        it("should escape field placeholders_422e1b17-af66-4336-8185-1ddf682ef2c3", function () {
+          const testString = "SELECT * FROM Users WHERE UserName = 'field['userName']' AND Age = field['age'] AND HomeTown = 'field['homeTown']';";
+          const resultString = "SELECT * FROM Users WHERE UserName = 'Hans' AND Age = 30 AND HomeTown = 'Göppingen\\' OR \\'1\\'=\\'1';";
 
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { userId: "Hans OR 1=1" } as IFieldContentMap, {}, {}, true);
+          const res = DataTools.parseAndInsertStringWithFieldContent(
+            testString,
+            {
+              userName: { type: "ProcessHubTextInput", value: "Hans" },
+              age: { type: "ProcessHubNumber", value: 30 },
+              homeTown: { type: "ProcessHubTextInput", value: "Göppingen' OR '1'='1" },
+            },
+            {},
+            {},
+            true,
+          );
 
           assert.equal(res, resultString);
         });
