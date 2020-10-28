@@ -33,8 +33,8 @@
     "cross-fetch": "^3.0.6",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "sqlstring": "^2.3.2"
   },
   "scripts": {
