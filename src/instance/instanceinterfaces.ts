@@ -3,8 +3,8 @@ import { IDecisionTask, ITodoDetails } from "../todo";
 import { IFieldContentMap, IProcessLinkInstance } from "../data";
 import { Bpmn } from "modeler/bpmn/bpmn";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
-import { Context } from "moddle-xml/lib/reader";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
+import { IParseResult } from "bpmn-moddle/lib/simple";
 
 export enum State {
   // DON'T CHANGE NUMBERS - used in database
@@ -100,7 +100,7 @@ export interface IEngineState {
 export interface IEngineStateDefinition {
   id: string;
   state: string;
-  moddleContext: Context;
+  moddleContext: IParseResult;
   stopped: boolean;
   processes: IEngineStateDefinitionProcess;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

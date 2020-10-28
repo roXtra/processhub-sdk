@@ -2,8 +2,8 @@ import { IBaseMessage, IBaseRequest, IBaseReply } from "../legacyapi/apiinterfac
 import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces";
 import { IFieldDefinition, IStatisticRow } from "../data";
 import { Bpmn } from "./bpmn";
-import { Context } from "moddle-xml/lib/reader";
 import { ModuleId } from "../modules";
+import { IParseResult } from "bpmn-moddle/lib/simple";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -211,7 +211,7 @@ export interface IProcessLoadedMessage extends IBaseMessage {
 export interface ILoadTemplateReply {
   result: ProcessResult;
   bpmnXml: Bpmn.IDefinitions;
-  bpmnContext: Context;
+  bpmnContext: IParseResult;
 }
 
 export interface IListProcessesReply extends IBaseReply {

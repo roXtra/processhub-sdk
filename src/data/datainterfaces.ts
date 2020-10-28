@@ -35,8 +35,8 @@ export interface IRoxFileFieldValue {
 }
 
 export interface ISignatureFieldValue {
-  svgDataUrl: string;
-  dataPoints: {};
+  svgDataUrl: string | undefined;
+  dataPoints: {} | undefined;
 }
 
 export interface IRadioButtonFieldValue {

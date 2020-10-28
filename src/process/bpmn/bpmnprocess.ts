@@ -14,10 +14,10 @@ import { ILoadTemplateReply } from "../legacyapi";
 import { IRowDetails } from "../phclient";
 import { getExtensionValues, addOrUpdateExtension, getExtensionBody } from "./bpmnextensions";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
-import { Context } from "moddle-xml/lib/reader";
+import { IParseResult } from "bpmn-moddle/lib/simple";
 
 export class BpmnProcess {
-  private moddleContext: Context;
+  private moddleContext: IParseResult;
   private bpmnXml: Bpmn.IDefinitions;
   private processDiagram: BpmnProcessDiagram;
 
@@ -25,7 +25,7 @@ export class BpmnProcess {
     this.processDiagram = new BpmnProcessDiagram(this);
   }
 
-  public getModdleContext(): Context {
+  public getModdleContext(): IParseResult {
     return this.moddleContext;
   }
 
@@ -163,18 +163,12 @@ export class BpmnProcess {
       isTrue(processXmlStr != null, "XML string of process should not be null/undefined!");
     }
 
-    const { bpmnXml, moddleContext } = await new Promise<{ bpmnXml: Bpmn.IDefinitions; moddleContext: Context }>((resolve, reject): void => {
-      bpmnModdleInstance.fromXML(processXmlStr, (err: {}, bpmnXml, moddleContext) => {
-        if (err) {
-          console.log(err);
-          reject(err);
-        } else {
-          resolve({ bpmnXml, moddleContext });
-        }
-      });
-    });
-    this.bpmnXml = bpmnXml;
-    this.moddleContext = moddleContext;
+    const fromXmlRes = await bpmnModdleInstance.fromXML(processXmlStr);
+    if (Array.isArray(fromXmlRes)) {
+      throw fromXmlRes[0];
+    }
+    this.moddleContext = fromXmlRes;
+    this.bpmnXml = fromXmlRes.rootElement;
 
     // Fix für startevent
     const sequenceFlows: Bpmn.ISequenceFlow[] = this.getSequenceFlowElements();
@@ -1140,20 +1134,15 @@ export class BpmnProcess {
     return sequenceFlow;
   }
 
-  public async toXmlString(): Promise<string | undefined> {
+  public async toXmlString(): Promise<string> {
     this.removeLanesWithoutShape();
 
-    return await new Promise<string | undefined>((resolve, reject): void => {
-      bpmnModdleInstance.toXML(this.bpmnXml, { format: true }, function (err: {}, xmlStr: string) {
-        if (err) {
-          reject(err);
-        }
-        resolve(xmlStr);
-      });
-    }).catch((reason) => {
-      console.log(reason);
-      return undefined;
-    });
+    const res = await bpmnModdleInstance.toXML(this.bpmnXml, { format: true });
+    if (res instanceof Error) {
+      throw res;
+    } else {
+      return res.xml;
+    }
   }
 
   //  Diagramm Komponente
