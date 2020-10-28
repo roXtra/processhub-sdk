@@ -133,26 +133,59 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
      * @param {String}   xmlStr
      * @param {String}   [typeName='bpmn:Definitions'] name of the root element
      * @param {Object}   [options]  options to pass to the underlying reader
-     * @param {Function} done       callback that is invoked with (err, result, parseContext)
-     *                              once the import completes
+     *
+     * @returns {Promise<ParseResult, ParseError>}
      */
-    public fromXML(xmlStr: string, typeName: Bpmn.ElementType, options: {}, done: (err: Error, result: ModdleElement, parseContext: Context) => void): void;
-    public fromXML(xmlStr: string, done: (err: Error, result: Bpmn.IDefinitions, parseContext: Context) => void): void;
+    public fromXML(xmlStr: string, typeName?: Bpmn.ElementType, options?: {}): Promise<BpmnModdle.IParseResult | Error[]>;
+
+    /**
+     * The toXML result.
+     *
+     * @typedef {Object} SerializationResult
+     *
+     * @property {String} xml
+     */
 
     /**
      * Serializes a BPMN 2.0 object tree to XML.
      *
      * @param {String}   element    the root element, typically an instance of `bpmn:Definitions`
      * @param {Object}   [options]  to pass to the underlying writer
-     * @param {Function} done       callback invoked with (err, xmlStr) once the import completes
+     *
+     * @returns {Promise<SerializationResult, Error>}
      */
-    public toXML(element: Bpmn.IDefinitions, options: {}, done: (err: {}, xmlStr: string) => void): void;
+    public toXML(
+      element: Bpmn.IDefinitions,
+      options: {},
+    ): Promise<
+      | {
+          xml: string;
+        }
+      | Error
+    >;
   }
 
   namespace BpmnModdle {
     export interface IElement {
       readonly $type: Bpmn.ElementType;
       $attrs?: {};
+    }
+
+    /**
+     * The fromXML result.
+     *
+     * @typedef {Object} ParseResult
+     *
+     * @property {ModdleElement} rootElement
+     * @property {Array<Object>} references
+     * @property {Array<Error>} warnings
+     * @property {Object} elementsById - a mapping containing each ID -> ModdleElement
+     */
+    export interface IParseResult {
+      rootElement: Bpmn.IDefinitions;
+      elementsById: {};
+      references: {}[];
+      warnings: {}[];
     }
   }
 }

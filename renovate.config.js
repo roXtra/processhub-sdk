@@ -23,10 +23,6 @@ module.exports = {
   ignoreDeps: [],
   packageRules: [
     {
-      packageNames: ["bpmn-moddle"],
-      allowedVersions: "~6.0.6"
-    },
-    {
       packageNames: ["@types/node"],
       allowedVersions: "^12.0.0"
     }

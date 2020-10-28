@@ -9,6 +9,7 @@ import { ILoadTemplateReply } from "../legacyapi";
 import { createBpmnTemplate, bpmnModdleInstance } from "./bpmnmoddlehelper";
 import { IRowDetails } from "../phclient";
 import fs from "fs";
+import { IParseResult } from "bpmn-moddle/lib/simple";
 
 async function readFileAsync(fileName: string): Promise<string> {
   return await new Promise<string>((resolve, reject) => {
@@ -142,14 +143,8 @@ describe("sdk", function () {
 
           // Load exported xml with moddle
           const moddle: BpmnModdle = new BpmnModdle();
-          const definitions = await new Promise<Bpmn.IDefinitions>((resolve, reject) => {
-            moddle.fromXML(exportedXmlString!, (err, def) => {
-              if (err) {
-                reject(err);
-              }
-              resolve(def);
-            });
-          });
+          const fromXmlRes = await moddle.fromXML(exportedXmlString);
+          const definitions = (fromXmlRes as IParseResult).rootElement as Bpmn.IDefinitions;
 
           // Check if empty lane is still there
           const process: Bpmn.IProcess = definitions.rootElements.find((e) => e.$type === "bpmn:Process") as Bpmn.IProcess;
