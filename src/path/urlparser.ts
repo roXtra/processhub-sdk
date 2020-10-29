@@ -7,8 +7,8 @@ import { getBackendUrl, getBasePath } from "../config";
 
 export function parseUrl(fullUrlWithBase: string): IPathDetails | undefined {
   const path: IPathDetails = {};
-  const backendUrl = getBackendUrl();
-  const fullUrl = fullUrlWithBase !== undefined ? fullUrlWithBase.replace(backendUrl, "") : "";
+  const backendUrl = getBackendUrl().toLowerCase();
+  const fullUrl = fullUrlWithBase !== undefined ? fullUrlWithBase.toLowerCase().replace(backendUrl, "") : "";
 
   // Split path
   isTrue(fullUrl.substr(0, 1) === "/", "Url doesn't start with /");
