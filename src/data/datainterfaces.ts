@@ -78,6 +78,7 @@ export type ChecklistFieldValue = { [key: string]: boolean };
 
 export interface IFieldConfig {
   conditionExpression: string | undefined;
+  conditionBuilderMode?: boolean;
 }
 
 export interface IFieldConfigDefault extends IFieldConfig {
