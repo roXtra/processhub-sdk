@@ -21,7 +21,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
   for (const p in request) {
     if (Object.prototype.hasOwnProperty.call(request, p)) {
       const requestedPath = String(request[p]);
-      const requestWithoutBasePath = requestedPath.replace(getBasePath(), "");
+      const requestWithoutBasePath = requestedPath.replace(getBasePath().toLowerCase(), "");
       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(requestWithoutBasePath));
     }
   }
