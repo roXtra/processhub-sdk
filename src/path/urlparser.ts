@@ -65,8 +65,8 @@ export function parseUrl(fullUrlWithBase: string): IPathDetails | undefined {
 
 export function parseNotificationLink(fullUrlWithBase: string): INotificationLinkElements {
   const elements: INotificationLinkElements = {};
-  const basePath = getBasePath();
-  const fullUrl = fullUrlWithBase !== undefined ? fullUrlWithBase.replace(basePath, "") : "";
+  const basePath = getBasePath().toLowerCase();
+  const fullUrl = fullUrlWithBase !== undefined ? fullUrlWithBase.toLowerCase().replace(basePath, "") : "";
 
   // Split path
   isTrue(fullUrl.substr(0, 1) === "/", "Url doesn't start with /");

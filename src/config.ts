@@ -48,7 +48,7 @@ export function getBasePath(): string {
   if (path.endsWith("/")) {
     path = path.slice(0, -1);
   }
-  return path;
+  return path.toLowerCase();
 }
 
 export interface IInitialConfig extends IClientSettingsConfig {
