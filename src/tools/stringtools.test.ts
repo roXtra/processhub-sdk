@@ -1,5 +1,6 @@
 import * as chai from "chai";
 import chaiExclude from "chai-exclude";
+import { createId } from "./guid";
 import * as StringTools from "./stringtools";
 import { NestedElements, Group, Rule } from "./stringtools";
 
@@ -62,6 +63,7 @@ describe("sdk", function () {
             expectedGroup: {
               rules: [],
               combinator: "&&",
+              id: createId(),
             } as Group,
           },
           {
@@ -70,6 +72,7 @@ describe("sdk", function () {
             expectedGroup: {
               rules: [],
               combinator: "&&",
+              id: createId(),
             } as Group,
           },
           {
@@ -80,9 +83,11 @@ describe("sdk", function () {
                 {
                   rules: [],
                   combinator: "&&",
+                  id: createId(),
                 } as Group,
               ],
               combinator: "&&",
+              id: createId(),
             } as Group,
           },
           {
@@ -169,6 +174,7 @@ describe("sdk", function () {
                   field: "field['Check']",
                   operator: "==",
                   value: { A: true, B: true },
+                  id: createId(),
                 } as Rule,
                 {
                   field: "field['DATUM']",
@@ -225,14 +231,17 @@ describe("sdk", function () {
                       field: "field['Name, Vorname']",
                       operator: "==",
                       value: "",
+                      id: createId(),
                     } as Rule,
                     {
                       field: "field['Name, Vorname']",
                       operator: "==",
                       value: "",
+                      id: createId(),
                     } as Rule,
                   ],
                   combinator: "&&",
+                  id: createId(),
                 } as Group,
                 {
                   rules: [
@@ -240,17 +249,21 @@ describe("sdk", function () {
                       field: "field['Name, Vorname']",
                       operator: "==",
                       value: "",
+                      id: createId(),
                     } as Rule,
                     {
                       field: "field['Name, Vorname']",
                       operator: "==",
                       value: "",
+                      id: createId(),
                     } as Rule,
                   ],
                   combinator: "&&",
+                  id: createId(),
                 } as Group,
               ],
               combinator: "&&",
+              id: createId(),
             } as Group,
           },
         ];
@@ -271,6 +284,7 @@ describe("sdk", function () {
             group: {
               rules: [],
               combinator: "&&",
+              id: createId(),
             } as Group,
           },
           {
@@ -281,9 +295,11 @@ describe("sdk", function () {
                 {
                   rules: [],
                   combinator: "&&",
+                  id: createId(),
                 } as Group,
               ],
               combinator: "&&",
+              id: createId(),
             },
           },
           {
@@ -371,11 +387,13 @@ describe("sdk", function () {
                   field: "field['Check']",
                   operator: "==",
                   value: { A: true, B: true },
+                  id: createId(),
                 } as Rule,
                 {
                   field: "field['DATUM']",
                   operator: ">=",
                   value: "2019-08-14T22:00:00.000Z",
+                  id: createId(),
                 } as Rule,
               ],
               combinator: "||",

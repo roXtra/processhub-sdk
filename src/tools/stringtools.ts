@@ -152,7 +152,7 @@ export function getNestedElements(query: string): NestedElements {
 }
 
 export class BaseElement {
-  id?: string = createId();
+  id: string = createId();
 }
 
 export class Group extends BaseElement {
