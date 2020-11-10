@@ -53,6 +53,12 @@ export interface ISpreadSheetFieldValue {
   value: {};
 }
 
+export type IRoxFileLinkValue = {
+  roxFileName: string | undefined;
+  roxFileId: number;
+  roxFileIconUrl: string | undefined;
+}[];
+
 export interface IProcessLinkInstance {
   instanceId: string;
   workspaceId: string;
@@ -167,7 +173,8 @@ export type FieldValueType =
   | ISpreadSheetFieldValue // SpreadSheet
   | IRiskAssessmentValue // RiskAssesment
   | RiskAssessmentCycle // RiskAssessmentCycle
-  | IProcessLinkValue; // ProcessLink
+  | IProcessLinkValue // ProcessLink
+  | IRoxFileLinkValue; // RoxFileLink
 
 export interface IFieldValue {
   type: FieldType;
@@ -196,7 +203,8 @@ export type FieldType =
   | "ProcessHubRiskAssessmentCycle"
   | "ProcessHubSpreadSheet"
   | "ProcessHubProcessLink"
-  | "ProcessHubInstanceNumber";
+  | "ProcessHubInstanceNumber"
+  | "ProcessHubRoxFileLink";
 
 export interface IFieldType {
   getType(): FieldType;
