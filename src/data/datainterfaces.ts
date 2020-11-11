@@ -89,7 +89,7 @@ export interface IFieldConfig {
 
 export interface IFieldConfigDefault extends IFieldConfig {
   validationExpression?: string;
-  defaultValue?: string | Date | ChecklistFieldValue | IRadioButtonGroupFieldValue | ISpreadSheetFieldValue;
+  defaultValue?: string | Date | ChecklistFieldValue | IRadioButtonGroupFieldValue | ISpreadSheetFieldValue | IRoxFileLinkValue;
 }
 
 export interface IChecklistFieldConfig extends IFieldConfigDefault {
