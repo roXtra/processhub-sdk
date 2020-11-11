@@ -28,13 +28,19 @@ jobs:
         run: npm ci
       - id: version-upgrade
         name: Upgrade Version
+        # Make next RC Final
         run: |
-          npm run release-make-next-rc-final
+          npm version minor
           NEWVERSION=$(echo "console.log(require('./package.json').version);" | node)
           echo "::set-output name=newversion::$(echo $NEWVERSION)"
       - name: Create Branch and Push Branch and Tag
         run: |
+          echo "Create Release Branch"
           git checkout -b release-v${{ steps.version-upgrade.outputs.newversion }}
+          echo "Bump Version to next RC"
+          npm version --git-tag-version false preminor
+          git commit -a -m "Bump RC Version"
+          echo "Push branch and tag"
           git push -u origin release-v${{ steps.version-upgrade.outputs.newversion }}
           git push origin v${{ steps.version-upgrade.outputs.newversion }}
       - name: Create PR for new Version
