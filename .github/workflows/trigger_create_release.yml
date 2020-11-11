@@ -1,0 +1,45 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  configure:
+    name: Configure Release Branch
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Configure Git
+        run: |
+          git config user.name 'Development Bot'
+          git config user.email 'devbot@roxtra.com'
+      - name: Install dependencies
+        run: npm ci
+      - id: version-upgrade
+        name: Upgrade Version
+        run: |
+          npm run release-make-next-rc-final
+          NEWVERSION=$(echo "console.log(require('./package.json').version);" | node)
+          echo "::set-output name=newversion::$(echo $NEWVERSION)"
+      - name: Create Branch
+        run: git checkout -b release-v${{ steps.version-upgrade.outputs.newversion }}
+      - name: Create PR for new Version
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: 'release-v${{ steps.version-upgrade.outputs.newversion }}'
+          destination_branch: 'master'
+          pr_title: 'Release v${{ steps.version-upgrade.outputs.newversion }}'
+          pr_body: Updates version to v${{ steps.version-upgrade.outputs.newversion }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pr_assignee: '${{ github.actor }}'
+          pr_draft: false
