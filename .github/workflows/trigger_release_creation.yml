@@ -1,4 +1,4 @@
-name: Create Release
+name: Trigger Release Creation
 
 on:
   workflow_dispatch:
@@ -32,7 +32,9 @@ jobs:
           NEWVERSION=$(echo "console.log(require('./package.json').version);" | node)
           echo "::set-output name=newversion::$(echo $NEWVERSION)"
       - name: Create Branch
-        run: git checkout -b release-v${{ steps.version-upgrade.outputs.newversion }}
+        run: |
+          git checkout -b release-v${{ steps.version-upgrade.outputs.newversion }}
+          git push -u origin release-v${{ steps.version-upgrade.outputs.newversion }}
       - name: Create PR for new Version
         uses: repo-sync/pull-request@v2
         with:
