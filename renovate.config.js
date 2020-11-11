@@ -14,6 +14,8 @@ module.exports = {
     'roXtra/processhub-sdk',
   ],
   rebaseWhen: "behind-base-branch",
+  stabilityDays: 14,
+  prCreation: "not-pending",
   ignoreDeps: [],
   packageRules: [
     {
