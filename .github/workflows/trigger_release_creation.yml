@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: master
+          token: ${{ secrets.DEVBOT_GH_TOKEN }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
