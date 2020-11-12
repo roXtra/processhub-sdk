@@ -48,6 +48,8 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
      * @param  {Object} attrs   a number of attributes to initialize the model instance with
      * @return {Object}         model instance
      */
+    public create(descriptor: Bpmn.ElementType, attrs: Partial<Bpmn.IBaseElement>): Bpmn.IBaseElement;
+
     public create(descriptor: "bpmn:DataOutputAssociation", attrs: Partial<Bpmn.IDataOutputAssociation>): Bpmn.IDataOutputAssociation;
     public create(descriptor: "bpmn:DataInputAssociation", attrs: Partial<Bpmn.IDataInputAssociation>): Bpmn.IDataInputAssociation;
     public create(descriptor: "bpmn:DataObjectReference", attrs: Partial<Bpmn.IDataObjectReference>): Bpmn.IDataObjectReference;
