@@ -66,7 +66,7 @@ declare module "diagram-js/lib/features/tooltips/Tooltips" {
         y: number;
       };
       timeout?: number;
-      type: "error";
+      type: string;
     }): string;
 
     public trigger(action: {}, event: {}): void;
