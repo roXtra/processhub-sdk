@@ -131,6 +131,12 @@ declare module "diagram-js/lib/core/EventBus" {
 
     public on(events: "connectionSegment.move.ended", callback: (event: ConnectionSegmentMoveEndedEvent) => void): void;
 
+    public on(events: "copyPaste.elementsCopied", callback: (event: CopyPasteElementsCopiedEvent) => void): void;
+
+    public on(events: "copyPaste.pasteElements", callback: (event: EventBusEvent<void>) => void): void;
+
+    public on(events: "diagram.destroy", callback: (event: EventBusEvent<void>) => void): void;
+
     public on(events: "drag.start", callback: (event: EventBusEvent<{}>) => void): void;
 
     public on(events: "drag.ended", callback: (event: DragEndedEvent) => void): void;
@@ -272,6 +278,11 @@ declare module "diagram-js/lib/core/EventBus" {
     public stopPropagation(): void;
     public preventDefault(): void;
     public init(data: {}): void;
+  }
+
+  export class CopyPasteElementsCopiedEvent extends EventBusEvent<void> {
+    public elements: Base[];
+    public type: "copyPaste.elementsCopied";
   }
 
   export class ElementDblClickEvent extends ElementClickEvent {}
