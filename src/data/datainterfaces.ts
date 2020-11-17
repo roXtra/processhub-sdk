@@ -204,7 +204,8 @@ export type FieldType =
   | "ProcessHubSpreadSheet"
   | "ProcessHubProcessLink"
   | "ProcessHubInstanceNumber"
-  | "ProcessHubRoxFileLink";
+  | "ProcessHubRoxFileLink"
+  | "ProcessHubCalculatedField";
 
 export interface IFieldType {
   getType(): FieldType;
