@@ -25,9 +25,9 @@ export function replaceAll(target: string, search: string, replacement?: string,
   return target;
 }
 
-function fieldValueToString(valueObject: IFieldValue): string {
+function fieldValueToString(valueObject: IFieldValue, defaultValue: string): string {
   if (valueObject.value == null) {
-    return "";
+    return defaultValue;
   }
   let res: string;
   if (valueObject.type === "ProcessHubDate") {
@@ -86,7 +86,7 @@ export function parseAndInsertStringWithFieldContent(
       const valueObject = fieldContentMap[fieldName];
 
       if (isFieldValue(valueObject)) {
-        const val: string = fieldValueToString(valueObject);
+        const val: string = fieldValueToString(valueObject, defaultValue);
         result = replaceAll(result, fieldPlaceholder, val, isQuery);
       } else {
         result = replaceAll(result, fieldPlaceholder, valueObject != null ? valueObject.toString() : defaultValue, isQuery);
@@ -142,7 +142,7 @@ export function parseAndInsertStringWithFieldContent(
     if (fieldName && fieldName.length) {
       const valueObject = fieldContentMap[fieldName];
       if (isFieldValue(valueObject)) {
-        const val: string = fieldValueToString(valueObject);
+        const val: string = fieldValueToString(valueObject, defaultValue);
         result = replaceAll(result, placeHolder, val, isQuery);
       } else {
         result = replaceAll(result, placeHolder, valueObject != null ? valueObject.toString() : defaultValue, isQuery);
