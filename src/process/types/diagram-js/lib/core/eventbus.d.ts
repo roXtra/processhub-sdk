@@ -145,6 +145,9 @@ declare module "diagram-js/lib/core/EventBus" {
 
     public on(events: "element.dblclick", callback: (event: ElementDblClickEvent) => void): void;
 
+    public on(events: "element.hover", callback: (event: ElementHoverEvent) => void): void;
+    public on(events: "element.out", callback: (event: ElementOutEvent) => void): void;
+
     public on(events: "resize.end", callback: (event: ResizeEndEvent) => void): void;
     public on(events: "resize.end", priority: number, callback: (event: ResizeEndEvent) => void): void;
     public on(events: "resize.ended", callback: (event: EventBusEvent<IResizeEndedContext>) => void): void;
@@ -165,6 +168,8 @@ declare module "diagram-js/lib/core/EventBus" {
     public on(events: "spaceTool.ended", priority: number, callback: () => void): void;
     public on(events: "spaceTool.ended", callback: () => void): void;
     public on(events: "spaceTool.ended", callback: (event: SpaceToolEndedEvent) => void): void;
+
+    public on(events: "paletteprovider.highlightmode.click", callback: () => void): void;
 
     /**
      * Register an event listener that is executed only once.
@@ -434,5 +439,13 @@ declare module "diagram-js/lib/core/EventBus" {
     shape: Shape;
     x: number;
     y: number;
+  }
+
+  export class ElementHoverEvent extends EventBusEvent<void> {
+    element: Base;
+  }
+
+  export class ElementOutEvent extends EventBusEvent<void> {
+    element: Base;
   }
 }
