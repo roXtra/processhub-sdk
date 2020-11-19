@@ -266,6 +266,40 @@ describe("sdk", function () {
               id: createId(),
             } as Group,
           },
+          {
+            guid: "961bd296-f5aa-4e16-bb54-239a7855606d",
+            query: "(riskMetric['Erstbewertung'] > 50)",
+            expectedGroup: {
+              rules: [
+                {
+                  field: "riskMetric['Erstbewertung']",
+                  operator: ">",
+                  value: 50,
+                } as Rule,
+              ],
+              combinator: "&&",
+            } as Group,
+          },
+          {
+            guid: "4cd99817-069e-49b8-a693-d8fc5bca9532",
+            query: "(riskMetric['Erstbewertung'] > 50 || riskMetric['Zweitbewertung'] >= 20)",
+            expectedGroup: {
+              rules: [
+                {
+                  field: "riskMetric['Erstbewertung']",
+                  operator: ">",
+                  value: 50,
+                  id: createId(),
+                } as Rule,
+                {
+                  field: "riskMetric['Zweitbewertung']",
+                  operator: ">=",
+                  value: 20,
+                } as Rule,
+              ],
+              combinator: "||",
+            } as Group,
+          },
         ];
 
         editTestParameters.forEach((p) => {
@@ -432,6 +466,41 @@ describe("sdk", function () {
                 } as Group,
               ],
               combinator: "&&",
+            } as Group,
+          },
+          {
+            guid: "aea74e8f-6f99-4fc2-926b-2ed396d60e82",
+            expectedQuery: "(riskMetric['Erstbewertung'] > 100)",
+            group: {
+              rules: [
+                {
+                  field: "riskMetric['Erstbewertung']",
+                  operator: ">",
+                  value: 100,
+                } as Rule,
+              ],
+              combinator: "&&",
+            } as Group,
+          },
+          {
+            guid: "efd7067f-d92b-4268-b0b7-afc2d6dfc3b7",
+            expectedQuery: "(riskMetric['Erstbewertung'] > 100 || riskMetric['Zweitbewertung'] >= 50)",
+            group: {
+              rules: [
+                {
+                  field: "riskMetric['Erstbewertung']",
+                  operator: ">",
+                  value: 100,
+                  id: createId(),
+                } as Rule,
+                {
+                  field: "riskMetric['Zweitbewertung']",
+                  operator: ">=",
+                  value: 50,
+                  id: createId(),
+                } as Rule,
+              ],
+              combinator: "||",
             } as Group,
           },
         ];
