@@ -146,6 +146,7 @@ export interface IDeleteMailRequest extends IBaseRequest {
 
 export interface IDeleteInstancesRequest extends IBaseRequest {
   instanceIds: string[];
+  recursive?: boolean;
 }
 
 export const INSTANCELOADED_MESSAGE = "InstanceLoadedMessage";
