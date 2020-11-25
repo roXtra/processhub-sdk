@@ -1,5 +1,5 @@
 import { IInstanceEnvironment } from "../environment";
-import { IInstanceDetails, IRiskAssessmentValue } from "../instance/instanceinterfaces";
+import { IInstanceDetails, IRiskAssessmentValue, State } from "../instance/instanceinterfaces";
 import { UserDetails } from "../user";
 import { Process, ActionHandler } from "..";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
@@ -64,6 +64,7 @@ export interface IProcessLinkInstance {
   workspaceId: string;
   title: string;
   moduleId: ModuleId;
+  state: State | undefined;
 }
 
 export interface IProcessLinkValue {
