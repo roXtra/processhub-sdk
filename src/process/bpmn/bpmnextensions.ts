@@ -161,6 +161,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
               returnValue.fieldDefinitions = updateLegacyFieldDefinitions(JSON.parse(child.$body));
             }
             break;
+          case "message-event-type":
+            returnValue.messageEventType = child.$body;
+            break;
 
           default:
             break;

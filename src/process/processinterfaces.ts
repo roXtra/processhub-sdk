@@ -177,7 +177,8 @@ export type BpmnExtensionName =
   | "service-task-config-object"
   | "roxtra-version"
   | "anonymous-start"
-  | "anonymous-start-userid";
+  | "anonymous-start-userid"
+  | "message-event-type"; // "mail" | "webhook"
 
 export interface ITaskExtensions {
   description?: string;
@@ -211,6 +212,8 @@ export interface ITaskExtensions {
 
   anonymousStart?: boolean;
   anonymousStartUserId?: string;
+
+  messageEventType?: string;
 }
 
 export interface ITimerStartEventConfiguration {
