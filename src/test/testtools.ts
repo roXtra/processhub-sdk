@@ -11,9 +11,6 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
     bpmnXml,
     bpmnTaskId: "",
     bpmnTaskName: "",
-    /**
-     * @deprecated use instanceDetails.extras.fieldContents
-     */
     fieldContents: {},
     instanceDetails: {
       title: "",
