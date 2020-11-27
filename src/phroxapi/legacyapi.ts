@@ -119,7 +119,7 @@ export interface IEcReleaseFileLockReply {
 }
 
 export interface IGetModuleSettingsReply extends IBaseReply {
-  currentModule: string;
+  currentModule: number;
   refreshinterval: number;
   class?: string;
   mainItems: IModuleSelection[];
