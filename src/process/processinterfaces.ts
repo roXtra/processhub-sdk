@@ -261,8 +261,8 @@ export interface IProcessDiagramSize {
 }
 
 export interface ISubProcessFieldMapping {
-  from: { name: string; type: FieldType } | undefined;
-  to: { name: string; type: FieldType } | undefined;
+  in: { name: string; type: FieldType } | undefined;
+  out: { name: string; type: FieldType } | undefined;
+  subProcessField: { name: string; type: FieldType } | undefined;
   id: string;
-  type: "IN" | "OUT";
 }
