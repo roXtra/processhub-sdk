@@ -27,6 +27,7 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
     scriptTaskCode: undefined,
 
     subProcessId: undefined,
+    subProcessFieldMapping: [],
 
     sequenceFlowExpression: undefined,
     isBuilderExpression: false,
@@ -55,6 +56,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
             break;
           case "subprocessid":
             returnValue.subProcessId = child.$body;
+            break;
+          case "subprocess-fieldmapping":
+            returnValue.subProcessFieldMapping = child.$body ? JSON.parse(child.$body) : [];
             break;
           case "description":
             returnValue.description = child.$body;

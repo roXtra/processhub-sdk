@@ -2,7 +2,7 @@ import { ProcessAccessRights, IProcessRoles } from "./processrights";
 import { IInstanceDetails } from "../instance";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { strEnum } from "../tools/types";
-import { IFieldDefinition, ITaskIdRequiredFieldsNeeded, IServiceActionConfigField } from "../data";
+import { IFieldDefinition, ITaskIdRequiredFieldsNeeded, IServiceActionConfigField, FieldType } from "../data";
 import { UserDetails } from "../user/userinterfaces";
 import { IRowDetails } from ".";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
@@ -167,6 +167,7 @@ export type BpmnExtensionName =
   | "custom-field-contents-value"
   | "roleowners-editable" // Boolean: all role owners can be selected
   | "subprocessid" // Id of the process a SubProcess references,
+  | "subprocess-fieldmapping"
   | "due-at-can-be-edit"
   | "due-at-duration"
   | "sequenceflow-expression"
@@ -202,6 +203,7 @@ export interface ITaskExtensions {
   roleOwnersEditable: boolean;
 
   subProcessId?: string;
+  subProcessFieldMapping: ISubProcessFieldMapping[];
 
   sequenceFlowExpression?: string;
   isBuilderExpression: boolean;
@@ -256,4 +258,11 @@ export interface IServiceTaskConfigObject {
 export interface IProcessDiagramSize {
   width: number;
   height: number;
+}
+
+export interface ISubProcessFieldMapping {
+  from: { name: string; type: FieldType } | undefined;
+  to: { name: string; type: FieldType } | undefined;
+  id: string;
+  type: "IN" | "OUT";
 }
