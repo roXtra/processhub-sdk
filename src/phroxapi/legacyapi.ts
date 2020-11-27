@@ -3,6 +3,7 @@ import { IRoxFile, IRoxFolder, IModuleSelection } from ".";
 import { Instance } from "..";
 import { IFieldContentMap } from "../data";
 import { ITaskExtensions } from "../process/processinterfaces";
+import { IModule } from "../modules";
 
 export const RequestRoutes = {
   GetRootFolder: "/api/phroxapi/getrootfolder",
@@ -21,6 +22,7 @@ export const RequestRoutes = {
   EcReleaseWithoutExecute: "/api/phroxapi/ecreleasewithoutexecute",
   EcGetFileLock: "/api/phroxapi/ecgetfilelock",
   GetModuleSettings: "/api/phroxapi/getmodulesettings",
+  GetModules: "/api/phroxapi/getmodules",
 };
 
 export interface IProcessItem {
@@ -119,8 +121,12 @@ export interface IEcReleaseFileLockReply {
 }
 
 export interface IGetModuleSettingsReply extends IBaseReply {
-  currentModule: string;
+  currentModule: number;
   refreshinterval: number;
   class?: string;
   mainItems: IModuleSelection[];
+}
+
+export interface IGetModulesReply extends IBaseReply {
+  modules: IModule[];
 }
