@@ -2,24 +2,35 @@ import { IModule, ModuleId } from "./imodule";
 import { tl } from "../tl";
 
 export const Processes: IModule = {
-  moduleId: ModuleId.Processes,
+  id: ModuleId.Processes,
+  moduleType: ModuleId.Processes,
   urlPrefix: "p",
   name: tl("Prozesse"),
 };
 
 export const Risks: IModule = {
-  moduleId: ModuleId.Risks,
+  id: ModuleId.Risks,
+  moduleType: ModuleId.Risks,
   urlPrefix: "r",
   name: tl("Risiken"),
+  processName: "riskmanagement",
 };
 
-export const modules: IModule[] = [Processes, Risks];
-
+let modules: IModule[] = [Processes, Risks];
 const modulesById: { [id: number]: IModule } = {};
-modules.forEach((m) => (modulesById[m.moduleId] = m));
+modules.forEach((m) => (modulesById[m.id] = m));
 
-export function getModule(moduleId: ModuleId): IModule {
+export function initiateModules(newModules: Array<IModule>): void {
+  modules = newModules;
+  modules.forEach((m) => (modulesById[m.id] = m));
+}
+
+export function getModule(moduleId: number): IModule {
   return modulesById[moduleId];
+}
+
+export function getModules(): IModule[] {
+  return modules;
 }
 
 export function getModuleForRequestPath(requestPath: string): IModule {

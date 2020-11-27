@@ -3,7 +3,6 @@ import { IInstanceDetails, IRiskAssessmentValue, State } from "../instance/insta
 import { UserDetails } from "../user";
 import { Process, ActionHandler } from "..";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
-import { ModuleId } from "../modules";
 import { IProcessDetails } from "../process";
 
 export interface IFieldDefinition {
@@ -63,7 +62,7 @@ export interface IProcessLinkInstance {
   instanceId: string;
   workspaceId: string;
   title: string;
-  moduleId: ModuleId;
+  moduleId: number;
   state: State | undefined;
 }
 
