@@ -213,7 +213,7 @@ export interface ITaskExtensions {
   anonymousStart?: boolean;
   anonymousStartUserId?: string;
 
-  messageEventType?: string;
+  messageEventType?: string; // "mail" | "webhook" - defaults to mail if not explicitely set
 }
 
 export interface ITimerStartEventConfiguration {
