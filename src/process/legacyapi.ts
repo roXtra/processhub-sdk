@@ -2,7 +2,6 @@ import { IBaseMessage, IBaseRequest, IBaseReply } from "../legacyapi/apiinterfac
 import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces";
 import { IFieldDefinition, IStatisticRow } from "../data";
 import { Bpmn } from "./bpmn";
-import { ModuleId } from "../modules";
 import { IParseResult } from "bpmn-moddle/lib/simple";
 
 // API routes
@@ -216,7 +215,7 @@ export interface ILoadTemplateReply {
 
 export interface IListProcessesReply extends IBaseReply {
   processes: {
-    moduleId: ModuleId;
+    moduleId: number;
     displayName: string;
     processId: string;
     workspaceId: string;

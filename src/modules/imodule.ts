@@ -4,10 +4,14 @@ export enum ModuleId {
   Processes = 1,
   Risks = 2,
   Documents = 3,
+  User = 4,
+  System = 5,
+  Module = 6,
 }
 
 export interface IModule {
-  moduleId: ModuleId;
+  id: number;
+  moduleType: ModuleId;
   urlPrefix: string;
   name: string;
 }
