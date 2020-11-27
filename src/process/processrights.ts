@@ -104,12 +104,15 @@ export function getProcessRoles(currentRoles: IProcessRoles | undefined, bpmnPro
     // Set starting roles
     const startEvents = bpmnProcess.getStartEvents(bpmnProcess.processId());
     startEvents.map((startEvent) => {
-      const isMessageStartEvent: boolean = startEvent.eventDefinitions != null && startEvent.eventDefinitions.find((e) => e.$type === "bpmn:MessageEventDefinition") != null;
-      const isTimerStartEvent: boolean = startEvent.eventDefinitions != null && startEvent.eventDefinitions.find((e) => e.$type === "bpmn:TimerEventDefinition") != null;
+      const startEventExtensions = BpmnProcess.getExtensionValues(startEvent);
+      const isMailMessageStartEvent: boolean =
+        startEvent.eventDefinitions?.find((e) => e.$type === "bpmn:MessageEventDefinition") != null &&
+        (startEventExtensions.messageEventType == null || startEventExtensions.messageEventType === "mail");
+      const isTimerStartEvent: boolean = startEvent.eventDefinitions?.find((e) => e.$type === "bpmn:TimerEventDefinition") != null;
       const role = bpmnProcess.getLaneOfFlowNode(startEvent.id);
       if (role) {
         // In new processes somehow the start element is not in a lane (yet)
-        if (isMessageStartEvent) {
+        if (isMailMessageStartEvent) {
           processRoles[role.id].isStartingByMailRole = true;
         } else if (isTimerStartEvent) {
           processRoles[role.id].isStartingByTimerRole = true;

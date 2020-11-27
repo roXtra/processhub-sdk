@@ -392,6 +392,19 @@ export class BpmnProcess {
     return this.getEvents(processId, "bpmn:StartEvent") as Bpmn.IStartEvent[];
   }
 
+  /**
+   * Returns all StartEvents with MessageEventDefinition from type "mail"
+   */
+  public getMailMessageStartEvents(): Bpmn.IStartEvent[] {
+    const startEvents = this.getStartEvents(this.processId());
+    const messageStartEvents = startEvents.filter((e) => e.eventDefinitions?.find((d) => d.$type === "bpmn:MessageEventDefinition") != null);
+    const mailMessageStartEvents = messageStartEvents.filter((e) => {
+      const extensions = BpmnProcess.getExtensionValues(e);
+      return extensions.messageEventType == null || extensions.messageEventType === "mail";
+    });
+    return mailMessageStartEvents;
+  }
+
   // Get the text that should be displayed on the start button
   public getStartButtonMap(): IStartButtonMap {
     const startEvents = this.getStartEvents(this.processId());
