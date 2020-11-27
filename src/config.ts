@@ -1,5 +1,4 @@
 import { IClientSettingsConfig, IFeatureConfig } from "./serverconfig/iconfig";
-import { ModuleId } from "./modules";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -55,7 +54,7 @@ export interface IInitialConfig extends IClientSettingsConfig {
   roXtraUrl: string;
   roXtraVersion: string;
   features: IFeatureConfig;
-  moduleId: ModuleId;
+  moduleId: number;
   /* If this is set, it will be used instead of the cookie to identify an user.
   Can be used to execute API calls in the context of another user without getting logged out. */
   xAccesstoken?: string;
