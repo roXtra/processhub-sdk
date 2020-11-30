@@ -46,3 +46,5 @@ import * as ServerConfig from "./serverconfig";
 export { ServerConfig };
 import * as Modules from "./modules";
 export { Modules };
+import * as Webhooks from "./webhhooks";
+export { Webhooks };
