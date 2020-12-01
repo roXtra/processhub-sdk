@@ -249,7 +249,7 @@ declare module "diagram-js/lib/core/EventBus" {
     public _addListener(event: string, newListener: {}): void;
   }
 
-  export type ResizeEndedDirection = "se" | "sw" | "ne" | "nw";
+  export type ResizeEndedDirection = "se" | "sw" | "s" | "ne" | "nw" | "n";
 
   export interface IResizeEndedContext {
     canExecute: boolean;
