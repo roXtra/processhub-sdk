@@ -45,6 +45,7 @@ export enum AuditTrailAction {
   linkedInstanceDeleted = 39,
   // An intermediate timer was triggered manually. todoDisplayName is set in details
   intermediateTimerTriggeredManually = 40,
+  errorSubProcessMapping = 41,
   workspaceCreated = 100,
 }
 /* eslint-enable @typescript-eslint/naming-convention */
