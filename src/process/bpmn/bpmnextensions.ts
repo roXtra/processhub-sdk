@@ -168,6 +168,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
           case "message-event-type":
             returnValue.messageEventType = child.$body;
             break;
+          case "mail-body-parse-fields":
+            returnValue.mailBodyParseFields = child.$body !== "false";
+            break;
 
           default:
             break;

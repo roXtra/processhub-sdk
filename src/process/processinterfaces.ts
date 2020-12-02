@@ -179,7 +179,8 @@ export type BpmnExtensionName =
   | "roxtra-version"
   | "anonymous-start"
   | "anonymous-start-userid"
-  | "message-event-type"; // "mail" | "webhook"
+  | "message-event-type" // "mail" | "webhook"
+  | "mail-body-parse-fields"; // Boolean: parse fields from mail body in StartEvent/IntermediateEvent with MessageEventDefinition, default: false
 
 export interface ITaskExtensions {
   description?: string;
@@ -216,6 +217,7 @@ export interface ITaskExtensions {
   anonymousStartUserId?: string;
 
   messageEventType?: string; // "mail" | "webhook" - defaults to mail if not explicitely set
+  mailBodyParseFields?: boolean;
 }
 
 export interface ITimerStartEventConfiguration {
