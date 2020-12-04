@@ -28,6 +28,10 @@ export function getModule(moduleId: number): IModule {
   return modulesById[moduleId];
 }
 
+export function getModules(): IModule[] {
+  return modules;
+}
+
 export function getModuleForRequestPath(requestPath: string): IModule {
   let prefix = requestPath;
   while (prefix.startsWith("/")) {
