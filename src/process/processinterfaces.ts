@@ -168,6 +168,7 @@ export type BpmnExtensionName =
   | "roleowners-editable" // Boolean: all role owners can be selected
   | "subprocessid" // Id of the process a SubProcess references,
   | "subprocess-fieldmapping"
+  | "subprocess-starteventid"
   | "due-at-can-be-edit"
   | "due-at-duration"
   | "sequenceflow-expression"
@@ -205,6 +206,7 @@ export interface ITaskExtensions {
 
   subProcessId?: string;
   subProcessFieldMapping: ISubProcessFieldMapping[];
+  subProcessStartEventId?: string;
 
   sequenceFlowExpression?: string;
   isBuilderExpression: boolean;

@@ -60,6 +60,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
           case "subprocess-fieldmapping":
             returnValue.subProcessFieldMapping = child.$body ? JSON.parse(child.$body) : [];
             break;
+          case "subprocess-starteventid":
+            returnValue.subProcessStartEventId = child.$body;
+            break;
           case "description":
             returnValue.description = child.$body;
             break;
