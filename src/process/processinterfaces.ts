@@ -81,6 +81,11 @@ export interface IProcessDetails {
   jumpsDisabled?: boolean;
   xmlVersion?: number;
   parentProcessIds?: string[];
+  parentProcesses?: {
+    parentProcessDisplayname: string;
+    parentProcessId: string;
+    startEventId: string;
+  }[];
   childProcessIds?: string[];
   riskManagementSettings?: IRiskManagementProcessSettings;
   instanceCount?: number;
