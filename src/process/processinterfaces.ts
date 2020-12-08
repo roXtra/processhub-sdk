@@ -82,7 +82,7 @@ export interface IProcessDetails {
   xmlVersion?: number;
   parentProcessIds?: string[];
   parentProcesses?: {
-    parentProcessDisplayname: string;
+    parentProcessDisplayName: string;
     parentProcessId: string;
     startEventId: string;
   }[];
