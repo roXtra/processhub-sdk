@@ -62,7 +62,7 @@
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.14",
     "@types/lodash": "^4.14.165",
-    "@types/mocha": "^8.0.4",
+    "@types/mocha": "^8.2.0",
     "@types/node": "^12.19.8",
     "@types/react": "^16.14.2",
     "@types/sqlstring": "^2.2.1",
