@@ -7,6 +7,16 @@ declare module "diagram-js/lib/features/space-tool/SpaceTool" {
   import { Base, Shape } from "diagram-js/lib/model";
 
   export default class SpaceTool {
+    /**
+     * Add or remove space by moving and resizing elements.
+     *
+     * @param {Canvas} canvas
+     * @param {Dragging} dragging
+     * @param {EventBus} eventBus
+     * @param {Modeling} modeling
+     * @param {Rules} rules
+     * @param {toolManager} toolManager
+     */
     constructor(eventBus: EventBus, dragging: Dragging, modeling: Modeling, rules: Rules, toolManager: {});
 
     /**
@@ -25,14 +35,17 @@ declare module "diagram-js/lib/features/space-tool/SpaceTool" {
     public activateMakeSpace(event: MouseEvent): void;
 
     /**
-     * Actually make space on the diagram
+     * Make space.
      *
-     * @param  {Array<Shape>} movingShapes
-     * @param  {Array<Shape>} resizingShapes
-     * @param  {Point} delta
-     * @param  {String} direction
+     * @param  {Array<djs.model.Shape>} movingShapes
+     * @param  {Array<djs.model.Shape>} resizingShapes
+     * @param  {Object} delta
+     * @param  {number} delta.x
+     * @param  {number} delta.y
+     * @param  {string} direction
+     * @param  {number} start - must match the value used in calculateAdjustments
      */
-    public makeSpace(movingShapes: Shape[], resizingShapes: Shape[], delta: IPoint, direction: "s" | "n" | "e" | "w"): void;
+    public makeSpace(movingShapes: Shape[], resizingShapes: Shape[], delta: IPoint, direction: "s" | "n" | "e" | "w", start: number): void;
 
     /**
      * Initialize make space and return true if that was successful.
@@ -45,16 +58,20 @@ declare module "diagram-js/lib/features/space-tool/SpaceTool" {
     public initializeMakeSpace(event: Event, context: {}): boolean;
 
     /**
-     * Calculate adjustments needed when making space
+     * Get elements to be moved and resized.
      *
-     * @param  {Array<Shape>} elements
-     * @param  {String} axis
-     * @param  {Number} offset
-     * @param  {Number} spacePos
+     * @param  {Array<djs.model.Shape>} elements
+     * @param  {string} axis
+     * @param  {number} delta
+     * @param  {number} start - must match the value used in makeSpace
      *
      * @return {ICalculateAdjustmentsResult}
      */
-    public calculateAdjustments(elements: Shape[], axis: "y" | "x", offset: number, spacePos: number): ICalculateAdjustmentsResult;
+    public calculateAdjustments(elements: Shape[], axis: "y" | "x", delta: number, start: number): ICalculateAdjustmentsResult;
+
+    public toggle(): void;
+
+    public isActive(): boolean;
   }
 
   export interface ICalculateAdjustmentsResult {
