@@ -3,12 +3,13 @@ import { UserDetails } from "../user/userinterfaces";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { PredefinedGroups, getDefaultRoleGroup, Licence, hasEditAccess } from "../user/index";
-import { IProcessDetails } from "./processinterfaces";
+import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
 import { isWorkspaceMember } from "../workspace/workspacerights";
 import { error } from "../tools/assert";
 import { isGroupId, isUserId } from "../tools/guid";
 import { Bpmn } from "./bpmn";
 import isEqual from "lodash/isEqual";
+import { User } from "..";
 
 export enum ProcessAccessRights {
   None = 0,
@@ -31,6 +32,7 @@ export const DefaultRoles = {
   Manager: "MANAGER", // DO NOT CHANGE - string used in database
   Viewer: "VIEWER", // DO NOT CHANGE - string used in database
   Follower: "FOLLOWER", // DO NOT CHANGE - string used in database
+  DashboardViewer: "DASHBOARDVIEWER", // DO NOT CHANGE - string used in database
 };
 export type DefaultRoles = keyof typeof DefaultRoles;
 
@@ -44,6 +46,8 @@ export function getDefaultRoleName(roleId: string): string {
       return tl("Sichtbarkeit");
     case DefaultRoles.Follower:
       return tl("Weitere Beteiligte");
+    case DefaultRoles.DashboardViewer:
+      return tl("Sichtbarkeit von Vorgängen");
     default:
       return roleId;
   }
@@ -72,14 +76,25 @@ export interface IRoleOwner {
 }
 
 export function isDefaultRole(roleId: string): boolean {
-  return roleId === DefaultRoles.Manager || roleId === DefaultRoles.Owner || roleId === DefaultRoles.Follower || roleId === DefaultRoles.Viewer;
+  return (
+    roleId === DefaultRoles.Manager ||
+    roleId === DefaultRoles.Owner ||
+    roleId === DefaultRoles.Follower ||
+    roleId === DefaultRoles.Viewer ||
+    roleId === DefaultRoles.DashboardViewer
+  );
 }
 
 export function isDefaultProcessRole(roleId: string): boolean {
-  return roleId === DefaultRoles.Manager || roleId === DefaultRoles.Owner || roleId === DefaultRoles.Viewer;
+  return roleId === DefaultRoles.Manager || roleId === DefaultRoles.Owner || roleId === DefaultRoles.Viewer || roleId === DefaultRoles.DashboardViewer;
 }
 
-export function getProcessRoles(currentRoles: IProcessRoles | undefined, bpmnProcess: BpmnProcess | undefined, defaultRoleOwnerId: string): IProcessRoles {
+export function getProcessRoles(
+  currentRoles: IProcessRoles | undefined,
+  bpmnProcess: BpmnProcess | undefined,
+  defaultRoleOwnerId: string,
+  dashBoardAccess?: ProcessViewAccess,
+): IProcessRoles {
   // Add entries for all existing roles in the process
   const processRoles = currentRoles || {};
 
@@ -144,9 +159,24 @@ export function getProcessRoles(currentRoles: IProcessRoles | undefined, bpmnPro
       }
     }
 
+    // Backwards compatibility for new dashboard access control
+    if (!processRoles[DefaultRoles.DashboardViewer] || processRoles[DefaultRoles.DashboardViewer].potentialRoleOwners.length === 0) {
+      if (dashBoardAccess === ProcessViewAccess.WorkspaceMembersSeeAll) {
+        processRoles[DefaultRoles.DashboardViewer] = { potentialRoleOwners: [{ memberId: User.PredefinedGroups.AllWorkspaceMembers }] };
+      } else {
+        processRoles[DefaultRoles.DashboardViewer] = { potentialRoleOwners: [] };
+      }
+    }
+
     // Remove roles that are not used any more
     for (const role in processRoles) {
-      if (role !== DefaultRoles.Owner && role !== DefaultRoles.Manager && role !== DefaultRoles.Viewer && role !== DefaultRoles.Follower) {
+      if (
+        role !== DefaultRoles.Owner &&
+        role !== DefaultRoles.Manager &&
+        role !== DefaultRoles.Viewer &&
+        role !== DefaultRoles.Follower &&
+        role !== DefaultRoles.DashboardViewer
+      ) {
         if (lanes.find((lane) => lane.id === role) == null) delete processRoles[role];
       }
     }
