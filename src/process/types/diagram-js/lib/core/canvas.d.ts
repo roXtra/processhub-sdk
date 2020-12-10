@@ -41,11 +41,18 @@ declare module "diagram-js/lib/core/Canvas" {
      * Returns a layer that is used to draw elements
      * or annotations on it.
      *
-     * @param  {String} name
+     * Non-existing layers retrieved through this method
+     * will be created. During creation, the optional index
+     * may be used to create layers below or above existing layers.
+     * A layer with a certain index is always created above all
+     * existing layers with the same index.
      *
-     * @returns {SVGGElement}
+     * @param {string} name
+     * @param {number} index
+     *
+     * @returns {SVGElement}
      */
-    public getLayer(name: "base" | "resizers"): SVGGElement;
+    public getLayer(name: "base" | "resizers", index?: number): SVGGElement;
 
     /**
      * Returns the html element that encloses the
@@ -196,6 +203,8 @@ declare module "diagram-js/lib/core/Canvas" {
     public _changeViewbox(changeFn: Function): void;
 
     public _clear(): void;
+
+    public _destroy(): void;
 
     /**
      * Gets or sets the view box of the canvas, i.e. the
