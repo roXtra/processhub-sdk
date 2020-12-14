@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git://github.com/roXtra/processhub-sdk.git"
   },
-  "version": "9.4.0-2",
+  "version": "9.4.0-modules",
   "author": {
     "name": "ProcessHub",
     "email": "info@processhub.com",
