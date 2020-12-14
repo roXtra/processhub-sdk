@@ -14,4 +14,5 @@ export interface IModule {
   moduleType: ModuleId;
   urlPrefix: string;
   name: string;
+  processName?: string;
 }

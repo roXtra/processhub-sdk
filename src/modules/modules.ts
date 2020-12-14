@@ -13,6 +13,7 @@ export const Risks: IModule = {
   moduleType: ModuleId.Risks,
   urlPrefix: "r",
   name: tl("Risiken"),
+  processName: "riskmanagement",
 };
 
 let modules: IModule[] = [Processes, Risks];
