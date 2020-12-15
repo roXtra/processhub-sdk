@@ -70,6 +70,21 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
 
     public createLabel(labelTarget: Base, position: IPoint, options: ICreateLabelOptions, parent?: Base): Label;
 
+    /**
+     * Append shape to given source, drawing a connection
+     * between source and the newly created shape.
+     *
+     * @param {djs.model.Shape} source
+     * @param {djs.model.Shape|Object} shape
+     * @param {Point} position
+     * @param {djs.model.Shape} target
+     * @param {Object} [hints]
+     * @param {boolean} [hints.attach]
+     * @param {djs.model.Connection|Object} [hints.connection]
+     * @param {djs.model.Base} [hints.connectionParent]
+     *
+     * @return {djs.model.Shape} the newly created shape
+     */
     public appendShape(source: Shape, shape: Shape, position: IPoint, target: Base, hints: { connection?: {}; connectionParent?: {}; attach?: boolean }): {};
 
     public removeElements(elements: Base[]): void;
@@ -89,8 +104,8 @@ declare module "diagram-js/lib/features/modeling/Modeling" {
 
     public createSpace(movingShapes: {}, resizingShapes: {}, delta: {}, direction: {}): {};
     public updateWaypoints(connection: {}, newWaypoints: {}, hints: {}): {};
-    public reconnectStart(connection: {}, newSource: {}, dockingOrPoints: {}): {};
-    public reconnectEnd(connection: Connection, newTarget: Shape, dockingOrPoints: IPoint | IPoint[]): {};
+    public reconnectStart(connection: {}, newSource: {}, dockingOrPoints: {}, hints: {}): {};
+    public reconnectEnd(connection: Connection, newTarget: Shape, dockingOrPoints: IPoint | IPoint[], hints: {}): {};
 
     public connect(source: Shape, target: Shape, attrs: {}, hints: IConnectionHints): Connection;
     public _create(type: {}, attrs: {}): {};
