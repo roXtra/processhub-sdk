@@ -169,6 +169,8 @@ declare module "diagram-js/lib/core/EventBus" {
     public on(events: "spaceTool.ended", callback: () => void): void;
     public on(events: "spaceTool.ended", callback: (event: SpaceToolEndedEvent) => void): void;
 
+    public on(events: "spaceTool.getMinDimensions", callback: (event: SpaceToolGetMinDimensionsEvent) => { [shapeId: string]: { width: number; height: number } }): void;
+
     public on(events: "paletteprovider.highlightmode.click", callback: () => void): void;
 
     /**
@@ -378,6 +380,13 @@ declare module "diagram-js/lib/core/EventBus" {
     previousSelection: {}[];
     x: number;
     y: number;
+  }
+
+  export class SpaceToolGetMinDimensionsEvent extends EventBusEvent<void> {
+    shapes: Shape[];
+    axis: "X" | "y";
+    direction: string;
+    start: number;
   }
 
   export interface IDragEndedEventContext {
