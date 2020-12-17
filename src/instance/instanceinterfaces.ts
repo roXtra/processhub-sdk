@@ -38,7 +38,7 @@ export interface IRiskAssessment extends IRiskAssessmentValue {
   // Displayname of the user that made the assessment
   userDisplayName: string;
   // The name of the field (type "ProcessHubRiskAssessment") the assessment was made with
-  fieldName: string | undefined;
+  fieldName: string;
 }
 
 export interface IInstanceDetails {
