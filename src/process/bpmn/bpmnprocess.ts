@@ -1031,7 +1031,7 @@ export class BpmnProcess {
     // Important to refresh rowdetails with new TaskId
     const newTaskRowDetails = rowDetails[focusedRowNumber];
     let id: string;
-    if (newTaskRowDetails.taskId == null) {
+    if (!newTaskRowDetails.taskId) {
       id = BpmnProcess.getBpmnId("bpmn:UserTask");
       newTaskRowDetails.taskId = id;
     }

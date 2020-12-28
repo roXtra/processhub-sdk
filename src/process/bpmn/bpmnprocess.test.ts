@@ -255,7 +255,7 @@ describe("sdk", function () {
           const processes = bpmnProcess.getProcesses();
           const process: Bpmn.IProcess = bpmnProcess.getProcess(processes[0].id);
 
-          const rowDetails = JSON.parse(JSON.stringify(TestRowDetails));
+          const rowDetails: IRowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
 
           // Wie test zuvor bis hier her
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -266,6 +266,7 @@ describe("sdk", function () {
           const testTaskName = "Test Aufgabe";
 
           addTask(rowDetails, 1, bpmnProcess);
+          assert.isTrue(rowDetails[2].taskId.startsWith("UserTask_"));
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           bpmnProcess.changeTaskName(rowDetails[2].taskId, testTaskName);
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
