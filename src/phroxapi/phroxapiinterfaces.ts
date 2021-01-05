@@ -1,3 +1,5 @@
+import { ModuleId } from "../modules";
+
 export interface IRoxFile {
   name: string;
   fileId: number;
@@ -31,7 +33,9 @@ export interface IModuleSelection {
 }
 
 export interface IModuleItem {
-  id?: string;
+  id?: number;
+  name?: string;
+  type: ModuleId;
   title: string;
   subtitle?: string;
   class?: string;
