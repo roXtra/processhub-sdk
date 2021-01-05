@@ -4,6 +4,7 @@ import { IFieldDefinition, IStatisticRow } from "../data";
 import { Bpmn } from "./bpmn";
 import { ModuleId } from "../modules";
 import { IParseResult } from "bpmn-moddle/lib/simple";
+import { Instance } from "..";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -33,6 +34,7 @@ export const ProcessRequestRoutes = {
   TemplateProcesses: "/api/process/templateprocesses",
   TemplateCustomProcesses: "/api/process/templatecustomprocesses",
   UpdateFieldDefinition: "/api/process/updatefielddefinition",
+  GetProcessInstances: "/api/process/getprocessinstances",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
@@ -222,4 +224,14 @@ export interface IListProcessesReply extends IBaseReply {
     workspaceId: string;
     workspaceDisplayName: string;
   }[];
+}
+
+export interface IGetProcessInstancesRequest extends IBaseRequest {
+  processId: string;
+  // The fast option speeds up the call but the resulting instances have less information (eg. field contents are not included)
+  fast?: boolean;
+}
+
+export interface IGetProcessInstancesReply extends IBaseMessage {
+  instances?: Instance.IInstanceDetails[];
 }
