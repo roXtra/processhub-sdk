@@ -5,6 +5,7 @@ import { Bpmn } from "modeler/bpmn/bpmn";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
 import { IParseResult } from "bpmn-moddle/lib/simple";
+import Joi from "joi";
 
 export enum State {
   // DON'T CHANGE NUMBERS - used in database
@@ -12,6 +13,8 @@ export enum State {
   Finished = 2,
   Canceled = 3,
 }
+
+export const StateSchema = Joi.number().max(3).min(1);
 
 export interface IParentProcessConfig {
   parentInstanceId: string;
@@ -23,6 +26,13 @@ export interface IRiskAssessmentValue {
   assessments: { [dimensionId: string]: number };
   comment: string | undefined;
 }
+
+const IRiskAssessmentValueObject: IRiskAssessmentValue = {
+  assessments: (Joi.object().pattern(Joi.string(), Joi.number()).required() as unknown) as {},
+  comment: (Joi.string().allow("") as unknown) as string,
+};
+
+export const IRiskAssessmentValueSchema = Joi.object(IRiskAssessmentValueObject);
 
 export interface IRiskAssessment extends IRiskAssessmentValue {
   // Id of the assessment
