@@ -14,7 +14,7 @@ export enum State {
   Canceled = 3,
 }
 
-export const StateSchema = Joi.number().max(3).min(1);
+export const StateSchema = Joi.number().max(3).min(1).integer();
 
 export interface IParentProcessConfig {
   parentInstanceId: string;
@@ -28,7 +28,7 @@ export interface IRiskAssessmentValue {
 }
 
 const IRiskAssessmentValueObject: IRiskAssessmentValue = {
-  assessments: (Joi.object().pattern(Joi.string(), Joi.number()).required() as unknown) as {},
+  assessments: (Joi.object().pattern(Joi.string(), Joi.number()).required() as unknown) as { [dimensionId: string]: number },
   comment: (Joi.string().allow("") as unknown) as string,
 };
 

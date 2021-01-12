@@ -6,60 +6,54 @@ import { RiskAssessmentCycle, RiskAssessmentCycleSchema } from "../riskassessmen
 import { IProcessDetails } from "../process";
 import Joi from "joi";
 
-export type FieldType =
-  | "ProcessHubTextInput"
-  | "ProcessHubDateTime"
-  | "ProcessHubTextArea"
-  | "ProcessHubInstanceTitle"
-  | "ProcessHubFileUpload"
-  | "ProcessHubRoleOwner"
-  | "ProcessHubDate"
-  | "ProcessHubDropdown"
-  | "ProcessHubChecklist"
-  | "ProcessHubRadioButton"
-  | "ProcessHubDecision"
-  | "ProcessHubRoxFile"
-  | "ProcessHubSignature"
-  | "ProcessHubLabel"
-  | "ProcessHubMail"
-  | "ProcessHubNumber"
-  | "ProcessHubRiskAssessment"
-  | "ProcessHubRiskAssessmentTodos"
-  | "ProcessHubRiskAssessmentCycle"
-  | "ProcessHubSpreadSheet"
-  | "ProcessHubProcessLink"
-  | "ProcessHubInstanceNumber"
-  | "ProcessHubRoxFileLink"
-  | "ProcessHubCalculatedField";
+export const FieldTypeOptions = [
+  "ProcessHubTextInput",
+  "ProcessHubDateTime",
+  "ProcessHubTextArea",
+  "ProcessHubInstanceTitle",
+  "ProcessHubFileUpload",
+  "ProcessHubRoleOwner",
+  "ProcessHubDate",
+  "ProcessHubDropdown",
+  "ProcessHubChecklist",
+  "ProcessHubRadioButton",
+  "ProcessHubDecision",
+  "ProcessHubRoxFile",
+  "ProcessHubSignature",
+  "ProcessHubLabel",
+  "ProcessHubMail",
+  "ProcessHubNumber",
+  "ProcessHubRiskAssessment",
+  "ProcessHubRiskAssessmentTodos",
+  "ProcessHubRiskAssessmentCycle",
+  "ProcessHubSpreadSheet",
+  "ProcessHubProcessLink",
+  "ProcessHubInstanceNumber",
+  "ProcessHubRoxFileLink",
+  "ProcessHubCalculatedField",
+] as const;
 
-const FieldTypeSchema = Joi.string().pattern(
-  new RegExp(
-    "^ProcessHubTextInput$|" +
-      "^ProcessHubDateTime$|" +
-      "^ProcessHubTextArea$|" +
-      "^ProcessHubInstanceTitle$|" +
-      "^ProcessHubFileUpload$|" +
-      "^ProcessHubRoleOwner$|" +
-      "^ProcessHubDate$|" +
-      "^ProcessHubDropdown$|" +
-      "^ProcessHubChecklist$|" +
-      "^ProcessHubRadioButton$|" +
-      "^ProcessHubDecision$|" +
-      "^ProcessHubRoxFile$|" +
-      "^ProcessHubSignature$|" +
-      "^ProcessHubLabel$|" +
-      "^ProcessHubMail$|" +
-      "^ProcessHubNumber$|" +
-      "^ProcessHubRiskAssessment$|" +
-      "^ProcessHubRiskAssessmentTodos$|" +
-      "^ProcessHubRiskAssessmentCycle$|" +
-      "^ProcessHubSpreadSheet$|" +
-      "^ProcessHubProcessLink$|" +
-      "^ProcessHubInstanceNumber$|" +
-      "^ProcessHubRoxFileLink$|" +
-      "^ProcessHubCalculatedField$|",
-  ),
-);
+export type FieldType = typeof FieldTypeOptions[number];
+
+function createLiteralTypeRegExp(literalTypeOptions: string[]): RegExp {
+  let regExpString = "";
+
+  for (const typeOption of literalTypeOptions) {
+    if (typeof typeOption === "string") {
+      regExpString += "^" + typeOption + "$|";
+    } else {
+      throw new Error("Error: Type option is not a string!");
+    }
+  }
+
+  // Remove last "|"
+  regExpString = regExpString.substring(0, regExpString.length - 1);
+
+  return new RegExp(regExpString);
+}
+
+export const FieldTypeSchema = Joi.string().pattern(createLiteralTypeRegExp(Object.values(FieldTypeOptions)));
+
 export class IFieldConfig {
   conditionExpression: string | undefined;
   conditionBuilderMode?: boolean;
@@ -400,14 +394,18 @@ const IRiskAssessmentFieldConfigObject: IRiskAssessmentFieldConfig = {
 
 export const IRiskAssessmentFieldConfigSchema = Joi.object(IRiskAssessmentFieldConfigObject);
 
+const IRoleOwnerFieldConfigDefaultValueOptions = ["NoValue", "CurrentUser"] as const;
+
+type IRoleOwnerFieldConfigDefaultValueType = typeof IRoleOwnerFieldConfigDefaultValueOptions[number];
+
 export interface IRoleOwnerFieldConfig extends IFieldConfig {
   validationExpression?: string;
-  defaultValue: "NoValue" | "CurrentUser" | undefined;
+  defaultValue: IRoleOwnerFieldConfigDefaultValueType | undefined;
 }
 
 const IRoleOwnerFieldConfigObject: IRoleOwnerFieldConfig = {
   validationExpression: (Joi.string().allow("") as unknown) as string,
-  defaultValue: (Joi.string().pattern(new RegExp("^NoValue$|^CurrentUser$")) as unknown) as "NoValue" | "CurrentUser",
+  defaultValue: (Joi.string().pattern(createLiteralTypeRegExp(Object.values(IRoleOwnerFieldConfigDefaultValueOptions))) as unknown) as IRoleOwnerFieldConfigDefaultValueType,
   // Extends IFieldConfig
   ...IFieldConfigObject,
 };
@@ -531,15 +529,15 @@ export interface IFieldType {
 }
 
 const IFieldTypeObject: IFieldType = {
-  getType: (Joi.function().arity(0).required() as unknown) as () => FieldType,
-  getName: (Joi.function().arity(0).required() as unknown) as () => string,
-  getInput: (Joi.function().maxArity(6).minArity(5).required() as unknown) as () => JSX.Element,
-  renderValue: (Joi.function().maxArity(5).minArity(3).required() as unknown) as () => JSX.Element,
-  renderValueForEmail: (Joi.function().maxArity(5).minArity(3).required() as unknown) as () => JSX.Element,
-  getSettingsButton: (Joi.function().arity(3).required() as unknown) as () => JSX.Element,
-  isVisible: (Joi.function().arity(0).required() as unknown) as () => boolean,
-  isValid: (Joi.function().arity(2).required() as unknown) as () => boolean,
-  isConfigValid: (Joi.function().arity(1).required() as unknown) as () => { valid: boolean; message?: string },
+  getType: (Joi.function().required() as unknown) as () => FieldType,
+  getName: (Joi.function().required() as unknown) as () => string,
+  getInput: (Joi.function().required() as unknown) as () => JSX.Element,
+  renderValue: (Joi.function().required() as unknown) as () => JSX.Element,
+  renderValueForEmail: (Joi.function().required() as unknown) as () => JSX.Element,
+  getSettingsButton: (Joi.function().required() as unknown) as () => JSX.Element,
+  isVisible: (Joi.function().required() as unknown) as () => boolean,
+  isValid: (Joi.function().required() as unknown) as () => boolean,
+  isConfigValid: (Joi.function().required() as unknown) as () => { valid: boolean; message?: string },
 };
 
 export const IFieldTypeSchema = Joi.object(IFieldTypeObject);

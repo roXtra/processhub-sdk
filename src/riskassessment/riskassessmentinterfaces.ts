@@ -11,7 +11,7 @@ export enum RiskAssessmentCycle {
   BiYearly = 5,
 }
 
-export const RiskAssessmentCycleSchema = Joi.number().max(5).min(1);
+export const RiskAssessmentCycleSchema = Joi.number().max(5).min(1).integer();
 
 export interface IAllAssessmentsFromWorkspaces extends IBaseReply {
   assessments: IWorkspaceAssessment[];
