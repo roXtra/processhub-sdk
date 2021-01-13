@@ -1,3 +1,4 @@
+import Joi from "joi";
 import { IRiskAssessment } from "../instance/instanceinterfaces";
 import { IBaseReply } from "../legacyapi";
 
@@ -9,6 +10,8 @@ export enum RiskAssessmentCycle {
   Yearly = 4,
   BiYearly = 5,
 }
+
+export const RiskAssessmentCycleSchema = Joi.number().max(5).min(1).integer();
 
 export interface IAllAssessmentsFromWorkspaces extends IBaseReply {
   assessments: IWorkspaceAssessment[];
