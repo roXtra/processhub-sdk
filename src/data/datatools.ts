@@ -3,6 +3,7 @@ import { getFormattedDate, getFormattedDateTime, getFormattedTimeZoneOffset } fr
 import { IRoleOwnerMap, IRoleOwner, IProcessRoles, BpmnProcess } from "../process";
 import { replaceOldFieldSyntax } from "../tools";
 import SqlString from "sqlstring";
+import Joi from "joi";
 
 const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName))?/;
@@ -201,4 +202,12 @@ export function updateLegacyFieldDefinitions(definitions: ILegacySchema): IField
     }
     return updatedDefinitions;
   } else return definitions as IFieldDefinition[];
+}
+
+export function validateType<T>(schema: Joi.Schema, element: unknown, required?: boolean): T {
+  const res = required ? schema.required().validate(element) : schema.validate(element);
+  if (res.error) {
+    throw new Error(res.error.message);
+  }
+  return element as T;
 }
