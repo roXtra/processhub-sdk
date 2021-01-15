@@ -174,7 +174,7 @@ export interface IExportAuditTrailReply extends IInstanceReply {
 
 const IGenerateReportRequestTypeOptions = ["docx", "pdf"] as const;
 
-type IGenerateReportRequestType = typeof IGenerateReportRequestTypeOptions[number];
+export type IGenerateReportRequestType = typeof IGenerateReportRequestTypeOptions[number];
 
 export interface IGenerateReportRequest extends IBaseRequest {
   instanceIds: string[];

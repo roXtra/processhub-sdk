@@ -50,7 +50,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         throw new Error("Not implemented");
       },
       // eslint-disable-next-line @typescript-eslint/require-await
-      generateInstanceReport: async (): Promise<{ doc: Buffer; fileName: string }> => {
+      generateInstanceReport: async (): Promise<{ doc: string; fileName: string }> => {
         throw new Error("Not implemented");
       },
       // eslint-disable-next-line @typescript-eslint/require-await
