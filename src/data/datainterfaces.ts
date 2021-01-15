@@ -35,7 +35,7 @@ export const FieldTypeOptions = [
 
 export type FieldType = typeof FieldTypeOptions[number];
 
-function createLiteralTypeRegExp(literalTypeOptions: string[]): RegExp {
+export function createLiteralTypeRegExp(literalTypeOptions: string[]): RegExp {
   let regExpString = "";
 
   for (const typeOption of literalTypeOptions) {
