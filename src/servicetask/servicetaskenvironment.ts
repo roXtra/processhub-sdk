@@ -6,6 +6,7 @@ import { IFileStore } from "../filestore";
 import { IConfig } from "../serverconfig";
 import { BpmnProcess, ProcessExtras, IProcessDetails } from "../process";
 import { ISendMailTemplateRequest, ISendMailTemplateReply } from "../mailer/mailerinterfaces";
+import { IGenerateReportRequestType } from "../instance";
 
 /**
  * Provide logging for ServiceTasks
@@ -24,7 +25,7 @@ export interface IServiceTaskLogger {
 export interface IServiceTaskInstances {
   updateInstance(instanceDetails: IInstanceDetails): Promise<IInstanceDetails>;
   uploadAttachment(processId: string, instanceId: string, fileName: string, dataBase64: string): Promise<string>;
-  generateInstanceReport(instanceIdStrings: string, draftId: string, type: "docx" | "pdf"): Promise<{ doc: Buffer; fileName: string }>;
+  generateInstanceReport(instanceIds: string[], draftId: string, type: IGenerateReportRequestType): Promise<{ doc: string /* Base64*/; fileName: string }>;
   executeInstance(processId: string, instance: IInstanceDetails, startEventId?: string, accessToken?: string): Promise<string>;
 }
 
