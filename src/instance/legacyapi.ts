@@ -1,6 +1,8 @@
-import { IBaseReply, IBaseMessage, IBaseRequest } from "../legacyapi/apiinterfaces";
+import { IBaseReply, IBaseMessage, IBaseRequest, IBaseRequestObject, IBaseReplyObject } from "../legacyapi/apiinterfaces";
 import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces";
 import { UserDetails } from "../user";
+import Joi from "joi";
+import { createLiteralTypeRegExp } from "./../data/datainterfaces";
 
 // API routes
 export const ProcessEngineApiRoutes = {
@@ -30,6 +32,14 @@ export type ProcessEngineApiRoutes = keyof typeof ProcessEngineApiRoutes;
 export interface IInstanceReply extends IBaseReply {
   errorMessage?: string;
 }
+
+const IInstanceReplyObject: IInstanceReply = {
+  errorMessage: (Joi.string().allow("") as unknown) as string,
+  // Extends IBaseReply
+  ...IBaseReplyObject,
+};
+
+export const IInstanceReplySchema = Joi.object(IInstanceReplyObject);
 
 export interface IExecuteRequest extends IBaseRequest {
   processId: string;
@@ -162,12 +172,38 @@ export interface IExportAuditTrailReply extends IInstanceReply {
   doc: Buffer;
 }
 
+const IGenerateReportRequestTypeOptions = ["docx", "pdf"] as const;
+
+type IGenerateReportRequestType = typeof IGenerateReportRequestTypeOptions[number];
+
 export interface IGenerateReportRequest extends IBaseRequest {
-  instanceIds: string;
+  instanceIds: string[];
   draftId: string;
-  type: "docx" | "pdf";
+  type: IGenerateReportRequestType;
 }
+
+const IGenerateReportRequestObject: IGenerateReportRequest = {
+  instanceIds: (Joi.array().items(Joi.string()).required() as unknown) as string[],
+  draftId: (Joi.string().required() as unknown) as string,
+  type: (Joi.string()
+    .pattern(createLiteralTypeRegExp(Object.values(IGenerateReportRequestTypeOptions)))
+    .required() as unknown) as IGenerateReportRequestType,
+  // Extends IBaseRequest
+  ...IBaseRequestObject,
+};
+
+export const IGenerateReportRequestSchema = Joi.object(IGenerateReportRequestObject);
+
 export interface IGenerateReportReply extends IInstanceReply {
-  doc: Buffer;
+  doc: string /* Base64*/;
   fileName: string;
 }
+
+const IGenerateReportReplyObject: IGenerateReportReply = {
+  doc: (Joi.string().allow("").base64().required() as unknown) as string,
+  fileName: (Joi.string().required() as unknown) as string,
+  // Extends IInstanceReply
+  ...IInstanceReplyObject,
+};
+
+export const IGenerateReportReplySchema = Joi.object(IGenerateReportReplyObject);

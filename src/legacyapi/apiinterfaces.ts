@@ -1,3 +1,5 @@
+import Joi from "joi";
+
 // Die ApiResults werden auch als Http Statuscodes genutzt
 export enum ApiResult {
   API_OK = 200,
@@ -22,9 +24,22 @@ export interface IBaseReply {
   result?: ApiResult;
 }
 
+export const IBaseReplyObject: IBaseReply = {
+  type: (Joi.string().allow("") as unknown) as string,
+  result: (Joi.number() as unknown) as number,
+};
+
+export const IBaseReplySchema = Joi.object(IBaseReplyObject);
+
 export interface IBaseRequest {
   moduleId?: number;
 }
+
+export const IBaseRequestObject: IBaseRequest = {
+  moduleId: (Joi.number() as unknown) as number,
+};
+
+export const IBaseRequestSchema = Joi.object(IBaseRequestObject);
 
 export interface IBaseMessage extends IBaseReply {
   type: string;
