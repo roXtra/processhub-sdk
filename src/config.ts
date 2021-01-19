@@ -57,6 +57,13 @@ export interface IInitialConfig extends IClientSettingsConfig {
   features: IFeatureConfig;
   moduleId: number;
   modules: IModule[];
+  mimeTypes: {
+    extensions: string[];
+    iconGif: string | undefined;
+    iconSvg: string | undefined;
+    streamType: string | undefined;
+    id: string | undefined;
+  }[];
   /* If this is set, it will be used instead of the cookie to identify an user.
   Can be used to execute API calls in the context of another user without getting logged out. */
   xAccesstoken?: string;
