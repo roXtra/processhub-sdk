@@ -478,6 +478,7 @@ export type FieldValueType =
   | IRoxFileLinkValue; // RoxFileLink
 
 const FieldValueTypeSchema = [
+  Joi.allow(null),
   Joi.number(),
   Joi.date(),
   Joi.string().allow(""),
