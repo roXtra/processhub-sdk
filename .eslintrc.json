@@ -7,7 +7,8 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "deprecation"
+    "deprecation",
+    "no-only-tests"
   ],
   "env": {
     "browser": true,
@@ -26,6 +27,7 @@
   ],
   "rules": {
     "linebreak-style": ["error", "unix"],
+    "no-only-tests/no-only-tests": "error",
     "no-cond-assign": "error",
     "capitalized-comments": [
       "error",
