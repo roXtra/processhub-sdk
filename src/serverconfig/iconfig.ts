@@ -25,6 +25,7 @@ export interface IDatabaseConfig {
   user: string;
   password: string;
   database: string;
+  encrypt: boolean;
 }
 
 export interface IFilestoreConfig {
