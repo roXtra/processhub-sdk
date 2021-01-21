@@ -247,7 +247,7 @@ export const IChecklistEntrySchema = Joi.object(IChecklistEntryObject);
 
 export type ChecklistFieldValue = { [key: string]: boolean };
 
-export const ChecklistFieldValueSchema = Joi.object().pattern(Joi.string(), Joi.boolean());
+export const ChecklistFieldValueSchema = Joi.object().pattern(Joi.string().allow(""), Joi.boolean());
 
 export interface IFieldConfigDefault extends IFieldConfig {
   validationExpression?: string;
