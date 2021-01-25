@@ -25,11 +25,11 @@ describe("sdk", function () {
           chai.assert.equal(StringTools.toCleanUrl("Mein schöner Titel"), "mein-schoener-titel");
 
           // Ungültige Zeichen entfernen
-          chai.assert.equal(StringTools.toCleanUrl("Ö/+\\.?=&#-ab"), "oe-ab");
+          chai.assert.equal(StringTools.toCleanUrl("Ö/\\+.?=&%_#| -:ab"), "oe-ab");
         });
 
         it("soll Unicode Characters korrekt behandeln", function () {
-          chai.assert.equal(StringTools.toCleanUrl("위키백과:대문"), "위키백과:대문");
+          chai.assert.equal(StringTools.toCleanUrl("위키백과:대문"), "위키백과-대문");
           chai.assert.equal(StringTools.toCleanUrl("としょかん"), "としょかん");
           chai.assert.equal(StringTools.toCleanUrl("كيبورد عربي"), "كيبورد-عربي");
         });
