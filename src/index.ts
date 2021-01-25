@@ -14,8 +14,6 @@ import * as RiskAssessment from "./riskassessment";
 export { RiskAssessment };
 import * as Mailer from "./mailer";
 export { Mailer };
-import * as Components from "./components";
-export { Components };
 import * as Todo from "./todo";
 export { Todo };
 import * as Workspace from "./workspace";

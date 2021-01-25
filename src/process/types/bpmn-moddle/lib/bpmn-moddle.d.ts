@@ -58,6 +58,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
     public create(descriptor: "bpmn:BoundaryEvent", attrs: Partial<Bpmn.IBoundaryEvent>): Bpmn.IBoundaryEvent;
     public create(descriptor: "bpmn:Definitions", attrs: Partial<Bpmn.IDefinitions>): Bpmn.IDefinitions;
     public create(descriptor: "bpmn:EndEvent", attrs: Partial<Bpmn.IEndEvent>): Bpmn.IEndEvent;
+    public create(descriptor: "bpmn:Error", attrs: Partial<Bpmn.IError>): Bpmn.IError;
     public create(descriptor: "bpmn:ErrorEventDefinition", attrs: Partial<Bpmn.IErrorEventDefinition>): Bpmn.IErrorEventDefinition;
     public create(descriptor: "bpmn:ExclusiveGateway", attrs: Partial<Bpmn.IExclusiveGateway>): Bpmn.IExclusiveGateway;
     public create(descriptor: "bpmn:ExtensionElements", attrs: Partial<Bpmn.IExtensionElements>): Bpmn.IExtensionElements;
