@@ -128,6 +128,10 @@ export interface IAuditTrailEntryDetails {
 
   // Must be set for linkedInstanceDeleted
   linkedInstanceTitle: string;
+
+  // Can be set for errorInScriptTask and errorInServiceTask - information about the error that occured
+  errorCode: string;
+  errorMessage: string;
 }
 
 export type Partial<T> = {
