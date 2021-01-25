@@ -25,7 +25,10 @@ describe("sdk", function () {
           chai.assert.equal(StringTools.toCleanUrl("Mein schöner Titel"), "mein-schoener-titel");
 
           // Ungültige Zeichen entfernen
-          chai.assert.equal(StringTools.toCleanUrl("Ö/\\+.?=&%_#| -:ab"), "oe-ab");
+          chai.assert.equal(StringTools.toCleanUrl("Ö/\\:+.?=&%_#| -ab"), "oe-ab");
+
+          // Checks if numbers are not replaced
+          chai.assert.equal(StringTools.toCleanUrl("ab123-cd456"), "ab123-cd456");
         });
 
         it("soll Unicode Characters korrekt behandeln", function () {
