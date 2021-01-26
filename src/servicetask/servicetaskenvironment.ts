@@ -1,4 +1,4 @@
-import { UserDetails } from "../user/userinterfaces";
+import { IUserDetails } from "../user/userinterfaces";
 import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { IFieldContentMap, IServiceActionConfigField } from "../data/datainterfaces";
@@ -67,7 +67,7 @@ export interface IServiceTaskEnvironment {
   roxApi: IServiceTaskRoxApi;
   mailer: IServiceTaskMailer;
   workspace: IWorkspaceDetails;
-  sender: UserDetails;
+  sender: IUserDetails;
   fileStore: IFileStore;
   serverConfig: IConfig;
 }

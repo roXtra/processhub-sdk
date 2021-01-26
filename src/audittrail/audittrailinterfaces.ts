@@ -1,4 +1,4 @@
-import { UserDetails } from "../user/userinterfaces";
+import { IUserDetails } from "../user/userinterfaces";
 import { IFieldValue } from "../data/datainterfaces";
 
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -144,7 +144,7 @@ export interface IAuditTrailEntry {
   processId?: string; // May be null for entries on workspace-level
   instanceId?: string; // May be null for entries on workspace- or process-level
   action: AuditTrailAction;
-  user?: UserDetails;
+  user?: IUserDetails;
   createdAt: Date; // Time of action in UTC
   entryFrom?: AuditTrailProcessFlag;
   details: Partial<IAuditTrailEntryDetails>;

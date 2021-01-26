@@ -15,7 +15,7 @@ import { IProcessDetails } from "./processinterfaces";
 import { createBpmnTemplate } from "./bpmn/bpmnmoddlehelper";
 import { ILoadTemplateReply } from "./legacyapi";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
-import { UserDetails, Licence } from "../user";
+import { IUserDetails, Licence } from "../user";
 import { assert } from "console";
 
 const testProcess: IProcessDetails = {
@@ -31,7 +31,7 @@ const testProcess: IProcessDetails = {
   extras: {},
 };
 
-const testUser: UserDetails = {
+const testUser: IUserDetails = {
   licence: Licence.Writer,
   userId: "1",
   mail: "",
