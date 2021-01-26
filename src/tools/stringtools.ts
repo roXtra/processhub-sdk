@@ -113,13 +113,13 @@ export function getQueryFromRule(rule: Rule): string {
   return `${rule.field} ${rule.operator} ${String(value)}`;
 }
 
-export class NestedElement {
+interface INestedElement {
   query: string;
   type: string;
   top?: boolean;
 }
 export class NestedElements {
-  [key: string]: NestedElement;
+  [key: string]: INestedElement;
 }
 
 const ruleRegex = /((field|role|riskMetric)\['([^']*)'\](\.[^\s]+)?)\s(==|!=|<|<=|>|>=|<>|><)\s(('([^']+)')|(([^()&|]+)))/; // /((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+)))/
@@ -186,7 +186,7 @@ export function parseNestedElementsToGroupConstruct(nestedElement: NestedElement
 
   if (topIndex === undefined) throw new Error(`Could not find index for top element in parseNestedElementsToGroupConstruct: ${JSON.stringify(nestedElement)}`);
 
-  const topEntry: NestedElement = cloneDeep(nestedElement[topIndex]);
+  const topEntry: INestedElement = cloneDeep(nestedElement[topIndex]);
 
   if (topEntry.type === "group") {
     const regexEx = isCombinatorRegex.exec(topEntry.query);
