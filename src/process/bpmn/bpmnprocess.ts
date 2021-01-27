@@ -17,8 +17,8 @@ import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 import { IParseResult } from "bpmn-moddle/lib/simple";
 
 export class BpmnProcess {
-  private moddleContext: IParseResult;
-  private bpmnXml: Bpmn.IDefinitions;
+  private moddleContext?: IParseResult;
+  private bpmnXml?: Bpmn.IDefinitions;
   private processDiagram: BpmnProcessDiagram;
 
   constructor() {
@@ -26,6 +26,10 @@ export class BpmnProcess {
   }
 
   public getModdleContext(): IParseResult {
+    if (this.moddleContext === undefined) {
+      throw new Error("moddleContext is undefined, please load bpmn XML first!");
+    }
+
     return this.moddleContext;
   }
 
@@ -56,6 +60,10 @@ export class BpmnProcess {
   }
 
   public getBpmnDefinitions(): Bpmn.IDefinitions {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     return this.bpmnXml;
   }
 
@@ -64,6 +72,10 @@ export class BpmnProcess {
   }
 
   public definitionId(): string {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     return this.bpmnXml.id;
   }
 
@@ -91,6 +103,10 @@ export class BpmnProcess {
   }
 
   public getFieldDefinitionList(): IFieldDefinitionItem[] {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     const fieldDefinitionsList: IFieldDefinitionItem[] = [];
 
     const process: Bpmn.IProcess = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process") as Bpmn.IProcess;
@@ -356,6 +372,10 @@ export class BpmnProcess {
   }
 
   private getCollaboration(): Bpmn.ICollaboration {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     return this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Collaboration") as Bpmn.ICollaboration;
   }
 
@@ -380,10 +400,18 @@ export class BpmnProcess {
   }
 
   public getProcesses(): Bpmn.IRootElement[] {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     return this.bpmnXml.rootElements.filter((e) => e.$type === "bpmn:Process");
   }
 
   public getProcess(processId: string): Bpmn.IProcess {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     return this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process" && e.id === processId) as Bpmn.IProcess;
   }
 
@@ -442,6 +470,10 @@ export class BpmnProcess {
   }
 
   private getEvents(processId: string, eventType: string): Bpmn.IFlowElement[] {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     const process: Bpmn.IProcess = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process" && e.id === processId) as Bpmn.IProcess;
     const flowElements: Bpmn.IFlowElement[] = process.flowElements.filter((e: Bpmn.IFlowElement) => e.$type === eventType);
 
@@ -453,7 +485,11 @@ export class BpmnProcess {
   }
 
   public getExistingTask(processId: string, taskId: string): Bpmn.ITask {
-    const process: Bpmn.IProcess = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process" && e.id === processId) as Bpmn.IProcess;
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
+    const process = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process" && e.id === processId) as Bpmn.IProcess;
     const flowElements: Bpmn.IFlowNode[] = process.flowElements.filter(
       (e: Bpmn.IFlowNode) =>
         e.$type === "bpmn:StartEvent" ||
@@ -494,6 +530,10 @@ export class BpmnProcess {
   }
 
   public getAllTimers(): Bpmn.ICatchEvent[] {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     const process: Bpmn.IProcess = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process" && e.id === this.processId()) as Bpmn.IProcess;
     const flowElements: Bpmn.ICatchEvent[] = process.flowElements.filter(
       (e: Bpmn.ICatchEvent) => e.eventDefinitions != null && e.eventDefinitions.find((ed) => ed.$type === "bpmn:TimerEventDefinition"),
@@ -502,18 +542,30 @@ export class BpmnProcess {
   }
 
   public getAllExclusiveGateways(): Bpmn.IFlowNode[] {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     const process: Bpmn.IProcess = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process" && e.id === this.processId()) as Bpmn.IProcess;
     const flowElements: Bpmn.IFlowNode[] = process.flowElements.filter((e: Bpmn.IFlowNode) => e.$type === "bpmn:ExclusiveGateway");
     return flowElements;
   }
 
   public getAllParallelGateways(): Bpmn.IFlowNode[] {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     const process: Bpmn.IProcess = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process" && e.id === this.processId()) as Bpmn.IProcess;
     const flowElements: Bpmn.IFlowNode[] = process.flowElements.filter((e: Bpmn.IFlowNode) => e.$type === "bpmn:ParallelGateway");
     return flowElements;
   }
 
   public getExistingActivityObject(objectId: string): Bpmn.IActivity | undefined {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     const process: Bpmn.IProcess = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process" && e.id === this.processId()) as Bpmn.IProcess;
     const flowElement = process.flowElements.find((e: Bpmn.IActivity) => e.id === objectId);
     return flowElement;
@@ -1148,6 +1200,10 @@ export class BpmnProcess {
   }
 
   public async toXmlString(): Promise<string> {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     this.removeLanesWithoutShape();
 
     const res = await bpmnModdleInstance.toXML(this.bpmnXml, { format: true });
@@ -1161,6 +1217,10 @@ export class BpmnProcess {
   //  Diagramm Komponente
   // Gibt die notwendigen Elemente für die Erstellung des Diagram-Pars im XML zurück
   public getCollaborationElements(): Bpmn.ICollaboration[] {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     const elements = this.bpmnXml.rootElements.filter((e: Bpmn.IBaseElement) => e.$type === "bpmn:Collaboration") as Bpmn.ICollaboration[];
     return elements;
   }
@@ -1236,6 +1296,10 @@ export class BpmnProcess {
    * @return {Bpmn.ILane[]} the lanes of the process - if onlyLanesWithTasks is true, only the lanes containing a task are returned
    */
   public getLanes(onlyLanesWithTasks: boolean): Bpmn.ILane[] {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     let laneElementsList: Bpmn.ILane[] = [];
     const processes: Bpmn.IProcess[] = this.bpmnXml.rootElements.filter((e: Bpmn.IRootElement) => e.$type === "bpmn:Process") as Bpmn.IProcess[];
 
@@ -1264,6 +1328,10 @@ export class BpmnProcess {
   }
 
   public getLaneOfFlowNode(flowNodeId: string): Bpmn.ILane | undefined {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     let laneElement: Bpmn.ILane | undefined = undefined;
     const processes: Bpmn.IProcess[] = this.bpmnXml.rootElements.filter((e: Bpmn.IRootElement) => e.$type === "bpmn:Process") as Bpmn.IProcess[];
 
@@ -1376,6 +1444,10 @@ export class BpmnProcess {
   }
 
   private getFlowElementsOfType<T extends Bpmn.IBaseElement>(type: Bpmn.bpmnType): T[] {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     const elements: T[] = [];
     const processes: Bpmn.IProcess[] = this.bpmnXml.rootElements.filter((e) => e.$type === "bpmn:Process") as Bpmn.IProcess[];
 
@@ -1639,6 +1711,10 @@ export class BpmnProcess {
   }
 
   private removeLanesWithoutShape(): void {
+    if (this.bpmnXml === undefined) {
+      throw new Error("bpmnXml is undefined, please load bpmn XML first!");
+    }
+
     const process = this.getProcess(this.processId());
     const diagram = this.bpmnXml.diagrams[0];
     if (process.laneSets) {
