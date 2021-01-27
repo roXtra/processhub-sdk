@@ -64,7 +64,7 @@
     "@types/chai": "^4.2.14",
     "@types/lodash": "^4.14.168",
     "@types/mocha": "^8.2.0",
-    "@types/node": "^12.19.14",
+    "@types/node": "^12.19.15",
     "@types/react": "^16.14.2",
     "@types/sqlstring": "^2.3.0",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
