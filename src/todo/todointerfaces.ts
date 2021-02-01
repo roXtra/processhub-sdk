@@ -1,4 +1,4 @@
-import { UserDetails } from "../user";
+import { IUserDetails } from "../user";
 import { Bpmn } from "../process/bpmn";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
 
@@ -33,7 +33,7 @@ export interface ITodoDetails {
   bpmnTaskId: string;
   bpmnLaneId: string;
   createdAt?: Date;
-  user?: UserDetails;
+  user?: IUserDetails;
   priority?: number;
   dueAt?: Date;
   subInstanceId?: string;

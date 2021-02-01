@@ -1,7 +1,7 @@
 // Helper functions to filter and/or sort todos
 import { ITodoDetails, TodoType } from "./todointerfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { UserDetails } from "../user/index";
+import { IUserDetails } from "../user/index";
 import { filterInstancesForProcess, filterRemainingInstancesForWorkspace } from "../instance/instancefilters";
 import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 
@@ -19,7 +19,7 @@ export function getTodosFromInstances(instances: IInstanceDetails[]): ITodoDetai
 }
 
 // Todos assigned to user
-export function filterUserTodos(todos: ITodoDetails[], user: UserDetails): ITodoDetails[] {
+export function filterUserTodos(todos: ITodoDetails[], user: IUserDetails): ITodoDetails[] {
   if (!user || !todos) return [];
 
   const filteredTodos: ITodoDetails[] = todos.filter((todo) => todo.todoType !== TodoType.Simulation && todo.userId === user.userId);

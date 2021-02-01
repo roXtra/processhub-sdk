@@ -1,11 +1,11 @@
 import { IInstanceDetails } from "./instanceinterfaces";
-import { UserDetails } from "../user/userinterfaces";
+import { IUserDetails } from "../user/userinterfaces";
 import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 
 // Helper functions to filter and/or sort instances
 
 // instance where the user owns at least one todo
-export function filterUserInstances(instances: IInstanceDetails[], user?: UserDetails): IInstanceDetails[] {
+export function filterUserInstances(instances: IInstanceDetails[], user?: IUserDetails): IInstanceDetails[] {
   if (!user || !instances) return [];
 
   const filteredInstances: IInstanceDetails[] = [];

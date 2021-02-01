@@ -1,5 +1,5 @@
 import { IBaseRequest, IBaseMessage } from "../legacyapi/apiinterfaces";
-import { UserDetails, UserExtras, IViewState } from "./userinterfaces";
+import { IUserDetails, UserExtras, IViewState } from "./userinterfaces";
 import { UserMessages } from "./phclient";
 
 export const UserRequestRoutes = {
@@ -20,12 +20,12 @@ export interface ILoadUserRequest extends IBaseRequest {
   getExtras: UserExtras;
 }
 export interface ILoadUserReply extends IBaseMessage {
-  userDetails?: UserDetails;
+  userDetails?: IUserDetails;
 }
 
 export interface IUserLoadedMessage extends IBaseMessage {
   type: UserMessages;
-  user?: UserDetails;
+  user?: IUserDetails;
 }
 
 export interface ISetArchiveViewStateRequest extends IBaseRequest {

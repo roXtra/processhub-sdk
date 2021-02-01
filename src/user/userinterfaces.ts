@@ -11,13 +11,13 @@ export enum Licence {
   PublicReader = "roXtra.PublicReader",
 }
 
-export function hasEditAccess(user: UserDetails): boolean {
+export function hasEditAccess(user: IUserDetails): boolean {
   return user.licence === Licence.Writer || user.isSystemUser === true;
 }
 
 export type ExtendedRight = "Z1";
 
-export function hasSetCorporateDesignRight(user: UserDetails): boolean {
+export function hasSetCorporateDesignRight(user: IUserDetails): boolean {
   if (user.isSystemUser) {
     return true;
   }
@@ -34,7 +34,7 @@ export interface IArchiveViews {
   [processId: string]: string | undefined;
 }
 
-export class UserDetails {
+export interface IUserDetails {
   userId: string;
   mail: string;
   displayName: string; // RealName or mail if no name is defined
@@ -71,7 +71,7 @@ export enum UserExtras {
   ExtrasArchiveViews = 1 << 4, // User-specific last viewed archive views by process id,
 }
 
-export const emptyUser: UserDetails = {
+export const emptyUser: IUserDetails = {
   userId: nullId(),
   mail: "",
   displayName: "",
@@ -80,7 +80,7 @@ export const emptyUser: UserDetails = {
   extendedRights: [],
 };
 
-export function getUserWorkspace(user: UserDetails, workspaceId: string): IWorkspaceDetails | undefined {
+export function getUserWorkspace(user: IUserDetails, workspaceId: string): IWorkspaceDetails | undefined {
   if (user == null) {
     return undefined;
   }

@@ -1,6 +1,6 @@
 import { IInstanceEnvironment } from "../environment";
 import { IInstanceDetails, IRiskAssessmentValue, IRiskAssessmentValueSchema, State, StateSchema } from "../instance/instanceinterfaces";
-import { UserDetails } from "../user";
+import { IUserDetails } from "../user";
 import { Process, ActionHandler } from "..";
 import { RiskAssessmentCycle, RiskAssessmentCycleSchema } from "../riskassessment/riskassessmentinterfaces";
 import { IProcessDetails } from "../process";
@@ -706,7 +706,7 @@ export interface IStatisticRow {
   processId: string;
   details: IStatisticTrailEntry;
   action: StatisticsAction;
-  userDetails?: UserDetails;
+  userDetails?: IUserDetails;
   userId: string;
   createdAt: Date;
 }

@@ -1,5 +1,5 @@
 import { IProcessDetails } from "../process/processinterfaces";
-import { UserDetails } from "../user/userinterfaces";
+import { IUserDetails } from "../user/userinterfaces";
 import { IAuditTrailEntry } from "../audittrail";
 import { IGroupDetails } from "../group/groupinterfaces";
 
@@ -45,7 +45,7 @@ export enum WorkspaceRole {
 }
 
 export interface IWorkspaceMember {
-  userDetails: UserDetails;
+  userDetails: IUserDetails;
   memberRole: WorkspaceRole;
 }
 

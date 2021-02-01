@@ -3,7 +3,7 @@ import { IInstanceDetails } from "../instance";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { strEnum } from "../tools/types";
 import { IFieldDefinition, ITaskIdRequiredFieldsNeeded, IServiceActionConfigField, FieldType } from "../data";
-import { UserDetails } from "../user/userinterfaces";
+import { IUserDetails } from "../user/userinterfaces";
 import { IRowDetails } from ".";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 import { IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces";
@@ -94,7 +94,7 @@ export interface IProcessDetails {
     bpmnXml?: string;
     bpmnProcess?: BpmnProcess; // Available if bpmnXml is available
     instances?: IInstanceDetails[];
-    instancesUsers?: UserDetails[];
+    instancesUsers?: IUserDetails[];
     processRoles?: IProcessRoles;
     svgString?: string; // Only used to save preview to server or if requested in extras
     settings?: IProcessSettings;
