@@ -1,3 +1,5 @@
+import Joi from "joi";
+
 export enum ErrorCode {
   UnknownError = "UNKNOWN_ERROR",
   ScriptIsUndefined = "SCRIPT_IS_UNDEFINED",
@@ -17,6 +19,17 @@ export class BpmnError extends Error {
   }
 }
 
+const BpmnErrorObject: BpmnError = {
+  errorCode: (Joi.string().allow("") as unknown) as string,
+  errorMessage: (Joi.string().allow("") as unknown) as string,
+  message: (Joi.string().allow("") as unknown) as string,
+  name: (Joi.string().allow("") as unknown) as string,
+  innerError: (Joi.object().optional() as unknown) as Error,
+  stack: (Joi.string().allow("") as unknown) as string,
+};
+
+export const BpmnErrorSchema = Joi.object(BpmnErrorObject);
+
 export function isBpmnError(error: {}): error is BpmnError {
-  return error && error.constructor.name === "BpmnError" && typeof (error as BpmnError).errorMessage === "string" && typeof (error as BpmnError).errorCode === "string";
+  return error && error.constructor.name === BpmnError.name && BpmnErrorSchema.required().validate(error).error === undefined;
 }
