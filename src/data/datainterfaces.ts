@@ -519,6 +519,7 @@ export interface IFieldType {
   ): JSX.Element | undefined;
   renderValue(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element | undefined;
   renderValueForEmail(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element | undefined;
+  renderValueToString(value: {} | undefined, instance?: IInstanceDetails, process?: IProcessDetails): string | undefined;
   getSettingsButton(
     fieldDefinition: IFieldDefinition,
     onConfigChanged: (fieldDefinition: IFieldDefinition) => void,
@@ -535,6 +536,7 @@ const IFieldTypeObject: IFieldType = {
   getInput: (Joi.function().required() as unknown) as () => JSX.Element,
   renderValue: (Joi.function().required() as unknown) as () => JSX.Element,
   renderValueForEmail: (Joi.function().required() as unknown) as () => JSX.Element,
+  renderValueToString: (Joi.function().required() as unknown) as () => string,
   getSettingsButton: (Joi.function().required() as unknown) as () => JSX.Element,
   isVisible: (Joi.function().required() as unknown) as () => boolean,
   isValid: (Joi.function().required() as unknown) as () => boolean,

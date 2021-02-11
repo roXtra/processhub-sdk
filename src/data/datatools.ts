@@ -5,8 +5,8 @@ import { replaceOldFieldSyntax } from "../tools";
 import SqlString from "sqlstring";
 import Joi from "joi";
 
-const fieldNameRegExp = /field\['([^'\]]*)'\]/;
-const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName))?/;
+export const fieldNameRegExp = /field\['([^'\]]*)'\]/;
+export const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName))?/;
 
 export function replaceAll(target: string, search: string, replacement?: string, isQuery?: boolean): string {
   if (!replacement) {
