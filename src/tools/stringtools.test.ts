@@ -1,4 +1,5 @@
 import * as chai from "chai";
+import { expect } from "chai";
 import chaiExclude from "chai-exclude";
 import { createId } from "./guid";
 import * as StringTools from "./stringtools";
@@ -512,6 +513,40 @@ describe("sdk", function () {
           it("should parse Group to valid string expression_" + p.guid, function () {
             chai.expect(StringTools.getQueryFromGroup(p.group)).to.be.equal(p.expectedQuery);
           });
+        });
+      });
+
+      // eslint-disable-next-line no-only-tests/no-only-tests
+      describe.only("URLSafeBase64", function () {
+        it("should encode and decode correctly URLSafeBase64", function () {
+          // Encode "test", actual base64 "dGVzdA==", expected "dGVzdA"
+          let encoded = StringTools.encodeURLSafeBase64("test");
+          expect(encoded).to.equal("dGVzdA");
+          let decoded = StringTools.decodeURLSafeBase64(encoded);
+          expect(decoded).to.equal("test");
+
+          // Encode "test2", actual base64 "dGVzdDI=", expected "dGVzdDI"
+          encoded = StringTools.encodeURLSafeBase64("test2");
+          expect(encoded).to.equal("dGVzdDI");
+          decoded = StringTools.decodeURLSafeBase64(encoded);
+          expect(decoded).to.equal("test2");
+
+          // Encode "<=>Hello?", actual base64 "PD0+SGVsbG8/", expected "PD0-SGVsbG8_"
+          encoded = StringTools.encodeURLSafeBase64("<=>Hello?");
+          expect(encoded).to.equal("PD0-SGVsbG8_");
+          decoded = StringTools.decodeURLSafeBase64(encoded);
+          expect(decoded).to.equal("<=>Hello?");
+
+          // Encode "öäüÄÖ!§$%&()=Ü=Hello.txt", actual base64 "w7bDpMO8w4TDliHCpyQlJigpPcOcPUhlbGxvLnR4dA==", expected "w7bDpMO8w4TDliHCpyQlJigpPcOcPUhlbGxvLnR4dA"
+          encoded = StringTools.encodeURLSafeBase64("öäüÄÖ!§$%&()=Ü=Hello.txt");
+          expect(encoded).to.equal("w7bDpMO8w4TDliHCpyQlJigpPcOcPUhlbGxvLnR4dA");
+          decoded = StringTools.decodeURLSafeBase64(encoded);
+          expect(decoded).to.equal("öäüÄÖ!§$%&()=Ü=Hello.txt");
+        });
+
+        it("should throw an error due to invalid base64", function () {
+          const notValid = "This is not a valid base64!";
+          expect(() => StringTools.decodeURLSafeBase64(notValid)).to.throw(Error, `Cannot decode, inputstring: "${notValid}" is not valid!`);
         });
       });
     });
