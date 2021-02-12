@@ -3,6 +3,8 @@ import * as Tools from "../tools";
 import isEmpty from "lodash/isEmpty";
 import cloneDeep from "lodash/cloneDeep";
 import { createId } from "./guid";
+import Joi from "joi";
+import { enc } from "crypto-js";
 
 // Mailadresse auf Gültigkeit prüfen
 export function isValidMailAddress(mail: string | null): boolean {
@@ -278,4 +280,46 @@ export function parseRule(rule: string): Rule {
   }
 
   return res;
+}
+
+/**
+ * Encode a UTF-8 encoded string to a base64 encoded url safe string.
+ * It replaces "+" with "-", "/" with "_" and removes the "=" padding.
+ *
+ * @param string UTF-8 encoded string
+ */
+export function encodeURLSafeBase64(string: string): string {
+  const wordArray = enc.Utf8.parse(string);
+  let base64 = enc.Base64.stringify(wordArray);
+  // Replace "+"
+  base64 = base64.replace(/\+/g, "-");
+  // Replace "/"
+  base64 = base64.replace(/\//g, "_");
+  // Remove padding
+  return base64.replace(/=/g, "");
+}
+
+/**
+ * Decode a string that was encoded with "encodeURLSafeBase64" to the inital UTF-8 encoded string.
+ *
+ * @param string string that was encoded with "encodeURLSafeBase64"
+ */
+export function decodeURLSafeBase64(string: string): string {
+  let decoded = string;
+  // Add padding
+  while (decoded.length % 4) {
+    decoded += "=";
+  }
+  // Replace "_"
+  decoded = decoded.replace(/_/g, "/");
+  // Replace "-"
+  decoded = decoded.replace(/-/g, "+");
+  // Validate converted base64 string
+  const validate = Joi.string().base64().validate(decoded);
+  if (validate.error) {
+    throw new Error(`Cannot decode, inputstring: "${string}" is not valid!`);
+  }
+  // Decode base64
+  const wordArray = enc.Base64.parse(decoded);
+  return enc.Utf8.stringify(wordArray);
 }
