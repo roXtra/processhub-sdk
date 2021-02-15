@@ -4,7 +4,8 @@ import isEmpty from "lodash/isEmpty";
 import cloneDeep from "lodash/cloneDeep";
 import { createId } from "./guid";
 import Joi from "joi";
-import { enc } from "crypto-js";
+import utf8 from "utf8";
+import base64 from "base-64";
 
 // Mailadresse auf Gültigkeit prüfen
 export function isValidMailAddress(mail: string | null): boolean {
@@ -289,14 +290,14 @@ export function parseRule(rule: string): Rule {
  * @param string UTF-8 encoded string
  */
 export function encodeURLSafeBase64(string: string): string {
-  const wordArray = enc.Utf8.parse(string);
-  let base64 = enc.Base64.stringify(wordArray);
+  const utf8String = utf8.encode(string);
+  let base64String = base64.encode(utf8String);
   // Replace "+"
-  base64 = base64.replace(/\+/g, "-");
+  base64String = base64String.replace(/\+/g, "-");
   // Replace "/"
-  base64 = base64.replace(/\//g, "_");
+  base64String = base64String.replace(/\//g, "_");
   // Remove padding
-  return base64.replace(/=/g, "");
+  return base64String.replace(/=/g, "");
 }
 
 /**
@@ -320,6 +321,6 @@ export function decodeURLSafeBase64(string: string): string {
     throw new Error(`Cannot decode, inputstring: "${string}" is not valid!`);
   }
   // Decode base64
-  const wordArray = enc.Base64.parse(decoded);
-  return enc.Utf8.stringify(wordArray);
+  decoded = base64.decode(decoded);
+  return utf8.decode(decoded);
 }
