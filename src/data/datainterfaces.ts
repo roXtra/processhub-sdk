@@ -519,8 +519,8 @@ export interface IFieldType {
   ): JSX.Element | undefined;
   renderValue(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element | undefined;
   renderValueForEmail(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element | undefined;
-  renderValueToMarkdown(value: {} | undefined, instance?: IInstanceDetails, process?: IProcessDetails): string | undefined;
-  renderValueToString(value: {} | undefined, instance?: IInstanceDetails, process?: IProcessDetails): string | undefined;
+  renderValueToMarkdown(value: {} | undefined, instance?: IInstanceDetails, process?: IProcessDetails, config?: IFieldConfig): string | undefined;
+  renderValueToString(value: {} | undefined, instance?: IInstanceDetails, process?: IProcessDetails, config?: IFieldConfig): string | undefined;
   getSettingsButton(
     fieldDefinition: IFieldDefinition,
     onConfigChanged: (fieldDefinition: IFieldDefinition) => void,
