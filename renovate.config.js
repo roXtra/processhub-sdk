@@ -1,24 +1,26 @@
-const branchName = 'auto-dep-update';
+const branchName = "auto-dep-update";
 
 module.exports = {
   branchPrefix: `${branchName}/`,
-  enabledManagers: ['github-actions', 'npm'],
-  gitAuthor: 'Dependency Bot <devbot@roxtra.com>',
-  logLevel: 'info',
+  enabledManagers: ["github-actions", "npm"],
+  gitAuthor: "Dependency Bot <devbot@roxtra.com>",
+  logLevel: "info",
   onboarding: true,
   onboardingBranch: `${branchName}/configure`,
-  platform: 'github',
+  platform: "github",
   schedule: ["after 9am and before 4pm on Wednesday"],
   regexManagers: [],
-  repositories: [
-    'roXtra/processhub-sdk',
-  ],
+  repositories: ["roXtra/processhub-sdk"],
   rebaseWhen: "behind-base-branch",
   ignoreDeps: [],
   packageRules: [
     {
-      packageNames: ["@types/node"],
-      allowedVersions: "^12.0.0"
-    }
-  ]
+      packageNames: ["node", "@types/node"],
+      allowedVersions: "^12.0.0",
+    },
+    {
+      packageNames: ["npm"],
+      allowedVersions: "^6.0.0",
+    },
+  ],
 };
