@@ -11,6 +11,7 @@ export interface IConfig {
   Webserver: IWebserverConfig;
   ClientSettings: IClientSettingsConfig;
   Features: IFeatureConfig;
+  Tls: ITlsConfig;
 }
 
 export interface IRoxtraConfig {
@@ -83,4 +84,8 @@ export interface IFeatureConfig {
 export interface IFeatureFlag {
   feature: string;
   enabled: boolean;
+}
+
+export interface ITlsConfig {
+  rejectUnauthorized: boolean;
 }
