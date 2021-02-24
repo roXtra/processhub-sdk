@@ -209,5 +209,5 @@ export function validateType<T>(schema: Joi.Schema, element: unknown, required?:
   if (res.error) {
     throw new Error(res.error.message);
   }
-  return element as T;
+  return res.value as T;
 }
