@@ -204,11 +204,26 @@ export function updateLegacyFieldDefinitions(definitions: ILegacySchema): IField
   } else return definitions as IFieldDefinition[];
 }
 
+/**
+ * @member allowUndefined If true, undefined will be a valid value
+ * @default allowUndefined false
+ * @member convert If true, the validation will try to cast a value to the correct type, if not possible an error will be thrown
+ * @default convert false
+ */
 type ValidateTypeOptions = {
   allowUndefined?: boolean;
   convert?: boolean;
 };
 
+/**
+ * The method validateType will validate any element with a specific Joi schema.
+ * If the value is valid validateType returns the element asserted to the specified type.
+ * If the validation fails, a error will be thrown.
+ *
+ * @param schema The Joi schema which validate the value
+ * @param element The element that should be validated
+ * @param options Options for the validation
+ */
 export function validateType<T>(schema: Joi.Schema, element: unknown, options?: ValidateTypeOptions): T {
   const res = options?.allowUndefined ? schema.validate(element) : schema.required().validate(element);
   if (res.error) {
