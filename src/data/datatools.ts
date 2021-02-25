@@ -204,10 +204,16 @@ export function updateLegacyFieldDefinitions(definitions: ILegacySchema): IField
   } else return definitions as IFieldDefinition[];
 }
 
-export function validateType<T>(schema: Joi.Schema, element: unknown, required?: boolean): T {
-  const res = required ? schema.required().validate(element) : schema.validate(element);
+type ValidateTypeOptions = {
+  allowUndefined?: boolean;
+  convert?: boolean;
+};
+
+export function validateType<T>(schema: Joi.Schema, element: unknown, options?: ValidateTypeOptions): T {
+  const res = options?.allowUndefined ? schema.validate(element) : schema.required().validate(element);
   if (res.error) {
     throw new Error(res.error.message);
   }
-  return res.value as T;
+
+  return (options?.convert ? res.value : element) as T;
 }

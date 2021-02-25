@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { assert } from "chai";
+import { assert, expect } from "chai";
 import * as DataTools from "./datatools";
 import { IFieldContentMap } from "../data/datainterfaces";
 import { BpmnProcess } from "../process/bpmn/bpmnprocess";
@@ -7,6 +7,7 @@ import { ILoadTemplateReply } from "../process/legacyapi";
 import { createBpmnTemplate } from "../process/bpmn/bpmnmoddlehelper";
 import { IRoleOwnerMap } from "../process/processrights";
 import { IProcessRoles, getProcessRoles } from "../process";
+import Joi from "joi";
 
 describe("sdk", function () {
   describe("data", function () {
@@ -168,6 +169,63 @@ describe("sdk", function () {
           );
 
           assert.equal(res, resultString);
+        });
+      });
+
+      describe("validateType", function () {
+        it("should validate type without options", function () {
+          // Test simple string validation
+          const expectedString = "This is a string";
+          const actualString = DataTools.validateType<string>(Joi.string(), expectedString);
+          expect(actualString).to.equal(expectedString);
+
+          // Test if undefined will be rejected
+          expect(() => {
+            DataTools.validateType<string>(Joi.string(), undefined);
+          }).to.throw();
+
+          // Test if a numberstring will not be casted to a number
+          const expectedNumberString = "42";
+          const actualNumber = DataTools.validateType<number>(Joi.number().options({ convert: true }), expectedNumberString);
+          expect(typeof actualNumber === "string").to.be.true;
+          expect(actualNumber).to.equal(expectedNumberString);
+        });
+
+        it("should validate type with options", function () {
+          // Test simple string validation with options
+          const expectedString = "This is a string";
+          let actualString = DataTools.validateType<string>(Joi.string(), expectedString, { allowUndefined: false, convert: false });
+          expect(actualString).to.equal(expectedString);
+          actualString = DataTools.validateType<string>(Joi.string(), expectedString, { allowUndefined: false, convert: true });
+          expect(actualString).to.equal(expectedString);
+          actualString = DataTools.validateType<string>(Joi.string(), expectedString, { allowUndefined: true, convert: false });
+          expect(actualString).to.equal(expectedString);
+          actualString = DataTools.validateType<string>(Joi.string(), expectedString, { allowUndefined: true, convert: true });
+          expect(actualString).to.equal(expectedString);
+
+          // Test allowUndefined option
+          expect(() => {
+            DataTools.validateType<string>(Joi.string(), undefined, { allowUndefined: false });
+          }).to.throw();
+
+          let undefinedString = DataTools.validateType<string | undefined>(Joi.string(), undefined, { allowUndefined: true });
+          expect(undefinedString).to.be.undefined;
+
+          undefinedString = DataTools.validateType<string>(Joi.string(), undefined, { allowUndefined: true });
+          expect(undefinedString).to.be.undefined;
+
+          undefinedString = DataTools.validateType<string | undefined>(Joi.string(), "Not undefined", { allowUndefined: true });
+          expect(undefinedString).to.equal("Not undefined");
+
+          // Test convert option
+          const expectedNumberString = "42";
+          let actualNumber = DataTools.validateType<number>(Joi.number().options({ convert: true }), expectedNumberString, { convert: false });
+          expect(typeof actualNumber === "string").to.be.true;
+          expect(actualNumber).to.equal(expectedNumberString);
+
+          actualNumber = DataTools.validateType<number>(Joi.number().options({ convert: true }), expectedNumberString, { convert: true });
+          expect(typeof actualNumber === "number").to.be.true;
+          expect(actualNumber).to.equal(Number(expectedNumberString));
         });
       });
     });
