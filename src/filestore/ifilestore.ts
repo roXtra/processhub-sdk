@@ -4,6 +4,12 @@ export interface IFileStore {
   getFile(workspaceId: string, processId: string, fileName: string): Promise<string | undefined>;
   getFileBuffer(workspaceId: string, processId: string, fileName: string): Promise<Buffer>;
 
+  /**
+   * Returns the attachment file url
+   * @param workspaceId Workspace ID
+   * @param processId Process ID
+   * @param fileName File name without trailing slash. A trailing slash from the filename will be removed. The file name must be URI Component encoded.
+   */
   getAttachmentFileUrl(workspaceId: string, processId: string, fileName: string): string;
   getPreviewFileUrl(workspaceId: string, processId: string): string;
 
