@@ -174,6 +174,12 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
       $attrs?: {};
     }
 
+    export interface IReference {
+      roperty: string;
+      element: Bpmn.IBaseElement;
+      id: string;
+    }
+
     /**
      * The fromXML result.
      *
@@ -186,8 +192,8 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
      */
     export interface IParseResult {
       rootElement: Bpmn.IDefinitions;
-      elementsById: {};
-      references: {}[];
+      elementsById: { [id: string]: Bpmn.IBaseElement };
+      references: IReference[];
       warnings: {}[];
     }
   }
