@@ -81,7 +81,7 @@
     "chai-exclude": "^2.0.2",
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
-    "eslint": "^7.20.0",
+    "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-deprecation": "^1.2.0",
     "eslint-plugin-no-only-tests": "^2.4.0",
