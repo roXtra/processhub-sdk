@@ -175,7 +175,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
     }
 
     export interface IReference {
-      roperty: string;
+      property: string;
       element: Bpmn.IBaseElement;
       id: string;
     }
