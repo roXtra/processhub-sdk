@@ -194,7 +194,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
       rootElement: Bpmn.IDefinitions;
       elementsById: { [id: string]: Bpmn.IBaseElement };
       references: IReference[];
-      warnings: {}[];
+      warnings: Error[];
     }
   }
 }
