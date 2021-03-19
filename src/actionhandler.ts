@@ -13,7 +13,7 @@ export interface IExtrasRequest {
 
 export abstract class ActionHandler {
   // Load Page "/@workspace/..."
-  public abstract gotoPage(_path: string): void;
+  public abstract gotoPage(path: string): void;
   public abstract requestExtras(environment: ICoreEnvironment, requestedExtras: IExtrasRequest, forceReload?: boolean): Promise<void>;
   public abstract openInstancePopup(workspaceId: string, instanceId: string, todoId?: string): Promise<void>;
   public abstract openTodoPopup(workspaceId: string, instanceId: string, todoId: string): Promise<void>;
