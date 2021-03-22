@@ -46,6 +46,8 @@ export enum AuditTrailAction {
   // An intermediate timer was triggered manually. todoDisplayName is set in details
   intermediateTimerTriggeredManually = 40,
   errorSubProcessMapping = 41,
+  // Instance execution lead to an erroneous state (e.g. no more todos, but no EndEvent was reached)
+  instanceStateError = 42,
   workspaceCreated = 100,
 }
 /* eslint-enable @typescript-eslint/naming-convention */
