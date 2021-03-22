@@ -12,6 +12,7 @@ export enum State {
   Running = 1,
   Finished = 2,
   Canceled = 3,
+  Error = 4,
 }
 
 export const StateSchema = Joi.number().max(3).min(1).integer();
