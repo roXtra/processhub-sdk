@@ -5,6 +5,7 @@ import { Process, ActionHandler } from "..";
 import { RiskAssessmentCycle, RiskAssessmentCycleSchema } from "../riskassessment/riskassessmentinterfaces";
 import { IProcessDetails } from "../process";
 import Joi from "joi";
+import { Component } from "react";
 
 export const FieldTypeOptions = [
   "ProcessHubTextInput",
@@ -519,6 +520,14 @@ export interface IFieldType {
   ): JSX.Element | undefined;
   renderValue(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element | undefined;
   renderValueForEmail(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element | undefined;
+  renderValueForGrid(
+    field: IFieldValue,
+    fieldName: string,
+    instance: IInstanceDetails,
+    process: IProcessDetails,
+    columnName: string,
+    grid: Component,
+  ): string | Date | undefined;
   renderValueToMarkdown(value: {} | undefined, instance?: IInstanceDetails, process?: IProcessDetails, config?: IFieldConfig): string | undefined;
   renderValueToString(value: {} | undefined, instance?: IInstanceDetails, process?: IProcessDetails, config?: IFieldConfig): string | undefined;
   getSettingsButton(
@@ -537,6 +546,7 @@ const IFieldTypeObject: IFieldType = {
   getInput: (Joi.function().required() as unknown) as () => JSX.Element,
   renderValue: (Joi.function().required() as unknown) as () => JSX.Element,
   renderValueForEmail: (Joi.function().required() as unknown) as () => JSX.Element,
+  renderValueForGrid: (Joi.function().required() as unknown) as () => string | Date | undefined,
   renderValueToMarkdown: (Joi.function().required() as unknown) as () => string,
   renderValueToString: (Joi.function().required() as unknown) as () => string,
   getSettingsButton: (Joi.function().required() as unknown) as () => JSX.Element,
