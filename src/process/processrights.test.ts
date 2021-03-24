@@ -37,6 +37,7 @@ const testUser: IUserDetails = {
   mail: "",
   displayName: "",
   extras: {},
+  language: "de-DE",
   extendedRights: [],
 };
 
