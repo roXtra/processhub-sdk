@@ -518,8 +518,24 @@ export interface IFieldType {
     showInvalidFields: boolean,
     startEventId?: string,
   ): JSX.Element | undefined;
-  renderValue(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element | undefined;
-  renderValueForEmail(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig, showDirect?: boolean): JSX.Element | undefined;
+  renderValue(
+    value: {} | undefined,
+    instance: IInstanceDetails,
+    process: IProcessDetails,
+    user: IUserDetails,
+    config?: IFieldConfig,
+    showDirect?: boolean,
+  ): JSX.Element | undefined;
+  renderValueForEmail(
+    value: {} | undefined,
+    instance: IInstanceDetails,
+    process: IProcessDetails,
+    user: IUserDetails,
+    config?: IFieldConfig,
+    showDirect?: boolean,
+  ): JSX.Element | undefined;
+  renderValueToMarkdown(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, user: IUserDetails, config?: IFieldConfig): string | undefined;
+  renderValueToString(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, user: IUserDetails, config?: IFieldConfig): string | undefined;
   renderValueForGrid(
     field: IFieldValue,
     fieldName: string,
@@ -528,8 +544,6 @@ export interface IFieldType {
     columnName: string,
     grid: Component,
   ): string | Date | undefined;
-  renderValueToMarkdown(value: {} | undefined, instance?: IInstanceDetails, process?: IProcessDetails, config?: IFieldConfig): string | undefined;
-  renderValueToString(value: {} | undefined, instance?: IInstanceDetails, process?: IProcessDetails, config?: IFieldConfig): string | undefined;
   getSettingsButton(
     fieldDefinition: IFieldDefinition,
     onConfigChanged: (fieldDefinition: IFieldDefinition) => void,

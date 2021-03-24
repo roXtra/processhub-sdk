@@ -41,7 +41,7 @@ export interface IUserDetails {
   firstName?: string;
   lastName?: string;
   photoUrl?: string;
-  language?: string; // Preferred User language (en, de, ...)
+  language?: string; // Preferred User language (de-DE, en-US, ...)
   licence: Licence;
   extendedRights: ExtendedRight[];
   isSystemUser?: boolean;
@@ -77,6 +77,7 @@ export const emptyUser: IUserDetails = {
   displayName: "",
   extras: {},
   licence: Licence.None,
+  language: "de-DE",
   extendedRights: [],
 };
 
