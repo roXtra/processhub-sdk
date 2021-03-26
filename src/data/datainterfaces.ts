@@ -541,6 +541,7 @@ export interface IFieldType {
     fieldName: string,
     instance: IInstanceDetails,
     process: IProcessDetails,
+    user: IUserDetails,
     columnName: string,
     grid: Component,
   ): string | Date | undefined;
