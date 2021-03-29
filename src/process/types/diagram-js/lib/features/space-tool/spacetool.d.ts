@@ -1,4 +1,5 @@
 declare module "diagram-js/lib/features/space-tool/SpaceTool" {
+  import Canvas from "diagram-js/lib/core/Canvas";
   import EventBus from "diagram-js/lib/core/EventBus";
   import Dragging from "diagram-js/lib/features/dragging/Dragging";
   import Modeling from "diagram-js/lib/features/modeling/Modeling";
@@ -15,9 +16,10 @@ declare module "diagram-js/lib/features/space-tool/SpaceTool" {
      * @param {EventBus} eventBus
      * @param {Modeling} modeling
      * @param {Rules} rules
-     * @param {toolManager} toolManager
+     * @param {ToolManager} toolManager
+     * @param {Mouse} mouse
      */
-    constructor(eventBus: EventBus, dragging: Dragging, modeling: Modeling, rules: Rules, toolManager: {});
+    constructor(canvas: Canvas, dragging: Dragging, eventBus: EventBus, modeling: Modeling, rules: Rules, toolManager: unknown, mouse: unknown);
 
     /**
      * Activate space tool selection
@@ -55,7 +57,7 @@ declare module "diagram-js/lib/features/space-tool/SpaceTool" {
      *
      * @return {Boolean} true, if successful
      */
-    public initializeMakeSpace(event: Event, context: {}): boolean;
+    public init(event: Event, context: {}): boolean;
 
     /**
      * Get elements to be moved and resized.
