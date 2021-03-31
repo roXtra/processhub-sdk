@@ -42,7 +42,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "sqlstring": "^2.3.2",
-    "utf8": "^3.0.0"
+    "utf8": "^3.0.0",
+    "xmlhttprequest": "^1.8.0"
   },
   "scripts": {
     "tsc": "tsc",
