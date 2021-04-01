@@ -296,7 +296,7 @@ export class API {
   }
 
   getXMLHTTPRequest(): XMLHttpRequest {
-    if (typeof window !== "undefined") {
+    if (typeof window === "undefined") {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
       const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
