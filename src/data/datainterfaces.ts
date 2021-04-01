@@ -551,7 +551,7 @@ export interface IFieldType {
     bpmnProcess: Process.BpmnProcess,
   ): JSX.Element | undefined;
   isVisible(): boolean;
-  isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): boolean;
+  isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): Promise<boolean>;
   isConfigValid(fieldDefinition: IFieldDefinition): { valid: boolean; message?: string };
 }
 
