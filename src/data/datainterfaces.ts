@@ -551,7 +551,7 @@ export interface IFieldType {
     bpmnProcess: Process.BpmnProcess,
   ): JSX.Element | undefined;
   isVisible(): boolean;
-  isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): boolean;
+  isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): Promise<boolean>;
   isConfigValid(fieldDefinition: IFieldDefinition): { valid: boolean; message?: string };
 }
 
@@ -566,7 +566,7 @@ const IFieldTypeObject: IFieldType = {
   renderValueToString: (Joi.function().required() as unknown) as () => string,
   getSettingsButton: (Joi.function().required() as unknown) as () => JSX.Element,
   isVisible: (Joi.function().required() as unknown) as () => boolean,
-  isValid: (Joi.function().required() as unknown) as () => boolean,
+  isValid: (Joi.function().required() as unknown) as () => Promise<boolean>,
   isConfigValid: (Joi.function().required() as unknown) as () => { valid: boolean; message?: string },
 };
 
