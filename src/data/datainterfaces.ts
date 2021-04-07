@@ -165,11 +165,14 @@ const IRadioButtonGroupFieldValueObject: IRadioButtonGroupFieldValue = {
 export const IRadioButtonGroupFieldValueSchema = Joi.object(IRadioButtonGroupFieldValueObject);
 
 export interface ISpreadSheetFieldValue {
+  // "fileUrl" is defined for all SpreadSheet fields were the value is saved in the file system and not in the DB
+  fileUrl: string | undefined;
   url: string;
-  value: {};
+  value: {} | undefined;
 }
 
 const ISpreadSheetFieldValueObject: ISpreadSheetFieldValue = {
+  fileUrl: (Joi.string().allow("").required() as unknown) as string,
   url: (Joi.string().allow("").required() as unknown) as string,
   value: (Joi.object().required() as unknown) as {},
 };
