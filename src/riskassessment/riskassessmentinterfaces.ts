@@ -33,6 +33,7 @@ export interface IRiskAssessmentDimension {
   name: string;
   dimensionId: string;
   entries: IRiskAssessmentDimensionEntry[];
+  usePreviousValueAsNewDefault: boolean;
 }
 
 export interface IRiskManagementColor {
