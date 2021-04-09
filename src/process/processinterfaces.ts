@@ -228,7 +228,6 @@ export interface ITaskExtensions {
 }
 
 export interface ITimerStartEventConfiguration {
-  rowNumber: number;
   title: string;
   date: Date;
   time: string;
