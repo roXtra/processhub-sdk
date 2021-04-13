@@ -52,6 +52,16 @@ export interface IRiskAssessment extends IRiskAssessmentValue {
   fieldName: string;
 }
 
+export interface IRiskAssessmentTargetValue {
+  targets: { [dimensionId: string]: number };
+}
+
+const IRiskAssessmentTargetValueObject: IRiskAssessmentTargetValue = {
+  targets: (Joi.object().pattern(Joi.string(), Joi.number()).required() as unknown) as { [dimensionId: string]: number },
+};
+
+export const IRiskAssessmentTargetValueSchema = Joi.object(IRiskAssessmentTargetValueObject);
+
 export interface IInstanceDetails {
   instanceId: string;
   workspaceId: string;

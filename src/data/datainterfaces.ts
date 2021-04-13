@@ -1,5 +1,13 @@
 import { IInstanceEnvironment } from "../environment";
-import { IInstanceDetails, IRiskAssessmentValue, IRiskAssessmentValueSchema, State, StateSchema } from "../instance/instanceinterfaces";
+import {
+  IInstanceDetails,
+  IRiskAssessmentTargetValue,
+  IRiskAssessmentTargetValueSchema,
+  IRiskAssessmentValue,
+  IRiskAssessmentValueSchema,
+  State,
+  StateSchema,
+} from "../instance/instanceinterfaces";
 import { IUserDetails } from "../user";
 import { Process, ActionHandler } from "..";
 import { RiskAssessmentCycle, RiskAssessmentCycleSchema } from "../riskassessment/riskassessmentinterfaces";
@@ -27,6 +35,7 @@ export const FieldTypeOptions = [
   "ProcessHubRiskAssessment",
   "ProcessHubRiskAssessmentTodos",
   "ProcessHubRiskAssessmentCycle",
+  "ProcessHubRiskAssessmentTarget",
   "ProcessHubSpreadSheet",
   "ProcessHubProcessLink",
   "ProcessHubInstanceNumber",
@@ -479,7 +488,8 @@ export type FieldValueType =
   | IRiskAssessmentValue // RiskAssesment
   | RiskAssessmentCycle // RiskAssessmentCycle
   | IProcessLinkValue // ProcessLink
-  | IRoxFileLinkValue; // RoxFileLink
+  | IRoxFileLinkValue // RoxFileLink
+  | IRiskAssessmentTargetValue;
 
 const FieldValueTypeSchema = [
   Joi.allow(null),
@@ -496,6 +506,7 @@ const FieldValueTypeSchema = [
   RiskAssessmentCycleSchema,
   IProcessLinkValueSchema,
   IRoxFileLinkValueSchema,
+  IRiskAssessmentTargetValueSchema,
 ];
 
 export interface IFieldValue {
