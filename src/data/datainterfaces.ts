@@ -208,6 +208,7 @@ export const IRoxFileLinkValueSchema = Joi.array().items(Joi.object(IRoxFileLink
 
 export interface IProcessLinkInstance {
   instanceId: string;
+  processId: string;
   workspaceId: string;
   title: string | undefined;
   moduleId: number;
@@ -217,6 +218,7 @@ export interface IProcessLinkInstance {
 const IProcessLinkInstanceObject: IProcessLinkInstance = {
   instanceId: (Joi.string().allow("").required() as unknown) as string,
   workspaceId: (Joi.string().allow("").required() as unknown) as string,
+  processId: (Joi.string().allow("").required() as unknown) as string,
   title: (Joi.string().allow("") as unknown) as string,
   moduleId: (Joi.number().required() as unknown) as number,
   state: (StateSchema as unknown) as State,
@@ -558,6 +560,7 @@ export interface IFieldType {
     instance: IInstanceDetails,
     process: IProcessDetails,
     user: IUserDetails,
+    config: IFieldConfig | undefined,
     columnName: string,
     grid: Component,
   ): string | Date | undefined;
