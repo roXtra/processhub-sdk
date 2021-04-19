@@ -41,6 +41,7 @@ export const FieldTypeOptions = [
   "ProcessHubInstanceNumber",
   "ProcessHubRoxFileLink",
   "ProcessHubCalculatedField",
+  "ProcessHubSVGDropdown",
 ] as const;
 
 export type FieldType = typeof FieldTypeOptions[number];
@@ -264,9 +265,26 @@ export type ChecklistFieldValue = { [key: string]: boolean };
 
 export const ChecklistFieldValueSchema = Joi.object().pattern(Joi.string().allow(""), Joi.boolean());
 
+export interface ISVGDropdownOption {
+  text: string;
+  svgData: { normal?: string; mini?: string };
+}
+
+const svgDataObject: { normal?: string; mini?: string } = {
+  normal: (Joi.string() as unknown) as string,
+  mini: (Joi.string() as unknown) as string,
+};
+
+const ISVGDropdownOptionObject: ISVGDropdownOption = {
+  text: (Joi.string().allow("").required() as unknown) as string,
+  svgData: (Joi.object(svgDataObject).required() as unknown) as { normal?: string; mini?: string },
+};
+
+export const ISVGDropdownOptionSchema = Joi.object(ISVGDropdownOptionObject);
+
 export interface IFieldConfigDefault extends IFieldConfig {
   validationExpression?: string;
-  defaultValue?: string | Date | ChecklistFieldValue | IRadioButtonGroupFieldValue | ISpreadSheetFieldValue | IRoxFileLinkValue;
+  defaultValue?: string | Date | ChecklistFieldValue | IRadioButtonGroupFieldValue | ISpreadSheetFieldValue | IRoxFileLinkValue | ISVGDropdownOption;
 }
 
 const IFieldConfigDefaultObject: IFieldConfigDefault = {
@@ -278,6 +296,7 @@ const IFieldConfigDefaultObject: IFieldConfigDefault = {
     IRadioButtonGroupFieldValueSchema,
     ISpreadSheetFieldValueSchema,
     IRoxFileLinkValueSchema,
+    ISVGDropdownOptionSchema,
   ] as unknown) as string,
   // Extends IFieldConfig
   ...IFieldConfigObject,
@@ -314,6 +333,18 @@ const IDropdownFieldConfigObject: IDropdownFieldConfig = {
 };
 
 export const IDropdownFieldConfigSchema = Joi.object(IDropdownFieldConfigObject);
+
+export interface ISVGDropdownFieldConfig extends IFieldConfigDefault {
+  options: ISVGDropdownOption[];
+}
+
+const ISVGDropdownFieldConfigObject: ISVGDropdownFieldConfig = {
+  options: (Joi.array().items(ISVGDropdownOptionSchema).required() as unknown) as ISVGDropdownOption[],
+  // Extends IFieldConfigDefault
+  ...IFieldConfigDefaultObject,
+};
+
+export const ISVGDropdownFieldConfigSchema = Joi.object(ISVGDropdownFieldConfigObject);
 
 export interface IFileUploadFieldConfig extends IFieldConfig {
   validationExpression?: string;
@@ -493,7 +524,8 @@ export type FieldValueType =
   | RiskAssessmentCycle // RiskAssessmentCycle
   | IProcessLinkValue // ProcessLink
   | IRoxFileLinkValue // RoxFileLink
-  | IRiskAssessmentTargetValue;
+  | IRiskAssessmentTargetValue // RiskAssessmentTarget
+  | ISVGDropdownOption; // SVGDropdown
 
 const FieldValueTypeSchema = [
   Joi.allow(null),
@@ -511,6 +543,7 @@ const FieldValueTypeSchema = [
   IProcessLinkValueSchema,
   IRoxFileLinkValueSchema,
   IRiskAssessmentTargetValueSchema,
+  ISVGDropdownOptionSchema,
 ];
 
 export interface IFieldValue {
