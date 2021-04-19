@@ -24,6 +24,7 @@ export const ProcessEngineApiRoutes = {
   getArchive: "/api/processengine/getarchive",
   exportAuditTrail: "/api/processengine/exportaudittrail",
   generateReport: "/api/processengine/generatereport",
+  convertSpreadsheets: "/api/processengine/convertspreadsheets",
 };
 
 export type ProcessEngineApiRoutes = keyof typeof ProcessEngineApiRoutes;
@@ -51,6 +52,10 @@ export interface IExecuteReply extends IInstanceReply {
   // instanceId is obsolete as the whole instance is returned but may not be removed from the stable API
   instanceId: string;
   instance: IInstanceDetails;
+}
+
+export interface IConvertSpreadsheetsRequest extends IBaseRequest {
+  processId: string;
 }
 
 export interface IUpdateInstanceRequest extends IBaseRequest {
