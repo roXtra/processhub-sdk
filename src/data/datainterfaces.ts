@@ -265,19 +265,24 @@ export type ChecklistFieldValue = { [key: string]: boolean };
 
 export const ChecklistFieldValueSchema = Joi.object().pattern(Joi.string().allow(""), Joi.boolean());
 
-export interface ISVGDropdownOption {
-  text: string;
-  svgData: { normal?: string; mini?: string };
+interface ISVGData {
+  normal?: string;
+  detailed?: string;
 }
 
-const svgDataObject: { normal?: string; mini?: string } = {
+export interface ISVGDropdownOption {
+  text: string;
+  svgData: ISVGData;
+}
+
+const svgDataObject: ISVGData = {
   normal: (Joi.string() as unknown) as string,
-  mini: (Joi.string() as unknown) as string,
+  detailed: (Joi.string() as unknown) as string,
 };
 
 const ISVGDropdownOptionObject: ISVGDropdownOption = {
   text: (Joi.string().allow("").required() as unknown) as string,
-  svgData: (Joi.object(svgDataObject).required() as unknown) as { normal?: string; mini?: string },
+  svgData: (Joi.object(svgDataObject).required() as unknown) as ISVGData,
 };
 
 export const ISVGDropdownOptionSchema = Joi.object(ISVGDropdownOptionObject);
