@@ -16,3 +16,7 @@ export interface IModule {
   name: string;
   processName?: string;
 }
+
+export interface IGenericModuleSettings {
+  defaultStatusField: string | undefined;
+}

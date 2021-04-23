@@ -7,6 +7,7 @@ import { IUserDetails } from "../user/userinterfaces";
 import { IRowDetails } from ".";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 import { IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces";
+import { IGenericModuleSettings } from "../modules";
 
 export interface IProcessAttachment {
   attachmentId: string;
@@ -88,6 +89,7 @@ export interface IProcessDetails {
   }[];
   childProcessIds?: string[];
   riskManagementSettings?: IRiskManagementProcessSettings;
+  genericModuleSettings?: IGenericModuleSettings;
   instanceCount?: number;
   extras: {
     // New Extras must be added to cache-handling in processactions -> loadProcess!
