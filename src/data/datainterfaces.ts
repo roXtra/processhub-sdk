@@ -42,6 +42,7 @@ export const FieldTypeOptions = [
   "ProcessHubRoxFileLink",
   "ProcessHubCalculatedField",
   "ProcessHubSVGDropdown",
+  "ProcessHubTasks",
 ] as const;
 
 export type FieldType = typeof FieldTypeOptions[number];
@@ -237,6 +238,28 @@ const IProcessLinkValueObject: IProcessLinkValue = {
 
 export const IProcessLinkValueSchema = Joi.object(IProcessLinkValueObject);
 
+export interface ITasksFieldTask {
+  checked: boolean;
+  text: string;
+}
+
+const ITasksFieldTaskObject: ITasksFieldTask = {
+  checked: (Joi.boolean().required() as unknown) as boolean,
+  text: (Joi.string().allow("") as unknown) as string,
+};
+
+export const ITasksFieldTaskSchema = Joi.object(ITasksFieldTaskObject);
+
+export interface ITasksFieldValue {
+  tasks: ITasksFieldTask[];
+}
+
+const ITasksFieldValueObject: ITasksFieldValue = {
+  tasks: (Joi.array().items(Joi.object(ITasksFieldTaskObject)).required() as unknown) as ITasksFieldTask[],
+};
+
+export const ITasksFieldValueSchema = Joi.object(ITasksFieldValueObject);
+
 export interface IServiceActionConfigField {
   key: string;
   type: string;
@@ -289,7 +312,7 @@ export const ISVGDropdownOptionSchema = Joi.object(ISVGDropdownOptionObject);
 
 export interface IFieldConfigDefault extends IFieldConfig {
   validationExpression?: string;
-  defaultValue?: string | Date | ChecklistFieldValue | IRadioButtonGroupFieldValue | ISpreadSheetFieldValue | IRoxFileLinkValue | ISVGDropdownOption;
+  defaultValue?: string | Date | ChecklistFieldValue | IRadioButtonGroupFieldValue | ISpreadSheetFieldValue | IRoxFileLinkValue | ITasksFieldValue | ISVGDropdownOption;
 }
 
 const IFieldConfigDefaultObject: IFieldConfigDefault = {
@@ -302,6 +325,7 @@ const IFieldConfigDefaultObject: IFieldConfigDefault = {
     ISpreadSheetFieldValueSchema,
     IRoxFileLinkValueSchema,
     ISVGDropdownOptionSchema,
+    ITasksFieldValueSchema,
   ] as unknown) as string,
   // Extends IFieldConfig
   ...IFieldConfigObject,
@@ -530,7 +554,8 @@ export type FieldValueType =
   | IProcessLinkValue // ProcessLink
   | IRoxFileLinkValue // RoxFileLink
   | IRiskAssessmentTargetValue // RiskAssessmentTarget
-  | ISVGDropdownOption; // SVGDropdown
+  | ISVGDropdownOption // SVGDropdown
+  | ITasksFieldValue; // TasksField;
 
 const FieldValueTypeSchema = [
   Joi.allow(null),
@@ -549,6 +574,7 @@ const FieldValueTypeSchema = [
   IRoxFileLinkValueSchema,
   IRiskAssessmentTargetValueSchema,
   ISVGDropdownOptionSchema,
+  ITasksFieldValueSchema,
 ];
 
 export interface IFieldValue {
