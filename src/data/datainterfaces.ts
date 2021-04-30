@@ -601,7 +601,7 @@ export interface IFieldType {
     startEventId?: string,
   ): JSX.Element | undefined;
   renderValue(
-    value: {} | undefined,
+    value: {} | undefined | null,
     instance: IInstanceDetails,
     process: IProcessDetails,
     user: IUserDetails,
@@ -609,14 +609,14 @@ export interface IFieldType {
     showDirect?: boolean,
   ): JSX.Element | undefined;
   renderValueForEmail(
-    value: {} | undefined,
+    value: {} | undefined | null,
     instance: IInstanceDetails,
     process: IProcessDetails,
     user: IUserDetails,
     config?: IFieldConfig,
     showDirect?: boolean,
   ): JSX.Element | undefined;
-  renderValueToMarkdown(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, user: IUserDetails, config?: IFieldConfig): string | undefined;
+  renderValueToMarkdown(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails, user: IUserDetails, config?: IFieldConfig): string | undefined;
   renderValueToString(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, user: IUserDetails, config?: IFieldConfig): string | undefined;
   renderValueForGrid(
     field: IFieldValue,
@@ -656,7 +656,7 @@ const IFieldTypeObject: IFieldType = {
 export const IFieldTypeSchema = Joi.object(IFieldTypeObject);
 
 export interface IFormElementProps {
-  value: FieldValueType | undefined;
+  value: FieldValueType | undefined | null;
   label: string;
   required: boolean;
   restricted: boolean;
