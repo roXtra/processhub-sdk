@@ -517,10 +517,12 @@ export const ISpreadSheetFieldConfigSchema = Joi.object(IFieldConfigDefaultObjec
 
 export interface ITextAreaFieldConfig extends IFieldConfigDefault {
   evalDefaultValue: boolean;
+  enableExperimental: boolean;
 }
 
 const ITextAreaFieldConfigObject: ITextAreaFieldConfig = {
   evalDefaultValue: (Joi.boolean().required() as unknown) as boolean,
+  enableExperimental: (Joi.boolean().required() as unknown) as boolean,
   // Extends IFieldConfigDefault
   ...IFieldConfigDefaultObject,
 };
