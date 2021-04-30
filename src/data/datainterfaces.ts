@@ -579,7 +579,7 @@ const FieldValueTypeSchema = [
 
 export interface IFieldValue {
   type: FieldType;
-  value: FieldValueType | undefined;
+  value: FieldValueType | undefined | null;
 }
 
 const IFieldValueObject: IFieldValue = {
