@@ -232,3 +232,28 @@ export function validateType<T>(schema: Joi.Schema, element: unknown, options?: 
 
   return (options?.convert ? res.value : element) as T;
 }
+
+function hashCode(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return hash;
+}
+
+function intToRGB(number: number): string {
+  const c = (number & 0x00ffffff).toString(16).toUpperCase();
+
+  return "#" + "00000".substring(0, 6 - c.length) + c;
+}
+
+/**
+ * The method objectToColor returns a hex color code for a given object.
+ *
+ * @param object any object
+ * @returns a hex color code in the format #000000
+ */
+export function objectToColor(object: unknown): string {
+  const objectString = JSON.stringify(object);
+  return intToRGB(hashCode(objectString));
+}
