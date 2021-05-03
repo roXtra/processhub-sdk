@@ -19,4 +19,5 @@ export interface IModule {
 
 export interface IGenericModuleSettings {
   defaultStatusField: string | undefined;
+  chartFieldNames: string[] | undefined;
 }
