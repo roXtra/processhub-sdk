@@ -591,6 +591,12 @@ const IFieldValueObject: IFieldValue = {
 
 export const IFieldValueSchema = Joi.object(IFieldValueObject);
 
+export interface IChartData {
+  label: string;
+  number: number;
+  color: string;
+}
+
 export interface IFieldType {
   getType(): FieldType;
   getName(): string;
@@ -638,6 +644,7 @@ export interface IFieldType {
   isVisible(): boolean;
   isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): Promise<boolean>;
   isConfigValid(fieldDefinition: IFieldDefinition): { valid: boolean; message?: string };
+  appendValueToChartData(currentChartData: IChartData[], field: IFieldValue): void;
 }
 
 const IFieldTypeObject: IFieldType = {
@@ -653,6 +660,7 @@ const IFieldTypeObject: IFieldType = {
   isVisible: (Joi.function().required() as unknown) as () => boolean,
   isValid: (Joi.function().required() as unknown) as () => Promise<boolean>,
   isConfigValid: (Joi.function().required() as unknown) as () => { valid: boolean; message?: string },
+  appendValueToChartData: (Joi.function().required() as unknown) as (currentChartData: IChartData[], field: IFieldValue) => void,
 };
 
 export const IFieldTypeSchema = Joi.object(IFieldTypeObject);
