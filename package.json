@@ -34,7 +34,7 @@
   "dependencies": {
     "base-64": "^1.0.0",
     "bpmn-moddle": "^7.0.5",
-    "core-js": "^3.11.2",
+    "core-js": "^3.11.0",
     "cross-fetch": "^3.1.4",
     "joi": "^17.4.0",
     "lodash": "^4.17.21",
@@ -61,10 +61,10 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.14.0",
+    "@babel/core": "^7.13.16",
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.13.8",
-    "@babel/preset-env": "^7.14.1",
+    "@babel/preset-env": "^7.13.15",
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
