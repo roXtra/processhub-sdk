@@ -17,7 +17,7 @@ jobs:
           ref: master
           token: ${{ secrets.DEVBOT_GH_TOKEN }}
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
       - name: Configure Git
