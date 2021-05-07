@@ -49,6 +49,7 @@ export enum AuditTrailAction {
   // Instance execution lead to an erroneous state (e.g. no more todos, but no EndEvent was reached)
   instanceStateError = 42,
   automatedInstanceDeletion = 43,
+  deletionPeriodChanged = 44,
   workspaceCreated = 100,
 }
 /* eslint-enable @typescript-eslint/naming-convention */
@@ -84,10 +85,10 @@ export interface IAuditTrailEntryDetails {
   bouncedAddresses: string[];
   bouncedSubject: string;
 
-  // Must be set for AuditTrailAction.processCreated, processEdited, processComment and processDeleted
+  // Must be set for AuditTrailAction.processCreated, AuditTrailAction.deletionPeriodChanged, processEdited, processComment and processDeleted
   processDisplayName: string;
 
-  // Must be set for AuditTrailAction.retentionPeriodChanged
+  // Must be set for AuditTrailAction.retentionPeriodChanged and AuditTrailAction.deletionPeriodChanged
   oldValue: string;
   newValue: string;
 
