@@ -1,8 +1,7 @@
 {
   "extends": [
     "config:base",
-    ":timezone(Europe/Amsterdam)",
-    "docker:enableMajor"
+    ":timezone(Europe/Amsterdam)"
   ],
   "ignorePresets": [
     ":prHourlyLimit2"
