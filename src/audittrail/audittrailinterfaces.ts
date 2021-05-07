@@ -48,6 +48,7 @@ export enum AuditTrailAction {
   errorSubProcessMapping = 41,
   // Instance execution lead to an erroneous state (e.g. no more todos, but no EndEvent was reached)
   instanceStateError = 42,
+  automatedInstanceDeletion = 43,
   workspaceCreated = 100,
 }
 /* eslint-enable @typescript-eslint/naming-convention */
@@ -134,6 +135,9 @@ export interface IAuditTrailEntryDetails {
   // Can be set for errorInScriptTask and errorInServiceTask - information about the error that occured
   errorCode: string;
   errorMessage: string;
+
+  // Must be set for automatedInstanceDeletion, represents the number of automatic deleted instances
+  automatedInstanceDeletionCount: number;
 }
 
 export type Partial<T> = {
