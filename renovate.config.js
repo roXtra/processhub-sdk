@@ -8,7 +8,7 @@ module.exports = {
   onboarding: true,
   onboardingBranch: `${branchName}/configure`,
   platform: "github",
-  schedule: ["after 9am and before 4pm on Friday"],
+  schedule: ["after 9am and before 4pm on Wednesday"],
   regexManagers: [],
   repositories: ["roXtra/processhub-sdk"],
   rebaseWhen: "behind-base-branch",
