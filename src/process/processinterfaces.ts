@@ -79,6 +79,7 @@ export interface IProcessDetails {
   hasWarnings?: boolean;
   latestCommentAt?: Date; // Datetime of the latest comment
   retentionPeriod?: number; // Retention period for insatances in months
+  deletionPeriod?: number; // Deletion period for insatances in months
   jumpsDisabled?: boolean;
   xmlVersion?: number;
   parentProcessIds?: string[];
