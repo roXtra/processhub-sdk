@@ -25,8 +25,8 @@ export interface IBaseReply {
 }
 
 export const IBaseReplyObject: IBaseReply = {
-  type: (Joi.string().allow("") as unknown) as string,
-  result: (Joi.number() as unknown) as number,
+  type: Joi.string().allow("") as unknown as string,
+  result: Joi.number() as unknown as number,
 };
 
 export const IBaseReplySchema = Joi.object(IBaseReplyObject);
@@ -36,7 +36,7 @@ export interface IBaseRequest {
 }
 
 export const IBaseRequestObject: IBaseRequest = {
-  moduleId: (Joi.number() as unknown) as number,
+  moduleId: Joi.number() as unknown as number,
 };
 
 export const IBaseRequestSchema = Joi.object(IBaseRequestObject);

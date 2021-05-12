@@ -75,22 +75,20 @@ async function createTestBpmnProcess(): Promise<BpmnProcess> {
 
   let counter = 1;
   rowDetails = rowDetails.concat(
-    sortedTasks.map(
-      (r): IRowDetails => {
-        const testLane = bpmnProcess.getLaneOfFlowNode(r.id);
-        const row = {
-          rowNumber: counter,
-          selectedRole: testLane!.id,
-          task: r.name,
-          taskId: r.id,
-          laneId: testLane!.id,
-          taskType: r.$type,
-          jumpsTo: r.outgoing!.map((out) => out.targetRef.id),
-        } as IRowDetails;
-        counter++;
-        return row;
-      },
-    ),
+    sortedTasks.map((r): IRowDetails => {
+      const testLane = bpmnProcess.getLaneOfFlowNode(r.id);
+      const row = {
+        rowNumber: counter,
+        selectedRole: testLane!.id,
+        task: r.name,
+        taskId: r.id,
+        laneId: testLane!.id,
+        taskType: r.$type,
+        jumpsTo: r.outgoing!.map((out) => out.targetRef.id),
+      } as IRowDetails;
+      counter++;
+      return row;
+    }),
   );
 
   assert.isTrue(rowDetails.length === 3, "wrong template 3");
@@ -529,22 +527,20 @@ describe("sdk", function () {
 
           let counter = 1;
           rowDetails = rowDetails.concat(
-            sortedTasks.map(
-              (r): IRowDetails => {
-                const testLane = bpmnProcess.getLaneOfFlowNode(r.id);
-                const row = {
-                  rowNumber: counter,
-                  selectedRole: testLane?.id,
-                  task: r.name,
-                  taskId: r.id,
-                  laneId: testLane?.id,
-                  taskType: r.$type,
-                  jumpsTo: r.outgoing?.map((out) => out.targetRef.id),
-                } as IRowDetails;
-                counter++;
-                return row;
-              },
-            ),
+            sortedTasks.map((r): IRowDetails => {
+              const testLane = bpmnProcess.getLaneOfFlowNode(r.id);
+              const row = {
+                rowNumber: counter,
+                selectedRole: testLane?.id,
+                task: r.name,
+                taskId: r.id,
+                laneId: testLane?.id,
+                taskType: r.$type,
+                jumpsTo: r.outgoing?.map((out) => out.targetRef.id),
+              } as IRowDetails;
+              counter++;
+              return row;
+            }),
           );
 
           assert.isTrue(rowDetails.length === 3, "wrong template 3");

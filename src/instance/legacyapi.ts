@@ -35,7 +35,7 @@ export interface IInstanceReply extends IBaseReply {
 }
 
 const IInstanceReplyObject: IInstanceReply = {
-  errorMessage: (Joi.string().allow("") as unknown) as string,
+  errorMessage: Joi.string().allow("") as unknown as string,
   // Extends IBaseReply
   ...IBaseReplyObject,
 };
@@ -188,11 +188,11 @@ export interface IGenerateReportRequest extends IBaseRequest {
 }
 
 const IGenerateReportRequestObject: IGenerateReportRequest = {
-  instanceIds: (Joi.array().items(Joi.string()).required() as unknown) as string[],
-  draftId: (Joi.string().required() as unknown) as string,
-  type: (Joi.string()
+  instanceIds: Joi.array().items(Joi.string()).required() as unknown as string[],
+  draftId: Joi.string().required() as unknown as string,
+  type: Joi.string()
     .pattern(createLiteralTypeRegExp(Object.values(IGenerateReportRequestTypeOptions)))
-    .required() as unknown) as IGenerateReportRequestType,
+    .required() as unknown as IGenerateReportRequestType,
   // Extends IBaseRequest
   ...IBaseRequestObject,
 };
@@ -205,8 +205,8 @@ export interface IGenerateReportReply extends IInstanceReply {
 }
 
 const IGenerateReportReplyObject: IGenerateReportReply = {
-  doc: (Joi.string().allow("").base64().required() as unknown) as string,
-  fileName: (Joi.string().required() as unknown) as string,
+  doc: Joi.string().allow("").base64().required() as unknown as string,
+  fileName: Joi.string().required() as unknown as string,
   // Extends IInstanceReply
   ...IInstanceReplyObject,
 };

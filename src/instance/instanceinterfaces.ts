@@ -29,8 +29,8 @@ export interface IRiskAssessmentValue {
 }
 
 const IRiskAssessmentValueObject: IRiskAssessmentValue = {
-  assessments: (Joi.object().pattern(Joi.string(), Joi.number()).required() as unknown) as { [dimensionId: string]: number },
-  comment: (Joi.string().allow("") as unknown) as string,
+  assessments: Joi.object().pattern(Joi.string(), Joi.number()).required() as unknown as { [dimensionId: string]: number },
+  comment: Joi.string().allow("") as unknown as string,
 };
 
 export const IRiskAssessmentValueSchema = Joi.object(IRiskAssessmentValueObject);
@@ -57,7 +57,7 @@ export interface IRiskAssessmentTargetValue {
 }
 
 const IRiskAssessmentTargetValueObject: IRiskAssessmentTargetValue = {
-  targets: (Joi.object().pattern(Joi.string(), Joi.number()).required() as unknown) as { [dimensionId: string]: number },
+  targets: Joi.object().pattern(Joi.string(), Joi.number()).required() as unknown as { [dimensionId: string]: number },
 };
 
 export const IRiskAssessmentTargetValueSchema = Joi.object(IRiskAssessmentTargetValueObject);
