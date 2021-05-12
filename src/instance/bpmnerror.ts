@@ -20,12 +20,12 @@ export class BpmnError extends Error {
 }
 
 const BpmnErrorObject: BpmnError = {
-  errorCode: (Joi.string().allow("") as unknown) as string,
-  errorMessage: (Joi.string().allow("") as unknown) as string,
-  message: (Joi.string().allow("") as unknown) as string,
-  name: (Joi.string().allow("") as unknown) as string,
-  innerError: (Joi.object().optional() as unknown) as Error,
-  stack: (Joi.string().allow("") as unknown) as string,
+  errorCode: Joi.string().allow("") as unknown as string,
+  errorMessage: Joi.string().allow("") as unknown as string,
+  message: Joi.string().allow("") as unknown as string,
+  name: Joi.string().allow("") as unknown as string,
+  innerError: Joi.object().optional() as unknown as Error,
+  stack: Joi.string().allow("") as unknown as string,
 };
 
 export const BpmnErrorSchema = Joi.object(BpmnErrorObject);

@@ -1592,11 +1592,9 @@ export class BpmnProcess {
     let actualRunningTasks: IRunningTaskLane[] = [];
     for (const runInstance of runningInstances) {
       const todos = filterTodosForInstance(userInstances, runInstance.instanceId);
-      const value = todos.map(
-        (t): IRunningTaskLane => {
-          return { bpmnLaneId: t.bpmnLaneId, bpmnTaskId: t.bpmnTaskId } as IRunningTaskLane;
-        },
-      );
+      const value = todos.map((t): IRunningTaskLane => {
+        return { bpmnLaneId: t.bpmnLaneId, bpmnTaskId: t.bpmnTaskId } as IRunningTaskLane;
+      });
       actualRunningTasks = actualRunningTasks.concat(value);
     }
 

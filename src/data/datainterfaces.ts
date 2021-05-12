@@ -72,8 +72,8 @@ export class IFieldConfig {
 }
 
 const IFieldConfigObject: IFieldConfig = {
-  conditionExpression: (Joi.string().allow("") as unknown) as string,
-  conditionBuilderMode: (Joi.boolean() as unknown) as boolean,
+  conditionExpression: Joi.string().allow("") as unknown as string,
+  conditionBuilderMode: Joi.boolean() as unknown as boolean,
 };
 
 export const IFieldConfigSchema = Joi.object(IFieldConfigObject);
@@ -89,12 +89,12 @@ export interface IFieldDefinition {
 }
 
 const IFieldDefinitionObject: IFieldDefinition = {
-  name: (Joi.string().allow("").required() as unknown) as string,
-  type: (FieldTypeSchema as unknown) as FieldType,
-  isRequired: (Joi.boolean().required() as unknown) as boolean,
-  isRestricted: (Joi.boolean() as unknown) as boolean,
-  inlineEditingActive: (Joi.boolean() as unknown) as boolean,
-  config: (IFieldConfigSchema as unknown) as IFieldConfig,
+  name: Joi.string().allow("").required() as unknown as string,
+  type: FieldTypeSchema as unknown as FieldType,
+  isRequired: Joi.boolean().required() as unknown as boolean,
+  isRestricted: Joi.boolean() as unknown as boolean,
+  inlineEditingActive: Joi.boolean() as unknown as boolean,
+  config: IFieldConfigSchema as unknown as IFieldConfig,
 };
 
 export const IFieldDefinitionSchema = Joi.object(IFieldDefinitionObject);
@@ -106,9 +106,9 @@ export interface IFieldDefinitionItem {
 }
 
 const IFieldDefinitionItemObject: IFieldDefinitionItem = {
-  bpmnTaskId: (Joi.string().allow("").required() as unknown) as string,
-  isStartEvent: (Joi.boolean().required() as unknown) as boolean,
-  fieldDefinition: (IFieldDefinitionSchema as unknown) as IFieldDefinition,
+  bpmnTaskId: Joi.string().allow("").required() as unknown as string,
+  isStartEvent: Joi.boolean().required() as unknown as boolean,
+  fieldDefinition: IFieldDefinitionSchema as unknown as IFieldDefinition,
 };
 
 export const IFieldDefinitionItemSchema = Joi.object(IFieldDefinitionItemObject);
@@ -119,8 +119,8 @@ export interface ITaskIdRequiredFieldsNeeded {
 }
 
 const ITaskIdRequiredFieldsNeededObject: ITaskIdRequiredFieldsNeeded = {
-  taskId: (Joi.string().allow("").required() as unknown) as string,
-  requiredFieldsNeeded: (Joi.boolean().required() as unknown) as boolean,
+  taskId: Joi.string().allow("").required() as unknown as string,
+  requiredFieldsNeeded: Joi.boolean().required() as unknown as boolean,
 };
 
 export const ITaskIdRequiredFieldsNeededSchema = Joi.object(ITaskIdRequiredFieldsNeededObject);
@@ -133,10 +133,10 @@ export interface IRoxFileFieldValue {
 }
 
 const IRoxFileFieldValueObject: IRoxFileFieldValue = {
-  url: (Joi.string().allow("") as unknown) as string,
-  lockedAt: (Joi.date() as unknown) as Date,
-  lockedByUserName: (Joi.string().allow("") as unknown) as string,
-  lockedByUserId: (Joi.string().allow("") as unknown) as string,
+  url: Joi.string().allow("") as unknown as string,
+  lockedAt: Joi.date() as unknown as Date,
+  lockedByUserName: Joi.string().allow("") as unknown as string,
+  lockedByUserId: Joi.string().allow("") as unknown as string,
 };
 
 export const IRoxFileFieldValueSchema = Joi.object(IRoxFileFieldValueObject);
@@ -147,8 +147,8 @@ export interface ISignatureFieldValue {
 }
 
 const ISignatureFieldValueObject: ISignatureFieldValue = {
-  svgDataUrl: (Joi.string().allow("") as unknown) as string,
-  dataPoints: (Joi.object() as unknown) as {},
+  svgDataUrl: Joi.string().allow("") as unknown as string,
+  dataPoints: Joi.object() as unknown as {},
 };
 
 export const ISignatureFieldValueSchema = Joi.object(ISignatureFieldValueObject);
@@ -158,7 +158,7 @@ export interface IRadioButtonFieldValue {
 }
 
 const IRadioButtonFieldValueObject: IRadioButtonFieldValue = {
-  name: (Joi.string().allow("").required() as unknown) as string,
+  name: Joi.string().allow("").required() as unknown as string,
 };
 
 export const IRadioButtonFieldValueSchema = Joi.object(IRadioButtonFieldValueObject);
@@ -169,8 +169,8 @@ export interface IRadioButtonGroupFieldValue {
 }
 
 const IRadioButtonGroupFieldValueObject: IRadioButtonGroupFieldValue = {
-  radioButtons: (Joi.array().items(Joi.object(IRadioButtonFieldValueObject)).required() as unknown) as IRadioButtonFieldValue[],
-  selectedRadio: (Joi.number() as unknown) as number,
+  radioButtons: Joi.array().items(Joi.object(IRadioButtonFieldValueObject)).required() as unknown as IRadioButtonFieldValue[],
+  selectedRadio: Joi.number() as unknown as number,
 };
 
 export const IRadioButtonGroupFieldValueSchema = Joi.object(IRadioButtonGroupFieldValueObject);
@@ -183,9 +183,9 @@ export interface ISpreadSheetFieldValue {
 }
 
 const ISpreadSheetFieldValueObject: ISpreadSheetFieldValue = {
-  fileUrl: (Joi.string().allow("").required() as unknown) as string,
-  url: (Joi.string().allow("").required() as unknown) as string,
-  value: (Joi.object().required() as unknown) as {},
+  fileUrl: Joi.string().allow("").required() as unknown as string,
+  url: Joi.string().allow("").required() as unknown as string,
+  value: Joi.object().required() as unknown as {},
 };
 
 export const ISpreadSheetFieldValueSchema = Joi.object(ISpreadSheetFieldValueObject);
@@ -201,9 +201,9 @@ const IRoxFileLinkValueObject: {
   roxFileId: number;
   roxFileIconUrl: string | undefined;
 } = {
-  roxFileName: (Joi.string().allow("") as unknown) as string,
-  roxFileId: (Joi.number().required() as unknown) as number,
-  roxFileIconUrl: (Joi.string().allow("") as unknown) as string,
+  roxFileName: Joi.string().allow("") as unknown as string,
+  roxFileId: Joi.number().required() as unknown as number,
+  roxFileIconUrl: Joi.string().allow("") as unknown as string,
 };
 
 export const IRoxFileLinkValueSchema = Joi.array().items(Joi.object(IRoxFileLinkValueObject));
@@ -218,12 +218,12 @@ export interface IProcessLinkInstance {
 }
 
 const IProcessLinkInstanceObject: IProcessLinkInstance = {
-  instanceId: (Joi.string().allow("").required() as unknown) as string,
-  workspaceId: (Joi.string().allow("").required() as unknown) as string,
-  processId: (Joi.string().allow("").required() as unknown) as string,
-  title: (Joi.string().allow("") as unknown) as string,
-  moduleId: (Joi.number().required() as unknown) as number,
-  state: (StateSchema as unknown) as State,
+  instanceId: Joi.string().allow("").required() as unknown as string,
+  workspaceId: Joi.string().allow("").required() as unknown as string,
+  processId: Joi.string().allow("").required() as unknown as string,
+  title: Joi.string().allow("") as unknown as string,
+  moduleId: Joi.number().required() as unknown as number,
+  state: StateSchema as unknown as State,
 };
 
 export const IProcessLinkInstanceSchema = Joi.object(IProcessLinkInstanceObject);
@@ -233,7 +233,7 @@ export interface IProcessLinkValue {
 }
 
 const IProcessLinkValueObject: IProcessLinkValue = {
-  linkedInstances: (Joi.array().items(Joi.object(IProcessLinkInstanceObject)).required() as unknown) as IProcessLinkInstance[],
+  linkedInstances: Joi.array().items(Joi.object(IProcessLinkInstanceObject)).required() as unknown as IProcessLinkInstance[],
 };
 
 export const IProcessLinkValueSchema = Joi.object(IProcessLinkValueObject);
@@ -244,8 +244,8 @@ export interface ITasksFieldTask {
 }
 
 const ITasksFieldTaskObject: ITasksFieldTask = {
-  checked: (Joi.boolean().required() as unknown) as boolean,
-  text: (Joi.string().allow("") as unknown) as string,
+  checked: Joi.boolean().required() as unknown as boolean,
+  text: Joi.string().allow("") as unknown as string,
 };
 
 export const ITasksFieldTaskSchema = Joi.object(ITasksFieldTaskObject);
@@ -255,7 +255,7 @@ export interface ITasksFieldValue {
 }
 
 const ITasksFieldValueObject: ITasksFieldValue = {
-  tasks: (Joi.array().items(Joi.object(ITasksFieldTaskObject)).required() as unknown) as ITasksFieldTask[],
+  tasks: Joi.array().items(Joi.object(ITasksFieldTaskObject)).required() as unknown as ITasksFieldTask[],
 };
 
 export const ITasksFieldValueSchema = Joi.object(ITasksFieldValueObject);
@@ -267,9 +267,9 @@ export interface IServiceActionConfigField {
 }
 
 const IServiceActionConfigFieldObject: IServiceActionConfigField = {
-  key: (Joi.string().allow("").required() as unknown) as string,
-  type: (Joi.string().allow("").required() as unknown) as string,
-  value: (Joi.string().allow("").required() as unknown) as string,
+  key: Joi.string().allow("").required() as unknown as string,
+  type: Joi.string().allow("").required() as unknown as string,
+  value: Joi.string().allow("").required() as unknown as string,
 };
 
 export const IServiceActionConfigFieldSchema = Joi.object(IServiceActionConfigFieldObject);
@@ -279,7 +279,7 @@ export interface IChecklistEntry {
 }
 
 const IChecklistEntryObject: IChecklistEntry = {
-  name: (Joi.string().allow("").required() as unknown) as string,
+  name: Joi.string().allow("").required() as unknown as string,
 };
 
 export const IChecklistEntrySchema = Joi.object(IChecklistEntryObject);
@@ -299,13 +299,13 @@ export interface ISVGDropdownOption {
 }
 
 const svgDataObject: ISVGData = {
-  normal: (Joi.string() as unknown) as string,
-  detailed: (Joi.string() as unknown) as string,
+  normal: Joi.string() as unknown as string,
+  detailed: Joi.string() as unknown as string,
 };
 
 const ISVGDropdownOptionObject: ISVGDropdownOption = {
-  text: (Joi.string().allow("").required() as unknown) as string,
-  svgData: (Joi.object(svgDataObject).required() as unknown) as ISVGData,
+  text: Joi.string().allow("").required() as unknown as string,
+  svgData: Joi.object(svgDataObject).required() as unknown as ISVGData,
 };
 
 export const ISVGDropdownOptionSchema = Joi.object(ISVGDropdownOptionObject);
@@ -316,8 +316,8 @@ export interface IFieldConfigDefault extends IFieldConfig {
 }
 
 const IFieldConfigDefaultObject: IFieldConfigDefault = {
-  validationExpression: (Joi.string().allow("") as unknown) as string,
-  defaultValue: ([
+  validationExpression: Joi.string().allow("") as unknown as string,
+  defaultValue: [
     Joi.string().allow(""),
     Joi.date(),
     ChecklistFieldValueSchema,
@@ -326,7 +326,7 @@ const IFieldConfigDefaultObject: IFieldConfigDefault = {
     IRoxFileLinkValueSchema,
     ISVGDropdownOptionSchema,
     ITasksFieldValueSchema,
-  ] as unknown) as string,
+  ] as unknown as string,
   // Extends IFieldConfig
   ...IFieldConfigObject,
 };
@@ -339,8 +339,8 @@ export interface IChecklistFieldConfig extends IFieldConfigDefault {
 }
 
 const IChecklistFieldConfigObject: IChecklistFieldConfig = {
-  entries: (Joi.array().items(Joi.object(IChecklistEntryObject)).required() as unknown) as IChecklistEntry[],
-  oneEntryMustBeChecked: (Joi.boolean().required() as unknown) as boolean,
+  entries: Joi.array().items(Joi.object(IChecklistEntryObject)).required() as unknown as IChecklistEntry[],
+  oneEntryMustBeChecked: Joi.boolean().required() as unknown as boolean,
   // Extends IFieldConfigDefault
   ...IFieldConfigDefaultObject,
 };
@@ -356,7 +356,7 @@ export interface IDropdownFieldConfig extends IFieldConfigDefault {
 }
 
 const IDropdownFieldConfigObject: IDropdownFieldConfig = {
-  options: (Joi.array().items(Joi.string().allow("")).required() as unknown) as string[],
+  options: Joi.array().items(Joi.string().allow("")).required() as unknown as string[],
   // Extends IFieldConfigDefault
   ...IFieldConfigDefaultObject,
 };
@@ -368,7 +368,7 @@ export interface ISVGDropdownFieldConfig extends IFieldConfigDefault {
 }
 
 const ISVGDropdownFieldConfigObject: ISVGDropdownFieldConfig = {
-  options: (Joi.array().items(ISVGDropdownOptionSchema).required() as unknown) as ISVGDropdownOption[],
+  options: Joi.array().items(ISVGDropdownOptionSchema).required() as unknown as ISVGDropdownOption[],
   // Extends IFieldConfigDefault
   ...IFieldConfigDefaultObject,
 };
@@ -380,7 +380,7 @@ export interface IFileUploadFieldConfig extends IFieldConfig {
 }
 
 const IFileUploadFieldConfigObject: IFileUploadFieldConfig = {
-  validationExpression: (Joi.string().allow("") as unknown) as string,
+  validationExpression: Joi.string().allow("") as unknown as string,
   // Extends IFieldConfig
   ...IFieldConfigObject,
 };
@@ -392,7 +392,7 @@ export interface IInstanceTitleFieldConfig extends IFieldConfigDefault {
 }
 
 const IInstanceTitleFieldConfigObject: IInstanceTitleFieldConfig = {
-  evalDefaultValue: (Joi.boolean().required() as unknown) as boolean,
+  evalDefaultValue: Joi.boolean().required() as unknown as boolean,
   // Extends IFieldConfigDefault
   ...IFieldConfigDefaultObject,
 };
@@ -404,7 +404,7 @@ export interface ILabelConfig extends IFieldConfig {
 }
 
 const ILabelConfigObject: ILabelConfig = {
-  labelHtml: (Joi.string().allow("") as unknown) as string,
+  labelHtml: Joi.string().allow("") as unknown as string,
   // Extends IFieldConfig
   ...IFieldConfigObject,
 };
@@ -421,8 +421,8 @@ export interface INumberFieldConfig extends IFieldConfigDefault {
 }
 
 const INumberFieldConfigObject: INumberFieldConfig = {
-  evalDefaultValue: (Joi.boolean().required() as unknown) as boolean,
-  onlyIntegers: (Joi.boolean().required() as unknown) as boolean,
+  evalDefaultValue: Joi.boolean().required() as unknown as boolean,
+  onlyIntegers: Joi.boolean().required() as unknown as boolean,
   // Extends IFieldConfigDefault
   ...IFieldConfigDefaultObject,
 };
@@ -436,9 +436,9 @@ export interface IRadioButtonGroupEntry {
 }
 
 const IRadioButtonGroupEntryObject: IRadioButtonGroupEntry = {
-  name: (Joi.string().allow("").required() as unknown) as string,
-  value: (Joi.number().required() as unknown) as number,
-  selected: (Joi.boolean().required() as unknown) as boolean,
+  name: Joi.string().allow("").required() as unknown as string,
+  value: Joi.number().required() as unknown as number,
+  selected: Joi.boolean().required() as unknown as boolean,
 };
 
 export const IRadioButtonGroupEntrySchema = Joi.object(IRadioButtonGroupEntryObject);
@@ -449,8 +449,8 @@ export interface IRadioButtonFieldConfig extends IFieldConfigDefault {
 }
 
 const IRadioButtonFieldConfigObject: IRadioButtonFieldConfig = {
-  entries: (Joi.array().items(Joi.object(IRadioButtonGroupEntryObject)).required() as unknown) as IRadioButtonGroupEntry[],
-  oneEntryMustBeChecked: (Joi.boolean().required() as unknown) as boolean,
+  entries: Joi.array().items(Joi.object(IRadioButtonGroupEntryObject)).required() as unknown as IRadioButtonGroupEntry[],
+  oneEntryMustBeChecked: Joi.boolean().required() as unknown as boolean,
   // Extends IFieldConfigDefault
   ...IFieldConfigDefaultObject,
 };
@@ -463,8 +463,8 @@ export interface IRiskAssessmentFieldConfig extends IFieldConfig {
 }
 
 const IRiskAssessmentFieldConfigObject: IRiskAssessmentFieldConfig = {
-  validationExpression: (Joi.string().allow("") as unknown) as string,
-  usePreviousValueAsDefault: (Joi.boolean().required() as unknown) as boolean,
+  validationExpression: Joi.string().allow("") as unknown as string,
+  usePreviousValueAsDefault: Joi.boolean().required() as unknown as boolean,
   // Extends IFieldConfig
   ...IFieldConfigObject,
 };
@@ -481,8 +481,8 @@ export interface IRoleOwnerFieldConfig extends IFieldConfig {
 }
 
 const IRoleOwnerFieldConfigObject: IRoleOwnerFieldConfig = {
-  validationExpression: (Joi.string().allow("") as unknown) as string,
-  defaultValue: (Joi.string().pattern(createLiteralTypeRegExp(Object.values(IRoleOwnerFieldConfigDefaultValueOptions))) as unknown) as IRoleOwnerFieldConfigDefaultValueType,
+  validationExpression: Joi.string().allow("") as unknown as string,
+  defaultValue: Joi.string().pattern(createLiteralTypeRegExp(Object.values(IRoleOwnerFieldConfigDefaultValueOptions))) as unknown as IRoleOwnerFieldConfigDefaultValueType,
   // Extends IFieldConfig
   ...IFieldConfigObject,
 };
@@ -497,10 +497,10 @@ export interface IRoxFileFieldConfig extends IFieldConfig {
 }
 
 const IRoxFileFieldConfigObject: IRoxFileFieldConfig = {
-  validationExpression: (Joi.string().allow("") as unknown) as string,
-  roxFileName: (Joi.string().allow("") as unknown) as string,
-  roxFileId: (Joi.number() as unknown) as number,
-  roxFileIconUrl: (Joi.string().allow("") as unknown) as string,
+  validationExpression: Joi.string().allow("") as unknown as string,
+  roxFileName: Joi.string().allow("") as unknown as string,
+  roxFileId: Joi.number() as unknown as number,
+  roxFileIconUrl: Joi.string().allow("") as unknown as string,
   // Extends IFieldConfig
   ...IFieldConfigObject,
 };
@@ -521,8 +521,8 @@ export interface ITextAreaFieldConfig extends IFieldConfigDefault {
 }
 
 const ITextAreaFieldConfigObject: ITextAreaFieldConfig = {
-  evalDefaultValue: (Joi.boolean().required() as unknown) as boolean,
-  enableExperimental: (Joi.boolean().required() as unknown) as boolean,
+  evalDefaultValue: Joi.boolean().required() as unknown as boolean,
+  enableExperimental: Joi.boolean().required() as unknown as boolean,
   // Extends IFieldConfigDefault
   ...IFieldConfigDefaultObject,
 };
@@ -534,7 +534,7 @@ export interface ITextInputFieldConfig extends IFieldConfigDefault {
 }
 
 const ITextInputFieldConfigObject: ITextInputFieldConfig = {
-  evalDefaultValue: (Joi.boolean().required() as unknown) as boolean,
+  evalDefaultValue: Joi.boolean().required() as unknown as boolean,
   // Extends IFieldConfigDefault
   ...IFieldConfigDefaultObject,
 };
@@ -585,8 +585,8 @@ export interface IFieldValue {
 }
 
 const IFieldValueObject: IFieldValue = {
-  type: (FieldTypeSchema.required() as unknown) as FieldType,
-  value: (FieldValueTypeSchema as unknown) as FieldValueType,
+  type: FieldTypeSchema.required() as unknown as FieldType,
+  value: FieldValueTypeSchema as unknown as FieldValueType,
 };
 
 export const IFieldValueSchema = Joi.object(IFieldValueObject);
@@ -648,19 +648,19 @@ export interface IFieldType {
 }
 
 const IFieldTypeObject: IFieldType = {
-  getType: (Joi.function().required() as unknown) as () => FieldType,
-  getName: (Joi.function().required() as unknown) as () => string,
-  getInput: (Joi.function().required() as unknown) as () => JSX.Element,
-  renderValue: (Joi.function().required() as unknown) as () => JSX.Element,
-  renderValueForEmail: (Joi.function().required() as unknown) as () => JSX.Element,
-  renderValueForGrid: (Joi.function().required() as unknown) as () => string | Date | undefined,
-  renderValueToMarkdown: (Joi.function().required() as unknown) as () => string,
-  renderValueToString: (Joi.function().required() as unknown) as () => string,
-  getSettingsButton: (Joi.function().required() as unknown) as () => JSX.Element,
-  isVisible: (Joi.function().required() as unknown) as () => boolean,
-  isValid: (Joi.function().required() as unknown) as () => Promise<boolean>,
-  isConfigValid: (Joi.function().required() as unknown) as () => { valid: boolean; message?: string },
-  appendValueToChartData: (Joi.function().required() as unknown) as (currentChartData: IChartData[], field: IFieldValue) => void,
+  getType: Joi.function().required() as unknown as () => FieldType,
+  getName: Joi.function().required() as unknown as () => string,
+  getInput: Joi.function().required() as unknown as () => JSX.Element,
+  renderValue: Joi.function().required() as unknown as () => JSX.Element,
+  renderValueForEmail: Joi.function().required() as unknown as () => JSX.Element,
+  renderValueForGrid: Joi.function().required() as unknown as () => string | Date | undefined,
+  renderValueToMarkdown: Joi.function().required() as unknown as () => string,
+  renderValueToString: Joi.function().required() as unknown as () => string,
+  getSettingsButton: Joi.function().required() as unknown as () => JSX.Element,
+  isVisible: Joi.function().required() as unknown as () => boolean,
+  isValid: Joi.function().required() as unknown as () => Promise<boolean>,
+  isConfigValid: Joi.function().required() as unknown as () => { valid: boolean; message?: string },
+  appendValueToChartData: Joi.function().required() as unknown as (currentChartData: IChartData[], field: IFieldValue) => void,
 };
 
 export const IFieldTypeSchema = Joi.object(IFieldTypeObject);
@@ -678,14 +678,14 @@ export interface IFormElementProps {
 }
 
 const IFormElementPropsObject: IFormElementProps = {
-  value: (FieldValueTypeSchema as unknown) as FieldValueType,
-  label: (Joi.string().allow("").required() as unknown) as string,
-  required: (Joi.boolean().required() as unknown) as boolean,
-  restricted: (Joi.boolean().required() as unknown) as boolean,
-  inlineEditingActive: (Joi.boolean() as unknown) as boolean,
-  disabled: (Joi.boolean().required() as unknown) as boolean,
-  config: (IFieldConfigSchema as unknown) as IFieldConfig,
-  key: (Joi.string().allow("") as unknown) as string,
+  value: FieldValueTypeSchema as unknown as FieldValueType,
+  label: Joi.string().allow("").required() as unknown as string,
+  required: Joi.boolean().required() as unknown as boolean,
+  restricted: Joi.boolean().required() as unknown as boolean,
+  inlineEditingActive: Joi.boolean() as unknown as boolean,
+  disabled: Joi.boolean().required() as unknown as boolean,
+  config: IFieldConfigSchema as unknown as IFieldConfig,
+  key: Joi.string().allow("") as unknown as string,
 };
 
 export const IFormElementPropsSchema = Joi.object(IFormElementPropsObject);
@@ -775,11 +775,11 @@ interface IStatisticTrailEntryTodo {
 }
 
 const IStatisticTrailEntryTodoObject: IStatisticTrailEntryTodo = {
-  todoId: (Joi.string().allow("") as unknown) as string,
-  bpmnTaskId: (Joi.string().allow("").required() as unknown) as string,
-  bpmnLaneId: (Joi.string().allow("").required() as unknown) as string,
-  desicionTaskBpmnTaskId: (Joi.string().allow("") as unknown) as string,
-  timeOverDueDate: (Joi.number() as unknown) as number,
+  todoId: Joi.string().allow("") as unknown as string,
+  bpmnTaskId: Joi.string().allow("").required() as unknown as string,
+  bpmnLaneId: Joi.string().allow("").required() as unknown as string,
+  desicionTaskBpmnTaskId: Joi.string().allow("") as unknown as string,
+  timeOverDueDate: Joi.number() as unknown as number,
 };
 
 export const IStatisticTrailEntryTodoSchema = Joi.object(IStatisticTrailEntryTodoObject);
@@ -790,8 +790,8 @@ interface IStatisticTrailEntryInstance {
 }
 
 const IStatisticTrailEntryInstanceObject: IStatisticTrailEntryInstance = {
-  instanceId: (Joi.string().allow("").required() as unknown) as string,
-  jumpToBpmnTask: (Joi.string().allow("") as unknown) as string,
+  instanceId: Joi.string().allow("").required() as unknown as string,
+  jumpToBpmnTask: Joi.string().allow("") as unknown as string,
 };
 
 export const IStatisticTrailEntryInstanceSchema = Joi.object(IStatisticTrailEntryInstanceObject);
@@ -801,7 +801,7 @@ interface IStatisticTrailEntryUser {
 }
 
 const IStatisticTrailEntryUserObject: IStatisticTrailEntryUser = {
-  instanceId: (Joi.string().allow("").required() as unknown) as string,
+  instanceId: Joi.string().allow("").required() as unknown as string,
 };
 
 export const IStatisticTrailEntryUserSchema = Joi.object(IStatisticTrailEntryUserObject);
@@ -814,9 +814,9 @@ export interface IStatisticTrailEntry {
 }
 
 const IStatisticTrailEntryObject: IStatisticTrailEntry = {
-  todo: (IStatisticTrailEntryTodoSchema as unknown) as IStatisticTrailEntryTodo,
-  instance: (IStatisticTrailEntryInstanceSchema as unknown) as IStatisticTrailEntryInstance,
-  user: (IStatisticTrailEntryUserSchema as unknown) as IStatisticTrailEntryUser,
+  todo: IStatisticTrailEntryTodoSchema as unknown as IStatisticTrailEntryTodo,
+  instance: IStatisticTrailEntryInstanceSchema as unknown as IStatisticTrailEntryInstance,
+  user: IStatisticTrailEntryUserSchema as unknown as IStatisticTrailEntryUser,
   process: Joi.object(),
 };
 
@@ -839,8 +839,8 @@ export interface IHeatmapDatapoint {
 }
 
 const IHeatmapDatapointObject: IHeatmapDatapoint = {
-  bpmnElementId: (Joi.string().allow("").required() as unknown) as string,
-  value: (Joi.number().required() as unknown) as number,
+  bpmnElementId: Joi.string().allow("").required() as unknown as string,
+  value: Joi.number().required() as unknown as number,
 };
 
 export const IHeatmapDatapointSchema = Joi.object(IHeatmapDatapointObject);

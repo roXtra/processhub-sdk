@@ -122,7 +122,7 @@ export function parseAndInsertStringWithFieldContent(
           result = replaceAll(
             result,
             placeHolder,
-            roleProperty && roleOwner[0].user ? ((roleOwner[0].user as unknown) as { [key: string]: string })[roleProperty] : roleOwner[0].displayName,
+            roleProperty && roleOwner[0].user ? (roleOwner[0].user as unknown as { [key: string]: string })[roleProperty] : roleOwner[0].displayName,
             isQuery,
           );
         } else {
