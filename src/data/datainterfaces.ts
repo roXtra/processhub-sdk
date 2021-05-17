@@ -645,6 +645,7 @@ export interface IFieldType {
   isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): Promise<boolean>;
   isConfigValid(fieldDefinition: IFieldDefinition): { valid: boolean; message?: string };
   appendValueToChartData(currentChartData: IChartData[], field: IFieldValue): void;
+  getValueForInstanceTitle(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig): string;
 }
 
 const IFieldTypeObject: IFieldType = {
@@ -661,6 +662,7 @@ const IFieldTypeObject: IFieldType = {
   isValid: Joi.function().required() as unknown as () => Promise<boolean>,
   isConfigValid: Joi.function().required() as unknown as () => { valid: boolean; message?: string },
   appendValueToChartData: Joi.function().required() as unknown as (currentChartData: IChartData[], field: IFieldValue) => void,
+  getValueForInstanceTitle: Joi.function().required() as unknown as () => string,
 };
 
 export const IFieldTypeSchema = Joi.object(IFieldTypeObject);
