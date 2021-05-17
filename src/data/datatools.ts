@@ -50,7 +50,7 @@ export function parseAndInsertStringWithFieldContent(
   roleOwners: IRoleOwnerMap,
   isQuery?: boolean,
   defaultValue?: string,
-  fieldValueToStringFn?: (valueObject: IFieldValue) => string,
+  fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
 ): string | undefined;
 export function parseAndInsertStringWithFieldContent(
   inputString: string,
@@ -59,7 +59,7 @@ export function parseAndInsertStringWithFieldContent(
   roleOwners: IRoleOwnerMap,
   isQuery?: boolean,
   defaultValue?: string,
-  fieldValueToStringFn?: (valueObject: IFieldValue) => string,
+  fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
 ): string | undefined;
 export function parseAndInsertStringWithFieldContent(
   inputString: string,
@@ -68,14 +68,14 @@ export function parseAndInsertStringWithFieldContent(
   roleOwners: IRoleOwnerMap,
   isQuery?: boolean,
   defaultValue?: string,
-  fieldValueToStringFn?: (valueObject: IFieldValue) => string,
+  fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
 ): string | undefined {
   if (inputString == null) return undefined;
   if (fieldContentMap == null) return inputString;
   defaultValue = defaultValue || "";
 
   if (fieldValueToStringFn == null) {
-    fieldValueToStringFn = (valueObject) => fieldValueToString(valueObject, defaultValue || "");
+    fieldValueToStringFn = (fieldName, valueObject) => fieldValueToString(valueObject, defaultValue || "");
   }
 
   const groupIndexForFieldPlaceholder = 0;
@@ -93,7 +93,7 @@ export function parseAndInsertStringWithFieldContent(
       const valueObject = fieldContentMap[fieldName];
 
       if (isFieldValue(valueObject)) {
-        const val: string = fieldValueToStringFn(valueObject);
+        const val: string = fieldValueToStringFn(fieldName, valueObject);
         result = replaceAll(result, fieldPlaceholder, val, isQuery);
       } else {
         result = replaceAll(result, fieldPlaceholder, valueObject != null ? valueObject.toString() : defaultValue, isQuery);
@@ -149,7 +149,7 @@ export function parseAndInsertStringWithFieldContent(
     if (fieldName && fieldName.length) {
       const valueObject = fieldContentMap[fieldName];
       if (isFieldValue(valueObject)) {
-        const val: string = fieldValueToStringFn(valueObject);
+        const val: string = fieldValueToStringFn(fieldName, valueObject);
         result = replaceAll(result, placeHolder, val, isQuery);
       } else {
         result = replaceAll(result, placeHolder, valueObject != null ? valueObject.toString() : defaultValue, isQuery);
