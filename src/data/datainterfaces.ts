@@ -624,6 +624,17 @@ export interface IFieldType {
     config?: IFieldConfig,
     showDirect?: boolean,
   ): JSX.Element | undefined;
+  /**
+   * Render field value for reports
+   */
+  renderValueForReport(
+    value: {} | undefined | null,
+    instance: IInstanceDetails,
+    process: IProcessDetails,
+    user: IUserDetails,
+    config?: IFieldConfig,
+    showDirect?: boolean,
+  ): JSX.Element | undefined;
   renderValueToMarkdown(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails, user: IUserDetails, config?: IFieldConfig): string | undefined;
   renderValueToString(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, user: IUserDetails, config?: IFieldConfig): string | undefined;
   renderValueForGrid(
@@ -654,6 +665,7 @@ const IFieldTypeObject: IFieldType = {
   getInput: Joi.function().required() as unknown as () => JSX.Element,
   renderValue: Joi.function().required() as unknown as () => JSX.Element,
   renderValueForEmail: Joi.function().required() as unknown as () => JSX.Element,
+  renderValueForReport: Joi.function().required() as unknown as () => JSX.Element,
   renderValueForGrid: Joi.function().required() as unknown as () => string | Date | undefined,
   renderValueToMarkdown: Joi.function().required() as unknown as () => string,
   renderValueToString: Joi.function().required() as unknown as () => string,
