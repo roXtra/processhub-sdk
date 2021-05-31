@@ -1,3 +1,5 @@
+import { FieldType } from "../data";
+
 // Must match the values defined in Enums_Module.cs in Roxtra.DataProvider
 export enum ModuleId {
   None = 0,
@@ -19,5 +21,5 @@ export interface IModule {
 
 export interface IGenericModuleSettings {
   defaultStatusField: string | undefined;
-  chartFieldNames: string[] | undefined;
+  chartFields?: { fieldName: string; type: FieldType }[];
 }
