@@ -4,6 +4,7 @@ import { IRoleOwnerMap, IRoleOwner, IProcessRoles, BpmnProcess } from "../proces
 import { replaceOldFieldSyntax } from "../tools";
 import SqlString from "sqlstring";
 import Joi from "joi";
+import murmurhash from "murmurhash";
 
 export const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 export const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName))?/;
@@ -239,14 +240,6 @@ export function validateType<T>(schema: Joi.Schema, element: unknown, options?: 
   return (options?.convert ? res.value : element) as T;
 }
 
-function hashCode(str: string): number {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return hash;
-}
-
 function intToRGB(number: number): string {
   const c = (number & 0x00ffffff).toString(16).toUpperCase();
 
@@ -261,5 +254,5 @@ function intToRGB(number: number): string {
  */
 export function objectToColor(object: unknown): string {
   const objectString = JSON.stringify(object);
-  return intToRGB(hashCode(objectString));
+  return intToRGB(murmurhash.v3(objectString));
 }
