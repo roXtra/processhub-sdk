@@ -25,6 +25,7 @@ export const FieldTypeOptions = [
   "ProcessHubDate",
   "ProcessHubDropdown",
   "ProcessHubChecklist",
+  "ProcessHubTreeView",
   "ProcessHubRadioButton",
   "ProcessHubDecision",
   "ProcessHubRoxFile",
@@ -312,7 +313,16 @@ export const ISVGDropdownOptionSchema = Joi.object(ISVGDropdownOptionObject);
 
 export interface IFieldConfigDefault extends IFieldConfig {
   validationExpression?: string;
-  defaultValue?: string | Date | ChecklistFieldValue | IRadioButtonGroupFieldValue | ISpreadSheetFieldValue | IRoxFileLinkValue | ITasksFieldValue | ISVGDropdownOption;
+  defaultValue?:
+    | string
+    | Date
+    | ChecklistFieldValue
+    | IRadioButtonGroupFieldValue
+    | ISpreadSheetFieldValue
+    | IRoxFileLinkValue
+    | ITasksFieldValue
+    | ISVGDropdownOption
+    | ITreeViewFieldValue;
 }
 
 const IFieldConfigDefaultObject: IFieldConfigDefault = {
@@ -346,6 +356,63 @@ const IChecklistFieldConfigObject: IChecklistFieldConfig = {
 };
 
 export const IChecklistFieldConfigSchema = Joi.object(IChecklistFieldConfigObject);
+
+// TreeView
+//
+
+/**
+ * Represents one TreeView Entry
+ */
+export interface ITreeViewEntry {
+  id: string;
+  name: string;
+  checked: boolean;
+  subItems: ITreeViewEntry[];
+}
+
+const TreeViewEntryObject: ITreeViewEntry = {
+  id: Joi.string() as unknown as string,
+  name: Joi.string().allow("") as unknown as string,
+  checked: Joi.boolean() as unknown as boolean,
+  subItems: Joi.array().items(Joi.object(ITasksFieldTaskObject)).required() as unknown as ITreeViewEntry[],
+};
+
+export const TreeViewEntrySchema = Joi.object(TreeViewEntryObject);
+
+/**
+ * TreeView Config Object
+ */
+export interface ITreeViewFieldConfig extends IFieldConfigDefault {
+  entries: ITreeViewEntry[];
+  oneEntryMustBeChecked: boolean;
+}
+
+const TreeViewFieldConfigObject: ITreeViewFieldConfig = {
+  entries: Joi.array().items(Joi.object(TreeViewEntryObject)).required() as unknown as ITreeViewEntry[],
+  oneEntryMustBeChecked: Joi.boolean().required() as unknown as boolean,
+  // Extends IFieldConfigDefault
+  ...IFieldConfigDefaultObject,
+};
+
+export const TreeViewFieldConfigSchema = Joi.object(TreeViewFieldConfigObject);
+
+// ---------------------------
+
+/**
+ * Represents whole TreeView data (also in DB)
+ */
+export interface ITreeViewFieldValue {
+  entries: ITreeViewEntry[];
+}
+
+const TreeViewFieldValueObject: ITreeViewFieldValue = {
+  entries: Joi.array().items(Joi.object(TreeViewEntryObject)).required() as unknown as ITreeViewEntry[],
+};
+
+export const TreeViewFieldValueSchema = Joi.object(TreeViewFieldValueObject);
+
+// End TreeView
+//
 
 export type IDateFieldConfig = IFieldConfigDefault;
 
@@ -557,7 +624,8 @@ export type FieldValueType =
   | IRoxFileLinkValue // RoxFileLink
   | IRiskAssessmentTargetValue // RiskAssessmentTarget
   | ISVGDropdownOption // SVGDropdown
-  | ITasksFieldValue; // TasksField;
+  | ITasksFieldValue // TasksField
+  | ITreeViewFieldValue; // TreeViewField
 
 const FieldValueTypeSchema = [
   Joi.allow(null),
@@ -577,6 +645,7 @@ const FieldValueTypeSchema = [
   IRiskAssessmentTargetValueSchema,
   ISVGDropdownOptionSchema,
   ITasksFieldValueSchema,
+  TreeViewFieldValueSchema,
 ];
 
 export interface IFieldValue {
