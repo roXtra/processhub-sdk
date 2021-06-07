@@ -56,6 +56,7 @@ export interface IInitialConfig extends IClientSettingsConfig {
   roXtraVersion: string;
   features: IFeatureConfig;
   moduleId: number;
+  currentModule: IModule;
   modules: IModule[];
   mimeTypes: {
     extensions: string[];
