@@ -5,6 +5,7 @@ import { replaceOldFieldSyntax } from "../tools";
 import SqlString from "sqlstring";
 import Joi from "joi";
 import murmurhash from "murmurhash";
+import { IInstanceDetails } from "../instance";
 
 export const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 export const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName))?/;
@@ -52,6 +53,7 @@ export function parseAndInsertStringWithFieldContent(
   isQuery?: boolean,
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
+  instance?: IInstanceDetails,
 ): string | undefined;
 export function parseAndInsertStringWithFieldContent(
   inputString: string,
@@ -61,6 +63,7 @@ export function parseAndInsertStringWithFieldContent(
   isQuery?: boolean,
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
+  instance?: IInstanceDetails,
 ): string | undefined;
 export function parseAndInsertStringWithFieldContent(
   inputString: string,
@@ -70,6 +73,7 @@ export function parseAndInsertStringWithFieldContent(
   isQuery?: boolean,
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
+  instance?: IInstanceDetails,
 ): string | undefined {
   if (inputString == null) return undefined;
   if (fieldContentMap == null) return inputString;
@@ -84,7 +88,25 @@ export function parseAndInsertStringWithFieldContent(
 
   let result = replaceOldFieldSyntax(inputString);
   if (result == null) return undefined;
-  let match: RegExpExecArray | null = fieldNameRegExp.exec(result);
+
+  let match: RegExpExecArray | null;
+
+  if (instance) {
+    const instanceRegex = /instance\['([^'\]]*)'\]/;
+    match = instanceRegex.exec(result);
+    while (match) {
+      const placeholder = match[0];
+      const key = match[1] as keyof IInstanceDetails;
+
+      if (key) {
+        const value = instance[key];
+        result = replaceAll(result, placeholder, value != null ? value.toString() : defaultValue, isQuery);
+      }
+      match = instanceRegex.exec(result);
+    }
+  }
+
+  match = fieldNameRegExp.exec(result);
 
   while (match) {
     const fieldPlaceholder = match[groupIndexForFieldPlaceholder];
