@@ -8,6 +8,7 @@ import { createBpmnTemplate } from "../process/bpmn/bpmnmoddlehelper";
 import { IRoleOwnerMap } from "../process/processrights";
 import { IProcessRoles, getProcessRoles } from "../process";
 import Joi from "joi";
+import { createId } from "../tools";
 
 describe("sdk", function () {
   describe("data", function () {
@@ -167,6 +168,20 @@ describe("sdk", function () {
             {},
             true,
           );
+
+          assert.equal(res, resultString);
+        });
+
+        it("should replace instance values", function () {
+          const testString = "Id: 'instance['instanceId']', Titel: 'instance['title']'";
+          const resultString = "Id: 'E8B278368B1002D7', Titel: 'test instance'";
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, {}, {}, {}, false, "", undefined, {
+            instanceId: "E8B278368B1002D7",
+            workspaceId: "1",
+            processId: createId(),
+            title: "test instance",
+            extras: {},
+          });
 
           assert.equal(res, resultString);
         });
