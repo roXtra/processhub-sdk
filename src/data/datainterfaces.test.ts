@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { FieldTypeOptions, isFieldValue } from "./datainterfaces";
+import { FieldTypeOptions, isFieldValue, ITreeViewFieldValue, TreeViewFieldValueSchema } from "./datainterfaces";
 
 describe("sdk", function () {
   describe("data", function () {
@@ -29,6 +29,30 @@ describe("sdk", function () {
 
           // Field with date value
           expect(isFieldValue({ type: FieldTypeOptions[0], value: new Date() })).to.be.true;
+        });
+
+        it("accepts TreeView FieldValues", function () {
+          // Field with undefined value
+          expect(TreeViewFieldValueSchema.required().validate(undefined).error).to.not.be.undefined;
+
+          const treeViewEntry: ITreeViewFieldValue = {
+            entries: [
+              {
+                id: "123",
+                name: "Test",
+                checked: false,
+                subItems: [],
+              },
+            ],
+          };
+
+          expect(TreeViewFieldValueSchema.required().validate(treeViewEntry).error).to.be.undefined;
+
+          const treeViewEntryEmpty: ITreeViewFieldValue = {
+            entries: [],
+          };
+
+          expect(TreeViewFieldValueSchema.required().validate(treeViewEntryEmpty).error).to.be.undefined;
         });
       });
     });
