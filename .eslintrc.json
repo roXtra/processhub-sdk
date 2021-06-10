@@ -16,7 +16,8 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "prettier"
   ],
   "rules": {
     "linebreak-style": ["error", "unix"],
@@ -57,7 +58,6 @@
         "varsIgnorePattern": ""
       }
     ],
-    "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-floating-promises": "error",
     "@typescript-eslint/prefer-namespace-keyword": "error",
     "semi": "off",
