@@ -174,7 +174,7 @@ describe("sdk", function () {
 
         it("should replace instance values", function () {
           const testString = "Id: 'instance['instanceId']', Titel: 'instance['title']'";
-          const resultString = "Id: 'E8B278368B1002D7', Titel: 'test instance'";
+          const resultString = "Id: 'e8b278368b1002d7', Titel: 'test instance'";
           const res = DataTools.parseAndInsertStringWithFieldContent(testString, {}, {}, {}, false, "", undefined, {
             instanceId: "E8B278368B1002D7",
             workspaceId: "1",

@@ -99,8 +99,17 @@ export function parseAndInsertStringWithFieldContent(
       const key = match[1] as keyof IInstanceDetails;
 
       if (key) {
-        const value = instance[key];
-        result = replaceAll(result, placeholder, value != null ? value.toString() : defaultValue, isQuery);
+        switch (key) {
+          case "instanceId":
+            result = replaceAll(result, placeholder, instance.instanceId.toLowerCase(), isQuery);
+            break;
+          default:
+            {
+              const value = instance[key];
+              result = replaceAll(result, placeholder, value != null ? value.toString() : defaultValue, isQuery);
+            }
+            break;
+        }
       }
       match = instanceRegex.exec(result);
     }
