@@ -311,6 +311,37 @@ const ISVGDropdownOptionObject: ISVGDropdownOption = {
 
 export const ISVGDropdownOptionSchema = Joi.object(ISVGDropdownOptionObject);
 
+//
+// TreeView
+//
+/**
+ * Represents one TreeView Entry
+ */
+export interface ITreeViewEntry {
+  id: string;
+  name: string;
+  checked: boolean;
+  subItems: ITreeViewEntry[];
+}
+
+const TreeViewEntryObject: ITreeViewEntry = {
+  id: Joi.string() as unknown as string,
+  name: Joi.string().allow("") as unknown as string,
+  checked: Joi.boolean() as unknown as boolean,
+  subItems: Joi.array().items(Joi.object(ITasksFieldTaskObject)).required() as unknown as ITreeViewEntry[],
+};
+
+export const TreeViewEntrySchema = Joi.object(TreeViewEntryObject);
+
+const TreeViewFieldValueObject: ITreeViewFieldValue = {
+  entries: Joi.array().items(Joi.object(TreeViewEntryObject)).required() as unknown as ITreeViewEntry[],
+};
+
+export const TreeViewFieldValueSchema = Joi.object(TreeViewFieldValueObject);
+//
+// End TreeView
+//
+
 export interface IFieldConfigDefault extends IFieldConfig {
   validationExpression?: string;
   defaultValue?:
@@ -336,6 +367,7 @@ const IFieldConfigDefaultObject: IFieldConfigDefault = {
     IRoxFileLinkValueSchema,
     ISVGDropdownOptionSchema,
     ITasksFieldValueSchema,
+    TreeViewFieldValueSchema,
   ] as unknown as string,
   // Extends IFieldConfig
   ...IFieldConfigObject,
@@ -359,25 +391,6 @@ export const IChecklistFieldConfigSchema = Joi.object(IChecklistFieldConfigObjec
 
 // TreeView
 //
-
-/**
- * Represents one TreeView Entry
- */
-export interface ITreeViewEntry {
-  id: string;
-  name: string;
-  checked: boolean;
-  subItems: ITreeViewEntry[];
-}
-
-const TreeViewEntryObject: ITreeViewEntry = {
-  id: Joi.string() as unknown as string,
-  name: Joi.string().allow("") as unknown as string,
-  checked: Joi.boolean() as unknown as boolean,
-  subItems: Joi.array().items(Joi.object(ITasksFieldTaskObject)).required() as unknown as ITreeViewEntry[],
-};
-
-export const TreeViewEntrySchema = Joi.object(TreeViewEntryObject);
 
 /**
  * TreeView Config Object
@@ -404,12 +417,6 @@ export const TreeViewFieldConfigSchema = Joi.object(TreeViewFieldConfigObject);
 export interface ITreeViewFieldValue {
   entries: ITreeViewEntry[];
 }
-
-const TreeViewFieldValueObject: ITreeViewFieldValue = {
-  entries: Joi.array().items(Joi.object(TreeViewEntryObject)).required() as unknown as ITreeViewEntry[],
-};
-
-export const TreeViewFieldValueSchema = Joi.object(TreeViewFieldValueObject);
 
 // End TreeView
 //
