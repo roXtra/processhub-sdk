@@ -328,7 +328,12 @@ const TreeViewEntryObject: ITreeViewEntry = {
   id: Joi.string() as unknown as string,
   name: Joi.string().allow("") as unknown as string,
   checked: Joi.boolean() as unknown as boolean,
-  subItems: Joi.array().items(Joi.object(ITasksFieldTaskObject)).required() as unknown as ITreeViewEntry[],
+  /* Joi.link("...") creates a link to itself to allow recursive TreeViewEntries
+   * "." -> the link
+   * ".." -> the subItems array
+   * "..." -> the TreeViewEntryObject
+   */
+  subItems: Joi.array().items(Joi.link("...")).required() as unknown as ITreeViewEntry[],
 };
 
 export const TreeViewEntrySchema = Joi.object(TreeViewEntryObject);

@@ -48,11 +48,33 @@ describe("sdk", function () {
 
           expect(TreeViewFieldValueSchema.required().validate(treeViewEntry).error).to.be.undefined;
 
+          // Test empty tree
           const treeViewEntryEmpty: ITreeViewFieldValue = {
             entries: [],
           };
 
           expect(TreeViewFieldValueSchema.required().validate(treeViewEntryEmpty).error).to.be.undefined;
+
+          // Test nested tree
+          const treeViewEntryNested: ITreeViewFieldValue = {
+            entries: [
+              {
+                id: "123",
+                name: "Test",
+                checked: false,
+                subItems: [
+                  {
+                    id: "456",
+                    name: "Test2",
+                    checked: true,
+                    subItems: [],
+                  },
+                ],
+              },
+            ],
+          };
+
+          expect(TreeViewFieldValueSchema.required().validate(treeViewEntryNested).error, "Error when validating nested TreeViewFieldValue").to.be.undefined;
         });
       });
     });
