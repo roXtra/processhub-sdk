@@ -1,0 +1,36 @@
+import Joi from "joi";
+import { IFieldConfig, IFieldConfigObject } from "../datainterfaces";
+
+export interface IRoxFileFieldValue {
+  url?: string;
+  lockedAt?: Date;
+  lockedByUserName?: string;
+  lockedByUserId?: string;
+}
+
+const IRoxFileFieldValueObject: IRoxFileFieldValue = {
+  url: Joi.string().allow("") as unknown as string,
+  lockedAt: Joi.date() as unknown as Date,
+  lockedByUserName: Joi.string().allow("") as unknown as string,
+  lockedByUserId: Joi.string().allow("") as unknown as string,
+};
+
+export const IRoxFileFieldValueSchema = Joi.object(IRoxFileFieldValueObject);
+
+export interface IRoxFileFieldConfig extends IFieldConfig {
+  validationExpression: string | undefined;
+  roxFileName: string | undefined;
+  roxFileId: number | undefined;
+  roxFileIconUrl: string | undefined;
+}
+
+const IRoxFileFieldConfigObject: IRoxFileFieldConfig = {
+  validationExpression: Joi.string().allow("") as unknown as string,
+  roxFileName: Joi.string().allow("") as unknown as string,
+  roxFileId: Joi.number() as unknown as number,
+  roxFileIconUrl: Joi.string().allow("") as unknown as string,
+  // Extends IFieldConfig
+  ...IFieldConfigObject,
+};
+
+export const IRoxFileFieldConfigSchema = Joi.object(IRoxFileFieldConfigObject);

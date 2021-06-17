@@ -1,9 +1,10 @@
 import { IBaseMessage, IBaseRequest, IBaseReply } from "../legacyapi/apiinterfaces";
 import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces";
-import { IFieldDefinition, IStatisticRow } from "../data";
+import { IFieldDefinition } from "../data";
 import { Bpmn } from "./bpmn";
 import { IParseResult } from "bpmn-moddle/lib/simple";
 import { Instance } from "..";
+import { IStatisticRow } from "../data/statistics";
 
 // API routes
 export const ProcessRequestRoutes = {
