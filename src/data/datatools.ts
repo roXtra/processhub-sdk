@@ -8,6 +8,7 @@ import murmurhash from "murmurhash";
 import { IInstanceDetails } from "../instance";
 
 export const fieldNameRegExp = /field\['([^'\]]*)'\]/;
+export const riskmetricRegExp = /riskMetric\['([^'\]]*)'\]/;
 export const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName))?/;
 
 export function replaceAll(target: string, search: string, replacement?: string, isQuery?: boolean): string {
@@ -54,6 +55,7 @@ export function parseAndInsertStringWithFieldContent(
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
   instance?: IInstanceDetails,
+  riskMetrics?: { [riskName: string]: number },
 ): string | undefined;
 export function parseAndInsertStringWithFieldContent(
   inputString: string,
@@ -64,6 +66,7 @@ export function parseAndInsertStringWithFieldContent(
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
   instance?: IInstanceDetails,
+  riskMetrics?: { [riskName: string]: number },
 ): string | undefined;
 export function parseAndInsertStringWithFieldContent(
   inputString: string,
@@ -74,6 +77,7 @@ export function parseAndInsertStringWithFieldContent(
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
   instance?: IInstanceDetails,
+  riskMetrics?: { [riskName: string]: number },
 ): string | undefined {
   if (inputString == null) return undefined;
   if (fieldContentMap == null) return inputString;
@@ -208,6 +212,20 @@ export function parseAndInsertStringWithFieldContent(
       }
     }
     result = replaceAll(result, placeHolder, defaultValue, isQuery);
+  }
+
+  if (riskMetrics) {
+    // RiskMetrics
+    while ((match = riskmetricRegExp.exec(result)) != null) {
+      const placeHolder: string = match[0];
+      const fieldName: string = match[1];
+
+      if (fieldName && fieldName.length) {
+        console.log(fieldContentMap);
+        const val: string = riskMetrics[fieldName].toString();
+        result = replaceAll(result, placeHolder, val, isQuery);
+      }
+    }
   }
 
   return result;
