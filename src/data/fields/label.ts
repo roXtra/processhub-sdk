@@ -7,7 +7,6 @@ export interface ILabelConfig extends IFieldConfig {
 
 const ILabelConfigObject: ILabelConfig = {
   labelHtml: Joi.string().allow("") as unknown as string,
-  // Extends IFieldConfig
   ...IFieldConfigObject,
 };
 

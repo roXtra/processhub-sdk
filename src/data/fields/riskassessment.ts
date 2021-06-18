@@ -9,7 +9,6 @@ export interface IRiskAssessmentFieldConfig extends IFieldConfig {
 const IRiskAssessmentFieldConfigObject: IRiskAssessmentFieldConfig = {
   validationExpression: Joi.string().allow("") as unknown as string,
   usePreviousValueAsDefault: Joi.boolean().required() as unknown as boolean,
-  // Extends IFieldConfig
   ...IFieldConfigObject,
 };
 

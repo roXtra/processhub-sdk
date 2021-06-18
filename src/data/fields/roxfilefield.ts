@@ -29,7 +29,6 @@ const IRoxFileFieldConfigObject: IRoxFileFieldConfig = {
   roxFileName: Joi.string().allow("") as unknown as string,
   roxFileId: Joi.number() as unknown as number,
   roxFileIconUrl: Joi.string().allow("") as unknown as string,
-  // Extends IFieldConfig
   ...IFieldConfigObject,
 };
 

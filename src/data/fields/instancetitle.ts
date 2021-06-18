@@ -1,14 +1,14 @@
 import Joi from "joi";
-import { IFieldConfigDefault, IFieldConfigDefaultObject } from "../datainterfaces";
+import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces";
 
-export interface IInstanceTitleFieldConfig extends IFieldConfigDefault {
+export interface IInstanceTitleFieldConfig extends IFieldConfigDefault<string> {
   evalDefaultValue: boolean;
 }
 
 const IInstanceTitleFieldConfigObject: IInstanceTitleFieldConfig = {
+  defaultValue: Joi.string().allow("") as unknown as string,
   evalDefaultValue: Joi.boolean().required() as unknown as boolean,
-  // Extends IFieldConfigDefault
-  ...IFieldConfigDefaultObject,
+  ...IFieldConfigObject,
 };
 
 export const IInstanceTitleFieldConfigSchema = Joi.object(IInstanceTitleFieldConfigObject);

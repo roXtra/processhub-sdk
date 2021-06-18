@@ -23,3 +23,8 @@ export * from "./fields/textarea";
 export * from "./fields/textinput";
 export * from "./fields/treeview";
 export * from "./fields/roxfilefield";
+export * from "./ifieldvalue";
+export * from "./ifieldtype";
+export * from "./ifieldcontentmap";
+export * from "./ifielddefinition";
+export * from "./iformelementprops";

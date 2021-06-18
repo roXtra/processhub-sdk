@@ -1,5 +1,6 @@
 import Joi from "joi";
-import { createLiteralTypeRegExp, IFieldConfig, IFieldConfigObject } from "../datainterfaces";
+import { IFieldConfig, IFieldConfigObject } from "../datainterfaces";
+import { createLiteralTypeRegExp } from "../datatools";
 
 const IRoleOwnerFieldConfigDefaultValueOptions = ["NoValue", "CurrentUser"] as const;
 
@@ -13,7 +14,6 @@ export interface IRoleOwnerFieldConfig extends IFieldConfig {
 const IRoleOwnerFieldConfigObject: IRoleOwnerFieldConfig = {
   validationExpression: Joi.string().allow("") as unknown as string,
   defaultValue: Joi.string().pattern(createLiteralTypeRegExp(Object.values(IRoleOwnerFieldConfigDefaultValueOptions))) as unknown as IRoleOwnerFieldConfigDefaultValueType,
-  // Extends IFieldConfig
   ...IFieldConfigObject,
 };
 

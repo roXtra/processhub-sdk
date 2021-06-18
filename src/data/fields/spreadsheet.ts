@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { IFieldConfigDefault, IFieldConfigDefaultObject } from "../datainterfaces";
+import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces";
 
 export interface ISpreadSheetFieldValue {
   // "fileUrl" is defined for all SpreadSheet fields were the value is saved in the file system and not in the DB
@@ -16,6 +16,11 @@ const ISpreadSheetFieldValueObject: ISpreadSheetFieldValue = {
 
 export const ISpreadSheetFieldValueSchema = Joi.object(ISpreadSheetFieldValueObject);
 
-export type ISpreadSheetFieldConfig = IFieldConfigDefault;
+export type ISpreadSheetFieldConfig = IFieldConfigDefault<ISpreadSheetFieldValue>;
 
-export const ISpreadSheetFieldConfigSchema = Joi.object(IFieldConfigDefaultObject);
+const ISpreadSheetFieldConfigObject: ISpreadSheetFieldConfig = {
+  defaultValue: ISpreadSheetFieldValueSchema as unknown as ISpreadSheetFieldValue,
+  ...IFieldConfigObject,
+};
+
+export const ISpreadSheetFieldConfigSchema = Joi.object(ISpreadSheetFieldConfigObject);

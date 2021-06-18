@@ -1,6 +1,5 @@
 import * as BpmnModdleHelper from "./bpmnmoddlehelper";
 import * as Todo from "../../todo";
-import { IFieldDefinition, IFieldDefinitionItem } from "../../data/datainterfaces";
 import { ILaneDictionary } from "./bpmnprocessdiagram";
 import { BpmnProcessDiagram } from "./bpmnprocessdiagram";
 import { Bpmn, Bpmndi } from "../bpmn";
@@ -15,6 +14,7 @@ import { IRowDetails } from "../phclient";
 import { getExtensionValues, addOrUpdateExtension, getExtensionBody } from "./bpmnextensions";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 import { IParseResult } from "bpmn-moddle/lib/simple";
+import { IFieldDefinition, IFieldDefinitionItem } from "../../data/ifielddefinition";
 
 export class BpmnProcess {
   private moddleContext?: IParseResult;

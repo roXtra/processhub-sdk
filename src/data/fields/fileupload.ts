@@ -7,7 +7,6 @@ export interface IFileUploadFieldConfig extends IFieldConfig {
 
 const IFileUploadFieldConfigObject: IFileUploadFieldConfig = {
   validationExpression: Joi.string().allow("") as unknown as string,
-  // Extends IFieldConfig
   ...IFieldConfigObject,
 };
 

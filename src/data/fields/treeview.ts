@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { IFieldConfigDefault, IFieldConfigDefaultObject } from "../datainterfaces";
+import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces";
 
 /**
  * Represents one TreeView Entry
@@ -41,7 +41,7 @@ export const TreeViewFieldValueSchema = Joi.object(TreeViewFieldValueObject);
 /**
  * TreeView Config Object
  */
-export interface ITreeViewFieldConfig extends IFieldConfigDefault {
+export interface ITreeViewFieldConfig extends IFieldConfigDefault<ITreeViewFieldValue> {
   entries: ITreeViewEntry[];
   oneEntryMustBeChecked: boolean;
 }
@@ -49,8 +49,8 @@ export interface ITreeViewFieldConfig extends IFieldConfigDefault {
 const TreeViewFieldConfigObject: ITreeViewFieldConfig = {
   entries: Joi.array().items(Joi.object(TreeViewEntryObject)).required() as unknown as ITreeViewEntry[],
   oneEntryMustBeChecked: Joi.boolean().required() as unknown as boolean,
-  // Extends IFieldConfigDefault
-  ...IFieldConfigDefaultObject,
+  defaultValue: TreeViewFieldValueSchema as unknown as ITreeViewFieldValue,
+  ...IFieldConfigObject,
 };
 
 export const TreeViewFieldConfigSchema = Joi.object(TreeViewFieldConfigObject);

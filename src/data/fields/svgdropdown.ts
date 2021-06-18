@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { IFieldConfigDefault, IFieldConfigDefaultObject } from "../datainterfaces";
+import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces";
 
 interface ISVGData {
   normal?: string;
@@ -23,14 +23,14 @@ const ISVGDropdownOptionObject: ISVGDropdownOption = {
 
 export const ISVGDropdownOptionSchema = Joi.object(ISVGDropdownOptionObject);
 
-export interface ISVGDropdownFieldConfig extends IFieldConfigDefault {
+export interface ISVGDropdownFieldConfig extends IFieldConfigDefault<ISVGDropdownOption> {
   options: ISVGDropdownOption[];
 }
 
 const ISVGDropdownFieldConfigObject: ISVGDropdownFieldConfig = {
   options: Joi.array().items(ISVGDropdownOptionSchema).required() as unknown as ISVGDropdownOption[],
-  // Extends IFieldConfigDefault
-  ...IFieldConfigDefaultObject,
+  defaultValue: ISVGDropdownOptionSchema as unknown as ISVGDropdownOption,
+  ...IFieldConfigObject,
 };
 
 export const ISVGDropdownFieldConfigSchema = Joi.object(ISVGDropdownFieldConfigObject);

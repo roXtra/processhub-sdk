@@ -1,0 +1,18 @@
+import { IFieldConfig } from "./datainterfaces";
+import { FieldType } from "./ifieldvalue";
+
+export interface IFieldDefinition {
+  name: string;
+  type: FieldType;
+  isRequired: boolean;
+  isRestricted?: boolean;
+  // Is it allowed to edit the field config directly from a running instance (for process managers)?
+  inlineEditingActive: boolean | undefined;
+  config: IFieldConfig;
+}
+
+export interface IFieldDefinitionItem {
+  bpmnTaskId: string;
+  isStartEvent: boolean;
+  fieldDefinition: IFieldDefinition;
+}

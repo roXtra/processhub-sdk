@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { IFieldConfigDefault, IFieldConfigDefaultObject } from "../datainterfaces";
+import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces";
 
 export interface IRadioButtonFieldValue {
   name: string;
@@ -37,7 +37,7 @@ const IRadioButtonGroupEntryObject: IRadioButtonGroupEntry = {
 
 export const IRadioButtonGroupEntrySchema = Joi.object(IRadioButtonGroupEntryObject);
 
-export interface IRadioButtonFieldConfig extends IFieldConfigDefault {
+export interface IRadioButtonFieldConfig extends IFieldConfigDefault<IRadioButtonGroupFieldValue> {
   entries: IRadioButtonGroupEntry[];
   oneEntryMustBeChecked: boolean;
 }
@@ -45,8 +45,8 @@ export interface IRadioButtonFieldConfig extends IFieldConfigDefault {
 const IRadioButtonFieldConfigObject: IRadioButtonFieldConfig = {
   entries: Joi.array().items(Joi.object(IRadioButtonGroupEntryObject)).required() as unknown as IRadioButtonGroupEntry[],
   oneEntryMustBeChecked: Joi.boolean().required() as unknown as boolean,
-  // Extends IFieldConfigDefault
-  ...IFieldConfigDefaultObject,
+  defaultValue: IRadioButtonGroupFieldValueSchema as unknown as IRadioButtonGroupFieldValue,
+  ...IFieldConfigObject,
 };
 
 export const IRadioButtonFieldConfigSchema = Joi.object(IRadioButtonFieldConfigObject);

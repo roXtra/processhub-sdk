@@ -1,6 +1,11 @@
 import Joi from "joi";
-import { IFieldConfigDefault, IFieldConfigDefaultObject } from "../datainterfaces";
+import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces";
 
-export type IDateFieldConfig = IFieldConfigDefault;
+export type IDateFieldConfig = IFieldConfigDefault<Date>;
 
-export const IDateFieldConfigSchema = Joi.object(IFieldConfigDefaultObject);
+const IDateFieldConfigObject: IDateFieldConfig = {
+  defaultValue: Joi.date() as unknown as Date,
+  ...IFieldConfigObject,
+};
+
+export const IDateFieldConfigSchema = Joi.object(IDateFieldConfigObject);

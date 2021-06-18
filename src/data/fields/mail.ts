@@ -1,6 +1,11 @@
 import Joi from "joi";
-import { IFieldConfigDefault, IFieldConfigDefaultObject } from "../datainterfaces";
+import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces";
 
-export type IMailFieldConfig = IFieldConfigDefault;
+export type IMailFieldConfig = IFieldConfigDefault<string>;
 
-export const IMailFieldConfigSchema = Joi.object(IFieldConfigDefaultObject);
+const IMailFieldConfigObject: IMailFieldConfig = {
+  defaultValue: Joi.string().allow("") as unknown as string,
+  ...IFieldConfigObject,
+};
+
+export const IMailFieldConfigSchema = Joi.object(IMailFieldConfigObject);
