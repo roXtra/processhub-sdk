@@ -78,17 +78,6 @@ export function parseAndInsertStringWithFieldContent(
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
   instance?: IInstanceDetails,
   riskMetrics?: { [riskName: string]: number },
-): string | undefined;
-export function parseAndInsertStringWithFieldContent(
-  inputString: string,
-  fieldContentMap: IFieldContentMap | undefined,
-  processOrRoles: BpmnProcess | IProcessRoles,
-  roleOwners: IRoleOwnerMap,
-  isQuery?: boolean,
-  defaultValue?: string,
-  fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
-  instance?: IInstanceDetails,
-  riskMetrics?: { [riskName: string]: number },
 ): string | undefined {
   if (inputString == null) return undefined;
   if (fieldContentMap == null) return inputString;
