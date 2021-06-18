@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { assert, expect } from "chai";
 import * as DataTools from "./datatools";
-import { IFieldContentMap } from "../data/datainterfaces";
 import { BpmnProcess } from "../process/bpmn/bpmnprocess";
 import { ILoadTemplateReply } from "../process/legacyapi";
 import { createBpmnTemplate } from "../process/bpmn/bpmnmoddlehelper";
@@ -9,6 +8,7 @@ import { IRoleOwnerMap } from "../process/processrights";
 import { IProcessRoles, getProcessRoles } from "../process";
 import Joi from "joi";
 import { createId } from "../tools";
+import { IFieldContentMap } from "./ifieldcontentmap";
 
 describe("sdk", function () {
   describe("data", function () {

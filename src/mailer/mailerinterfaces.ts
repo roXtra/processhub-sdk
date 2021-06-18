@@ -1,6 +1,6 @@
-import { IFieldContentMap } from "../data/datainterfaces";
 import { IBaseRequest, IBaseReply } from "../legacyapi/apiinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
+import { IFieldContentMap } from "../data/ifieldcontentmap";
 
 export interface ISendMailTemplateRequest extends IBaseRequest {
   instanceUrl?: string;

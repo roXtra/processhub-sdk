@@ -1,5 +1,5 @@
+import { IFieldValue } from "../data/ifieldvalue";
 import { IUserDetails } from "../user/userinterfaces";
-import { IFieldValue } from "../data/datainterfaces";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export enum AuditTrailAction {
