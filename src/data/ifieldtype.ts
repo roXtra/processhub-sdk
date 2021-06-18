@@ -64,6 +64,10 @@ export interface IFieldType {
   isVisible(): boolean;
   isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): Promise<boolean>;
   isConfigValid(fieldDefinition: IFieldDefinition): { valid: boolean; message?: string };
+  /**
+   * Returns whether this field can be used to display in Dashboard charts for additional modules
+   */
+  isAvailableAsChartField(): boolean;
   appendValueToChartData(currentChartData: IChartData[], field: IFieldValue): void;
   getValueForInstanceTitle(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig): string;
 }
