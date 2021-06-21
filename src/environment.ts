@@ -11,7 +11,7 @@ export interface ICoreEnvironment {
 }
 
 export interface IWorkspaceEnvironment extends ICoreEnvironment {
-  workspace: IWorkspaceDetails;
+  workspace: IWorkspaceDetails | undefined;
 }
 
 export interface IProcessEnvironment extends ICoreEnvironment {
