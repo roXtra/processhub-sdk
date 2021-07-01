@@ -37,8 +37,12 @@ export class BpmnProcess {
     addOrUpdateExtension(baseElement, key, value, extensionValueType);
   }
 
-  public static getExtensionValues(activityObject: Bpmn.IActivity | undefined): ITaskExtensions {
-    return getExtensionValues(activityObject);
+  public static getExtensionValues(baseElement: Bpmn.IBaseElement | undefined): ITaskExtensions {
+    return getExtensionValues(baseElement);
+  }
+
+  public static getFieldDefinitionsForElement(baseElement: Bpmn.IBaseElement): IFieldDefinition[] | undefined {
+    return getExtensionValues(baseElement)?.fieldDefinitions;
   }
 
   public static getFlowNodeDescription(flowNode: Bpmn.IFlowNode): string | undefined {
@@ -102,26 +106,28 @@ export class BpmnProcess {
     }
   }
 
-  public getFieldDefinitionList(): IFieldDefinitionItem[] {
+  public getRoxFileFields(): IFieldDefinitionItem[] {
     if (this.bpmnXml === undefined) {
       throw new Error("bpmnXml is undefined, please load bpmn XML first!");
     }
 
     const fieldDefinitionsList: IFieldDefinitionItem[] = [];
 
-    const process: Bpmn.IProcess = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process") as Bpmn.IProcess;
-    process.flowElements.map((flowElement) => {
-      const extVals = getExtensionValues(flowElement);
+    const process = this.bpmnXml.rootElements.find((e) => e.$type === "bpmn:Process") as Bpmn.IProcess;
+    const elements = process.flowElements;
+    elements.push(process);
+    elements.map((element) => {
+      const extVals = getExtensionValues(element);
       if (extVals) {
-        const taskFields = getExtensionValues(flowElement).fieldDefinitions;
+        const taskFields = getExtensionValues(element).fieldDefinitions;
         if (taskFields && taskFields.length > 0) {
           // Currently all tasks have their own fieldDefinitions. It might happen that they have different configs
           // -> add the first one we find to the result set
           taskFields.map((taskField) => {
             if (taskField.type === "ProcessHubRoxFile") {
               fieldDefinitionsList.push({
-                bpmnTaskId: flowElement.id,
-                isStartEvent: flowElement.$type === "bpmn:StartEvent" ? true : false,
+                bpmnTaskId: element.id,
+                isStartEvent: element.$type === "bpmn:StartEvent" ? true : false,
                 fieldDefinition: taskField,
               });
             }
@@ -136,6 +142,7 @@ export class BpmnProcess {
     const fieldDefinitions: IFieldDefinition[] = [];
 
     const elements = this.getSortedActivities(this.processId(), ["bpmn:StartEvent", "bpmn:UserTask", "bpmn:BoundaryEvent"]);
+    elements.push(...this.getProcesses());
     elements.forEach((element) => {
       const extVals = getExtensionValues(element);
       if (extVals) {
@@ -159,6 +166,9 @@ export class BpmnProcess {
     return this.getFieldDefinitions().filter((d) => d.type === fieldType);
   }
 
+  /**
+   * @deprecated use {@link BpmnProcess#getFieldDefinitionsForElement}
+   */
   public getFieldDefinitionsForTask(taskObject: Bpmn.ITask | Bpmn.IActivity): IFieldDefinition[] | undefined {
     const extVals = getExtensionValues(taskObject);
     if (extVals) {
