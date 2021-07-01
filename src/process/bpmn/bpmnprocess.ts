@@ -317,6 +317,7 @@ export class BpmnProcess {
     const result: ILoadTemplateReply = await BpmnModdleHelper.createBpmnTemplate();
 
     this.bpmnXml = result.bpmnXml;
+    this.moddleContext = result.bpmnContext;
 
     // Add extensions
 
