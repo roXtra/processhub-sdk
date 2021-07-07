@@ -70,7 +70,7 @@
     "@types/base-64": "^1.0.0",
     "@types/lodash": "^4.14.171",
     "@types/chai": "^4.2.20",
-    "@types/mocha": "^8.2.2",
+    "@types/mocha": "^8.2.3",
     "@types/node": "^14.17.4",
     "@types/react": "^17.0.13",
     "@types/sqlstring": "^2.3.0",
