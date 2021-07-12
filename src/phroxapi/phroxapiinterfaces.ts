@@ -1,4 +1,4 @@
-import { ModuleId } from "../modules";
+import { ModuleId, ModuleName } from "../modules";
 
 export interface IRoxFile {
   name: string;
@@ -34,8 +34,10 @@ export interface IModuleSelection {
 
 export interface IModuleItem {
   id?: number;
-  name?: string;
+  // Name of module sub type if moduleType === ModuleId.Module; (eg "audit" or "action")
+  name?: ModuleName;
   type: ModuleId;
+  // Title of the module, will be displayed to the user (eg "Maßnahmen")
   title: string;
   subtitle?: string;
   class?: string;
