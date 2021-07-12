@@ -5,14 +5,14 @@ export const Processes: IModule = {
   id: ModuleId.Processes,
   moduleType: ModuleId.Processes,
   urlPrefix: "p",
-  name: tl("Prozesse"),
+  title: tl("Prozesse"),
 };
 
 export const Risks: IModule = {
   id: ModuleId.Risks,
   moduleType: ModuleId.Risks,
   urlPrefix: "r",
-  name: tl("Risiken"),
+  title: tl("Risiken"),
   processName: "riskmanagement",
 };
 

@@ -14,8 +14,11 @@ export enum ModuleId {
 export interface IModule {
   id: number;
   moduleType: ModuleId;
+  // Name of module sub type if moduleType === ModuleId.Module; (eg "audit" or "action")
+  name?: string;
   urlPrefix: string;
-  name: string;
+  // Title of the module, will be displayed to the user (eg "Maßnahmen")
+  title: string;
   processName?: string;
 }
 

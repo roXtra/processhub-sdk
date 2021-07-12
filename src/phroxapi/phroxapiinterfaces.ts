@@ -34,8 +34,10 @@ export interface IModuleSelection {
 
 export interface IModuleItem {
   id?: number;
+  // Name of module sub type if moduleType === ModuleId.Module; (eg "audit" or "action")
   name?: string;
   type: ModuleId;
+  // Title of the module, will be displayed to the user (eg "Maßnahmen")
   title: string;
   subtitle?: string;
   class?: string;
