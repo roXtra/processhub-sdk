@@ -6,6 +6,7 @@ export const Processes: IModule = {
   moduleType: ModuleId.Processes,
   urlPrefix: "p",
   title: tl("Prozesse"),
+  name: "processes",
 };
 
 export const Risks: IModule = {
@@ -14,6 +15,7 @@ export const Risks: IModule = {
   urlPrefix: "r",
   title: tl("Risiken"),
   processName: "riskmanagement",
+  name: "risks",
 };
 
 let modules: IModule[] = [Processes, Risks];
