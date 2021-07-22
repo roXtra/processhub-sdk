@@ -15,7 +15,8 @@ export interface IWorkspaceDetails {
   extras: {
     // New Extras must be added to cache-handling in workspaceactions -> loadWorkspace!
     members?: IWorkspaceMember[];
-    processes?: IProcessDetails[]; // Only processes that the current user may access
+    processes?: IProcessDetails[]; // Only processes that the current user may access (no archived processes)
+    archivedProcesses?: IProcessDetails[]; // Processes that are archived
     settings?: IWorkspaceSettings;
     tags?: string[]; // All available tags in the workspace
     auditTrail?: IAuditTrailEntry[];
@@ -31,6 +32,7 @@ export enum WorkspaceExtras {
   ExtrasTags = 1 << 3,
   ExtrasAuditTrail = 1 << 4,
   ExtrasGroups = 1 << 5,
+  ExtrasProcessesArchive = 1 << 6,
 }
 
 export interface IWorkspaceSettings {
