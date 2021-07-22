@@ -92,6 +92,7 @@ export interface IProcessDetails {
   riskManagementSettings?: IRiskManagementProcessSettings;
   genericModuleSettings?: IGenericModuleSettings;
   instanceCount?: number;
+  archived?: boolean; // True, if the process is archived, false or undefined otherwise
   extras: {
     // New Extras must be added to cache-handling in processactions -> loadProcess!
     bpmnXml?: string;
