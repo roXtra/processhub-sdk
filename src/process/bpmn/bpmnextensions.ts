@@ -25,6 +25,7 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
 
     serviceTaskConfigObject: undefined,
     scriptTaskCode: undefined,
+    scriptTaskCodeObjects: [],
 
     subProcessId: undefined,
     subProcessFieldMapping: [],
@@ -107,6 +108,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
             break;
           case "script-task-code":
             returnValue.scriptTaskCode = child.$body;
+            break;
+          case "script-task-code-objects":
+            returnValue.scriptTaskCodeObjects = child.$body ? JSON.parse(child.$body) : [];
             break;
           case "service-task-config-object":
             if (child.$body) {
