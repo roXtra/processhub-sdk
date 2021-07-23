@@ -185,6 +185,7 @@ export type BpmnExtensionName =
   | "fields-which-should-send"
   | "datefield-for-timercatch"
   | "script-task-code"
+  | "script-task-code-objects"
   | "service-task-config-object"
   | "roxtra-version"
   | "anonymous-start"
@@ -210,6 +211,7 @@ export interface ITaskExtensions {
 
   serviceTaskConfigObject?: IServiceTaskConfigObject;
   scriptTaskCode?: string;
+  scriptTaskCodeObjects: IScriptTaskCodeObject[];
 
   roleOwnersEditable: boolean;
 
@@ -277,4 +279,12 @@ export interface ISubProcessFieldMapping {
   out: { name: string; type: FieldType } | undefined;
   subProcessField: { name: string; type: FieldType } | undefined;
   id: string;
+}
+
+export type ScriptTaskOperation = "clear" | "set" | "add";
+
+export interface IScriptTaskCodeObject {
+  field?: string;
+  operator?: ScriptTaskOperation;
+  value?: string;
 }
