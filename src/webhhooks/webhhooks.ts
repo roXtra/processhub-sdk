@@ -1,4 +1,4 @@
-import { FieldValueType } from "../data";
+import { FieldValueType } from "../data/ifieldvalue";
 import { IBaseReply } from "../legacyapi";
 
 /**

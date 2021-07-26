@@ -2,12 +2,14 @@ import { ProcessAccessRights, IProcessRoles } from "./processrights";
 import { IInstanceDetails } from "../instance";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { strEnum } from "../tools/types";
-import { IFieldDefinition, ITaskIdRequiredFieldsNeeded, IServiceActionConfigField, FieldType } from "../data";
 import { IUserDetails } from "../user/userinterfaces";
-import { IRowDetails } from ".";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 import { IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces";
 import { IGenericModuleSettings } from "../modules";
+import { IRowDetails } from "./phclient";
+import { IFieldDefinition } from "../data/ifielddefinition";
+import { IServiceActionConfigField, ITaskIdRequiredFieldsNeeded } from "../data/datainterfaces";
+import { FieldType } from "../data/ifieldvalue";
 
 export interface IProcessAttachment {
   attachmentId: string;

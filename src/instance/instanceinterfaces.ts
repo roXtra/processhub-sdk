@@ -1,12 +1,12 @@
-import { IRoleOwnerMap } from "../process";
 import { IDecisionTask, ITodoDetails } from "../todo";
-import { IFieldContentMap } from "../data";
 import { Bpmn } from "modeler/bpmn/bpmn";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
 import { IParseResult } from "bpmn-moddle/lib/simple";
 import Joi from "joi";
 import { IProcessLinkInstance } from "../data/fields/processlink";
+import { IFieldContentMap } from "../data/ifieldcontentmap";
+import { IRoleOwnerMap } from "../process/processrights";
 
 export enum State {
   // DON'T CHANGE NUMBERS - used in database

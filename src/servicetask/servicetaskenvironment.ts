@@ -4,10 +4,11 @@ import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { IServiceActionConfigField } from "../data/datainterfaces";
 import { IFileStore } from "../filestore";
 import { IConfig } from "../serverconfig";
-import { BpmnProcess, ProcessExtras, IProcessDetails } from "../process";
 import { ISendMailTemplateRequest, ISendMailTemplateReply } from "../mailer/mailerinterfaces";
 import { IGenerateReportRequestType } from "../instance";
 import { IFieldContentMap } from "../data/ifieldcontentmap";
+import { IProcessDetails, ProcessExtras } from "../process/processinterfaces";
+import { BpmnProcess } from "../process/bpmn/bpmnprocess";
 
 /**
  * Provide logging for ServiceTasks
