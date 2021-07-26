@@ -54,7 +54,10 @@ export function filterRemainingInstancesForWorkspace(instances: IInstanceDetails
     // GetOtherItems lists the todos for processes without read access - filter the others
     const filteredInstances: IInstanceDetails[] = [];
     workspaceInstances.map((instance) => {
-      if (workspace.extras.processes?.find((process) => process.processId === instance.processId) == null) {
+      if (
+        workspace.extras.processes?.find((process) => process.processId === instance.processId) == null &&
+        workspace.extras.archivedProcesses?.find((process) => process.processId === instance.processId) == null
+      ) {
         filteredInstances.push(instance);
       }
     });

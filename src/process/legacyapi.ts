@@ -35,6 +35,8 @@ export const ProcessRequestRoutes = {
   TemplateCustomProcesses: "/api/process/templatecustomprocesses",
   UpdateFieldDefinition: "/api/process/updatefielddefinition",
   GetProcessInstances: "/api/process/getprocessinstances",
+  MoveToArchive: "/api/process/movetoarchive",
+  RestoreFromArchive: "/api/process/restorefromarchive",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
@@ -235,3 +237,16 @@ export interface IGetProcessInstancesRequest extends IBaseRequest {
 export interface IGetProcessInstancesReply extends IBaseMessage {
   instances?: Instance.IInstanceDetails[];
 }
+
+export interface IMoveToArchiveRequest extends IBaseRequest {
+  processId: string;
+  message: string;
+}
+
+export type IMoveToArchiveReply = IGetProcessDetailsReply;
+
+export interface IRestoreFromArchiveRequest extends IBaseRequest {
+  processId: string;
+}
+
+export type IRestoreFromArchiveReply = IGetProcessDetailsReply;
