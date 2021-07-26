@@ -1,4 +1,4 @@
-import { FieldType } from "../data";
+import { FieldType } from "../data/ifieldvalue";
 
 // Must match the values defined in Enums_Module.cs in Roxtra.DataProvider
 export enum ModuleId {

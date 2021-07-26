@@ -1,5 +1,4 @@
 import { getFormattedDate, getFormattedDateTime, getFormattedTimeZoneOffset } from "../tools/timing";
-import { IRoleOwnerMap, IRoleOwner, IProcessRoles, BpmnProcess } from "../process";
 import { replaceOldFieldSyntax } from "../tools";
 import SqlString from "sqlstring";
 import Joi from "joi";
@@ -8,6 +7,8 @@ import { IInstanceDetails } from "../instance";
 import { FieldType, IFieldValue, isFieldValue } from "./ifieldvalue";
 import { IFieldContentMap } from "./ifieldcontentmap";
 import { IFieldDefinition } from "./ifielddefinition";
+import { IProcessRoles, IRoleOwner, IRoleOwnerMap } from "../process/processrights";
+import { BpmnProcess } from "../process/bpmn/bpmnprocess";
 
 export const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 export const riskmetricRegExp = /riskMetric\['([^'\]]*)'\]/;

@@ -47,29 +47,22 @@
     "xmlhttprequest": "^1.8.0"
   },
   "scripts": {
-    "tsc": "tsc",
-    "build": "rimraf ./tsc_out && rimraf ./lib && tsc --declaration --emitDeclarationOnly && babel src --out-dir lib --extensions .ts,.tsx --ignore src/**/*.d.ts && npm run copytypings",
+    "build": "rimraf ./lib && tsc && npm run copytypings",
     "test": "npm run build && npm run lint && npm run testcoverage",
     "lint": "eslint --ext .ts,.tsx ./src",
-    "delete:testfiles": "rimraf ./lib/**/*.test.js && rimraf ./lib/**/*.test.d.js",
-    "testall": "cross-env HOTRELOAD=no mocha ./lib/**/*.test.js --exit --timeout 10000 --recursive --require regenerator-runtime",
+    "testall": "ts-mocha ./src/**/*.test.ts --exit --timeout 10000 --recursive",
     "testcoverage": "nyc --reporter=lcov --reporter=text-summary npm run testall",
-    "copytypings": "copyfiles -u 1 \"src/**/*.d.ts\" lib && copyfiles -u 1 \"src/*.d.ts\" lib && copyfiles -u 1 \"tsc_out/**/*.d.ts\" lib && copyfiles -u 1 \"tsc_out/*.d.ts\" lib && copyfiles -u 1 src/process/types/index.d.ts lib",
+    "copytypings": "copyfiles -u 1 \"src/**/*.d.ts\" lib && copyfiles -u 1 \"src/*.d.ts\" lib && copyfiles -u 1 src/process/types/index.d.ts lib",
     "jscpd": "jscpd ./src --ignore \"*/**/*.test.ts\"",
     "release-bump-preview-version": "npm run check:format && npm run lint && npm version prerelease",
     "check:format": "prettier --config .prettierrc -c ./src",
     "format": "prettier --config .prettierrc -w ./src"
   },
   "devDependencies": {
-    "@babel/cli": "^7.14.8",
-    "@babel/core": "^7.14.8",
-    "@babel/preset-env": "^7.14.8",
-    "@babel/preset-react": "^7.14.5",
-    "@babel/preset-typescript": "^7.14.5",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/base-64": "^1.0.0",
-    "@types/lodash": "^4.14.171",
     "@types/chai": "^4.2.21",
+    "@types/lodash": "^4.14.171",
     "@types/mocha": "^8.2.3",
     "@types/node": "^14.17.5",
     "@types/react": "^17.0.14",
@@ -90,8 +83,8 @@
     "mocha": "^9.0.2",
     "nyc": "^15.1.0",
     "prettier": "^2.3.2",
-    "regenerator-runtime": "^0.13.7",
     "rimraf": "^3.0.2",
+    "ts-mocha": "^8.0.0",
     "typescript": "^4.3.5"
   },
   "files": [
