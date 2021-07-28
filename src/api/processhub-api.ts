@@ -1,5 +1,6 @@
 import { IExecuteRequest, IExecuteReply, IUploadAttachmentRequest, IUploadAttachmentReply } from "../instance";
-import { IProcessDetails, IGetProcessDetailsRequest, IStartButtonMap } from "../process";
+import { IGetProcessDetailsRequest } from "../process/legacyapi";
+import { IProcessDetails, IStartButtonMap } from "../process/processinterfaces";
 import { ILoadUserReply, ILoadUserRequest } from "../user";
 import { IWorkspaceDetails } from "../workspace";
 import { ErrorCodes, IToken } from "./types";

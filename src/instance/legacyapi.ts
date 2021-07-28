@@ -2,7 +2,7 @@ import { IBaseReply, IBaseMessage, IBaseRequest, IBaseRequestObject, IBaseReplyO
 import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces";
 import { IUserDetails } from "../user";
 import Joi from "joi";
-import { createLiteralTypeRegExp } from "../data/datatools";
+import { createLiteralTypeRegExp } from "../data/regextools";
 
 // API routes
 export const ProcessEngineApiRoutes = {

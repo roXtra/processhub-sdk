@@ -10,7 +10,7 @@ import { ISpreadSheetFieldValue, ISpreadSheetFieldValueSchema } from "./fields/s
 import { ISVGDropdownOption, ISVGDropdownOptionSchema } from "./fields/svgdropdown";
 import { ITasksFieldValue, ITasksFieldValueSchema } from "./fields/tasks";
 import { ITreeViewFieldValue, TreeViewFieldValueSchema } from "./fields/treeview";
-import { createLiteralTypeRegExp } from "./datatools";
+import { createLiteralTypeRegExp } from "./regextools";
 
 export const FieldTypeOptions = [
   "ProcessHubTextInput",

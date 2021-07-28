@@ -1,30 +1,22 @@
 {
   "compilerOptions": {
     "incremental": false,
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ES6",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "noImplicitAny": true,
-    "sourceMap": false,
-    "outDir": "./tsc_out",
+    "sourceMap": true,
+    "outDir": "./lib",
     "rootDir": "./src",
     "preserveConstEnums": true,
     "declaration": true,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "noEmit": false,
     "strict": true,
-    "jsx" : "react-jsx",
-    "lib": [
-      "esnext",
-      "dom"
-    ]
+    "jsx": "react-jsx",
+    "lib": ["ES6", "dom"]
   },
-   "include": [
-    "./src/**/*"
-  ],
-  "exclude": [ 
-    "lib",
-    "tsc_out",
-    "node_modules"
-  ]
+  "include": ["./src/**/*"],
+  "exclude": ["lib", "tsc_out", "node_modules"]
 }
