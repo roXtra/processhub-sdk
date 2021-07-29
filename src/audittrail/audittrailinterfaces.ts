@@ -50,6 +50,10 @@ export enum AuditTrailAction {
   instanceStateError = 42,
   automatedInstanceDeletion = 43,
   deletionPeriodChanged = 44,
+  // A process was moved to the archive. archiveMessage may be set in details
+  processArchived = 45,
+  // A process was restored from the archive. archiveMessage may be set in details
+  processRestored = 46,
   workspaceCreated = 100,
 }
 /* eslint-enable @typescript-eslint/naming-convention */
@@ -139,6 +143,9 @@ export interface IAuditTrailEntryDetails {
 
   // Must be set for automatedInstanceDeletion, represents the number of automatic deleted instances
   automatedInstanceDeletionCount: number;
+
+  // Can be set for processArchived and processRestored - an optional message the user can enter
+  archiveMessage: string;
 }
 
 export type Partial<T> = {
