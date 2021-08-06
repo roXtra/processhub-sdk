@@ -5,6 +5,7 @@ import { IParseResult } from "bpmn-moddle/lib/simple";
 import { Instance } from "..";
 import { IStatisticRow } from "../data/statistics";
 import { IFieldDefinition } from "../data/ifielddefinition";
+import { GridColumnProps } from "@progress/kendo-react-grid";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -114,11 +115,23 @@ enum ArchiveViewType {
   MyOpenRiskAssessments = 1,
 }
 
+export interface IBaseStateColumn {
+  show: boolean;
+  field: string;
+  filter: GridColumnProps["filter"] | undefined;
+  filterable?: boolean;
+  sortable?: boolean;
+  title: string;
+  width?: string;
+  format?: string;
+}
+
 export interface IArchiveViewDetails {
   viewName: string;
   gridOptions: string;
   publicView: boolean;
   specialViewType?: ArchiveViewType;
+  columns: IBaseStateColumn[];
 }
 
 export interface IAddArchiveViewRequest extends IBaseRequest {
