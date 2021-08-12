@@ -1,5 +1,4 @@
 import * as BpmnModdleHelper from "./bpmnmoddlehelper";
-import * as Todo from "../../todo";
 import { ILaneDictionary } from "./bpmnprocessdiagram";
 import { BpmnProcessDiagram } from "./bpmnprocessdiagram";
 import { Bpmn, Bpmndi } from "../bpmn";
@@ -7,14 +6,15 @@ import { IRunningTaskLane, ITaskToLaneMapEntry, IStartButtonMap, IProcessDiagram
 import { isTrue } from "../../tools/assert";
 import { tl } from "../../tl";
 import { createId } from "../../tools/guid";
-import { IInstanceDetails } from "../../instance/instanceinterfaces";
-import { IDecisionTask, DecisionTaskTypes, filterTodosForInstance } from "../../todo";
 import { ILoadTemplateReply } from "../legacyapi";
 import { IRowDetails } from "../phclient";
 import { getExtensionValues, addOrUpdateExtension, getExtensionBody } from "./bpmnextensions";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 import { IParseResult } from "bpmn-moddle/lib/simple";
 import { IFieldDefinition, IFieldDefinitionItem } from "../../data/ifielddefinition";
+import { IInstanceDetails } from "../../instance";
+import { filterTodosForInstance } from "../../todo/todofilters";
+import { IDecisionTask, DecisionTaskTypes } from "../../todo/todointerfaces";
 
 export class BpmnProcess {
   private moddleContext?: IParseResult;
@@ -263,7 +263,7 @@ export class BpmnProcess {
     return tmpList;
   }
 
-  private getTaskIdsAfterGateway(currentGatewayId: string): Todo.IDecisionTask[] {
+  private getTaskIdsAfterGateway(currentGatewayId: string): IDecisionTask[] {
     const currentObject = this.getExistingActivityObject(currentGatewayId);
     let exclusiveGateway: Bpmn.IExclusiveGateway;
     if (currentObject?.$type === "bpmn:ExclusiveGateway") {
@@ -276,8 +276,8 @@ export class BpmnProcess {
     return this.getDecisionTasksAfterGateway(exclusiveGateway);
   }
 
-  public getDecisionTasksAfterGateway(gat: Bpmn.IExclusiveGateway): Todo.IDecisionTask[] {
-    const decisionTasks: Todo.IDecisionTask[] = [];
+  public getDecisionTasksAfterGateway(gat: Bpmn.IExclusiveGateway): IDecisionTask[] {
+    const decisionTasks: IDecisionTask[] = [];
     if (gat.outgoing) {
       for (const outgoing of gat.outgoing) {
         const target = outgoing.targetRef;
@@ -305,9 +305,9 @@ export class BpmnProcess {
         decisionTasks.push({
           bpmnTaskId: taskId,
           name: nameValue,
-          type: Todo.DecisionTaskTypes.Normal,
+          type: DecisionTaskTypes.Normal,
           isBoundaryEvent: false,
-        } as Todo.IDecisionTask);
+        } as IDecisionTask);
       }
     }
     return decisionTasks;

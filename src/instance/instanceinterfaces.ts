@@ -1,4 +1,3 @@
-import { IDecisionTask, ITodoDetails } from "../todo";
 import { Bpmn } from "modeler/bpmn/bpmn";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
@@ -7,6 +6,7 @@ import Joi from "joi";
 import { IProcessLinkInstance } from "../data/fields/processlink";
 import { IFieldContentMap } from "../data/ifieldcontentmap";
 import { IRoleOwnerMap } from "../process/processrights";
+import { ITodoDetails, IDecisionTask } from "../todo/todointerfaces";
 
 export enum State {
   // DON'T CHANGE NUMBERS - used in database
