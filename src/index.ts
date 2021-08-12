@@ -22,8 +22,6 @@ import * as LegacyApi from "./legacyapi";
 export { LegacyApi };
 export * from "./actionhandler";
 export * from "./environment";
-import * as Group from "./group";
-export { Group };
 import * as PhRoxApi from "./phroxapi";
 export { PhRoxApi };
 import * as ServiceTask from "./servicetask";
