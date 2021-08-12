@@ -4,7 +4,7 @@ import * as PH from "../";
 import { ITodoDetails } from "../todo/todointerfaces";
 import { IUserDetails } from "../user";
 import { createId } from "../tools/guid";
-import "../tools/array";
+import { getLastArrayEntry } from "../tools/array";
 
 describe("sdk", function () {
   describe("instance", function () {
@@ -35,9 +35,9 @@ describe("sdk", function () {
         let resInstDetails = InstanceFilters.filterUserInstances([instanceDetails], { userId: "xyz" } as IUserDetails);
 
         assert.isTrue(resInstDetails.length === 1);
-        assert.isTrue(resInstDetails.last().processId === "xyz");
-        assert.isTrue(resInstDetails.last().extras.todos?.length === 1);
-        assert.isTrue(resInstDetails.last().extras.todos?.last().displayName === "test todo");
+        assert.isTrue(getLastArrayEntry(resInstDetails)?.processId === "xyz");
+        assert.isTrue(getLastArrayEntry(resInstDetails)?.extras.todos?.length === 1);
+        assert.isTrue(getLastArrayEntry(getLastArrayEntry(resInstDetails)?.extras.todos)?.displayName === "test todo");
 
         resInstDetails = InstanceFilters.filterUserInstances([instanceDetails], undefined);
         assert.isTrue(resInstDetails.length === 0);

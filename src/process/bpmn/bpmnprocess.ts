@@ -15,6 +15,7 @@ import { IFieldDefinition, IFieldDefinitionItem } from "../../data/ifielddefinit
 import { IInstanceDetails } from "../../instance";
 import { filterTodosForInstance } from "../../todo/todofilters";
 import { IDecisionTask, DecisionTaskTypes } from "../../todo/todointerfaces";
+import { getLastArrayEntry } from "../../tools/array";
 
 export class BpmnProcess {
   private moddleContext?: IParseResult;
@@ -532,7 +533,7 @@ export class BpmnProcess {
       }
     }
 
-    if (taskId === rowDetails.last().taskId) {
+    if (taskId === getLastArrayEntry(rowDetails)?.taskId) {
       const endEvent = this.getEndEvents(this.processId())[0];
       this.setRoleForTask(this.processId(), laneId, endEvent);
     }
@@ -941,8 +942,8 @@ export class BpmnProcess {
     // Add gateway
     if (focusedTask.outgoing && focusedTask.outgoing.length > 0) {
       const existingOutgoings = focusedTask.outgoing;
-      if (existingOutgoings.length === 1 && existingOutgoings.last().targetRef.$type === "bpmn:ExclusiveGateway") {
-        this.addSequenceFlow(this.processId(), existingOutgoings.last().targetRef, targetTask, false);
+      if (existingOutgoings.length === 1 && getLastArrayEntry(existingOutgoings)?.targetRef.$type === "bpmn:ExclusiveGateway") {
+        this.addSequenceFlow(this.processId(), getLastArrayEntry(existingOutgoings)!.targetRef, targetTask, false);
       } else {
         focusedTask.outgoing = [];
         const processContext: Bpmn.IProcess = this.getProcess(this.processId());
@@ -1043,8 +1044,8 @@ export class BpmnProcess {
 
   private addStartEventOfType(rowDetails: IRowDetails[], type: "bpmn:TimerEventDefinition" | "bpmn:MessageEventDefinition"): void {
     if (this.getStartEvents(this.processId()).find((start) => start.eventDefinitions != null && start.eventDefinitions.find((ev) => ev.$type === type) != null) == null) {
-      const start = this.getStartEvents(this.processId()).last();
-      const targetTask = start.outgoing?.last().targetRef;
+      const start = getLastArrayEntry(this.getStartEvents(this.processId()));
+      const targetTask = getLastArrayEntry(start?.outgoing)?.targetRef;
       const processContext: Bpmn.IProcess = this.getProcess(this.processId());
       const startEventObject = bpmnModdleInstance.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
       const eventDef =
@@ -1058,7 +1059,7 @@ export class BpmnProcess {
       }
       processContext.flowElements.push(startEventObject);
 
-      const lane = this.getLaneOfFlowNode(start.id);
+      const lane = this.getLaneOfFlowNode(start!.id);
       if (lane) {
         this.addTaskToLane(this.processId(), lane.id, startEventObject);
       }
@@ -1074,13 +1075,13 @@ export class BpmnProcess {
     );
     if (messageStartEvent) {
       if (messageStartEvent.outgoing) {
-        this.removeSequenceFlow(this.processId(), messageStartEvent.outgoing.last());
+        this.removeSequenceFlow(this.processId(), getLastArrayEntry(messageStartEvent.outgoing)!);
       }
 
       const row = rowDetails.find((row) => row.taskId === messageStartEvent.id);
       if (row != null) {
-        const otherStart = this.getStartEvents(this.processId()).last();
-        row.taskId = otherStart.id;
+        const otherStart = getLastArrayEntry(this.getStartEvents(this.processId()));
+        row.taskId = otherStart!.id;
       }
 
       processContext.flowElements = processContext.flowElements.filter((elem) => elem.id !== messageStartEvent.id);
@@ -1132,7 +1133,7 @@ export class BpmnProcess {
     // NEXT object
     let nextElement: Bpmn.IActivity | undefined;
     if (rowDetails[focusedRowNumber + 1] == null) {
-      nextElement = this.getEndEvents(this.processId()).last();
+      nextElement = getLastArrayEntry(this.getEndEvents(this.processId()));
     } else {
       nextElement = this.getExistingActivityObject(rowDetails[focusedRowNumber + 1].taskId);
     }
@@ -1765,8 +1766,8 @@ export class BpmnProcess {
       return undefined;
     }
 
-    if (sourceTask.outgoing?.length === 1 && sourceTask.outgoing.last().targetRef.$type === "bpmn:ExclusiveGateway") {
-      const gateway = sourceTask.outgoing?.last().targetRef;
+    if (sourceTask.outgoing?.length === 1 && getLastArrayEntry(sourceTask.outgoing)?.targetRef.$type === "bpmn:ExclusiveGateway") {
+      const gateway = getLastArrayEntry(sourceTask.outgoing)?.targetRef;
       targetObj = gateway?.outgoing?.find((out) => out.targetRef.id === targetTaskId);
     } else {
       targetObj = sourceTask.outgoing?.find((out) => out.targetRef.id === targetTaskId);
@@ -1792,8 +1793,8 @@ export class BpmnProcess {
 
   public addStartEvent(rowDetails: IRowDetails[]): void {
     if (this.getStartEvents(this.processId()).find((start) => start.eventDefinitions == null) == null) {
-      const start = this.getStartEvents(this.processId()).last();
-      const targetTask = start.outgoing?.last().targetRef;
+      const start = getLastArrayEntry(this.getStartEvents(this.processId()));
+      const targetTask = getLastArrayEntry(start?.outgoing)?.targetRef;
       const processContext: Bpmn.IProcess = this.getProcess(this.processId());
       const startEventObject = bpmnModdleInstance.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
 
@@ -1802,7 +1803,7 @@ export class BpmnProcess {
       }
       processContext.flowElements.push(startEventObject);
 
-      const lane = this.getLaneOfFlowNode(start.id);
+      const lane = start !== undefined ? this.getLaneOfFlowNode(start.id) : undefined;
       if (lane) {
         this.addTaskToLane(this.processId(), lane.id, startEventObject);
       }
@@ -1815,7 +1816,7 @@ export class BpmnProcess {
     const startEvent = this.getStartEvents(this.processId()).find((start) => start.eventDefinitions == null);
     if (startEvent) {
       if (startEvent.outgoing) {
-        const outgoing = startEvent.outgoing.last();
+        const outgoing = getLastArrayEntry(startEvent.outgoing);
         if (outgoing) {
           this.removeSequenceFlow(this.processId(), outgoing);
         }
@@ -1827,7 +1828,7 @@ export class BpmnProcess {
 
       const row = rowDetails.find((row) => row.taskId === startEvent.id);
       if (row) {
-        const otherStart = this.getStartEvents(this.processId()).last();
+        const otherStart = getLastArrayEntry(this.getStartEvents(this.processId()));
         if (otherStart) {
           row.taskId = otherStart.id;
         }

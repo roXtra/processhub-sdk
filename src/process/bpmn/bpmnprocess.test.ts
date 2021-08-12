@@ -10,6 +10,7 @@ import { createBpmnTemplate, bpmnModdleInstance } from "./bpmnmoddlehelper";
 import { IRowDetails } from "../phclient";
 import fs from "fs";
 import { IParseResult } from "bpmn-moddle/lib/simple";
+import { getLastArrayEntry } from "../../tools/array";
 
 async function readFileAsync(fileName: string): Promise<string> {
   return await new Promise<string>((resolve, reject) => {
@@ -60,7 +61,7 @@ async function createTestBpmnProcess(): Promise<BpmnProcess> {
   assert.isTrue(start.length === 1, "wrong template process 2");
   let rowDetails: IRowDetails[] = [];
 
-  const startElem = start.last();
+  const startElem = getLastArrayEntry(start)!;
   const testLane = bpmnProcess.getLaneOfFlowNode(startElem.id);
 
   rowDetails.push({
@@ -512,7 +513,7 @@ describe("sdk", function () {
           assert.isTrue(start.length === 1, "wrong template process 2");
           let rowDetails: IRowDetails[] = [];
 
-          const startElem = start.last();
+          const startElem = getLastArrayEntry(start)!;
           const testLane = bpmnProcess.getLaneOfFlowNode(startElem.id);
 
           rowDetails.push({
