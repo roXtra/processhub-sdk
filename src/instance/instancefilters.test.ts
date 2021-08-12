@@ -3,13 +3,15 @@ import * as InstanceFilters from "./instancefilters";
 import * as PH from "../";
 import { ITodoDetails } from "../todo/todointerfaces";
 import { IUserDetails } from "../user";
+import { createId } from "../tools/guid";
+import "../tools/array";
 
 describe("sdk", function () {
   describe("instance", function () {
     describe("instancefilters", function () {
       it("should check filterUserInstances Method", () => {
         const instanceDetails: PH.Instance.IInstanceDetails = {
-          instanceId: PH.Tools.createId(), // Potential instanceId till execute
+          instanceId: createId(), // Potential instanceId till execute
           processId: "xyz",
           extras: {
             roleOwners: {},

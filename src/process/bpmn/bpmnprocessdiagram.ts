@@ -1,9 +1,9 @@
 import * as BpmnProcess from "./bpmnprocess";
 import { Bpmn, Bpmndi } from "../bpmn";
-import { isTrue } from "../../tools";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 import { Dc } from "modeler/bpmn/dc";
 import { IRowDetails } from "../phclient";
+import { isTrue } from "../../tools/assert";
 
 export class Waypoint {
   x: number;
