@@ -1,9 +1,10 @@
 import * as BpmnProcess from "./bpmnprocess";
 import { Bpmn, Bpmndi } from "../bpmn";
-import { isTrue } from "../../tools";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 import { Dc } from "modeler/bpmn/dc";
 import { IRowDetails } from "../phclient";
+import { isTrue } from "../../tools/assert";
+import { getLastArrayEntry } from "../../tools/array";
 
 export class Waypoint {
   x: number;
@@ -274,11 +275,11 @@ export class BpmnProcessDiagram {
 
         const startEvent = workingObject as Bpmn.IStartEvent;
         if (startEvent.eventDefinitions != null && startEvent.eventDefinitions.length > 0) {
-          if (standardStartEvent.length > 0 || (startEvents.length > 1 && startEvents.last()?.id === workingObject.id)) {
+          if (standardStartEvent.length > 0 || (startEvents.length > 1 && getLastArrayEntry(startEvents)?.id === workingObject.id)) {
             xParam -= iconWidth + BpmnProcessDiagram.SPACE_BETWEEN_TASKS;
           }
 
-          const isMessageStartEvent = startEvent.eventDefinitions.last()?.$type === "bpmn:MessageEventDefinition";
+          const isMessageStartEvent = getLastArrayEntry(startEvent.eventDefinitions)?.$type === "bpmn:MessageEventDefinition";
           isMessageStartEvent ? (yParam -= 40) : (yParam += 40);
         }
       }

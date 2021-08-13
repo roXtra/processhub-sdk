@@ -1,5 +1,4 @@
 import { tl } from "../tl";
-import * as Tools from "../tools";
 import isEmpty from "lodash/isEmpty";
 import cloneDeep from "lodash/cloneDeep";
 import { createId } from "./guid";
@@ -136,7 +135,7 @@ export function getNestedElements(query: string): NestedElements {
   const res: NestedElements = {};
 
   while (match) {
-    const uuid = Tools.createId();
+    const uuid = createId();
     if (match[3]) {
       res[uuid] = { query: "", type: "nested" };
       replacedQuery = replacedQuery.replace(nestedRegex, (m, p1: string, p2: string, p3: string, p4: string, offset, full) => {

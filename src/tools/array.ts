@@ -1,17 +1,14 @@
-// eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unused-vars
-interface Array<T> {
-  last(): T;
-}
-
-// eslint-disable-next-line @typescript-eslint/unbound-method
-Array.prototype.last = function <T>(): T | undefined {
-  if (this) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (this.length > 0) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-member-access
-      return this[this.length - 1];
+/**
+ * Returns the last entry of an array or undefined, if array has no entries
+ * @param array The array
+ * @returns The last element of array
+ */
+export function getLastArrayEntry<T>(array?: Array<T>): T | undefined {
+  if (array) {
+    if (array.length > 0) {
+      return array[array.length - 1];
     } else {
       return undefined;
     }
   }
-};
+}

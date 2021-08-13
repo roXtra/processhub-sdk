@@ -1,4 +1,5 @@
 import Joi from "joi";
+import { getLastArrayEntry } from "../tools/array";
 
 export class IFieldConfig {
   conditionExpression: string | undefined;
@@ -54,7 +55,7 @@ export interface IChartData {
 export function getFiletypeIcon(filename: string): string {
   if (filename == null || filename.length === 0) return "file outline";
 
-  const extension = filename.split(".").last().toLowerCase();
+  const extension = getLastArrayEntry(filename.split("."))?.toLowerCase();
 
   switch (extension) {
     case "pdf":

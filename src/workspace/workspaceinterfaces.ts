@@ -1,7 +1,7 @@
 import { IProcessDetails } from "../process/processinterfaces";
 import { IUserDetails } from "../user/userinterfaces";
-import { IAuditTrailEntry } from "../audittrail";
 import { IGroupDetails } from "../group/groupinterfaces";
+import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 
 export interface IWorkspaceDetails {
   workspaceId: string;

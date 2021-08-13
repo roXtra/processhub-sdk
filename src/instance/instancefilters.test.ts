@@ -3,13 +3,15 @@ import * as InstanceFilters from "./instancefilters";
 import * as PH from "../";
 import { ITodoDetails } from "../todo/todointerfaces";
 import { IUserDetails } from "../user";
+import { createId } from "../tools/guid";
+import { getLastArrayEntry } from "../tools/array";
 
 describe("sdk", function () {
   describe("instance", function () {
     describe("instancefilters", function () {
       it("should check filterUserInstances Method", () => {
         const instanceDetails: PH.Instance.IInstanceDetails = {
-          instanceId: PH.Tools.createId(), // Potential instanceId till execute
+          instanceId: createId(), // Potential instanceId till execute
           processId: "xyz",
           extras: {
             roleOwners: {},
@@ -33,9 +35,9 @@ describe("sdk", function () {
         let resInstDetails = InstanceFilters.filterUserInstances([instanceDetails], { userId: "xyz" } as IUserDetails);
 
         assert.isTrue(resInstDetails.length === 1);
-        assert.isTrue(resInstDetails.last().processId === "xyz");
-        assert.isTrue(resInstDetails.last().extras.todos?.length === 1);
-        assert.isTrue(resInstDetails.last().extras.todos?.last().displayName === "test todo");
+        assert.isTrue(getLastArrayEntry(resInstDetails)?.processId === "xyz");
+        assert.isTrue(getLastArrayEntry(resInstDetails)?.extras.todos?.length === 1);
+        assert.isTrue(getLastArrayEntry(getLastArrayEntry(resInstDetails)?.extras.todos)?.displayName === "test todo");
 
         resInstDetails = InstanceFilters.filterUserInstances([instanceDetails], undefined);
         assert.isTrue(resInstDetails.length === 0);

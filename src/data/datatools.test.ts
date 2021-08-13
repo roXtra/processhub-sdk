@@ -6,8 +6,8 @@ import { ILoadTemplateReply } from "../process/legacyapi";
 import { createBpmnTemplate } from "../process/bpmn/bpmnmoddlehelper";
 import { getProcessRoles, IProcessRoles, IRoleOwnerMap } from "../process/processrights";
 import Joi from "joi";
-import { createId } from "../tools";
 import { IFieldContentMap } from "./ifieldcontentmap";
+import { createId } from "../tools/guid";
 
 describe("sdk", function () {
   describe("data", function () {

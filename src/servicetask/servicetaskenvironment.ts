@@ -2,13 +2,13 @@ import { IUserDetails } from "../user/userinterfaces";
 import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { IServiceActionConfigField } from "../data/datainterfaces";
-import { IFileStore } from "../filestore";
 import { IConfig } from "../serverconfig";
 import { ISendMailTemplateRequest, ISendMailTemplateReply } from "../mailer/mailerinterfaces";
 import { IGenerateReportRequestType } from "../instance";
 import { IFieldContentMap } from "../data/ifieldcontentmap";
 import { IProcessDetails, ProcessExtras } from "../process/processinterfaces";
 import { BpmnProcess } from "../process/bpmn/bpmnprocess";
+import { IFileStore } from "../filestore/ifilestore";
 
 /**
  * Provide logging for ServiceTasks
