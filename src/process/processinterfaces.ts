@@ -127,12 +127,9 @@ export interface IProcessSettings {
 
 export enum ProcessViewAccess {
   // DO NOT CHANGE NUMBERS - used in database
-  EverybodySeesAll = 10, // All todos/instances are public  NOT YET IMPLEMENTED
   // Not implemented because Dashboard uses user.extras.todos, which is not available for anonymous guests
   WorkspaceMembersSeeAll = 20, // Team members see all todos/instances
-  ParticipantsSeeAll = 30, // Process participants see all todos/instances
   ParticipantsSeeTheirs = 40, // Process participants see their own todos/instances
-  OnlyProcessOwners = 50, // Only process managers can see todos/instances
 }
 
 export enum ProcessExtras {
