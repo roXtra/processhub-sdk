@@ -1,10 +1,10 @@
 import { IServiceTaskEnvironment } from "../servicetask/servicetaskenvironment";
 import { PREVIEW_FILENAME } from "../filestore/ifilestore";
-import { IInstanceDetails } from "../instance";
 import { ISendMailTemplateReply } from "../mailer/mailerinterfaces";
 import { IProcessDetails } from "../process/processinterfaces";
 import { emptyUser } from "../user";
 import { WorkspaceRole } from "../workspace";
+import { IInstanceDetails } from "../instance/instanceinterfaces";
 
 export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTaskEnvironment {
   return {

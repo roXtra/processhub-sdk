@@ -1,4 +1,4 @@
-import { IExecuteRequest, IExecuteReply, IUploadAttachmentRequest, IUploadAttachmentReply } from "../instance";
+import { IExecuteRequest, IExecuteReply, IUploadAttachmentRequest, IUploadAttachmentReply } from "../instance/legacyapi";
 import { IGetProcessDetailsRequest } from "../process/legacyapi";
 import { IProcessDetails, IStartButtonMap } from "../process/processinterfaces";
 import { ILoadUserReply, ILoadUserRequest } from "../user";

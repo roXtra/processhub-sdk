@@ -1,16 +1,16 @@
 import { assert } from "chai";
 import * as InstanceFilters from "./instancefilters";
-import * as PH from "../";
 import { ITodoDetails } from "../todo/todointerfaces";
 import { IUserDetails } from "../user";
 import { createId } from "../tools/guid";
 import { getLastArrayEntry } from "../tools/array";
+import { IInstanceDetails } from "./instanceinterfaces";
 
 describe("sdk", function () {
   describe("instance", function () {
     describe("instancefilters", function () {
       it("should check filterUserInstances Method", () => {
-        const instanceDetails: PH.Instance.IInstanceDetails = {
+        const instanceDetails: IInstanceDetails = {
           instanceId: createId(), // Potential instanceId till execute
           processId: "xyz",
           extras: {
@@ -30,7 +30,7 @@ describe("sdk", function () {
               } as ITodoDetails,
             ],
           },
-        } as PH.Instance.IInstanceDetails;
+        } as IInstanceDetails;
 
         let resInstDetails = InstanceFilters.filterUserInstances([instanceDetails], { userId: "xyz" } as IUserDetails);
 

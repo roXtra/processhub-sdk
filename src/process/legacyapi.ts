@@ -2,10 +2,10 @@ import { IBaseMessage, IBaseRequest, IBaseReply } from "../legacyapi/apiinterfac
 import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces";
 import { Bpmn } from "./bpmn";
 import { IParseResult } from "bpmn-moddle/lib/simple";
-import { Instance } from "..";
 import { IStatisticRow } from "../data/statistics";
 import { IFieldDefinition } from "../data/ifielddefinition";
 import { GridColumnProps } from "@progress/kendo-react-grid";
+import { IInstanceDetails } from "../instance/instanceinterfaces";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -248,7 +248,7 @@ export interface IGetProcessInstancesRequest extends IBaseRequest {
 }
 
 export interface IGetProcessInstancesReply extends IBaseMessage {
-  instances?: Instance.IInstanceDetails[];
+  instances?: IInstanceDetails[];
 }
 
 export interface IMoveToArchiveRequest extends IBaseRequest {

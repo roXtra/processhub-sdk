@@ -1,7 +1,5 @@
 /// <reference path="./process/types/index.d.ts" />
 export * from "./tl";
-import * as Instance from "./instance";
-export { Instance };
 import * as RiskAssessment from "./riskassessment";
 export { RiskAssessment };
 import * as Mailer from "./mailer";
