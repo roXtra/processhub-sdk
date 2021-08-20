@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { State, StateSchema } from ".";
+import { State, StateSchema } from "./instanceinterfaces";
 
 describe("sdk", function () {
   describe("instance", function () {

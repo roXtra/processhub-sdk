@@ -12,10 +12,10 @@ import { getExtensionValues, addOrUpdateExtension, getExtensionBody } from "./bp
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 import { IParseResult } from "bpmn-moddle/lib/simple";
 import { IFieldDefinition, IFieldDefinitionItem } from "../../data/ifielddefinition";
-import { IInstanceDetails } from "../../instance";
 import { filterTodosForInstance } from "../../todo/todofilters";
 import { IDecisionTask, DecisionTaskTypes } from "../../todo/todointerfaces";
 import { getLastArrayEntry } from "../../tools/array";
+import { IInstanceDetails } from "../../instance/instanceinterfaces";
 
 export class BpmnProcess {
   private moddleContext?: IParseResult;

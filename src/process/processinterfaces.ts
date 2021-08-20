@@ -1,5 +1,4 @@
 import { ProcessAccessRights, IProcessRoles } from "./processrights";
-import { IInstanceDetails } from "../instance";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { strEnum } from "../tools/types";
 import { IUserDetails } from "../user/userinterfaces";
@@ -10,6 +9,7 @@ import { IRowDetails } from "./phclient";
 import { IFieldDefinition } from "../data/ifielddefinition";
 import { IServiceActionConfigField, ITaskIdRequiredFieldsNeeded } from "../data/datainterfaces";
 import { FieldType } from "../data/ifieldvalue";
+import { IInstanceDetails } from "../instance/instanceinterfaces";
 
 export interface IProcessAttachment {
   attachmentId: string;

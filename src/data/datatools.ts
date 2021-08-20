@@ -2,13 +2,13 @@ import { getFormattedDate, getFormattedDateTime, getFormattedTimeZoneOffset } fr
 import SqlString from "sqlstring";
 import Joi from "joi";
 import murmurhash from "murmurhash";
-import { IInstanceDetails } from "../instance";
 import { FieldType, IFieldValue, isFieldValue } from "./ifieldvalue";
 import { IFieldContentMap } from "./ifieldcontentmap";
 import { IFieldDefinition } from "./ifielddefinition";
 import { IProcessRoles, IRoleOwner, IRoleOwnerMap } from "../process/processrights";
 import { BpmnProcess } from "../process/bpmn/bpmnprocess";
 import { replaceOldFieldSyntax } from "../tools/stringtools";
+import { IInstanceDetails } from "../instance/instanceinterfaces";
 
 export const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 export const riskmetricRegExp = /riskMetric\['([^'\]]*)'\]/;

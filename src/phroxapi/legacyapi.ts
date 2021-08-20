@@ -1,9 +1,9 @@
 import { IBaseReply, IBaseRequest } from "../legacyapi";
 import { IRoxFile, IRoxFolder, IModuleSelection } from ".";
-import { Instance } from "..";
 import { ITaskExtensions } from "../process/processinterfaces";
 import { IModule } from "../modules";
 import { IFieldContentMap } from "../data/ifieldcontentmap";
+import { IInstanceDetails } from "../instance/instanceinterfaces";
 
 export const RequestRoutes = {
   GetRootFolder: "/api/phroxapi/getrootfolder",
@@ -75,7 +75,7 @@ export interface IDownloadRoxDocToServerReply extends IBaseReply {
 }
 
 export interface IDownloadRoxDocToServerRequest extends IBaseRequest {
-  instanceDetails: Instance.IInstanceDetails;
+  instanceDetails: IInstanceDetails;
   extVals: ITaskExtensions;
 }
 
