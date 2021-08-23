@@ -1,4 +1,4 @@
-import { IUserDetails } from "../user";
+import { IUserDetails } from "../user/userinterfaces";
 
 export interface IGroupDetails {
   groupId: string;

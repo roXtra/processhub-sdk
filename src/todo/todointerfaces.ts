@@ -1,6 +1,6 @@
-import { IUserDetails } from "../user";
 import { Bpmn } from "../process/bpmn";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
+import { IUserDetails } from "../user/userinterfaces";
 
 export enum TodoStatus {
   TodoOnTime = 0,
