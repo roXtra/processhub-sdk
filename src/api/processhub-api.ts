@@ -2,7 +2,7 @@ import { IExecuteRequest, IExecuteReply, IUploadAttachmentRequest, IUploadAttach
 import { IGetProcessDetailsRequest } from "../process/legacyapi";
 import { IProcessDetails, IStartButtonMap } from "../process/processinterfaces";
 import { ILoadUserReply, ILoadUserRequest } from "../user";
-import { IWorkspaceDetails } from "../workspace";
+import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { ErrorCodes, IToken } from "./types";
 
 export class API {
