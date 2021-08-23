@@ -1,9 +1,5 @@
 /// <reference path="./process/types/index.d.ts" />
 export * from "./tl";
-import * as Path from "./path";
-export { Path };
-import * as Config from "./config";
-export { Config };
 import * as LegacyApi from "./legacyapi";
 export { LegacyApi };
 export * from "./actionhandler";
@@ -12,7 +8,5 @@ import * as PhRoxApi from "./phroxapi";
 export { PhRoxApi };
 import * as ServiceTask from "./servicetask";
 export { ServiceTask };
-import * as ServerConfig from "./serverconfig";
-export { ServerConfig };
 import * as Modules from "./modules";
 export { Modules };
