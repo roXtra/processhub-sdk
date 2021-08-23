@@ -1,7 +1,5 @@
 /// <reference path="./process/types/index.d.ts" />
 export * from "./tl";
-import * as Mailer from "./mailer";
-export { Mailer };
 import * as Workspace from "./workspace";
 export { Workspace };
 import * as User from "./user";
