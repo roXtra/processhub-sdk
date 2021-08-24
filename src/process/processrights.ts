@@ -1,15 +1,13 @@
 import { tl } from "../tl";
-import { IUserDetails } from "../user/userinterfaces";
+import { getDefaultRoleGroup, hasEditAccess, IUserDetails, Licence, PredefinedGroups } from "../user/userinterfaces";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
-import { PredefinedGroups, getDefaultRoleGroup, Licence, hasEditAccess } from "../user/index";
 import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
 import { isWorkspaceMember } from "../workspace/workspacerights";
 import { error } from "../tools/assert";
 import { isGroupId, isUserId } from "../tools/guid";
 import { Bpmn } from "./bpmn";
 import isEqual from "lodash/isEqual";
-import { User } from "..";
 
 export enum ProcessAccessRights {
   None = 0,
@@ -160,7 +158,7 @@ export function getProcessRoles(
     // Backwards compatibility for new dashboard access control
     if (!processRoles[DefaultRoles.DashboardViewer] || processRoles[DefaultRoles.DashboardViewer].potentialRoleOwners.length === 0) {
       if (dashBoardAccess === ProcessViewAccess.WorkspaceMembersSeeAll) {
-        processRoles[DefaultRoles.DashboardViewer] = { potentialRoleOwners: [{ memberId: User.PredefinedGroups.AllWorkspaceMembers }] };
+        processRoles[DefaultRoles.DashboardViewer] = { potentialRoleOwners: [{ memberId: PredefinedGroups.AllWorkspaceMembers }] };
       } else {
         processRoles[DefaultRoles.DashboardViewer] = { potentialRoleOwners: [] };
       }

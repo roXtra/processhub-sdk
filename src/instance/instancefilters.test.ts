@@ -1,10 +1,10 @@
 import { assert } from "chai";
 import * as InstanceFilters from "./instancefilters";
 import { ITodoDetails } from "../todo/todointerfaces";
-import { IUserDetails } from "../user";
 import { createId } from "../tools/guid";
 import { getLastArrayEntry } from "../tools/array";
 import { IInstanceDetails } from "./instanceinterfaces";
+import { IUserDetails } from "../user/userinterfaces";
 
 describe("sdk", function () {
   describe("instance", function () {

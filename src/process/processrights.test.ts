@@ -15,8 +15,8 @@ import { IProcessDetails } from "./processinterfaces";
 import { createBpmnTemplate } from "./bpmn/bpmnmoddlehelper";
 import { ILoadTemplateReply } from "./legacyapi";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
-import { IUserDetails, Licence } from "../user";
 import { assert } from "console";
+import { IUserDetails, Licence } from "../user/userinterfaces";
 
 const testProcess: IProcessDetails = {
   workspaceId: "2000E70281B5ECD5",

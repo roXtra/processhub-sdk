@@ -1,7 +1,5 @@
 /// <reference path="./process/types/index.d.ts" />
 export * from "./tl";
-import * as User from "./user";
-export { User };
 import * as Path from "./path";
 export { Path };
 import * as Config from "./config";

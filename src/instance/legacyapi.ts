@@ -1,8 +1,8 @@
 import { IBaseReply, IBaseMessage, IBaseRequest, IBaseRequestObject, IBaseReplyObject } from "../legacyapi/apiinterfaces";
 import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces";
-import { IUserDetails } from "../user";
 import Joi from "joi";
 import { createLiteralTypeRegExp } from "../data/regextools";
+import { IUserDetails } from "../user/userinterfaces";
 
 // API routes
 export const ProcessEngineApiRoutes = {
