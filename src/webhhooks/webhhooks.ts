@@ -1,5 +1,5 @@
 import { FieldValueType } from "../data/ifieldvalue";
-import { IBaseReply } from "../legacyapi";
+import { IBaseReply } from "../legacyapi/apiinterfaces";
 
 /**
  * Returns the URL without host and basepath, eg. /webhook/v1/trigger/8A8EB51B5CFBF1CD/BoundaryEvent_9373BD9414921009/659cf90ede434ac3.
