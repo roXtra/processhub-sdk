@@ -1,6 +1,6 @@
-import { IBaseReply, IBaseRequest } from "../legacyapi";
+import { IBaseReply, IBaseRequest } from "../legacyapi/apiinterfaces";
 import { ITaskExtensions } from "../process/processinterfaces";
-import { IModule } from "../modules";
+import { IModule } from "../modules/imodule";
 import { IFieldContentMap } from "../data/ifieldcontentmap";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { IModuleSelection, IRoxFile, IRoxFolder } from "./phroxapiinterfaces";

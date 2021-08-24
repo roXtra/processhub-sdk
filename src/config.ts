@@ -1,4 +1,4 @@
-import { IModule } from "./modules";
+import { IModule } from "./modules/imodule";
 import { IClientSettingsConfig, IFeatureConfig } from "./serverconfig/iconfig";
 
 declare global {

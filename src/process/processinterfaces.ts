@@ -4,7 +4,7 @@ import { strEnum } from "../tools/types";
 import { IUserDetails } from "../user/userinterfaces";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 import { IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces";
-import { IGenericModuleSettings } from "../modules";
+import { IGenericModuleSettings } from "../modules/imodule";
 import { IRowDetails } from "./phclient";
 import { IFieldDefinition } from "../data/ifielddefinition";
 import { IServiceActionConfigField, ITaskIdRequiredFieldsNeeded } from "../data/datainterfaces";
