@@ -1,4 +1,4 @@
-import { ModuleName } from "./modules";
+import { ModuleName } from "./modules/imodule";
 
 export interface ITLProps {
   text: string;
