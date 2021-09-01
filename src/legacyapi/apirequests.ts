@@ -76,9 +76,9 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
         return error;
       }
     }
-  } catch (ex) {
+  } catch (exception) {
     // For Testing
-
+    const ex = exception as { message: string };
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
     if (ex != null && ex.message.startsWith("request to http://localhost:8080/api/processengine/")) {
       const testResult: IBaseMessage = {
@@ -149,8 +149,9 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
         return error;
       }
     }
-  } catch (ex) {
+  } catch (exception) {
     // For Testing
+    const ex = exception as { message: string };
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
     if (ex != null && ex.message.startsWith("request to http://localhost:8080/api/processengine/")) {
       const testResult: IBaseMessage = {
