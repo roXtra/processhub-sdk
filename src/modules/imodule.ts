@@ -1,3 +1,4 @@
+import { SeriesType } from "@progress/kendo-react-charts/dist/npm/field-types/series-type";
 import { FieldType } from "../data/ifieldvalue";
 
 // Must match the values defined in Enums_Module.cs in Roxtra.DataProvider
@@ -26,5 +27,5 @@ export interface IModule {
 
 export interface IGenericModuleSettings {
   defaultStatusField: string | undefined;
-  chartFields?: { fieldName: string; type: FieldType }[];
+  chartFields?: { fieldName: string; type: FieldType; chartType: SeriesType }[];
 }
