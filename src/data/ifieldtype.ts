@@ -62,7 +62,12 @@ export interface IFieldType {
     grid: Component,
   ): string | Date | undefined;
   renderValueForGrid(fieldName: string, baseGrid: Component): ((props: GridCellProps) => JSX.Element) | undefined;
-  getSettingsButton(fieldDefinition: IFieldDefinition, onConfigChanged: (fieldDefinition: IFieldDefinition) => void, bpmnProcess: BpmnProcess): JSX.Element | undefined;
+  getSettingsButton(
+    fieldDefinition: IFieldDefinition,
+    onConfigChanged: (fieldDefinition: IFieldDefinition) => void,
+    bpmnProcess: BpmnProcess,
+    hideLocalSettings: boolean,
+  ): JSX.Element | undefined;
   isVisible(): boolean;
   isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): Promise<boolean>;
   isConfigValid(fieldDefinition: IFieldDefinition): { valid: boolean; message?: string };
