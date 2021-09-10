@@ -27,5 +27,5 @@ export interface IModule {
 
 export interface IGenericModuleSettings {
   defaultStatusField: string | undefined;
-  chartFields?: { fieldName: string; type: FieldType; chartType: SeriesType }[];
+  chartFields?: { fieldName: string; type: FieldType; chartType: { type: SeriesType; stack?: boolean } }[];
 }
