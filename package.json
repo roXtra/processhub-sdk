@@ -33,7 +33,7 @@
   "description": "ProcessHub SDK for JavaScript/TypeScript",
   "dependencies": {
     "@progress/kendo-data-query": "^1.5.5",
-    "@progress/kendo-react-charts": "4.8.0",
+    "@progress/kendo-react-charts": "4.9.0",
     "@progress/kendo-react-data-tools": "4.8.0",
     "@progress/kendo-react-dropdowns": "4.8.0",
     "@progress/kendo-react-grid": "4.8.0",
