@@ -22,5 +22,9 @@ module.exports = {
       matchPackageNames: ["npm"],
       allowedVersions: "^6.0.0",
     },
+    {
+      groupName: "progress monorepo",
+      matchPackagePatterns: ["^@progress/", "kendo-ui-core"],
+    },
   ],
 };
