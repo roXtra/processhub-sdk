@@ -268,11 +268,6 @@ export interface IServiceTaskConfigObject {
   fields: IServiceActionConfigField[];
 }
 
-export interface IProcessDiagramSize {
-  width: number;
-  height: number;
-}
-
 export interface ISubProcessFieldMapping {
   in: { name: string; type: FieldType } | undefined;
   out: { name: string; type: FieldType } | undefined;
