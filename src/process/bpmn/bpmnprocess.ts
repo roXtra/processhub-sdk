@@ -2,7 +2,7 @@ import * as BpmnModdleHelper from "./bpmnmoddlehelper";
 import { ILaneDictionary } from "./bpmnprocessdiagram";
 import { BpmnProcessDiagram } from "./bpmnprocessdiagram";
 import { Bpmn, Bpmndi } from "../bpmn";
-import { IRunningTaskLane, ITaskToLaneMapEntry, IStartButtonMap, IProcessDiagramSize, TaskSettingsValueType, BpmnExtensionName, ITaskExtensions } from "../processinterfaces";
+import { IRunningTaskLane, ITaskToLaneMapEntry, IStartButtonMap, TaskSettingsValueType, BpmnExtensionName, ITaskExtensions } from "../processinterfaces";
 import { isTrue } from "../../tools/assert";
 import { tl } from "../../tl";
 import { createId } from "../../tools/guid";
@@ -777,76 +777,6 @@ export class BpmnProcess {
       }
     }
 
-    /* NextObjects.forEach(nextObject => {
-     this.addSequenceFlow(this.processId(), this.getExistingActivityObject(rowDetails[(rowNumber - 1)].taskId), nextObject, false);
-     });*/
-
-    /*
-     isTrue(rowNumber > 0, "called rownumber have to be bigger than 0");
-     let objectToDelete_A: Bpmn.FlowNode  = this.getExistingTask(processId, rowDetails[(rowNumber - 1)].taskId);
-
-     if (rowDetails.length > (rowNumber + 1)) {
-     nextObject = this.getExistingTask(processId, rowDetails[(rowNumber + 1)].taskId);
-     } else {
-     nextObject = this.getEndEvents(processId)[0];
-     }
-
-     let objectToDelete_B = this.getExistingTask(processId, rowDetails[rowNumber].taskId);
-     // isTrue(objectToDelete_B.incoming.length == 1, "SequenceFlow Länge muss hier 1 sein!");
-     let sequenceFlows_AB: Bpmn.SequenceFlow[] = objectToDelete_B.incoming; // .find(inc => inc.sourceRef.id === objectToDelete_A.id && inc.targetRef.id === objectToDelete_B.id); // [0];
-     // isTrue(objectToDelete_B.outgoing.length == 1, "SequenceFlow Länge muss hier 1 sein!");
-     let sequenceFlow_BC: Bpmn.SequenceFlow = objectToDelete_B.outgoing.find(out => out.sourceRef.id === objectToDelete_B.id && out.targetRef.id === nextObject.id); // [0];
-
-     let sequenceFlows_BC_to_delete: Bpmn.SequenceFlow[] = objectToDelete_B.outgoing.filter(out => out.targetRef.id !== nextObject.id); // [0];
-
-     objectToDelete_B.outgoing.forEach(out => {
-     if (out.targetRef.id !== nextObject.id) {
-     out.targetRef.incoming = out.targetRef.incoming.filter(inc => inc.sourceRef.id !== objectToDelete_B.id);
-     }
-     });
-     objectToDelete_B.incoming.forEach(inc => inc.sourceRef.outgoing = inc.sourceRef.outgoing.filter(out => out.targetRef.id !== objectToDelete_B.id));
-
-     // 1. & 2. Elemente aus flowElements löschen
-     for (let index = 0; index < processContext.flowElements.length; index++) {
-     let element = processContext.flowElements[index];
-     if (sequenceFlows_AB.find(sf => sf.id === element.id) != null
-     || sequenceFlows_BC_to_delete.find(sf => sf.id === element.id) != null
-     || element.id === objectToDelete_B.id) {
-     processContext.flowElements.splice(index, 1);
-     index--; // ACHTUNG NICHT VERGESSEN WENN GESPLICED WIRD
-     }
-     }
-     // 3.
-     isTrue(objectToDelete_A != null);
-     sequenceFlow_BC.sourceRef = objectToDelete_A;
-
-     // 4.
-     // Array zuerst leeren! Da hier nur ein Element im Array sein darf!
-     // objectToDelete_A.outgoing = [];
-     objectToDelete_A.outgoing = objectToDelete_A.outgoing.filter(out => out.sourceRef.id !== objectToDelete_A.id && out.targetRef.id !== objectToDelete_B.id);
-     objectToDelete_A.outgoing.push(sequenceFlow_BC);
-
-     // isTrue(objectToDelete_A.outgoing.length === 1, "A darf hier nur einen outgoing Flow haben!");
-
-     // Task aus lane entfernen
-     let processLanes: Bpmn.Lane[] = this.getProcessLanes(processId);
-     for (let laneIndex = 0; laneIndex < processLanes.length; laneIndex++) {
-     let processLane: Bpmn.Lane = processLanes[laneIndex];
-     if (processLane.flowNodeRef != null) {
-     for (let index = 0; index < processLane.flowNodeRef.length; index++) {
-     let flowNode: Bpmn.FlowNode = processLane.flowNodeRef[index];
-     if (flowNode.id === rowDetails[rowNumber].taskId) {
-     processLane.flowNodeRef.splice(index, 1);
-     index--; // Wegen splicen
-     }
-     }
-     }
-     }
-     this.putGatewaysBack(allgateways);
-
-     let tmpRowDetails: RowDetails[] = JSON.parse(JSON.stringify(rowDetails));
-     tmpRowDetails.splice(rowNumber, 1);
-     */
     const tmpRowDetails: IRowDetails[] = JSON.parse(JSON.stringify(rowDetails));
     tmpRowDetails.splice(rowNumber, 1);
     this.processDiagram.generateBPMNDiagram(processId, tmpRowDetails);
@@ -1023,71 +953,6 @@ export class BpmnProcess {
     }
     this.removeSequenceFlow(this.processId(), sfObj);
 
-    this.processDiagram.generateBPMNDiagram(this.processId(), rowDetails);
-  }
-
-  public addTimerStartEvent(rowDetails: IRowDetails[]): void {
-    this.addStartEventOfType(rowDetails, "bpmn:TimerEventDefinition");
-  }
-
-  public removeTimerStartEvent(rowDetails: IRowDetails[]): void {
-    this.removeStartEventOfType(rowDetails, "bpmn:TimerEventDefinition");
-  }
-
-  public addMailStartEvent(rowDetails: IRowDetails[]): void {
-    this.addStartEventOfType(rowDetails, "bpmn:MessageEventDefinition");
-  }
-
-  public removeMailStartEvent(rowDetails: IRowDetails[]): void {
-    this.removeStartEventOfType(rowDetails, "bpmn:MessageEventDefinition");
-  }
-
-  private addStartEventOfType(rowDetails: IRowDetails[], type: "bpmn:TimerEventDefinition" | "bpmn:MessageEventDefinition"): void {
-    if (this.getStartEvents(this.processId()).find((start) => start.eventDefinitions != null && start.eventDefinitions.find((ev) => ev.$type === type) != null) == null) {
-      const start = getLastArrayEntry(this.getStartEvents(this.processId()));
-      const targetTask = getLastArrayEntry(start?.outgoing)?.targetRef;
-      const processContext: Bpmn.IProcess = this.getProcess(this.processId());
-      const startEventObject = bpmnModdleInstance.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
-      const eventDef =
-        type === "bpmn:TimerEventDefinition"
-          ? bpmnModdleInstance.create(type as "bpmn:TimerEventDefinition", { timeDuration: bpmnModdleInstance.create("bpmn:FormalExpression", { body: "PT0S" }) })
-          : bpmnModdleInstance.create(type as "bpmn:MessageEventDefinition", {});
-
-      startEventObject.eventDefinitions = [eventDef];
-      if (targetTask) {
-        this.addSequenceFlow(this.processId(), startEventObject, targetTask, false);
-      }
-      processContext.flowElements.push(startEventObject);
-
-      const lane = this.getLaneOfFlowNode(start!.id);
-      if (lane) {
-        this.addTaskToLane(this.processId(), lane.id, startEventObject);
-      }
-      this.processDiagram.generateBPMNDiagram(this.processId(), rowDetails);
-    }
-  }
-
-  private removeStartEventOfType(rowDetails: IRowDetails[], type: "bpmn:TimerEventDefinition" | "bpmn:MessageEventDefinition"): void {
-    const processContext = this.getProcess(this.processId());
-
-    const messageStartEvent = this.getStartEvents(this.processId()).find(
-      (start) => start.eventDefinitions != null && start.eventDefinitions.find((event) => event.$type === type) != null,
-    );
-    if (messageStartEvent) {
-      if (messageStartEvent.outgoing) {
-        this.removeSequenceFlow(this.processId(), getLastArrayEntry(messageStartEvent.outgoing)!);
-      }
-
-      const row = rowDetails.find((row) => row.taskId === messageStartEvent.id);
-      if (row != null) {
-        const otherStart = getLastArrayEntry(this.getStartEvents(this.processId()));
-        row.taskId = otherStart!.id;
-      }
-
-      processContext.flowElements = processContext.flowElements.filter((elem) => elem.id !== messageStartEvent.id);
-
-      this.removeTaskObjectFromLanes(this.processId(), messageStartEvent);
-    }
     this.processDiagram.generateBPMNDiagram(this.processId(), rowDetails);
   }
 
@@ -1791,89 +1656,10 @@ export class BpmnProcess {
     return this.getStartEvents(this.processId()).find((start) => start.eventDefinitions == null) != null;
   }
 
-  public addStartEvent(rowDetails: IRowDetails[]): void {
-    if (this.getStartEvents(this.processId()).find((start) => start.eventDefinitions == null) == null) {
-      const start = getLastArrayEntry(this.getStartEvents(this.processId()));
-      const targetTask = getLastArrayEntry(start?.outgoing)?.targetRef;
-      const processContext: Bpmn.IProcess = this.getProcess(this.processId());
-      const startEventObject = bpmnModdleInstance.create("bpmn:StartEvent", { id: BpmnProcess.getBpmnId("bpmn:StartEvent"), outgoing: [], incoming: [] });
-
-      if (targetTask) {
-        this.addSequenceFlow(this.processId(), startEventObject, targetTask, false);
-      }
-      processContext.flowElements.push(startEventObject);
-
-      const lane = start !== undefined ? this.getLaneOfFlowNode(start.id) : undefined;
-      if (lane) {
-        this.addTaskToLane(this.processId(), lane.id, startEventObject);
-      }
-      this.processDiagram.generateBPMNDiagram(this.processId(), rowDetails);
-    }
-  }
-
-  public removeStartEvent(rowDetails: IRowDetails[]): void {
-    const processContext = this.getProcess(this.processId());
-    const startEvent = this.getStartEvents(this.processId()).find((start) => start.eventDefinitions == null);
-    if (startEvent) {
-      if (startEvent.outgoing) {
-        const outgoing = getLastArrayEntry(startEvent.outgoing);
-        if (outgoing) {
-          this.removeSequenceFlow(this.processId(), outgoing);
-        }
-      }
-
-      processContext.flowElements = processContext.flowElements.filter((elem) => elem.id !== startEvent.id);
-
-      this.removeTaskObjectFromLanes(this.processId(), startEvent);
-
-      const row = rowDetails.find((row) => row.taskId === startEvent.id);
-      if (row) {
-        const otherStart = getLastArrayEntry(this.getStartEvents(this.processId()));
-        if (otherStart) {
-          row.taskId = otherStart.id;
-        }
-      }
-    }
-
-    this.processDiagram.generateBPMNDiagram(this.processId(), rowDetails);
-  }
-
   public getTimerStartEvent(): Bpmn.IStartEvent | undefined {
     return this.getStartEvents(this.processId()).find(
       (start) => start.eventDefinitions != null && start.eventDefinitions.find((ev) => ev.$type === "bpmn:TimerEventDefinition") != null,
     );
-  }
-
-  public getDiagramSize(): IProcessDiagramSize {
-    const allShapes = this.processDiagram.getAllShapes();
-    let minX: number = Number.MAX_VALUE;
-    let maxX: number = Number.MIN_VALUE;
-    let minY: number = Number.MAX_VALUE;
-    let maxY: number = Number.MIN_VALUE;
-
-    for (const shape of allShapes) {
-      if (shape.bounds != null) {
-        if (minX > shape.bounds.x) {
-          minX = shape.bounds.x;
-        }
-        if (minY > shape.bounds.y) {
-          minY = shape.bounds.y;
-        }
-
-        if (maxX < +shape.bounds.x + +shape.bounds.width) {
-          maxX = +shape.bounds.x + +shape.bounds.width;
-        }
-
-        if (maxY < +shape.bounds.y + +shape.bounds.height) {
-          maxY = +shape.bounds.y + +shape.bounds.height;
-        }
-      }
-    }
-
-    return {
-      width: maxX - minX,
-      height: maxY - minY,
-    };
   }
 
   public getShapeIdAndTypeFromBpmnElementId(bpmnTaskId: string): { type: Bpmn.ElementType; id: string } | undefined {
