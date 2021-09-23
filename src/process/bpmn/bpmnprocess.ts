@@ -872,8 +872,8 @@ export class BpmnProcess {
     // Add gateway
     if (focusedTask.outgoing && focusedTask.outgoing.length > 0) {
       const existingOutgoings = focusedTask.outgoing;
-      if (existingOutgoings.length === 1 && getLastArrayEntry(existingOutgoings)?.targetRef.$type === "bpmn:ExclusiveGateway") {
-        this.addSequenceFlow(this.processId(), getLastArrayEntry(existingOutgoings)!.targetRef, targetTask, false);
+      if (existingOutgoings.length === 1 && existingOutgoings[0].targetRef.$type === "bpmn:ExclusiveGateway") {
+        this.addSequenceFlow(this.processId(), existingOutgoings[0].targetRef, targetTask, false);
       } else {
         focusedTask.outgoing = [];
         const processContext: Bpmn.IProcess = this.getProcess(this.processId());
