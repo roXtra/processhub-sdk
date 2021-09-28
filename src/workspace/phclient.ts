@@ -6,6 +6,7 @@ export const WorkspaceView = {
   AddProcess: "addprocess",
   Todos: "todos",
   Archive: "archive",
+  Edit: "edit",
 };
 export type WorkspaceView = keyof typeof WorkspaceView;
 
