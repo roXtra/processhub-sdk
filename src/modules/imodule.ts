@@ -12,7 +12,7 @@ export enum ModuleId {
   Module = 6,
 }
 
-export type ModuleName = "documents" | "processes" | "risks" | "user" | "system" | "action" | "audit" | "reclamations";
+export type ModuleName = "documents" | "processes" | "risks" | "user" | "system" | "action" | "action_basic" | "audit" | "reclamations";
 
 export interface IModule {
   id: number;
