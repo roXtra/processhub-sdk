@@ -77,4 +77,5 @@ export interface IFieldType {
   isAvailableAsChartField(): boolean;
   appendValueToChartData(currentChartData: IChartData[], field: IFieldValue): void;
   getValueForInstanceTitle(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig): string;
+  migrateFieldConfig(newConfig: IFieldConfig, oldConfig: IFieldConfig): void;
 }
