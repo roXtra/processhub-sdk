@@ -68,6 +68,14 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         throw new Error("Not implemented");
       },
     },
+    system: {
+      setMaxBpmnEngineIterations: (count) => {
+        // Dummy
+      },
+      setTransactionTimeout: (timeout) => {
+        // Dummy
+      },
+    },
     fileStore: {
       getAttachmentFileUrl: (): string => "",
       // eslint-disable-next-line @typescript-eslint/require-await
