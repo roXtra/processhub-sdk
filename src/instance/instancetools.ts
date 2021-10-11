@@ -1,7 +1,7 @@
 import { IInstanceDetails } from "./instanceinterfaces";
 import { stringExcerpt } from "../tools/stringtools";
 import { isId } from "../tools/guid";
-import { isFieldValue } from "../data/ifieldvalue";
+import { FieldType, isFieldValue } from "../data/ifieldvalue";
 import { isDefaultProcessRole } from "../process/processrights";
 
 export function parseInstanceMailSubject(mail: string): string | undefined {
@@ -16,6 +16,25 @@ export function parseInstanceMailSubject(mail: string): string | undefined {
     }
   }
   return undefined;
+}
+
+export function getFieldsFromInstances(
+  instances: IInstanceDetails[],
+  getFieldKey: (fieldName: string, fieldType: FieldType) => string,
+): { [key: string]: { fieldName: string; fieldType: FieldType } } {
+  const fieldKeyMap: { [fieldKey: string]: { fieldName: string; fieldType: FieldType } } = {};
+
+  for (const instance of instances) {
+    for (const fieldName in instance.extras.fieldContents) {
+      const field = instance.extras.fieldContents[fieldName];
+      if (isFieldValue(field)) {
+        const key: string = getFieldKey(fieldName, field.type);
+
+        fieldKeyMap[key] = { fieldName, fieldType: field.type };
+      }
+    }
+  }
+  return fieldKeyMap;
 }
 
 // RoleID == null -> check for any role membership
