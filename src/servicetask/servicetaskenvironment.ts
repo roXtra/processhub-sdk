@@ -54,6 +54,22 @@ export interface IServiceTaskRoxApi {
   getRoxtraTokenByUserId(userId: string): Promise<string>;
 }
 
+/**
+ * System methods that ServiceTasks can use
+ */
+export interface IServiceTaskSystem {
+  /**
+   * Sets the maximum number of iterations for a bpmn element during a resume call.
+   * @param count The maximum number of iterations for a bpmn element. An error will be thrown and instance execution will be stopped once it is exceeded.
+   */
+  setMaxBpmnEngineIterations(count: number): void;
+  /**
+   * Sets timeout for future database transactions, in ms. This does not change the timeout for the currently running transaction.
+   * @param timeout timeout in ms
+   */
+  setTransactionTimeout(timeout: number): void;
+}
+
 export interface IServiceTaskEnvironment {
   bpmnXml: string;
   bpmnTaskId: string;
@@ -66,6 +82,7 @@ export interface IServiceTaskEnvironment {
   instances: IServiceTaskInstances;
   logger: IServiceTaskLogger;
   processes: IServiceTaskProcesses;
+  system: IServiceTaskSystem;
   roxApi: IServiceTaskRoxApi;
   mailer: IServiceTaskMailer;
   workspace: IWorkspaceDetails;
