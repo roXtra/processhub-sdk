@@ -67,7 +67,7 @@ export interface IServiceTaskSystem {
    * Sets timeout for future database transactions, in ms. This does not change the timeout for the currently running transaction.
    * @param timeout timeout in ms
    */
-  setTransactionTimeout(timeout: number): void;
+  setTransactionTimeout(timeout: number): Promise<void>;
 }
 
 export interface IServiceTaskEnvironment {
