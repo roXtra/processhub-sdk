@@ -72,7 +72,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       setMaxBpmnEngineIterations: (count) => {
         // Dummy
       },
-      setTransactionTimeout: (timeout) => {
+      setTransactionTimeout: async (timeout): Promise<void> => {
         // Dummy
       },
     },
