@@ -29,39 +29,6 @@ export function toCleanUrl(text: string): string {
     .trim();
 }
 
-export function stringExcerpt(source: string, maxLen: number): string {
-  if (source == null || source.length <= maxLen) return source;
-  else {
-    let dest = source.substr(0, maxLen);
-
-    // String bis zum letzten vollständigen Wort zurückgeben
-    const last = dest.lastIndexOf(" ");
-    if (last !== -1) dest = dest.substr(0, last);
-
-    return dest + "...";
-  }
-}
-
-export function getShuffledNumberArray(amountOfElements: number, numberLenght = 3): number[] {
-  const array: number[] = [];
-  for (let i = 0; i < amountOfElements; i++) {
-    const value = ("000" + String(i)).slice(-numberLenght);
-    array.push(parseInt(value));
-  }
-  return shuffleArray(array);
-}
-
-// Randomize array element order in-place.
-function shuffleArray(array: number[]): number[] {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-  return array;
-}
-
 export function removeHtmlTags(html: string): string {
   if (!html) {
     return html;
