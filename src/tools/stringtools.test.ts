@@ -39,15 +39,6 @@ describe("sdk", function () {
         });
       });
 
-      describe("stringExcerpt", function () {
-        it("soll Strings kürzen", function () {
-          chai.assert.equal(StringTools.stringExcerpt("Mein schöner Titel", 100), "Mein schöner Titel"); // Unter Limit
-          chai.assert.equal(StringTools.stringExcerpt("Mein schöner Titel", 4), "Mein...");
-          chai.assert.equal(StringTools.stringExcerpt("Mein schöner Titel", 3), "Mei...");
-          chai.assert.equal(StringTools.stringExcerpt("Mein schöner Titel", 10), "Mein...");
-        });
-      });
-
       describe("replaceOldFieldSyntax", function () {
         it("soll alte Syntax austauschen", function () {
           const testValue = "(({{ field.Feld_1 }} == 1) && ({{ role.Bearbeiter }} == 'Administrator, Admin')) || role['Pruefer'].displayName && role['Ersteller'].firstname";
