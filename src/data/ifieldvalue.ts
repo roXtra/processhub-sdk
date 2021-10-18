@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { IRiskAssessmentTargetValue, IRiskAssessmentTargetValueSchema, IRiskAssessmentValue, IRiskAssessmentValueSchema } from "../instance/instanceinterfaces";
 import { RiskAssessmentCycle, RiskAssessmentCycleSchema } from "../riskassessment/riskassessmentinterfaces";
+import { IDateRangeFieldValue, IDateRangeFieldValueSchema } from "./fields/daterange";
 import { IProcessLinkValue, IProcessLinkValueSchema } from "./fields/processlink";
 import { IRadioButtonGroupFieldValue, IRadioButtonGroupFieldValueSchema } from "./fields/radiobutton";
 import { IRoxFileFieldValue, IRoxFileFieldValueSchema } from "./fields/roxfilefield";
@@ -41,6 +42,7 @@ export const FieldTypeOptions = [
   "ProcessHubCalculatedField",
   "ProcessHubSVGDropdown",
   "ProcessHubTasks",
+  "ProcessHubDateRange",
 ] as const;
 
 export type FieldType = typeof FieldTypeOptions[number];
@@ -62,7 +64,8 @@ export type FieldValueType =
   | IRiskAssessmentTargetValue // RiskAssessmentTarget
   | ISVGDropdownOption // SVGDropdown
   | ITasksFieldValue // TasksField
-  | ITreeViewFieldValue; // TreeViewField
+  | ITreeViewFieldValue // TreeViewField
+  | IDateRangeFieldValue; // DateRange
 
 const FieldValueTypeSchema = [
   Joi.allow(null),
@@ -83,6 +86,7 @@ const FieldValueTypeSchema = [
   ISVGDropdownOptionSchema,
   ITasksFieldValueSchema,
   TreeViewFieldValueSchema,
+  IDateRangeFieldValueSchema,
 ];
 
 export const FieldTypeSchema = Joi.string().pattern(createLiteralTypeRegExp(Object.values(FieldTypeOptions)));
