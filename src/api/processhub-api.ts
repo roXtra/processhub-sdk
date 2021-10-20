@@ -169,7 +169,7 @@ export class API {
 
         xhr.onload = () => {
           if (xhr.status === 200) {
-            const res = JSON.parse(xhr.responseText);
+            const res: { processDetails: IProcessDetails } = JSON.parse(xhr.responseText);
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             resolve(res.processDetails);
           }

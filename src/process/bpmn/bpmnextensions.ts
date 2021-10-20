@@ -1,7 +1,7 @@
 import { TaskSettingsValueType, BpmnExtensionName, ITaskExtensions } from "../processinterfaces";
 import { Bpmn } from "modeler/bpmn/bpmn";
 import { replaceOldFieldSyntax } from "../../tools/stringtools";
-import { updateLegacyFieldDefinitions } from "../../data/datatools";
+import { ILegacySchema, updateLegacyFieldDefinitions } from "../../data/datatools";
 import { Processhub } from "modeler/bpmn/processhub";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
 
@@ -169,7 +169,8 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
             break;
           case "processhub-userform":
             if (child.$body) {
-              returnValue.fieldDefinitions = updateLegacyFieldDefinitions(JSON.parse(child.$body));
+              const definitions: ILegacySchema = JSON.parse(child.$body);
+              returnValue.fieldDefinitions = updateLegacyFieldDefinitions(definitions);
             }
             break;
           case "message-event-type":
