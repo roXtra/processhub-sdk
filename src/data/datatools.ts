@@ -240,7 +240,7 @@ interface ILegacyProperty {
   required: boolean;
   title: string;
 }
-interface ILegacySchema {
+export interface ILegacySchema {
   properties: { [id: string]: ILegacyProperty };
 }
 export function updateLegacyFieldDefinitions(definitions: ILegacySchema): IFieldDefinition[] {
