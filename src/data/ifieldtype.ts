@@ -78,4 +78,6 @@ export interface IFieldType {
   appendValueToChartData(currentChartData: IChartData[], field: IFieldValue): void;
   getValueForInstanceTitle(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig): string;
   migrateFieldConfig(newConfig: IFieldConfig, oldConfig: IFieldConfig): void;
+  filterCellRender(fieldKey: string, grid: Component): JSX.Element | undefined;
+  applyCustomFilter(value: string | number | {} | undefined, filter: {}): boolean;
 }
