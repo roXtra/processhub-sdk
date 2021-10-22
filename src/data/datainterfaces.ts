@@ -48,7 +48,7 @@ export interface IFieldConfigDefault<ValueType> extends IFieldConfig {
 export interface IChartData {
   label: string;
   number: number;
-  color: string;
+  color?: string;
 }
 
 // Returns the name of the best fitting Semantic UI icon for the specified file name
