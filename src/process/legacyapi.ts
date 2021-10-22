@@ -6,6 +6,7 @@ import { IStatisticRow } from "../data/statistics";
 import { IFieldDefinition } from "../data/ifielddefinition";
 import { GridColumnProps } from "@progress/kendo-react-grid";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
+import { FilterDescriptor } from "@progress/kendo-data-query";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -132,6 +133,7 @@ export interface IArchiveViewDetails {
   publicView: boolean;
   specialViewType?: ArchiveViewType;
   columns: IBaseStateColumn[];
+  customFilters?: FilterDescriptor[];
 }
 
 export interface IAddArchiveViewRequest extends IBaseRequest {
