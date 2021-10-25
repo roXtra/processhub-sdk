@@ -8,7 +8,7 @@ import { IProcessDetails } from "../process/processinterfaces";
 import { IUserDetails } from "../user/userinterfaces";
 import { IChartData, IFieldConfig } from "./datainterfaces";
 import { IFieldDefinition } from "./ifielddefinition";
-import { FieldType, IFieldValue } from "./ifieldvalue";
+import { FieldType, FieldValueType, IFieldValue } from "./ifieldvalue";
 import { IFormElementProps } from "./iformelementprops";
 
 export interface IFieldType {
@@ -79,5 +79,5 @@ export interface IFieldType {
   getValueForInstanceTitle(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig): string;
   migrateFieldConfig(newConfig: IFieldConfig, oldConfig: IFieldConfig): void;
   filterCellRender(fieldKey: string, grid: Component): JSX.Element | undefined;
-  applyCustomFilter(value: string | number | {} | undefined, filter: {}): boolean;
+  applyCustomFilter(value: FieldValueType | undefined | null, filter: {}): boolean;
 }
