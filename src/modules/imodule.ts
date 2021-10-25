@@ -25,7 +25,13 @@ export interface IModule {
   processName?: string;
 }
 
+export interface IGenericModuleChartField {
+  fieldName: string;
+  type: FieldType;
+  chartType: { type: SeriesType; stack?: boolean };
+}
+
 export interface IGenericModuleSettings {
   defaultStatusField: string | undefined;
-  chartFields?: { fieldName: string; type: FieldType; chartType: { type: SeriesType; stack?: boolean } }[];
+  chartFields?: IGenericModuleChartField[];
 }
