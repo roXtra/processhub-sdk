@@ -61,7 +61,7 @@ export interface IFieldType {
     columnName: string,
     grid: Component,
   ): string | Date | undefined;
-  renderValueForGrid(fieldName: string, baseGrid: Component): ((props: GridCellProps) => JSX.Element) | undefined;
+  renderValueForGrid(fieldName: string, baseGrid: Component, process?: IProcessDetails): ((props: GridCellProps) => JSX.Element) | undefined;
   getSettingsButton(
     fieldDefinition: IFieldDefinition,
     onConfigChanged: (fieldDefinition: IFieldDefinition) => void,
