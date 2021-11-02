@@ -8,6 +8,7 @@ export interface IProcessLinkInstance {
   title: string | undefined;
   moduleId: number;
   state: State | undefined;
+  processName: string;
 }
 
 const IProcessLinkInstanceObject: IProcessLinkInstance = {
@@ -17,6 +18,7 @@ const IProcessLinkInstanceObject: IProcessLinkInstance = {
   title: Joi.string().allow("") as unknown as string,
   moduleId: Joi.number().required() as unknown as number,
   state: StateSchema as unknown as State,
+  processName: Joi.string().allow("") as unknown as string,
 };
 
 export const IProcessLinkInstanceSchema = Joi.object(IProcessLinkInstanceObject);
