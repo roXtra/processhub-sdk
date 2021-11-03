@@ -60,8 +60,8 @@ export interface IFieldType {
     config: IFieldConfig | undefined,
     columnName: string,
     grid: Component,
-  ): string | Date | undefined;
-  renderValueForGrid(fieldName: string, baseGrid: Component, process?: IProcessDetails): ((props: GridCellProps) => JSX.Element) | undefined;
+  ): string | Date | number | undefined;
+  renderValueForGrid(fieldName: string, baseGrid: Component, process?: IProcessDetails, user?: IUserDetails): ((props: GridCellProps) => JSX.Element) | undefined;
   getSettingsButton(
     fieldDefinition: IFieldDefinition,
     onConfigChanged: (fieldDefinition: IFieldDefinition) => void,
