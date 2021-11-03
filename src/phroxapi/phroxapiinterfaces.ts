@@ -42,5 +42,6 @@ export interface IModuleItem {
   subtitle?: string;
   class?: string;
   url?: string;
+  todourl?: string;
   target: string;
 }
