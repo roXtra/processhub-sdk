@@ -29,6 +29,7 @@ export const DefaultRoles = {
   Viewer: "VIEWER", // DO NOT CHANGE - string used in database
   Follower: "FOLLOWER", // DO NOT CHANGE - string used in database
   DashboardViewer: "DASHBOARDVIEWER", // DO NOT CHANGE - string used in database
+  AuditTrailViewer: "AUDITTRAILVIEWER", // DO NOT CHANGE - string used in database
 };
 export type DefaultRoles = keyof typeof DefaultRoles;
 
@@ -44,6 +45,8 @@ export function getDefaultRoleName(roleId: string): string {
       return tl("Weitere Beteiligte");
     case DefaultRoles.DashboardViewer:
       return tl("Sichtbarkeit von Vorgängen");
+    case DefaultRoles.AuditTrailViewer:
+      return tl("Sichtbarkeit des Audit-Trail");
     default:
       return roleId;
   }
@@ -77,12 +80,19 @@ export function isDefaultRole(roleId: string): boolean {
     roleId === DefaultRoles.Owner ||
     roleId === DefaultRoles.Follower ||
     roleId === DefaultRoles.Viewer ||
-    roleId === DefaultRoles.DashboardViewer
+    roleId === DefaultRoles.DashboardViewer ||
+    roleId === DefaultRoles.AuditTrailViewer
   );
 }
 
 export function isDefaultProcessRole(roleId: string): boolean {
-  return roleId === DefaultRoles.Manager || roleId === DefaultRoles.Owner || roleId === DefaultRoles.Viewer || roleId === DefaultRoles.DashboardViewer;
+  return (
+    roleId === DefaultRoles.Manager ||
+    roleId === DefaultRoles.Owner ||
+    roleId === DefaultRoles.Viewer ||
+    roleId === DefaultRoles.DashboardViewer ||
+    roleId === DefaultRoles.AuditTrailViewer
+  );
 }
 
 export function getProcessRoles(
@@ -164,6 +174,11 @@ export function getProcessRoles(
       }
     }
 
+    // Backwards compatibility for new audit trail access control
+    if (!processRoles[DefaultRoles.AuditTrailViewer]) {
+      processRoles[DefaultRoles.AuditTrailViewer] = { potentialRoleOwners: [{ memberId: PredefinedGroups.AllWorkspaceMembers }] };
+    }
+
     // Remove roles that are not used any more
     for (const role in processRoles) {
       if (
@@ -171,7 +186,8 @@ export function getProcessRoles(
         role !== DefaultRoles.Manager &&
         role !== DefaultRoles.Viewer &&
         role !== DefaultRoles.Follower &&
-        role !== DefaultRoles.DashboardViewer
+        role !== DefaultRoles.DashboardViewer &&
+        role !== DefaultRoles.AuditTrailViewer
       ) {
         if (lanes.find((lane) => lane.id === role) == null) delete processRoles[role];
       }
