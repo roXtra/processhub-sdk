@@ -55,6 +55,7 @@ export enum AuditTrailAction {
   // A process was restored from the archive. archiveMessage may be set in details
   processRestored = 46,
   workspaceCreated = 100,
+  auditTrailVisibilityChanged = 101,
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
