@@ -46,7 +46,7 @@ export function getDefaultRoleName(roleId: string): string {
     case DefaultRoles.DashboardViewer:
       return tl("Sichtbarkeit von Vorgängen");
     case DefaultRoles.AuditTrailViewer:
-      return tl("Sichtbarkeit des Audit-Trail");
+      return tl("Sichtbarkeit des Audit-Trails");
     default:
       return roleId;
   }

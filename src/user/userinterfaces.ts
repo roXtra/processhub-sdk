@@ -112,12 +112,16 @@ export function isPredefinedGroup(groupId: string): boolean {
   return groupId === PredefinedGroups.Everybody || groupId === PredefinedGroups.AllWorkspaceMembers || groupId === PredefinedGroups.AllParticipants;
 }
 
-export function getPredefinedGroupName(groupId: string): string {
+export function getPredefinedGroupName(groupId: string, roleId: string): string {
   switch (groupId) {
     case PredefinedGroups.Everybody:
       return tl("Jeder (gestattet externe Teilnahme mit Mailadresse)");
     case PredefinedGroups.AllWorkspaceMembers:
-      return tl("Alle Mitglieder des Bereichs");
+      if (roleId === "AUDITTRAILVIEWER") {
+        return tl("Jeder der die Instanz sieht");
+      } else {
+        return tl("Alle Mitglieder des Bereichs");
+      }
     case PredefinedGroups.AllParticipants:
       return tl("Nur Prozessbeteiligte Mitglieder des Bereichs");
     default:
