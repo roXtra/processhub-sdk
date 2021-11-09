@@ -112,7 +112,7 @@ export function isPredefinedGroup(groupId: string): boolean {
   return groupId === PredefinedGroups.Everybody || groupId === PredefinedGroups.AllWorkspaceMembers || groupId === PredefinedGroups.AllParticipants;
 }
 
-export function getPredefinedGroupName(groupId: string, roleId: string): string {
+export function getPredefinedGroupName(groupId: string, roleId?: string): string {
   switch (groupId) {
     case PredefinedGroups.Everybody:
       return tl("Jeder (gestattet externe Teilnahme mit Mailadresse)");
