@@ -22,7 +22,8 @@ export class BpmnProcess {
   private bpmnXml?: Bpmn.IDefinitions;
   private processDiagram: BpmnProcessDiagram;
 
-  constructor() {
+  constructor(bpmnXml?: Bpmn.IDefinitions) {
+    this.bpmnXml = bpmnXml;
     this.processDiagram = new BpmnProcessDiagram(this);
   }
 
