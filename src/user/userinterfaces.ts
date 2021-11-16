@@ -118,7 +118,7 @@ export function getPredefinedGroupName(groupId: string, roleId?: string): string
       return tl("Jeder (gestattet externe Teilnahme mit Mailadresse)");
     case PredefinedGroups.AllWorkspaceMembers:
       if (roleId === "AUDITTRAILVIEWER") {
-        return tl("Jeder der die Instanz sieht");
+        return tl("Jeder der den Vorgang sieht");
       } else {
         return tl("Alle Mitglieder des Bereichs");
       }
