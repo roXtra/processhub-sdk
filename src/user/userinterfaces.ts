@@ -2,7 +2,6 @@ import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { nullId } from "../tools/guid";
 import { isTrue } from "../tools/assert";
-import { tl } from "../tl";
 
 export enum Licence {
   None = "none",
@@ -115,15 +114,15 @@ export function isPredefinedGroup(groupId: string): boolean {
 export function getPredefinedGroupName(groupId: string, roleId?: string): string {
   switch (groupId) {
     case PredefinedGroups.Everybody:
-      return tl("Jeder (gestattet externe Teilnahme mit Mailadresse)");
+      return "Jeder (gestattet externe Teilnahme mit Mailadresse)";
     case PredefinedGroups.AllWorkspaceMembers:
       if (roleId === "AUDITTRAILVIEWER") {
-        return tl("Jeder der den Vorgang sieht");
+        return "Jeder der den Vorgang sieht";
       } else {
-        return tl("Alle Mitglieder des Bereichs");
+        return "Alle Mitglieder des Bereichs";
       }
     case PredefinedGroups.AllParticipants:
-      return tl("Nur Prozessbeteiligte Mitglieder des Bereichs");
+      return "Nur Prozessbeteiligte Mitglieder des Bereichs";
     default:
       return groupId;
   }
