@@ -190,7 +190,8 @@ export type BpmnExtensionName =
   | "anonymous-start"
   | "anonymous-start-userid"
   | "message-event-type" // "mail" | "webhook"
-  | "mail-body-parse-fields"; // Boolean: parse fields from mail body in StartEvent/IntermediateEvent with MessageEventDefinition, default: false
+  | "mail-body-parse-fields" // Boolean: parse fields from mail body in StartEvent/IntermediateEvent with MessageEventDefinition, default: false
+  | "webhook-body-to-field"; // Boolean: write the body of the webhook request inside a field with the name of the event id
 
 export interface ITaskExtensions {
   description?: string;
@@ -230,6 +231,7 @@ export interface ITaskExtensions {
 
   messageEventType?: string; // "mail" | "webhook" - defaults to mail if not explicitely set
   mailBodyParseFields?: boolean;
+  webhookBodyToField?: boolean;
 }
 
 export interface ITimerStartEventConfiguration {
