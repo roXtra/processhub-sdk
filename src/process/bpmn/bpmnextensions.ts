@@ -179,6 +179,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
           case "mail-body-parse-fields":
             returnValue.mailBodyParseFields = child.$body !== "false";
             break;
+          case "webhook-body-to-field":
+            returnValue.webhookBodyToField = child.$body !== "false";
+            break;
 
           default:
             break;
