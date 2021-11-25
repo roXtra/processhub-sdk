@@ -29,4 +29,8 @@ export interface IWebhookTriggerRequest {
    * The key must match the type of the field (see {@link FieldValueType} for options).
    */
   fields?: { [fieldName: string]: FieldValueType };
+  /**
+   * If set, the instance id of the created instance will be this one. Only applies to message startevents
+   */
+  instanceId?: string;
 }
