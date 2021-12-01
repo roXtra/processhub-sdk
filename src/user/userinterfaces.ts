@@ -2,6 +2,7 @@ import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { nullId } from "../tools/guid";
 import { isTrue } from "../tools/assert";
+import { IProcessDetails } from "../process/processinterfaces";
 
 export enum Licence {
   None = "none",
@@ -59,6 +60,7 @@ export interface IUserDetails {
   noWeeklyStatus?: boolean;
   alwaysSendMails?: boolean;
   mailSignature?: string;
+  favoriteProcesses: IProcessDetails[];
 }
 
 export enum UserExtras {
@@ -78,6 +80,7 @@ export const emptyUser: IUserDetails = {
   licence: Licence.None,
   language: "de-DE",
   extendedRights: [],
+  favoriteProcesses: [],
 };
 
 export function getUserWorkspace(user: IUserDetails, workspaceId: string): IWorkspaceDetails | undefined {
