@@ -39,6 +39,7 @@ const testUser: IUserDetails = {
   extras: {},
   language: "de-DE",
   extendedRights: [],
+  favoriteProcesses: [],
 };
 
 describe("sdk", function () {
