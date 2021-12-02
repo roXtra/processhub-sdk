@@ -2,7 +2,6 @@ import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { nullId } from "../tools/guid";
 import { isTrue } from "../tools/assert";
-import { IProcessDetails } from "../process/processinterfaces";
 
 export enum Licence {
   None = "none",
@@ -60,7 +59,11 @@ export interface IUserDetails {
   noWeeklyStatus?: boolean;
   alwaysSendMails?: boolean;
   mailSignature?: string;
-  favoriteProcesses: IProcessDetails[];
+  /**
+   * @field processId - The process id of the favorite process
+   * @field workspaceId - The workspace id of the corresponding workspace of the favorite process
+   */
+  favoriteProcesses: { processId: string; workspaceId: string }[];
 }
 
 export enum UserExtras {
