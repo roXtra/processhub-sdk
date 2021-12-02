@@ -7,6 +7,8 @@ export const UserRequestRoutes = {
   LoadUser: "/api/user/loaduser",
   SetArchiveViewState: "/api/user/setarchiveviewstate",
   UpdateViewState: "/api/user/updateviewstate",
+  SetFavoriteProcess: "/api/user/setfavoriteprocess",
+  RemoveFavoriteProcess: "/api/user/removefavoriteprocess",
 };
 export type UserRequestRoutes = keyof typeof UserRequestRoutes;
 
@@ -41,4 +43,12 @@ export interface IRemoveInstanceMessage extends IBaseMessage {
 export interface INewInstanceMessage extends IBaseMessage {
   type: UserMessages;
   instanceId: string;
+}
+
+export interface IRemoveFavoriteProcessRequest extends IBaseRequest {
+  processId: string;
+}
+
+export interface ISetFavoriteProcessRequest extends IRemoveFavoriteProcessRequest {
+  workspaceId: string;
 }
