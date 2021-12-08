@@ -125,6 +125,11 @@ export interface IBaseStateColumn {
   title: string;
   width?: string;
   format?: string;
+  /**
+   * Should be set to true if a column should not be rendered in the column menu.
+   * E.g. columns that only exist for custom grouping
+   */
+  hidden: boolean;
 }
 
 export interface IArchiveViewDetails {
