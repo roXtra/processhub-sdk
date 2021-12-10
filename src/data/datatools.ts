@@ -299,12 +299,15 @@ function intToRGB(number: number): string {
 }
 
 /**
- * The method objectToColor returns a hex color code for a given object.
+ * The method objectToColor returns a hex color code for a given string.
  *
- * @param object any object
+ * @param object any string
  * @returns a hex color code in the format #000000
  */
-export function objectToColor(object: unknown): string {
-  const objectString = JSON.stringify(object);
-  return intToRGB(murmurhash.v3(objectString));
+export function objectToColor(object: string | undefined): string {
+  if (object === undefined) {
+    return "#000000";
+  }
+
+  return intToRGB(murmurhash.v3(object));
 }
