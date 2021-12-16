@@ -179,6 +179,8 @@ describe("sdk", function () {
             workspaceId: "1",
             processId: createId(),
             title: "test instance",
+            takenStartEvent: "",
+            reachedEndEvents: [],
             extras: {},
           });
 
