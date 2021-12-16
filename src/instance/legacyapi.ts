@@ -13,6 +13,7 @@ export const ProcessEngineApiRoutes = {
   jump: "/api/processengine/jump",
   getInstanceDetails: "/api/processengine/getinstancedetails",
   uploadAttachment: "/api/processengine/uploadattachment",
+  getSupervisor: "/api/processengine/getsupervisor",
   updateRoxFile: "/api/processengine/uploadroxfile",
   deleteAttachment: "/api/processengine/deleteattachment",
   comment: "/api/processengine/comment",
