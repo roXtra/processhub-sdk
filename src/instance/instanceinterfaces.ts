@@ -83,6 +83,8 @@ export interface IInstanceDetails {
   // Instances with ProcessLink fields that have the current instance as target
   linkingInstances?: IProcessLinkInstance[];
   instanceNumber?: number;
+  takenStartEvent: string;
+  reachedEndEvents: string[];
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
     instanceState?: IEngineState;
