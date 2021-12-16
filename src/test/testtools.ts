@@ -59,6 +59,10 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       executeInstance: async (): Promise<string> => {
         throw new Error("Not implemented");
       },
+      // eslint-disable-next-line @typescript-eslint/require-await
+      getSupervisor: async (): Promise<string> => {
+        throw new Error("Not implemented");
+      },
     },
     mailer: {
       sendMailTemplate: (): Promise<ISendMailTemplateReply> => {
