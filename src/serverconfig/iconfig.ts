@@ -12,6 +12,9 @@ export interface IConfig {
   ClientSettings: IClientSettingsConfig;
   Features: IFeatureConfig;
   Tls: ITlsConfig;
+  Migration: {
+    updateAllInstances: string;
+  };
 }
 
 export interface IRoxtraConfig {

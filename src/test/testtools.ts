@@ -184,6 +184,9 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       Tls: {
         rejectUnauthorized: true,
       },
+      Migration: {
+        updateAllInstances: "",
+      },
     },
   };
 }
