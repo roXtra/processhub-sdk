@@ -52,7 +52,7 @@ export interface IServiceTaskRoxApi {
   getEfApiToken(): Promise<string>;
   getApiToken(): string;
   getRoxtraTokenByUserId(userId: string): Promise<string>;
-  getSupervisor(userId: string): Promise<IUserDetails | string>;
+  getSupervisor(userId: string): Promise<string>;
 }
 
 /**
