@@ -25,7 +25,7 @@ export const ProcessEngineApiRoutes = {
   exportAuditTrail: "/api/processengine/exportaudittrail",
   generateReport: "/api/processengine/generatereport",
   convertSpreadsheets: "/api/processengine/convertspreadsheets",
-  getroxfilereferences: "/api/processengine/getroxfilereferences",
+  getroxfilelinkreferences: "/api/processengine/getroxfilelinkreferences",
 };
 
 export type ProcessEngineApiRoutes = keyof typeof ProcessEngineApiRoutes;
@@ -214,38 +214,38 @@ const IGenerateReportReplyObject: IGenerateReportReply = {
 
 export const IGenerateReportReplySchema = Joi.object(IGenerateReportReplyObject);
 
-export interface IGetRoxFileReferencesRequest extends IBaseRequest {
+export interface IGetRoxFileLinkReferencesRequest extends IBaseRequest {
   roxFileId: number;
 }
 
-const IGetRoxFileReferencesRequestObject: IGetRoxFileReferencesRequest = {
+const IGetRoxFileLinkReferencesRequestObject: IGetRoxFileLinkReferencesRequest = {
   roxFileId: Joi.number().integer().positive().required() as unknown as number,
   // Extends IBaseRequest
   ...IBaseRequestObject,
 };
 
-export const IGetRoxFileReferencesRequestSchema = Joi.object(IGetRoxFileReferencesRequestObject);
+export const IGetRoxFileLinkReferencesRequestSchema = Joi.object(IGetRoxFileLinkReferencesRequestObject);
 
-interface IRoxFileReference {
+export interface IRoxFileLinkReference {
   link: string;
   title: string;
 }
 
-const IRoxFileReferenceObject: IRoxFileReference = {
+const IRoxFileLinkReferenceObject: IRoxFileLinkReference = {
   link: Joi.string().uri().required() as unknown as string,
   title: Joi.string().required() as unknown as string,
 };
 
-const IRoxFileReferenceSchema = Joi.object(IRoxFileReferenceObject);
+export const IRoxFileLinkReferenceSchema = Joi.object(IRoxFileLinkReferenceObject);
 
-export interface IGetRoxFileReferencesReply extends IInstanceReply {
-  instances: IRoxFileReference[];
+export interface IGetRoxFileLinkReferencesReply extends IInstanceReply {
+  instances: IRoxFileLinkReference[];
 }
 
-const IGetRoxFileReferencesReplyObject: IGetRoxFileReferencesReply = {
-  instances: Joi.array().items(IRoxFileReferenceSchema).required() as unknown as IRoxFileReference[],
+const IGetRoxFileLinkReferencesReplyObject: IGetRoxFileLinkReferencesReply = {
+  instances: Joi.array().items(IRoxFileLinkReferenceSchema).required() as unknown as IRoxFileLinkReference[],
   // Extends .IInstanceReplyObject
   ...IInstanceReplyObject,
 };
 
-export const IGetRoxFileReferencesReplySchema = Joi.object(IGetRoxFileReferencesReplyObject);
+export const IGetRoxFileLinkReferencesReplySchema = Joi.object(IGetRoxFileLinkReferencesReplyObject);
