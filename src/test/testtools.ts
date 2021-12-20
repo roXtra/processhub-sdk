@@ -36,6 +36,10 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       getRoxtraTokenByUserId: async (): Promise<string> => {
         throw new Error("Not implemented");
       },
+      // eslint-disable-next-line @typescript-eslint/require-await
+      getSupervisor: async (): Promise<string> => {
+        throw new Error("Not implemented");
+      },
     },
     workspace: {
       workspaceId: "",
@@ -57,10 +61,6 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       },
       // eslint-disable-next-line @typescript-eslint/require-await
       executeInstance: async (): Promise<string> => {
-        throw new Error("Not implemented");
-      },
-      // eslint-disable-next-line @typescript-eslint/require-await
-      getSupervisor: async (): Promise<string> => {
         throw new Error("Not implemented");
       },
     },
