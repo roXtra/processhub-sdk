@@ -25,6 +25,7 @@ export const ProcessEngineApiRoutes = {
   exportAuditTrail: "/api/processengine/exportaudittrail",
   generateReport: "/api/processengine/generatereport",
   convertSpreadsheets: "/api/processengine/convertspreadsheets",
+  getroxfilereferences: "/api/processengine/getroxfilereferences",
 };
 
 export type ProcessEngineApiRoutes = keyof typeof ProcessEngineApiRoutes;
@@ -212,3 +213,39 @@ const IGenerateReportReplyObject: IGenerateReportReply = {
 };
 
 export const IGenerateReportReplySchema = Joi.object(IGenerateReportReplyObject);
+
+export interface IGetRoxFileReferencesRequest extends IBaseRequest {
+  roxFileId: number;
+}
+
+const IGetRoxFileReferencesRequestObject: IGetRoxFileReferencesRequest = {
+  roxFileId: Joi.number().integer().positive().required() as unknown as number,
+  // Extends IBaseRequest
+  ...IBaseRequestObject,
+};
+
+export const IGetRoxFileReferencesRequestSchema = Joi.object(IGetRoxFileReferencesRequestObject);
+
+interface IRoxFileReference {
+  link: string;
+  title: string;
+}
+
+const IRoxFileReferenceObject: IRoxFileReference = {
+  link: Joi.string().uri().required() as unknown as string,
+  title: Joi.string().required() as unknown as string,
+};
+
+const IRoxFileReferenceSchema = Joi.object(IRoxFileReferenceObject);
+
+export interface IGetRoxFileReferencesReply extends IInstanceReply {
+  instances: IRoxFileReference[];
+}
+
+const IGetRoxFileReferencesReplyObject: IGetRoxFileReferencesReply = {
+  instances: Joi.array().items(IRoxFileReferenceSchema).required() as unknown as IRoxFileReference[],
+  // Extends .IInstanceReplyObject
+  ...IInstanceReplyObject,
+};
+
+export const IGetRoxFileReferencesReplySchema = Joi.object(IGetRoxFileReferencesReplyObject);
