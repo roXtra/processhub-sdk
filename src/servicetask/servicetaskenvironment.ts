@@ -29,7 +29,6 @@ export interface IServiceTaskInstances {
   uploadAttachment(processId: string, instanceId: string, fileName: string, dataBase64: string): Promise<string>;
   generateInstanceReport(instanceIds: string[], draftId: string, type: IGenerateReportRequestType): Promise<{ doc: string /* Base64*/; fileName: string }>;
   executeInstance(processId: string, instance: IInstanceDetails, startEventId?: string, accessToken?: string): Promise<string>;
-  getSupervisor(userId: string): Promise<IUserDetails | string>;
 }
 
 /**
@@ -53,6 +52,7 @@ export interface IServiceTaskRoxApi {
   getEfApiToken(): Promise<string>;
   getApiToken(): string;
   getRoxtraTokenByUserId(userId: string): Promise<string>;
+  getSupervisor(userId: string): Promise<IUserDetails | string>;
 }
 
 /**
