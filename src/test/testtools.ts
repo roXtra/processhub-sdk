@@ -2,9 +2,9 @@ import { IServiceTaskEnvironment } from "../servicetask/servicetaskenvironment";
 import { PREVIEW_FILENAME } from "../filestore/ifilestore";
 import { ISendMailTemplateReply } from "../mailer/mailerinterfaces";
 import { IProcessDetails } from "../process/processinterfaces";
-import { WorkspaceRole } from "../workspace/workspaceinterfaces";
+import { IWorkspaceDetails, WorkspaceRole } from "../workspace/workspaceinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { emptyUser } from "../user/userinterfaces";
+import { emptyUser, IUserDetails } from "../user/userinterfaces";
 
 export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTaskEnvironment {
   return {
@@ -71,6 +71,16 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
     },
     processes: {
       getProcessDetails: (): Promise<IProcessDetails> => {
+        throw new Error("Not implemented");
+      },
+    },
+    workspaces: {
+      getWorkspaceDetails: (): Promise<IWorkspaceDetails> => {
+        throw new Error("Not implemented");
+      },
+    },
+    users: {
+      getUserDetails: (): Promise<IUserDetails> => {
         throw new Error("Not implemented");
       },
     },

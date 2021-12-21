@@ -1,5 +1,5 @@
-import { IUserDetails } from "../user/userinterfaces";
-import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { IUserDetails, UserExtras } from "../user/userinterfaces";
+import { IWorkspaceDetails, WorkspaceExtras } from "../workspace/workspaceinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { IServiceActionConfigField } from "../data/datainterfaces";
 import { ISendMailTemplateRequest, ISendMailTemplateReply } from "../mailer/mailerinterfaces";
@@ -46,6 +46,20 @@ export interface IServiceTaskProcesses {
 }
 
 /**
+ * Workspace methods that SericeTasks can use
+ */
+export interface IServiceTaskWorkspaces {
+  getWorkspaceDetails(workspaceId: string, extras: WorkspaceExtras): Promise<IWorkspaceDetails>;
+}
+
+/**
+ * User methods that SericeTasks can use
+ */
+export interface IServiceTaskUsers {
+  getUserDetails(userId: string, extras: UserExtras): Promise<IUserDetails>;
+}
+
+/**
  * RoXtra API methods that ServiceTasks can use
  */
 export interface IServiceTaskRoxApi {
@@ -83,6 +97,8 @@ export interface IServiceTaskEnvironment {
   instances: IServiceTaskInstances;
   logger: IServiceTaskLogger;
   processes: IServiceTaskProcesses;
+  workspaces: IServiceTaskWorkspaces;
+  users: IServiceTaskUsers;
   system: IServiceTaskSystem;
   roxApi: IServiceTaskRoxApi;
   mailer: IServiceTaskMailer;
