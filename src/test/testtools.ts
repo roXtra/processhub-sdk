@@ -37,7 +37,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         throw new Error("Not implemented");
       },
       // eslint-disable-next-line @typescript-eslint/require-await
-      getSupervisor: async (): Promise<string> => {
+      getSupervisor: async (): Promise<{ type: string; value: string | number }> => {
         throw new Error("Not implemented");
       },
     },
