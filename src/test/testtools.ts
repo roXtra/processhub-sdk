@@ -75,12 +75,12 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       },
     },
     workspaces: {
-      getWorkspaceDetails: (): Promise<IWorkspaceDetails> => {
+      getWorkspaceDetails: (): Promise<IWorkspaceDetails | undefined> => {
         throw new Error("Not implemented");
       },
     },
     users: {
-      getUserDetails: (): Promise<IUserDetails> => {
+      getUserDetails: (): Promise<IUserDetails | undefined> => {
         throw new Error("Not implemented");
       },
     },
