@@ -49,14 +49,14 @@ export interface IServiceTaskProcesses {
  * Workspace methods that SericeTasks can use
  */
 export interface IServiceTaskWorkspaces {
-  getWorkspaceDetails(workspaceId: string, extras: WorkspaceExtras): Promise<IWorkspaceDetails>;
+  getWorkspaceDetails(workspaceId: string, extras: WorkspaceExtras): Promise<IWorkspaceDetails | undefined>;
 }
 
 /**
  * User methods that SericeTasks can use
  */
 export interface IServiceTaskUsers {
-  getUserDetails(userId: string, extras: UserExtras): Promise<IUserDetails>;
+  getUserDetails(userId: string, extras: UserExtras): Promise<IUserDetails | undefined>;
 }
 
 /**
