@@ -1,5 +1,28 @@
 import { ModuleName } from "./modules/imodule";
 
+export const supportedLanguages = [
+  "de-DE",
+  "en-US",
+  "zh-CN",
+  "zh-HK",
+  "it-IT",
+  "es-ES",
+  "fr-FR",
+  "tr-TR",
+  "nl-NL",
+  "hu-HU",
+  "cs-CZ",
+  "pt-PT",
+  "pt-BR",
+  "hr-HR",
+  "pl-PL",
+  "ru-RU",
+  "sr-Latn",
+  "vi-VN",
+] as const;
+
+export type Language = typeof supportedLanguages[number];
+
 export interface ITLProps {
   text: string;
   language?: string;
