@@ -13,7 +13,7 @@ import { IFormElementProps } from "./iformelementprops";
 
 export interface IFieldType {
   getType(): FieldType;
-  getName(): string;
+  getName(userLanguage: string): string;
   getInput(
     props: IFormElementProps,
     instanceEnv: IInstanceEnvironment,
@@ -70,7 +70,7 @@ export interface IFieldType {
   ): JSX.Element | undefined;
   isVisible(): boolean;
   isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): Promise<boolean>;
-  isConfigValid(fieldDefinition: IFieldDefinition): { valid: boolean; message?: string };
+  isConfigValid(fieldDefinition: IFieldDefinition, userLanguage: string): { valid: boolean; message?: string };
   /**
    * Returns whether this field can be used to display in Dashboard charts for additional modules
    */
