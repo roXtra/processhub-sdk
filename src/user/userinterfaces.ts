@@ -2,6 +2,7 @@ import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { nullId } from "../tools/guid";
 import { isTrue } from "../tools/assert";
+import { Language } from "..";
 
 export enum Licence {
   None = "none",
@@ -40,7 +41,7 @@ export interface IUserDetails {
   firstName?: string;
   lastName?: string;
   photoUrl?: string;
-  language?: string; // Preferred User language (de-DE, en-US, ...)
+  language?: Language; // Preferred User language (de-DE, en-US, ...)
   licence: Licence;
   extendedRights: ExtendedRight[];
   isSystemUser?: boolean;
