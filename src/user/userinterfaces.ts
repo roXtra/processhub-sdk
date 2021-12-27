@@ -2,7 +2,8 @@ import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { nullId } from "../tools/guid";
 import { isTrue } from "../tools/assert";
-import { Language } from "..";
+import { Language, tl } from "..";
+import { ModuleName } from "../modules/imodule";
 
 export enum Licence {
   None = "none",
@@ -118,18 +119,18 @@ export function isPredefinedGroup(groupId: string): boolean {
   return groupId === PredefinedGroups.Everybody || groupId === PredefinedGroups.AllWorkspaceMembers || groupId === PredefinedGroups.AllParticipants;
 }
 
-export function getPredefinedGroupName(groupId: string, roleId?: string): string {
+export function getPredefinedGroupName(groupId: string, language: string, moduleName: ModuleName, roleId?: string): string {
   switch (groupId) {
     case PredefinedGroups.Everybody:
-      return "Jeder (gestattet externe Teilnahme mit Mailadresse)";
+      return tl("Jeder (gestattet externe Teilnahme mit Mailadresse)", language, moduleName);
     case PredefinedGroups.AllWorkspaceMembers:
       if (roleId === "AUDITTRAILVIEWER") {
-        return "Jeder der den Vorgang sieht";
+        return tl("Jeder der den Vorgang sieht", language, moduleName);
       } else {
-        return "Alle Mitglieder des Bereichs";
+        return tl("Alle Mitglieder des Bereichs", language, moduleName);
       }
     case PredefinedGroups.AllParticipants:
-      return "Nur Prozessbeteiligte Mitglieder des Bereichs";
+      return tl("Nur Prozessbeteiligte Mitglieder des Bereichs", language, moduleName);
     default:
       return groupId;
   }
