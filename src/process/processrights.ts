@@ -8,6 +8,7 @@ import { error } from "../tools/assert";
 import { isGroupId, isUserId } from "../tools/guid";
 import { Bpmn } from "./bpmn";
 import isEqual from "lodash/isEqual";
+import { ModuleName } from "../modules/imodule";
 
 export enum ProcessAccessRights {
   None = 0,
@@ -33,20 +34,20 @@ export const DefaultRoles = {
 };
 export type DefaultRoles = keyof typeof DefaultRoles;
 
-export function getDefaultRoleName(roleId: string): string {
+export function getDefaultRoleName(roleId: string, language: string, moduleName: ModuleName): string {
   switch (roleId) {
     case DefaultRoles.Owner:
-      return tl("Prozesseigner");
+      return tl("Prozesseigner", language, moduleName);
     case DefaultRoles.Manager:
-      return tl("Prozessmanager");
+      return tl("Prozessmanager", language, moduleName);
     case DefaultRoles.Viewer:
-      return tl("Sichtbarkeit");
+      return tl("Sichtbarkeit", language, moduleName);
     case DefaultRoles.Follower:
-      return tl("Weitere Beteiligte");
+      return tl("Weitere Beteiligte", language, moduleName);
     case DefaultRoles.DashboardViewer:
-      return tl("Sichtbarkeit von Vorgängen");
+      return tl("Sichtbarkeit von Vorgängen", language, moduleName);
     case DefaultRoles.AuditTrailViewer:
-      return tl("Sichtbarkeit des Audit-Trails");
+      return tl("Sichtbarkeit des Audit-Trails", language, moduleName);
     default:
       return roleId;
   }

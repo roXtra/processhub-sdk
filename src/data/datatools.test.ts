@@ -57,7 +57,7 @@ describe("sdk", function () {
           const resultString = "1Administrator, Admin";
 
           const bpmnProcess: BpmnProcess = new BpmnProcess();
-          const reply: ILoadTemplateReply = await createBpmnTemplate();
+          const reply: ILoadTemplateReply = await createBpmnTemplate("de-DE");
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 
@@ -74,7 +74,7 @@ describe("sdk", function () {
           const resultString = "";
 
           const bpmnProcess: BpmnProcess = new BpmnProcess();
-          const reply: ILoadTemplateReply = await createBpmnTemplate();
+          const reply: ILoadTemplateReply = await createBpmnTemplate("de-DE");
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
           const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");
@@ -103,7 +103,7 @@ describe("sdk", function () {
           const resultString = "25.10.2019";
 
           const bpmnProcess: BpmnProcess = new BpmnProcess();
-          const reply: ILoadTemplateReply = await createBpmnTemplate();
+          const reply: ILoadTemplateReply = await createBpmnTemplate("de-DE");
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
           const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");
@@ -128,7 +128,7 @@ describe("sdk", function () {
           const resultString = "/";
 
           const bpmnProcess: BpmnProcess = new BpmnProcess();
-          const reply: ILoadTemplateReply = await createBpmnTemplate();
+          const reply: ILoadTemplateReply = await createBpmnTemplate("de-DE");
 
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
           const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");

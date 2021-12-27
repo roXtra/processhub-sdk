@@ -13,11 +13,11 @@ export function isProcessDetailsValid(details: IProcessDetails): boolean {
  * @param processname {string} the process name to check
  * @return {string} an empty string if the name is valid, an error message otherwise
  */
-export function isProcessDisplayNameValid(processname: string): string {
+export function isProcessDisplayNameValid(processname: string, userLanguage: string): string {
   if (processname.length < 3) {
-    return tl("Minimum 3 Zeichen");
+    return tl("Minimum 3 Zeichen", userLanguage, "processes");
   } else if (processname.length > 50) {
-    return tl("Maximum 50 Zeichen");
+    return tl("Maximum 50 Zeichen", userLanguage, "processes");
   } else {
     return "";
   }

@@ -8,7 +8,7 @@ import { tl } from "../../tl";
 export const bpmnModdleInstance: BpmnModdle = new BpmnModdle([], {});
 
 // Basis-Bpmn-Prozess erzeugen
-export async function createBpmnTemplate(): Promise<ILoadTemplateReply> {
+export async function createBpmnTemplate(userLanguage: string): Promise<ILoadTemplateReply> {
   const xmlStr =
     "<?xml version='1.0' encoding='UTF-8'?>" +
     "<bpmn:definitions xmlns:bpmn='http://www.omg.org/spec/BPMN/20100524/MODEL' id='Definition_" +
@@ -83,7 +83,7 @@ export async function createBpmnTemplate(): Promise<ILoadTemplateReply> {
   const bpmnParticipant = bpmnModdleInstance.create("bpmn:Participant", {
     id: BpmnProcess.getBpmnId("bpmn:Participant"),
     processRef: bpmnProcessElement,
-    name: tl("Prozess"),
+    name: tl("Prozess", userLanguage, "processes"),
   });
 
   const bpmnCollaboration = bpmnModdleInstance.create("bpmn:Collaboration", {

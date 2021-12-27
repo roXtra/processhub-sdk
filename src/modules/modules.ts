@@ -1,11 +1,11 @@
 import { IModule, ModuleId } from "./imodule";
-import { tl } from "../tl";
 
 export const Processes: IModule = {
   id: ModuleId.Processes,
   moduleType: ModuleId.Processes,
   urlPrefix: "p",
-  title: tl("Prozesse"),
+  /* @deprecated user getModule(ModuleId.Processes).title to get the correct title */
+  title: "Prozesse",
   name: "processes",
 };
 
@@ -13,7 +13,8 @@ export const Risks: IModule = {
   id: ModuleId.Risks,
   moduleType: ModuleId.Risks,
   urlPrefix: "r",
-  title: tl("Risiken"),
+  /* @deprecated user getModule(ModuleId.Risks).title to get the correct title */
+  title: "Risiken",
   processName: "riskmanagement",
   name: "risks",
 };
