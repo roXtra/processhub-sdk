@@ -86,9 +86,6 @@ describe("sdk", function () {
           const twoMonthAgo = new Date(now.getTime() - 2 * 4 * 7 * 24 * 60 * 60 * 1000);
           expect(luxonRelativePast(twoMonthAgo, "en-US", now)).to.be.equal("2 months ago");
 
-          const thisYear = new Date(now.getTime() - 12 * 4 * 7 * 24 * 60 * 60 * 1000);
-          expect(luxonRelativePast(thisYear, "en-US", now)).to.be.equal("this year");
-
           const lastYear = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
           expect(luxonRelativePast(lastYear, "en-US", now)).to.be.equal("last year");
 
@@ -152,9 +149,6 @@ describe("sdk", function () {
           const lastYear = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
           expect(luxonDueDate(lastYear, "en-US", now)).to.be.equal("last year");
 
-          const thisYear = new Date(now.getTime() - 12 * 4 * 7 * 24 * 60 * 60 * 1000);
-          expect(luxonDueDate(thisYear, "en-US", now)).to.be.equal("this year");
-
           const twoMonthAgo = new Date(now.getTime() - 2 * 4 * 7 * 24 * 60 * 60 * 1000);
           expect(luxonDueDate(twoMonthAgo, "en-US", now)).to.be.equal("2 months ago");
 
@@ -191,10 +185,10 @@ describe("sdk", function () {
           const inTwoMonths = new Date(now.getTime() + 2 * 4 * 7 * 24 * 60 * 60 * 1000);
           expect(luxonDueDate(inTwoMonths, "en-US", now)).to.be.equal("in 2 months");
 
-          const nextYear = new Date(now.getTime() + 12 * 4 * 7 * 24 * 60 * 60 * 1000);
+          const nextYear = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000);
           expect(luxonDueDate(nextYear, "en-US", now)).to.be.equal("next year");
 
-          const inTwoYears = new Date(now.getTime() + 2 * 12 * 4 * 7 * 24 * 60 * 60 * 1000);
+          const inTwoYears = new Date(now.getTime() + 2 * 365 * 24 * 60 * 60 * 1000);
           expect(luxonDueDate(inTwoYears, "en-US", now)).to.be.equal("in 2 years");
         });
       });

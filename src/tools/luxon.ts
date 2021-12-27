@@ -1,25 +1,22 @@
-import { DateTime, Interval, ToRelativeUnit } from "luxon";
+import { DateTime, Duration, Interval, ToRelativeUnit } from "luxon";
 import { tl } from "../tl";
 import { Language } from "..";
 
 function getRelativUnit(diff: number): ToRelativeUnit {
-  const secondsBreakpoint = 60 * 1000;
-  if (diff < secondsBreakpoint) return "seconds";
+  const duration = Duration.fromMillis(diff).shiftTo("minutes", "hours", "days", "weeks", "months", "years");
+  const { minutes, hours, days, weeks, months, years } = duration;
 
-  const minutesBreakpoint = secondsBreakpoint * 60;
-  if (diff < minutesBreakpoint) return "minutes";
+  if (years + months + weeks + days + hours + minutes === 0) return "seconds";
 
-  const hoursBreakpoint = minutesBreakpoint * 24;
-  if (diff < hoursBreakpoint) return "hours";
+  if (years + months + weeks + days + hours === 0) return "minutes";
 
-  const daysBreakpoint = hoursBreakpoint * 7;
-  if (diff < daysBreakpoint) return "days";
+  if (years + months + weeks + days === 0) return "hours";
 
-  const weeksBreakpoint = daysBreakpoint * 4;
-  if (diff < weeksBreakpoint) return "weeks";
+  if (years + months + weeks === 0) return "days";
 
-  const monthsBreakpoint = weeksBreakpoint * 12;
-  if (diff < monthsBreakpoint) return "months";
+  if (years + months === 0) return "weeks";
+
+  if (years === 0) return "months";
 
   return "years";
 }
