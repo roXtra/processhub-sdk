@@ -30,7 +30,7 @@ export function luxonRelativePast(dateInThePast: Date | string, locale: Language
 
   const diff = luxonNow.diff(luxonDate).toMillis();
   if (diff < 60 * 1000) {
-    return tl("jetzt", locale);
+    return tl("jetzt", locale, "processes");
   }
 
   const unit: ToRelativeUnit = getRelativUnit(diff);
@@ -43,7 +43,7 @@ export function luxonDueDate(dateInTheFuture: Date | string, locale: Language, n
   const luxonDate = typeof dateInTheFuture === "string" ? DateTime.fromISO(dateInTheFuture).setLocale(locale) : DateTime.fromJSDate(dateInTheFuture).setLocale(locale);
 
   if (isToday(luxonDate, luxonNow)) {
-    return tl("heute", locale);
+    return tl("heute", locale, "processes");
   }
 
   const diff = Math.abs(luxonNow.diff(luxonDate).toMillis());

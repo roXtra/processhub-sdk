@@ -136,7 +136,7 @@ describe("sdk", function () {
 
         beforeEach(async function () {
           const bpmnProcess: BpmnProcess = new BpmnProcess();
-          const reply: ILoadTemplateReply = await createBpmnTemplate();
+          const reply: ILoadTemplateReply = await createBpmnTemplate("de-DE");
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
           testProcess.extras.bpmnProcess = bpmnProcess;
         });
@@ -178,7 +178,7 @@ describe("sdk", function () {
 
         beforeEach(async function () {
           const bpmnProcess: BpmnProcess = new BpmnProcess();
-          const reply: ILoadTemplateReply = await createBpmnTemplate();
+          const reply: ILoadTemplateReply = await createBpmnTemplate("de-DE");
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
           testProcess.extras.bpmnProcess = bpmnProcess;
           testProcess.userStartEvents = bpmnProcess.getStartButtonMap();

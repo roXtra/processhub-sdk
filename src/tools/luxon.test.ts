@@ -11,19 +11,19 @@ describe("sdk", function () {
         it("should return now for 30 secs ago", () => {
           const now: Date = new Date();
           const thirtySecsAgo = new Date(now.getTime() - 30 * 1000);
-          expect(luxonRelativePast(thirtySecsAgo, "de-DE", now)).to.equal(tl("jetzt"));
+          expect(luxonRelativePast(thirtySecsAgo, "de-DE", now)).to.equal(tl("jetzt", "de-DE", "processes"));
         });
 
         it("should return now for tomorrow", () => {
           const now: Date = new Date();
           const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-          expect(luxonRelativePast(tomorrow, "de-DE", now)).to.equal(tl("jetzt"));
+          expect(luxonRelativePast(tomorrow, "de-DE", now)).to.equal(tl("jetzt", "de-DE", "processes"));
         });
 
         it("should not return now for 90 secs ago", () => {
           const now: Date = new Date();
           const ninetySecsAgo = new Date(now.getTime() - 90 * 1000);
-          expect(luxonRelativePast(ninetySecsAgo, "de-DE", now)).not.to.equal(tl("jetzt"));
+          expect(luxonRelativePast(ninetySecsAgo, "de-DE", now)).not.to.equal(tl("jetzt", "de-DE", "processes"));
         });
 
         it("should translate 2 minutes ago to all supported languages", () => {
@@ -100,19 +100,19 @@ describe("sdk", function () {
       describe("luxonDueDate", function () {
         it("should return today", () => {
           const now: Date = new Date("2021-12-23");
-          expect(luxonDueDate(now, "de-DE", now)).to.equal(tl("heute"));
+          expect(luxonDueDate(now, "de-DE", now)).to.equal(tl("heute", "de-DE", "processes"));
 
           const startOfToday = DateTime.fromJSDate(now).startOf("day").toJSDate();
-          expect(luxonDueDate(startOfToday, "de-DE", now)).to.equal(tl("heute"));
+          expect(luxonDueDate(startOfToday, "de-DE", now)).to.equal(tl("heute", "de-DE", "processes"));
 
           const endOfToday = DateTime.fromJSDate(now).endOf("day").toJSDate();
-          expect(luxonDueDate(endOfToday, "de-DE", now)).to.equal(tl("heute"));
+          expect(luxonDueDate(endOfToday, "de-DE", now)).to.equal(tl("heute", "de-DE", "processes"));
         });
 
         it("should translate in 2 days to all supported languages", () => {
           const now: Date = new Date();
           const inTwoDays = new Date(now.getTime() + 2 * 24 * 60 * 60 * 1000);
-          expect(luxonDueDate(inTwoDays, "de-DE", now)).not.to.equal(tl("heute"));
+          expect(luxonDueDate(inTwoDays, "de-DE", now)).not.to.equal(tl("heute", "de-DE", "processes"));
 
           // Translations
           const localeTranslation: { [locale in Language]: string } = {

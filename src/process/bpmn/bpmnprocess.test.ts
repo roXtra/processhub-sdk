@@ -51,7 +51,7 @@ function addTask(rowDetails: IRowDetails[], rowNumber: number, bpmnProcess: Bpmn
 
 async function createTestBpmnProcess(): Promise<BpmnProcess> {
   const bpmnProcess: BpmnProcess = new BpmnProcess();
-  const reply: ILoadTemplateReply = await createBpmnTemplate();
+  const reply: ILoadTemplateReply = await createBpmnTemplate("de-DE");
 
   bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 
@@ -111,7 +111,7 @@ describe("sdk", function () {
         it("returns the possible decision tasks", async function () {
           const bpmnProcess: BpmnProcess = new BpmnProcess();
           await bpmnProcess.loadXml(freigabe2Xml);
-          const decisionTasks = bpmnProcess.getDecisionTasksForTask("ExclusiveGateway_7C5D3E25718AB6BB");
+          const decisionTasks = bpmnProcess.getDecisionTasksForTask("ExclusiveGateway_7C5D3E25718AB6BB", "de-DE");
           const expectedBpmnTaskIds = ["SubProcess_51C13A1CF5228786", "ExclusiveGateway_4E9D96C025622364"];
           for (const expectedBpmnTaskId of expectedBpmnTaskIds) {
             const decisionTask = decisionTasks.find((d) => d.bpmnTaskId === expectedBpmnTaskId);
@@ -168,7 +168,7 @@ describe("sdk", function () {
       describe("BpmnProcessClass", function () {
         it("instanziiert BpmnProcess Objekt und ruft loadFromTemplate auf", async function () {
           const process: BpmnProcess = new BpmnProcess();
-          await process.loadFromTemplate();
+          await process.loadFromTemplate("de-DE");
         });
 
         it("erstellt mit dem BpmnModdleHelper ein Template", async function () {

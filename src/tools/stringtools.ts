@@ -1,4 +1,3 @@
-import { tl } from "../tl";
 import isEmpty from "lodash/isEmpty";
 import cloneDeep from "lodash/cloneDeep";
 import { createId } from "./guid";
@@ -192,31 +191,6 @@ export function parseNestedElement(query: string, nestedElements: NestedElements
   if (nestedElements[query]) {
     nestedElements[query].top = false;
   }
-}
-
-export function getFieldOrRoleDisplayName(fieldString: string): string | null {
-  const regex = new RegExp(/((field|role)\['([^']*)'\](\.[^\s]+)?)/);
-  const match = regex.exec(fieldString);
-
-  if (match === null) return null;
-
-  const prefix = match[2] === "field" ? tl("Feld") : tl("Rolle");
-  let suffix = "";
-  if (match[4]) {
-    switch (match[4]) {
-      case ".firstName":
-        suffix = " (" + tl("Vorname") + ")";
-        break;
-      case ".lastName":
-        suffix = " (" + tl("Nachname") + ")";
-        break;
-      case ".displayName":
-        suffix = " (" + tl("Anzeigename") + ")";
-        break;
-    }
-  }
-
-  return `${prefix}: ${match[3]}${suffix}`;
 }
 
 /**

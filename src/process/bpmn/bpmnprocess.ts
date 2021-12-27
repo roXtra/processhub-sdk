@@ -265,7 +265,7 @@ export class BpmnProcess {
     return tmpList;
   }
 
-  private getTaskIdsAfterGateway(currentGatewayId: string): IDecisionTask[] {
+  private getTaskIdsAfterGateway(currentGatewayId: string, userLanguage: string): IDecisionTask[] {
     const currentObject = this.getExistingActivityObject(currentGatewayId);
     let exclusiveGateway: Bpmn.IExclusiveGateway;
     if (currentObject?.$type === "bpmn:ExclusiveGateway") {
@@ -275,10 +275,10 @@ export class BpmnProcess {
     }
     // A -> X -> B & C | A -> X1 -> (X2 -> C) & B
 
-    return this.getDecisionTasksAfterGateway(exclusiveGateway);
+    return this.getDecisionTasksAfterGateway(exclusiveGateway, userLanguage);
   }
 
-  public getDecisionTasksAfterGateway(gat: Bpmn.IExclusiveGateway): IDecisionTask[] {
+  public getDecisionTasksAfterGateway(gat: Bpmn.IExclusiveGateway, userLanguage: string): IDecisionTask[] {
     const decisionTasks: IDecisionTask[] = [];
     if (gat.outgoing) {
       for (const outgoing of gat.outgoing) {
@@ -294,10 +294,10 @@ export class BpmnProcess {
         if (!nameValue) {
           switch (target.$type) {
             case "bpmn:EndEvent":
-              nameValue = tl("Ende");
+              nameValue = tl("Ende", userLanguage, "processes");
               break;
             case "bpmn:ExclusiveGateway":
-              nameValue = tl("Gateway");
+              nameValue = "Gateway";
               break;
             default:
               nameValue = target.$type;
@@ -315,8 +315,8 @@ export class BpmnProcess {
     return decisionTasks;
   }
 
-  public async loadFromTemplate(): Promise<ILoadTemplateReply> {
-    const result: ILoadTemplateReply = await BpmnModdleHelper.createBpmnTemplate();
+  public async loadFromTemplate(userLanguage: string): Promise<ILoadTemplateReply> {
+    const result: ILoadTemplateReply = await BpmnModdleHelper.createBpmnTemplate(userLanguage);
 
     this.bpmnXml = result.bpmnXml;
     this.moddleContext = result.bpmnContext;
@@ -327,28 +327,28 @@ export class BpmnProcess {
     const startElement = this.getStartEvents(this.processId())[0];
     const fieldDefinitions: IFieldDefinition[] = [
       {
-        name: tl("Titel"),
+        name: tl("Titel", userLanguage, "processes"),
         type: "ProcessHubTextInput",
         isRequired: false,
         config: { conditionExpression: undefined },
         inlineEditingActive: false,
       },
       {
-        name: tl("Feld_1"),
+        name: tl("Feld", userLanguage, "processes") + "_1",
         type: "ProcessHubTextInput",
         isRequired: false,
         config: { conditionExpression: undefined },
         inlineEditingActive: false,
       },
       {
-        name: tl("Feld_2"),
+        name: tl("Feld", userLanguage, "processes") + "_2",
         type: "ProcessHubTextArea",
         isRequired: false,
         config: { conditionExpression: undefined },
         inlineEditingActive: false,
       },
       {
-        name: tl("Anlagen"),
+        name: tl("Anlagen", userLanguage, "processes"),
         type: "ProcessHubFileUpload",
         isRequired: false,
         config: { conditionExpression: undefined },
@@ -1490,13 +1490,13 @@ export class BpmnProcess {
     return allTasksAndLanesAreThere;
   }
 
-  public getDecisionTasksForTask(bpmnTaskId: string): IDecisionTask[] {
+  public getDecisionTasksForTask(bpmnTaskId: string, userLanguage: string): IDecisionTask[] {
     let decisionTasks: IDecisionTask[] = [];
 
     const processObject = this.getExistingActivityObject(bpmnTaskId);
 
     if (processObject != null && processObject.$type === "bpmn:ExclusiveGateway") {
-      return this.getTaskIdsAfterGateway(bpmnTaskId);
+      return this.getTaskIdsAfterGateway(bpmnTaskId, userLanguage);
     }
 
     if (this.isOneOfNextActivityOfType(bpmnTaskId, "bpmn:ExclusiveGateway")) {
@@ -1505,7 +1505,7 @@ export class BpmnProcess {
 
       for (const tmp of nextActivites) {
         if (tmp.$type === "bpmn:ExclusiveGateway") {
-          const list = this.getTaskIdsAfterGateway(tmp.id);
+          const list = this.getTaskIdsAfterGateway(tmp.id, userLanguage);
           decisionTasks = decisionTasks.concat(list);
         }
       }
