@@ -6,7 +6,7 @@ import { luxonDueDate, luxonRelativePast } from "./luxon";
 
 describe("sdk", function () {
   describe("tools", function () {
-    describe("moment", function () {
+    describe("luxon", function () {
       describe("luxonRelativePast", function () {
         it("should return now for 30 secs ago", () => {
           const now: Date = new Date();
@@ -60,7 +60,7 @@ describe("sdk", function () {
         });
 
         it("should test all relativ units", () => {
-          const now: Date = new Date();
+          const now: Date = new Date("2021-12-23");
 
           const twoMinutesAgo = new Date(now.getTime() - 120 * 1000);
           expect(luxonRelativePast(twoMinutesAgo, "en-US", now)).to.be.equal("2 minutes ago");
@@ -99,7 +99,7 @@ describe("sdk", function () {
 
       describe("luxonDueDate", function () {
         it("should return today", () => {
-          const now: Date = new Date();
+          const now: Date = new Date("2021-12-23");
           expect(luxonDueDate(now, "de-DE", now)).to.equal(tl("heute"));
 
           const startOfToday = DateTime.fromJSDate(now).startOf("day").toJSDate();
@@ -144,7 +144,7 @@ describe("sdk", function () {
         });
 
         it("should test all relativ units", () => {
-          const now: Date = new Date();
+          const now: Date = new Date("2021-12-23");
 
           const twoYearsAgo = new Date(now.getTime() - 2 * 365 * 24 * 60 * 60 * 1000);
           expect(luxonDueDate(twoYearsAgo, "en-US", now)).to.be.equal("2 years ago");
