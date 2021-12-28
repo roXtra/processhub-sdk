@@ -9,6 +9,7 @@ import { IProcessRoles, IRoleOwner, IRoleOwnerMap } from "../process/processrigh
 import { BpmnProcess } from "../process/bpmn/bpmnprocess";
 import { replaceOldFieldSyntax } from "../tools/stringtools";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
+import { Language } from "..";
 
 export const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 export const riskmetricRegExp = /riskMetric\['([^'\]]*)'\]/;
@@ -32,16 +33,16 @@ export function replaceAll(target: string, search: string, replacement?: string,
   return target;
 }
 
-function fieldValueToString(valueObject: IFieldValue, defaultValue: string): string {
+function fieldValueToString(valueObject: IFieldValue, defaultValue: string, locale: Language): string {
   if (valueObject.value == null) {
     return defaultValue;
   }
   let res: string;
   if (valueObject.type === "ProcessHubDate") {
-    res = getFormattedDate(new Date(valueObject.value.toString()));
+    res = getFormattedDate(new Date(valueObject.value.toString()), locale);
   } else if (valueObject.type === "ProcessHubDateTime") {
     const date: Date = new Date(valueObject.value.toString());
-    res = getFormattedDateTime(date) + " " + getFormattedTimeZoneOffset(date.getTimezoneOffset());
+    res = getFormattedDateTime(date, locale) + " " + getFormattedTimeZoneOffset(date.getTimezoneOffset());
   } else {
     res = valueObject.value.toString();
   }
@@ -54,6 +55,7 @@ export function parseAndInsertStringWithFieldContent(
   fieldContentMap: IFieldContentMap | undefined,
   processOrRoles: IProcessRoles,
   roleOwners: IRoleOwnerMap,
+  locale: Language,
   isQuery?: boolean,
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
@@ -65,6 +67,7 @@ export function parseAndInsertStringWithFieldContent(
   fieldContentMap: IFieldContentMap | undefined,
   processOrRoles: BpmnProcess,
   roleOwners: IRoleOwnerMap,
+  locale: Language,
   isQuery?: boolean,
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
@@ -76,6 +79,7 @@ export function parseAndInsertStringWithFieldContent(
   fieldContentMap: IFieldContentMap | undefined,
   processOrRoles: BpmnProcess | IProcessRoles,
   roleOwners: IRoleOwnerMap,
+  locale: Language,
   isQuery?: boolean,
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
@@ -87,7 +91,7 @@ export function parseAndInsertStringWithFieldContent(
   defaultValue = defaultValue || "";
 
   if (fieldValueToStringFn == null) {
-    fieldValueToStringFn = (fieldName, valueObject) => fieldValueToString(valueObject, defaultValue || "");
+    fieldValueToStringFn = (fieldName, valueObject) => fieldValueToString(valueObject, defaultValue || "", locale);
   }
 
   const groupIndexForFieldPlaceholder = 0;

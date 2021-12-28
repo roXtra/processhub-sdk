@@ -16,7 +16,7 @@ describe("sdk", function () {
         it("should replace field values", function () {
           const testString = "Hallo {{ field.existiert }}, wie gehts {{ field.existiertnicht }}\n{trölölö} {{{moepmoep}}}\n{{ field.existiert2 }}\n";
           const resultString = "Hallo Teststring eingesetzt!, wie gehts \n{trölölö} {{{moepmoep}}}\n\n";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, {}, {});
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, {}, {}, "de-DE");
 
           assert.equal(res, resultString);
         });
@@ -24,14 +24,14 @@ describe("sdk", function () {
         it("should replace field values with {field['name']} notation", function () {
           const testString = "Hallo {field['existiert']}, wie gehts {field['existiertnicht']}\n{trölölö} {{{moepmoep}}}\nfield['existiertnicht2']\n";
           const resultString = "Hallo {Teststring eingesetzt!}, wie gehts {}\n{trölölö} {{{moepmoep}}}\n\n";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, {}, {});
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, {}, {}, "de-DE");
           console.log(res);
           assert.equal(res, resultString);
         });
 
         it("should accept empty field maps", function () {
           const testString = "Hallo {{ field.existiert }}, wie gehts {{ field.existiertnicht }}\n{trölölö} {{{moepmoep}}}\n{{ field.existiert2 }}\n";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, undefined, {}, {});
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, undefined, {}, {}, "de-DE");
 
           assert.equal(res, testString);
         });
@@ -39,7 +39,7 @@ describe("sdk", function () {
         it("should replace long field old names with short values", function () {
           const testString = "{{ field.fieldname1 }}{{ field.fieldname2 }}{{ field.fieldname3 }}";
           const resultString = "123";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3" } as IFieldContentMap, {}, {});
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3" } as IFieldContentMap, {}, {}, "de-DE");
 
           assert.equal(res, resultString);
         });
@@ -47,7 +47,7 @@ describe("sdk", function () {
         it("should replace long field names with short values", function () {
           const testString = "field['fieldname1']field['fieldname2']field['fieldname3']";
           const resultString = "123";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3" } as IFieldContentMap, {}, {});
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3" } as IFieldContentMap, {}, {}, "de-DE");
 
           assert.equal(res, resultString);
         });
@@ -62,9 +62,15 @@ describe("sdk", function () {
           bpmnProcess.setBpmnDefinitions(reply.bpmnXml);
 
           const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { Anlagen: "1" } as IFieldContentMap, processRoles, {
-            [bpmnProcess.getLanes(false).find((l) => l.name === "Bearbeiter")!.id]: [{ memberId: "1", displayName: "Administrator, Admin" }],
-          } as IRoleOwnerMap);
+          const res = DataTools.parseAndInsertStringWithFieldContent(
+            testString,
+            { Anlagen: "1" } as IFieldContentMap,
+            processRoles,
+            {
+              [bpmnProcess.getLanes(false).find((l) => l.name === "Bearbeiter")!.id]: [{ memberId: "1", displayName: "Administrator, Admin" }],
+            } as IRoleOwnerMap,
+            "de-DE",
+          );
 
           assert.equal(res, resultString);
         });
@@ -93,6 +99,7 @@ describe("sdk", function () {
             },
             processRoles,
             {},
+            "de-DE",
           );
 
           assert.equal(res, resultString);
@@ -118,6 +125,7 @@ describe("sdk", function () {
             },
             processRoles,
             {},
+            "de-DE",
           );
 
           assert.equal(res, resultString);
@@ -147,6 +155,7 @@ describe("sdk", function () {
             },
             processRoles,
             {},
+            "de-DE",
           );
 
           assert.equal(res, resultString);
@@ -165,6 +174,7 @@ describe("sdk", function () {
             },
             {},
             {},
+            "de-DE",
             true,
           );
 
@@ -174,7 +184,7 @@ describe("sdk", function () {
         it("should replace instance values", function () {
           const testString = "Id: 'instance['instanceId']', Titel: 'instance['title']'";
           const resultString = "Id: 'e8b278368b1002d7', Titel: 'test instance'";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, {}, {}, {}, false, "", undefined, {
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, {}, {}, {}, "de-DE", false, "", undefined, {
             instanceId: "E8B278368B1002D7",
             workspaceId: "1",
             processId: createId(),

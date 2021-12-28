@@ -1,27 +1,20 @@
+import { DateTime } from "luxon";
+import { Language } from "..";
+
 export function sleep(ms = 0): Promise<void> {
   return new Promise((r): void => {
     setTimeout(r, ms);
   });
 }
 
-export function getFormattedDate(date: Date): string {
-  if (typeof date === "string") {
-    date = new Date(date);
-  }
-  const days: string = date.getDate() < 10 ? "0" + date.getDate().toString() : date.getDate().toString();
-  const months: string = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
-
-  return days + "." + months + "." + date.getFullYear().toString();
+export function getFormattedDate(date: Date | string, locale: Language): string {
+  const luxonDate = typeof date === "string" ? DateTime.fromISO(date).setLocale(locale) : DateTime.fromJSDate(date).setLocale(locale);
+  return luxonDate.toLocaleString(DateTime.DATE_SHORT);
 }
 
-export function getFormattedDateTime(dateTime: Date): string {
-  if (typeof dateTime === "string") {
-    dateTime = new Date(dateTime);
-  }
-  const hours: string = dateTime.getHours() < 10 ? "0" + dateTime.getHours().toString() : dateTime.getHours().toString();
-  const minutes: string = dateTime.getMinutes() < 10 ? "0" + dateTime.getMinutes().toString() : dateTime.getMinutes().toString();
-
-  return getFormattedDate(dateTime) + " " + hours + ":" + minutes;
+export function getFormattedDateTime(dateTime: Date | string, locale: Language): string {
+  const luxonDate = typeof dateTime === "string" ? DateTime.fromISO(dateTime).setLocale(locale) : DateTime.fromJSDate(dateTime).setLocale(locale);
+  return luxonDate.toLocaleString(DateTime.DATETIME_SHORT);
 }
 
 export function getFormattedTimeZoneOffset(offset: number): string {
