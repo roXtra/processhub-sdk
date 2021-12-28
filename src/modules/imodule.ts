@@ -20,7 +20,7 @@ export interface IModule {
   // Name of module sub type if moduleType === ModuleId.Module; (eg "audit" or "action")
   name: ModuleName;
   urlPrefix: string;
-  // Title of the module, will be displayed to the user (eg "Ma√ünahmen")
+  // Title of the module, will be displayed to the user (eg "Maﬂnahmen")
   title: string;
   processName?: string;
 }

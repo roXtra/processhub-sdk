@@ -1,4 +1,5 @@
-import { IModule, ModuleId } from "./imodule";
+import { Language, tl } from "../tl";
+import { IModule, ModuleId, ModuleName } from "./imodule";
 
 export const Processes: IModule = {
   id: ModuleId.Processes,
@@ -26,6 +27,29 @@ modules.forEach((m) => (modulesById[m.id] = m));
 export function initiateModules(newModules: Array<IModule>): void {
   modules = newModules;
   modules.forEach((m) => (modulesById[m.id] = m));
+}
+
+export function getModuleTitle(moduleName: ModuleName, locale: Language): string {
+  switch (moduleName) {
+    case "documents":
+      return tl("Dokumente", locale);
+    case "processes":
+      return tl("Prozesse", locale);
+    case "risks":
+      return tl("Risiken", locale);
+    case "user":
+      return tl("Benutzer", locale);
+    case "system":
+      return tl("System", locale);
+    case "action":
+      return tl("Maßnamen Plus", locale);
+    case "action_basic":
+      return tl("Maßnamen", locale);
+    case "audit":
+      return tl("Audit", locale);
+    case "reclamations":
+      return tl("Reklamationen", locale);
+  }
 }
 
 export function getModule(moduleId: number): IModule {
