@@ -9,7 +9,7 @@ import { IProcessRoles, IRoleOwner, IRoleOwnerMap } from "../process/processrigh
 import { BpmnProcess } from "../process/bpmn/bpmnprocess";
 import { replaceOldFieldSyntax } from "../tools/stringtools";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { Language } from "..";
+import { Language } from "../tl";
 
 export const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 export const riskmetricRegExp = /riskMetric\['([^'\]]*)'\]/;
