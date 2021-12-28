@@ -1,6 +1,6 @@
 import { DateTime, Duration, Interval, ToRelativeUnit } from "luxon";
 import { tl } from "../tl";
-import { Language } from "..";
+import { Language } from "../tl";
 
 function getRelativUnit(diff: number): ToRelativeUnit {
   const duration = Duration.fromMillis(diff).shiftTo("minutes", "hours", "days", "weeks", "months", "years");

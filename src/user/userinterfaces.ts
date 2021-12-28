@@ -2,7 +2,7 @@ import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { nullId } from "../tools/guid";
 import { isTrue } from "../tools/assert";
-import { Language, tl } from "..";
+import { Language, tl } from "../tl";
 import { ModuleName } from "../modules/imodule";
 
 export enum Licence {
