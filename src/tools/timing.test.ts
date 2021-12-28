@@ -50,7 +50,7 @@ describe("tools", function () {
     });
 
     describe("getFormattedDateTime", function () {
-      it("should format date for all supported languages", () => {
+      it("should format date time for all supported languages", () => {
         const now: Date = new Date();
         now.setFullYear(2021, 11, 27);
         now.setHours(12, 0, 0, 0);
@@ -63,7 +63,7 @@ describe("tools", function () {
           "zh-HK": "27/12/2021 下午12:00",
           "it-IT": "27/12/2021, 12:00",
           "es-ES": "27/12/2021 12:00",
-          "fr-FR": "27/12/2021 à 12:00",
+          "fr-FR": "27/12/2021, 12:00",
           "tr-TR": "27.12.2021 12:00",
           "nl-NL": "27-12-2021 12:00",
           "hu-HU": "2021. 12. 27. 12:00",
@@ -80,7 +80,7 @@ describe("tools", function () {
         expect(Object.keys(localeTranslation)).to.have.lengthOf(supportedLanguages.length);
 
         for (const locale of supportedLanguages) {
-          expect(getFormattedDateTime(now, locale)).to.equal(localeTranslation[locale]);
+          expect(getFormattedDateTime(now, locale), "Unexpected getFormattedDateTime output for " + locale).to.equal(localeTranslation[locale]);
         }
       });
     });
