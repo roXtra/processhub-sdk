@@ -3,10 +3,10 @@
 
 import { getLogger } from "./logger";
 
-// Production Environment?
-const isProduction = typeof window !== "undefined" ? window.__INITIAL_CONFIG__.isProduction : process.env.NODE_ENV === "production";
-
 function throwOrLog(logMsg: string): void {
+  // Production Environment?
+  const isProduction = typeof window !== "undefined" ? window.__INITIAL_CONFIG__.isProduction : process.env.NODE_ENV === "production";
+
   if (isProduction) {
     getLogger()?.error(logMsg);
   } else {
