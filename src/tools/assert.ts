@@ -1,53 +1,41 @@
 // Wir nutzen im gesamten Code ausgiebig Assertion-Tests, da hiermit Fehler sehr schnell entdeckt werden.
+// In allen Bereichen außer /test sollen nur die hier gekapselten Asserts verwendet werden.
 
-// In allen Bereichen außer /test sollen nur die hier gekapselten Asserts verwendet werden,
-// die wir später so implementieren, dass sie im Production-Code automatisch entfernt werden.
+import { getLogger } from "./logger";
 
 // Production Environment?
-const isProduction = false;
+const isProduction = typeof window !== "undefined" ? window.__INITIAL_CONFIG__.isProduction : process.env.NODE_ENV === "production";
 
-export function error(message?: string): void {
-  if (!isProduction) {
-    if (message) {
-      throw new Error("Assertion failed: " + message);
-    } else {
-      throw new Error("Assertion failed");
-    }
+function throwOrLog(logMsg: string): void {
+  if (isProduction) {
+    getLogger()?.error(logMsg);
+  } else {
+    throw new Error(logMsg);
   }
 }
 
+export function error(message?: string): void {
+  const logMsg = message ? "Assertion failed: " + message : "Assertion failed";
+  throwOrLog(logMsg);
+}
+
 export function equal<T extends string | number | boolean>(actual: T, expected: T, message?: string): void {
-  if (!isProduction) {
-    if (actual !== expected) {
-      if (message) {
-        throw new Error("Assertion failed: " + message);
-      } else {
-        throw new Error("Assertion failed: expected " + String(actual) + " to equal " + String(expected));
-      }
-    }
+  if (actual !== expected) {
+    const logMsg = message ? "Assertion failed: " + message : "Assertion failed: expected " + String(actual) + " to equal " + String(expected);
+    throwOrLog(logMsg);
   }
 }
 
 export function isTrue(actual: boolean, message?: string): void {
-  if (!isProduction) {
-    if (!actual) {
-      if (message) {
-        throw new Error("Assertion failed: " + message);
-      } else {
-        throw new Error("Assertion failed: expected " + String(actual) + " to be true");
-      }
-    }
+  if (!actual) {
+    const logMsg = message ? "Assertion failed: " + message : "Assertion failed: expected " + String(actual) + " to be true";
+    throwOrLog(logMsg);
   }
 }
 
 export function isFalse(actual: boolean, message?: string): void {
-  if (!isProduction) {
-    if (actual) {
-      if (message) {
-        throw new Error("Assertion failed: " + message);
-      } else {
-        throw new Error("Assertion failed: expected " + String(actual) + " to be false");
-      }
-    }
+  if (actual) {
+    const logMsg = message ? "Assertion failed: " + message : "Assertion failed: expected " + String(actual) + " to be false";
+    throwOrLog(logMsg);
   }
 }
