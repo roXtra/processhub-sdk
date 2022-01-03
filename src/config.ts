@@ -58,6 +58,8 @@ export interface IInitialConfig extends IClientSettingsConfig {
   moduleId: number;
   currentModule: IModule;
   modules: IModule[];
+  /* Is set to true if running in production environment, false if running in development environment. Used for assertions. */
+  isProduction: boolean;
   mimeTypes: {
     extensions: string[];
     iconGif: string | undefined;
