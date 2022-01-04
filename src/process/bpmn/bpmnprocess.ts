@@ -1,3 +1,4 @@
+/// <reference path="../types/index.d.ts" />
 import * as BpmnModdleHelper from "./bpmnmoddlehelper";
 import { ILaneDictionary } from "./bpmnprocessdiagram";
 import { BpmnProcessDiagram } from "./bpmnprocessdiagram";

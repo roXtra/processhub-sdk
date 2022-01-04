@@ -1,5 +1,5 @@
 import { assert, expect } from "chai";
-import { Language, supportedLanguages } from "..";
+import { Language, supportedLanguages } from "../tl";
 import { sleep, getFormattedTimeZoneOffset, getFormattedDate, getFormattedDateTime } from "./timing";
 
 describe("tools", function () {
