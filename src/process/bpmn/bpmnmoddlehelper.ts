@@ -32,10 +32,10 @@ export async function createBpmnTemplate(userLanguage: string): Promise<ILoadTem
   startEventObject.outgoing = [];
   const endEventObject = bpmnModdleInstance.create("bpmn:EndEvent", { id: BpmnProcess.getBpmnId("bpmn:EndEvent"), outgoing: [] });
   endEventObject.incoming = [];
-  const task = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 1", extensionElements: undefined });
+  const task = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: tl("Aufgabe 1", userLanguage), extensionElements: undefined });
   task.incoming = [];
   task.outgoing = [];
-  const task2 = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: "Aufgabe 2", extensionElements: undefined });
+  const task2 = bpmnModdleInstance.create("bpmn:UserTask", { id: BpmnProcess.getBpmnId("bpmn:UserTask"), name: tl("Aufgabe 2", userLanguage), extensionElements: undefined });
   task2.incoming = [];
   task2.outgoing = [];
 
@@ -63,9 +63,9 @@ export async function createBpmnTemplate(userLanguage: string): Promise<ILoadTem
   endEventObject.incoming.push(initSequenceFlow3);
   task2.outgoing.push(initSequenceFlow3);
 
-  const lane = bpmnModdleInstance.create("bpmn:Lane", { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: "Ersteller", flowNodeRef: [startEventObject, task] });
+  const lane = bpmnModdleInstance.create("bpmn:Lane", { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: tl("Ersteller", userLanguage), flowNodeRef: [startEventObject, task] });
 
-  const lane2 = bpmnModdleInstance.create("bpmn:Lane", { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: "Bearbeiter", flowNodeRef: [task2, endEventObject] });
+  const lane2 = bpmnModdleInstance.create("bpmn:Lane", { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: tl("Bearbeiter", userLanguage), flowNodeRef: [task2, endEventObject] });
 
   // ACHTUNG! Wenn hier einmal standardmäßig der "Teilnehmer 1" nicht mehr steht, dann müssen Tests angepasst werden
   const laneSet = bpmnModdleInstance.create("bpmn:LaneSet", {
