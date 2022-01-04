@@ -23,21 +23,10 @@ export const supportedLanguages = [
 
 export type Language = typeof supportedLanguages[number];
 
-export interface ITLProps {
-  text: string;
-  language?: string;
-  moduleName?: ModuleName;
-}
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export function TL(props: ITLProps): JSX.Element {
-  return <span>{tl(props.text, props.language, props.moduleName)}</span>;
-}
-
 const translations: { [language: string]: ITranslations | undefined } = {};
 
 // Variante für Strings, die nicht im JSX eingefügt werden
-export function tl(text: string, language?: string, moduleName?: ModuleName): string {
+export function tl(text: string, language: string, moduleName?: ModuleName): string {
   if (language) {
     const translationsForLanguage = translations[language];
     if (translationsForLanguage) {
