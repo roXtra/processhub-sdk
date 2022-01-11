@@ -2,6 +2,11 @@ name: Trigger Release Creation
 
 on:
   workflow_dispatch:
+    inputs:
+      isfinalreleasebuild:
+        description: 'Should this be a final release build (true OR false)'
+        required: true
+        default: 'false'
 
 jobs:
   configure:
@@ -10,6 +15,8 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
+    env:
+      isprereleasebuild: ${{ github.event.inputs.isfinalreleasebuild != 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -28,18 +35,24 @@ jobs:
         run: npm ci
       - id: version-upgrade
         name: Upgrade Version
-        # Make next RC Final
+        # Make next RC Final or create pre-release based on chosen variant
         run: |
-          npm version minor
+          if ${{ env.isprereleasebuild }}; then npm version prerelease; else npm version minor; fi
           NEWVERSION=$(echo "console.log(require('./package.json').version);" | node)
           echo "::set-output name=newversion::$(echo $NEWVERSION)"
       - name: Create Branch and Push Branch and Tag
         run: |
           echo "Create Release Branch"
           git checkout -b release-v${{ steps.version-upgrade.outputs.newversion }}
+      - name: Bump Version to next RC
+        # Only bump version to next RC if release is non-prerelease
+        if: ${{ env.isprereleasebuild == 'false' }}
+        run: |
           echo "Bump Version to next RC"
           npm version --git-tag-version false preminor
           git commit -a -m "Bump RC Version"
+      - name: Push Branch and Tag
+        run: |
           echo "Push branch and tag"
           git push -u origin release-v${{ steps.version-upgrade.outputs.newversion }}
           git push origin v${{ steps.version-upgrade.outputs.newversion }}
