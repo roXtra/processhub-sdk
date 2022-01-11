@@ -228,9 +228,8 @@ export function parseAndInsertStringWithFieldContent(
       const fieldName: string = match[1];
 
       if (fieldName && fieldName.length) {
-        console.log(fieldContentMap);
-        const val: string = riskMetrics[fieldName].toString();
-        result = replaceAll(result, placeHolder, val, isQuery);
+        const val = riskMetrics[fieldName];
+        result = replaceAll(result, placeHolder, val != null ? val.toString() : defaultValue, isQuery);
       }
     }
   }

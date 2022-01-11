@@ -196,6 +196,22 @@ describe("sdk", function () {
 
           assert.equal(res, resultString);
         });
+
+        it("should replace risk metrics", function () {
+          const testString = "RPZ: riskMetric['Risiko']";
+          const resultString = "RPZ: 33";
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, {}, {}, {}, "de-DE", false, "", undefined, undefined, { Risiko: 33 });
+
+          assert.equal(res, resultString);
+        });
+
+        it("should replace missing risk metrics with default value", function () {
+          const testString = "RPZ: riskMetric['Risiko2']";
+          const resultString = "RPZ: ";
+          const res = DataTools.parseAndInsertStringWithFieldContent(testString, {}, {}, {}, "de-DE", false, "", undefined, undefined, { Risiko: 33 });
+
+          assert.equal(res, resultString);
+        });
       });
 
       describe("validateType", function () {
