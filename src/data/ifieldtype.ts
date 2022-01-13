@@ -18,7 +18,7 @@ export type GetInputParams<ConfigType extends IFieldConfig, ValueType extends Fi
   onFieldValueChanged: () => void;
   showInvalidValue: boolean;
   startEventId?: string;
-  hideRequiredIndentifier?: boolean;
+  hideRequiredIdentifier?: boolean;
 };
 
 export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends FieldValueType> {
