@@ -11,17 +11,20 @@ import { IFieldDefinition } from "./ifielddefinition";
 import { FieldType, FieldValueType, IFieldValue } from "./ifieldvalue";
 import { IFormElementProps } from "./iformelementprops";
 
-export interface IFieldType {
+export type GetInputParams<ConfigType extends IFieldConfig, ValueType extends FieldValueType> = {
+  formElementProps: IFormElementProps<ConfigType, ValueType>;
+  instanceEnv: IInstanceEnvironment;
+  actionHandler: ActionHandler;
+  onFieldValueChanged: () => void;
+  showInvalidValue: boolean;
+  startEventId?: string;
+  hideRequiredIndentifier?: boolean;
+};
+
+export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends FieldValueType> {
   getType(): FieldType;
   getName(userLanguage: string): string;
-  getInput(
-    props: IFormElementProps,
-    instanceEnv: IInstanceEnvironment,
-    actionHandler: ActionHandler,
-    onFieldValueChanged: () => void,
-    showInvalidFields: boolean,
-    startEventId?: string,
-  ): JSX.Element | undefined;
+  getInput(params: GetInputParams<ConfigType, ValueType>): JSX.Element | undefined;
   renderValue(
     value: {} | undefined | null,
     instance: IInstanceDetails,
