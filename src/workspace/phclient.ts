@@ -7,6 +7,8 @@ export const WorkspaceView = {
   Todos: "todos",
   Archive: "archive",
   Edit: "edit",
+  Statistics: "statistics",
+  Profile: "profile",
 };
 export type WorkspaceView = keyof typeof WorkspaceView;
 
