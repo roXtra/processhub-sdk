@@ -95,6 +95,7 @@ export interface IProcessDetails {
   genericModuleSettings?: IGenericModuleSettings;
   instanceCount?: number;
   archived?: boolean; // True, if the process is archived, false or undefined otherwise
+  reactivateTaskId?: string; // The usertask ID that is used for reactivating instances
   extras: {
     // New Extras must be added to cache-handling in processactions -> loadProcess!
     bpmnXml?: string;
