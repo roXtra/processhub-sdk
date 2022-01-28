@@ -26,7 +26,7 @@ export interface IServiceTaskLogger {
  */
 export interface IServiceTaskInstances {
   updateInstance(instanceDetails: IInstanceDetails): Promise<IInstanceDetails>;
-  uploadAttachment(processId: string, instanceId: string, fileName: string, dataBase64: string): Promise<string>;
+  uploadAttachment(instanceId: string, fileName: string, dataBase64: string): Promise<string>;
   generateInstanceReport(instanceIds: string[], draftId: string, type: IGenerateReportRequestType): Promise<{ doc: string /* Base64*/; fileName: string }>;
   executeInstance(processId: string, instance: IInstanceDetails, startEventId?: string, accessToken?: string): Promise<string>;
 }
