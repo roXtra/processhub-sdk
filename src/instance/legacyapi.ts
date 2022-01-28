@@ -26,6 +26,7 @@ export const ProcessEngineApiRoutes = {
   generateReport: "/api/processengine/generatereport",
   convertSpreadsheets: "/api/processengine/convertspreadsheets",
   getroxfilelinkreferences: "/api/processengine/getroxfilelinkreferences",
+  setStartEventReferences: "/api/processengine/setstarteventreferences",
 };
 
 export type ProcessEngineApiRoutes = keyof typeof ProcessEngineApiRoutes;
@@ -249,3 +250,19 @@ const IGetRoxFileLinkReferencesReplyObject: IGetRoxFileLinkReferencesReply = {
 };
 
 export const IGetRoxFileLinkReferencesReplySchema = Joi.object(IGetRoxFileLinkReferencesReplyObject);
+
+export interface ISetStartEventReferencesRequest extends IBaseRequest {
+  instanceId: string;
+  processId: string;
+  workspaceId: string;
+}
+
+const ISetStartEventReferencesRequestObject: ISetStartEventReferencesRequest = {
+  instanceId: Joi.string().required() as unknown as string,
+  processId: Joi.string().required() as unknown as string,
+  workspaceId: Joi.string().required() as unknown as string,
+  // Extends IBaseRequestObject
+  ...IBaseRequestObject,
+};
+
+export const ISetStartEventReferencesRequestSchema = Joi.object(ISetStartEventReferencesRequestObject);
