@@ -51,7 +51,16 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     config?: IFieldConfig,
     showDirect?: boolean,
   ): JSX.Element | undefined;
-  renderValueToMarkdown(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails, user: IUserDetails, config?: IFieldConfig): string | undefined;
+  /**
+   * Render value for comment section (audittrail)
+   */
+  renderValueForComment(
+    value: {} | undefined | null,
+    instance: IInstanceDetails,
+    process: IProcessDetails,
+    user: IUserDetails,
+    config?: IFieldConfig,
+  ): JSX.Element | undefined;
   renderValueToString(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, user: IUserDetails, config?: IFieldConfig): string | undefined;
   getGridDataObject(
     field: IFieldValue,
