@@ -63,7 +63,7 @@
     "check:format": "prettier --config .prettierrc -c ./src",
     "format": "prettier --config .prettierrc -w ./src",
     "postinstall": "npm run copy-kendo-headers",
-    "copy-kendo-headers": "cp ./src/templates/kendo-headers/* node_modules/@progress/kendo-react-data-tools/dist/npm/header || copyfiles -u 3 ./src/templates/kendo-headers/* node_modules/@progress/kendo-react-data-tools/dist/npm/header"
+    "copy-kendo-headers": "cp ./src/templates/kendo-headers/* ./node_modules/@progress/kendo-react-data-tools/dist/npm/header || copyfiles -u 3 ./src/templates/kendo-headers/* node_modules/@progress/kendo-react-data-tools/dist/npm/header"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
