@@ -2,8 +2,7 @@ import { getErrorHandlers } from "./errorhandler";
 import { IBaseRequest, ApiResult, IBaseError, IBaseMessage, API_FAILED } from "./apiinterfaces";
 import { getBackendUrl, getBasePath } from "../config";
 import isEmpty from "lodash/isEmpty";
-import fetchWithTimeout from "../tools/fetchwithtimeout";
-
+import fetchWithTimeout, { RequestTimedOutPrefix } from "../tools/fetchwithtimeout";
 // Api-Aufruf per GET
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
 // Browser dürfen fehlgeschlagene/verzögerte GET-Aufrufe jederzeit wiederholen, das ist gut, wenn die Verbindung hängt
@@ -160,7 +159,12 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       };
       return testResult;
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    if (ex != null && ex.message.startsWith(RequestTimedOutPrefix)) {
+      const error: IBaseError = { result: ApiResult.API_REQUESTTIMEOUT, type: API_FAILED };
+      getErrorHandlers().forEach((h) => h.handleError(error, path));
+      return error;
+    }
+
     throw new Error(ex.message);
   }
 }
