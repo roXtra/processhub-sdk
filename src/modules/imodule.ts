@@ -1,5 +1,37 @@
-import { SeriesType } from "@progress/kendo-react-charts/dist/npm/field-types/series-type";
 import { FieldType } from "../data/ifieldvalue";
+
+type SeriesType =
+  | "area"
+  | "bar"
+  | "boxPlot"
+  | "bubble"
+  | "bullet"
+  | "candlestick"
+  | "column"
+  | "donut"
+  | "funnel"
+  | "heatmap"
+  | "horizontalWaterfall"
+  | "line"
+  | "ohlc"
+  | "pie"
+  | "polarArea"
+  | "polarLine"
+  | "polarScatter"
+  | "radarArea"
+  | "radarColumn"
+  | "radarLine"
+  | "rangeArea"
+  | "rangeBar"
+  | "rangeColumn"
+  | "scatter"
+  | "scatterLine"
+  | "verticalArea"
+  | "verticalBoxPlot"
+  | "verticalBullet"
+  | "verticalLine"
+  | "verticalRangeArea"
+  | "waterfall";
 
 // Must match the values defined in Enums_Module.cs in Roxtra.DataProvider
 export enum ModuleId {
@@ -20,7 +52,7 @@ export interface IModule {
   // Name of module sub type if moduleType === ModuleId.Module; (eg "audit" or "action")
   name: ModuleName;
   urlPrefix: string;
-  // Title of the module, will be displayed to the user (eg "Maﬂnahmen")
+  // Title of the module, will be displayed to the user (eg "Ma√ünahmen")
   title: string;
   processName?: string;
 }
