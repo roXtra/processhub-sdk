@@ -1,4 +1,3 @@
-import { GridCellProps } from "@progress/kendo-react-grid";
 import { Component } from "react";
 import { ActionHandler } from "../actionhandler";
 import { IInstanceEnvironment } from "../environment";
@@ -64,7 +63,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     columnName: string,
     grid: Component,
   ): string | Date | number | undefined;
-  renderValueForGrid(fieldName: string, baseGrid: Component, process?: IProcessDetails, user?: IUserDetails): ((props: GridCellProps) => JSX.Element) | undefined;
+  renderValueForGrid(fieldName: string, baseGrid: Component, process?: IProcessDetails, user?: IUserDetails): ((props: { dataItem: unknown }) => JSX.Element) | undefined;
   getSettingsButton(
     fieldDefinition: IFieldDefinition,
     onConfigChanged: (fieldDefinition: IFieldDefinition) => void,
