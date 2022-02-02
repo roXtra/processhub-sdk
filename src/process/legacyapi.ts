@@ -4,9 +4,7 @@ import { Bpmn } from "./bpmn";
 import { IParseResult } from "bpmn-moddle/lib/simple";
 import { IStatisticRow } from "../data/statistics";
 import { IFieldDefinition } from "../data/ifielddefinition";
-import { GridColumnProps } from "@progress/kendo-react-grid";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { FilterDescriptor } from "@progress/kendo-data-query";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -119,7 +117,7 @@ enum ArchiveViewType {
 export interface IBaseStateColumn {
   show: boolean;
   field: string;
-  filter: GridColumnProps["filter"] | undefined;
+  filter: "text" | "numeric" | "boolean" | "date" | undefined;
   filterable?: boolean;
   sortable?: boolean;
   title: string;
@@ -132,13 +130,20 @@ export interface IBaseStateColumn {
   hidden: boolean;
 }
 
+interface IFilterDescriptor {
+  field?: string | Function;
+  operator: string | Function;
+  value?: unknown;
+  ignoreCase?: boolean;
+}
+
 export interface IArchiveViewDetails {
   viewName: string;
   gridOptions: string;
   publicView: boolean;
   specialViewType?: ArchiveViewType;
   columns: IBaseStateColumn[];
-  customFilters?: FilterDescriptor[];
+  customFilters?: IFilterDescriptor[];
 }
 
 export interface IAddArchiveViewRequest extends IBaseRequest {
