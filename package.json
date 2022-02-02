@@ -32,12 +32,6 @@
   "deprecated": false,
   "description": "ProcessHub SDK for JavaScript/TypeScript",
   "dependencies": {
-    "@progress/kendo-data-query": "^1.5.5",
-    "@progress/kendo-react-charts": "^4.14.1",
-    "@progress/kendo-react-data-tools": "^4.14.1",
-    "@progress/kendo-react-dropdowns": "^4.14.1",
-    "@progress/kendo-react-grid": "^4.14.1",
-    "@progress/kendo-react-treeview": "^4.14.1",
     "base-64": "^1.0.0",
     "bpmn-moddle": "^7.1.2",
     "cross-fetch": "^3.1.5",
@@ -52,17 +46,16 @@
     "xmlhttprequest": "^1.8.0"
   },
   "scripts": {
-    "build": "npm run copy-kendo-headers && rimraf ./lib && tsc && npm run copytypings",
-    "test": "npm run copy-kendo-headers && npm run build && npm run lint && npm run testcoverage",
-    "lint": "npm run copy-kendo-headers && eslint --ext .ts,.tsx ./src",
+    "build": "rimraf ./lib && tsc && npm run copytypings",
+    "test": "npm run build && npm run lint && npm run testcoverage",
+    "lint": "eslint --ext .ts,.tsx ./src",
     "testall": "ts-mocha ./src/**/*.test.ts --exit --timeout 10000 --recursive",
     "testcoverage": "nyc --reporter=lcov --reporter=text-summary npm run testall",
     "copytypings": "copyfiles -u 1 \"src/**/*.d.ts\" lib && copyfiles -u 1 \"src/*.d.ts\" lib && copyfiles -u 1 src/process/types/index.d.ts lib",
     "jscpd": "jscpd ./src --ignore \"*/**/*.test.ts\"",
     "release-bump-preview-version": "npm run check:format && npm run lint && npm version prerelease",
     "check:format": "prettier --config .prettierrc -c ./src",
-    "format": "prettier --config .prettierrc -w ./src",
-    "copy-kendo-headers": "cp ./src/templates/kendo-headers/* ./node_modules/@progress/kendo-react-data-tools/dist/npm/header || copyfiles -u 3 ./src/templates/kendo-headers/* node_modules/@progress/kendo-react-data-tools/dist/npm/header"
+    "format": "prettier --config .prettierrc -w ./src"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
