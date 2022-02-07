@@ -41,7 +41,7 @@ export function getDefaultRoleName(roleId: string, language: string, moduleName:
     case DefaultRoles.Manager:
       return tl("Prozessmanager", language, moduleName);
     case DefaultRoles.Viewer:
-      return tl("Sichtbarkeit", language, moduleName);
+      return tl("Sichtbarkeit des Prozesses", language, moduleName);
     case DefaultRoles.Follower:
       return tl("Weitere Beteiligte", language, moduleName);
     case DefaultRoles.DashboardViewer:
