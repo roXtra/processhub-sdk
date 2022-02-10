@@ -2,9 +2,11 @@ export const NS_PER_MS = BigInt(1e6);
 
 export default class DuartionMeasurement {
   private startBigInt: bigint;
+  public startTime: number;
 
   private constructor() {
     this.startBigInt = DuartionMeasurement.now();
+    this.startTime = Number(this.startBigInt / NS_PER_MS);
   }
 
   private static now(): bigint {
