@@ -3,10 +3,19 @@ import { IBaseRequest, ApiResult, IBaseError, IBaseMessage, API_FAILED } from ".
 import { getBackendUrl, getBasePath } from "../config";
 import isEmpty from "lodash/isEmpty";
 import fetchWithTimeout, { RequestTimedOutPrefix } from "../tools/fetchwithtimeout";
+
+/**
+ * @default showErrorModal = true
+ * @default accessToken = undefined
+ */
+export type RequestOptions = { showErrorModal?: boolean; accessToken?: string };
+
 // Api-Aufruf per GET
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
 // Browser dürfen fehlgeschlagene/verzögerte GET-Aufrufe jederzeit wiederholen, das ist gut, wenn die Verbindung hängt
-export async function getJson<Request extends IBaseRequest>(path: string, request: Request, accessToken?: string): Promise<IBaseMessage> {
+export async function getJson<Request extends IBaseRequest>(path: string, request: Request, options: RequestOptions = { showErrorModal: true }): Promise<IBaseMessage> {
+  const { showErrorModal } = options;
+  let { accessToken } = options;
   if (request.moduleId === undefined && typeof window !== "undefined") {
     request.moduleId = window.__INITIAL_CONFIG__.moduleId;
   }
@@ -71,7 +80,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
       }
       default: {
         const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
-        getErrorHandlers().forEach((h) => h.handleError(error, path));
+        getErrorHandlers().forEach((h) => h.handleError(error, path, showErrorModal));
         return error;
       }
     }
@@ -94,7 +103,9 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
 // Api-Aufruf per POST
 // Gemäß http-Spezifikation soll POST genutzt werden, wenn der Aufruf zu Änderungen auf der Serverseite führt
 // POST-Anforderungen werden ohne explizite Useranforderung vom Browser NICHT wiederholt ausgeführt
-export async function postJson<Request extends IBaseRequest>(path: string, request: Request, accessToken?: string): Promise<IBaseMessage> {
+export async function postJson<Request extends IBaseRequest>(path: string, request: Request, options: RequestOptions = { showErrorModal: true }): Promise<IBaseMessage> {
+  const { showErrorModal } = options;
+  let { accessToken } = options;
   const url = getBackendUrl() + path;
 
   if (request.moduleId === undefined && typeof window !== "undefined") {
@@ -144,7 +155,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       }
       default: {
         const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
-        getErrorHandlers().forEach((h) => h.handleError(error, path));
+        getErrorHandlers().forEach((h) => h.handleError(error, path, showErrorModal));
         return error;
       }
     }
@@ -161,7 +172,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
     }
     if (ex != null && ex.message.startsWith(RequestTimedOutPrefix)) {
       const error: IBaseError = { result: ApiResult.API_REQUESTTIMEOUT, type: API_FAILED };
-      getErrorHandlers().forEach((h) => h.handleError(error, path));
+      getErrorHandlers().forEach((h) => h.handleError(error, path, showErrorModal));
       return error;
     }
 
@@ -173,7 +184,12 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
 // Browser dürfen fehlgeschlagene/verzögerte GET-Aufrufe jederzeit wiederholen, das ist gut, wenn die Verbindung hängt
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function getExternalJson<Request extends IBaseRequest>(apiEndpointUrl: string, request: Request, accessToken?: string): Promise<any> {
+export async function getExternalJson<Request extends IBaseRequest>(
+  apiEndpointUrl: string,
+  request: Request,
+  options: RequestOptions = { showErrorModal: true },
+): Promise<any> {
+  const { showErrorModal, accessToken } = options;
   // Request als Querystring serialisieren
   const str = [];
   for (const p in request) {
@@ -225,7 +241,7 @@ export async function getExternalJson<Request extends IBaseRequest>(apiEndpointU
     }
     default: {
       const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
-      getErrorHandlers().forEach((h) => h.handleError(error, url));
+      getErrorHandlers().forEach((h) => h.handleError(error, url, showErrorModal));
       return error;
     }
   }
