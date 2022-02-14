@@ -8,7 +8,7 @@ export interface ITreeViewEntry {
   id: string;
   name: string;
   checked: boolean;
-  subItems: ITreeViewEntry[];
+  items: ITreeViewEntry[];
 }
 
 /**
@@ -27,7 +27,7 @@ const TreeViewEntryObject: ITreeViewEntry = {
    * ".." -> the subItems array
    * "..." -> the TreeViewEntryObject
    */
-  subItems: Joi.array().items(Joi.link("...")).required() as unknown as ITreeViewEntry[],
+  items: Joi.array().items(Joi.link("...")).required() as unknown as ITreeViewEntry[],
 };
 
 export const TreeViewEntrySchema = Joi.object(TreeViewEntryObject);

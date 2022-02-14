@@ -42,7 +42,7 @@ describe("sdk", function () {
                 id: "123",
                 name: "Test",
                 checked: false,
-                subItems: [],
+                items: [],
               },
             ],
           };
@@ -63,12 +63,12 @@ describe("sdk", function () {
                 id: "123",
                 name: "Test",
                 checked: false,
-                subItems: [
+                items: [
                   {
                     id: "456",
                     name: "Test2",
                     checked: true,
-                    subItems: [],
+                    items: [],
                   },
                 ],
               },
