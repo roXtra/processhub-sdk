@@ -15,5 +15,5 @@ export function getErrorHandlers(): IErrorHandler[] {
 }
 
 export interface IErrorHandler {
-  handleError(error: IBaseError, requestPath: string): void;
+  handleError(error: IBaseError, requestPath: string, showErrorModal?: boolean): void;
 }
