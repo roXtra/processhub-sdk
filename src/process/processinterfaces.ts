@@ -62,6 +62,16 @@ export interface IServiceActionField {
   onload: ServiceActionFieldOnloadFunction | string;
 }
 
+/**
+ * Base information for subprocesses / parent processes
+ */
+export interface ISubParentBaseProcessInformation {
+  processId: string;
+  workspaceId: string;
+  displayName: string;
+  urlName: string;
+}
+
 export interface IProcessDetails {
   processId: string;
   workspaceId: string;
@@ -106,8 +116,8 @@ export interface IProcessDetails {
     svgString?: string; // Only used to save preview to server or if requested in extras
     settings?: IProcessSettings;
     auditTrail?: IAuditTrailEntry[];
-    parentProcessDetails?: IProcessDetails[];
-    childProcessDetails?: IProcessDetails[];
+    parentProcessDetails?: ISubParentBaseProcessInformation[];
+    childProcessDetails?: ISubParentBaseProcessInformation[];
   };
 }
 
