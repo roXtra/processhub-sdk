@@ -59,7 +59,6 @@ export interface IUserDetails {
   lastStatusMailAt?: Date;
   noDailyUpdates?: boolean;
   noWeeklyStatus?: boolean;
-  alwaysSendMails?: boolean;
   mailSignature?: string;
   /**
    * @field processId - The process id of the favorite process
