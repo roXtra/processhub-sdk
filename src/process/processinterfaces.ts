@@ -1,7 +1,6 @@
 import { ProcessAccessRights, IProcessRoles } from "./processrights";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { strEnum } from "../tools/types";
-import { IUserDetails } from "../user/userinterfaces";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 import { IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces";
 import { IGenericModuleSettings } from "../modules/imodule";
@@ -111,7 +110,6 @@ export interface IProcessDetails {
     bpmnXml?: string;
     bpmnProcess?: BpmnProcess; // Available if bpmnXml is available
     instances?: IInstanceDetails[];
-    instancesUsers?: IUserDetails[];
     processRoles?: IProcessRoles;
     svgString?: string; // Only used to save preview to server or if requested in extras
     settings?: IProcessSettings;
