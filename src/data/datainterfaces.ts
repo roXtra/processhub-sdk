@@ -1,16 +1,24 @@
 import Joi from "joi";
 import { getLastArrayEntry } from "../tools/array";
 
-export class IFieldConfig {
-  conditionExpression: string | undefined;
-  conditionBuilderMode?: boolean;
-  validationExpression?: string;
+export interface IFieldConfig {
+  conditionExpression: string;
+  conditionBuilderMode: boolean;
+  validationExpression: string;
+}
+
+export function convertFieldConfig(config: IFieldConfig): IFieldConfig {
+  const { conditionBuilderMode, conditionExpression, validationExpression } = config;
+  config.conditionBuilderMode = typeof conditionBuilderMode !== "undefined" ? conditionBuilderMode : true;
+  config.conditionExpression = typeof conditionExpression !== "undefined" ? conditionExpression : "";
+  config.validationExpression = typeof validationExpression !== "undefined" ? validationExpression : "";
+  return config;
 }
 
 export const IFieldConfigObject: IFieldConfig = {
-  conditionExpression: Joi.string().allow("") as unknown as string,
-  conditionBuilderMode: Joi.boolean() as unknown as boolean,
-  validationExpression: Joi.string().allow("") as unknown as string,
+  conditionExpression: Joi.string().allow("").required() as unknown as string,
+  conditionBuilderMode: Joi.boolean().required() as unknown as boolean,
+  validationExpression: Joi.string().allow("").required() as unknown as string,
 };
 
 export const IFieldConfigSchema = Joi.object(IFieldConfigObject);
