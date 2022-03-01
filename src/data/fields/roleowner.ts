@@ -7,12 +7,10 @@ const IRoleOwnerFieldConfigDefaultValueOptions = ["NoValue", "CurrentUser"] as c
 type IRoleOwnerFieldConfigDefaultValueType = typeof IRoleOwnerFieldConfigDefaultValueOptions[number];
 
 export interface IRoleOwnerFieldConfig extends IFieldConfig {
-  validationExpression?: string;
   defaultValue: IRoleOwnerFieldConfigDefaultValueType | undefined;
 }
 
 const IRoleOwnerFieldConfigObject: IRoleOwnerFieldConfig = {
-  validationExpression: Joi.string().allow("") as unknown as string,
   defaultValue: Joi.string().pattern(createLiteralTypeRegExp(Object.values(IRoleOwnerFieldConfigDefaultValueOptions))) as unknown as IRoleOwnerFieldConfigDefaultValueType,
   ...IFieldConfigObject,
 };

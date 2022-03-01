@@ -18,14 +18,12 @@ const IRoxFileFieldValueObject: IRoxFileFieldValue = {
 export const IRoxFileFieldValueSchema = Joi.object(IRoxFileFieldValueObject);
 
 export interface IRoxFileFieldConfig extends IFieldConfig {
-  validationExpression: string | undefined;
   roxFileName: string | undefined;
   roxFileId: number | undefined;
   roxFileIconUrl: string | undefined;
 }
 
 const IRoxFileFieldConfigObject: IRoxFileFieldConfig = {
-  validationExpression: Joi.string().allow("") as unknown as string,
   roxFileName: Joi.string().allow("") as unknown as string,
   roxFileId: Joi.number() as unknown as number,
   roxFileIconUrl: Joi.string().allow("") as unknown as string,
