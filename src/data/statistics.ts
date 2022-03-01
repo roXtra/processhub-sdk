@@ -18,6 +18,7 @@ export enum StatisticsAction {
   instanceJumped = 14,
   instanceCompleted = 15,
   instanceReopened = 16,
+  instanceDeleted = 17,
 
   // Todo
   todoCreated = 20,
