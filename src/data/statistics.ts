@@ -16,6 +16,8 @@ export enum StatisticsAction {
   instanceIncomingMail = 12,
   instanceOutgoingMail = 13,
   instanceJumped = 14,
+  instanceCompleted = 15,
+  instanceReopened = 16,
 
   // Todo
   todoCreated = 20,
