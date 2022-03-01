@@ -37,6 +37,7 @@ export interface ITodoDetails {
   priority?: number;
   dueAt?: Date;
   subInstanceId?: string;
+  subWorkspaceId?: string;
   token?: string;
   // Additional data a todo can contain, may depend on the module
   data: {
