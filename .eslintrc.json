@@ -120,7 +120,7 @@
     "@typescript-eslint/no-misused-promises": [
       "error",
       {
-        "checksVoidReturn": true
+        "checksVoidReturn": false
       }
     ],
     "@typescript-eslint/unbound-method": "error",
