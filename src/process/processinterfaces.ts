@@ -246,7 +246,6 @@ export interface ITaskExtensions {
 export interface ITimerStartEventConfiguration {
   title: string;
   date: Date;
-  time: string;
   frequency: Frequency;
   isTimeValid: boolean;
 }
