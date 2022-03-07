@@ -39,6 +39,8 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
 
     anonymousStart: undefined,
     anonymousStartUserId: undefined,
+
+    signalCatchEventRoles: undefined,
   };
 
   if (activityObject == null || activityObject.extensionElements == null || (activityObject.extensionElements != null && activityObject.extensionElements.values == null)) {
@@ -181,6 +183,18 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
             break;
           case "webhook-body-to-field":
             returnValue.webhookBodyToField = child.$body !== "false";
+            break;
+          case "signalcatchevent-roles":
+            try {
+              if (child.$body && child.$body.length > 0) {
+                returnValue.signalCatchEventRoles = JSON.parse(child.$body);
+              } else {
+                returnValue.signalCatchEventRoles = [];
+              }
+            } catch (ex) {
+              console.log(ex);
+              returnValue.signalCatchEventRoles = [];
+            }
             break;
 
           default:
