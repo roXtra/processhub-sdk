@@ -2,19 +2,19 @@ name: Build and Test
 
 on: [push]
 
+env:
+  NODE_VERSION: 16
+
 jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: ${{ env.NODE_VERSION }}
 #    - name: Install NPM v7
 #      run: npm install -g npm@7
     - name: Install dependencies
