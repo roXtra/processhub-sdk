@@ -8,13 +8,13 @@ on:
         required: true
         default: 'false'
 
+env:
+  NODE_VERSION: 16.x
+
 jobs:
   configure:
     name: Configure Release Branch
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     env:
       isprereleasebuild: ${{ github.event.inputs.isfinalreleasebuild != 'true' }}
     steps:
@@ -23,10 +23,10 @@ jobs:
         with:
           ref: master
           token: ${{ secrets.DEVBOT_GH_TOKEN }}
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ env.NODE_VERSION }}
       - name: Configure Git
         run: |
           git config user.name 'Development Bot'
