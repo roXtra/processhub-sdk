@@ -30,6 +30,7 @@ describe("sdk", function () {
           const twoMinutesAgo = new Date(now.getTime() - 120 * 1000);
 
           // Translations
+          /* eslint-disable @typescript-eslint/naming-convention */
           const localeTranslation: { [locale in Language]: string } = {
             "de-DE": "vor 2 Minuten",
             "en-US": "2 minutes ago",
@@ -50,6 +51,7 @@ describe("sdk", function () {
             "sr-Latn": "pre 2 minuta",
             "vi-VN": "2 phút trước",
           };
+          /* eslint-enable @typescript-eslint/naming-convention */
 
           expect(Object.keys(localeTranslation)).to.have.lengthOf(supportedLanguages.length);
 
@@ -111,6 +113,7 @@ describe("sdk", function () {
           expect(luxonDueDate(inTwoDays, "de-DE", now)).not.to.equal(tl("heute", "de-DE", "processes"));
 
           // Translations
+          /* eslint-disable @typescript-eslint/naming-convention */
           const localeTranslation: { [locale in Language]: string } = {
             "de-DE": "übermorgen",
             "en-US": "in 2 days",
@@ -131,6 +134,7 @@ describe("sdk", function () {
             "sr-Latn": "prekosutra",
             "vi-VN": "Ngày kia",
           };
+          /* eslint-enable @typescript-eslint/naming-convention */
 
           expect(Object.keys(localeTranslation)).to.have.lengthOf(supportedLanguages.length);
 
