@@ -21,11 +21,11 @@ module.exports = {
     },
     {
       matchPackageNames: ["node", "@types/node"],
-      allowedVersions: "^14.0.0",
+      allowedVersions: "^16.0.0",
     },
     {
       matchPackageNames: ["npm"],
-      allowedVersions: "^6.0.0",
+      allowedVersions: "^8.0.0",
     },
     {
       groupName: "progress monorepo",
