@@ -35,12 +35,15 @@ export interface IArchiveViews {
   [processId: string]: string | undefined;
 }
 
-export interface IUserDetails {
+export interface IUserDetailsSmall {
   userId: string;
   mail: string;
   displayName: string; // RealName or mail if no name is defined
   firstName?: string;
   lastName?: string;
+}
+
+export interface IUserDetails extends IUserDetailsSmall {
   photoUrl?: string;
   language?: Language; // Preferred User language (de-DE, en-US, ...)
   licence: Licence;
