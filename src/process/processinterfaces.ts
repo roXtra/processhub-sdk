@@ -9,6 +9,7 @@ import { IFieldDefinition } from "../data/ifielddefinition";
 import { IServiceActionConfigField, ITaskIdRequiredFieldsNeeded } from "../data/datainterfaces";
 import { FieldType } from "../data/ifieldvalue";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
+import IAuditsSettings from "../modules/audits/iauditssettings";
 
 export interface IProcessAttachment {
   attachmentId: string;
@@ -102,6 +103,7 @@ export interface IProcessDetails {
   childProcessIds?: string[];
   riskManagementSettings?: IRiskManagementProcessSettings;
   genericModuleSettings?: IGenericModuleSettings;
+  auditsSettings?: IAuditsSettings;
   instanceCount?: number;
   archived?: boolean; // True, if the process is archived, false or undefined otherwise
   reactivateTaskId?: string; // The usertask ID that is used for reactivating instances
