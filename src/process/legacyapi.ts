@@ -5,6 +5,7 @@ import { IParseResult } from "bpmn-moddle/lib/simple";
 import { IStatisticRow } from "../data/statistics";
 import { IFieldDefinition } from "../data/ifielddefinition";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
+import IQuestionCatalog from "../modules/audits/iquestioncatalog";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -37,6 +38,7 @@ export const ProcessRequestRoutes = {
   GetProcessInstances: "/api/process/getprocessinstances",
   MoveToArchive: "/api/process/movetoarchive",
   RestoreFromArchive: "/api/process/restorefromarchive",
+  UpdateQuestionCatalog: "/api/process/updatequestioncatalog",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
@@ -275,3 +277,8 @@ export interface IRestoreFromArchiveRequest extends IBaseRequest {
 }
 
 export type IRestoreFromArchiveReply = IGetProcessDetailsReply;
+
+export interface IUpdateQuestionCatalogRequest extends IBaseRequest {
+  processId: string;
+  questionCatalog: IQuestionCatalog;
+}
