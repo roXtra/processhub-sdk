@@ -12,7 +12,7 @@
   },
   "engines": {
     "node": "^v16.14.0",
-    "npm": "^8.5.3"
+    "npm": "^8.5.4"
   },
   "bugs": {
     "url": "https://github.com/roXtra/processhub-sdk/issues"
