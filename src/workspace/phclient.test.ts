@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { isValidWorkspaceView } from "./phclient";
+import { isValidWorkspaceView } from "./phclient.js";
 
 describe("sdk", function () {
   describe("workspace", function () {

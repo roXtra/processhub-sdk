@@ -3,14 +3,14 @@
 import BpmnModdle from "bpmn-moddle";
 import { assert, expect } from "chai";
 import { Bpmn } from "../../process/bpmn";
-import { isId } from "../../tools/guid";
-import { BpmnProcess } from "./bpmnprocess";
-import { ILoadTemplateReply } from "../legacyapi";
-import { createBpmnTemplate, bpmnModdleInstance } from "./bpmnmoddlehelper";
-import { IRowDetails } from "../phclient";
+import { isId } from "../../tools/guid.js";
+import { BpmnProcess } from "./bpmnprocess.js";
+import { ILoadTemplateReply } from "../legacyapi.js";
+import { createBpmnTemplate, bpmnModdleInstance } from "./bpmnmoddlehelper.js";
+import { IRowDetails } from "../phclient.js";
 import fs from "fs";
 import { IParseResult } from "bpmn-moddle/lib/simple";
-import { getLastArrayEntry } from "../../tools/array";
+import { getLastArrayEntry } from "../../tools/array.js";
 
 async function readFileAsync(fileName: string): Promise<string> {
   return await new Promise<string>((resolve, reject) => {

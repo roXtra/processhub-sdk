@@ -1,10 +1,10 @@
-import * as BpmnProcess from "./bpmnprocess";
+import * as BpmnProcess from "./bpmnprocess.js";
 import { Bpmn, Bpmndi } from "../bpmn";
-import { bpmnModdleInstance } from "./bpmnmoddlehelper";
+import { bpmnModdleInstance } from "./bpmnmoddlehelper.js";
 import { Dc } from "modeler/bpmn/dc";
-import { IRowDetails } from "../phclient";
-import { isTrue } from "../../tools/assert";
-import { getLastArrayEntry } from "../../tools/array";
+import { IRowDetails } from "../phclient.js";
+import { isTrue } from "../../tools/assert.js";
+import { getLastArrayEntry } from "../../tools/array.js";
 
 export class Waypoint {
   x: number;

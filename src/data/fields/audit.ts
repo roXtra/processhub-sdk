@@ -1,5 +1,5 @@
-import { IQuestion } from "../../modules/audits/iquestioncatalog";
-import { IFieldConfigDefault } from "../datainterfaces";
+import { IQuestion } from "../../modules/audits/iquestioncatalog.js";
+import { IFieldConfigDefault } from "../datainterfaces.js";
 
 export interface IAuditFieldValue {
   questions: IQuestion[];

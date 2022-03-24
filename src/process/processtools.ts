@@ -1,5 +1,5 @@
-import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
-import { isId } from "../tools/guid";
+import { IProcessDetails, ProcessViewAccess } from "./processinterfaces.js";
+import { isId } from "../tools/guid.js";
 
 export function parseProcessMailSubject(mail: string): string | undefined {
   const regex = /(\[)(p-)(.*?)(\])/gm;

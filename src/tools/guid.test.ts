@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import * as Guid from "./guid";
+import * as Guid from "./guid.js";
 
 describe("sdk", function () {
   describe("tools", function () {

@@ -1,9 +1,9 @@
 // Helper functions to filter and/or sort todos
-import { ITodoDetails, TodoType } from "./todointerfaces";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { filterInstancesForProcess, filterRemainingInstancesForWorkspace } from "../instance/instancefilters";
-import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
-import { IUserDetails } from "../user/userinterfaces";
+import { ITodoDetails, TodoType } from "./todointerfaces.js";
+import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import { filterInstancesForProcess, filterRemainingInstancesForWorkspace } from "../instance/instancefilters.js";
+import { IWorkspaceDetails } from "../workspace/workspaceinterfaces.js";
+import { IUserDetails } from "../user/userinterfaces.js";
 
 // Temporary solution during switch from todo.instance -> instances.todos
 export function getTodosFromInstances(instances: IInstanceDetails[]): ITodoDetails[] {

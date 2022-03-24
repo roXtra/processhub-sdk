@@ -1,6 +1,6 @@
 declare module "diagram-js/lib/features/dragging/Dragging" {
-  import Canvas from "diagram-js/lib/core/Canvas";
-  import EventBus from "diagram-js/lib/core/EventBus";
+  import Canvas from "diagram-js/lib/core/Canvas.js";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
   import { IPoint } from "diagram-js";
   /**
    * A helper that fires canvas localized drag events and realizes

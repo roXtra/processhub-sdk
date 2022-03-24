@@ -1,9 +1,9 @@
-import { IExecuteRequest, IExecuteReply, IUploadAttachmentRequest, IUploadAttachmentReply } from "../instance/legacyapi";
-import { IGetProcessDetailsRequest } from "../process/legacyapi";
-import { IProcessDetails, IStartButtonMap } from "../process/processinterfaces";
-import { ILoadUserReply, ILoadUserRequest } from "../user/legacyapi";
-import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
-import { ErrorCodes, IToken } from "./types";
+import { IExecuteRequest, IExecuteReply, IUploadAttachmentRequest, IUploadAttachmentReply } from "../instance/legacyapi.js";
+import { IGetProcessDetailsRequest } from "../process/legacyapi.js";
+import { IProcessDetails, IStartButtonMap } from "../process/processinterfaces.js";
+import { ILoadUserReply, ILoadUserRequest } from "../user/legacyapi.js";
+import { IWorkspaceDetails } from "../workspace/workspaceinterfaces.js";
+import { ErrorCodes, IToken } from "./types.js";
 
 export class API {
   private baseURL: string;

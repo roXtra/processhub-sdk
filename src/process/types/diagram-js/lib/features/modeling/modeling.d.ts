@@ -1,10 +1,10 @@
-declare module "diagram-js/lib/features/modeling/Modeling" {
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import CommandStack from "diagram-js/lib/command/CommandStack";
-  import CommandHandler from "diagram-js/lib/command/CommandHandler";
-  import ElementFactory from "diagram-js/lib/core/ElementFactory";
+declare module "diagram-js/lib/features/modeling/Modeling.js" {
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import CommandStack from "diagram-js/lib/command/CommandStack.js";
+  import CommandHandler from "diagram-js/lib/command/CommandHandler.js";
+  import ElementFactory from "diagram-js/lib/core/ElementFactory.js";
   import { IBounds, IPoint } from "diagram-js";
-  import { Base, Connection, Shape, Label } from "diagram-js/lib/model";
+  import { Base, Connection, Shape, Label } from "diagram-js/lib/model/index.js";
 
   export default class Modeling {
     /**

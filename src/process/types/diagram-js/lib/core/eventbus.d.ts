@@ -1,6 +1,6 @@
-declare module "diagram-js/lib/core/EventBus" {
+declare module "diagram-js/lib/core/EventBus.js" {
   import { IBounds, IPoint } from "diagram-js";
-  import { Base, Connection, Shape } from "diagram-js/lib/model";
+  import { Base, Connection, Shape } from "diagram-js/lib/model/index.js";
   import SnapContext from "diagram-js/lib/features/snapping/SnapContext";
 
   /**

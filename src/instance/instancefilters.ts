@@ -1,6 +1,6 @@
-import { IInstanceDetails } from "./instanceinterfaces";
-import { IUserDetails } from "../user/userinterfaces";
-import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { IInstanceDetails } from "./instanceinterfaces.js";
+import { IUserDetails } from "../user/userinterfaces.js";
+import { IWorkspaceDetails } from "../workspace/workspaceinterfaces.js";
 
 // Helper functions to filter and/or sort instances
 

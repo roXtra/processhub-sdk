@@ -1,4 +1,4 @@
-import { ModuleName } from "./modules/imodule";
+import { ModuleName } from "./modules/imodule.js";
 
 export const supportedLanguages = [
   "de-DE",

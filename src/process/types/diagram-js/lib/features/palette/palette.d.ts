@@ -1,6 +1,6 @@
-declare module "diagram-js/lib/features/palette/Palette" {
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import Canvas from "diagram-js/lib/core/Canvas";
+declare module "diagram-js/lib/features/palette/Palette.js" {
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import Canvas from "diagram-js/lib/core/Canvas.js";
 
   /**
    * A palette containing modeling elements.

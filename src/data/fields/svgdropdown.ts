@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces";
+import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces.js";
 
 interface ISVGData {
   normal?: string;

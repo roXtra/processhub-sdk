@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { ITreeViewFieldValue, TreeViewFieldValueSchema } from "./fields/treeview";
-import { FieldTypeOptions, isFieldValue } from "./ifieldvalue";
+import { ITreeViewFieldValue, TreeViewFieldValueSchema } from "./fields/treeview.js";
+import { FieldTypeOptions, isFieldValue } from "./ifieldvalue.js";
 
 describe("sdk", function () {
   describe("data", function () {

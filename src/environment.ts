@@ -1,9 +1,9 @@
-import { IPathDetails } from "./path/pathinterfaces";
-import { IUserDetails } from "./user/userinterfaces";
-import { IWorkspaceDetails } from "./workspace/workspaceinterfaces";
-import { IProcessDetails } from "./process/processinterfaces";
-import { IInstanceDetails } from "./instance/instanceinterfaces";
-import { ITodoDetails } from "./todo/todointerfaces";
+import { IPathDetails } from "./path/pathinterfaces.js";
+import { IUserDetails } from "./user/userinterfaces.js";
+import { IWorkspaceDetails } from "./workspace/workspaceinterfaces.js";
+import { IProcessDetails } from "./process/processinterfaces.js";
+import { IInstanceDetails } from "./instance/instanceinterfaces.js";
+import { ITodoDetails } from "./todo/todointerfaces.js";
 
 export interface ICoreEnvironment {
   path: IPathDetails;

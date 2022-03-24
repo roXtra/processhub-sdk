@@ -1,7 +1,7 @@
 declare module "diagram-js/lib/features/snapping/Snapping" {
-  import Canvas from "diagram-js/lib/core/Canvas";
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import { Base, Shape } from "diagram-js/lib/model";
+  import Canvas from "diagram-js/lib/core/Canvas.js";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import { Base, Shape } from "diagram-js/lib/model/index.js";
   import SnapContext, { SnapPoints } from "diagram-js/lib/features/snapping/SnapContext";
 
   export default class Snapping {

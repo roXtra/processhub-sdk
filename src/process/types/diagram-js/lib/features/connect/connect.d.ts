@@ -1,10 +1,10 @@
-declare module "diagram-js/lib/features/connect/Connect" {
-  import { Base } from "diagram-js/lib/model";
-  import EventBus from "diagram-js/lib/core/EventBus";
+declare module "diagram-js/lib/features/connect/Connect.js" {
+  import { Base } from "diagram-js/lib/model/index.js";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
   import Dragging from "diagram-js/lib/features/dragging/Dragging";
-  import Modeling from "diagram-js/lib/features/modeling/Modeling";
+  import Modeling from "diagram-js/lib/features/modeling/Modeling.js";
   import Rules from "diagram-js/lib/features/rules/Rules";
-  import Canvas from "diagram-js/lib/core/Canvas";
+  import Canvas from "diagram-js/lib/core/Canvas.js";
   import GraphicsFactory from "diagram-js/lib/core/GraphicsFactory";
 
   export default class Connect {

@@ -1,9 +1,9 @@
 declare module "diagram-js/lib/features/resize/ResizeHandles" {
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import Canvas from "diagram-js/lib/core/Canvas";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import Canvas from "diagram-js/lib/core/Canvas.js";
   import Selection from "diagram-js/lib/features/selection/Selection";
   import Resize from "diagram-js/lib/features/resize/Resize";
-  import { Shape } from "diagram-js/lib/model";
+  import { Shape } from "diagram-js/lib/model/index.js";
 
   export default class ResizeHandles {
     /**

@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { getLastArrayEntry } from "../tools/array";
+import { getLastArrayEntry } from "../tools/array.js";
 
 export interface IFieldConfig {
   conditionExpression: string;

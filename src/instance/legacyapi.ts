@@ -1,8 +1,8 @@
-import { IBaseReply, IBaseMessage, IBaseRequest, IBaseRequestObject, IBaseReplyObject } from "../legacyapi/apiinterfaces";
-import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces";
+import { IBaseReply, IBaseMessage, IBaseRequest, IBaseRequestObject, IBaseReplyObject } from "../legacyapi/apiinterfaces.js";
+import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces.js";
 import Joi from "joi";
-import { createLiteralTypeRegExp } from "../data/regextools";
-import { IUserDetails } from "../user/userinterfaces";
+import { createLiteralTypeRegExp } from "../data/regextools.js";
+import { IUserDetails } from "../user/userinterfaces.js";
 
 // API routes
 export const ProcessEngineApiRoutes = {

@@ -1,4 +1,4 @@
-declare module "diagram-js/lib/i18n/translate/translate" {
+declare module "diagram-js/lib/i18n/translate/translate.js" {
   /**
    * A simple translation stub to be used for multi-language support
    * in diagrams. Can be easily replaced with a more sophisticated

@@ -1,12 +1,12 @@
 import { Bpmn } from "modeler/bpmn/bpmn";
-import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
-import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
+import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
+import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces.js";
 import { IParseResult } from "bpmn-moddle/lib/simple";
 import Joi from "joi";
-import { IProcessLinkInstance } from "../data/fields/processlink";
-import { IFieldContentMap } from "../data/ifieldcontentmap";
-import { IRoleOwnerMap } from "../process/processrights";
-import { ITodoDetails, IDecisionTask } from "../todo/todointerfaces";
+import { IProcessLinkInstance } from "../data/fields/processlink.js";
+import { IFieldContentMap } from "../data/ifieldcontentmap.js";
+import { IRoleOwnerMap } from "../process/processrights.js";
+import { ITodoDetails, IDecisionTask } from "../todo/todointerfaces.js";
 
 export enum State {
   // DON'T CHANGE NUMBERS - used in database

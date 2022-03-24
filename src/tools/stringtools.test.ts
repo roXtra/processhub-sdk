@@ -1,9 +1,9 @@
 import * as chai from "chai";
 import { expect } from "chai";
 import chaiExclude from "chai-exclude";
-import { createId } from "./guid";
-import * as StringTools from "./stringtools";
-import { NestedElements, Group, Rule } from "./stringtools";
+import { createId } from "./guid.js";
+import * as StringTools from "./stringtools.js";
+import { NestedElements, Group, Rule } from "./stringtools.js";
 
 chai.use(chaiExclude);
 

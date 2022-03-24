@@ -1,5 +1,5 @@
 declare module "diagram-js/lib/features/selection/Selection" {
-  import EventBus from "diagram-js/lib/core/EventBus";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
 
   export default class Selection {
     /**

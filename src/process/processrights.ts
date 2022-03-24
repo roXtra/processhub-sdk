@@ -1,14 +1,14 @@
-import { tl } from "../tl";
-import { getDefaultRoleGroup, hasEditAccess, IUserDetails, Licence, PredefinedGroups } from "../user/userinterfaces";
-import { BpmnProcess } from "./bpmn/bpmnprocess";
-import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
-import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
-import { isWorkspaceMember } from "../workspace/workspacerights";
-import { error } from "../tools/assert";
-import { isGroupId, isUserId } from "../tools/guid";
+import { tl } from "../tl.js";
+import { getDefaultRoleGroup, hasEditAccess, IUserDetails, Licence, PredefinedGroups } from "../user/userinterfaces.js";
+import { BpmnProcess } from "./bpmn/bpmnprocess.js";
+import { IWorkspaceDetails } from "../workspace/workspaceinterfaces.js";
+import { IProcessDetails, ProcessViewAccess } from "./processinterfaces.js";
+import { isWorkspaceMember } from "../workspace/workspacerights.js";
+import { error } from "../tools/assert.js";
+import { isGroupId, isUserId } from "../tools/guid.js";
 import { Bpmn } from "./bpmn";
-import isEqual from "lodash/isEqual";
-import { ModuleName } from "../modules/imodule";
+import _ from "lodash";
+import { ModuleName } from "../modules/imodule.js";
 
 export enum ProcessAccessRights {
   None = 0,
@@ -364,7 +364,7 @@ export function canStartProcess(process: IProcessDetails | undefined, startEvent
 
   if (startEventId == null) return false;
 
-  if (process.userStartEvents == null || isEqual(process.userStartEvents, {})) return canStartProcessOld(process, user);
+  if (process.userStartEvents == null || _.isEqual(process.userStartEvents, {})) return canStartProcessOld(process, user);
 
   // If userStartEvent is in map, user is allowed to start process
   return process.userStartEvents[startEventId] != null;

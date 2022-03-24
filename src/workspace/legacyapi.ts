@@ -1,6 +1,6 @@
-import { IBaseRequest, IBaseMessage } from "../legacyapi/apiinterfaces";
-import { WorkspaceExtras, IWorkspaceDetails } from "./workspaceinterfaces";
-import { WorkspaceMessages } from "./phclient";
+import { IBaseRequest, IBaseMessage } from "../legacyapi/apiinterfaces.js";
+import { WorkspaceExtras, IWorkspaceDetails } from "./workspaceinterfaces.js";
+import { WorkspaceMessages } from "./phclient.js";
 
 // WorkspaceRequestRoutes
 export const WorkspaceRequestRoutes = {

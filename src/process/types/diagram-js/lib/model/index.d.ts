@@ -1,4 +1,4 @@
-declare module "diagram-js/lib/model" {
+declare module "diagram-js/lib/model/index.js" {
   import { IPoint } from "diagram-js";
 
   /**

@@ -1,5 +1,5 @@
-import { IModule } from "./modules/imodule";
-import { IClientSettingsConfig, IFeatureConfig } from "./serverconfig/iconfig";
+import { IModule } from "./modules/imodule.js";
+import { IClientSettingsConfig, IFeatureConfig } from "./serverconfig/iconfig.js";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/naming-convention

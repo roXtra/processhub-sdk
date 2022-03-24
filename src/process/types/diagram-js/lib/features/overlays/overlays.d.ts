@@ -1,9 +1,9 @@
 declare module "diagram-js/lib/features/overlays/Overlays" {
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import Canvas from "diagram-js/lib/core/Canvas";
-  import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import Canvas from "diagram-js/lib/core/Canvas.js";
+  import ElementRegistry from "diagram-js/lib/core/ElementRegistry.js";
 
-  import { Base } from "diagram-js/lib/model";
+  import { Base } from "diagram-js/lib/model/index.js";
 
   /**
    * A service that allows users to attach overlays to diagram elements.

@@ -1,6 +1,6 @@
-import { IBaseRequest, IBaseMessage } from "../legacyapi/apiinterfaces";
-import { IUserDetails, UserExtras, IViewState } from "./userinterfaces";
-import { UserMessages } from "./phclient";
+import { IBaseRequest, IBaseMessage } from "../legacyapi/apiinterfaces.js";
+import { IUserDetails, UserExtras, IViewState } from "./userinterfaces.js";
+import { UserMessages } from "./phclient.js";
 
 export const UserRequestRoutes = {
   GetAllUserFromWorkspace: "/api/user/getallfromworkspace",

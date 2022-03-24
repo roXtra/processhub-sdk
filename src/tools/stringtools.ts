@@ -1,6 +1,5 @@
-import isEmpty from "lodash/isEmpty";
-import cloneDeep from "lodash/cloneDeep";
-import { createId } from "./guid";
+import _ from "lodash";
+import { createId } from "./guid.js";
 import Joi from "joi";
 import utf8 from "utf8";
 import base64 from "base-64";
@@ -147,7 +146,7 @@ export function parseNestedElementsToGroupConstruct(nestedElement: NestedElement
   const topGroup: Group = new Group();
   topGroup.isTopGroup = isTopGroup;
 
-  if (isEmpty(nestedElement)) {
+  if (_.isEmpty(nestedElement)) {
     return topGroup;
   }
 
@@ -155,7 +154,7 @@ export function parseNestedElementsToGroupConstruct(nestedElement: NestedElement
 
   if (topIndex === undefined) throw new Error(`Could not find index for top element in parseNestedElementsToGroupConstruct: ${JSON.stringify(nestedElement)}`);
 
-  const topEntry: INestedElement = cloneDeep(nestedElement[topIndex]);
+  const topEntry: INestedElement = _.cloneDeep(nestedElement[topIndex]);
 
   if (topEntry.type === "group") {
     const regexEx = isCombinatorRegex.exec(topEntry.query);

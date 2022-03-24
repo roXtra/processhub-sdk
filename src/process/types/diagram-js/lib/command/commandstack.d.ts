@@ -1,7 +1,7 @@
-declare module "diagram-js/lib/command/CommandStack" {
-  import EventBus from "diagram-js/lib/core/EventBus";
+declare module "diagram-js/lib/command/CommandStack.js" {
+  import EventBus from "diagram-js/lib/core/EventBus.js";
   import { IBounds } from "diagram-js";
-  import { Shape } from "diagram-js/lib/model";
+  import { Shape } from "diagram-js/lib/model/index.js";
 
   /**
    * A service that offers un- and redoable execution of commands.

@@ -1,15 +1,15 @@
-import { ProcessAccessRights, IProcessRoles } from "./processrights";
-import { BpmnProcess } from "./bpmn/bpmnprocess";
-import { strEnum } from "../tools/types";
-import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
-import { IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces";
-import { IGenericModuleSettings } from "../modules/imodule";
-import { IRowDetails } from "./phclient";
-import { IFieldDefinition } from "../data/ifielddefinition";
-import { IServiceActionConfigField, ITaskIdRequiredFieldsNeeded } from "../data/datainterfaces";
-import { FieldType } from "../data/ifieldvalue";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
-import IAuditsSettings from "../modules/audits/iauditssettings";
+import { ProcessAccessRights, IProcessRoles } from "./processrights.js";
+import { BpmnProcess } from "./bpmn/bpmnprocess.js";
+import { strEnum } from "../tools/types.js";
+import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
+import { IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces.js";
+import { IGenericModuleSettings } from "../modules/imodule.js";
+import { IRowDetails } from "./phclient.js";
+import { IFieldDefinition } from "../data/ifielddefinition.js";
+import { IServiceActionConfigField, ITaskIdRequiredFieldsNeeded } from "../data/datainterfaces.js";
+import { FieldType } from "../data/ifieldvalue.js";
+import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import IAuditsSettings from "../modules/audits/iauditssettings.js";
 
 export interface IProcessAttachment {
   attachmentId: string;

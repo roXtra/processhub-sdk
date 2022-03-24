@@ -1,7 +1,7 @@
-import { IProcessDetails } from "../process/processinterfaces";
-import { IUserDetails } from "../user/userinterfaces";
-import { IGroupDetails } from "../group/groupinterfaces";
-import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
+import { IProcessDetails } from "../process/processinterfaces.js";
+import { IUserDetails } from "../user/userinterfaces.js";
+import { IGroupDetails } from "../group/groupinterfaces.js";
+import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
 
 export interface IWorkspaceDetails {
   workspaceId: string;

@@ -1,4 +1,4 @@
-import { ModuleId, ModuleName } from "../modules/imodule";
+import { ModuleId, ModuleName } from "../modules/imodule.js";
 
 export interface IRoxFile {
   name: string;

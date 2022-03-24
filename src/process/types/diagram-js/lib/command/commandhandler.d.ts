@@ -1,5 +1,5 @@
-declare module "diagram-js/lib/command/CommandHandler" {
-  import { Base } from "diagram-js/lib/model";
+declare module "diagram-js/lib/command/CommandHandler.js" {
+  import { Base } from "diagram-js/lib/model/index.js";
 
   /**
    * A command handler that may be registered with the

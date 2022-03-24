@@ -1,5 +1,5 @@
-import { IFieldConfig } from "./datainterfaces";
-import { FieldType } from "./ifieldvalue";
+import { IFieldConfig } from "./datainterfaces.js";
+import { FieldType } from "./ifieldvalue.js";
 
 export interface IFieldDefinition {
   name: string;

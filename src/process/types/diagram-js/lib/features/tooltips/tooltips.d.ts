@@ -1,6 +1,6 @@
-declare module "diagram-js/lib/features/tooltips/Tooltips" {
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import Canvas from "diagram-js/lib/core/Canvas";
+declare module "diagram-js/lib/features/tooltips/Tooltips.js" {
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import Canvas from "diagram-js/lib/core/Canvas.js";
 
   export default class Tooltips {
     /**

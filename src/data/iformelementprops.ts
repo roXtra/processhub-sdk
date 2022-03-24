@@ -1,5 +1,5 @@
-import { IFieldConfig } from "./datainterfaces";
-import { FieldValueType } from "./ifieldvalue";
+import { IFieldConfig } from "./datainterfaces.js";
+import { FieldValueType } from "./ifieldvalue.js";
 
 export interface IFormElementProps<ConfigType extends IFieldConfig, ValueType extends FieldValueType> {
   value: ValueType | undefined | null;

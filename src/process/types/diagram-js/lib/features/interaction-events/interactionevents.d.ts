@@ -1,8 +1,8 @@
 declare module "diagram-js/lib/features/interaction-events/InteractionEvents" {
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import ElementRegistry from "diagram-js/lib/core/ElementRegistry.js";
   import Styles from "diagram-js/lib/draw/Styles";
-  import { Base } from "diagram-js/lib/model";
+  import { Base } from "diagram-js/lib/model/index.js";
 
   export default class InteractionEvents {
     /**

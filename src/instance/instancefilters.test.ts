@@ -1,10 +1,10 @@
 import { assert } from "chai";
-import * as InstanceFilters from "./instancefilters";
-import { ITodoDetails } from "../todo/todointerfaces";
-import { createId } from "../tools/guid";
-import { getLastArrayEntry } from "../tools/array";
-import { IInstanceDetails } from "./instanceinterfaces";
-import { IUserDetails } from "../user/userinterfaces";
+import * as InstanceFilters from "./instancefilters.js";
+import { ITodoDetails } from "../todo/todointerfaces.js";
+import { createId } from "../tools/guid.js";
+import { getLastArrayEntry } from "../tools/array.js";
+import { IInstanceDetails } from "./instanceinterfaces.js";
+import { IUserDetails } from "../user/userinterfaces.js";
 
 describe("sdk", function () {
   describe("instance", function () {

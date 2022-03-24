@@ -1,4 +1,4 @@
-import { IProcessDetails } from "./processinterfaces";
+import { IProcessDetails } from "./processinterfaces.js";
 
 // Filter tags that are used in the given processes
 export function filterExistingTags(processes: IProcessDetails[], tags: string[]): string[] {

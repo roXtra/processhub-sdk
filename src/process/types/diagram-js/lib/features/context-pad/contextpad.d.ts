@@ -1,8 +1,8 @@
 declare module "diagram-js/lib/features/context-pad/ContextPad" {
-  import EventBus from "diagram-js/lib/core/EventBus";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
   import Overlays from "diagram-js/lib/features/overlays/Overlays";
 
-  import { Base } from "diagram-js/lib/model";
+  import { Base } from "diagram-js/lib/model/index.js";
 
   export default class ContextPad {
     /**

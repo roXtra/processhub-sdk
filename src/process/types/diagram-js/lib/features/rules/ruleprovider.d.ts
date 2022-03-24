@@ -1,7 +1,7 @@
-declare module "diagram-js/lib/features/rules/RuleProvider" {
-  import EventBus from "diagram-js/lib/core/EventBus";
+declare module "diagram-js/lib/features/rules/RuleProvider.js" {
+  import EventBus from "diagram-js/lib/core/EventBus.js";
   import { IBounds, IPoint } from "diagram-js";
-  import { Base, Connection, Shape } from "diagram-js/lib/model";
+  import { Base, Connection, Shape } from "diagram-js/lib/model/index.js";
 
   /**
    * A basic provider that may be extended to implement modeling rules.

@@ -1,4 +1,4 @@
-import { IUserDetails } from "../user/userinterfaces";
+import { IUserDetails } from "../user/userinterfaces.js";
 
 export interface IGroupDetails {
   groupId: string;

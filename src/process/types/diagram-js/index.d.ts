@@ -1,9 +1,9 @@
 declare module "diagram-js" {
   import Keyboard, { IKeyboardConfig } from "diagram-js/lib/features/keyboard/Keyboard";
-  import Canvas, { ICanvasConfig } from "diagram-js/lib/core/Canvas";
-  import BaseRenderer from "diagram-js/lib/draw/BaseRenderer";
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import ElementFactory from "diagram-js/lib/core/ElementFactory";
+  import Canvas, { ICanvasConfig } from "diagram-js/lib/core/Canvas.js";
+  import BaseRenderer from "diagram-js/lib/draw/BaseRenderer.js";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import ElementFactory from "diagram-js/lib/core/ElementFactory.js";
   import Injector from "didi/lib/injector";
 
   /**

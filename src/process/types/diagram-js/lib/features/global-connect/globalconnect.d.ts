@@ -1,7 +1,7 @@
 declare module "diagram-js/lib/features/global-connect/GlobalConnect" {
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import { Base } from "diagram-js/lib/model";
-  import Canvas from "diagram-js/lib/core/Canvas";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import { Base } from "diagram-js/lib/model/index.js";
+  import Canvas from "diagram-js/lib/core/Canvas.js";
   import Dragging from "diagram-js/lib/features/dragging/Dragging";
 
   export default class GlobalConnect {

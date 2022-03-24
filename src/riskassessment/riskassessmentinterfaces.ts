@@ -1,6 +1,6 @@
 import Joi from "joi";
-import { IRiskAssessment } from "../instance/instanceinterfaces";
-import { IBaseReply } from "../legacyapi/apiinterfaces";
+import { IRiskAssessment } from "../instance/instanceinterfaces.js";
+import { IBaseReply } from "../legacyapi/apiinterfaces.js";
 
 export enum RiskAssessmentCycle {
   // Explicit values that may not be changed as this is stored in the DB

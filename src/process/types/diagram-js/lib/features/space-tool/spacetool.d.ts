@@ -1,11 +1,11 @@
-declare module "diagram-js/lib/features/space-tool/SpaceTool" {
-  import Canvas from "diagram-js/lib/core/Canvas";
-  import EventBus from "diagram-js/lib/core/EventBus";
+declare module "diagram-js/lib/features/space-tool/SpaceTool.js" {
+  import Canvas from "diagram-js/lib/core/Canvas.js";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
   import Dragging from "diagram-js/lib/features/dragging/Dragging";
-  import Modeling from "diagram-js/lib/features/modeling/Modeling";
+  import Modeling from "diagram-js/lib/features/modeling/Modeling.js";
   import Rules from "diagram-js/lib/features/rules/Rules";
   import { IPoint } from "diagram-js";
-  import { Base, Shape } from "diagram-js/lib/model";
+  import { Base, Shape } from "diagram-js/lib/model/index.js";
 
   export default class SpaceTool {
     /**

@@ -1,7 +1,7 @@
 /* Interfaces for statistics */
 
 import Joi from "joi";
-import { IUserDetails } from "../user/userinterfaces";
+import { IUserDetails } from "../user/userinterfaces.js";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export enum StatisticsAction {

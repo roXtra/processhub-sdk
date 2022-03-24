@@ -1,11 +1,11 @@
-import { IBaseMessage, IBaseRequest, IBaseReply } from "../legacyapi/apiinterfaces";
-import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces";
+import { IBaseMessage, IBaseRequest, IBaseReply } from "../legacyapi/apiinterfaces.js";
+import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces.js";
 import { Bpmn } from "./bpmn";
 import { IParseResult } from "bpmn-moddle/lib/simple";
-import { IStatisticRow } from "../data/statistics";
-import { IFieldDefinition } from "../data/ifielddefinition";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
-import IQuestionCatalog from "../modules/audits/iquestioncatalog";
+import { IStatisticRow } from "../data/statistics.js";
+import { IFieldDefinition } from "../data/ifielddefinition.js";
+import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import IQuestionCatalog from "../modules/audits/iquestioncatalog.js";
 
 // API routes
 export const ProcessRequestRoutes = {

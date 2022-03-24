@@ -11,12 +11,12 @@ import {
   canStartProcessByMail,
   canStartProcessByTimer,
 } from "./processrights";
-import { IProcessDetails } from "./processinterfaces";
-import { createBpmnTemplate } from "./bpmn/bpmnmoddlehelper";
-import { ILoadTemplateReply } from "./legacyapi";
-import { BpmnProcess } from "./bpmn/bpmnprocess";
+import { IProcessDetails } from "./processinterfaces.js";
+import { createBpmnTemplate } from "./bpmn/bpmnmoddlehelper.js";
+import { ILoadTemplateReply } from "./legacyapi.js";
+import { BpmnProcess } from "./bpmn/bpmnprocess.js";
 import { assert } from "console";
-import { IUserDetails, Licence } from "../user/userinterfaces";
+import { IUserDetails, Licence } from "../user/userinterfaces.js";
 
 const testProcess: IProcessDetails = {
   workspaceId: "2000E70281B5ECD5",

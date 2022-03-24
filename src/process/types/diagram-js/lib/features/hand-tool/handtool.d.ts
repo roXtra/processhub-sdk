@@ -1,6 +1,6 @@
 declare module "diagram-js/lib/features/hand-tool/HandTool" {
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import Canvas from "diagram-js/lib/core/Canvas";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import Canvas from "diagram-js/lib/core/Canvas.js";
 
   export default class HandTool {
     constructor(eventBus: EventBus, canvas: Canvas, dragging: {}, toolManager: {});

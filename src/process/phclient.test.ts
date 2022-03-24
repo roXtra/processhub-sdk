@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { isValidProcessView } from "./phclient";
+import { isValidProcessView } from "./phclient.js";
 
 describe("sdk", function () {
   describe("process", function () {

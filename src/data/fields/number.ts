@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces";
+import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces.js";
 
 // Default value if from type string, as it may be a JavaScript expression
 export interface INumberFieldConfig extends IFieldConfigDefault<string> {

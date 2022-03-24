@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { IFieldConfig, IFieldConfigObject } from "../datainterfaces";
+import { IFieldConfig, IFieldConfigObject } from "../datainterfaces.js";
 
 export interface IRiskAssessmentFieldConfig extends IFieldConfig {
   usePreviousValueAsDefault: boolean | undefined;

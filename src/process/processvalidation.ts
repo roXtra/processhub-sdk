@@ -1,5 +1,5 @@
-import { tl } from "../tl";
-import { IProcessDetails } from "./processinterfaces";
+import { tl } from "../tl.js";
+import { IProcessDetails } from "./processinterfaces.js";
 
 export function isProcessDetailsValid(details: IProcessDetails): boolean {
   if (details.displayName.length < 3 || details.displayName.length > 50) return false;

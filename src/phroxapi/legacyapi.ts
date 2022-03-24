@@ -1,9 +1,9 @@
-import { IBaseReply, IBaseRequest } from "../legacyapi/apiinterfaces";
-import { ITaskExtensions } from "../process/processinterfaces";
-import { IModule } from "../modules/imodule";
-import { IFieldContentMap } from "../data/ifieldcontentmap";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { IModuleSelection, IRoxFile, IRoxFolder } from "./phroxapiinterfaces";
+import { IBaseReply, IBaseRequest } from "../legacyapi/apiinterfaces.js";
+import { ITaskExtensions } from "../process/processinterfaces.js";
+import { IModule } from "../modules/imodule.js";
+import { IFieldContentMap } from "../data/ifieldcontentmap.js";
+import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import { IModuleSelection, IRoxFile, IRoxFolder } from "./phroxapiinterfaces.js";
 
 export const RequestRoutes = {
   GetRootFolder: "/api/phroxapi/getrootfolder",

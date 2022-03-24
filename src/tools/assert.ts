@@ -1,7 +1,7 @@
 // Wir nutzen im gesamten Code ausgiebig Assertion-Tests, da hiermit Fehler sehr schnell entdeckt werden.
 // In allen Bereichen außer /test sollen nur die hier gekapselten Asserts verwendet werden.
 
-import { getLogger } from "./logger";
+import { getLogger } from "./logger.js";
 
 function throwOrLog(logMsg: string): void {
   // Production Environment?

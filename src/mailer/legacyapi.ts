@@ -1,4 +1,4 @@
-import { IBaseMessage, ApiResult } from "../legacyapi/apiinterfaces";
+import { IBaseMessage, ApiResult } from "../legacyapi/apiinterfaces.js";
 
 export const MailerRequestRoutes = {
   SendMailTemplate: "/api/mailer/send-mail-template",

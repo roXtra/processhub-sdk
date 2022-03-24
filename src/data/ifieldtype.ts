@@ -1,14 +1,14 @@
 import { Component } from "react";
-import { ActionHandler } from "../actionhandler";
-import { IInstanceEnvironment } from "../environment";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { BpmnProcess } from "../process/bpmn/bpmnprocess";
-import { IProcessDetails } from "../process/processinterfaces";
-import { IUserDetails } from "../user/userinterfaces";
-import { IChartData, IFieldConfig } from "./datainterfaces";
-import { IFieldDefinition } from "./ifielddefinition";
-import { FieldType, FieldValueType, IFieldValue } from "./ifieldvalue";
-import { IFormElementProps } from "./iformelementprops";
+import { ActionHandler } from "../actionhandler.js";
+import { IInstanceEnvironment } from "../environment.js";
+import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import { BpmnProcess } from "../process/bpmn/bpmnprocess.js";
+import { IProcessDetails } from "../process/processinterfaces.js";
+import { IUserDetails } from "../user/userinterfaces.js";
+import { IChartData, IFieldConfig } from "./datainterfaces.js";
+import { IFieldDefinition } from "./ifielddefinition.js";
+import { FieldType, FieldValueType, IFieldValue } from "./ifieldvalue.js";
+import { IFormElementProps } from "./iformelementprops.js";
 
 export type GetInputParams<ConfigType extends IFieldConfig, ValueType extends FieldValueType> = {
   formElementProps: IFormElementProps<ConfigType, ValueType>;

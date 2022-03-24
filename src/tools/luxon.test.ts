@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { DateTime } from "luxon";
-import { Language, supportedLanguages, tl } from "../tl";
-import { luxonDueDate, luxonRelativePast } from "./luxon";
+import { Language, supportedLanguages, tl } from "../tl.js";
+import { luxonDueDate, luxonRelativePast } from "./luxon.js";
 
 describe("sdk", function () {
   describe("tools", function () {

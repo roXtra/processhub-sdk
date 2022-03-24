@@ -1,6 +1,6 @@
 declare module "diagram-js/lib/core/GraphicsFactory" {
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import ElementRegistry from "diagram-js/lib/core/ElementRegistry.js";
 
   /**
    * A factory that creates graphical elements

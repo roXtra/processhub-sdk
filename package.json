@@ -5,6 +5,7 @@
     "url": "git://github.com/roXtra/processhub-sdk.git"
   },
   "version": "9.37.0-1",
+  "type": "module",
   "author": {
     "name": "ROXTRA",
     "email": "service@roxtra.com",

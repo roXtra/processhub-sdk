@@ -1,5 +1,5 @@
 import fetch from "cross-fetch";
-import { executeWithTimeout, TaskTimedOutError } from "./executewithtimeout";
+import { executeWithTimeout, TaskTimedOutError } from "./executewithtimeout.js";
 
 export const RequestTimedOutPrefix = "Fetch request timed out: ";
 

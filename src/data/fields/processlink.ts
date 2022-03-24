@@ -1,4 +1,4 @@
-import { State, StateSchema } from "../../instance/instanceinterfaces";
+import { State, StateSchema } from "../../instance/instanceinterfaces.js";
 import Joi from "joi";
 
 export interface IProcessLinkInstance {

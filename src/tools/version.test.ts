@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { compareRoXtraVersions } from "./version";
+import { compareRoXtraVersions } from "./version.js";
 
 describe("tools", function () {
   describe("version", function () {

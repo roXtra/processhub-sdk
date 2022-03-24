@@ -1,6 +1,6 @@
-declare module "diagram-js/lib/core/ElementFactory" {
+declare module "diagram-js/lib/core/ElementFactory.js" {
   import { IPoint } from "diagram-js";
-  import { Base, Shape } from "diagram-js/lib/model";
+  import { Base, Shape } from "diagram-js/lib/model/index.js";
 
   /**
    * A factory for diagram-js shapes

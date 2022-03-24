@@ -1,4 +1,4 @@
-import { IUserDetails } from "./userinterfaces";
+import { IUserDetails } from "./userinterfaces.js";
 
 // User.lanugage contains the preferred user language, even if it does not (yet) exist
 // in ProcessHub (e.g. "fr", if user is french)

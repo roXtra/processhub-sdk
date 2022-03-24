@@ -1,4 +1,4 @@
-import { IWorkspaceDetails, WorkspaceRole } from "./workspaceinterfaces";
+import { IWorkspaceDetails, WorkspaceRole } from "./workspaceinterfaces.js";
 
 export function isWorkspaceMember(workspace: IWorkspaceDetails): boolean {
   if (workspace == null) return false;

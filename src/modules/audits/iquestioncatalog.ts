@@ -1,4 +1,4 @@
-import { IUserDetailsSmall } from "../../user/userinterfaces";
+import { IUserDetailsSmall } from "../../user/userinterfaces.js";
 
 export interface IQuestion {
   id: string;

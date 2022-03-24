@@ -1,6 +1,6 @@
-declare module "diagram-js/lib/draw/BaseRenderer" {
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import { Connection, Shape } from "diagram-js/lib/model";
+declare module "diagram-js/lib/draw/BaseRenderer.js" {
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import { Connection, Shape } from "diagram-js/lib/model/index.js";
 
   /**
    * The base implementation of shape and connection renderers.

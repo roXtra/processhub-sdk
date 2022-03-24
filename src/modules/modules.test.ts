@@ -1,6 +1,6 @@
 import { assert } from "chai";
-import { getModuleForRequestPath } from "./modules";
-import { ModuleId } from "./imodule";
+import { getModuleForRequestPath } from "./modules.js";
+import { ModuleId } from "./imodule.js";
 
 describe("sdk", function () {
   describe("modules", function () {

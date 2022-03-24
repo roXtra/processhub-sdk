@@ -1,9 +1,9 @@
 declare module "diagram-js/lib/features/resize/Resize" {
-  import EventBus from "diagram-js/lib/core/EventBus";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
   import Rules from "diagram-js/lib/features/rules/Rules";
-  import Modeling from "diagram-js/lib/features/modeling/Modeling";
+  import Modeling from "diagram-js/lib/features/modeling/Modeling.js";
   import Dragging from "diagram-js/lib/features/dragging/Dragging";
-  import { Shape } from "diagram-js/lib/model";
+  import { Shape } from "diagram-js/lib/model/index.js";
 
   /**
    * A component that provides resizing of shapes on the canvas.

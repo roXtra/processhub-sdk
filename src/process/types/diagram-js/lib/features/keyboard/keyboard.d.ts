@@ -1,5 +1,5 @@
 declare module "diagram-js/lib/features/keyboard/Keyboard" {
-  import EventBus from "diagram-js/lib/core/EventBus";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
 
   /**
    * A keyboard abstraction that may be activated and

@@ -1,7 +1,7 @@
-declare module "diagram-js/lib/command/CommandInterceptor" {
-  import EventBus from "diagram-js/lib/core/EventBus";
+declare module "diagram-js/lib/command/CommandInterceptor.js" {
+  import EventBus from "diagram-js/lib/core/EventBus.js";
   import { IBounds, IPoint } from "diagram-js";
-  import { Shape, Base } from "diagram-js/lib/model";
+  import { Shape, Base } from "diagram-js/lib/model/index.js";
 
   /**
    * A utility that can be used to plug-in into the command execution for

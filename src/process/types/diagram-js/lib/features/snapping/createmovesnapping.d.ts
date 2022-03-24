@@ -1,7 +1,7 @@
-declare module "diagram-js/lib/features/snapping/CreateMoveSnapping" {
-  import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
-  import EventBus from "diagram-js/lib/core/EventBus";
-  import { Base, Shape } from "diagram-js/lib/model";
+declare module "diagram-js/lib/features/snapping/CreateMoveSnapping.js" {
+  import ElementRegistry from "diagram-js/lib/core/ElementRegistry.js";
+  import EventBus from "diagram-js/lib/core/EventBus.js";
+  import { Base, Shape } from "diagram-js/lib/model/index.js";
   import SnapContext, { SnapPoints } from "diagram-js/lib/features/snapping/SnapContext";
   import Snapping from "diagram-js/lib/features/snapping/Snapping";
   import IInitSnapEvent from "diagram-js/lib/features/snapping/Snapping";

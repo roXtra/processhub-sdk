@@ -1,9 +1,9 @@
-declare module "diagram-js/lib/core/Canvas" {
-  import EventBus from "diagram-js/lib/core/EventBus";
+declare module "diagram-js/lib/core/Canvas.js" {
+  import EventBus from "diagram-js/lib/core/EventBus.js";
   import GraphicsFactory from "diagram-js/lib/core/GraphicsFactory";
-  import ElementRegistry from "diagram-js/lib/core/ElementRegistry";
+  import ElementRegistry from "diagram-js/lib/core/ElementRegistry.js";
   import { IBounds, IPoint } from "diagram-js";
-  import { Base, Connection, Shape } from "diagram-js/lib/model";
+  import { Base, Connection, Shape } from "diagram-js/lib/model/index.js";
 
   /**
    * The main drawing canvas.
