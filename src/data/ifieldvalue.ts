@@ -1,7 +1,7 @@
 import Joi from "joi";
 import { IRiskAssessmentTargetValue, IRiskAssessmentTargetValueSchema, IRiskAssessmentValue, IRiskAssessmentValueSchema } from "../instance/instanceinterfaces";
 import { RiskAssessmentCycle, RiskAssessmentCycleSchema } from "../riskassessment/riskassessmentinterfaces";
-import { IAuditFieldValue } from "./fields/audit";
+import { IAuditQuestionsFieldValue } from "./fields/auditquestions";
 import { IDateRangeFieldValue, IDateRangeFieldValueSchema } from "./fields/daterange";
 import { IProcessLinkValue, IProcessLinkValueSchema } from "./fields/processlink";
 import { IRadioButtonGroupFieldValue, IRadioButtonGroupFieldValueSchema } from "./fields/radiobutton";
@@ -44,7 +44,7 @@ export const FieldTypeOptions = [
   "ProcessHubSVGDropdown",
   "ProcessHubTasks",
   "ProcessHubDateRange",
-  "ProcessHubAudit",
+  "ProcessHubAuditQuestions",
 ] as const;
 
 export type FieldType = typeof FieldTypeOptions[number];
@@ -68,7 +68,7 @@ export type FieldValueType =
   | ITasksFieldValue // TasksField
   | ITreeViewFieldValue // TreeViewField
   | IDateRangeFieldValue // DateRange
-  | IAuditFieldValue; // Audit
+  | IAuditQuestionsFieldValue; // Audit
 
 const FieldValueTypeSchema = [
   Joi.allow(null),
