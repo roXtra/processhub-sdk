@@ -196,7 +196,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
               returnValue.signalCatchEventRoles = [];
             }
             break;
-
+          case "copy-fields":
+            returnValue.copyFields = child.$body === "true";
+            break;
           default:
             break;
         }
