@@ -23,7 +23,7 @@ export type GetInputParams<ConfigType extends IFieldConfig, ValueType extends Fi
 export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends FieldValueType> {
   getType(): FieldType;
   getName(userLanguage: string): string;
-  getInput(params: GetInputParams<ConfigType, ValueType>): JSX.Element | undefined;
+  getInput(params: GetInputParams<ConfigType, ValueType>): JSX.Element | null;
   renderValue(
     value: {} | undefined | null,
     instance: IInstanceDetails,
