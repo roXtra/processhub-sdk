@@ -203,7 +203,8 @@ export type BpmnExtensionName =
   | "message-event-type" // "mail" | "webhook"
   | "mail-body-parse-fields" // Boolean: parse fields from mail body in StartEvent/IntermediateEvent with MessageEventDefinition, default: false
   | "webhook-body-to-field" // Boolean: write the body of the webhook request inside a field with the name of the event id
-  | "signalcatchevent-roles"; // Array<string>: The lanes that are allowed to trigger a SignalCatch event - if not defined or empty, the current role owner is allowed
+  | "signalcatchevent-roles" // Array<string>: The lanes that are allowed to trigger a SignalCatch event - if not defined or empty, the current role owner is allowed
+  | "copy-fields"; // Boolean, can be set for StartEvent. Allows to copy the field values defined in the StartEvent from another instance
 
 export interface ITaskExtensions {
   description?: string;
@@ -246,6 +247,7 @@ export interface ITaskExtensions {
   webhookBodyToField?: boolean;
 
   signalCatchEventRoles: string[] | undefined; // The lanes that are allowed to trigger a SignalCatch event - if not defined or empty, the current role owner is allowed
+  copyFields?: boolean; // Allows to copy the field values defined in the StartEvent from another instance
 }
 
 export interface ITimerStartEventConfiguration {
