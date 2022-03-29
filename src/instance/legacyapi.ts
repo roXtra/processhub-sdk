@@ -3,6 +3,8 @@ import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./inst
 import Joi from "joi";
 import { createLiteralTypeRegExp } from "../data/regextools";
 import { IUserDetails } from "../user/userinterfaces";
+import { IFieldContentMap } from "../data/ifieldcontentmap";
+import { IRoleOwnerMap } from "../process/processrights";
 
 // API routes
 export const ProcessEngineApiRoutes = {
@@ -27,6 +29,7 @@ export const ProcessEngineApiRoutes = {
   convertSpreadsheets: "/api/processengine/convertspreadsheets",
   getroxfilelinkreferences: "/api/processengine/getroxfilelinkreferences",
   setStartEventReferences: "/api/processengine/setstarteventreferences",
+  copyFields: "/api/processengine/copyfields",
 };
 
 export type ProcessEngineApiRoutes = keyof typeof ProcessEngineApiRoutes;
@@ -264,3 +267,28 @@ const ISetStartEventReferencesRequestObject: ISetStartEventReferencesRequest = {
 };
 
 export const ISetStartEventReferencesRequestSchema = Joi.object(ISetStartEventReferencesRequestObject);
+
+export interface ICopyFieldsRequest extends IBaseRequest {
+  sourceInstanceId: string;
+  targetInstanceId: string;
+  startEventId: string;
+  processId: string;
+  workspaceId: string;
+}
+
+const ICopyFieldsRequestObject: ICopyFieldsRequest = {
+  sourceInstanceId: Joi.string().required() as unknown as string,
+  targetInstanceId: Joi.string().required() as unknown as string,
+  startEventId: Joi.string().required() as unknown as string,
+  processId: Joi.string().required() as unknown as string,
+  workspaceId: Joi.string().required() as unknown as string,
+  // Extends IBaseRequestObject
+  ...IBaseRequestObject,
+};
+
+export const ICopyFieldsRequestSchema = Joi.object(ICopyFieldsRequestObject);
+
+export interface ICopyFieldsReply extends IBaseReply {
+  fieldContents: IFieldContentMap;
+  roleOwners: IRoleOwnerMap;
+}
