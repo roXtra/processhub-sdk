@@ -5,6 +5,6 @@ export interface IAuditQuestionsFieldValue {
   questionCatalog: IQuestionCatalog;
 }
 
-export interface IAuditFieldConfig extends IFieldConfigDefault<IAuditQuestionsFieldValue> {
-  mode: "plan";
+export interface IAuditQuestionsFieldConfig extends IFieldConfigDefault<IAuditQuestionsFieldValue> {
+  mode: "plan" | "answer";
 }
