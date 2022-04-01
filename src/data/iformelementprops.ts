@@ -1,4 +1,5 @@
 import { IFieldConfig } from "./datainterfaces";
+import { IFieldDefinition } from "./ifielddefinition";
 import { FieldValueType } from "./ifieldvalue";
 
 export interface IFormElementProps<ConfigType extends IFieldConfig, ValueType extends FieldValueType> {
@@ -11,4 +12,5 @@ export interface IFormElementProps<ConfigType extends IFieldConfig, ValueType ex
   disabled: boolean;
   config: ConfigType;
   key?: string;
+  auditQuestionsMode?: IFieldDefinition["auditQuestionsMode"];
 }

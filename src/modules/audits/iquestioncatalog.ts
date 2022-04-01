@@ -1,9 +1,11 @@
+import { IFieldValue } from "../../data/ifieldvalue";
 import { IUserDetailsSmall } from "../../user/userinterfaces";
 
 export interface IQuestion {
   id: string;
   noteText: string;
   questionText: string;
+  answer: IFieldValue;
 }
 
 export interface IQuestionCatalogNode {
