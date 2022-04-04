@@ -6,6 +6,7 @@ export interface IQuestion {
   noteText: string;
   questionText: string;
   answer: IFieldValue;
+  files: string[];
 }
 
 export interface IQuestionCatalogNode {
