@@ -28,6 +28,10 @@ module.exports = {
       allowedVersions: "^8.0.0",
     },
     {
+      matchPackageNames: ["react", "react-dom"],
+      allowedVersions: "^17.0.0",
+    },
+    {
       groupName: "progress monorepo",
       matchPackagePatterns: ["^@progress/", "kendo-ui-core"],
     },
