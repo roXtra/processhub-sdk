@@ -18,6 +18,7 @@ export type GetInputParams<ConfigType extends IFieldConfig, ValueType extends Fi
   showInvalidValue: boolean;
   startEventId?: string;
   hideRequiredIdentifier?: boolean;
+  disableMentions?: boolean;
 };
 
 export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends FieldValueType> {
