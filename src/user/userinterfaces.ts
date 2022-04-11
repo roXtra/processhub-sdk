@@ -52,7 +52,6 @@ export interface IUserDetails extends IUserDetailsSmall {
   extras: {
     // New Extras must be added to cache-handling in useractions -> loadUser!
     workspaces?: IWorkspaceDetails[];
-    accessToken?: string; // Only available in sign in replies
     instances?: IInstanceDetails[];
     viewStates?: IViewStates;
     archiveViews?: IArchiveViews;
