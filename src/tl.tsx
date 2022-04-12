@@ -48,11 +48,18 @@ export function registerTranslations(newTranslations: ITranslations): void {
   translations[newTranslations.language] = newTranslations;
 }
 
+/**
+ * Translation string pairs
+ */
+export type TranslationStrings = {
+  [source: string]: string;
+};
+
 export interface ITranslations {
   language: string;
   translations: {
     // Possible values are eg "processes", "risks", "audit", "action"
     moduleNames: ModuleName[];
-    strings: { [source: string]: string };
+    strings: TranslationStrings;
   }[];
 }
