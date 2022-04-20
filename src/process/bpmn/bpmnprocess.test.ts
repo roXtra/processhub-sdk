@@ -275,7 +275,7 @@ describe("sdk", function () {
 
           // +2 hier wegen dem Start und End Event!!!!
 
-          assert(testLane!.flowNodeRef.length === 3);
+          expect(testLane!.flowNodeRef.length).to.equal(3);
 
           const testTaskObject: Bpmn.IUserTask = bpmnProcess.getExistingTask(process.id, testTaskId) as Bpmn.IUserTask;
 
@@ -283,7 +283,7 @@ describe("sdk", function () {
 
           assert(testLane!.flowNodeRef.length === 2);
           bpmnProcess.removeTaskObjectFromLanes(process.id, bpmnProcess.getStartEvents(process.id)[0]);
-          assert(testLane!.flowNodeRef.length === 1);
+          expect(testLane!.flowNodeRef.length).to.equal(1);
         });
 
         describe("Extension Values", function () {
