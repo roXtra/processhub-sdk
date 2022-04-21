@@ -105,12 +105,3 @@ const IFieldValueObject: IFieldValue = {
 };
 
 export const IFieldValueSchema = Joi.object(IFieldValueObject);
-
-/**
- * Check if an element implements the FieldValue interface
- * @param element element to check
- * @return {boolean} true, if element implements the FieldValue interface, false otherwise
- */
-export function isFieldValue(element: {} | undefined): element is IFieldValue {
-  return IFieldValueSchema.required().validate(element).error === undefined;
-}

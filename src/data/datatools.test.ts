@@ -6,7 +6,6 @@ import { ILoadTemplateReply } from "../process/legacyapi";
 import { createBpmnTemplate } from "../process/bpmn/bpmnmoddlehelper";
 import { getProcessRoles, IProcessRoles, IRoleOwnerMap } from "../process/processrights";
 import Joi from "joi";
-import { IFieldContentMap } from "./ifieldcontentmap";
 import { createId } from "../tools/guid";
 
 describe("sdk", function () {
@@ -16,7 +15,13 @@ describe("sdk", function () {
         it("should replace field values", function () {
           const testString = "Hallo {{ field.existiert }}, wie gehts {{ field.existiertnicht }}\n{trölölö} {{{moepmoep}}}\n{{ field.existiert2 }}\n";
           const resultString = "Hallo Teststring eingesetzt!, wie gehts \n{trölölö} {{{moepmoep}}}\n\n";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, {}, {}, "de-DE");
+          const res = DataTools.parseAndInsertStringWithFieldContent(
+            testString,
+            { existiert: { value: "Teststring eingesetzt!", type: "ProcessHubTextInput" } },
+            {},
+            {},
+            "de-DE",
+          );
 
           assert.equal(res, resultString);
         });
@@ -24,7 +29,13 @@ describe("sdk", function () {
         it("should replace field values with {field['name']} notation", function () {
           const testString = "Hallo {field['existiert']}, wie gehts {field['existiertnicht']}\n{trölölö} {{{moepmoep}}}\nfield['existiertnicht2']\n";
           const resultString = "Hallo {Teststring eingesetzt!}, wie gehts {}\n{trölölö} {{{moepmoep}}}\n\n";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { existiert: "Teststring eingesetzt!" } as IFieldContentMap, {}, {}, "de-DE");
+          const res = DataTools.parseAndInsertStringWithFieldContent(
+            testString,
+            { existiert: { value: "Teststring eingesetzt!", type: "ProcessHubTextInput" } },
+            {},
+            {},
+            "de-DE",
+          );
           console.log(res);
           assert.equal(res, resultString);
         });
@@ -39,7 +50,17 @@ describe("sdk", function () {
         it("should replace long field old names with short values", function () {
           const testString = "{{ field.fieldname1 }}{{ field.fieldname2 }}{{ field.fieldname3 }}";
           const resultString = "123";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3" } as IFieldContentMap, {}, {}, "de-DE");
+          const res = DataTools.parseAndInsertStringWithFieldContent(
+            testString,
+            {
+              fieldname1: { value: "1", type: "ProcessHubTextInput" },
+              fieldname2: { value: "2", type: "ProcessHubTextInput" },
+              fieldname3: { value: "3", type: "ProcessHubTextInput" },
+            },
+            {},
+            {},
+            "de-DE",
+          );
 
           assert.equal(res, resultString);
         });
@@ -47,7 +68,17 @@ describe("sdk", function () {
         it("should replace long field names with short values", function () {
           const testString = "field['fieldname1']field['fieldname2']field['fieldname3']";
           const resultString = "123";
-          const res = DataTools.parseAndInsertStringWithFieldContent(testString, { fieldname1: "1", fieldname2: "2", fieldname3: "3" } as IFieldContentMap, {}, {}, "de-DE");
+          const res = DataTools.parseAndInsertStringWithFieldContent(
+            testString,
+            {
+              fieldname1: { value: "1", type: "ProcessHubTextInput" },
+              fieldname2: { value: "2", type: "ProcessHubTextInput" },
+              fieldname3: { value: "3", type: "ProcessHubTextInput" },
+            },
+            {},
+            {},
+            "de-DE",
+          );
 
           assert.equal(res, resultString);
         });
@@ -64,7 +95,7 @@ describe("sdk", function () {
           const processRoles: IProcessRoles = getProcessRoles(undefined, bpmnProcess, "1");
           const res = DataTools.parseAndInsertStringWithFieldContent(
             testString,
-            { Anlagen: "1" } as IFieldContentMap,
+            { Anlagen: { value: ["1"], type: "ProcessHubFileUpload" } },
             processRoles,
             {
               [bpmnProcess.getLanes(false).find((l) => l.name === "Bearbeiter")!.id]: [{ memberId: "1", displayName: "Administrator, Admin" }],

@@ -2,7 +2,7 @@ import { getFormattedDate, getFormattedDateTime, getFormattedTimeZoneOffset } fr
 import SqlString from "sqlstring";
 import Joi from "joi";
 import murmurhash from "murmurhash";
-import { FieldType, IFieldValue, isFieldValue } from "./ifieldvalue";
+import { FieldType, IFieldValue } from "./ifieldvalue";
 import { IFieldContentMap } from "./ifieldcontentmap";
 import { IFieldDefinition } from "./ifielddefinition";
 import { IProcessRoles, IRoleOwner, IRoleOwnerMap } from "../process/processrights";
@@ -135,11 +135,11 @@ export function parseAndInsertStringWithFieldContent(
     if (fieldName != null) {
       const valueObject = fieldContentMap[fieldName];
 
-      if (isFieldValue(valueObject)) {
+      if (valueObject) {
         const val: string = fieldValueToStringFn(fieldName, valueObject);
         result = replaceAll(result, fieldPlaceholder, val, isQuery);
       } else {
-        result = replaceAll(result, fieldPlaceholder, valueObject != null ? valueObject.toString() : defaultValue, isQuery);
+        result = replaceAll(result, fieldPlaceholder, defaultValue, isQuery);
       }
     }
 
@@ -191,11 +191,11 @@ export function parseAndInsertStringWithFieldContent(
 
     if (fieldName && fieldName.length) {
       const valueObject = fieldContentMap[fieldName];
-      if (isFieldValue(valueObject)) {
+      if (valueObject) {
         const val: string = fieldValueToStringFn(fieldName, valueObject);
         result = replaceAll(result, placeHolder, val, isQuery);
       } else {
-        result = replaceAll(result, placeHolder, valueObject != null ? valueObject.toString() : defaultValue, isQuery);
+        result = replaceAll(result, placeHolder, defaultValue, isQuery);
       }
     }
     result = replaceAll(result, placeHolder, defaultValue, isQuery);
