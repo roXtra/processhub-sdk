@@ -50,6 +50,8 @@ describe("sdk", function () {
             "ru-RU": "2 минуты назад",
             "sr-Latn": "pre 2 minuta",
             "vi-VN": "2 phút trước",
+            "ko-KR": "2분 전",
+            "ja-JP": "2 分前",
           };
           /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -133,6 +135,8 @@ describe("sdk", function () {
             "ru-RU": "послезавтра",
             "sr-Latn": "prekosutra",
             "vi-VN": "Ngày kia",
+            "ko-KR": "모레",
+            "ja-JP": "明後日",
           };
           /* eslint-enable @typescript-eslint/naming-convention */
 

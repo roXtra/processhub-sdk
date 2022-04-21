@@ -19,6 +19,8 @@ export const supportedLanguages = [
   "ru-RU",
   "sr-Latn",
   "vi-VN",
+  "ko-KR",
+  "ja-JP",
 ] as const;
 
 export type Language = typeof supportedLanguages[number];
