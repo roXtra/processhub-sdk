@@ -1,6 +1,6 @@
 import { IInstanceDetails } from "./instanceinterfaces";
 import { isId } from "../tools/guid";
-import { FieldType, isFieldValue } from "../data/ifieldvalue";
+import { FieldType } from "../data/ifieldvalue";
 import { isDefaultProcessRole } from "../process/processrights";
 
 export function parseInstanceMailSubject(mail: string): string | undefined {
@@ -26,7 +26,7 @@ export function getFieldsFromInstances(
   for (const instance of instances) {
     for (const fieldName in instance.extras.fieldContents) {
       const field = instance.extras.fieldContents[fieldName];
-      if (isFieldValue(field)) {
+      if (field) {
         const key: string = getFieldKey(fieldName, field.type);
 
         fieldKeyMap[key] = { fieldName, fieldType: field.type };
