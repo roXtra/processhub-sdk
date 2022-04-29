@@ -16,7 +16,7 @@ import { createBpmnTemplate } from "./bpmn/bpmnmoddlehelper";
 import { ILoadTemplateReply } from "./legacyapi";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { assert } from "console";
-import { IUserDetails, Licence } from "../user/userinterfaces";
+import { IUserDetails, Licence, UserStatus } from "../user/userinterfaces";
 
 const testProcess: IProcessDetails = {
   workspaceId: "2000E70281B5ECD5",
@@ -40,6 +40,7 @@ const testUser: IUserDetails = {
   language: "de-DE",
   extendedRights: [],
   favoriteProcesses: [],
+  status: UserStatus.Active,
 };
 
 describe("sdk", function () {
