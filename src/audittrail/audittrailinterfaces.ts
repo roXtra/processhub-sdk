@@ -56,6 +56,8 @@ export enum AuditTrailAction {
   processRestored = 46,
   workspaceCreated = 100,
   auditTrailVisibilityChanged = 101,
+  // A task was claimed by a potential roleowner
+  activeTaskClaimed = 102,
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
