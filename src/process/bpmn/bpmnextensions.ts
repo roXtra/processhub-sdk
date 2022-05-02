@@ -16,6 +16,7 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
     allFieldsEditable: false,
     roleOwnersEditable: false,
     viewAllFields: true,
+    allowTaskClaim: true,
     dueAtDateCanBeEdit: false,
     dueAtDuration: undefined,
     sendMailNotification: true,
@@ -98,6 +99,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
             break;
           case "view-all-fields":
             returnValue.viewAllFields = child.$body !== "false";
+            break;
+          case "allow-task-claim":
+            returnValue.allowTaskClaim = child.$body !== "true";
             break;
           case "due-at-can-be-edit":
             returnValue.dueAtDateCanBeEdit = child.$body !== "false";
