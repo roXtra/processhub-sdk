@@ -179,6 +179,7 @@ export type BpmnExtensionName =
   | "send-task-subject" // String: mail subject of SendTask notification mail
   | "all-fields-editable" // Boolean: all existing fields in task can be edited in current task
   | "view-all-fields" // Boolean: view all existing fields
+  | "allow-task-claim" // Boolean: task can be claimed by potential roleowners
   | "send-mail-notification" // Boolean: send notification for task
   | "set-sender-as-role-owner" // Boolean: set mail sender as role owner, default: true
   | "required-fields-needed" // Boolean: means that the task needed previous required fields (not necessary on negative decisions)
@@ -215,6 +216,7 @@ export interface ITaskExtensions {
   sendTaskSubject?: string;
   allFieldsEditable: boolean;
   viewAllFields: boolean;
+  allowTaskClaim: boolean;
   sendMailNotification: boolean;
   requiredFieldsNeeded?: ITaskIdRequiredFieldsNeeded[];
   saveDecisionInFieldContents: boolean;
