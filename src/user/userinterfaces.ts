@@ -5,6 +5,13 @@ import { isTrue } from "../tools/assert";
 import { Language, tl } from "../tl";
 import { ModuleName } from "../modules/imodule";
 
+export enum UserStatus {
+  None = 0,
+  Active = 1,
+  // Status of deleted users is Inactive
+  Inactive = 2,
+}
+
 export enum Licence {
   None = "none",
   Writer = "roXtra.Writer",
@@ -67,6 +74,7 @@ export interface IUserDetails extends IUserDetailsSmall {
    * @field workspaceId - The workspace id of the corresponding workspace of the favorite process
    */
   favoriteProcesses: { processId: string; workspaceId: string }[];
+  status: UserStatus;
 }
 
 export enum UserExtras {
@@ -87,6 +95,7 @@ export const emptyUser: IUserDetails = {
   language: "de-DE",
   extendedRights: [],
   favoriteProcesses: [],
+  status: UserStatus.None,
 };
 
 export function getUserWorkspace(user: IUserDetails, workspaceId: string): IWorkspaceDetails | undefined {
