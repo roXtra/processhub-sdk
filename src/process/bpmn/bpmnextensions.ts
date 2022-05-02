@@ -101,7 +101,7 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
             returnValue.viewAllFields = child.$body !== "false";
             break;
           case "allow-task-claim":
-            returnValue.allowTaskClaim = child.$body !== "true";
+            returnValue.allowTaskClaim = child.$body !== "false";
             break;
           case "due-at-can-be-edit":
             returnValue.dueAtDateCanBeEdit = child.$body !== "false";
