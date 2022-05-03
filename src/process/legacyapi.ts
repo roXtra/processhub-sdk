@@ -1,4 +1,4 @@
-import { IBaseMessage, IBaseRequest, IBaseReply } from "../legacyapi/apiinterfaces";
+import { IBaseMessage, IBaseRequest, IBaseReply, IBaseRequestObject } from "../legacyapi/apiinterfaces";
 import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces";
 import { Bpmn } from "./bpmn";
 import { IParseResult } from "bpmn-moddle/lib/simple";
@@ -6,6 +6,7 @@ import { IStatisticRow } from "../data/statistics";
 import { IFieldDefinition } from "../data/ifielddefinition";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import IQuestionCatalog from "../modules/audits/iquestioncatalog";
+import Joi from "joi";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -39,6 +40,7 @@ export const ProcessRequestRoutes = {
   MoveToArchive: "/api/process/movetoarchive",
   RestoreFromArchive: "/api/process/restorefromarchive",
   UpdateQuestionCatalog: "/api/process/updatequestioncatalog",
+  ReplaceUserInProcess: "/api/process/replaceuserinprocess",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
@@ -282,3 +284,19 @@ export interface IUpdateQuestionCatalogRequest extends IBaseRequest {
   processId: string;
   questionCatalog: IQuestionCatalog;
 }
+
+export interface IReplaceUserInProcessRequest extends IBaseRequest {
+  processId: string;
+  userToReplace: string;
+  userThatReplaces: string;
+}
+
+const IReplaceUserInProcessRequestObject: IReplaceUserInProcessRequest = {
+  processId: Joi.string().required() as unknown as string,
+  userToReplace: Joi.string().required() as unknown as string,
+  userThatReplaces: Joi.string().required() as unknown as string,
+  // Extends IBaseRequestObject
+  ...IBaseRequestObject,
+};
+
+export const IReplaceUserInProcessRequestSchema = Joi.object(IReplaceUserInProcessRequestObject);
