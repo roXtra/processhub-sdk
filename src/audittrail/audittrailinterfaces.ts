@@ -58,6 +58,8 @@ export enum AuditTrailAction {
   auditTrailVisibilityChanged = 101,
   // A task was claimed by a potential roleowner
   activeTaskClaimed = 102,
+  // A user was replaced in a process
+  replaceUser = 103,
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -149,6 +151,12 @@ export interface IAuditTrailEntryDetails {
 
   // Can be set for processArchived and processRestored - an optional message the user can enter
   archiveMessage: string;
+
+  // Displayname of the user that was replaced
+  userToReplace: string;
+
+  // Displayname of the user that replaced the user of userToReplace
+  userThatReplaces: string;
 }
 
 export type Partial<T> = {
