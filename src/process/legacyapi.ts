@@ -222,6 +222,7 @@ export interface IGetProcessStatisticsRequest extends IBaseRequest {
 
 export interface IGetProcessStatisticsReply extends IProcessReply {
   statistics: IStatisticRow[];
+  runningInstances: { day: Date; instanceIds: string[] }[];
 }
 
 export interface ICommentRequest extends IBaseRequest {
