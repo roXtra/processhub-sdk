@@ -57,6 +57,7 @@ export interface IServiceTaskWorkspaces {
  */
 export interface IServiceTaskUsers {
   getUserDetails(userId: string, extras: UserExtras): Promise<IUserDetails | undefined>;
+  getUserIdByMail(mail: string): Promise<string | undefined>;
 }
 
 /**
