@@ -83,6 +83,9 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       getUserDetails: (): Promise<IUserDetails | undefined> => {
         throw new Error("Not implemented");
       },
+      getUserIdByMail: (): Promise<string | undefined> => {
+        throw new Error("Not implemented");
+      },
     },
     system: {
       setMaxBpmnEngineIterations: (count) => {
