@@ -1,6 +1,6 @@
 import { FieldType } from "../data/ifieldvalue";
 
-type SeriesType =
+type KendoSeriesType =
   | "area"
   | "bar"
   | "boxPlot"
@@ -32,6 +32,10 @@ type SeriesType =
   | "verticalLine"
   | "verticalRangeArea"
   | "waterfall";
+
+type CustomSeriesType = "scheduler";
+
+export type SeriesType = KendoSeriesType | CustomSeriesType;
 
 // Must match the values defined in Enums_Module.cs in Roxtra.DataProvider
 export enum ModuleId {
