@@ -99,3 +99,29 @@ export interface IStatisticRow {
   userId: string;
   createdAt: Date;
 }
+
+export type IStatisticsChartDetails = {
+  overViewChartImage: string;
+  reportBarChartImage: string;
+  reportDonutChartImage: string;
+  reportDecisionPieImage: string;
+  overViewChartSelection: string;
+  reportBarChartSelection: string;
+  selectedDecision: string;
+  editTimeHeatMap: string;
+  selectionHeatMap: string;
+  overdueHeatMap: string;
+};
+
+export const IStatisticsChartsObject: IStatisticsChartDetails = {
+  overViewChartImage: Joi.string().allow("").required() as unknown as string,
+  reportBarChartImage: Joi.string().allow("").required() as unknown as string,
+  reportDonutChartImage: Joi.string().allow("").required() as unknown as string,
+  reportDecisionPieImage: Joi.string().allow("").required() as unknown as string,
+  overViewChartSelection: Joi.string().allow("").required() as unknown as string,
+  reportBarChartSelection: Joi.string().allow("").required() as unknown as string,
+  selectedDecision: Joi.string().allow("").required() as unknown as string,
+  editTimeHeatMap: Joi.string().allow("").required() as unknown as string,
+  selectionHeatMap: Joi.string().allow("").required() as unknown as string,
+  overdueHeatMap: Joi.string().allow("").required() as unknown as string,
+};
