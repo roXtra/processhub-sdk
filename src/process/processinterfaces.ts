@@ -84,6 +84,7 @@ export interface IProcessDetails {
   userRights?: ProcessAccessRights; // Access rights of the current user
   attachments?: IProcessAttachment[];
   reportDrafts?: IProcessReportDraft[];
+  statisticsReportDrafts?: IProcessReportDraft[];
   processXmlHash?: string;
   userStartEvents?: IStartButtonMap; // Map with starteventid -> start event name
   tags?: string[];
