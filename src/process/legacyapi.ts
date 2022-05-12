@@ -202,11 +202,13 @@ export interface IUploadReportDraftRequest extends IBaseRequest {
   processId: string;
   fileName: string;
   data: string;
+  isStatisticsReport?: boolean;
 }
 
 export interface IDeleteReportDraftRequest extends IBaseRequest {
   processId: string;
   draftId: string;
+  isStatisticsReport?: boolean;
 }
 
 export interface IDeleteFileRequest extends IBaseRequest {
