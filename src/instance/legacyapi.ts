@@ -5,6 +5,7 @@ import { createLiteralTypeRegExp } from "../data/regextools";
 import { IUserDetails } from "../user/userinterfaces";
 import { IFieldContentMap } from "../data/ifieldcontentmap";
 import { IRoleOwnerMap } from "../process/processrights";
+import { IStatisticsChartDetails, IStatisticsChartsObject } from "../data/statistics";
 
 // API routes
 export const ProcessEngineApiRoutes = {
@@ -185,12 +186,14 @@ const IGenerateReportRequestTypeOptions = ["docx", "pdf"] as const;
 export type IGenerateReportRequestType = typeof IGenerateReportRequestTypeOptions[number];
 
 export interface IGenerateReportRequest extends IBaseRequest {
+  statisticsCharts?: IStatisticsChartDetails;
   instanceIds: string[];
   draftId: string;
   type: IGenerateReportRequestType;
 }
 
 const IGenerateReportRequestObject: IGenerateReportRequest = {
+  statisticsCharts: Joi.object(IStatisticsChartsObject).allow({}) as unknown as IStatisticsChartDetails,
   instanceIds: Joi.array().items(Joi.string()).required() as unknown as string[],
   draftId: Joi.string().required() as unknown as string,
   type: Joi.string()
