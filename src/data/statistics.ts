@@ -101,27 +101,15 @@ export interface IStatisticRow {
 }
 
 export type IStatisticsChartDetails = {
-  overViewChartImage: string;
-  reportBarChartImage: string;
-  reportDonutChartImage: string;
-  reportDecisionPieImage: string;
-  overViewChartSelection: string;
-  reportBarChartSelection: string;
-  selectedDecision: string;
-  editTimeHeatMap: string;
-  selectionHeatMap: string;
-  overdueHeatMap: string;
+  image: string;
+  selection: string;
+  fromDate: Date;
+  toDate: Date;
 };
 
-export const IStatisticsChartsObject: IStatisticsChartDetails = {
-  overViewChartImage: Joi.string().allow("").required() as unknown as string,
-  reportBarChartImage: Joi.string().allow("").required() as unknown as string,
-  reportDonutChartImage: Joi.string().allow("").required() as unknown as string,
-  reportDecisionPieImage: Joi.string().allow("").required() as unknown as string,
-  overViewChartSelection: Joi.string().allow("").required() as unknown as string,
-  reportBarChartSelection: Joi.string().allow("").required() as unknown as string,
-  selectedDecision: Joi.string().allow("").required() as unknown as string,
-  editTimeHeatMap: Joi.string().allow("").required() as unknown as string,
-  selectionHeatMap: Joi.string().allow("").required() as unknown as string,
-  overdueHeatMap: Joi.string().allow("").required() as unknown as string,
+export const IStatisticsChartObject: IStatisticsChartDetails = {
+  image: Joi.string().allow("").required() as unknown as string,
+  selection: Joi.string().allow("").required() as unknown as string,
+  fromDate: Joi.date().required() as unknown as Date,
+  toDate: Joi.date().required() as unknown as Date,
 };
