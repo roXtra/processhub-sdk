@@ -186,7 +186,7 @@ const IGenerateReportRequestTypeOptions = ["docx", "pdf"] as const;
 export type IGenerateReportRequestType = typeof IGenerateReportRequestTypeOptions[number];
 
 export interface IGenerateReportRequest extends IBaseRequest {
-  statisticsChart: IStatisticsChartDetails;
+  statisticsChart?: IStatisticsChartDetails;
   instanceIds: string[];
   draftId: string;
   type: IGenerateReportRequestType;

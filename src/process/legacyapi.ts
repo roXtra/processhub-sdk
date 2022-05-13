@@ -218,9 +218,18 @@ export interface IDeleteFileRequest extends IBaseRequest {
 }
 
 export interface IGetProcessStatisticsRequest extends IBaseRequest {
+  /**
+   * Request statistics for given processId
+   */
   processId: string;
-  fromDate?: Date;
-  tillDate?: Date;
+  /**
+   * Selected timeframe start date in UTC milliseconds
+   */
+  fromDateUTCMillis?: number;
+  /**
+   * Selected timeframe end date in UTC milliseconds
+   */
+  tillDateUTCMillis?: number;
 }
 
 export interface IGetProcessStatisticsReply extends IProcessReply {
