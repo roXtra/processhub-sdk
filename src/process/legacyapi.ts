@@ -189,6 +189,7 @@ export interface IUploadFileRequest extends IBaseRequest {
   processId: string;
   fileName: string;
   data: string;
+  isStatisticsReport?: boolean;
 }
 
 export interface IAddRoXtraFileRequest extends IBaseRequest {
