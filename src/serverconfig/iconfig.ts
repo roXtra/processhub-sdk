@@ -14,6 +14,7 @@ export interface IConfig {
   Tls: ITlsConfig;
   Migration: {
     updateAllInstances: string;
+    migrateStatisticReportDrafts: string;
   };
 }
 
