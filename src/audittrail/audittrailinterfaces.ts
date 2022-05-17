@@ -155,8 +155,14 @@ export interface IAuditTrailEntryDetails {
   // Displayname of the user that was replaced
   userToReplace: string;
 
+  // ID of the user that was replaced
+  userToReplaceId: string;
+
   // Displayname of the user that replaced the user of userToReplace
   userThatReplaces: string;
+
+  // ID of the user that replaced the user of userToReplace
+  userThatReplacesId: string;
 }
 
 export type Partial<T> = {
