@@ -2,6 +2,7 @@ import { Component } from "react";
 import { ActionHandler } from "../actionhandler";
 import { IInstanceEnvironment } from "../environment";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
+import { SeriesType } from "../modules/imodule";
 import { BpmnProcess } from "../process/bpmn/bpmnprocess";
 import { IProcessDetails } from "../process/processinterfaces";
 import { IUserDetails } from "../user/userinterfaces";
@@ -86,7 +87,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
   /**
    * Returns whether this field can be used to display in Dashboard charts for additional modules
    */
-  isAvailableAsChartField(): boolean;
+  isAvailableAsChartField(type?: SeriesType): boolean;
   appendValueToChartData(currentChartData: IChartData[], field: IFieldValue): void;
   getValueForInstanceTitle(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig): string;
   migrateFieldConfig(newConfig: IFieldConfig, oldConfig: IFieldConfig): void;
