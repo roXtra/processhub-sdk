@@ -63,7 +63,9 @@ export interface IModule {
 
 export type SchedulerDateFieldConfig = { name: string; dateRangeFieldOption?: "start" | "end" };
 
-export type ChartType = { type: KendoSeriesType; stack?: boolean } | { type: "scheduler"; startField?: SchedulerDateFieldConfig; endField?: SchedulerDateFieldConfig };
+export type SchedulerType = { type: "scheduler"; startField?: SchedulerDateFieldConfig; endField?: SchedulerDateFieldConfig };
+
+export type ChartType = { type: KendoSeriesType; stack?: boolean } | SchedulerType;
 
 export interface IGenericModuleChartField {
   fieldName: string;
