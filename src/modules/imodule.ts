@@ -63,7 +63,7 @@ export interface IModule {
 
 export type SchedulerDateFieldConfig = { name: string; dateRangeFieldOption?: "start" | "end" };
 
-export type SchedulerType = { type: "scheduler"; startField?: SchedulerDateFieldConfig; endField?: SchedulerDateFieldConfig; roleIds: string[] };
+export type SchedulerType = { type: "scheduler"; startField?: SchedulerDateFieldConfig; endField?: SchedulerDateFieldConfig };
 
 export type ChartType = { type: KendoSeriesType; stack?: boolean } | SchedulerType;
 
