@@ -97,7 +97,8 @@ export interface IGetInstanceDetailsReply extends IInstanceReply {
 
 export interface IUploadAttachmentRequest extends IBaseRequest {
   instanceId: string;
-  file: File;
+  fileName: string;
+  data: string;
 }
 export interface IUploadAttachmentReply extends IInstanceReply {
   url: string;
