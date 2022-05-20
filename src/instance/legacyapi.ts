@@ -185,20 +185,104 @@ const IGenerateReportRequestTypeOptions = ["docx", "pdf"] as const;
 
 export type IGenerateReportRequestType = typeof IGenerateReportRequestTypeOptions[number];
 
-export interface IGenerateReportRequest extends IBaseRequest {
-  statisticsChart?: IStatisticsChartDetails;
-  instanceIds: string[];
-  draftId: string;
-  type: IGenerateReportRequestType;
+/**
+ * Type of the requested report.
+ * Defines which input data is provided to the ReportGenerator.
+ */
+export enum RequestedInstanceReportType {
+  /**
+   * Represents a regular Processes report request
+   */
+  PROCESSES_REGULAR = 1,
+  /**
+   * Represents a Processes Statistics report request
+   */
+  PROCESSES_STATISTICS = 2,
+  /**
+   * Represents a Risks report request
+   */
+  RISKS = 3,
+  /**
+   * Represents a generic module report request without specific additional data
+   */
+  GENERIC_MODULE = 4,
 }
 
+/**
+ * Helper union type for RequestedInstanceReportType
+ */
+type RequestedInstanceReportUnionType =
+  | RequestedInstanceReportType.PROCESSES_REGULAR
+  | RequestedInstanceReportType.PROCESSES_STATISTICS
+  | RequestedInstanceReportType.RISKS
+  | RequestedInstanceReportType.GENERIC_MODULE;
+
+interface IGenerateReportForProcessesInstancesCommonData<TYPE extends RequestedInstanceReportType> extends IBaseRequest {
+  reportType: TYPE;
+  instanceIds: string[];
+  draftId: string;
+  resultingFileType: IGenerateReportRequestType;
+}
+
+/**
+ * Represents a Generate Report request for the regular processes instances
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface IGenerateReportForProcessesInstancesRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.PROCESSES_REGULAR> {
+  // Requires no additional data
+}
+
+/**
+ * Represents a Generate Report request for the processes statistics
+ */
+interface IGenerateReportForProcessesStatisticsRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.PROCESSES_STATISTICS> {
+  statisticsChart: IStatisticsChartDetails;
+}
+
+/**
+ * Represents a Generate Report request for the regular risks instances
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface IGenerateReportForRisksRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.RISKS> {
+  // Requires no additional data
+}
+
+/**
+ * Represents a Generate Report request for the regular instances in generic modules
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface IGenerateReportForGenericModulesRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.GENERIC_MODULE> {
+  // Requires no additional data
+}
+
+export type IGenerateReportRequest =
+  | IGenerateReportForProcessesInstancesRequest
+  | IGenerateReportForProcessesStatisticsRequest
+  | IGenerateReportForRisksRequest
+  | IGenerateReportForGenericModulesRequest;
+
 const IGenerateReportRequestObject: IGenerateReportRequest = {
-  statisticsChart: Joi.object(IStatisticsChartObject).allow({}) as unknown as IStatisticsChartDetails,
+  reportType: Joi.number()
+    .valid(
+      RequestedInstanceReportType.PROCESSES_REGULAR,
+      RequestedInstanceReportType.PROCESSES_STATISTICS,
+      RequestedInstanceReportType.RISKS,
+      RequestedInstanceReportType.GENERIC_MODULE,
+    )
+    .required() as unknown as RequestedInstanceReportUnionType,
   instanceIds: Joi.array().items(Joi.string()).required() as unknown as string[],
   draftId: Joi.string().required() as unknown as string,
-  type: Joi.string()
+  resultingFileType: Joi.string()
     .pattern(createLiteralTypeRegExp(Object.values(IGenerateReportRequestTypeOptions)))
     .required() as unknown as IGenerateReportRequestType,
+
+  // If it is a PROCESSES_STATISTICS request -> Require specific data for statistics request
+  statisticsChart: Joi.alternatives().conditional("reportType", {
+    is: RequestedInstanceReportType.PROCESSES_STATISTICS,
+    then: Joi.object(IStatisticsChartObject).allow({}),
+    otherwise: Joi.forbidden(),
+  }) as unknown as IStatisticsChartDetails,
+
   // Extends IBaseRequest
   ...IBaseRequestObject,
 };
