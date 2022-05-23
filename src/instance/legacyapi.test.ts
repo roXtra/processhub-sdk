@@ -14,20 +14,20 @@ describe("sdk", function () {
             if (isNaN(Number(reportType))) {
               continue;
             }
+            let reportRequest: IGenerateReportRequest;
+
             switch (Number(reportType)) {
-              case RequestedInstanceReportType.PROCESSES_REGULAR: {
-                const request: IGenerateReportRequest = {
+              case RequestedInstanceReportType.PROCESSES_REGULAR:
+                reportRequest = {
                   reportType: RequestedInstanceReportType.PROCESSES_REGULAR,
                   draftId: "123",
                   instanceIds: [],
                   resultingFileType: "docx",
                   moduleId: 1,
                 };
-                validateIgenerateReportRequest(request);
                 break;
-              }
-              case RequestedInstanceReportType.PROCESSES_STATISTICS: {
-                const request: IGenerateReportRequest = {
+              case RequestedInstanceReportType.PROCESSES_STATISTICS:
+                reportRequest = {
                   reportType: RequestedInstanceReportType.PROCESSES_STATISTICS,
                   draftId: "123",
                   instanceIds: [],
@@ -40,34 +40,40 @@ describe("sdk", function () {
                     selection: "",
                   },
                 };
-                validateIgenerateReportRequest(request);
                 break;
-              }
-              case RequestedInstanceReportType.RISKS: {
-                const request: IGenerateReportRequest = {
+              case RequestedInstanceReportType.RISKS:
+                reportRequest = {
                   reportType: RequestedInstanceReportType.RISKS,
                   draftId: "123",
                   instanceIds: [],
                   resultingFileType: "docx",
                   moduleId: 3,
                 };
-                validateIgenerateReportRequest(request);
                 break;
-              }
-              case RequestedInstanceReportType.GENERIC_MODULE: {
-                const request: IGenerateReportRequest = {
+              case RequestedInstanceReportType.GENERIC_MODULE:
+                reportRequest = {
                   reportType: RequestedInstanceReportType.GENERIC_MODULE,
                   draftId: "123",
                   instanceIds: [],
                   resultingFileType: "docx",
                   moduleId: 9,
                 };
-                validateIgenerateReportRequest(request);
                 break;
-              }
+              case RequestedInstanceReportType.AUDIT:
+                reportRequest = {
+                  reportType: RequestedInstanceReportType.AUDIT,
+                  draftId: "123",
+                  instanceIds: [],
+                  resultingFileType: "docx",
+                  moduleId: 10,
+                };
+                break;
               default:
-                expect.fail(`Missing test implementation for RequestedInstanceReportType ${String(reportType)}`);
+                expect.fail(`Missing test implementation for RequestedInstanceReportType ${String(reportType)}. Please add test case for type ${String(reportType)}`);
             }
+
+            expect(reportRequest, "reportRequest is undefined, this must not happen!").to.not.be.undefined;
+            validateIgenerateReportRequest(reportRequest);
           }
         });
       });
