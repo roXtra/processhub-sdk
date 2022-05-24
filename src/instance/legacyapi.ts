@@ -206,6 +206,10 @@ export enum RequestedInstanceReportType {
    * Represents a generic module report request without specific additional data
    */
   GENERIC_MODULE = 4,
+  /**
+   * Represents an Audit report request
+   */
+  AUDIT = 5,
 }
 
 /**
@@ -215,7 +219,8 @@ type RequestedInstanceReportUnionType =
   | RequestedInstanceReportType.PROCESSES_REGULAR
   | RequestedInstanceReportType.PROCESSES_STATISTICS
   | RequestedInstanceReportType.RISKS
-  | RequestedInstanceReportType.GENERIC_MODULE;
+  | RequestedInstanceReportType.GENERIC_MODULE
+  | RequestedInstanceReportType.AUDIT;
 
 interface IGenerateReportForProcessesInstancesCommonData<TYPE extends RequestedInstanceReportType> extends IBaseRequest {
   reportType: TYPE;
@@ -255,11 +260,20 @@ interface IGenerateReportForGenericModulesRequest extends IGenerateReportForProc
   // Requires no additional data
 }
 
+/**
+ * Represents a Generate Report request for the regular instances in module Audit
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface IGenerateReportForAuditInstancesRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.AUDIT> {
+  // Requires no additional data
+}
+
 export type IGenerateReportRequest =
   | IGenerateReportForProcessesInstancesRequest
   | IGenerateReportForProcessesStatisticsRequest
   | IGenerateReportForRisksRequest
-  | IGenerateReportForGenericModulesRequest;
+  | IGenerateReportForGenericModulesRequest
+  | IGenerateReportForAuditInstancesRequest;
 
 const IGenerateReportRequestObject: IGenerateReportRequest = {
   reportType: Joi.number()
@@ -268,6 +282,7 @@ const IGenerateReportRequestObject: IGenerateReportRequest = {
       RequestedInstanceReportType.PROCESSES_STATISTICS,
       RequestedInstanceReportType.RISKS,
       RequestedInstanceReportType.GENERIC_MODULE,
+      RequestedInstanceReportType.AUDIT,
     )
     .required() as unknown as RequestedInstanceReportUnionType,
   instanceIds: Joi.array().items(Joi.string()).required() as unknown as string[],
@@ -276,7 +291,7 @@ const IGenerateReportRequestObject: IGenerateReportRequest = {
     .pattern(createLiteralTypeRegExp(Object.values(IGenerateReportRequestTypeOptions)))
     .required() as unknown as IGenerateReportRequestType,
 
-  // If it is a PROCESSES_STATISTICS request -> Require specific data for statistics request
+  // If it is a PROCESSES_STATISTICS request -> Require specific data for this type of request
   statisticsChart: Joi.alternatives().conditional("reportType", {
     is: RequestedInstanceReportType.PROCESSES_STATISTICS,
     then: Joi.object(IStatisticsChartObject).allow({}),
