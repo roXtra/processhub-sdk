@@ -36,6 +36,7 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
 
     fieldsWhichShouldSend: undefined,
     dateFieldTimer: undefined,
+    dateRangeOptionForTimer: undefined,
     roXtraVersion: undefined,
 
     anonymousStart: undefined,
@@ -111,6 +112,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
             break;
           case "datefield-for-timercatch":
             returnValue.dateFieldTimer = child.$body;
+            break;
+          case "daterangefield-for-timercatch":
+            returnValue.dateRangeOptionForTimer = child.$body;
             break;
           case "script-task-code":
             returnValue.scriptTaskCode = child.$body;

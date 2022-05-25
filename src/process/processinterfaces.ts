@@ -196,6 +196,7 @@ export type BpmnExtensionName =
   | "isBuilder-expression"
   | "fields-which-should-send"
   | "datefield-for-timercatch"
+  | "daterangefield-for-timercatch" // String:
   | "script-task-code"
   | "script-task-code-objects"
   | "service-task-config-object"
@@ -240,6 +241,7 @@ export interface ITaskExtensions {
 
   fieldsWhichShouldSend?: string[];
   dateFieldTimer?: string;
+  dateRangeOptionForTimer?: string; // "start" | "end" - Part of the date range as trigger for the timer
   roXtraVersion?: string;
 
   anonymousStart?: boolean;
