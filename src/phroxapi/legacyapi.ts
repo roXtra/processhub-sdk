@@ -98,20 +98,16 @@ export interface IGetProcessesWithGroupRequest {
 export interface IGetProcessesWithGroupReply extends IBaseReply {
   processes: {
     processName: string;
-    urlName: string;
+    url: string;
     workspaceId: string;
   }[];
 }
 
-export interface IGetProcessesWitUserRequest {
+export interface IGetProcessesWithUserRequest {
   userId: string;
 }
-export interface IGetProcessesWitUserReply extends IBaseReply {
-  processes: {
-    processName: string;
-    urlName: string;
-    workspaceId: string;
-  }[];
+export interface IGetProcessesWithUserReply extends IBaseReply {
+  processes: IGetProcessesWithGroupReply["processes"];
 }
 
 export interface IEcReleaseFileLockReply {
