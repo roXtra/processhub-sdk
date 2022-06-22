@@ -3,6 +3,11 @@ import { IUserDetails } from "../user/userinterfaces";
 import { IGroupDetails } from "../group/groupinterfaces";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 
+export type StateWorkspaceExtras = Omit<IWorkspaceDetails["extras"], "processes" | "archivedProcesses">;
+export type StateWorkspaceDetails = Omit<IWorkspaceDetails, "extras"> & {
+  extras: StateWorkspaceExtras;
+};
+
 export interface IWorkspaceDetails {
   workspaceId: string;
   displayName: string;
