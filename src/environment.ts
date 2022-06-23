@@ -1,13 +1,13 @@
 import { IPathDetails } from "./path/pathinterfaces";
+import { IUserDetails } from "./user/userinterfaces";
 import { IWorkspaceDetails } from "./workspace/workspaceinterfaces";
 import { IInstanceDetails } from "./instance/instanceinterfaces";
 import { ITodoDetails } from "./todo/todointerfaces";
 import { StateProcessDetails } from "./process/processstate";
-import { StateUserDetails } from "./user/userstate";
 
 export interface ICoreEnvironment {
   path: IPathDetails;
-  user: StateUserDetails;
+  user: IUserDetails;
 }
 
 export interface IWorkspaceEnvironment extends ICoreEnvironment {
