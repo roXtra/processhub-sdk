@@ -3,7 +3,7 @@ import { IUserDetails } from "./userinterfaces";
 
 // Internal objects used by ProcessHub client and server
 
-export type StateUserExtras = Omit<IUserDetails["extras"], "workspaces"> & {
+export type StateUserExtras = Omit<IUserDetails["extras"], "workspaces" | "instances"> & {
   // User from state references only workspaceIds, not the actual workspaces in the user state.
   workspaceIds?: string[];
 
