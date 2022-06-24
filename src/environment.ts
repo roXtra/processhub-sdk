@@ -3,7 +3,7 @@ import { IWorkspaceDetails } from "./workspace/workspaceinterfaces";
 import { IInstanceDetails } from "./instance/instanceinterfaces";
 import { ITodoDetails } from "./todo/todointerfaces";
 import { StateProcessDetails } from "./process/processstate";
-import { StateUserDetails } from "./user/userstate";
+import { StateUserDetails } from "./user/phclient";
 
 export interface ICoreEnvironment {
   path: IPathDetails;

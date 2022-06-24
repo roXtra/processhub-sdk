@@ -1,7 +1,19 @@
 import { ApiResult } from "../legacyapi/apiinterfaces";
-import { StateUserDetails } from "./userstate";
+import { IUserDetails } from "./userinterfaces";
 
 // Internal objects used by ProcessHub client and server
+
+export type StateUserExtras = Omit<IUserDetails["extras"], "workspaces"> & {
+  // User from state references only workspaceIds, not the actual workspaces in the user state.
+  workspaceIds?: string[];
+
+  // User from state references only instanceIds, not the actual instances in the user state.
+  instanceIds?: string[];
+};
+
+export type StateUserDetails = Omit<IUserDetails, "extras"> & {
+  extras: StateUserExtras;
+};
 
 export class UserState {
   currentUser?: StateUserDetails;
