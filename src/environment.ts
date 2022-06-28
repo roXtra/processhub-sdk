@@ -1,5 +1,5 @@
 import { IPathDetails } from "./path/pathinterfaces";
-import { IWorkspaceDetails } from "./workspace/workspaceinterfaces";
+import { StateWorkspaceDetails } from "./workspace/workspaceinterfaces";
 import { IInstanceDetails } from "./instance/instanceinterfaces";
 import { ITodoDetails } from "./todo/todointerfaces";
 import { StateProcessDetails } from "./process/processstate";
@@ -11,22 +11,22 @@ export interface ICoreEnvironment {
 }
 
 export interface IWorkspaceEnvironment extends ICoreEnvironment {
-  workspace: IWorkspaceDetails | undefined;
+  workspace: StateWorkspaceDetails | undefined;
 }
 
 export interface IProcessEnvironment extends ICoreEnvironment {
-  workspace: IWorkspaceDetails;
+  workspace: StateWorkspaceDetails;
   process: StateProcessDetails;
 }
 
 export interface IInstanceEnvironment extends ICoreEnvironment {
-  workspace: IWorkspaceDetails;
+  workspace: StateWorkspaceDetails;
   process: StateProcessDetails;
   instance: IInstanceDetails;
 }
 
 export interface ITodoEnvironment extends ICoreEnvironment {
-  workspace: IWorkspaceDetails;
+  workspace: StateWorkspaceDetails;
   process: StateProcessDetails;
   instance: IInstanceDetails;
   todo: ITodoDetails;

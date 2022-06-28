@@ -10,4 +10,5 @@ export type StateProcessDetails = Omit<IProcessDetails, "extras"> & {
 
 export class ProcessState {
   currentProcess: StateProcessDetails | undefined;
+  processesById: { [processId: string]: IProcessDetails } = {};
 }
