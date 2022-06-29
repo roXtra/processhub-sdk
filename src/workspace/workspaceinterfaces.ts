@@ -5,6 +5,7 @@ import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 
 export type StateWorkspaceExtras = Omit<IWorkspaceDetails["extras"], "processes" | "archivedProcesses">;
 export type StateWorkspaceDetails = Omit<IWorkspaceDetails, "extras"> & {
+  type: "state";
   extras: StateWorkspaceExtras;
 };
 
