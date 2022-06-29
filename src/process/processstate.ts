@@ -5,10 +5,11 @@ export type StateProcessExtras = Omit<IProcessDetails["extras"], "instances"> & 
   instanceIds?: string[];
 };
 export type StateProcessDetails = Omit<IProcessDetails, "extras"> & {
+  type: "state";
   extras: StateProcessExtras;
 };
 
 export class ProcessState {
   currentProcess: StateProcessDetails | undefined;
-  processesById: { [processId: string]: IProcessDetails } = {};
+  processesById: { [processId: string]: StateProcessDetails } = {};
 }
