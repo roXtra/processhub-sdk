@@ -12,6 +12,7 @@ export type StateUserExtras = Omit<IUserDetails["extras"], "workspaces" | "insta
 };
 
 export type StateUserDetails = Omit<IUserDetails, "extras"> & {
+  type: "state";
   extras: StateUserExtras;
 };
 
