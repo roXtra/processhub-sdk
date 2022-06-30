@@ -4,7 +4,7 @@ import { IGroupDetails } from "../group/groupinterfaces";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 
 export type StateWorkspaceExtras = Omit<IWorkspaceDetails["extras"], "processes" | "archivedProcesses">;
-export type StateWorkspaceDetails = Omit<IWorkspaceDetails, "extras"> & {
+export type StateWorkspaceDetails = Omit<IWorkspaceDetails, "extras" | "type"> & {
   type: "state";
   extras: StateWorkspaceExtras;
 };
@@ -28,6 +28,7 @@ export interface IWorkspaceDetails {
     auditTrail?: IAuditTrailEntry[];
     groups?: IGroupDetails[];
   };
+  type: "backend";
 }
 
 export enum WorkspaceExtras {

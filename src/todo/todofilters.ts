@@ -2,8 +2,9 @@
 import { ITodoDetails, TodoType } from "./todointerfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { filterInstancesForProcess, filterRemainingInstancesForWorkspace } from "../instance/instancefilters";
-import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { IWorkspaceDetails, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IUserDetails } from "../user/userinterfaces";
+import { IProcessDetails } from "../process/processinterfaces";
 
 // Temporary solution during switch from todo.instance -> instances.todos
 export function getTodosFromInstances(instances: IInstanceDetails[]): ITodoDetails[] {
@@ -67,10 +68,14 @@ export function filterTodosForWorkspace(instances: IInstanceDetails[], workspace
 }
 
 // Todos for processes in workspace that user can not see
-export function filterRemainingTodosForWorkspace(instances: IInstanceDetails[], workspace: IWorkspaceDetails): ITodoDetails[] {
+export function filterRemainingTodosForWorkspace(
+  instances: IInstanceDetails[],
+  workspace: IWorkspaceDetails | StateWorkspaceDetails,
+  workspaceProcesses: IProcessDetails[] | undefined,
+): ITodoDetails[] {
   if (!instances) return [];
 
-  const filteredInstances = filterRemainingInstancesForWorkspace(instances, workspace);
+  const filteredInstances = filterRemainingInstancesForWorkspace(instances, workspace, workspaceProcesses);
 
   const workspaceTodos = getTodosFromInstances(filteredInstances);
   return workspaceTodos;

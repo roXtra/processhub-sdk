@@ -1,6 +1,7 @@
 import { IInstanceDetails } from "./instanceinterfaces";
 import { IUserDetails } from "../user/userinterfaces";
-import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { IWorkspaceDetails, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { IProcessDetails } from "../process/processinterfaces";
 
 // Helper functions to filter and/or sort instances
 
@@ -45,19 +46,20 @@ export function filterInstancesForWorkspace(instances: IInstanceDetails[], works
 }
 
 // Instances for processes in workspace that user can not see
-export function filterRemainingInstancesForWorkspace(instances: IInstanceDetails[], workspace: IWorkspaceDetails): IInstanceDetails[] {
+export function filterRemainingInstancesForWorkspace(
+  instances: IInstanceDetails[],
+  workspace: IWorkspaceDetails | StateWorkspaceDetails,
+  workspaceProcesses: IProcessDetails[] | undefined,
+): IInstanceDetails[] {
   if (!instances) return [];
 
   let workspaceInstances = filterInstancesForWorkspace(instances, workspace.workspaceId);
 
-  if (workspace.extras.processes) {
-    // GetOtherItems lists the todos for processes without read access - filter the others
+  // GetOtherItems lists the todos for processes without read access - filter the others
+  if (workspaceProcesses) {
     const filteredInstances: IInstanceDetails[] = [];
     workspaceInstances.map((instance) => {
-      if (
-        workspace.extras.processes?.find((process) => process.processId === instance.processId) == null &&
-        workspace.extras.archivedProcesses?.find((process) => process.processId === instance.processId) == null
-      ) {
+      if (workspaceProcesses?.find((process) => process.processId === instance.processId) == null) {
         filteredInstances.push(instance);
       }
     });
