@@ -1,7 +1,7 @@
 import { tl } from "../tl";
 import { getDefaultRoleGroup, hasEditAccess, IUserDetails, Licence, PredefinedGroups } from "../user/userinterfaces";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
-import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { IWorkspaceDetails, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
 import { isWorkspaceMember } from "../workspace/workspacerights";
 import { error } from "../tools/assert";
@@ -198,7 +198,13 @@ export function getProcessRoles(
   return processRoles;
 }
 
-export function isPotentialRoleOwner(user: IUserDetails, roleId: string | undefined, workspace: IWorkspaceDetails, process: IProcessDetails, ignorePublic = false): boolean {
+export function isPotentialRoleOwner(
+  user: IUserDetails,
+  roleId: string | undefined,
+  workspace: IWorkspaceDetails | StateWorkspaceDetails,
+  process: IProcessDetails,
+  ignorePublic = false,
+): boolean {
   // User == null -> check if guest is PotentialRoleOwner
   // roleId == null -> check if user is PotentialRoleOwner of any role
   const roles = process.extras.processRoles;
@@ -274,7 +280,11 @@ function addIfLicenceAllows(owners: IPotentialRoleOwners, user: IUserDetails): v
   }
 }
 
-export function getPotentialRoleOwners(workspaceDetails: IWorkspaceDetails, processDetails: IProcessDetails, roleId?: string): { [roleId: string]: IPotentialRoleOwners } {
+export function getPotentialRoleOwners(
+  workspaceDetails: IWorkspaceDetails | StateWorkspaceDetails,
+  processDetails: IProcessDetails,
+  roleId?: string,
+): { [roleId: string]: IPotentialRoleOwners } {
   const allOwners: { [roleId: string]: IPotentialRoleOwners } = {};
 
   if (processDetails.extras.processRoles == null) {

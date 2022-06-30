@@ -46,6 +46,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       displayName: "",
       userRole: WorkspaceRole.WorkspaceMember,
       extras: {},
+      type: "backend",
     },
     sender: emptyUser,
     instances: {
