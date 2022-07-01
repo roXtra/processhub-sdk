@@ -4,6 +4,7 @@ import { nullId } from "../tools/guid";
 import { isTrue } from "../tools/assert";
 import { Language, tl } from "../tl";
 import { ModuleName } from "../modules/imodule";
+import { StateUserDetails } from "./phclient";
 
 export enum UserStatus {
   None = 0,
@@ -19,7 +20,7 @@ export enum Licence {
   PublicReader = "roXtra.PublicReader",
 }
 
-export function hasEditAccess(user: IUserDetails): boolean {
+export function hasEditAccess(user: IUserDetails | StateUserDetails): boolean {
   return user.licence === Licence.Writer || user.isSystemUser === true;
 }
 
@@ -51,6 +52,7 @@ export interface IUserDetailsSmall {
 }
 
 export interface IUserDetails extends IUserDetailsSmall {
+  type: "backend";
   photoUrl?: string;
   language?: Language; // Preferred User language (de-DE, en-US, ...)
   licence: Licence;
@@ -87,6 +89,7 @@ export enum UserExtras {
 }
 
 export const emptyUser: IUserDetails = {
+  type: "backend",
   userId: nullId(),
   mail: "",
   displayName: "",

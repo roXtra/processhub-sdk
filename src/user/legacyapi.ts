@@ -1,6 +1,6 @@
 import { IBaseRequest, IBaseMessage } from "../legacyapi/apiinterfaces";
 import { IUserDetails, UserExtras, IViewState } from "./userinterfaces";
-import { UserMessages } from "./phclient";
+import { StateUserDetails, UserMessages } from "./phclient";
 
 export const UserRequestRoutes = {
   GetAllUserFromWorkspace: "/api/user/getallfromworkspace",
@@ -27,7 +27,7 @@ export interface ILoadUserReply extends IBaseMessage {
 
 export interface IUserLoadedMessage extends IBaseMessage {
   type: UserMessages;
-  user?: IUserDetails;
+  user?: StateUserDetails | IUserDetails;
 }
 
 export interface ISetArchiveViewStateRequest extends IBaseRequest {

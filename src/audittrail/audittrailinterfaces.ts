@@ -1,5 +1,5 @@
 import { IFieldValue } from "../data/ifieldvalue";
-import { IUserDetails } from "../user/userinterfaces";
+import { StateUserDetails } from "../user/phclient";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export enum AuditTrailAction {
@@ -175,7 +175,7 @@ export interface IAuditTrailEntry {
   processId?: string; // May be null for entries on workspace-level
   instanceId?: string; // May be null for entries on workspace- or process-level
   action: AuditTrailAction;
-  user?: IUserDetails;
+  user?: StateUserDetails;
   createdAt: Date; // Time of action in UTC
   entryFrom?: AuditTrailProcessFlag;
   details: Partial<IAuditTrailEntryDetails>;
