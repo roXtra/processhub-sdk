@@ -39,6 +39,7 @@ export interface ISetArchiveViewStateRequest extends IBaseRequest {
 export interface IRemoveInstanceMessage extends IBaseMessage {
   type: UserMessages;
   instanceId: string;
+  processId: string;
 }
 export interface INewInstanceMessage extends IBaseMessage {
   type: UserMessages;
