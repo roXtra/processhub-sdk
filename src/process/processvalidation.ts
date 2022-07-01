@@ -1,7 +1,8 @@
 import { tl } from "../tl";
 import { IProcessDetails } from "./processinterfaces";
+import { StateProcessDetails } from "./processstate";
 
-export function isProcessDetailsValid(details: IProcessDetails): boolean {
+export function isProcessDetailsValid(details: IProcessDetails | StateProcessDetails): boolean {
   if (details.displayName.length < 3 || details.displayName.length > 50) return false;
   if ((details.deletionPeriod || 1) < 0 || (details.retentionPeriod || 1) < 0) return false;
   if (details.deletionPeriod != null && details.retentionPeriod != null && details.deletionPeriod < details.retentionPeriod) return false;
