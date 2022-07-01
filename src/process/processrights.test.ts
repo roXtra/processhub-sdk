@@ -11,14 +11,14 @@ import {
   canStartProcessByMail,
   canStartProcessByTimer,
 } from "./processrights";
-import { IProcessDetails } from "./processinterfaces";
 import { createBpmnTemplate } from "./bpmn/bpmnmoddlehelper";
 import { ILoadTemplateReply } from "./legacyapi";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { assert } from "console";
 import { IUserDetails, Licence, UserStatus } from "../user/userinterfaces";
+import { StateProcessDetails } from "./processstate";
 
-const testProcess: IProcessDetails = {
+const testProcess: StateProcessDetails = {
   workspaceId: "2000E70281B5ECD5",
   displayName: "Testprocess",
   urlName: "testprocess",
@@ -29,6 +29,7 @@ const testProcess: IProcessDetails = {
   // Für eine Prüfung des Rechtesystems selbst ist das natürlich nicht geeignet
   userRights: ProcessAccessRights.EditProcess,
   extras: {},
+  type: "state",
 };
 
 const testUser: IUserDetails = {

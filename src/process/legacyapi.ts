@@ -7,6 +7,7 @@ import { IFieldDefinition } from "../data/ifielddefinition";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import IQuestionCatalog from "../modules/audits/iquestioncatalog";
 import Joi from "joi";
+import { StateProcessDetails } from "./processstate";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -251,7 +252,7 @@ export const PROCESSLOADED_MESSAGE = "ProcessLoadedMessage";
 
 export interface IProcessLoadedMessage extends IBaseMessage {
   type: "ProcessLoadedMessage";
-  processDetails?: IProcessDetails;
+  processDetails?: StateProcessDetails;
 }
 
 export interface ILoadTemplateReply {

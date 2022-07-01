@@ -5,6 +5,7 @@ import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { SeriesType } from "../modules/imodule";
 import { BpmnProcess } from "../process/bpmn/bpmnprocess";
 import { IProcessDetails } from "../process/processinterfaces";
+import { StateProcessDetails } from "../process/processstate";
 import { StateUserDetails } from "../user/phclient";
 import { IUserDetails } from "../user/userinterfaces";
 import { IChartData, IFieldConfig } from "./datainterfaces";
@@ -30,7 +31,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
   renderValue(
     value: {} | undefined | null,
     instance: IInstanceDetails,
-    process: IProcessDetails,
+    process: IProcessDetails | StateProcessDetails,
     user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
     showDirect?: boolean,
@@ -38,7 +39,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
   renderValueForEmail(
     value: {} | undefined | null,
     instance: IInstanceDetails,
-    process: IProcessDetails,
+    process: IProcessDetails | StateProcessDetails,
     user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
     showDirect?: boolean,
@@ -49,7 +50,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
   renderValueForReport(
     value: {} | undefined | null,
     instance: IInstanceDetails,
-    process: IProcessDetails,
+    process: IProcessDetails | StateProcessDetails,
     user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
     showDirect?: boolean,
@@ -60,14 +61,14 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
   renderValueForComment(
     value: {} | undefined | null,
     instance: IInstanceDetails,
-    process: IProcessDetails,
+    process: IProcessDetails | StateProcessDetails,
     user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
   ): JSX.Element | undefined;
   renderValueToString(
     value: {} | undefined,
     instance: IInstanceDetails,
-    process: IProcessDetails,
+    process: IProcessDetails | StateProcessDetails,
     user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
   ): string | undefined;
@@ -75,7 +76,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     field: IFieldValue,
     fieldName: string,
     instance: IInstanceDetails,
-    process: IProcessDetails,
+    process: IProcessDetails | StateProcessDetails,
     user: StateUserDetails | IUserDetails,
     config: IFieldConfig | undefined,
     columnName: string,
@@ -84,7 +85,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
   renderValueForGrid(
     fieldName: string,
     baseGrid: Component,
-    process?: IProcessDetails,
+    process?: IProcessDetails | StateProcessDetails,
     user?: StateUserDetails | IUserDetails,
   ): ((props: { dataItem: unknown }) => JSX.Element) | undefined;
   getSettingsButton(
