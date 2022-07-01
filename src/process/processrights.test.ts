@@ -32,6 +32,7 @@ const testProcess: IProcessDetails = {
 };
 
 const testUser: IUserDetails = {
+  type: "backend",
   licence: Licence.Writer,
   userId: "1",
   mail: "",

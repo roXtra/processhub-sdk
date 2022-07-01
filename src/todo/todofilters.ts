@@ -5,6 +5,7 @@ import { filterInstancesForProcess, filterRemainingInstancesForWorkspace } from 
 import { IWorkspaceDetails, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IUserDetails } from "../user/userinterfaces";
 import { IProcessDetails } from "../process/processinterfaces";
+import { StateUserDetails } from "../user/phclient";
 
 // Temporary solution during switch from todo.instance -> instances.todos
 export function getTodosFromInstances(instances: IInstanceDetails[]): ITodoDetails[] {
@@ -20,7 +21,7 @@ export function getTodosFromInstances(instances: IInstanceDetails[]): ITodoDetai
 }
 
 // Todos assigned to user
-export function filterUserTodos(todos: ITodoDetails[], user: IUserDetails): ITodoDetails[] {
+export function filterUserTodos(todos: ITodoDetails[], user: IUserDetails | StateUserDetails): ITodoDetails[] {
   if (!user || !todos) return [];
 
   const filteredTodos: ITodoDetails[] = todos.filter((todo) => todo.todoType !== TodoType.Simulation && todo.userId === user.userId);

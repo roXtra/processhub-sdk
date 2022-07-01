@@ -5,6 +5,7 @@ import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { SeriesType } from "../modules/imodule";
 import { BpmnProcess } from "../process/bpmn/bpmnprocess";
 import { IProcessDetails } from "../process/processinterfaces";
+import { StateUserDetails } from "../user/phclient";
 import { IUserDetails } from "../user/userinterfaces";
 import { IChartData, IFieldConfig } from "./datainterfaces";
 import { IFieldDefinition } from "./ifielddefinition";
@@ -30,7 +31,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     value: {} | undefined | null,
     instance: IInstanceDetails,
     process: IProcessDetails,
-    user: IUserDetails,
+    user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
     showDirect?: boolean,
   ): JSX.Element | undefined;
@@ -38,7 +39,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     value: {} | undefined | null,
     instance: IInstanceDetails,
     process: IProcessDetails,
-    user: IUserDetails,
+    user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
     showDirect?: boolean,
   ): JSX.Element | undefined;
@@ -49,7 +50,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     value: {} | undefined | null,
     instance: IInstanceDetails,
     process: IProcessDetails,
-    user: IUserDetails,
+    user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
     showDirect?: boolean,
   ): JSX.Element | undefined;
@@ -60,21 +61,32 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     value: {} | undefined | null,
     instance: IInstanceDetails,
     process: IProcessDetails,
-    user: IUserDetails,
+    user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
   ): JSX.Element | undefined;
-  renderValueToString(value: {} | undefined, instance: IInstanceDetails, process: IProcessDetails, user: IUserDetails, config?: IFieldConfig): string | undefined;
+  renderValueToString(
+    value: {} | undefined,
+    instance: IInstanceDetails,
+    process: IProcessDetails,
+    user: StateUserDetails | IUserDetails,
+    config?: IFieldConfig,
+  ): string | undefined;
   getGridDataObject(
     field: IFieldValue,
     fieldName: string,
     instance: IInstanceDetails,
     process: IProcessDetails,
-    user: IUserDetails,
+    user: StateUserDetails | IUserDetails,
     config: IFieldConfig | undefined,
     columnName: string,
     grid: Component,
   ): string | Date | number | undefined;
-  renderValueForGrid(fieldName: string, baseGrid: Component, process?: IProcessDetails, user?: IUserDetails): ((props: { dataItem: unknown }) => JSX.Element) | undefined;
+  renderValueForGrid(
+    fieldName: string,
+    baseGrid: Component,
+    process?: IProcessDetails,
+    user?: StateUserDetails | IUserDetails,
+  ): ((props: { dataItem: unknown }) => JSX.Element) | undefined;
   getSettingsButton(
     fieldDefinition: IFieldDefinition,
     onConfigChanged: (fieldDefinition: IFieldDefinition) => void,

@@ -11,7 +11,7 @@ export type StateUserExtras = Omit<IUserDetails["extras"], "workspaces" | "insta
   instanceIds?: string[];
 };
 
-export type StateUserDetails = Omit<IUserDetails, "extras"> & {
+export type StateUserDetails = Omit<IUserDetails, "extras" | "type"> & {
   type: "state";
   extras: StateUserExtras;
 };
