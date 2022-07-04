@@ -26,12 +26,39 @@ export class UserState {
   lastDispatchedUser?: StateUserDetails; // Used in reducer to detect changes
 }
 
-export const UserMessages = {
-  UserLoadedMessage: "UserLoadedMessage",
-  InstanceLoadedMessage: "InstanceLoadedMessage",
-  RemoveInstanceMessage: "RemoveInstanceMessage",
-  NewInstanceMessage: "NewInstanceMessage",
+type UserLoadedMessageType = "UserLoadedMessage";
+const UserLoadedMessage: UserLoadedMessageType = "UserLoadedMessage";
 
-  Failed: "FAILED",
+type InstanceLoadedMessageType = "InstanceLoadedMessage";
+const InstanceLoadedMessage: InstanceLoadedMessageType = "InstanceLoadedMessage";
+
+type RemoveInstanceMessageType = "RemoveInstanceMessage";
+const RemoveInstanceMessage: RemoveInstanceMessageType = "RemoveInstanceMessage";
+
+type NewInstanceMessageType = "NewInstanceMessage";
+const NewInstanceMessage: NewInstanceMessageType = "NewInstanceMessage";
+
+type FailedType = "Failed";
+const Failed: FailedType = "Failed";
+
+type SetViewStatesMessageType = "SetViewStatesMessage";
+const SetViewStatesMessage: SetViewStatesMessageType = "SetViewStatesMessage";
+
+type AddFavoriteProcessMessageType = "AddFavoriteProcessMessage";
+const AddFavoriteProcessMessage: AddFavoriteProcessMessageType = "AddFavoriteProcessMessage";
+
+type RemoveFavoriteProcessMessageType = "RemoveFavoriteProcessMessage";
+const RemoveFavoriteProcessMessage: RemoveFavoriteProcessMessageType = "RemoveFavoriteProcessMessage";
+
+export const UserMessages = {
+  UserLoadedMessage,
+  InstanceLoadedMessage,
+  RemoveInstanceMessage,
+  NewInstanceMessage,
+  Failed,
+  SetViewStatesMessage,
+  AddFavoriteProcessMessage,
+  RemoveFavoriteProcessMessage,
 };
+
 export type UserMessages = keyof typeof UserMessages;
