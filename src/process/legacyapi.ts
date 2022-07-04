@@ -61,7 +61,7 @@ export interface ITemplateProcessesReply extends IBaseReply {
 }
 
 export interface ICreateProcessRequest extends IBaseRequest {
-  processDetails: IProcessDetails;
+  processDetails: StateProcessDetails;
 }
 
 export interface IDeleteProcessRequest extends IBaseRequest {
@@ -252,7 +252,7 @@ export const PROCESSLOADED_MESSAGE = "ProcessLoadedMessage";
 
 export interface IProcessLoadedMessage extends IBaseMessage {
   type: "ProcessLoadedMessage";
-  processDetails?: StateProcessDetails;
+  processDetails?: IProcessDetails;
 }
 
 export interface ILoadTemplateReply {

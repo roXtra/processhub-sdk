@@ -2,6 +2,7 @@ import { IInstanceDetails } from "./instanceinterfaces";
 import { IUserDetails } from "../user/userinterfaces";
 import { IWorkspaceDetails, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IProcessDetails } from "../process/processinterfaces";
+import { StateProcessDetails } from "../process/processstate";
 
 // Helper functions to filter and/or sort instances
 
@@ -49,7 +50,7 @@ export function filterInstancesForWorkspace(instances: IInstanceDetails[], works
 export function filterRemainingInstancesForWorkspace(
   instances: IInstanceDetails[],
   workspace: IWorkspaceDetails | StateWorkspaceDetails,
-  workspaceProcesses: IProcessDetails[] | undefined,
+  workspaceProcesses: (IProcessDetails | StateProcessDetails)[] | undefined,
 ): IInstanceDetails[] {
   if (!instances) return [];
 

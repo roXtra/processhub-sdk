@@ -102,7 +102,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
    */
   isAvailableAsChartField(type?: SeriesType): boolean;
   appendValueToChartData(currentChartData: IChartData[], field: IFieldValue): void;
-  getValueForInstanceTitle(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails, config?: IFieldConfig): string;
+  getValueForInstanceTitle(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails | StateProcessDetails, config?: IFieldConfig): string;
   migrateFieldConfig(newConfig: IFieldConfig, oldConfig: IFieldConfig): void;
   filterCellRender(fieldKey: string, grid: Component): JSX.Element | undefined;
   applyCustomFilter(value: FieldValueType | undefined | null, filter: {}): boolean;
