@@ -53,3 +53,24 @@ export interface IRemoveFavoriteProcessRequest extends IBaseRequest {
 export interface ISetFavoriteProcessRequest extends IRemoveFavoriteProcessRequest {
   workspaceId: string;
 }
+
+export interface ISetViewStatesMessage extends IBaseMessage {
+  type: UserMessages;
+  instanceOrProcessId?: string;
+  viewDate?: Date;
+}
+
+export interface IRemoveFavoriteProcessMessage extends IBaseMessage {
+  type: UserMessages;
+  processId: string;
+}
+
+export interface IAddFavoriteProcessMessage extends IRemoveFavoriteProcessMessage {
+  workspaceId: string;
+}
+
+export interface ISetArchiveViewMessage extends IBaseMessage {
+  type: UserMessages;
+  processId: string;
+  viewId?: string;
+}
