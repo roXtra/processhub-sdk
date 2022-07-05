@@ -55,12 +55,13 @@ export interface IUserDetailsNoExtras extends IUserDetailsSmall {
   licence: Licence;
   isSystemUser?: boolean;
   extendedRights: ExtendedRight[];
+  language?: Language; // Preferred User language (de-DE, en-US, ...)
+  status: UserStatus;
 }
 
 export interface IUserDetails extends IUserDetailsNoExtras {
   type: "backend";
   photoUrl?: string;
-  language?: Language; // Preferred User language (de-DE, en-US, ...)
   extras: {
     // New Extras must be added to cache-handling in useractions -> loadUser!
     workspaces?: IWorkspaceDetails[];
@@ -79,7 +80,6 @@ export interface IUserDetails extends IUserDetailsNoExtras {
    * @field workspaceId - The workspace id of the corresponding workspace of the favorite process
    */
   favoriteProcesses: { processId: string; workspaceId: string }[];
-  status: UserStatus;
 }
 
 export enum UserExtras {
