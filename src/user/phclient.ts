@@ -21,8 +21,6 @@ export class UserState {
 
   lastApiResult?: ApiResult; // Result of the last Api call
 
-  // updated in reducers, helps React to detect state changes
-  cacheState?: string;
   lastDispatchedUser?: StateUserDetails; // Used in reducer to detect changes
 }
 
