@@ -56,7 +56,7 @@ export interface ISetFavoriteProcessRequest extends IRemoveFavoriteProcessReques
 
 export interface ISetViewStatesMessage extends IBaseMessage {
   type: UserMessages;
-  instanceId?: string;
+  instanceOrProcessId?: string;
   viewDate?: Date;
 }
 
