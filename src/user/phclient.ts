@@ -50,6 +50,9 @@ const AddFavoriteProcessMessage: AddFavoriteProcessMessageType = "AddFavoritePro
 type RemoveFavoriteProcessMessageType = "RemoveFavoriteProcessMessage";
 const RemoveFavoriteProcessMessage: RemoveFavoriteProcessMessageType = "RemoveFavoriteProcessMessage";
 
+type SetArchiveViewMessageType = "SetArchiveViewMessage";
+const SetArchiveViewMessage: SetArchiveViewMessageType = "SetArchiveViewMessage";
+
 export const UserMessages = {
   UserLoadedMessage,
   InstanceLoadedMessage,
@@ -59,6 +62,7 @@ export const UserMessages = {
   SetViewStatesMessage,
   AddFavoriteProcessMessage,
   RemoveFavoriteProcessMessage,
+  SetArchiveViewMessage,
 };
 
 export type UserMessages = keyof typeof UserMessages;
