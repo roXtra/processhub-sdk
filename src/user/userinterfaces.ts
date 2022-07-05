@@ -20,13 +20,13 @@ export enum Licence {
   PublicReader = "roXtra.PublicReader",
 }
 
-export function hasEditAccess(user: IUserDetails | StateUserDetails): boolean {
+export function hasEditAccess(user: IUserDetails | StateUserDetails | IUserDetailsNoExtras): boolean {
   return user.licence === Licence.Writer || user.isSystemUser === true;
 }
 
 export type ExtendedRight = "Z1";
 
-export function hasSetCorporateDesignRight(user: IUserDetails): boolean {
+export function hasSetCorporateDesignRight(user: IUserDetails | IUserDetailsNoExtras): boolean {
   if (user.isSystemUser) {
     return true;
   }
@@ -51,13 +51,16 @@ export interface IUserDetailsSmall {
   lastName?: string;
 }
 
-export interface IUserDetails extends IUserDetailsSmall {
+export interface IUserDetailsNoExtras extends IUserDetailsSmall {
+  licence: Licence;
+  isSystemUser?: boolean;
+  extendedRights: ExtendedRight[];
+}
+
+export interface IUserDetails extends IUserDetailsNoExtras {
   type: "backend";
   photoUrl?: string;
   language?: Language; // Preferred User language (de-DE, en-US, ...)
-  licence: Licence;
-  extendedRights: ExtendedRight[];
-  isSystemUser?: boolean;
   extras: {
     // New Extras must be added to cache-handling in useractions -> loadUser!
     workspaces?: IWorkspaceDetails[];
