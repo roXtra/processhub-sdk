@@ -1,6 +1,6 @@
 import { Bpmn } from "../process/bpmn";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
-import { IUserDetails } from "../user/userinterfaces";
+import { IUserDetailsNoExtras } from "../user/userinterfaces";
 
 export enum TodoStatus {
   TodoOnTime = 0,
@@ -33,7 +33,7 @@ export interface ITodoDetails {
   bpmnTaskId: string;
   bpmnLaneId: string;
   createdAt?: Date;
-  user?: IUserDetails;
+  user?: IUserDetailsNoExtras;
   priority?: number;
   dueAt?: Date;
   subInstanceId?: string;
