@@ -120,6 +120,7 @@ export interface IProcessDetails {
     parentProcessDetails?: ISubParentBaseProcessInformation[];
     childProcessDetails?: ISubParentBaseProcessInformation[];
   };
+  type: "backend";
 }
 
 export interface IProcessSettings {

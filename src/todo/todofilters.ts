@@ -5,6 +5,7 @@ import { filterInstancesForProcess, filterRemainingInstancesForWorkspace } from 
 import { IWorkspaceDetails, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IUserDetails } from "../user/userinterfaces";
 import { IProcessDetails } from "../process/processinterfaces";
+import { StateProcessDetails } from "../process/processstate";
 import { StateUserDetails } from "../user/phclient";
 
 // Temporary solution during switch from todo.instance -> instances.todos
@@ -72,7 +73,7 @@ export function filterTodosForWorkspace(instances: IInstanceDetails[], workspace
 export function filterRemainingTodosForWorkspace(
   instances: IInstanceDetails[],
   workspace: IWorkspaceDetails | StateWorkspaceDetails,
-  workspaceProcesses: IProcessDetails[] | undefined,
+  workspaceProcesses: (IProcessDetails | StateProcessDetails)[] | undefined,
 ): ITodoDetails[] {
   if (!instances) return [];
 

@@ -77,8 +77,8 @@ export interface IGetProcessDetailsFromUrlRequest extends IBaseRequest {
   processUrl: string;
 }
 
-export interface IGetProcessDetailsReply extends IProcessReply {
-  processDetails?: IProcessDetails;
+export interface IGetProcessDetailsReply<T = IProcessDetails> extends IProcessReply {
+  processDetails?: T;
 }
 
 export interface IGetTimersOfProcessRequest extends IBaseRequest {
@@ -249,9 +249,9 @@ export interface IDeleteCommentRequest extends IBaseRequest {
 
 export const PROCESSLOADED_MESSAGE = "ProcessLoadedMessage";
 
-export interface IProcessLoadedMessage extends IBaseMessage {
+export interface IProcessLoadedMessage<T = IProcessDetails> extends IBaseMessage {
   type: "ProcessLoadedMessage";
-  processDetails?: IProcessDetails;
+  processDetails?: T;
 }
 
 export interface ILoadTemplateReply {

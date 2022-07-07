@@ -1,5 +1,6 @@
 import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
 import { isId } from "../tools/guid";
+import { StateProcessDetails } from "./processstate";
 
 export function parseProcessMailSubject(mail: string): string | undefined {
   const regex = /(\[)(p-)(.*?)(\])/gm;
@@ -16,7 +17,7 @@ export function parseProcessMailSubject(mail: string): string | undefined {
 }
 
 // Init settings that don't exist with default values
-export function initSettings(process: IProcessDetails): void {
+export function initSettings(process: IProcessDetails | StateProcessDetails): void {
   if (!process.extras.settings) process.extras.settings = {};
 
   const settings = process.extras.settings;
