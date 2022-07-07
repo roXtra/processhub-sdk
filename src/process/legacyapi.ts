@@ -7,7 +7,6 @@ import { IFieldDefinition } from "../data/ifielddefinition";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import IQuestionCatalog from "../modules/audits/iquestioncatalog";
 import Joi from "joi";
-import { StateProcessDetails } from "./processstate";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -61,7 +60,7 @@ export interface ITemplateProcessesReply extends IBaseReply {
 }
 
 export interface ICreateProcessRequest extends IBaseRequest {
-  processDetails: StateProcessDetails;
+  processDetails: IProcessDetails;
 }
 
 export interface IDeleteProcessRequest extends IBaseRequest {
