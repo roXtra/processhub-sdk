@@ -244,6 +244,10 @@ export interface ICommentRequest extends IBaseRequest {
   trailId: string;
 }
 
+export interface IAddCommentReply extends IBaseReply {
+  latestCommentAt: Date;
+}
+
 export interface IDeleteCommentRequest extends IBaseRequest {
   trailId: string;
 }
