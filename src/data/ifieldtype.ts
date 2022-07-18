@@ -9,6 +9,7 @@ import { StateProcessDetails } from "../process/processstate";
 import { StateUserDetails } from "../user/phclient";
 import { IUserDetails } from "../user/userinterfaces";
 import { IChartData, IFieldConfig } from "./datainterfaces";
+import { IFieldContentMap } from "./ifieldcontentmap";
 import { IFieldDefinition } from "./ifielddefinition";
 import { FieldType, FieldValueType, IFieldValue } from "./ifieldvalue";
 import { IFormElementProps } from "./iformelementprops";
@@ -17,11 +18,12 @@ export type GetInputParams<ConfigType extends IFieldConfig, ValueType extends Fi
   formElementProps: IFormElementProps<ConfigType, ValueType>;
   instanceEnv: IInstanceEnvironment;
   actionHandler: ActionHandler;
-  onFieldValueChanged: () => void;
+  onFieldValueChanged: (newFieldContents: IFieldContentMap) => void;
   showInvalidValue: boolean;
   startEventId?: string;
   hideRequiredIdentifier?: boolean;
   disableMentions?: boolean;
+  pendingFieldContents: IFieldContentMap;
 };
 
 export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends FieldValueType> {
@@ -95,7 +97,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     hideLocalSettings: boolean,
   ): JSX.Element | undefined;
   isVisible(): boolean;
-  isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment): Promise<boolean>;
+  isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment, pendingFieldContents?: IFieldContentMap): Promise<boolean>;
   isConfigValid(fieldDefinition: IFieldDefinition, userLanguage: string): { valid: boolean; message?: string };
   /**
    * Returns whether this field can be used to display in Dashboard charts for additional modules
