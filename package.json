@@ -62,7 +62,7 @@
     "@types/base-64": "^1.0.0",
     "@types/chai": "^4.3.1",
     "@types/lodash": "^4.14.182",
-    "@types/luxon": "^2.3.2",
+    "@types/luxon": "^2.4.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "^16.11.43",
     "@types/react": "^17.0.47",
