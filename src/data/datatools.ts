@@ -271,10 +271,13 @@ export function updateLegacyFieldDefinitions(definitions: ILegacySchema): IField
  * @default allowUndefined false
  * @member convert If true, the validation will try to cast a value to the correct type, if not possible an error will be thrown
  * @default convert false
+ * @member  allowUnknown when true, allows object to contain unknown keys which are ignored.
+ * @default  allowUnknown false
  */
 type ValidateTypeOptions = {
   allowUndefined?: boolean;
   convert?: boolean;
+  allowUnknown?: boolean;
 };
 
 /**
@@ -287,7 +290,9 @@ type ValidateTypeOptions = {
  * @param options Options for the validation
  */
 export function validateType<T>(schema: Joi.Schema, element: unknown, options?: ValidateTypeOptions): T {
-  const res = options?.allowUndefined ? schema.validate(element) : schema.required().validate(element);
+  const res = options?.allowUndefined
+    ? schema.validate(element, { allowUnknown: options.allowUnknown })
+    : schema.required().validate(element, { allowUnknown: options?.allowUnknown });
   if (res.error) {
     throw new Error(res.error.message);
   }

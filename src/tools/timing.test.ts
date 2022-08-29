@@ -89,8 +89,8 @@ describe("tools", function () {
         expect(Object.keys(localeTranslation)).to.have.lengthOf(supportedLanguages.length);
 
         for (const locale of supportedLanguages) {
-          // Skip zh-CN and es-ES due to ubuntu Update, should be removed in the future
-          if (["zh-CN", "es-ES"].includes(locale)) continue;
+          // Skip zh-CN, es-ES and fr-FR due to ubuntu Update, should be removed in the future
+          if (["zh-CN", "es-ES", "fr-FR"].includes(locale)) continue;
           expect(getFormattedDateTime(now, locale), "Unexpected getFormattedDateTime output for " + locale).to.equal(localeTranslation[locale]);
         }
       });

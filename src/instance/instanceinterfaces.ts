@@ -7,6 +7,7 @@ import { IProcessLinkInstance } from "../data/fields/processlink";
 import { IFieldContentMap } from "../data/ifieldcontentmap";
 import { IRoleOwnerMap } from "../process/processrights";
 import { ITodoDetails, IDecisionTask } from "../todo/todointerfaces";
+import { ICustomRating } from "../modules/audits/icustomrating";
 
 export enum State {
   // DON'T CHANGE NUMBERS - used in database
@@ -85,6 +86,7 @@ export interface IInstanceDetails {
   instanceNumber?: number;
   takenStartEvent: string;
   reachedEndEvents: string[];
+  auditsCustomRating?: ICustomRating;
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
     instanceState?: IEngineState;
