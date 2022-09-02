@@ -11,8 +11,6 @@ export interface IPathDetails {
   page?: Page;
   view?: View;
 
-  isMobile?: boolean; // Embedded request from a mobile app
-  isEmbedded?: boolean; // Embedded view mode (NOT IMPLEMENTED YET)
   isLibraryListing?: boolean; // Process is displayed from the library
 
   workspaceUrlName?: string;
