@@ -11,8 +11,6 @@ export interface IPathDetails {
   page?: Page;
   view?: View;
 
-  isLibraryListing?: boolean; // Process is displayed from the library
-
   workspaceUrlName?: string;
   processUrlName?: string;
 }
