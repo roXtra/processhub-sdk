@@ -74,7 +74,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
         if (typeof window !== "undefined") {
           //  Not possible on server rendering
           console.log("401 -> redirect to roxtra login page with url: " + window.location.href);
-          window.location.href = window.__INITIAL_CONFIG__.roXtraUrl + "login/weblogin.aspx?redirect=" + encodeURIComponent(window.location.href);
+          window.location.href = window.__INITIAL_CONFIG__.roXtraUrl + "?redirect=" + encodeURIComponent(window.location.href);
         }
         const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
         return error;
@@ -156,6 +156,15 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
         }
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return json;
+      }
+      case 401: {
+        // API_UNAUTHORIZED -> server requests redirect to signin
+        if (typeof window !== "undefined") {
+          //  Not possible on server rendering
+          window.location.href = window.__INITIAL_CONFIG__.roXtraUrl + "?redirect=" + encodeURIComponent(window.location.href);
+        }
+        const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
+        return error;
       }
       default: {
         const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
@@ -240,9 +249,10 @@ export async function getExternalJson<Request extends IBaseRequest>(
       // API_UNAUTHORIZED -> server requests redirect to signin
       if (typeof window !== "undefined") {
         //  Not possible on server rendering
-        window.location.href = window.__INITIAL_CONFIG__.roXtraUrl;
+        window.location.href = window.__INITIAL_CONFIG__.roXtraUrl + "?redirect=" + encodeURIComponent(window.location.href);
       }
-      break;
+      const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
+      return error;
     }
     default: {
       const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
