@@ -257,6 +257,7 @@ export const PROCESSLOADED_MESSAGE = "ProcessLoadedMessage";
 export interface IProcessLoadedMessage<T extends IProcessDetails | StateProcessDetails> extends IBaseMessage {
   type: "ProcessLoadedMessage";
   processDetails?: T;
+  doNotUpdateCurrentProcess?: boolean;
 }
 
 export interface ILoadTemplateReply {
