@@ -29,6 +29,7 @@ export interface IServiceTaskInstances {
   uploadAttachment(instanceId: string, fileName: string, data: Buffer): Promise<string>;
   generateInstanceReport(instanceIds: string[], draftId: string, type: IGenerateReportRequestType): Promise<{ doc: string /* Base64*/; fileName: string }>;
   executeInstance(processId: string, instance: IInstanceDetails, startEventId?: string, accessToken?: string): Promise<string>;
+  getInstanceUrl(instanceId: string, workspaceId: string, moduleId: number, isUsedThroughTest?: boolean): string;
 }
 
 /**

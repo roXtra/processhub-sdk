@@ -64,6 +64,9 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       executeInstance: async (): Promise<string> => {
         throw new Error("Not implemented");
       },
+      getInstanceUrl: (): string => {
+        throw new Error("Not implemented");
+      },
     },
     mailer: {
       sendMailTemplate: (): Promise<ISendMailTemplateReply> => {
