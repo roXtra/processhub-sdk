@@ -31,6 +31,7 @@ export interface IDatabaseConfig {
   password: string;
   database: string;
   encrypt: boolean;
+  poolSize: number;
 }
 
 export interface IFilestoreConfig {
