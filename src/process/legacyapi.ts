@@ -279,7 +279,7 @@ export interface IListProcessesReply extends IBaseReply {
 export interface IGetProcessInstancesRequest extends IBaseRequest {
   processId: string;
   // The fast option speeds up the call but the resulting instances have less information (eg. field contents are not included)
-  fast?: boolean;
+  fast?: "true" | "false";
 }
 
 export interface IGetProcessInstancesReply extends IBaseMessage {
