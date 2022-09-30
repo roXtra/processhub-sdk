@@ -172,6 +172,8 @@ export const INSTANCELOADED_MESSAGE = "InstanceLoadedMessage";
 export interface IInstanceLoadedMessage extends IBaseMessage {
   type: "InstanceLoadedMessage";
   instance?: IInstanceDetails;
+  // Current instance count from process details
+  instanceCount: number;
 }
 
 export interface IExportAuditTrailRequest extends IBaseRequest {
