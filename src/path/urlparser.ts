@@ -5,6 +5,8 @@ import { WorkspaceView, isValidWorkspaceView } from "../workspace/phclient";
 import { isId } from "../tools/guid";
 import { getBackendUrl, getBasePath } from "../config";
 
+export const AuditsOfflineRoute = "audits-offline";
+
 export function parseUrl(fullUrlWithBase: string): IPathDetails | undefined {
   const path: IPathDetails = {};
   const backendUrl = getBackendUrl().toLowerCase();
@@ -28,6 +30,9 @@ export function parseUrl(fullUrlWithBase: string): IPathDetails | undefined {
     return path;
   } else if (part === "signup" && split.length === 2) {
     path.page = Page.SignupPage;
+    return path;
+  } else if (part === AuditsOfflineRoute && split.length === 2) {
+    path.page = Page.AuditsOffline;
     return path;
   } else if (!part.startsWith("@")) {
     return undefined;
