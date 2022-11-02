@@ -261,6 +261,7 @@ export interface ITimerStartEventConfiguration {
   date: Date;
   frequency: Frequency;
   isTimeValid: boolean;
+  isNewTimer: boolean;
 }
 
 export enum Frequency {
