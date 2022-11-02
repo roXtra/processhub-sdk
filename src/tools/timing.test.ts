@@ -64,10 +64,10 @@ describe("tools", function () {
         const localeTranslation: { [locale in Language]: string } = {
           "de-DE": "27.12.2021, 12:00",
           "en-US": "12/27/2021, 12:00 PM",
-          "zh-CN": "2021/12/27 下午12:00",
+          "zh-CN": "2021/12/27 12:00",
           "zh-HK": "27/12/2021 下午12:00",
           "it-IT": "27/12/2021, 12:00",
-          "es-ES": "27/12/2021 12:00",
+          "es-ES": "27/12/2021, 12:00",
           "fr-FR": "27/12/2021, 12:00",
           "tr-TR": "27.12.2021 12:00",
           "nl-NL": "27-12-2021 12:00",
@@ -89,8 +89,6 @@ describe("tools", function () {
         expect(Object.keys(localeTranslation)).to.have.lengthOf(supportedLanguages.length);
 
         for (const locale of supportedLanguages) {
-          // Skip zh-CN, es-ES and fr-FR due to ubuntu Update, should be removed in the future
-          if (["zh-CN", "es-ES", "fr-FR"].includes(locale)) continue;
           expect(getFormattedDateTime(now, locale), "Unexpected getFormattedDateTime output for " + locale).to.equal(localeTranslation[locale]);
         }
       });
