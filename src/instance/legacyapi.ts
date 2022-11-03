@@ -66,6 +66,8 @@ export interface IConvertSpreadsheetsRequest extends IBaseRequest {
 
 export interface IUpdateInstanceRequest extends IBaseRequest {
   instance: IInstanceDetails;
+  // Used to create an audit trail entry if the updateInstance request was made by offline mode
+  initiator?: "offlinemode";
 }
 export interface IUpdateInstanceReply extends IInstanceReply {
   instance?: IInstanceDetails;
