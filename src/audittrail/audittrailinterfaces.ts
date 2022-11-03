@@ -60,6 +60,8 @@ export enum AuditTrailAction {
   activeTaskClaimed = 102,
   // A user was replaced in a process
   replaceUser = 103,
+  // An audit was edited and saved in offline mode
+  instanceUpdatedOfflineMode = 104,
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
