@@ -161,6 +161,9 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         host: "127.0.0.1",
         port: 143,
         tls: true,
+        appId: "",
+        tenantId: "",
+        secret: "",
       },
       Mailer: {
         senderName: "roXtra-Server",

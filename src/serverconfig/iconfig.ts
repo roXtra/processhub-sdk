@@ -38,14 +38,24 @@ export interface IFilestoreConfig {
   baseDir: string;
 }
 
+/**
+ * MailboxConfig: requires either password or appId + tenantId + secret (OAuth2)
+ */
 export interface IMailboxConfig {
   mail: string;
   user: string;
-  password: string;
+  /** Required for Authentication without OAuth2 */
+  password: string | undefined;
   host: string;
   port: number;
   tls: boolean;
   reconnectTime: number;
+  /** Required for OAuth2-Authentication */
+  appId: string | undefined;
+  /** Required for OAuth2-Authentication */
+  tenantId: string | undefined;
+  /** Required for OAuth2-Authentication */
+  secret: string | undefined;
 }
 
 export interface IMailerConfig {
