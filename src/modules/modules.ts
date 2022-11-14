@@ -42,9 +42,9 @@ export function getModuleTitle(moduleName: ModuleName, locale: Language): string
     case "system":
       return tl("System", locale);
     case "action":
-      return tl("Maßnamen Plus", locale);
+      return tl("Maßnahmen Plus", locale);
     case "action_basic":
-      return tl("Maßnamen", locale);
+      return tl("Maßnahmen", locale);
     case "audit":
       return tl("Audit", locale);
     case "reclamations":
