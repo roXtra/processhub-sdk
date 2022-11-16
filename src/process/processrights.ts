@@ -380,17 +380,14 @@ export function canStartProcess(
 
   if (startEventId == null) return false;
 
-  if (process.userStartEvents == null || isEqual(process.userStartEvents, {})) return canStartProcessOld(process, user);
+  if (process.userStartEvents == null || isEqual(process.userStartEvents, {})) {
+    return false;
+  }
 
   // If userStartEvent is in map, user is allowed to start process
   return process.userStartEvents[startEventId] != null;
 }
-export function canStartProcessOld(process: IProcessDetails | StateProcessDetails | undefined, user: StateUserDetails | IUserDetails | IUserDetailsNoExtras): boolean {
-  if (process == null || process.userRights == null || !hasEditAccess(user)) return false;
 
-  // Only users in the start lane may start the process - even administrators don't inherit that right!
-  return (process.userRights & ProcessAccessRights.StartProcess) !== 0;
-}
 export function canStartProcessByMail(process: IProcessDetails | StateProcessDetails | undefined, user: StateUserDetails | IUserDetails | IUserDetailsNoExtras): boolean {
   if (process == null || process.userRights == null) return false;
 
