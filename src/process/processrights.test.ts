@@ -6,7 +6,6 @@ import {
   isProcessOwner,
   isProcessManager,
   canSimulateProcess,
-  canStartProcessOld,
   canStartProcess,
   canStartProcessByMail,
   canStartProcessByTimer,
@@ -223,36 +222,6 @@ describe("sdk", function () {
             const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
             expect(canStartProcess(testProcess, start[0].id, testUser)).to.equal(true);
           }
-        });
-      });
-
-      describe("canStartProcessOld", function () {
-        before(function () {
-          testProcess.userRights = ProcessAccessRights.StartProcess;
-          testUser.licence = Licence.Writer;
-        });
-
-        afterEach(function () {
-          testProcess.userRights = ProcessAccessRights.StartProcess;
-          testUser.licence = Licence.Writer;
-        });
-
-        it("should start old", function () {
-          expect(canStartProcessOld(testProcess, testUser)).to.equal(true);
-        });
-
-        it("shouldn't start old because process is null", function () {
-          expect(canStartProcessOld(undefined, testUser)).to.equal(false);
-        });
-
-        it("shouldn't start because of insufficient userrights", function () {
-          testProcess.userRights = ProcessAccessRights.ViewProcess;
-          expect(canStartProcessOld(testProcess, testUser)).to.equal(false);
-        });
-
-        it("shouldn't be owner because of missing eform edit right", function () {
-          testUser.licence = Licence.Reader;
-          expect(canStartProcessOld(testProcess, testUser)).to.equal(false);
         });
       });
 
