@@ -30,4 +30,7 @@ export default interface IQuestionCatalog {
   id: string;
   revision: IQuestionCatalogRevision;
   nodes: IQuestionCatalogNode[];
+  questionSourceIdMap: {
+    [questionId: string]: string;
+  };
 }
