@@ -26,7 +26,6 @@ export interface IRoxtraConfig {
 
 export interface IDatabaseConfig {
   connection: string;
-  port: number;
   user: string;
   password: string;
   database: string;
@@ -71,9 +70,6 @@ export interface IMailerConfig {
 export interface IWebserverConfig {
   port: number;
   baseUrl: string;
-  tls: boolean;
-  pfxFile: string;
-  certificatePassword: string;
   isTestServer?: boolean;
 }
 
