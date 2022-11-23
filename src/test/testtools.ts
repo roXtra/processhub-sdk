@@ -138,7 +138,6 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
     serverConfig: {
       Database: {
         connection: "localhost",
-        port: 1473,
         user: "EFormulare",
         password: "",
         database: "EFormulare",
@@ -177,9 +176,6 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       Webserver: {
         port: 8397,
         baseUrl: "http://localhost:5051",
-        tls: false,
-        pfxFile: "",
-        certificatePassword: "",
       },
       ClientSettings: {
         extendedErrorMessages: true,
