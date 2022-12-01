@@ -1,13 +1,18 @@
+import { IFieldContentMap } from "../../data/ifieldcontentmap";
 import { IFieldValue } from "../../data/ifieldvalue";
 import { IUserDetailsSmall } from "../../user/userinterfaces";
 
 export interface IQuestion {
   id: string;
+  // Values of predefined audit fields
   noteText: string;
   questionText: string;
   answer: IFieldValue;
   files: string[];
   rating?: number;
+  // Values of custom fields that where defined in the audit question field
+  customFields?: IFieldContentMap;
+  // Order of the question in the question grid in the audit instance
   orderIndex: number;
 }
 
