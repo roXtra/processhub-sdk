@@ -1,5 +1,6 @@
 import IQuestionCatalog from "../../modules/audits/iquestioncatalog";
 
 export interface IAuditQuestionsFieldValue {
-  questionCatalog: IQuestionCatalog;
+  questionCatalog: IQuestionCatalog | undefined;
+  questionsId?: string;
 }
