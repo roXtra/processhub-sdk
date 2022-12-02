@@ -13,7 +13,7 @@ import { Language } from "../tl";
 
 export const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 export const riskmetricRegExp = /riskMetric\['([^'\]]*)'\]/;
-export const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName))?/;
+export const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName|mail))?/;
 
 export function replaceAll(target: string, search: string, replacement?: string, isQuery?: boolean): string {
   if (!replacement) {
