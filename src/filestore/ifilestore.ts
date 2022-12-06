@@ -9,8 +9,9 @@ export interface IFileStore {
    * @param workspaceId Workspace ID
    * @param processId Process ID
    * @param fileName File name without trailing slash. A trailing slash from the filename will be removed. The file name must be URI Component encoded.
+   * @param relativeUrl if true the returned URL does not have the backend URL as a prefix.
    */
-  getAttachmentFileUrl(workspaceId: string, processId: string, fileName: string): string;
+  getAttachmentFileUrl(workspaceId: string, processId: string, fileName: string, relativeUrl?: boolean): string;
   getPreviewFileUrl(workspaceId: string, processId: string): string;
 
   createFile(workspaceId: string, processId: string, fileName: string, fileContent: string | Buffer, acl: "private" | "public-read"): Promise<boolean>;
