@@ -100,3 +100,9 @@ export interface IFeatureFlag {
 export interface ITlsConfig {
   rejectUnauthorized: boolean;
 }
+
+export interface ISettingsFile {
+  settings: {
+    BaseURL: string;
+  };
+}
