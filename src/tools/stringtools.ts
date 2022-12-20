@@ -90,9 +90,9 @@ export class NestedElements {
   [key: string]: INestedElement;
 }
 
-const ruleRegex = /((field|role|riskMetric)\['([^']*)'\](\.[^\s]+)?)\s(==|!=|<|<=|>|>=|<>|><)\s(('([^']+)')|(([^()&|]+)))/; // /((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+)))/
+const ruleRegex = /(((field|role|riskMetric)\['([^']*)'\](\.[^\s]+)?)|auditMetric)\s(==|!=|<|<=|>|>=|<>|><)\s(('([^']+)')|(([^()&|]+)))/; // /((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+)))/
 const nestedRegex =
-  /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role|riskMetric)\['([^']*)'\](\.[^\s]+)?)\s(==|!=|<|<=|>|>=|<>|><)\s(('([^']+)')|(([^()&&||]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/; // /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/;
+  /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\((((((((field|role|riskMetric)\['([^']*)'\](\.[^\s]+)?)|auditMetric)\s(==|!=|<|<=|>|>=|<>|><)\s(('([^']+)')|(([^()&&||]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/; // /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/;
 const isCombinatorRegex = /\s(&&|\|\|)\s/;
 
 export function getNestedElements(query: string): NestedElements {
@@ -204,20 +204,20 @@ export function parseRule(rule: string): Rule {
   const match = ruleRegex.exec(rule);
   if (match) {
     res.field = match[1];
-    res.operator = match[5];
-    if (match[8]) {
+    res.operator = match[6];
+    if (match[9]) {
       // Normal text
-      res.value = match[8];
-    } else if (match[10] === "''") {
+      res.value = match[9];
+    } else if (match[11] === "''") {
       // Empty text
       res.value = "";
-    } else if (match[10] === "undefined") {
+    } else if (match[11] === "undefined") {
       // Undefined (object)
       res.value = undefined;
-    } else if (!Number.isNaN(Number(match[10]))) {
-      res.value = Number(match[10]); // Number
+    } else if (!Number.isNaN(Number(match[11]))) {
+      res.value = Number(match[11]); // Number
     } else {
-      res.value = JSON.parse(match[10]); // Object (checklist)
+      res.value = JSON.parse(match[11]); // Object (checklist)
     }
   }
 
