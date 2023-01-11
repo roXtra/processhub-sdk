@@ -87,6 +87,8 @@ export interface IInstanceDetails {
   takenStartEvent: string;
   reachedEndEvents: string[];
   auditsCustomRating?: ICustomRating;
+  // Precomputed audit metric that can be used if the questions are not available
+  auditMetric?: number;
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
     instanceState?: IEngineState;
