@@ -15,6 +15,7 @@ export interface IConfig {
   Migration: {
     updateAllInstances: string;
     migrateStatisticReportDrafts: string;
+    updateAuditMetrics: string;
   };
 }
 
