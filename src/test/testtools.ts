@@ -204,6 +204,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       Migration: {
         updateAllInstances: "",
         migrateStatisticReportDrafts: "",
+        updateAuditMetrics: "",
       },
     },
   };
