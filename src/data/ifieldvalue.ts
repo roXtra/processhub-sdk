@@ -47,7 +47,7 @@ export const FieldTypeOptions = [
   "ProcessHubAuditQuestions",
 ] as const;
 
-export type FieldType = typeof FieldTypeOptions[number];
+export type FieldType = (typeof FieldTypeOptions)[number];
 
 export type FieldValueType =
   | number // Number

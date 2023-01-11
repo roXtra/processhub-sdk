@@ -23,7 +23,7 @@ export const supportedLanguages = [
   "ja-JP",
 ] as const;
 
-export type Language = typeof supportedLanguages[number];
+export type Language = (typeof supportedLanguages)[number];
 
 const translations: { [language: string]: ITranslations | undefined } = {};
 
