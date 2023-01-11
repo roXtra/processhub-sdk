@@ -4,7 +4,7 @@ import { createLiteralTypeRegExp } from "../regextools";
 
 const IRoleOwnerFieldConfigDefaultValueOptions = ["NoValue", "CurrentUser"] as const;
 
-type IRoleOwnerFieldConfigDefaultValueType = typeof IRoleOwnerFieldConfigDefaultValueOptions[number];
+type IRoleOwnerFieldConfigDefaultValueType = (typeof IRoleOwnerFieldConfigDefaultValueOptions)[number];
 
 export interface IRoleOwnerFieldConfig extends IFieldConfig {
   defaultValue: IRoleOwnerFieldConfigDefaultValueType | undefined;
