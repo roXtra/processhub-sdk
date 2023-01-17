@@ -21,6 +21,7 @@ describe("sdk", function () {
                 reportRequest = {
                   reportType: RequestedInstanceReportType.PROCESSES_REGULAR,
                   draftId: "123",
+                  processId: "456",
                   instanceIds: [],
                   resultingFileType: "docx",
                   moduleId: 1,
@@ -30,6 +31,7 @@ describe("sdk", function () {
                 reportRequest = {
                   reportType: RequestedInstanceReportType.PROCESSES_STATISTICS,
                   draftId: "123",
+                  processId: "456",
                   instanceIds: [],
                   resultingFileType: "docx",
                   moduleId: 1,
@@ -45,6 +47,7 @@ describe("sdk", function () {
                 reportRequest = {
                   reportType: RequestedInstanceReportType.RISKS,
                   draftId: "123",
+                  processId: "456",
                   instanceIds: [],
                   resultingFileType: "docx",
                   moduleId: 3,
@@ -54,6 +57,7 @@ describe("sdk", function () {
                 reportRequest = {
                   reportType: RequestedInstanceReportType.GENERIC_MODULE,
                   draftId: "123",
+                  processId: "456",
                   instanceIds: [],
                   resultingFileType: "docx",
                   moduleId: 9,
@@ -63,6 +67,7 @@ describe("sdk", function () {
                 reportRequest = {
                   reportType: RequestedInstanceReportType.AUDIT,
                   draftId: "123",
+                  processId: "456",
                   instanceIds: [],
                   resultingFileType: "docx",
                   moduleId: 10,
