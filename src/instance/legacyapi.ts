@@ -227,6 +227,7 @@ type RequestedInstanceReportUnionType =
 interface IGenerateReportForProcessesInstancesCommonData<TYPE extends RequestedInstanceReportType> extends IBaseRequest {
   reportType: TYPE;
   instanceIds: string[];
+  processId: string;
   draftId: string;
   resultingFileType: IGenerateReportRequestType;
 }
@@ -288,6 +289,7 @@ const IGenerateReportRequestObject: IGenerateReportRequest = {
     )
     .required() as unknown as RequestedInstanceReportUnionType,
   instanceIds: Joi.array().items(Joi.string()).required() as unknown as string[],
+  processId: Joi.string().required() as unknown as string,
   draftId: Joi.string().required() as unknown as string,
   resultingFileType: Joi.string()
     .pattern(createLiteralTypeRegExp(Object.values(IGenerateReportRequestTypeOptions)))
