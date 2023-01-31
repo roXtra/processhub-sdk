@@ -1,10 +1,22 @@
 import Joi from "joi";
 import { getLastArrayEntry } from "../tools/array";
 
+export const NestedFieldPropsTypes: { Question: "Question" } = { Question: "Question" };
+
+export type NestedFieldProps = { type: typeof NestedFieldPropsTypes.Question; questionId: string };
+
+export const NestedFieldPropsObject: NestedFieldProps = {
+  type: Joi.string().valid(NestedFieldPropsTypes.Question).required() as unknown as typeof NestedFieldPropsTypes.Question,
+  questionId: Joi.alternatives().conditional("type", { is: NestedFieldPropsTypes.Question, then: Joi.string().required() }) as unknown as string,
+};
+
+export const NestedFieldPropsSchema = Joi.object(NestedFieldPropsObject);
+
 export interface IFieldConfig {
   conditionExpression: string;
   conditionBuilderMode: boolean;
   validationExpression: string;
+  nestedFieldProps?: NestedFieldProps;
 }
 
 export function convertFieldConfig(config: IFieldConfig): IFieldConfig {
@@ -19,6 +31,7 @@ export const IFieldConfigObject: IFieldConfig = {
   conditionExpression: Joi.string().allow("").required() as unknown as string,
   conditionBuilderMode: Joi.boolean().required() as unknown as boolean,
   validationExpression: Joi.string().allow("").required() as unknown as string,
+  nestedFieldProps: NestedFieldPropsSchema as unknown as NestedFieldProps,
 };
 
 export const IFieldConfigSchema = Joi.object(IFieldConfigObject);
