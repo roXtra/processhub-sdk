@@ -201,14 +201,13 @@ export function getProcessRoles(
 }
 
 export function isPotentialRoleOwner(
-  user: StateUserDetails | IUserDetails | IUserDetailsNoExtras,
+  userId: string,
   roleId: string | undefined,
   workspace: IWorkspaceDetails | StateWorkspaceDetails,
   process: IProcessDetails | IProcessDetails | StateProcessDetails,
   ignorePublic = false,
 ): boolean {
-  // User == null -> check if guest is PotentialRoleOwner
-  // roleId == null -> check if user is PotentialRoleOwner of any role
+  // RoleId == null -> check if user is PotentialRoleOwner of any role
   const roles = process.extras.processRoles;
   if (roles == null) {
     console.error("isPotentialRoleOwner called without valid process.extras.processRoles");
@@ -224,7 +223,7 @@ export function isPotentialRoleOwner(
   if (roleId == null) {
     // Check if user is PotentialRoleOwner of any role
     for (const role in roles) {
-      if (isPotentialRoleOwner(user, role, workspace, process, ignorePublic) === true) return true;
+      if (isPotentialRoleOwner(userId, role, workspace, process, ignorePublic) === true) return true;
     }
     return false;
   }
@@ -232,7 +231,7 @@ export function isPotentialRoleOwner(
   if (roles[roleId] == null || roles[roleId].potentialRoleOwners == null) return false;
 
   for (const member of roles[roleId].potentialRoleOwners) {
-    if (user && member.memberId === user.userId) {
+    if (member.memberId === userId) {
       // Always accept current roleOwners (process might have been changed, we still want to accept existing owners)
       return true;
     }
@@ -242,10 +241,10 @@ export function isPotentialRoleOwner(
     if (member.memberId === PredefinedGroups.AllWorkspaceMembers || (ignorePublic && member.memberId === PredefinedGroups.Everybody)) {
       if (isWorkspaceMember(workspace)) return true;
     }
-    if (user && isGroupId(member.memberId)) {
+    if (isGroupId(member.memberId)) {
       const group = groups.find((g) => g.groupId === member.memberId);
       if (group) {
-        if (group.members.find((gm) => gm.userId === user.userId) != null) {
+        if (group.members.find((gm) => gm.userId === userId) != null) {
           return true;
         }
       }
@@ -262,7 +261,7 @@ export function isPotentialRoleOwner(
           // AllParticipants soll allen Teilnehmern, die eine Rolle im Prozess haben, Lesezugriff gewähren. Allerdings
           // nur den explizit genannten Teilnehmern, nicht der Public-Gruppe, sonst wäre jeder Prozess,
           // bei dem externe Personen teilnehmen dürfen, automatisch Public.
-          isPotentialRoleOwner(user, role, workspace, process, true)
+          isPotentialRoleOwner(userId, role, workspace, process, true)
         ) {
           return true;
         }

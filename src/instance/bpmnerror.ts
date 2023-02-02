@@ -4,6 +4,7 @@ export enum ErrorCode {
   UnknownError = "UNKNOWN_ERROR",
   ScriptIsUndefined = "SCRIPT_IS_UNDEFINED",
   ConfigInvalid = "CONFIG_INVALID",
+  InvalidRoleOwner = "INVALID_ROLE_OWNER",
 }
 
 export class BpmnError extends Error {
