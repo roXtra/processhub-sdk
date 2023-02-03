@@ -3,7 +3,6 @@ import { getDefaultRoleGroup, hasEditAccess, IUserDetails, IUserDetailsNoExtras,
 import { BpmnProcess } from "./bpmn/bpmnprocess";
 import { IWorkspaceDetails, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
-import { isWorkspaceMember } from "../workspace/workspacerights";
 import { error } from "../tools/assert";
 import { isGroupId, isUserId } from "../tools/guid";
 import { Bpmn } from "./bpmn";
@@ -204,20 +203,21 @@ export function isPotentialRoleOwner(
   userId: string,
   roleId: string | undefined,
   workspace: IWorkspaceDetails | StateWorkspaceDetails,
-  process: IProcessDetails | IProcessDetails | StateProcessDetails,
+  process: IProcessDetails | StateProcessDetails,
   ignorePublic = false,
 ): boolean {
   // RoleId == null -> check if user is PotentialRoleOwner of any role
   const roles = process.extras.processRoles;
   if (roles == null) {
-    console.error("isPotentialRoleOwner called without valid process.extras.processRoles");
-    return false;
+    throw new Error("isPotentialRoleOwner called without valid process.extras.processRoles");
   }
 
-  const { groups } = workspace.extras;
+  const { groups, members } = workspace.extras;
   if (!groups) {
-    console.error("isPotentialRoleOwner called without valid workspace.extras.groups");
-    return false;
+    throw new Error("isPotentialRoleOwner called without valid workspace.extras.groups");
+  }
+  if (!members) {
+    throw new Error("isPotentialRoleOwner called without valid workspace.extras.members");
   }
 
   if (roleId == null) {
@@ -230,19 +230,22 @@ export function isPotentialRoleOwner(
 
   if (roles[roleId] == null || roles[roleId].potentialRoleOwners == null) return false;
 
-  for (const member of roles[roleId].potentialRoleOwners) {
-    if (member.memberId === userId) {
+  for (const potentialRoleOwner of roles[roleId].potentialRoleOwners) {
+    if (potentialRoleOwner.memberId === userId) {
       // Always accept current roleOwners (process might have been changed, we still want to accept existing owners)
       return true;
     }
-    if (!ignorePublic && member.memberId === PredefinedGroups.Everybody) {
+    if (!ignorePublic && potentialRoleOwner.memberId === PredefinedGroups.Everybody) {
       return true;
     }
-    if (member.memberId === PredefinedGroups.AllWorkspaceMembers || (ignorePublic && member.memberId === PredefinedGroups.Everybody)) {
-      if (isWorkspaceMember(workspace)) return true;
+    if (potentialRoleOwner.memberId === PredefinedGroups.AllWorkspaceMembers || (ignorePublic && potentialRoleOwner.memberId === PredefinedGroups.Everybody)) {
+      // Check if user is workspace member
+      if (members.find((m) => m.userDetails.userId === userId)) {
+        return true;
+      }
     }
-    if (isGroupId(member.memberId)) {
-      const group = groups.find((g) => g.groupId === member.memberId);
+    if (isGroupId(potentialRoleOwner.memberId)) {
+      const group = groups.find((g) => g.groupId === potentialRoleOwner.memberId);
       if (group) {
         if (group.members.find((gm) => gm.userId === userId) != null) {
           return true;
