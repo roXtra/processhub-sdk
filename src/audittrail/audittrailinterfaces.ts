@@ -1,4 +1,5 @@
 import { IFieldValue } from "../data/ifieldvalue";
+import { IQuestion } from "../modules/audits/iquestioncatalog";
 import { StateUserDetails } from "../user/phclient";
 
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -54,6 +55,14 @@ export enum AuditTrailAction {
   processArchived = 45,
   // A process was restored from the archive. archiveMessage may be set in details
   processRestored = 46,
+  // A question in audits was changed
+  auditQuestionAdded = 47,
+  // The question text of a question was changed
+  auditQuestionTextChanged = 48,
+  // A question in audits was changed
+  auditQuestionContentChanged = 49,
+  // A question in audits was deleted
+  auditQuestionDeleted = 50,
   workspaceCreated = 100,
   auditTrailVisibilityChanged = 101,
   // A task was claimed by a potential roleowner
@@ -100,7 +109,7 @@ export interface IAuditTrailEntryDetails {
   // Must be set for AuditTrailAction.processCreated, AuditTrailAction.deletionPeriodChanged, processEdited, processComment and processDeleted
   processDisplayName: string;
 
-  // Must be set for AuditTrailAction.retentionPeriodChanged and AuditTrailAction.deletionPeriodChanged
+  // Must be set for AuditTrailAction.retentionPeriodChanged, AuditTrailAction.deletionPeriodChanged and AuditTrailAction..auditQuestionTextChanged
   oldValue: string;
   newValue: string;
 
@@ -166,6 +175,12 @@ export interface IAuditTrailEntryDetails {
 
   // ID of the user that replaced the user of userToReplace
   userThatReplacesId: string;
+
+  // The changed question that only includes changed props and changed customFields, also used for new and deleted questions
+  changedQuestion: Partial<IQuestion>;
+
+  // Required for audit trail entries that refers to an audit question
+  questionId: string;
 }
 
 export type Partial<T> = {
