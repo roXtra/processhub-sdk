@@ -1,4 +1,3 @@
-import { IFieldConfig } from "../data/datainterfaces";
 import { IFieldValue } from "../data/ifieldvalue";
 import { IQuestion } from "../modules/audits/iquestioncatalog";
 import { StateUserDetails } from "../user/phclient";
@@ -182,9 +181,6 @@ export interface IAuditTrailEntryDetails {
 
   // Required for audit trail entries that refers to an audit question
   questionId: string;
-
-  // Required for audit trail entries that refers to an audit question custom field
-  fieldConfigMap: { [fieldName: string]: IFieldConfig };
 }
 
 export type Partial<T> = {
