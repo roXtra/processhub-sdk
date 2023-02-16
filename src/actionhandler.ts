@@ -5,7 +5,7 @@ import { UserExtras } from "./user/userinterfaces";
 
 export interface IExtrasRequest {
   workspaceExtras?: WorkspaceExtras;
-  processExtras?: ProcessExtras;
+  processExtras?: { extras: ProcessExtras; registerId: string };
   instanceExtras?: InstanceExtras;
   userExtras?: UserExtras;
 }
