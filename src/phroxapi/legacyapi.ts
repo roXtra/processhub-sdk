@@ -2,7 +2,6 @@ import { IBaseReply, IBaseRequest } from "../legacyapi/apiinterfaces";
 import { ITaskExtensions } from "../process/processinterfaces";
 import { IModule } from "../modules/imodule";
 import { IFieldContentMap } from "../data/ifieldcontentmap";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { IModuleSelection, IRoxFile, IRoxFolder } from "./phroxapiinterfaces";
 
 export const RequestRoutes = {
@@ -75,7 +74,8 @@ export interface IDownloadRoxDocToServerReply extends IBaseReply {
 }
 
 export interface IDownloadRoxDocToServerRequest extends IBaseRequest {
-  instanceDetails: IInstanceDetails;
+  instanceId: string;
+  fieldContents: IFieldContentMap;
   extVals: ITaskExtensions;
 }
 

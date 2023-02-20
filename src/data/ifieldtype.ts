@@ -20,7 +20,8 @@ export type GetInputParams<ConfigType extends IFieldConfig, ValueType extends Fi
   actionHandler: ActionHandler;
   onFieldValueChanged: (newFieldContents: IFieldContentMap) => void;
   showInvalidValue: boolean;
-  startEventId?: string;
+  /* Id of the bpmn element that contains the form of the current field */
+  bpmnElementId?: string;
   hideRequiredIdentifier?: boolean;
   disableMentions?: boolean;
   pendingFieldContents: IFieldContentMap;
