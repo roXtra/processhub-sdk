@@ -258,6 +258,7 @@ export interface IProcessLoadedMessage<T extends IProcessDetails | StateProcessD
   type: "ProcessLoadedMessage";
   processDetails?: T;
   doNotUpdateCurrentProcess?: boolean;
+  registerId: string | undefined;
 }
 
 export interface ILoadTemplateReply {
