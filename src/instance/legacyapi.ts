@@ -109,7 +109,6 @@ export interface IUploadRoxFileRequest extends IBaseRequest {
   instanceId: string;
   processId: string;
   fileName: string;
-  oldFileName: string;
   fieldName: string;
   data: string;
 }
