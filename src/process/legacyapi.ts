@@ -197,7 +197,7 @@ export interface IAddRoXtraFileRequest extends IBaseRequest {
   processId: string;
   fileName: string;
   fileId: number;
-  iconLink: string | undefined;
+  mimeTypeIcon: string | undefined;
 }
 
 export interface IUploadReportDraftRequest extends IBaseRequest {

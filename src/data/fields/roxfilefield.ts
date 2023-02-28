@@ -20,13 +20,21 @@ export const IRoxFileFieldValueSchema = Joi.object(IRoxFileFieldValueObject);
 export interface IRoxFileFieldConfig extends IFieldConfig {
   roxFileName: string | undefined;
   roxFileId: number | undefined;
+  /**
+   * @deprecated use mimeTypeIcon
+   */
   roxFileIconUrl: string | undefined;
+  /**
+   * File name of the mime type icon without URL/hostname (eg "docx.svg")
+   */
+  mimeTypeIcon: string | undefined;
 }
 
 const IRoxFileFieldConfigObject: IRoxFileFieldConfig = {
   roxFileName: Joi.string().allow("") as unknown as string,
   roxFileId: Joi.number() as unknown as number,
   roxFileIconUrl: Joi.string().allow("") as unknown as string,
+  mimeTypeIcon: Joi.string().allow("") as unknown as string,
   ...IFieldConfigObject,
 };
 

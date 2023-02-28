@@ -16,7 +16,15 @@ export interface IProcessAttachment {
   fileName: string;
   url?: string; // Url must be set if it is an uploaded file
   roxFileId?: number; // RoxFileId must be set if the attachment is a link to a roXtra document
-  iconLink?: string; // IconLink must be set if the attachment is a link to a roXtra document
+  /**
+   * @deprecated use mimeTypeIcon
+   */
+  iconLink?: string;
+  /**
+   * File name of the mime type icon without URL/hostname (eg "docx.svg")
+   * Must be set if the attachment is a link to a roXtra document
+   */
+  mimeTypeIcon?: string;
 }
 
 export interface IProcessReportDraft {
