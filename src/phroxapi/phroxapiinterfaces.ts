@@ -3,7 +3,10 @@ import { ModuleId, ModuleName } from "../modules/imodule";
 export interface IRoxFile {
   name: string;
   fileId: number;
-  iconLink: string;
+  /**
+   * File name of the mime type icon without URL/hostname (eg "docx.svg")
+   */
+  mimeTypeIcon: string;
 }
 
 export interface IRoxFolder {
