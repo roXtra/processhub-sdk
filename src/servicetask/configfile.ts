@@ -33,10 +33,10 @@ export async function readConfigFile<T = IServiceConfigSecret>(
   } catch (ex) {
     if ((ex as NodeJS.ErrnoException)?.code === "ENOENT") {
       // Config file does not exist - use empty secrets
-      logger.info(`Webhook service: Config file ${configPath} does not exist.`);
+      logger.info(`Could not read service config: Config file ${configPath} does not exist.`);
       return undefined;
     } else {
-      logger.error("Webhook service failed to load config file: " + String(ex));
+      logger.error("Failed to load service config file: " + String(ex));
       throw new BpmnError(ErrorCode.ConfigInvalid, "Could not load config file " + configPath, ex instanceof Error ? ex : undefined);
     }
   }
