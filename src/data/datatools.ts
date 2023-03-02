@@ -49,6 +49,30 @@ function fieldValueToString(valueObject: IFieldValue, defaultValue: string, loca
   return res;
 }
 
+/**
+ * Replaces references in a string with values from a map
+ * @param input input string. Values to be replaced can be referenced with "objectName['key']"
+ * @param objectName name of the map that is used in the input string
+ * @param values map with values to replace
+ * @returns the string with replaced values
+ */
+export function replaceObjectReferences(input: string, objectName: string, values: { [key: string]: string }): string {
+  const regex = new RegExp(`${objectName}\\['([^'\\]]*)'\\]`, "g");
+  let match: RegExpExecArray | null;
+  while ((match = regex.exec(input))) {
+    const placeHolder: string = match[0];
+    const key: string = match[1];
+
+    if (key && key.length) {
+      const replacement = values[key] || "";
+      const lengthDiff = placeHolder.length - replacement.length;
+      input = replaceAll(input, placeHolder, replacement);
+      regex.lastIndex -= lengthDiff;
+    }
+  }
+  return input;
+}
+
 // Different types of parameter procesOrRoles to support old services (customer)
 export function parseAndInsertStringWithFieldContent(
   inputString: string,
