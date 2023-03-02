@@ -11,6 +11,27 @@ import { createId } from "../tools/guid";
 describe("sdk", function () {
   describe("data", function () {
     describe("datatools", function () {
+      describe("replaceObjectReferences", function () {
+        it("should replace field values with {field['name']} notation", function () {
+          const testString = "Hallo {field['existiert']}, wie gehts {field['existiertnicht']}\n{trölölö} {{{moepmoep}}}\nfield['existiertnicht2']\n";
+          const resultString = "Hallo {Teststring eingesetzt!}, wie gehts {}\n{trölölö} {{{moepmoep}}}\n\n";
+          const res = DataTools.replaceObjectReferences(testString, "field", { existiert: "Teststring eingesetzt!" });
+          console.log(res);
+          assert.equal(res, resultString);
+        });
+
+        it("should replace long field names with short values", function () {
+          const testString = "field['fieldname1']field['fieldname2']field['fieldname3']";
+          const resultString = "123";
+          const res = DataTools.replaceObjectReferences(testString, "field", {
+            fieldname1: "1",
+            fieldname2: "2",
+            fieldname3: "3",
+          });
+          assert.equal(res, resultString);
+        });
+      });
+
       describe("parseAndInsertStringWithFieldContent", function () {
         it("should replace field values", function () {
           const testString = "Hallo {{ field.existiert }}, wie gehts {{ field.existiertnicht }}\n{trölölö} {{{moepmoep}}}\n{{ field.existiert2 }}\n";
