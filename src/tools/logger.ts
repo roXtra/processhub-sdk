@@ -5,6 +5,8 @@
 export interface ILogger {
   error(msg: string): void;
   warn(msg: string): void;
+  info(msg: string): void;
+  debug(msg: string): void;
 }
 
 let logger: ILogger | undefined;
@@ -22,6 +24,8 @@ if (typeof window !== "undefined") {
     /* eslint-disable no-console */
     error: (msg) => console.error(msg),
     warn: (msg) => console.warn(msg),
+    info: (msg) => console.info(msg),
+    debug: (msg) => console.debug(msg),
     /* eslint-enable no-console */
   };
   registerLogger(consoleLogger);
