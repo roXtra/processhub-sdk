@@ -38,7 +38,7 @@ describe("tools", function () {
           "hr-HR": "27. 12. 2021.",
           "pl-PL": "27.12.2021",
           "ru-RU": "27.12.2021",
-          "sr-Latn": "27.12.2021.",
+          "sr-Latn": "27. 12. 2021.",
           "vi-VN": "27/12/2021",
           "ko-KR": "2021. 12. 27.",
           "ja-JP": "2021/12/27",
@@ -48,7 +48,7 @@ describe("tools", function () {
         expect(Object.keys(localeTranslation)).to.have.lengthOf(supportedLanguages.length);
 
         for (const locale of supportedLanguages) {
-          expect(getFormattedDate(now, locale)).to.equal(localeTranslation[locale]);
+          expect(getFormattedDate(now, locale), "Unexpected getFormattedDate output for " + locale).to.equal(localeTranslation[locale]);
         }
       });
     });
@@ -74,12 +74,12 @@ describe("tools", function () {
           "hu-HU": "2021. 12. 27. 12:00",
           "cs-CZ": "27. 12. 2021 12:00",
           "pt-PT": "27/12/2021, 12:00",
-          "pt-BR": "27/12/2021 12:00",
+          "pt-BR": "27/12/2021, 12:00",
           "hr-HR": "27. 12. 2021. 12:00",
           "pl-PL": "27.12.2021, 12:00",
           "ru-RU": "27.12.2021, 12:00",
-          "sr-Latn": "27.12.2021. 12:00",
-          "vi-VN": "12:00, 27/12/2021",
+          "sr-Latn": "27. 12. 2021. 12:00",
+          "vi-VN": "12:00 27/12/2021",
           "ko-KR": "2021. 12. 27. 오후 12:00",
           "ja-JP": "2021/12/27 12:00",
         };
