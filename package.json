@@ -4,15 +4,15 @@
     "type": "git",
     "url": "git://github.com/roXtra/processhub-sdk.git"
   },
-  "version": "9.62.0-1",
+  "version": "9.62.0-3",
   "author": {
     "name": "ROXTRA",
     "email": "service@roxtra.com",
     "url": "https://github.com/roXtra/processhub-sdk"
   },
   "engines": {
-    "node": "16",
-    "npm": "8"
+    "node": "18",
+    "npm": "9"
   },
   "bugs": {
     "url": "https://github.com/roXtra/processhub-sdk/issues"
@@ -64,7 +64,7 @@
     "@types/lodash": "^4.14.191",
     "@types/luxon": "^3.2.0",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^16.18.14",
+    "@types/node": "^18.15.0",
     "@types/react": "^18.0.28",
     "@types/sqlstring": "^2.3.0",
     "@types/utf8": "^3.0.1",
