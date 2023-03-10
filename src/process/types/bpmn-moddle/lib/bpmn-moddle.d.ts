@@ -67,6 +67,7 @@ declare module "bpmn-moddle/lib/bpmn-moddle" {
     public create(descriptor: "bpmn:Lane", attrs: Partial<Bpmn.ILane>): Bpmn.ILane;
     public create(descriptor: "bpmn:LaneSet", attrs: Partial<Bpmn.ILaneSet>): Bpmn.ILaneSet;
     public create(descriptor: "bpmn:MessageEventDefinition", attrs: Partial<Bpmn.IMessageEventDefinition>): Bpmn.IMessageEventDefinition;
+    public create(descriptor: "bpmn:LinkEventDefinition", attrs: Partial<Bpmn.ILinkEventDefinition>): Bpmn.ILinkEventDefinition;
     public create(descriptor: "bpmn:Participant", attrs: Partial<Bpmn.IParticipant>): Bpmn.IParticipant;
     public create(descriptor: "bpmn:ParallelGateway", attrs: Partial<Bpmn.IParallelGateway>): Bpmn.IParallelGateway;
     public create(descriptor: "bpmn:Process", attrs: Partial<Bpmn.IProcess>): Bpmn.IProcess;
