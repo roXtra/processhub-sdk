@@ -1,7 +1,7 @@
 import { tl } from "../tl";
 import { getDefaultRoleGroup, hasEditAccess, IUserDetails, IUserDetailsNoExtras, Licence, PredefinedGroups } from "../user/userinterfaces";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
-import { IWorkspaceDetails, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { IWorkspaceDetails, IWorkspaceMember, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
 import { error } from "../tools/assert";
 import { isGroupId, isUserId } from "../tools/guid";
@@ -275,7 +275,7 @@ export function isPotentialRoleOwner(
   return false;
 }
 
-function addIfLicenceAllows(owners: IPotentialRoleOwners, user: StateUserDetails | IUserDetails | IUserDetailsNoExtras): void {
+function addIfLicenceAllows(owners: IPotentialRoleOwners, user: StateUserDetails | IUserDetails | IUserDetailsNoExtras | IWorkspaceMember["userDetails"]): void {
   if (user.licence === Licence.Writer) {
     owners.potentialRoleOwner.push({
       memberId: user.userId,
@@ -335,17 +335,29 @@ export function getPotentialRoleOwners(
   return allOwners;
 }
 
-export function isProcessOwner(process: IProcessDetails | StateProcessDetails | undefined, user: StateUserDetails | IUserDetails | IUserDetailsNoExtras): boolean {
-  if (process == null || process.userRights == null || !hasEditAccess(user)) return false;
+/**
+ * Checks if the current user is process owner
+ * @param process process details - must be requested with the context of the current user
+ * @param currentUserUser context that requested the details - will give false results for other users!
+ * @returns {boolean} true if current user is process owner, false otherwise
+ */
+export function isProcessOwner(process: IProcessDetails | StateProcessDetails | undefined, currentUser: StateUserDetails | IUserDetails | IUserDetailsNoExtras): boolean {
+  if (process == null || process.userRights == null || !hasEditAccess(currentUser)) return false;
 
   return (process.userRights & ProcessAccessRights.EditProcess) !== 0;
 }
 
-export function isProcessManager(process: IProcessDetails | StateProcessDetails | undefined, user: StateUserDetails | IUserDetails | IUserDetailsNoExtras): boolean {
-  if (process == null || process.userRights == null || !hasEditAccess(user)) return false;
+/**
+ * Checks if the current user is process manager
+ * @param process process details - must be requested with the context of the current user
+ * @param currentUserUser context that requested the details - will give false results for other users!
+ * @returns {boolean} true if current user is process manager, false otherwise
+ */
+export function isProcessManager(process: IProcessDetails | StateProcessDetails | undefined, currentUser: StateUserDetails | IUserDetails | IUserDetailsNoExtras): boolean {
+  if (process == null || process.userRights == null || !hasEditAccess(currentUser)) return false;
 
   // Owner are managers
-  return isProcessOwner(process, user) || (process.userRights & ProcessAccessRights.ManageProcess) !== 0;
+  return isProcessOwner(process, currentUser) || (process.userRights & ProcessAccessRights.ManageProcess) !== 0;
 }
 
 export function canViewProcess(process: IProcessDetails | StateProcessDetails): boolean {
@@ -354,8 +366,14 @@ export function canViewProcess(process: IProcessDetails | StateProcessDetails): 
   return (process.userRights & ProcessAccessRights.ViewProcess) !== 0;
 }
 
-export function canEditProcess(process: IProcessDetails | StateProcessDetails, user: StateUserDetails | IUserDetails | IUserDetailsNoExtras): boolean {
-  return isProcessOwner(process, user);
+/**
+ * Checks if the current user can edit the process
+ * @param process process details - must be requested with the context of the current user
+ * @param currentUserUser context that requested the details - will give false results for other users!
+ * @returns {boolean} true if current user can edit the process, false otherwise
+ */
+export function canEditProcess(process: IProcessDetails | StateProcessDetails, currentUser: StateUserDetails | IUserDetails | IUserDetailsNoExtras): boolean {
+  return isProcessOwner(process, currentUser);
 }
 
 export function canSimulateProcess(process: IProcessDetails | StateProcessDetails | undefined, user: StateUserDetails | IUserDetails | IUserDetailsNoExtras): boolean {
@@ -373,11 +391,7 @@ export function canSimulateProcess(process: IProcessDetails | StateProcessDetail
   }
 }
 
-export function canStartProcess(
-  process: IProcessDetails | StateProcessDetails | undefined,
-  startEventId: string | undefined,
-  user: StateUserDetails | IUserDetails | IUserDetailsNoExtras,
-): boolean {
+export function canStartProcess(process: IProcessDetails | StateProcessDetails | undefined, startEventId: string | undefined): boolean {
   if (process == null) return false;
 
   if (startEventId == null) return false;

@@ -1,3 +1,5 @@
+import { SystemUserId } from "../user/usertools";
+
 const ID_LENGTH = 16;
 
 function idHelper(count: number): string {
@@ -21,7 +23,7 @@ export function isId(id: string): boolean {
 }
 
 export function isUserId(id: string): boolean {
-  return /^\d+$/.test(id);
+  return id === SystemUserId || /^\d+$/.test(id);
 }
 
 export function isGroupId(id: string): boolean {

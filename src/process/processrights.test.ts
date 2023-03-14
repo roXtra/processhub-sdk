@@ -195,7 +195,7 @@ describe("sdk", function () {
           assert(testProcess.extras.bpmnProcess != null);
           if (testProcess.extras.bpmnProcess) {
             const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
-            expect(canStartProcess(testProcess, start[0].id, testUser)).to.equal(true);
+            expect(canStartProcess(testProcess, start[0].id)).to.equal(true);
           }
         });
 
@@ -203,16 +203,16 @@ describe("sdk", function () {
           assert(testProcess.extras.bpmnProcess != null);
           if (testProcess.extras.bpmnProcess) {
             const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
-            expect(canStartProcess(undefined, start[0].id, testUser)).to.equal(false);
+            expect(canStartProcess(undefined, start[0].id)).to.equal(false);
           }
         });
 
         it("shouldn't start because startEvent is null", function () {
-          expect(canStartProcess(testProcess, undefined, testUser)).to.equal(false);
+          expect(canStartProcess(testProcess, undefined)).to.equal(false);
         });
 
         it("shouldn't start because startEvent is not in map", function () {
-          expect(canStartProcess(testProcess, "ABC", testUser)).to.equal(false);
+          expect(canStartProcess(testProcess, "ABC")).to.equal(false);
         });
 
         it("should start without eform edit right", function () {
@@ -220,7 +220,7 @@ describe("sdk", function () {
           assert(testProcess.extras.bpmnProcess != null);
           if (testProcess.extras.bpmnProcess) {
             const start = testProcess.extras.bpmnProcess.getStartEvents(testProcess.extras.bpmnProcess.processId());
-            expect(canStartProcess(testProcess, start[0].id, testUser)).to.equal(true);
+            expect(canStartProcess(testProcess, start[0].id)).to.equal(true);
           }
         });
       });

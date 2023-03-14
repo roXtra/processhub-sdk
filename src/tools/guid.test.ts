@@ -1,4 +1,5 @@
 import { assert } from "chai";
+import { SystemUserId } from "../user/usertools";
 import * as Guid from "./guid";
 
 describe("sdk", function () {
@@ -27,6 +28,28 @@ describe("sdk", function () {
           assert.equal(numStr.length, 12);
           assert.equal(numStr.substr(3, 1), ".");
           assert.equal(numStr.substr(8, 1), ".");
+        });
+      });
+
+      describe("isUserId", function () {
+        it("should validate system user id", function () {
+          assert.isTrue(Guid.isUserId(SystemUserId));
+        });
+
+        it("should deny invalid user id", function () {
+          assert.isFalse(Guid.isUserId("-100"));
+          assert.isFalse(Guid.isUserId("abc"));
+          assert.isFalse(Guid.isUserId("123abc"));
+          assert.isFalse(Guid.isUserId(""));
+          assert.isFalse(Guid.isUserId("G_567"));
+        });
+
+        it("should validate user id", function () {
+          assert.isTrue(Guid.isUserId("1"));
+          assert.isTrue(Guid.isUserId("2"));
+          assert.isTrue(Guid.isUserId("3"));
+          assert.isTrue(Guid.isUserId("100"));
+          assert.isTrue(Guid.isUserId("5678"));
         });
       });
     });
