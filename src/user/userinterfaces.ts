@@ -118,8 +118,6 @@ export function getUserWorkspace(user: IUserDetails, workspaceId: string): IWork
   }
 }
 
-export const SystemUserId = "-1";
-
 export const PredefinedGroups = {
   Everybody: "10000000060E0004", // Jeder (entspricht Public mit anderer Bezeichnung für anderen Einsatzbereich)
   AllWorkspaceMembers: "100000003A500002", // Fixe GruppenId für alle Workspace-Mitglieder
