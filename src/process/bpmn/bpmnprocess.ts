@@ -461,7 +461,7 @@ export class BpmnProcess {
     if (startEvents && startEvents.length > 0) {
       const map = {} as IStartButtonMap;
       startEvents.forEach((startEvent) => {
-        if (startEvent.eventDefinitions == null) {
+        if (startEvent.eventDefinitions == null || startEvent.eventDefinitions.find((d) => d.$type === "bpmn:LinkEventDefinition")) {
           // Check if start event has only one roxfilefield
           let onlyRoxFileField = false;
           const extVals: ITaskExtensions = getExtensionValues(startEvent);
