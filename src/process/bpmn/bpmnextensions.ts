@@ -207,6 +207,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
           case "copy-fields":
             returnValue.copyFields = child.$body === "true";
             break;
+          case "linked-doc-types":
+            returnValue.linkedDocTypes = child.$body ? JSON.parse(child.$body) : [];
+            break;
           default:
             break;
         }
