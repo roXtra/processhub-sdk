@@ -216,7 +216,8 @@ export type BpmnExtensionName =
   | "mail-body-parse-fields" // Boolean: parse fields from mail body in StartEvent/IntermediateEvent with MessageEventDefinition, default: false
   | "webhook-body-to-field" // Boolean: write the body of the webhook request inside a field with the name of the event id
   | "signalcatchevent-roles" // Array<string>: The lanes that are allowed to trigger a SignalCatch event - if not defined or empty, the current role owner is allowed
-  | "copy-fields"; // Boolean, can be set for StartEvent. Allows to copy the field values defined in the StartEvent from another instance
+  | "copy-fields" // Boolean, can be set for StartEvent. Allows to copy the field values defined in the StartEvent from another instance
+  | "linked-doc-types"; // Doc types that are linked to the process for internal workflow processes.
 
 export interface ITaskExtensions {
   description?: string;
@@ -262,6 +263,7 @@ export interface ITaskExtensions {
 
   signalCatchEventRoles: string[] | undefined; // The lanes that are allowed to trigger a SignalCatch event - if not defined or empty, the current role owner is allowed
   copyFields?: boolean; // Allows to copy the field values defined in the StartEvent from another instance
+  linkedDocTypes?: ILinkedDocTypes; // Doc types that are linked to the process for internal workflow processes.
 }
 
 export interface ITimerStartEventConfiguration {
@@ -305,6 +307,12 @@ export interface ISubProcessFieldMapping {
   out: { name: string; type: FieldType } | undefined;
   subProcessField: { name: string; type: FieldType } | undefined;
   id: string;
+}
+
+export interface ILinkedDocTypes {
+  allDocTypes: boolean;
+  // Must be specified if allDocTypes is false
+  docTypeIds?: Array<number>;
 }
 
 export type ScriptTaskOperation = "clear" | "set" | "add";
