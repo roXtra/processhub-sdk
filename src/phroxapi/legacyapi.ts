@@ -22,6 +22,7 @@ export const RequestRoutes = {
   EcGetFileLock: "/api/phroxapi/ecgetfilelock",
   GetModuleSettings: "/api/phroxapi/getmodulesettings",
   GetModules: "/api/phroxapi/getmodules",
+  GetDocTypes: "/api/phroxapi/getdoctypes",
 };
 
 export interface IProcessItem {
@@ -45,6 +46,13 @@ export interface ISetCorporateDesignRequest {
   Darkblue: string;
   Warningred: string;
   Logo: string;
+}
+
+export interface IGetDocTypesReply extends IBaseReply {
+  docTypes: Array<{
+    id: number;
+    name: string;
+  }>;
 }
 
 export interface IGetRootFolderReply extends IBaseReply {
