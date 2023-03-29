@@ -1,7 +1,8 @@
 import { IInstanceDetails } from "./instanceinterfaces";
-import { isId } from "../tools/guid";
+import { isGroupId, isId } from "../tools/guid";
 import { FieldType } from "../data/ifieldvalue";
 import { isDefaultProcessRole } from "../process/processrights";
+import { IGroupDetails } from "../group/groupinterfaces";
 
 export function parseInstanceMailSubject(mail: string): string | undefined {
   const regex = /(\[)(i-)(.*?)(\])/gm;
@@ -37,13 +38,13 @@ export function getFieldsFromInstances(
 }
 
 // RoleID == null -> check for any role membership
-export function isRoleOwner(userId: string, roleId: string | undefined, instance: IInstanceDetails): boolean {
+export function isRoleOwner(userId: string, roleId: string | undefined, instance: IInstanceDetails, workspaceGroups: IGroupDetails[] | undefined): boolean {
   if (instance.extras.roleOwners == null) return false;
 
   if (roleId == null || roleId === "") {
     // Check if user is owner of any role
     for (const role in instance.extras.roleOwners) {
-      if (!isDefaultProcessRole(role) && isRoleOwner(userId, role, instance)) return true;
+      if (!isDefaultProcessRole(role) && isRoleOwner(userId, role, instance, workspaceGroups)) return true;
     }
     return false;
   }
@@ -51,6 +52,15 @@ export function isRoleOwner(userId: string, roleId: string | undefined, instance
   if (instance.extras.roleOwners[roleId] == null) return false;
 
   for (const roleOwner of instance.extras.roleOwners[roleId]) {
+    if (workspaceGroups && isGroupId(roleOwner.memberId)) {
+      const group = workspaceGroups.find((g) => g.groupId === roleOwner.memberId);
+      if (group) {
+        if (group.members.find((gm) => gm.userId === userId) != null) {
+          return true;
+        }
+      }
+    }
+
     if (roleOwner.memberId === userId) return true;
   }
 
