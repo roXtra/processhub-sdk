@@ -275,8 +275,12 @@ export function isPotentialRoleOwner(
   return false;
 }
 
-function addIfLicenceAllows(owners: IPotentialRoleOwners, user: StateUserDetails | IUserDetails | IUserDetailsNoExtras | IWorkspaceMember["userDetails"]): void {
-  if (user.licence === Licence.Writer) {
+function addIfLicenceAllows(
+  owners: IPotentialRoleOwners,
+  user: StateUserDetails | IUserDetails | IUserDetailsNoExtras | IWorkspaceMember["userDetails"],
+  roleId: string,
+): void {
+  if (user.licence === Licence.Writer || (roleId === DefaultRoles.Follower && user.licence === Licence.Reader)) {
     owners.potentialRoleOwner.push({
       memberId: user.userId,
       displayName: user.displayName,
@@ -307,7 +311,7 @@ export function getPotentialRoleOwners(
           if (workspaceDetails.extras.members) {
             // If someone is not a workspace member he does not have access to the member list, so this list is empty
             for (const member of workspaceDetails.extras.members) {
-              addIfLicenceAllows(owners, member.userDetails);
+              addIfLicenceAllows(owners, member.userDetails, role);
             }
             addedWsMembers = true; // Merken, damit Member nicht mehrfach hinzugefügt werden, falls beide Gruppen genannt werden
           }
@@ -321,7 +325,7 @@ export function getPotentialRoleOwners(
             const group = workspaceDetails.extras.groups.find((g) => g.groupId === potentialOwner.memberId);
             if (group && group.members) {
               for (const member of group.members) {
-                addIfLicenceAllows(owners, member);
+                addIfLicenceAllows(owners, member, role);
               }
             }
           }
