@@ -60,7 +60,7 @@ export function isInThePast(date: DateTime, today: DateTime): boolean {
 
 export function isToday(date: DateTime, today: DateTime): boolean {
   const todayInterval = Interval.fromDateTimes(today.startOf("day"), today.endOf("day"));
-  return todayInterval.contains(date) || todayInterval.start.equals(date) || todayInterval.end.equals(date);
+  return todayInterval.contains(date) || (todayInterval.start != null && todayInterval.start.equals(date)) || (todayInterval.end != null && todayInterval.end.equals(date));
 }
 
 export function isInTheNthWeek(date: DateTime, today: DateTime, n: number): boolean {
@@ -68,7 +68,7 @@ export function isInTheNthWeek(date: DateTime, today: DateTime, n: number): bool
 
   const weekIntervall = Interval.fromDateTimes(nthWeek.startOf("week"), nthWeek.endOf("week"));
 
-  return weekIntervall.contains(date) || weekIntervall.start.equals(date) || weekIntervall.end.equals(date);
+  return weekIntervall.contains(date) || (weekIntervall.start != null && weekIntervall.start.equals(date)) || (weekIntervall.end != null && weekIntervall.end.equals(date));
 }
 
 export function isInTheNextWeek(date: DateTime, today: DateTime): boolean {
