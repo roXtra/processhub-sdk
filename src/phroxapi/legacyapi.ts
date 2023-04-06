@@ -23,6 +23,8 @@ export const RequestRoutes = {
   GetModuleSettings: "/api/phroxapi/getmodulesettings",
   GetModules: "/api/phroxapi/getmodules",
   GetDocTypes: "/api/phroxapi/getdoctypes",
+  GetRoxtraDocument: "/api/phroxapi/getroxtradocument",
+  UploadRoxtraDocument: "/api/phroxapi/uploadroxtradocument",
 };
 
 export interface IProcessItem {
@@ -133,4 +135,8 @@ export interface IGetModuleSettingsReply extends IBaseReply {
 
 export interface IGetModulesReply extends IBaseReply {
   modules: IModule[];
+}
+
+export interface IGetRoxtraDocumentRequest {
+  fileId: number;
 }
