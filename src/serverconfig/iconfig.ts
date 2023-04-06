@@ -3,6 +3,8 @@
  * entries must also be adjusted in the Setup project
  */
 
+import { AiCompletionProviders } from "./aiprovider";
+
 // !!!! Changes must also be made to Setup/Config/EFormulareConfig.cs !!!!
 export interface IConfig {
   Database: IDatabaseConfig;
@@ -20,6 +22,7 @@ export interface IConfig {
     migrateStatisticReportDrafts: string;
     updateAuditMetrics: string;
   };
+  AiCompletion: IAiCompletionConfig;
 }
 
 // !!!! Changes must also be made to Setup/Config/EFormulareRoxtraConfig.cs !!!!
@@ -99,6 +102,12 @@ export interface IStatisticsConfig {
 // !!!! Changes must also be made to Setup/Config/EFormulareClientSettingsStatisticsTabConfig.cs !!!!
 export interface ITabConfig {
   name: string;
+}
+
+// !!!! Changes must also be made to Setup/Config/EFormulareAiCompletionConfig.cs !!!!
+export interface IAiCompletionConfig {
+  completionProvider: AiCompletionProviders;
+  apiKey: string;
 }
 
 // !!!! Changes must also be made to Setup/Config/EFormulareFeatureConfig.cs !!!!
