@@ -206,6 +206,10 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         migrateStatisticReportDrafts: "",
         updateAuditMetrics: "",
       },
+      AiCompletion: {
+        completionProvider: "",
+        apiKey: "",
+      },
     },
   };
 }

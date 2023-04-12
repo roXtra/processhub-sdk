@@ -42,6 +42,7 @@ export const ProcessRequestRoutes = {
   RestoreFromArchive: "/api/process/restorefromarchive",
   UpdateQuestionCatalog: "/api/process/updatequestioncatalog",
   ReplaceUserInProcess: "/api/process/replaceuserinprocess",
+  GetAICompletion: "/api/process/getaicompletion",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
@@ -112,6 +113,15 @@ export interface IExportProcessRequest extends IBaseRequest {
 export interface IExportProcessReply extends IBaseReply {
   urlName: string;
   bpmn: string;
+}
+
+export interface IGetAICompletionRequest extends IBaseRequest {
+  context: string;
+  prompt: string;
+}
+
+export interface IGetAICompletionReply extends IBaseReply {
+  completion: string;
 }
 
 enum ArchiveViewType {
