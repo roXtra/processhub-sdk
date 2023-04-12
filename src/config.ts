@@ -1,4 +1,5 @@
 import { IModule } from "./modules/imodule";
+import { AiCompletionProviders } from "./serverconfig/aiprovider";
 import { IClientSettingsConfig, IFeatureConfig } from "./serverconfig/iconfig";
 
 declare global {
@@ -71,4 +72,5 @@ export interface IInitialConfig extends IClientSettingsConfig {
   Can be used to execute API calls in the context of another user without getting logged out. */
   xAccesstoken?: string;
   defaultServerLanguage: string;
+  aiCompletionProvider: AiCompletionProviders;
 }
