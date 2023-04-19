@@ -67,6 +67,10 @@ export class BpmnProcess {
     }
   }
 
+  public static isMessageStartEvent(startEvent: Bpmn.IStartEvent): boolean {
+    return startEvent.eventDefinitions != null && startEvent.eventDefinitions.find((e) => e.$type === "bpmn:MessageEventDefinition") != null;
+  }
+
   public getBpmnDefinitions(): Bpmn.IDefinitions {
     if (this.bpmnXml === undefined) {
       throw new Error("bpmnXml is undefined, please load bpmn XML first!");

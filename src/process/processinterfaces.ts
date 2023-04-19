@@ -212,9 +212,10 @@ export type BpmnExtensionName =
   | "roxtra-version"
   | "anonymous-start"
   | "anonymous-start-userid"
-  | "message-event-type" // "mail" | "webhook"
+  | "message-event-type" // "mail" | "webhook" | "bus"
   | "mail-body-parse-fields" // Boolean: parse fields from mail body in StartEvent/IntermediateEvent with MessageEventDefinition, default: false
   | "webhook-body-to-field" // Boolean: write the body of the webhook request inside a field with the name of the event id
+  | "busevent-types" // Array<string>: bus event types that trigger the event
   | "signalcatchevent-roles" // Array<string>: The lanes that are allowed to trigger a SignalCatch event - if not defined or empty, the current role owner is allowed
   | "copy-fields" // Boolean, can be set for StartEvent. Allows to copy the field values defined in the StartEvent from another instance
   | "linked-doc-types"; // Doc types that are linked to the process for internal workflow processes.
@@ -257,9 +258,10 @@ export interface ITaskExtensions {
   anonymousStart?: boolean;
   anonymousStartUserId?: string;
 
-  messageEventType?: string; // "mail" | "webhook" - defaults to mail if not explicitely set
+  messageEventType?: string; // "mail" | "webhook" | "bus" - defaults to mail if not explicitely set
   mailBodyParseFields?: boolean;
   webhookBodyToField?: boolean;
+  busEventTypes?: string[];
 
   signalCatchEventRoles: string[] | undefined; // The lanes that are allowed to trigger a SignalCatch event - if not defined or empty, the current role owner is allowed
   copyFields?: boolean; // Allows to copy the field values defined in the StartEvent from another instance

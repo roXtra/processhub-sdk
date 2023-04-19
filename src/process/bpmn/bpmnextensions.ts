@@ -192,6 +192,11 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
           case "webhook-body-to-field":
             returnValue.webhookBodyToField = child.$body !== "false";
             break;
+          case "busevent-types":
+            if (child.$body && child.$body.length > 0) {
+              returnValue.busEventTypes = JSON.parse(child.$body);
+            }
+            break;
           case "signalcatchevent-roles":
             try {
               if (child.$body && child.$body.length > 0) {
