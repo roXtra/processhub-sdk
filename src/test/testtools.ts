@@ -210,6 +210,9 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         completionProvider: "",
         apiKey: "",
       },
+      GrpcSettings: {
+        port: 5000,
+      },
     },
   };
 }
