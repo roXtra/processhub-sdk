@@ -23,6 +23,8 @@ export interface IParentProcessConfig {
   parentInstanceId: string;
   parentTodoId: string;
   parentUsedToken: string;
+  // Is set to true if the parent instance was started through a bus event
+  parentWasStartedByEvent?: boolean;
 }
 
 export interface IRiskAssessmentValue {
@@ -86,6 +88,8 @@ export interface IInstanceDetails {
   instanceNumber?: number;
   takenStartEvent: string;
   reachedEndEvents: string[];
+  // Is set to true if the instance or a parent instance was started through a bus event
+  wasStartedByEvent?: boolean;
   auditsCustomRating?: ICustomRating;
   // Precomputed audit metric that can be used if the questions are not available
   auditMetric?: number;
