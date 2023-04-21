@@ -23,7 +23,7 @@ export interface IConfig {
     updateAuditMetrics: string;
   };
   AiCompletion: IAiCompletionConfig;
-  GrpcSettings: IGrpcSettings;
+  GrpcSettings: IGrpcSettingsConfig;
 }
 
 // !!!! Changes must also be made to Setup/Config/EFormulareRoxtraConfig.cs !!!!
@@ -111,8 +111,8 @@ export interface IAiCompletionConfig {
   apiKey: string;
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareAiCompletionConfig.cs !!!!
-export interface IGrpcSettings {
+// !!!! Changes must also be made to Setup/Config/EFormulareGrpcSettingsConfig.cs !!!!
+export interface IGrpcSettingsConfig {
   port: number;
 }
 
