@@ -136,5 +136,8 @@ export interface ITlsConfig {
 export interface ISettingsFile {
   settings: {
     BaseURL: string;
+    TestServer?: {
+      Enabled: boolean;
+    };
   };
 }
