@@ -12,7 +12,8 @@ const IRadioButtonFieldValueObject: IRadioButtonFieldValue = {
 export const IRadioButtonFieldValueSchema = Joi.object(IRadioButtonFieldValueObject);
 
 export interface IRadioButtonGroupFieldValue {
-  radioButtons: IRadioButtonFieldValue[];
+  // There are existing instances where the index is outside the range of the radioButtons - to enforce undefined checks the value type is (IRadioButtonFieldValue | undefined)
+  radioButtons: (IRadioButtonFieldValue | undefined)[];
   selectedRadio: number | undefined;
 }
 
