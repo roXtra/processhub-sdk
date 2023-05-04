@@ -29,13 +29,6 @@ const testProcess: StateProcessDetails = {
   userRights: ProcessAccessRights.EditProcess,
   extras: {},
   type: "state",
-  auditTrailReportDraft: [
-    {
-      draftId: "1",
-      fileName: "testfile",
-      url: "testurl",
-    },
-  ],
 };
 
 const testUser: IUserDetails = {
