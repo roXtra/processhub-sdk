@@ -73,6 +73,16 @@ describe("sdk", function () {
                   moduleId: 10,
                 };
                 break;
+              case RequestedInstanceReportType.AUDIT_TRAIL:
+                reportRequest = {
+                  reportType: RequestedInstanceReportType.AUDIT_TRAIL,
+                  draftId: "123",
+                  processId: "456",
+                  instanceIds: [],
+                  resultingFileType: "docx",
+                  moduleId: 1,
+                };
+                break;
               default:
                 expect.fail(`Missing test implementation for RequestedInstanceReportType ${String(reportType)}. Please add test case for type ${String(reportType)}`);
             }

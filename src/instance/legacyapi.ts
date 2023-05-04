@@ -211,6 +211,10 @@ export enum RequestedInstanceReportType {
    * Represents an Audit report request
    */
   AUDIT = 5,
+  /**
+   * Represents an Audit Trail report request
+   */
+  AUDIT_TRAIL = 6,
 }
 
 /**
@@ -221,7 +225,8 @@ type RequestedInstanceReportUnionType =
   | RequestedInstanceReportType.PROCESSES_STATISTICS
   | RequestedInstanceReportType.RISKS
   | RequestedInstanceReportType.GENERIC_MODULE
-  | RequestedInstanceReportType.AUDIT;
+  | RequestedInstanceReportType.AUDIT
+  | RequestedInstanceReportType.AUDIT_TRAIL;
 
 interface IGenerateReportForProcessesInstancesCommonData<TYPE extends RequestedInstanceReportType> extends IBaseRequest {
   reportType: TYPE;
@@ -270,12 +275,21 @@ interface IGenerateReportForAuditInstancesRequest extends IGenerateReportForProc
   // Requires no additional data
 }
 
+/**
+ * Represents a Generate Report request for the audit trail
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface IGenerateReportForAuditTrailRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.AUDIT_TRAIL> {
+  // Requires no additional data
+}
+
 export type IGenerateReportRequest =
   | IGenerateReportForProcessesInstancesRequest
   | IGenerateReportForProcessesStatisticsRequest
   | IGenerateReportForRisksRequest
   | IGenerateReportForGenericModulesRequest
-  | IGenerateReportForAuditInstancesRequest;
+  | IGenerateReportForAuditInstancesRequest
+  | IGenerateReportForAuditTrailRequest;
 
 const IGenerateReportRequestObject: IGenerateReportRequest = {
   reportType: Joi.number()
@@ -285,6 +299,7 @@ const IGenerateReportRequestObject: IGenerateReportRequest = {
       RequestedInstanceReportType.RISKS,
       RequestedInstanceReportType.GENERIC_MODULE,
       RequestedInstanceReportType.AUDIT,
+      RequestedInstanceReportType.AUDIT_TRAIL,
     )
     .required() as unknown as RequestedInstanceReportUnionType,
   instanceIds: Joi.array().items(Joi.string()).required() as unknown as string[],
