@@ -93,7 +93,6 @@ export interface IProcessDetails {
   attachments?: IProcessAttachment[];
   reportDrafts?: IProcessReportDraft[];
   statisticsReportDrafts?: IProcessReportDraft[];
-  auditTrailReportDraft?: IProcessReportDraft[];
   processXmlHash?: string;
   userStartEvents?: IStartButtonMap; // Map with starteventid -> start event name
   tags?: string[];
