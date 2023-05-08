@@ -90,9 +90,9 @@ export class NestedElements {
   [key: string]: INestedElement;
 }
 
-const ruleRegex = /(((field|role|riskMetric)\['([^']*)'\](\.[^\s]+)?)|auditMetric)\s(==|!=|<|<=|>|>=|<>|><)\s(('([^']+)')|(([^()&|]+)))/; // /((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+)))/
+const ruleRegex = /(((field|role|riskMetric)\['([^']*)'\](\.[^\s]+)?)|auditMetric)\s(==|!=|<|<=|>|>=|<>|><)\s('([^']+)'|({[^}]+})|([^()&|]+))/; // /((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+)))/
 const nestedRegex =
-  /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\((((((((field|role|riskMetric)\['([^']*)'\](\.[^\s]+)?)|auditMetric)\s(==|!=|<|<=|>|>=|<>|><)\s(('([^']+)')|(([^()&&||]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/; // /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/;
+  /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\((((((((field|role|riskMetric)\['([^']*)'\](\.[^\s]+)?)|auditMetric)\s(==|!=|<|<=|>|>=|<>|><)\s(('([^']+)')|({([^}]+)})|(([^()&&||]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/; // /((\(|^|\s){1}(\(\))(\)|$|\s){1})|(\(((((((field|role)\['([^'\]]*)'\](\.[^\s]+)?)\s(==|!=|\<|\<=|\>|\>=)\s(('([^&&\|\|']+)')|(([^()&&\|\|]+))))|([A-F0-9]{16}))(\s(&&|\|\|)\s)*)+)\))/;
 const isCombinatorRegex = /\s(&&|\|\|)\s/;
 
 export function getNestedElements(query: string): NestedElements {
@@ -205,19 +205,25 @@ export function parseRule(rule: string): Rule {
   if (match) {
     res.field = match[1];
     res.operator = match[6];
-    if (match[9]) {
+
+    //Capturing Groups for Fieldvalues:
+    //delimiter "'" - text: 8
+    //delimiter "{}"  - objects: 9
+    //non-delimited: 10
+
+    if (match[8]) {
       // Normal text
-      res.value = match[9];
-    } else if (match[11] === "''") {
+      res.value = match[8];
+    } else if (match[9]) {
+      res.value = JSON.parse(match[9]); // Object (checklist)
+    } else if (match[10] === "''") {
       // Empty text
       res.value = "";
-    } else if (match[11] === "undefined") {
+    } else if (match[10] === "undefined") {
       // Undefined (object)
       res.value = undefined;
-    } else if (!Number.isNaN(Number(match[11]))) {
-      res.value = Number(match[11]); // Number
-    } else {
-      res.value = JSON.parse(match[11]); // Object (checklist)
+    } else if (!Number.isNaN(Number(match[10]))) {
+      res.value = Number(match[10]); // Number
     }
   }
 
