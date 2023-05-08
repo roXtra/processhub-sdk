@@ -100,6 +100,21 @@ describe("sdk", function () {
             } as Group,
           },
           {
+            guid: "f175b832-4497-4e19-abe9-dade9e8c2688",
+            query: `(field['Checklist'] == {"Option&2":true})`,
+            expectedGroup: {
+              rules: [
+                {
+                  field: "field['Checklist']",
+                  operator: "==",
+                  value: { "Option&2": true },
+                  id: createId(),
+                } as Rule,
+              ],
+              combinator: "&&",
+            } as Group,
+          },
+          {
             guid: "e65c5a52-6922-4753-bfee-86a48f084f64",
             query: "(field['A&B'] != '[X|Y]')",
             expectedGroup: {
