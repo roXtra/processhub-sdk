@@ -205,7 +205,7 @@ export interface IUploadFileRequest extends IBaseRequest {
   processId: string;
   fileName: string;
   data: string;
-  reportDraftType: "default" | "statistics" | "audittrail";
+  reportDraftType: "default" | "statistics";
 }
 
 export interface IAddRoXtraFileRequest extends IBaseRequest {
@@ -219,7 +219,7 @@ export interface IUploadReportDraftRequest extends IBaseRequest {
   processId: string;
   fileName: string;
   data: string;
-  reportDraftType: "default" | "statistics" | "audittrail";
+  reportDraftType: "default" | "statistics";
 }
 
 export interface IDeleteReportDraftRequest extends IBaseRequest {
