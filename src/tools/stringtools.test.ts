@@ -101,13 +101,13 @@ describe("sdk", function () {
           },
           {
             guid: "f175b832-4497-4e19-abe9-dade9e8c2688",
-            query: `(field['Checklist'] == {"Option&2":true})`,
+            query: `(field['Checklist'] == {"Option {&2}":true})`,
             expectedGroup: {
               rules: [
                 {
                   field: "field['Checklist']",
                   operator: "==",
-                  value: { "Option&2": true },
+                  value: { "Option {&2}": true },
                   id: createId(),
                 } as Rule,
               ],
