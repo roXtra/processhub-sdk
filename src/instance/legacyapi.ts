@@ -215,6 +215,10 @@ export enum RequestedInstanceReportType {
    * Represents an Audit Trail report request
    */
   AUDIT_TRAIL = 6,
+  /**
+   * Represents an Process View report request
+   */
+  PROCESS_VIEW = 7,
 }
 
 /**
@@ -226,7 +230,8 @@ type RequestedInstanceReportUnionType =
   | RequestedInstanceReportType.RISKS
   | RequestedInstanceReportType.GENERIC_MODULE
   | RequestedInstanceReportType.AUDIT
-  | RequestedInstanceReportType.AUDIT_TRAIL;
+  | RequestedInstanceReportType.AUDIT_TRAIL
+  | RequestedInstanceReportType.PROCESS_VIEW;
 
 interface IGenerateReportForProcessesInstancesCommonData<TYPE extends RequestedInstanceReportType> extends IBaseRequest {
   reportType: TYPE;
@@ -283,13 +288,22 @@ interface IGenerateReportForAuditTrailRequest extends IGenerateReportForProcesse
   // Requires no additional data
 }
 
+/**
+ * Represents a Generate Report request for the process view
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface IGenerateReportForProcessViewRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.PROCESS_VIEW> {
+  // Requires no additional data
+}
+
 export type IGenerateReportRequest =
   | IGenerateReportForProcessesInstancesRequest
   | IGenerateReportForProcessesStatisticsRequest
   | IGenerateReportForRisksRequest
   | IGenerateReportForGenericModulesRequest
   | IGenerateReportForAuditInstancesRequest
-  | IGenerateReportForAuditTrailRequest;
+  | IGenerateReportForAuditTrailRequest
+  | IGenerateReportForProcessViewRequest;
 
 const IGenerateReportRequestObject: IGenerateReportRequest = {
   reportType: Joi.number()
@@ -300,6 +314,7 @@ const IGenerateReportRequestObject: IGenerateReportRequest = {
       RequestedInstanceReportType.GENERIC_MODULE,
       RequestedInstanceReportType.AUDIT,
       RequestedInstanceReportType.AUDIT_TRAIL,
+      RequestedInstanceReportType.PROCESS_VIEW,
     )
     .required() as unknown as RequestedInstanceReportUnionType,
   instanceIds: Joi.array().items(Joi.string()).required() as unknown as string[],
