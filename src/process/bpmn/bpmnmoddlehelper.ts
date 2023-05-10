@@ -63,9 +63,9 @@ export async function createBpmnTemplate(userLanguage: string): Promise<ILoadTem
   endEventObject.incoming.push(initSequenceFlow3);
   task2.outgoing.push(initSequenceFlow3);
 
-  const lane = bpmnModdleInstance.create("bpmn:Lane", { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: tl("Ersteller", userLanguage), flowNodeRef: [startEventObject, task] });
+  const lane = bpmnModdleInstance.create("bpmn:Lane", { id: "Lane_8EE2836B993DE74A", name: tl("Ersteller", userLanguage), flowNodeRef: [startEventObject, task] });
 
-  const lane2 = bpmnModdleInstance.create("bpmn:Lane", { id: BpmnProcess.getBpmnId("bpmn:Lane"), name: tl("Bearbeiter", userLanguage), flowNodeRef: [task2, endEventObject] });
+  const lane2 = bpmnModdleInstance.create("bpmn:Lane", { id: "Lane_8EE2836B993DE74A", name: tl("Bearbeiter", userLanguage), flowNodeRef: [task2, endEventObject] });
 
   // ACHTUNG! Wenn hier einmal standardmäßig der "Teilnehmer 1" nicht mehr steht, dann müssen Tests angepasst werden
   const laneSet = bpmnModdleInstance.create("bpmn:LaneSet", {

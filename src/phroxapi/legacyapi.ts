@@ -25,6 +25,7 @@ export const RequestRoutes = {
   GetDocTypes: "/api/phroxapi/getdoctypes",
   GetRoxtraDocument: "/api/phroxapi/getroxtradocument",
   UploadRoxtraDocument: "/api/phroxapi/uploadroxtradocument",
+  GetRights: "/api/phroxapi/getrights",
 };
 
 export interface IProcessItem {
@@ -139,4 +140,9 @@ export interface IGetModulesReply extends IBaseReply {
 
 export interface IGetRoxtraDocumentRequest {
   fileId: number;
+}
+
+export interface IGetRightsReply extends IBaseReply {
+  applicationAccess: Array<{ id: string; caption: string }>;
+  filesystem: IGetRightsReply["applicationAccess"];
 }
