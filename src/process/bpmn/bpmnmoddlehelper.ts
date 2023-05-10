@@ -63,7 +63,7 @@ export async function createBpmnTemplate(userLanguage: string): Promise<ILoadTem
   endEventObject.incoming.push(initSequenceFlow3);
   task2.outgoing.push(initSequenceFlow3);
 
-  const lane = bpmnModdleInstance.create("bpmn:Lane", { id: "Lane_8EE2836B993DE74A", name: tl("Ersteller", userLanguage), flowNodeRef: [startEventObject, task] });
+  const lane = bpmnModdleInstance.create("bpmn:Lane", { id: "Lane_7A0DD19E05A33282", name: tl("Ersteller", userLanguage), flowNodeRef: [startEventObject, task] });
 
   const lane2 = bpmnModdleInstance.create("bpmn:Lane", { id: "Lane_8EE2836B993DE74A", name: tl("Bearbeiter", userLanguage), flowNodeRef: [task2, endEventObject] });
 
