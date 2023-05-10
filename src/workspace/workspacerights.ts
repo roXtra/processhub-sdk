@@ -1,5 +1,16 @@
 import { IWorkspaceDetails, StateWorkspaceDetails, WorkspaceRole } from "./workspaceinterfaces";
 
+export interface IWorkspaceRole {
+  roleName?: string;
+  rights?: {
+    id: string;
+  }[];
+}
+
+export interface IWorkspaceRoles {
+  [roleId: string]: IWorkspaceRole; // Role id is the lane id of the process
+}
+
 export function isWorkspaceMember(workspace: IWorkspaceDetails | StateWorkspaceDetails): boolean {
   if (workspace == null) return false;
 

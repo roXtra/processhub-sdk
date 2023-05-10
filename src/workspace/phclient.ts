@@ -9,6 +9,7 @@ export const WorkspaceView = {
   Edit: "edit",
   Statistics: "statistics",
   Profile: "profile",
+  Roles: "roles",
 };
 export type WorkspaceView = keyof typeof WorkspaceView;
 

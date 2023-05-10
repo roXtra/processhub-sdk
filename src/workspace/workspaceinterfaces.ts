@@ -2,6 +2,7 @@ import { IProcessDetails } from "../process/processinterfaces";
 import { IUserDetailsSmall, Licence } from "../user/userinterfaces";
 import { IGroupDetails } from "../group/groupinterfaces";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
+import { IWorkspaceRoles } from "./workspacerights";
 
 export type StateWorkspaceExtras = Omit<IWorkspaceDetails["extras"], "processes" | "archivedProcesses">;
 export type StateWorkspaceDetails = Omit<IWorkspaceDetails, "extras" | "type"> & {
@@ -27,6 +28,7 @@ export interface IWorkspaceDetails {
     tags?: string[]; // All available tags in the workspace
     auditTrail?: IAuditTrailEntry[];
     groups?: IGroupDetails[];
+    workspaceRoles?: IWorkspaceRoles; // Will be set for the internal workflows workspace
   };
   type: "backend";
 }
