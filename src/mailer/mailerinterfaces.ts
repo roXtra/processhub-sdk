@@ -2,12 +2,17 @@ import { IBaseRequest, IBaseReply } from "../legacyapi/apiinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { IFieldContentMap } from "../data/ifieldcontentmap";
 
+export interface ISendTaskReceivers {
+  receiverIdOrMails: string[];
+  receiversWithoutMails: string[];
+}
+
 export interface ISendMailTemplateRequest extends IBaseRequest {
   instanceUrl?: string;
   todoDescription?: string;
   todoTitle?: string;
   fieldContents?: IFieldContentMap;
-  receiverIdOrMails: string[];
+  receiverIdOrMails: ISendTaskReceivers[];
   instanceId?: string;
   signature?: string;
   subject: string;
