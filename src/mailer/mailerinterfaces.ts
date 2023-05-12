@@ -12,7 +12,7 @@ export interface ISendMailTemplateRequest extends IBaseRequest {
   todoDescription?: string;
   todoTitle?: string;
   fieldContents?: IFieldContentMap;
-  receiverIdOrMails: ISendTaskReceivers[];
+  receiverIdOrMails: ISendTaskReceivers;
   instanceId?: string;
   signature?: string;
   subject: string;
