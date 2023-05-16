@@ -73,4 +73,5 @@ export interface IInitialConfig extends IClientSettingsConfig {
   xAccesstoken?: string;
   defaultServerLanguage: string;
   aiCompletionProvider: AiCompletionProviders;
+  campusLicence: boolean;
 }
