@@ -12,6 +12,8 @@ module.exports = {
   regexManagers: [],
   repositories: ["roXtra/processhub-sdk"],
   rebaseWhen: "behind-base-branch",
+  prConcurrentLimit: 6,
+  prHourlyLimit: 6,
   ignoreDeps: [],
   packageRules: [
     {
