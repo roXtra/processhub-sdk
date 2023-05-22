@@ -31,6 +31,7 @@ export const ProcessEngineApiRoutes = {
   getroxfilelinkreferences: "/api/processengine/getroxfilelinkreferences",
   setStartEventReferences: "/api/processengine/setstarteventreferences",
   copyFields: "/api/processengine/copyfields",
+  rightsOwners: "/api/processengine/rightsowners",
 };
 
 export type ProcessEngineApiRoutes = keyof typeof ProcessEngineApiRoutes;
@@ -426,4 +427,23 @@ export const ICopyFieldsRequestSchema = Joi.object(ICopyFieldsRequestObject);
 export interface ICopyFieldsReply extends IBaseReply {
   fieldContents: IFieldContentMap;
   roleOwners: IRoleOwnerMap;
+}
+
+export interface IRightsOwnersRequest extends IBaseRequest {
+  // Id of roXtra document to get the rights owners for
+  roxFileId: string;
+  // The roXtra rights from rights.xml (R0, W1, ...), separated with ,
+  rights: string;
+}
+
+const IRightsOwnersRequestObject: IRightsOwnersRequest = {
+  roxFileId: Joi.string().required() as unknown as string,
+  rights: Joi.string().required() as unknown as string,
+  ...IBaseRequestObject,
+};
+
+export const IRightsOwnersRequestSchema = Joi.object(IRightsOwnersRequestObject);
+
+export interface IRightsOwnersReply extends IBaseReply {
+  ownerIds: string[];
 }

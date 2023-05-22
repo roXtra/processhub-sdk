@@ -93,6 +93,10 @@ export interface IInstanceDetails {
   auditsCustomRating?: ICustomRating;
   // Precomputed audit metric that can be used if the questions are not available
   auditMetric?: number;
+  workflow?: {
+    // The id of the roXtra document if this is a workflow instance
+    roXtraFileId?: string;
+  };
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
     instanceState?: IEngineState;
