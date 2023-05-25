@@ -5,6 +5,7 @@ export interface IWorkspaceRole {
   rights?: {
     id: string;
   }[];
+  preselection?: string;
 }
 
 export interface IWorkspaceRoles {
