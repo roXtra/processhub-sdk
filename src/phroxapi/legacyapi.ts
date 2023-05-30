@@ -3,6 +3,8 @@ import { ITaskExtensions } from "../process/processinterfaces";
 import { IModule } from "../modules/imodule";
 import { IFieldContentMap } from "../data/ifieldcontentmap";
 import { IModuleSelection, IRoxFile, IRoxFolder } from "./phroxapiinterfaces";
+import { IRoleOwnerMap } from "../process/processrights";
+import { IWorkspaceRoles } from "../workspace/workspacerights";
 
 export const RequestRoutes = {
   GetRootFolder: "/api/phroxapi/getrootfolder",
@@ -26,6 +28,8 @@ export const RequestRoutes = {
   GetRoxtraDocument: "/api/phroxapi/getroxtradocument",
   UploadRoxtraDocument: "/api/phroxapi/uploadroxtradocument",
   GetRights: "/api/phroxapi/getrights",
+  GetDocRoleOwners: "/api/phroxapi/getdocroleowners",
+  SetDocRoleOwners: "/api/phroxapi/setdocroleowners",
 };
 
 export interface IProcessItem {
@@ -145,4 +149,20 @@ export interface IGetRoxtraDocumentRequest {
 export interface IGetRightsReply extends IBaseReply {
   applicationAccess: Array<{ id: string; caption: string }>;
   filesystem: IGetRightsReply["applicationAccess"];
+}
+
+export interface IGetDocRoleOwnersRequest extends IBaseRequest {
+  fileId: number;
+}
+
+export interface IGetDocRoleOwnersReply extends IBaseReply {
+  // All workspace roles that are available for the given doc type (defined through linked processes)
+  roles: IWorkspaceRoles;
+  // Actual role owners
+  roleOwners: IRoleOwnerMap;
+}
+
+export interface ISetDocRoleOwnersRequest extends IBaseRequest {
+  fileId: number;
+  roleOwners: IRoleOwnerMap;
 }
