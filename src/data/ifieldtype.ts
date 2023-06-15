@@ -13,6 +13,7 @@ import { IFieldContentMap } from "./ifieldcontentmap";
 import { IFieldDefinition } from "./ifielddefinition";
 import { FieldType, FieldValueType, IFieldValue } from "./ifieldvalue";
 import { IFormElementProps } from "./iformelementprops";
+import React from "react";
 
 export type GetInputParams<ConfigType extends IFieldConfig, ValueType extends FieldValueType> = {
   formElementProps: IFormElementProps<ConfigType, ValueType>;
@@ -30,7 +31,7 @@ export type GetInputParams<ConfigType extends IFieldConfig, ValueType extends Fi
 export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends FieldValueType> {
   getType(): FieldType;
   getName(userLanguage: string): string;
-  getInput(params: GetInputParams<ConfigType, ValueType>): JSX.Element | null;
+  getInput(params: GetInputParams<ConfigType, ValueType>): React.JSX.Element | null;
   renderValue(
     value: {} | undefined | null,
     instance: IInstanceDetails,
@@ -38,7 +39,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
     showDirect?: boolean,
-  ): JSX.Element | undefined;
+  ): React.JSX.Element | undefined;
   renderValueForEmail(
     value: {} | undefined | null,
     instance: IInstanceDetails,
@@ -46,7 +47,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
     showDirect?: boolean,
-  ): JSX.Element | undefined;
+  ): React.JSX.Element | undefined;
   /**
    * Render field value for reports
    */
@@ -57,7 +58,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
     showDirect?: boolean,
-  ): JSX.Element | undefined;
+  ): React.JSX.Element | undefined;
   /**
    * Render value for comment section (audittrail)
    */
@@ -67,7 +68,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     process: IProcessDetails | StateProcessDetails,
     user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
-  ): JSX.Element | undefined;
+  ): React.JSX.Element | undefined;
   renderValueToString(
     value: {} | undefined,
     instance: IInstanceDetails,
@@ -90,13 +91,13 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     baseGrid: Component,
     process?: IProcessDetails | StateProcessDetails,
     user?: StateUserDetails | IUserDetails,
-  ): ((props: { dataItem: unknown }) => JSX.Element) | undefined;
+  ): ((props: { dataItem: unknown }) => React.JSX.Element) | undefined;
   getSettingsButton(
     fieldDefinition: IFieldDefinition,
     onConfigChanged: (fieldDefinition: IFieldDefinition) => void,
     bpmnProcess: BpmnProcess,
     hideLocalSettings: boolean,
-  ): JSX.Element | undefined;
+  ): React.JSX.Element | undefined;
   isVisible(): boolean;
   isValid(fieldDefinition: IFieldDefinition, instanceEnv: IInstanceEnvironment, pendingFieldContents: IFieldContentMap | undefined): Promise<boolean>;
   isConfigValid(fieldDefinition: IFieldDefinition, userLanguage: string): { valid: boolean; message?: string };
@@ -107,6 +108,6 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
   appendValueToChartData(currentChartData: IChartData[], field: IFieldValue): void;
   getValueForInstanceTitle(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails | StateProcessDetails, config?: IFieldConfig): string;
   migrateFieldConfig(newConfig: IFieldConfig, oldConfig: IFieldConfig): void;
-  filterCellRender(fieldKey: string, grid: Component): JSX.Element | undefined;
+  filterCellRender(fieldKey: string, grid: Component): React.JSX.Element | undefined;
   applyCustomFilter(value: FieldValueType | undefined | null, filter: {}): boolean;
 }
