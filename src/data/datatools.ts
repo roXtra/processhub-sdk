@@ -278,7 +278,7 @@ export function updateLegacyFieldDefinitions(definitions: ILegacySchema): IField
       if (typeof id === "string") {
         const property: ILegacyProperty = properties[id];
         updatedDefinitions.push({
-          config: { conditionExpression: "", conditionBuilderMode: true, validationExpression: "" },
+          config: { conditionExpression: "", conditionBuilderMode: true, validationExpression: "", validationBuilderMode: true },
           isRequired: property.required,
           inlineEditingActive: false,
           name: property.title,
