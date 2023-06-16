@@ -16,14 +16,16 @@ export interface IFieldConfig {
   conditionExpression: string;
   conditionBuilderMode: boolean;
   validationExpression: string;
+  validationBuilderMode: boolean;
   nestedFieldProps?: NestedFieldProps;
 }
 
 export function convertFieldConfig(config: IFieldConfig): IFieldConfig {
-  const { conditionBuilderMode, conditionExpression, validationExpression } = config;
+  const { conditionBuilderMode, conditionExpression, validationExpression, validationBuilderMode } = config;
   config.conditionBuilderMode = typeof conditionBuilderMode !== "undefined" ? conditionBuilderMode : true;
   config.conditionExpression = typeof conditionExpression !== "undefined" ? conditionExpression : "";
   config.validationExpression = typeof validationExpression !== "undefined" ? validationExpression : "";
+  config.validationBuilderMode = typeof validationBuilderMode !== "undefined" ? validationBuilderMode : !(validationExpression != null && validationExpression.length > 0);
   return config;
 }
 
@@ -31,6 +33,7 @@ export const IFieldConfigObject: IFieldConfig = {
   conditionExpression: Joi.string().allow("").required() as unknown as string,
   conditionBuilderMode: Joi.boolean().required() as unknown as boolean,
   validationExpression: Joi.string().allow("").required() as unknown as string,
+  validationBuilderMode: Joi.boolean().required() as unknown as boolean,
   nestedFieldProps: NestedFieldPropsSchema as unknown as NestedFieldProps,
 };
 
