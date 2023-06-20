@@ -551,7 +551,7 @@ describe("sdk", function () {
 
         it("should throw an error due to invalid base64", function () {
           const notValid = "This is not a valid base64!";
-          expect(() => StringTools.decodeURLSafeBase64(notValid)).to.throw(Error, `Cannot decode, inputstring: "${notValid}" is not valid!`);
+          expect(() => StringTools.decodeURLSafeBase64(notValid)).to.throw(Error, `Invalid character: the string to be decoded is not correctly encoded.`);
         });
       });
     });
