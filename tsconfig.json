@@ -15,7 +15,7 @@
     "noEmit": false,
     "strict": true,
     "jsx": "react-jsx",
-    "lib": ["ES2019", "dom"]
+    "lib": ["ES2021", "dom"]
   },
   "include": ["./src/**/*"],
   "exclude": ["lib", "tsc_out", "node_modules"]

@@ -1,7 +1,6 @@
 import isEmpty from "lodash/isEmpty";
 import cloneDeep from "lodash/cloneDeep";
 import { createId } from "./guid";
-import Joi from "joi";
 import utf8 from "utf8";
 import base64 from "base-64";
 
@@ -259,14 +258,10 @@ export function decodeURLSafeBase64(string: string): string {
     decoded += "=";
   }
   // Replace "_"
-  decoded = decoded.replace(/_/g, "/");
+  decoded = decoded.replaceAll("_", "/");
   // Replace "-"
-  decoded = decoded.replace(/-/g, "+");
-  // Validate converted base64 string
-  const validate = Joi.string().base64().validate(decoded);
-  if (validate.error) {
-    throw new Error(`Cannot decode, inputstring: "${string}" is not valid!`);
-  }
+  decoded = decoded.replaceAll("-", "+");
+
   // Decode base64
   decoded = base64.decode(decoded);
   return utf8.decode(decoded);
