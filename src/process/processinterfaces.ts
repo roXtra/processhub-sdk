@@ -162,6 +162,7 @@ export enum ProcessExtras {
   ExtrasAuditTrail = 1 << 7,
   ExtrasParentAndChildDetails = 1 << 8,
   ExtrasSvgString = 1 << 9,
+  ExtrasRunningInstances = 1 << 10,
 }
 
 export interface ITaskToLaneMapEntry {
