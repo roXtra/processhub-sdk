@@ -13,6 +13,7 @@ export class BpmnError extends Error {
   public readonly errorMessage: string;
   public readonly innerError: Error | undefined;
   public readonly bpmnError = "BpmnError";
+  public readonly cause = undefined;
 
   public constructor(errorCode: string, errorMessage: string, innerError?: Error) {
     super(errorMessage);
@@ -30,6 +31,7 @@ const BpmnErrorObject: BpmnError = {
   innerError: Joi.object().optional() as unknown as Error,
   stack: Joi.string().allow("") as unknown as string,
   bpmnError: Joi.string().equal("BpmnError").required() as unknown as "BpmnError",
+  cause: Joi.optional() as unknown as undefined,
 };
 
 export const BpmnErrorSchema = Joi.object(BpmnErrorObject);
