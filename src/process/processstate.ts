@@ -2,7 +2,8 @@ import { IProcessDetails } from "./processinterfaces";
 
 export type StateProcessExtras = Omit<IProcessDetails["extras"], "instances"> & {
   // Process from state references only instanceIds, not the actual instances in the process state
-  instanceIds?: string[];
+  // Map with instanceIds for better performance
+  instanceIds?: { [instanceId: string]: boolean };
 };
 export type StateProcessDetails = Omit<IProcessDetails, "extras" | "type"> & {
   extras: StateProcessExtras;
