@@ -215,6 +215,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
           case "linked-doc-types":
             returnValue.linkedDocTypes = child.$body ? JSON.parse(child.$body) : [];
             break;
+          case "busmessage-type":
+            returnValue.busMessageType = child.$body;
+            break;
           default:
             break;
         }
