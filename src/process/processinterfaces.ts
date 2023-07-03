@@ -219,7 +219,8 @@ export type BpmnExtensionName =
   | "busevent-types" // Array<string>: bus event types that trigger the event
   | "signalcatchevent-roles" // Array<string>: The lanes that are allowed to trigger a SignalCatch event - if not defined or empty, the current role owner is allowed
   | "copy-fields" // Boolean, can be set for StartEvent. Allows to copy the field values defined in the StartEvent from another instance
-  | "linked-doc-types"; // Doc types that are linked to the process for internal workflow processes.
+  | "linked-doc-types" // Doc types that are linked to the process for internal workflow processes.
+  | "busmessage-type"; // String: The type of the bus message that is sent by a message throw event (namespace + interface)
 
 export interface ITaskExtensions {
   description?: string;
@@ -267,6 +268,8 @@ export interface ITaskExtensions {
   signalCatchEventRoles: string[] | undefined; // The lanes that are allowed to trigger a SignalCatch event - if not defined or empty, the current role owner is allowed
   copyFields?: boolean; // Allows to copy the field values defined in the StartEvent from another instance
   linkedDocTypes?: ILinkedDocTypes; // Doc types that are linked to the process for internal workflow processes.
+
+  busMessageType?: string; // String: The type of the bus message that is sent by a message throw event (namespace + interface)
 }
 
 export interface ITimerStartEventConfiguration {

@@ -67,8 +67,8 @@ export class BpmnProcess {
     }
   }
 
-  public static isMessageStartEvent(startEvent: Bpmn.IStartEvent): boolean {
-    return startEvent.eventDefinitions != null && startEvent.eventDefinitions.find((e) => e.$type === "bpmn:MessageEventDefinition") != null;
+  public static isMessageEvent(event: Bpmn.ICatchEvent | Bpmn.IThrowEvent): boolean {
+    return event.eventDefinitions != null && event.eventDefinitions.find((e) => e.$type === "bpmn:MessageEventDefinition") != null;
   }
 
   public getBpmnDefinitions(): Bpmn.IDefinitions {
