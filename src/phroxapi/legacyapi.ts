@@ -92,6 +92,7 @@ export interface IDownloadRoxDocToServerRequest extends IBaseRequest {
   instanceId: string;
   fieldContents: IFieldContentMap;
   extVals: ITaskExtensions;
+  roxWorkflowFileId: number | undefined;
 }
 
 export interface IGetDocumentReply extends IBaseReply {
