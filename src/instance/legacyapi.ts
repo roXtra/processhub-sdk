@@ -431,13 +431,13 @@ export interface ICopyFieldsReply extends IBaseReply {
 
 export interface IRightsOwnersRequest extends IBaseRequest {
   // Id of roXtra document to get the rights owners for
-  roxFileId: string;
+  roxFileId: number;
   // The roXtra rights from rights.xml (R0, W1, ...), separated with ,
   rights: string;
 }
 
 const IRightsOwnersRequestObject: IRightsOwnersRequest = {
-  roxFileId: Joi.string().required() as unknown as string,
+  roxFileId: Joi.number().required() as unknown as number,
   rights: Joi.string().required() as unknown as string,
   ...IBaseRequestObject,
 };

@@ -18,6 +18,7 @@ import { IDecisionTask, DecisionTaskTypes } from "../../todo/todointerfaces";
 import { getLastArrayEntry } from "../../tools/array";
 import { IInstanceDetails } from "../../instance/instanceinterfaces";
 import { convertFieldConfig } from "../../data/datainterfaces";
+import { IRoxFileFieldConfig } from "../../data/fields/roxfilefield";
 
 export class BpmnProcess {
   private moddleContext?: IParseResult;
@@ -470,7 +471,7 @@ export class BpmnProcess {
           let onlyRoxFileField = false;
           const extVals: ITaskExtensions = getExtensionValues(startEvent);
           if (extVals.fieldDefinitions != null && extVals.fieldDefinitions.length === 1) {
-            if (extVals.fieldDefinitions[0].type === "ProcessHubRoxFile") {
+            if (extVals.fieldDefinitions[0].type === "ProcessHubRoxFile" && !(extVals.fieldDefinitions[0].config as IRoxFileFieldConfig).roxWorkflowField) {
               onlyRoxFileField = true;
             }
           }

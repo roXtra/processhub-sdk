@@ -28,6 +28,10 @@ export interface IRoxFileFieldConfig extends IFieldConfig {
    * File name of the mime type icon without URL/hostname (eg "docx.svg")
    */
   mimeTypeIcon: string | undefined;
+  /**
+   * Flag if field is configured for the workflow-file
+   */
+  roxWorkflowField: boolean | undefined;
 }
 
 const IRoxFileFieldConfigObject: IRoxFileFieldConfig = {
@@ -35,6 +39,7 @@ const IRoxFileFieldConfigObject: IRoxFileFieldConfig = {
   roxFileId: Joi.number() as unknown as number,
   roxFileIconUrl: Joi.string().allow("") as unknown as string,
   mimeTypeIcon: Joi.string().allow("") as unknown as string,
+  roxWorkflowField: Joi.boolean().allow("") as unknown as boolean,
   ...IFieldConfigObject,
 };
 

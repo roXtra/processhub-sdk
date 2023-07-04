@@ -95,7 +95,7 @@ export interface IInstanceDetails {
   auditMetric?: number;
   workflow?: {
     // The id of the roXtra document if this is a workflow instance
-    roXtraFileId?: string;
+    roXtraFileId?: number;
   };
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
