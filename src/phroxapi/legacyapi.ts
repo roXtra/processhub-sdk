@@ -30,6 +30,7 @@ export const RequestRoutes = {
   GetRights: "/api/phroxapi/getrights",
   GetDocRoleOwners: "/api/phroxapi/getdocroleowners",
   SetDocRoleOwners: "/api/phroxapi/setdocroleowners",
+  GetStartEventsForDocType: "/api/phroxapi/getstarteventsfordoctpye",
 };
 
 export interface IProcessItem {
@@ -166,4 +167,23 @@ export interface IGetDocRoleOwnersReply extends IBaseReply {
 export interface ISetDocRoleOwnersRequest extends IBaseRequest {
   fileId: number;
   roleOwners: IRoleOwnerMap;
+}
+
+export interface IGetStartEventsForDoctypeResponse extends IBaseReply {
+  processes: {
+    processName: string;
+    processId: string;
+    startButtons: {
+      [key: string]: {
+        startEventName?: string;
+        laneId: string;
+        onlyRoxFileField: boolean;
+        anonymousStart?: boolean;
+      };
+    };
+  }[];
+}
+
+export interface IGetStartEventsForDoctypeRequest {
+  docTypeId: number;
 }
