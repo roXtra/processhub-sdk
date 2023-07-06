@@ -174,13 +174,9 @@ export interface IGetStartEventsForDoctypeResponse extends IBaseReply {
     processName: string;
     processId: string;
     startButtons: {
-      [key: string]: {
-        startEventName?: string;
-        laneId: string;
-        onlyRoxFileField: boolean;
-        anonymousStart?: boolean;
-      };
-    };
+      startButtonName?: string;
+      startButtonId: string;
+    }[];
   }[];
 }
 
