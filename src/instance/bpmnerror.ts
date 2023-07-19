@@ -34,6 +34,6 @@ const BpmnErrorObject: BpmnError = {
 
 export const BpmnErrorSchema = Joi.object(BpmnErrorObject);
 
-export function isBpmnError(error: {}): error is BpmnError {
-  return error && BpmnErrorSchema.required().validate(error).error === undefined;
+export function isBpmnError(error: unknown): error is BpmnError {
+  return error != null && BpmnErrorSchema.required().validate(error).error === undefined;
 }
