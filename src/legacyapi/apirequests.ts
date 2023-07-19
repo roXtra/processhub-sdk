@@ -192,6 +192,7 @@ export async function getExternalJson<Request extends IBaseRequest>(
   apiEndpointUrl: string,
   request: Request,
   options: RequestOptions = { showErrorModal: true },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
   const { showErrorModal, accessToken } = options;
   // Request als Querystring serialisieren

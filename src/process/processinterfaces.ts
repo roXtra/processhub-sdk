@@ -67,7 +67,8 @@ export type ServiceActionFieldOnloadFunction = "fields" | "reportDrafts" | "repo
 export interface IServiceActionField {
   name: string;
   type: "select" | "text";
-  onload: ServiceActionFieldOnloadFunction | string;
+  // Includes ServiceActionFieldOnloadFunction
+  onload: string;
 }
 
 /**
