@@ -69,8 +69,11 @@ export interface IInitialConfig extends IClientSettingsConfig {
     id: string | undefined;
   }[];
   /* If this is set, it will be used instead of the cookie to identify an user.
-  Can be used to execute API calls in the context of another user without getting logged out. */
+  Can be used to execute API calls in the context of another user without getting logged out (anonymous start event)
+  or for ui tests where no cookie is set. */
   xAccesstoken?: string;
+  /* This token is used to authenticate the user when connecting to websockets */
+  webSockettoken?: string;
   defaultServerLanguage: string;
   aiCompletionProvider: AiCompletionProviders;
   campusLicence: boolean;
