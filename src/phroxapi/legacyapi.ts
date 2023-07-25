@@ -30,7 +30,7 @@ export const RequestRoutes = {
   GetRights: "/api/phroxapi/getrights",
   GetDocRoleOwners: "/api/phroxapi/getdocroleowners",
   SetDocRoleOwners: "/api/phroxapi/setdocroleowners",
-  GetStartEventsForDocType: "/api/phroxapi/getstarteventsfordoctpye",
+  GetStartEventsForDocType: "/api/phroxapi/getstarteventsfordoctype",
 };
 
 export interface IProcessItem {
