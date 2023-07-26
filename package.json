@@ -64,7 +64,7 @@
     "@types/lodash": "^4.14.196",
     "@types/luxon": "^3.3.0",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^18.16.19",
+    "@types/node": "^18.17.1",
     "@types/react": "^18.2.15",
     "@types/sqlstring": "^2.3.0",
     "@types/utf8": "^3.0.1",
