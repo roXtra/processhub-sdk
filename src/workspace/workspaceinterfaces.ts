@@ -21,7 +21,7 @@ export interface IWorkspaceDetails {
   mailboxAddress?: string; // If defined mailbox is defined in settings
   extras: {
     // New Extras must be added to cache-handling in workspaceactions -> loadWorkspace!
-    members?: IWorkspaceMember[];
+    members?: { [userId: string]: IWorkspaceMember };
     processes?: IProcessDetails[]; // Only processes that the current user may access (no archived processes)
     archivedProcesses?: IProcessDetails[]; // Processes that are archived
     settings?: IWorkspaceSettings;

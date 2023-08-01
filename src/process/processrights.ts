@@ -240,7 +240,7 @@ export function isPotentialRoleOwner(
     }
     if (potentialRoleOwner.memberId === PredefinedGroups.AllWorkspaceMembers || (ignorePublic && potentialRoleOwner.memberId === PredefinedGroups.Everybody)) {
       // Check if user is workspace member
-      if (members.find((m) => m.userDetails.userId === userId)) {
+      if (members[userId]) {
         return true;
       }
     }
@@ -310,7 +310,7 @@ export function getPotentialRoleOwners(
           // All workspace members are potential owners
           if (workspaceDetails.extras.members) {
             // If someone is not a workspace member he does not have access to the member list, so this list is empty
-            for (const member of workspaceDetails.extras.members) {
+            for (const member of Object.values(workspaceDetails.extras.members)) {
               addIfLicenceAllows(owners, member.userDetails, role);
             }
             addedWsMembers = true; // Merken, damit Member nicht mehrfach hinzugefügt werden, falls beide Gruppen genannt werden
