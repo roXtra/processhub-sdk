@@ -55,7 +55,7 @@ export function isRoleOwner(userId: string, roleId: string | undefined, instance
     if (workspaceGroups && isGroupId(roleOwner.memberId)) {
       const group = workspaceGroups.find((g) => g.groupId === roleOwner.memberId);
       if (group) {
-        if (group.members.find((gm) => gm.userId === userId) != null) {
+        if (group.memberIds.includes(userId)) {
           return true;
         }
       }

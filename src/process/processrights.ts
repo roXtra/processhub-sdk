@@ -247,7 +247,7 @@ export function isPotentialRoleOwner(
     if (isGroupId(potentialRoleOwner.memberId)) {
       const group = groups.find((g) => g.groupId === potentialRoleOwner.memberId);
       if (group) {
-        if (group.members.find((gm) => gm.userId === userId) != null) {
+        if (group.memberIds.includes(userId)) {
           return true;
         }
       }
@@ -323,9 +323,12 @@ export function getPotentialRoleOwners(
         } else if (isGroupId(potentialOwner.memberId)) {
           if (workspaceDetails.extras.groups) {
             const group = workspaceDetails.extras.groups.find((g) => g.groupId === potentialOwner.memberId);
-            if (group && group.members) {
-              for (const member of group.members) {
-                addIfLicenceAllows(owners, member, role);
+            if (group && group.memberIds) {
+              for (const memberId of group.memberIds) {
+                const member = workspaceDetails.extras.members?.[memberId];
+                if (member) {
+                  addIfLicenceAllows(owners, member.userDetails, role);
+                }
               }
             }
           }
