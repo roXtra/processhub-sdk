@@ -10,6 +10,7 @@ import isEqual from "lodash/isEqual";
 import { ModuleName } from "../modules/imodule";
 import { StateProcessDetails } from "./processstate";
 import { StateUserDetails } from "../user/phclient";
+import { isWorkspaceMember } from "../workspace/workspacerights";
 
 export enum ProcessAccessRights {
   None = 0,
@@ -199,6 +200,15 @@ export function getProcessRoles(
   return processRoles;
 }
 
+/**
+ * Checks if the current user is potential role owner for a given role - use {@link getPotentialRoleOwners} to check other users
+ * @param userId id of current user
+ * @param roleId id of role to check
+ * @param workspace workspace details, must be requested with the context of the current user
+ * @param process process details
+ * @param ignorePublic should PredefinedGroups.Everybody be ignored
+ * @returns {boolean} true if current user is potential role owner, false otherwise
+ */
 export function isPotentialRoleOwner(
   userId: string,
   roleId: string | undefined,
@@ -212,12 +222,9 @@ export function isPotentialRoleOwner(
     throw new Error("isPotentialRoleOwner called without valid process.extras.processRoles");
   }
 
-  const { groups, members } = workspace.extras;
+  const { groups } = workspace.extras;
   if (!groups) {
     throw new Error("isPotentialRoleOwner called without valid workspace.extras.groups");
-  }
-  if (!members) {
-    throw new Error("isPotentialRoleOwner called without valid workspace.extras.members");
   }
 
   if (roleId == null) {
@@ -240,7 +247,7 @@ export function isPotentialRoleOwner(
     }
     if (potentialRoleOwner.memberId === PredefinedGroups.AllWorkspaceMembers || (ignorePublic && potentialRoleOwner.memberId === PredefinedGroups.Everybody)) {
       // Check if user is workspace member
-      if (members[userId]) {
+      if (isWorkspaceMember(workspace)) {
         return true;
       }
     }
