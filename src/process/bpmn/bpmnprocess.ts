@@ -17,7 +17,6 @@ import { filterTodosForInstance } from "../../todo/todofilters";
 import { IDecisionTask, DecisionTaskTypes } from "../../todo/todointerfaces";
 import { getLastArrayEntry } from "../../tools/array";
 import { IInstanceDetails } from "../../instance/instanceinterfaces";
-import { convertFieldConfig } from "../../data/datainterfaces";
 import { IRoxFileFieldConfig } from "../../data/fields/roxfilefield";
 
 export class BpmnProcess {
@@ -161,7 +160,6 @@ export class BpmnProcess {
           // -> add the first one we find to the result set
           taskFields.map((taskField) => {
             if (fieldDefinitions.find((fieldDefinition) => fieldDefinition.name === taskField.name) == null) {
-              taskField.config = convertFieldConfig(taskField.config);
               fieldDefinitions.push(taskField);
             }
           });
@@ -180,18 +178,7 @@ export class BpmnProcess {
    * @deprecated use {@link BpmnProcess#getFieldDefinitionsForElement}
    */
   public getFieldDefinitionsForTask(taskObject: Bpmn.ITask | Bpmn.IActivity): IFieldDefinition[] | undefined {
-    const extVals = getExtensionValues(taskObject);
-    if (extVals) {
-      const { fieldDefinitions } = extVals;
-
-      for (const fieldDef of fieldDefinitions || []) {
-        fieldDef.config = convertFieldConfig(fieldDef.config);
-      }
-
-      return fieldDefinitions;
-    } else {
-      return undefined;
-    }
+    return getExtensionValues(taskObject)?.fieldDefinitions;
   }
 
   public async loadXml(processXmlStr: string): Promise<void> {

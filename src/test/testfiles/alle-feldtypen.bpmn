@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:processhub="http://processhub.com/schema/1.0/bpmn" id="Definition_083E07D92033227A">
+  <bpmn:extensionElements>
+    <processhub:inputOutput>
+      <processhub:inputParameter name="roxtra-version">9.66.0</processhub:inputParameter>
+    </processhub:inputOutput>
+  </bpmn:extensionElements>
+  <bpmn:collaboration id="Collaboration_746CE5C1E6AFCB5F">
+    <bpmn:participant id="Participant_33D5D667F7144EC3" name="Alle Feldtypen" processRef="Process_9B39EBFC179AE011" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_9B39EBFC179AE011" isExecutable="true">
+    <bpmn:extensionElements>
+      <processhub:inputOutput>
+        <processhub:inputParameter name="processhub-userform">[{"name":"Lane_982BD53737C54C8D","type":"ProcessHubRoleOwner","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"D14E97B24DE5C199","index":0},{"name":"Text","type":"ProcessHubTextInput","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"6B04AE7BA3F3C939","index":1},{"name":"Datum","type":"ProcessHubDate","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"A023D87D3EF7E2B5","index":2},{"name":"Text (mehrzeilig)","type":"ProcessHubTextArea","isRequired":false,"config":{"defaultValue":"&lt;p dir=\"ltr\"&gt;jashfdjlashdföjlds&lt;/p&gt;&lt;p dir=\"ltr\"&gt;saldjfhajsdlf&lt;/p&gt;&lt;p dir=\"ltr\"&gt;asdlfjhsajkldhsad&lt;/p&gt;&lt;p dir=\"ltr\"&gt;lösadjlksadjfasdf&lt;/p&gt;","enableExperimental":false,"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"E27491267B816414","index":3},{"name":"Checkliste","type":"ProcessHubChecklist","isRequired":false,"config":{"conditionExpression":"","entries":[{"name":"A"},{"name":"B"},{"name":"C"}],"oneEntryMustBeChecked":false,"defaultValue":{},"conditionBuilderMode":true,"validationExpression":""},"id":"7226BE9E0D8EE6C7","index":4},{"name":"Optionsschaltfläche","type":"ProcessHubRadioButton","isRequired":false,"config":{"entries":[{"name":"Eins","selected":false,"value":0},{"name":"Zwei","selected":false,"value":1},{"name":"Drei","selected":false,"value":2}],"defaultValue":{"radioButtons":[{"name":"Eins"},{"name":"Zwei"},{"name":"Drei"}]},"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"248ADABD82181C98","index":5},{"name":"Dateianhang","type":"ProcessHubFileUpload","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"C882BBF07F645AC3","index":6},{"name":"FOLLOWER","type":"ProcessHubRoleOwner","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"879617878C4FCD0B","index":7},{"name":"Datum und Uhrzeit","type":"ProcessHubDateTime","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"6064B2F2582B2272","index":8},{"name":"Dropdown","type":"ProcessHubDropdown","isRequired":false,"config":{"options":["💚","💛","Test","Test","Abc","Def","123","456","789","Ghi"],"conditionBuilderMode":true,"conditionExpression":"","validationExpression":"","validationBuilderMode":true},"id":"D309221B209CF1BE","index":9,"inlineEditingActive":true},{"name":"Signatur","type":"ProcessHubSignature","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"7ACF7399C50F007E","index":10},{"name":"Beschriftung","type":"ProcessHubLabel","isRequired":false,"config":{"labelHtml":"&lt;h2 dir=\"ltr\"&gt;&lt;strong&gt;Dies ist eine Überschrift&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;mentionnode mentionid=\"mentionid\" class=\"remirror-mention-atom remirror-mention-atom-tag\" data-mention-atom-id=\"Text\" data-mention-atom-name=\"tag\"&gt;Text&lt;/mentionnode&gt;&lt;/p&gt;","conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"CDDE59EA83F035F9","index":11},{"name":"E-Mail-Adresse","type":"ProcessHubMail","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"9FB3786797220342","index":12},{"name":"Zahl","type":"ProcessHubNumber","isRequired":false,"config":{"conditionExpression":"","defaultValue":"1","onlyIntegers":false,"validationExpression":"","conditionBuilderMode":true},"id":"A71776A876489B37","index":13},{"name":"roXtra Dokument","type":"ProcessHubRoxFile","isRequired":false,"config":{"roxFileIconUrl":"http://ST-06/Roxtra/doc/images/icons/word.gif","roxFileId":106,"roxFileName":"6.2.1 Qualitätsziele und Planung zur deren Erreichung","conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"4FFEF2CE4FCB3708","index":14},{"name":"roXtra Dokumenten Link","type":"ProcessHubRoxFileLink","isRequired":false,"config":{"defaultValue":[{"roxFileId":195,"roxFileName":"Antrag für Fortbildung","roxFileIconUrl":"http://st-06/roxtra/doc/images/svgs/xlsx.svg"}],"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"49CB0CD096519FC8","index":15},{"name":"Spreadsheet","type":"ProcessHubSpreadSheet","isRequired":false,"config":{"defaultValue":{"url":"","value":{"activeSheet":"Sheet1","sheets":[{"name":"Sheet1","rows":[{"index":0,"cells":[{"format":"0","value":123,"index":0}]},{"index":4,"cells":[{"format":"0","value":456,"index":2}]}],"columns":[],"selection":"N14:N14","activeCell":"N14:N14","frozenRows":0,"frozenColumns":0,"showGridLines":true,"gridLinesColor":null,"mergedCells":[],"hyperlinks":[],"defaultCellStyle":{"fontFamily":"Arial","fontSize":"12"},"drawings":[]}],"names":[],"columnWidth":64,"rowHeight":20,"images":{}}},"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"5A32D48516BA7478","index":16},{"name":"Baum","type":"ProcessHubTreeView","isRequired":false,"config":{"entries":[{"id":"38DC81DA3F98E728","name":"3","checked":false,"subItems":[{"id":"6D52DD808C538F9B","name":"1","checked":false,"subItems":[]},{"id":"282E70CE922073BC","name":"2","checked":true,"subItems":[]}]},{"id":"3A9F6CB08022960F","name":"4","checked":true,"subItems":[{"id":"A52B772B1C79C01A","name":"5","checked":false,"subItems":[{"id":"B876FBC7CF16F2CD","name":"42","checked":false,"subItems":[]}]}]},{"id":"90FCA5BCDD08BC42","name":"43","checked":false,"subItems":[]}],"oneEntryMustBeChecked":false,"defaultValue":{"entries":[{"id":"38DC81DA3F98E728","name":"3","checked":false,"subItems":[{"id":"6D52DD808C538F9B","name":"1","checked":false,"subItems":[]},{"id":"282E70CE922073BC","name":"2","checked":true,"subItems":[]}]},{"id":"3A9F6CB08022960F","name":"4","checked":true,"subItems":[{"id":"A52B772B1C79C01A","name":"5","checked":false,"subItems":[{"id":"B876FBC7CF16F2CD","name":"42","checked":false,"subItems":[]}]}]},{"id":"90FCA5BCDD08BC42","name":"43","checked":false,"subItems":[]}]},"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":true,"id":"EAEB9BFDF09C9B83","index":17},{"name":"Prozesslink","type":"ProcessHubProcessLink","isRequired":false,"config":{"startInstances":false,"linkInstances":false,"linkedProcessId":"B8EBFF0766B8F7C5","linkedProcessModuleId":1,"showAllReferences":true,"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"3E336157EBAD1D5E","index":18},{"name":"Datumsbereich","type":"ProcessHubDateRange","isRequired":false,"config":{"conditionExpression":"","validationExpression":"","conditionBuilderMode":true},"inlineEditingActive":false,"id":"22B5AC01E1C224E4","index":19},{"name":"Tasks","type":"ProcessHubTasks","isRequired":false,"config":{"defaultValue":{"tasks":[{"text":"Eins","checked":false},{"text":"Zwei","checked":false},{"text":"Drei","checked":false}]},"isDynamicChecklist":false,"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"7EED0981C76F1483","index":20},{"name":"Berechnetes Feld","type":"ProcessHubCalculatedField","isRequired":false,"config":{"conditionExpression":"","conditionBuilderMode":true,"validationExpression":"","expression":"field['Zahl'] + 2"},"inlineEditingActive":false,"id":"F3CF05BBB077C067","index":21},{"name":"Instanznummer","type":"ProcessHubInstanceNumber","isRequired":false,"config":{"conditionExpression":"","conditionBuilderMode":true,"validationExpression":"","formatFunc":"instanceNumber + '/' + instanceCount"},"inlineEditingActive":false,"id":"2802B196661A2C6D","index":22},{"name":"Date1","type":"ProcessHubDate","isRequired":false,"config":{"conditionExpression":"","conditionBuilderMode":true,"validationExpression":""},"inlineEditingActive":false,"id":"962EFE22C4B4593F","index":23},{"name":"Date2","type":"ProcessHubDate","isRequired":false,"config":{"conditionExpression":"","conditionBuilderMode":true,"validationExpression":""},"inlineEditingActive":false,"id":"941072A1FD3A020F","index":24},{"name":"Feld_3","type":"ProcessHubCalculatedField","isRequired":false,"config":{"conditionExpression":"","conditionBuilderMode":true,"validationExpression":"","expression":"Math.abs(new Date(field['Date1']).getTime() - new Date(field['Date2']).getTime()) / 1000 / 60 / 60 / 24"},"inlineEditingActive":false,"id":"C1583ED0DAAEC90A","index":20},{"name":"Feld_2","type":"ProcessHubRadioButton","isRequired":false,"config":{"entries":[{"name":"asd","selected":false,"value":0},{"name":"asda","selected":false,"value":1}],"defaultValue":{"radioButtons":[{"name":"asd"},{"name":"asda"}]},"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":true,"id":"CD375909DE2CE7D6","index":0},{"name":"Feld_1","type":"ProcessHubRadioButton","isRequired":false,"config":{"entries":[{"name":"1","selected":false,"value":0},{"name":"2","selected":false,"value":1}],"defaultValue":{"radioButtons":[{"name":"1"},{"name":"2"}]},"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"FC34EB9A07DB3002","index":2}]</processhub:inputParameter>
+      </processhub:inputOutput>
+    </bpmn:extensionElements>
+    <bpmn:laneSet id="LaneSet_B619AB96A4044E81">
+      <bpmn:lane id="Lane_982BD53737C54C8D" name="Ersteller">
+        <bpmn:flowNodeRef>StartEvent_4A99CF678C6B929B</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>UserTask_2F644E47203D702E</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>BoundaryEvent_F632179D455C5529</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_B277981A0583EBDE" name="Bearbeiter">
+        <bpmn:flowNodeRef>UserTask_69A88C3F55E32043</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_53726ED1E1BC89B6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_DF7A29E985A01DB2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>BoundaryEvent_4A405D3BFA4AC832</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_3AABC5764BCC45C1</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_4A99CF678C6B929B">
+      <bpmn:extensionElements>
+        <processhub:inputOutput>
+          <processhub:inputParameter name="processhub-userform">[{"name":"Lane_982BD53737C54C8D","type":"ProcessHubRoleOwner","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"D14E97B24DE5C199","index":0},{"name":"Text","type":"ProcessHubTextInput","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"6B04AE7BA3F3C939","index":1},{"name":"Datum","type":"ProcessHubDate","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"A023D87D3EF7E2B5","index":2},{"name":"Text (mehrzeilig)","type":"ProcessHubTextArea","isRequired":false,"config":{"defaultValue":"&lt;p dir=\"ltr\"&gt;jashfdjlashdföjlds&lt;/p&gt;&lt;p dir=\"ltr\"&gt;saldjfhajsdlf&lt;/p&gt;&lt;p dir=\"ltr\"&gt;asdlfjhsajkldhsad&lt;/p&gt;&lt;p dir=\"ltr\"&gt;lösadjlksadjfasdf&lt;/p&gt;","enableExperimental":false,"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"E27491267B816414","index":3},{"name":"Checkliste","type":"ProcessHubChecklist","isRequired":false,"config":{"conditionExpression":"","entries":[{"name":"A"},{"name":"B"},{"name":"C"}],"oneEntryMustBeChecked":false,"defaultValue":{},"conditionBuilderMode":true,"validationExpression":""},"id":"7226BE9E0D8EE6C7","index":4},{"name":"Optionsschaltfläche","type":"ProcessHubRadioButton","isRequired":false,"config":{"entries":[{"name":"Eins","selected":false,"value":0},{"name":"Zwei","selected":false,"value":1},{"name":"Drei","selected":false,"value":2}],"defaultValue":{"radioButtons":[{"name":"Eins"},{"name":"Zwei"},{"name":"Drei"}]},"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"248ADABD82181C98","index":5},{"name":"Dateianhang","type":"ProcessHubFileUpload","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"C882BBF07F645AC3","index":6},{"name":"FOLLOWER","type":"ProcessHubRoleOwner","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"879617878C4FCD0B","index":7},{"name":"Datum und Uhrzeit","type":"ProcessHubDateTime","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"6064B2F2582B2272","index":8},{"name":"Dropdown","type":"ProcessHubDropdown","isRequired":false,"config":{"options":["💚","💛","Test","Test","Abc","Def","123","456","789","Ghi"],"conditionBuilderMode":true,"conditionExpression":"","validationExpression":"","validationBuilderMode":true},"id":"D309221B209CF1BE","index":9,"inlineEditingActive":true},{"name":"Signatur","type":"ProcessHubSignature","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"7ACF7399C50F007E","index":10},{"name":"Beschriftung","type":"ProcessHubLabel","isRequired":false,"config":{"labelHtml":"&lt;h2 dir=\"ltr\"&gt;&lt;strong&gt;Dies ist eine Überschrift&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;mentionnode mentionid=\"mentionid\" class=\"remirror-mention-atom remirror-mention-atom-tag\" data-mention-atom-id=\"Text\" data-mention-atom-name=\"tag\"&gt;Text&lt;/mentionnode&gt;&lt;/p&gt;","conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"CDDE59EA83F035F9","index":11},{"name":"E-Mail-Adresse","type":"ProcessHubMail","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"9FB3786797220342","index":12},{"name":"Zahl","type":"ProcessHubNumber","isRequired":false,"config":{"conditionExpression":"","defaultValue":"1","onlyIntegers":false,"validationExpression":"","conditionBuilderMode":true},"id":"A71776A876489B37","index":13},{"name":"roXtra Dokument","type":"ProcessHubRoxFile","isRequired":false,"config":{"roxFileIconUrl":"http://ST-06/Roxtra/doc/images/icons/word.gif","roxFileId":106,"roxFileName":"6.2.1 Qualitätsziele und Planung zur deren Erreichung","conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"4FFEF2CE4FCB3708","index":14},{"name":"roXtra Dokumenten Link","type":"ProcessHubRoxFileLink","isRequired":false,"config":{"defaultValue":[{"roxFileId":195,"roxFileName":"Antrag für Fortbildung","roxFileIconUrl":"http://st-06/roxtra/doc/images/svgs/xlsx.svg"}],"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"49CB0CD096519FC8","index":15},{"name":"Spreadsheet","type":"ProcessHubSpreadSheet","isRequired":false,"config":{"defaultValue":{"url":"","value":{"activeSheet":"Sheet1","sheets":[{"name":"Sheet1","rows":[{"index":0,"cells":[{"format":"0","value":123,"index":0}]},{"index":4,"cells":[{"format":"0","value":456,"index":2}]}],"columns":[],"selection":"N14:N14","activeCell":"N14:N14","frozenRows":0,"frozenColumns":0,"showGridLines":true,"gridLinesColor":null,"mergedCells":[],"hyperlinks":[],"defaultCellStyle":{"fontFamily":"Arial","fontSize":"12"},"drawings":[]}],"names":[],"columnWidth":64,"rowHeight":20,"images":{}}},"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"5A32D48516BA7478","index":16},{"name":"Baum","type":"ProcessHubTreeView","isRequired":false,"config":{"entries":[{"id":"38DC81DA3F98E728","name":"3","checked":false,"subItems":[{"id":"6D52DD808C538F9B","name":"1","checked":false,"subItems":[]},{"id":"282E70CE922073BC","name":"2","checked":true,"subItems":[]}]},{"id":"3A9F6CB08022960F","name":"4","checked":true,"subItems":[{"id":"A52B772B1C79C01A","name":"5","checked":false,"subItems":[{"id":"B876FBC7CF16F2CD","name":"42","checked":false,"subItems":[]}]}]},{"id":"90FCA5BCDD08BC42","name":"43","checked":false,"subItems":[]}],"oneEntryMustBeChecked":false,"defaultValue":{"entries":[{"id":"38DC81DA3F98E728","name":"3","checked":false,"subItems":[{"id":"6D52DD808C538F9B","name":"1","checked":false,"subItems":[]},{"id":"282E70CE922073BC","name":"2","checked":true,"subItems":[]}]},{"id":"3A9F6CB08022960F","name":"4","checked":true,"subItems":[{"id":"A52B772B1C79C01A","name":"5","checked":false,"subItems":[{"id":"B876FBC7CF16F2CD","name":"42","checked":false,"subItems":[]}]}]},{"id":"90FCA5BCDD08BC42","name":"43","checked":false,"subItems":[]}]},"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":true,"id":"EAEB9BFDF09C9B83","index":17},{"name":"Prozesslink","type":"ProcessHubProcessLink","isRequired":false,"config":{"startInstances":false,"linkInstances":false,"linkedProcessId":"B8EBFF0766B8F7C5","linkedProcessModuleId":1,"showAllReferences":true,"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"3E336157EBAD1D5E","index":18},{"name":"Datumsbereich","type":"ProcessHubDateRange","isRequired":false,"config":{"conditionExpression":"","validationExpression":"","conditionBuilderMode":true},"inlineEditingActive":false,"id":"22B5AC01E1C224E4","index":19},{"name":"Tasks","type":"ProcessHubTasks","isRequired":false,"config":{"defaultValue":{"tasks":[{"text":"Eins","checked":false},{"text":"Zwei","checked":false},{"text":"Drei","checked":false}]},"isDynamicChecklist":false,"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"7EED0981C76F1483","index":20},{"name":"Berechnetes Feld","type":"ProcessHubCalculatedField","isRequired":false,"config":{"conditionExpression":"","conditionBuilderMode":true,"validationExpression":"","expression":"field['Zahl'] + 2"},"inlineEditingActive":false,"id":"F3CF05BBB077C067","index":21},{"name":"Instanznummer","type":"ProcessHubInstanceNumber","isRequired":false,"config":{"conditionExpression":"","conditionBuilderMode":true,"validationExpression":"","formatFunc":"instanceNumber + '/' + instanceCount"},"inlineEditingActive":false,"id":"2802B196661A2C6D","index":22},{"name":"Date1","type":"ProcessHubDate","isRequired":false,"config":{"conditionExpression":"","conditionBuilderMode":true,"validationExpression":""},"inlineEditingActive":false,"id":"962EFE22C4B4593F","index":23},{"name":"Date2","type":"ProcessHubDate","isRequired":false,"config":{"conditionExpression":"","conditionBuilderMode":true,"validationExpression":""},"inlineEditingActive":false,"id":"941072A1FD3A020F","index":24}]</processhub:inputParameter>
+          <processhub:inputParameter name="roleowners-editable">true</processhub:inputParameter>
+          <processhub:inputParameter name="description">&lt;p&gt;&lt;/p&gt;</processhub:inputParameter>
+        </processhub:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_F30D3700B553CDE2</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="UserTask_2F644E47203D702E" name="Aufgabe 1">
+      <bpmn:extensionElements>
+        <processhub:inputOutput>
+          <processhub:inputParameter name="processhub-userform">[{"name":"Datum","type":"ProcessHubDate","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"8C5D5E1F95721083","index":0},{"name":"Text (mehrzeilig)","type":"ProcessHubTextArea","isRequired":false,"config":{"defaultValue":"&lt;p dir=\"ltr\"&gt;jashfdjlashdföjlds&lt;/p&gt;&lt;p dir=\"ltr\"&gt;saldjfhajsdlf&lt;/p&gt;&lt;p dir=\"ltr\"&gt;asdlfjhsajkldhsad&lt;/p&gt;&lt;p dir=\"ltr\"&gt;lösadjlksadjfasdf&lt;/p&gt;","enableExperimental":false,"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"2C6C5F13DC6FFC0F","index":1},{"name":"Prozesslink","type":"ProcessHubProcessLink","isRequired":false,"config":{"startInstances":false,"linkInstances":false,"linkedProcessId":"B8EBFF0766B8F7C5","linkedProcessModuleId":1,"showAllReferences":true,"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"1874372516DF9EBC","index":2},{"name":"Text","type":"ProcessHubTextInput","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"CFDA2B1DB6F115CE","index":3},{"name":"Checkliste","type":"ProcessHubChecklist","isRequired":false,"config":{"conditionExpression":"","entries":[{"name":"A"},{"name":"B"},{"name":"C"}],"oneEntryMustBeChecked":false,"defaultValue":{},"conditionBuilderMode":true,"validationExpression":""},"id":"6C4930BFF30A6648","index":4},{"name":"Optionsschaltfläche","type":"ProcessHubRadioButton","isRequired":false,"config":{"entries":[{"name":"Eins","selected":false,"value":0},{"name":"Zwei","selected":false,"value":1},{"name":"Drei","selected":false,"value":2}],"defaultValue":{"radioButtons":[{"name":"Eins"},{"name":"Zwei"},{"name":"Drei"}]},"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"B1D318FFD62F56D3","index":5},{"name":"Dateianhang","type":"ProcessHubFileUpload","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"3FE6F7EF3E6279A1","index":6},{"name":"FOLLOWER","type":"ProcessHubRoleOwner","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"89C41A5790D56816","index":7},{"name":"Datum und Uhrzeit","type":"ProcessHubDateTime","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"833020800C205B49","index":8},{"name":"Dropdown","type":"ProcessHubDropdown","isRequired":false,"config":{"options":["💚","💛","Test","Test","Abc","Def","123","456","789","Ghi"],"conditionBuilderMode":true,"conditionExpression":"","validationExpression":"","validationBuilderMode":true},"id":"F7144DC50548F057","index":9},{"name":"Signatur","type":"ProcessHubSignature","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"A1F5B5012B08E06A","index":10},{"name":"Beschriftung","type":"ProcessHubLabel","isRequired":false,"config":{"labelHtml":"&lt;h2 dir=\"ltr\"&gt;&lt;strong&gt;Dies ist eine Überschrift&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;mentionnode mentionid=\"mentionid\" class=\"remirror-mention-atom remirror-mention-atom-tag\" data-mention-atom-id=\"Text\" data-mention-atom-name=\"tag\"&gt;Text&lt;/mentionnode&gt;&lt;/p&gt;","conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"577A27762C6B2CAC","index":11},{"name":"E-Mail-Adresse","type":"ProcessHubMail","isRequired":false,"config":{"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"F7BED5102314B430","index":12},{"name":"Zahl","type":"ProcessHubNumber","isRequired":false,"config":{"conditionExpression":"","defaultValue":"1","onlyIntegers":false,"validationExpression":"","conditionBuilderMode":true},"id":"E508926AEC99434C","index":13},{"name":"roXtra Dokument","type":"ProcessHubRoxFile","isRequired":false,"config":{"roxFileIconUrl":"http://ST-06/Roxtra/doc/images/icons/word.gif","roxFileId":106,"roxFileName":"6.2.1 Qualitätsziele und Planung zur deren Erreichung","conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"4832CBF3BDC491D6","index":14},{"name":"roXtra Dokumenten Link","type":"ProcessHubRoxFileLink","isRequired":false,"config":{"defaultValue":[{"roxFileId":195,"roxFileName":"Antrag für Fortbildung","roxFileIconUrl":"http://st-06/roxtra/doc/images/svgs/xlsx.svg"}],"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"D2DB9688DD120FB7","index":15},{"name":"Spreadsheet","type":"ProcessHubSpreadSheet","isRequired":false,"config":{"defaultValue":{"url":"","value":{"activeSheet":"Sheet1","sheets":[{"name":"Sheet1","rows":[{"index":0,"cells":[{"format":"0","value":123,"index":0}]},{"index":4,"cells":[{"format":"0","value":456,"index":2}]}],"columns":[],"selection":"N14:N14","activeCell":"N14:N14","frozenRows":0,"frozenColumns":0,"showGridLines":true,"gridLinesColor":null,"mergedCells":[],"hyperlinks":[],"defaultCellStyle":{"fontFamily":"Arial","fontSize":"12"},"drawings":[]}],"names":[],"columnWidth":64,"rowHeight":20,"images":{}}},"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"id":"70923CD5F641F55E","index":16},{"name":"Baum","type":"ProcessHubTreeView","isRequired":false,"config":{"entries":[{"id":"38DC81DA3F98E728","name":"3","checked":false,"subItems":[{"id":"6D52DD808C538F9B","name":"1","checked":false,"subItems":[]},{"id":"282E70CE922073BC","name":"2","checked":true,"subItems":[]}]},{"id":"3A9F6CB08022960F","name":"4","checked":true,"subItems":[{"id":"A52B772B1C79C01A","name":"5","checked":false,"subItems":[{"id":"B876FBC7CF16F2CD","name":"42","checked":false,"subItems":[]}]}]},{"id":"90FCA5BCDD08BC42","name":"43","checked":false,"subItems":[]}],"oneEntryMustBeChecked":false,"defaultValue":{"entries":[{"id":"38DC81DA3F98E728","name":"3","checked":false,"subItems":[{"id":"6D52DD808C538F9B","name":"1","checked":false,"subItems":[]},{"id":"282E70CE922073BC","name":"2","checked":true,"subItems":[]}]},{"id":"3A9F6CB08022960F","name":"4","checked":true,"subItems":[{"id":"A52B772B1C79C01A","name":"5","checked":false,"subItems":[{"id":"B876FBC7CF16F2CD","name":"42","checked":false,"subItems":[]}]}]},{"id":"90FCA5BCDD08BC42","name":"43","checked":false,"subItems":[]}]},"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"3552441DDCB0B6BF","index":17},{"name":"Datumsbereich","type":"ProcessHubDateRange","isRequired":false,"config":{"conditionExpression":"","validationExpression":"","conditionBuilderMode":true},"inlineEditingActive":false,"id":"894C26A22B35AF38","index":18},{"name":"Tasks","type":"ProcessHubTasks","isRequired":false,"config":{"defaultValue":{"tasks":[{"text":"Eins","checked":false},{"text":"Zwei","checked":false},{"text":"Drei","checked":false}]},"isDynamicChecklist":false,"conditionBuilderMode":true,"conditionExpression":"","validationExpression":""},"inlineEditingActive":false,"id":"DACA8372D9BA36CA","index":19},{"name":"Feld_3","type":"ProcessHubCalculatedField","isRequired":false,"config":{"conditionExpression":"","conditionBuilderMode":true,"validationExpression":"","expression":"Math.abs(new Date(field['Date1']).getTime() - new Date(field['Date2']).getTime()) / 1000 / 60 / 60 / 24"},"inlineEditingActive":false,"id":"C1583ED0DAAEC90A","index":20}]</processhub:inputParameter>
+          <processhub:inputParameter name="all-fields-editable">false</processhub:inputParameter>
+          <processhub:inputParameter name="view-all-fields">true</processhub:inputParameter>
+          <processhub:inputParameter name="send-mail-notification">true</processhub:inputParameter>
+          <processhub:inputParameter name="save-decision-in-fields">false</processhub:inputParameter>
+          <processhub:inputParameter name="custom-field-contents-value" />
+          <processhub:inputParameter name="due-at-duration">432000</processhub:inputParameter>
+          <processhub:inputParameter name="due-at-can-be-edit">true</processhub:inputParameter>
+          <processhub:inputParameter name="description">&lt;p&gt;&lt;/p&gt;</processhub:inputParameter>
+          <processhub:inputParameter name="allow-task-claim">true</processhub:inputParameter>
+        </processhub:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_F30D3700B553CDE2</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_973B6707689525A7</bpmn:outgoing>
+      <bpmn:boundaryEventRefs>BoundaryEvent_F632179D455C5529</bpmn:boundaryEventRefs>
+      <bpmn:dataInputAssociation id="DataInputAssociation_E86C2187403194FD">
+        <bpmn:sourceRef>DataStoreReference_91DDB0F29BB31E80</bpmn:sourceRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:userTask>
+    <bpmn:userTask id="UserTask_69A88C3F55E32043" name="Aufgabe 2">
+      <bpmn:extensionElements>
+        <processhub:inputOutput>
+          <processhub:inputParameter name="processhub-userform">[]</processhub:inputParameter>
+          <processhub:inputParameter name="all-fields-editable">true</processhub:inputParameter>
+          <processhub:inputParameter name="view-all-fields">true</processhub:inputParameter>
+          <processhub:inputParameter name="send-mail-notification">true</processhub:inputParameter>
+          <processhub:inputParameter name="save-decision-in-fields">false</processhub:inputParameter>
+          <processhub:inputParameter name="custom-field-contents-value" />
+          <processhub:inputParameter name="due-at-duration">NaN</processhub:inputParameter>
+          <processhub:inputParameter name="due-at-can-be-edit">false</processhub:inputParameter>
+        </processhub:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_973B6707689525A7</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_CFC788FC8B98A815</bpmn:outgoing>
+      <bpmn:boundaryEventRefs>BoundaryEvent_4A405D3BFA4AC832</bpmn:boundaryEventRefs>
+      <bpmn:dataInputAssociation id="DataInputAssociation_3665A29B63DF4887">
+        <bpmn:sourceRef>DataObjectReference_FB0E663244B5796A</bpmn:sourceRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_53726ED1E1BC89B6">
+      <bpmn:incoming>SequenceFlow_CFC788FC8B98A815</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_F30D3700B553CDE2" sourceRef="StartEvent_4A99CF678C6B929B" targetRef="UserTask_2F644E47203D702E" />
+    <bpmn:sequenceFlow id="SequenceFlow_973B6707689525A7" sourceRef="UserTask_2F644E47203D702E" targetRef="UserTask_69A88C3F55E32043" />
+    <bpmn:sequenceFlow id="SequenceFlow_CFC788FC8B98A815" sourceRef="UserTask_69A88C3F55E32043" targetRef="EndEvent_53726ED1E1BC89B6" />
+    <bpmn:dataStoreReference id="DataStoreReference_91DDB0F29BB31E80" />
+    <bpmn:dataObjectReference id="DataObjectReference_FB0E663244B5796A" />
+    <bpmn:boundaryEvent id="BoundaryEvent_F632179D455C5529" attachedToRef="UserTask_2F644E47203D702E">
+      <bpmn:outgoing>SequenceFlow_C704271F54820EB6</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P90D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:endEvent id="EndEvent_DF7A29E985A01DB2">
+      <bpmn:incoming>SequenceFlow_C704271F54820EB6</bpmn:incoming>
+      <bpmn:terminateEventDefinition />
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_C704271F54820EB6" sourceRef="BoundaryEvent_F632179D455C5529" targetRef="EndEvent_DF7A29E985A01DB2" />
+    <bpmn:boundaryEvent id="BoundaryEvent_4A405D3BFA4AC832" attachedToRef="UserTask_69A88C3F55E32043">
+      <bpmn:outgoing>SequenceFlow_5D98841D1F0311B6</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P100D</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:endEvent id="EndEvent_3AABC5764BCC45C1">
+      <bpmn:incoming>SequenceFlow_5D98841D1F0311B6</bpmn:incoming>
+      <bpmn:terminateEventDefinition />
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_5D98841D1F0311B6" sourceRef="BoundaryEvent_4A405D3BFA4AC832" targetRef="EndEvent_3AABC5764BCC45C1" />
+    <bpmn:association id="Association_AA720FD97F30E2F5" sourceRef="UserTask_2F644E47203D702E" targetRef="TextAnnotation_45ED3C7C90B51452" />
+    <bpmn:textAnnotation id="TextAnnotation_45ED3C7C90B51452">
+      <bpmn:text>SKJDGLVLC</bpmn:text>
+    </bpmn:textAnnotation>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram name="BPMNDiagram_59515A4FB464C41C">
+    <bpmndi:BPMNPlane bpmnElement="Collaboration_746CE5C1E6AFCB5F">
+      <bpmndi:BPMNShape id="BPMNShape_C1D8CADE07AA8536" bpmnElement="Lane_982BD53737C54C8D">
+        <dc:Bounds x="430" y="0" width="556" height="125" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_E3B8230CC65CF253" bpmnElement="Lane_B277981A0583EBDE">
+        <dc:Bounds x="430" y="125" width="556" height="125" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_22D4FE2083E58963" bpmnElement="Participant_33D5D667F7144EC3">
+        <dc:Bounds x="400" y="0" width="586" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_FA32ECC7BB63D5A8" bpmnElement="StartEvent_4A99CF678C6B929B">
+        <dc:Bounds x="500" y="45" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_05A90D0CF00CE0A0" bpmnElement="UserTask_2F644E47203D702E">
+        <dc:Bounds x="598" y="23" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_9783D1B6654C411D" bpmnElement="UserTask_69A88C3F55E32043">
+        <dc:Bounds x="760" y="170" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_43860724C0926A6C" bpmnElement="EndEvent_53726ED1E1BC89B6">
+        <dc:Bounds x="922" y="170" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_70222936D1020A3A" bpmnElement="SequenceFlow_F30D3700B553CDE2" sourceElement="BPMNShape_FA32ECC7BB63D5A8" targetElement="BPMNShape_05A90D0CF00CE0A0">
+        <di:waypoint x="536" y="63" />
+        <di:waypoint x="567" y="63" />
+        <di:waypoint x="567" y="63" />
+        <di:waypoint x="598" y="63" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_ECED6864B01ECF1F" bpmnElement="SequenceFlow_973B6707689525A7" sourceElement="BPMNShape_05A90D0CF00CE0A0" targetElement="BPMNShape_9783D1B6654C411D">
+        <di:waypoint x="698" y="63" />
+        <di:waypoint x="729" y="63" />
+        <di:waypoint x="729" y="210" />
+        <di:waypoint x="760" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_435F5C271218EBD6" bpmnElement="SequenceFlow_CFC788FC8B98A815" sourceElement="BPMNShape_9783D1B6654C411D" targetElement="BPMNShape_43860724C0926A6C">
+        <di:waypoint x="860" y="210" />
+        <di:waypoint x="891" y="210" />
+        <di:waypoint x="891" y="188" />
+        <di:waypoint x="922" y="188" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BPMNShape_9563CAB46D6DC308" bpmnElement="TextAnnotation_45ED3C7C90B51452">
+        <dc:Bounds x="800" y="20" width="120" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_3CA2D8EFD6C90218" bpmnElement="Association_AA720FD97F30E2F5" sourceElement="BPMNShape_05A90D0CF00CE0A0" targetElement="BPMNShape_9563CAB46D6DC308">
+        <di:waypoint x="698" y="63" />
+        <di:waypoint x="800" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BPMNShape_F77A9ADC59353811" bpmnElement="DataStoreReference_91DDB0F29BB31E80">
+        <dc:Bounds x="544" y="175" width="51.6" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_B0181E2140326C49" bpmnElement="DataInputAssociation_E86C2187403194FD" sourceElement="BPMNShape_F77A9ADC59353811" targetElement="BPMNShape_05A90D0CF00CE0A0">
+        <di:waypoint x="569.8" y="175" />
+        <di:waypoint x="648" y="103" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BPMNShape_794CEBCFC95154D1" bpmnElement="DataObjectReference_FB0E663244B5796A">
+        <dc:Bounds x="862" y="55" width="36" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_78E71C3A50157333" bpmnElement="DataInputAssociation_3665A29B63DF4887" sourceElement="BPMNShape_794CEBCFC95154D1" targetElement="BPMNShape_9783D1B6654C411D">
+        <di:waypoint x="880" y="105" />
+        <di:waypoint x="810" y="170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BPMNShape_499BFB6DE9E5CC74" bpmnElement="BoundaryEvent_F632179D455C5529">
+        <dc:Bounds x="671" y="81" width="37.19" height="37.19" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_4A7093BCA78C7AE0" bpmnElement="EndEvent_DF7A29E985A01DB2">
+        <dc:Bounds x="629" y="181" width="37.19" height="37.19" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_0FE4791B018A6E5C" bpmnElement="SequenceFlow_C704271F54820EB6" sourceElement="BPMNShape_499BFB6DE9E5CC74" targetElement="BPMNShape_4A7093BCA78C7AE0">
+        <di:waypoint x="689.595" y="118.19" />
+        <di:waypoint x="689.595" y="199.595" />
+        <di:waypoint x="666.19" y="199.595" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BPMNShape_29DC7E474D3B0129" bpmnElement="BoundaryEvent_4A405D3BFA4AC832">
+        <dc:Bounds x="841" y="211" width="37.19" height="37.19" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_49D8001B8FB537EF" bpmnElement="EndEvent_3AABC5764BCC45C1">
+        <dc:Bounds x="941" y="211" width="37.19" height="37.19" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_C4729B952D875276" bpmnElement="SequenceFlow_5D98841D1F0311B6" sourceElement="BPMNShape_29DC7E474D3B0129" targetElement="BPMNShape_49D8001B8FB537EF">
+        <di:waypoint x="878.19" y="229.595" />
+        <di:waypoint x="941" y="229.595" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

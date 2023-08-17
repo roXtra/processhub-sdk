@@ -4,6 +4,7 @@ import { replaceOldFieldSyntax } from "../../tools/stringtools";
 import { ILegacySchema, updateLegacyFieldDefinitions } from "../../data/datatools";
 import { Processhub } from "modeler/bpmn/processhub";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper";
+import { convertFieldConfig } from "../../data/datainterfaces";
 
 export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): ITaskExtensions {
   const returnValue: ITaskExtensions = {
@@ -181,6 +182,7 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
             if (child.$body) {
               const definitions: ILegacySchema = JSON.parse(child.$body);
               returnValue.fieldDefinitions = updateLegacyFieldDefinitions(definitions);
+              returnValue.fieldDefinitions.forEach((d) => (d.config = convertFieldConfig(d.config)));
             }
             break;
           case "message-event-type":
