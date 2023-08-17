@@ -8,21 +8,12 @@ import { BpmnProcess } from "./bpmnprocess";
 import { ILoadTemplateReply } from "../legacyapi";
 import { createBpmnTemplate, bpmnModdleInstance } from "./bpmnmoddlehelper";
 import { IRowDetails } from "../phclient";
-import fs from "fs";
 import { IParseResult } from "bpmn-moddle/lib/simple";
 import { getLastArrayEntry } from "../../tools/array";
-
-async function readFileAsync(fileName: string): Promise<string> {
-  return await new Promise<string>((resolve, reject) => {
-    fs.readFile(fileName, "utf8", (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
-  });
-}
+import fs from "fs/promises";
+import { IFieldConfigSchema } from "../../data/datainterfaces";
+import { IDateRangeFieldConfigSchema } from "../../data/fields/daterange";
+import { IFieldDefinition } from "../../data/ifielddefinition";
 
 let TestRowDetails: IRowDetails[] = [];
 
@@ -104,7 +95,7 @@ describe("sdk", function () {
       let freigabe2Xml: string;
 
       before(async function () {
-        freigabe2Xml = await readFileAsync("./src/test/testfiles/freigabe2.bpmn");
+        freigabe2Xml = await fs.readFile("./src/test/testfiles/freigabe2.bpmn", "utf-8");
       });
 
       describe("getDecisionTasksForTask", function () {
@@ -135,7 +126,7 @@ describe("sdk", function () {
 
       describe("toXmlString", function () {
         it("loads and exports a bpmn file with an empty lane", async function () {
-          const processXml: string = await readFileAsync("./src/test/testfiles/emptylane.bpmn");
+          const processXml: string = await fs.readFile("./src/test/testfiles/emptylane.bpmn", "utf-8");
           const bpmnProcess: BpmnProcess = new BpmnProcess();
           await bpmnProcess.loadXml(processXml);
           const exportedXmlString = await bpmnProcess.toXmlString();
@@ -356,6 +347,35 @@ describe("sdk", function () {
             const extensionValues = BpmnProcess.getExtensionValues(testTaskObject);
 
             expect(extensionValues.sequenceFlowExpression).to.be.equal(sollValue, extensionValues.sequenceFlowExpression! + " == " + sollValue);
+          });
+        });
+
+        describe("convertFieldConfig", () => {
+          const bpmnProcess = new BpmnProcess();
+
+          before(async () => {
+            const xml = await fs.readFile("./src/test/testfiles/alle-feldtypen.bpmn", "utf-8");
+            await bpmnProcess.loadXml(xml);
+          });
+
+          function validateFieldConfigs(fieldDefinitions: IFieldDefinition[]): void {
+            for (const fieldDefinition of fieldDefinitions!) {
+              IFieldConfigSchema.required().validate(fieldDefinition.config);
+              if (fieldDefinition.type === "ProcessHubDateRange") {
+                IDateRangeFieldConfigSchema.required().validate(fieldDefinition.config);
+              }
+            }
+          }
+
+          it("should update field config if task extension is read", () => {
+            const startEvent = bpmnProcess.getExistingActivityObject("StartEvent_4A99CF678C6B929B");
+            const extensions = BpmnProcess.getExtensionValues(startEvent);
+            validateFieldConfigs(extensions.fieldDefinitions!);
+          });
+
+          it("should update field config if field definitions are read", () => {
+            const definitions = bpmnProcess.getFieldDefinitions();
+            validateFieldConfigs(definitions);
           });
         });
 
@@ -586,7 +606,7 @@ describe("sdk", function () {
 
       describe("getFieldDefinitions", function () {
         it("should return the fields in the same order as the tasks and events appear", async () => {
-          const processXml: string = await readFileAsync("./src/test/testfiles/field-order.bpmn");
+          const processXml: string = await fs.readFile("./src/test/testfiles/field-order.bpmn", "utf-8");
           const bpmnProcess: BpmnProcess = new BpmnProcess();
           await bpmnProcess.loadXml(processXml);
 
