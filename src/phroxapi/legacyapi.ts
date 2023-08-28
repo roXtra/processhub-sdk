@@ -177,9 +177,16 @@ export interface IGetStartEventsForDoctypeResponse extends IBaseReply {
       startButtonName?: string;
       startButtonId: string;
     }[];
+    runningInstances: {
+      instanceId: string;
+      instanceUrl: string;
+    }[];
+    multipleRunningInstancesAllowed?: boolean;
+    isUserAllowedToViewProcess?: boolean;
   }[];
 }
 
 export interface IGetStartEventsForDoctypeRequest {
   docTypeId: number;
+  userId: string;
 }
