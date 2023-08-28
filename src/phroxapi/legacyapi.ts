@@ -188,5 +188,5 @@ export interface IGetStartEventsForDoctypeResponse extends IBaseReply {
 
 export interface IGetStartEventsForDoctypeRequest {
   docTypeId: number;
-  userId: string;
+  allowMultipleRunningInstances: boolean;
 }
