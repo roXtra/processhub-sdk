@@ -1278,6 +1278,7 @@ export class BpmnProcess {
       "bpmn:ParallelGateway",
       "bpmn:SequenceFlow",
       "bpmn:EndEvent",
+      "bpmn:IntermediateThrowEvent",
     ]);
   }
 
