@@ -85,6 +85,7 @@ export interface IWebserverConfig {
   port: number;
   baseUrl: string;
   isTestServer?: boolean;
+  maxUploadSizeInMB: number;
 }
 
 // !!!! Changes must also be made to Setup/Config/EFormulareClientSettingsConfig.cs !!!!

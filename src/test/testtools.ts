@@ -176,6 +176,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       Webserver: {
         port: 8397,
         baseUrl: "http://localhost:5051",
+        maxUploadSizeInMB: 300,
       },
       ClientSettings: {
         extendedErrorMessages: true,
