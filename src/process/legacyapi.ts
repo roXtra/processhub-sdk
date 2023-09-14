@@ -137,7 +137,7 @@ enum ArchiveViewType {
 export interface IBaseStateColumn {
   show: boolean;
   field: string;
-  filter: "text" | "numeric" | "boolean" | "date" | undefined;
+  filter: "text" | "numeric" | "boolean" | "date" | "daterange" | undefined;
   filterable?: boolean;
   sortable?: boolean;
   title: string;
