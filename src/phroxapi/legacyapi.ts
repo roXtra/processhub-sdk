@@ -178,15 +178,16 @@ export interface IGetStartEventsForDoctypeResponse extends IBaseReply {
       startButtonId: string;
     }[];
     runningInstances: {
+      title: string;
       instanceId: string;
       instanceUrl: string;
     }[];
-    multipleRunningInstancesAllowed?: boolean;
-    isUserAllowedToViewProcess?: boolean;
+    multipleRunningInstancesAllowed: boolean;
+    isUserAllowedToViewProcess: boolean;
   }[];
 }
 
 export interface IGetStartEventsForDoctypeRequest {
   docTypeId: number;
-  allowMultipleRunningInstances: boolean;
+  roxFileId: number;
 }
