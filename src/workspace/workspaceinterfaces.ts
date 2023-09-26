@@ -4,6 +4,8 @@ import { IGroupDetails } from "../group/groupinterfaces";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces";
 import { IWorkspaceRoles } from "./workspacerights";
 
+export const internalWorkflowsWorkspaceId = "internal-workflows";
+
 export type StateWorkspaceExtras = Omit<IWorkspaceDetails["extras"], "processes" | "archivedProcesses">;
 export type StateWorkspaceDetails = Omit<IWorkspaceDetails, "extras" | "type"> & {
   type: "state";

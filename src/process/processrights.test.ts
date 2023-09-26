@@ -120,7 +120,7 @@ describe("sdk", function () {
         });
 
         it("shouldn't be manager because of insufficient userrights", function () {
-          testProcess.userRights = ProcessAccessRights.StartProcess;
+          testProcess.userRights = ProcessAccessRights.StartProcessByMail;
           expect(isProcessManager(testProcess, testUser)).to.equal(false);
         });
 
@@ -174,7 +174,6 @@ describe("sdk", function () {
 
       describe("canStartProcess", function () {
         before(function () {
-          testProcess.userRights = ProcessAccessRights.StartProcess;
           testUser.licence = Licence.Writer;
         });
 
@@ -187,7 +186,6 @@ describe("sdk", function () {
         });
 
         afterEach(function () {
-          testProcess.userRights = ProcessAccessRights.StartProcess;
           testUser.licence = Licence.Writer;
         });
 

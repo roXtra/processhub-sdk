@@ -94,7 +94,7 @@ export interface IInstanceDetails {
   // Precomputed audit metric that can be used if the questions are not available
   auditMetric?: number;
   workflow?: {
-    // The id of the roXtra document if this is a workflow instance
+    // The id of the roXtra document (source file) if this is a workflow instance
     roXtraFileId?: number;
   };
   extras: {
