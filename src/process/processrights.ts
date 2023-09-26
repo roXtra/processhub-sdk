@@ -1,9 +1,9 @@
 import { tl } from "../tl";
 import { getDefaultRoleGroup, hasEditAccess, IUserDetails, IUserDetailsNoExtras, Licence, PredefinedGroups } from "../user/userinterfaces";
 import { BpmnProcess } from "./bpmn/bpmnprocess";
-import { IWorkspaceDetails, IWorkspaceMember, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { internalWorkflowsWorkspaceId, IWorkspaceDetails, IWorkspaceMember, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
 import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
-import { error } from "../tools/assert";
+import { error, isTrue } from "../tools/assert";
 import { isGroupId, isUserId } from "../tools/guid";
 import { Bpmn } from "./bpmn";
 import isEqual from "lodash/isEqual";
@@ -16,7 +16,6 @@ export enum ProcessAccessRights {
   None = 0,
   EditProcess = 1 << 0,
   ManageProcess = 1 << 1,
-  StartProcess = 1 << 2,
   ViewProcess = 1 << 3,
   ViewAllTodos = 1 << 7, // User can see all instances, not only instance with own role
   StartProcessByMail = 1 << 8, // User can start this process by mail
@@ -201,7 +200,10 @@ export function getProcessRoles(
 }
 
 /**
- * Checks if the current user is potential role owner for a given role - use {@link getPotentialRoleOwners} to check other users
+ * Checks if the current user is potential role owner for a given role - use {@link getPotentialRoleOwnersForProcessRole} to check other users.
+ * This function can not be used to check if the user is potential role owner for a role in workflow instances - when using with workflow instances,
+ * only default process roles can be checked. For workflow instances, getRightsOwners must be used to get the potential role owners depending on the
+ * workflow file.
  * @param userId id of current user
  * @param roleId id of role to check
  * @param workspace workspace details, must be requested with the context of the current user
@@ -226,6 +228,11 @@ export function isPotentialRoleOwner(
   if (!groups) {
     throw new Error("isPotentialRoleOwner called without valid workspace.extras.groups");
   }
+
+  isTrue(
+    workspace.workspaceId !== internalWorkflowsWorkspaceId || (roleId != null && isDefaultRole(roleId)),
+    "Only default process roles can be checked for internal workflows",
+  );
 
   if (roleId == null) {
     // Check if user is PotentialRoleOwner of any role
@@ -295,11 +302,24 @@ function addIfLicenceAllows(
   }
 }
 
-export function getPotentialRoleOwners(
+/**
+ * Retrieves the potential role owners for process roles. For workflow instances, {@link getPotentialRoleOwnersForWorkflowRole} has to be used
+ * to get potential role owners for a workspace role. Groups are resolved, only users are returned.
+ * @param workspaceDetails workspace details
+ * @param processDetails process details, containing process roles
+ * @param roleId role id - if undefined, potential role owners for all roles are returned
+ * @returns { [roleId: string]: IPotentialRoleOwners } map containing the potential role owners by role id
+ */
+export function getPotentialRoleOwnersForProcessRole(
   workspaceDetails: IWorkspaceDetails | StateWorkspaceDetails,
   processDetails: IProcessDetails | StateProcessDetails,
   roleId?: string,
 ): { [roleId: string]: IPotentialRoleOwners } {
+  isTrue(
+    workspaceDetails.workspaceId !== internalWorkflowsWorkspaceId || (roleId != null && isDefaultRole(roleId)),
+    "Only default process roles can be checked for internal workflows",
+  );
+
   const allOwners: { [roleId: string]: IPotentialRoleOwners } = {};
 
   if (processDetails.extras.processRoles == null) {
