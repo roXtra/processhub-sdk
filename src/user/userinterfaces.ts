@@ -40,7 +40,7 @@ export interface IRoxtraUserDetails {
 }
 
 export interface IArchiveViews {
-  [processId: string]: string | undefined;
+  [processOrModuleId: string | number]: string | undefined;
 }
 
 export interface IUserDetailsSmall {
