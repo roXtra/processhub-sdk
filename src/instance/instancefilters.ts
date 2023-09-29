@@ -1,8 +1,5 @@
 import { IInstanceDetails } from "./instanceinterfaces";
 import { IUserDetails } from "../user/userinterfaces";
-import { IWorkspaceDetails, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
-import { IProcessDetails } from "../process/processinterfaces";
-import { StateProcessDetails } from "../process/processstate";
 
 // Helper functions to filter and/or sort instances
 
@@ -24,12 +21,6 @@ export function filterUserInstances(instances: IInstanceDetails[], user?: IUserD
   return filteredInstances;
 }
 
-export function filterSingleInstance(instances: IInstanceDetails[], instanceId: string): IInstanceDetails | undefined {
-  if (!instances) return undefined;
-
-  return instances.find((instance) => instance.instanceId === instanceId && !instance.isSimulation);
-}
-
 // All instance for a process
 export function filterInstancesForProcess(instances: IInstanceDetails[], processId: string): IInstanceDetails[] {
   if (!instances) return [];
@@ -44,28 +35,4 @@ export function filterInstancesForWorkspace(instances: IInstanceDetails[], works
 
   const filteredInstances: IInstanceDetails[] = instances.filter((instance) => instance.workspaceId === workspaceId && !instance.isSimulation);
   return filteredInstances;
-}
-
-// Instances for processes in workspace that user can not see
-export function filterRemainingInstancesForWorkspace(
-  instances: IInstanceDetails[],
-  workspace: IWorkspaceDetails | StateWorkspaceDetails,
-  workspaceProcesses: (IProcessDetails | StateProcessDetails)[] | undefined,
-): IInstanceDetails[] {
-  if (!instances) return [];
-
-  let workspaceInstances = filterInstancesForWorkspace(instances, workspace.workspaceId);
-
-  // GetOtherItems lists the todos for processes without read access - filter the others
-  if (workspaceProcesses) {
-    const filteredInstances: IInstanceDetails[] = [];
-    workspaceInstances.map((instance) => {
-      if (workspaceProcesses?.find((process) => process.processId === instance.processId) == null) {
-        filteredInstances.push(instance);
-      }
-    });
-    workspaceInstances = filteredInstances;
-  }
-
-  return workspaceInstances;
 }
