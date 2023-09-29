@@ -188,6 +188,6 @@ export interface IGetStartEventsForDoctypeResponse extends IBaseReply {
 }
 
 export interface IGetStartEventsForDoctypeRequest {
-  docTypeId: number;
-  roxFileId: number;
+  docTypeId: string;
+  roxFileId: string;
 }
