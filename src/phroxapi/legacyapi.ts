@@ -183,7 +183,6 @@ export interface IGetStartEventsForDoctypeResponse extends IBaseReply {
       instanceUrl: string;
     }[];
     multipleRunningInstancesAllowed: boolean;
-    isUserAllowedToViewProcess: boolean;
   }[];
 }
 
