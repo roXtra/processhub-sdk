@@ -1,6 +1,7 @@
 import * as chai from "chai";
 import chaiExclude from "chai-exclude";
 import fetchWithTimeout from "./fetchwithtimeout";
+import { AxiosRequestConfig } from "axios";
 
 chai.use(chaiExclude);
 
@@ -8,7 +9,7 @@ describe("sdk", function () {
   describe("tools", function () {
     describe("fetchWithTimeout", function () {
       it("should throw error if url is not reachable", async () => {
-        const request: RequestInit = {};
+        const request: AxiosRequestConfig = {};
         return fetchWithTimeout("https://localhost/this/url/is/not/reachable", request)
           .then((onFulfilled) => {
             throw new Error("This must not happen!");
@@ -19,7 +20,7 @@ describe("sdk", function () {
       });
 
       it("should throw error if timeout occurred", async () => {
-        const request: RequestInit = {};
+        const request: AxiosRequestConfig = {};
         // Connect to unreachable url - example.com is defined to be unreachable
         return fetchWithTimeout("http://example.com:81", request, 2000)
           .then((onFulfilled) => {
@@ -31,7 +32,7 @@ describe("sdk", function () {
       });
 
       it("should resolve if url is reachable", async () => {
-        const request: RequestInit = {};
+        const request: AxiosRequestConfig = {};
         return fetchWithTimeout("https://www.roxtra.com", request)
           .then((onFulfilled) => {
             return Promise.resolve();

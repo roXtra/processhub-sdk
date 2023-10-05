@@ -3,6 +3,7 @@ import { IBaseRequest, ApiResult, IBaseError, IBaseMessage, API_FAILED } from ".
 import { getBackendUrl, getBasePath } from "../config";
 import isEmpty from "lodash/isEmpty";
 import fetchWithTimeout, { RequestTimedOutPrefix } from "../tools/fetchwithtimeout";
+import { AxiosRequestConfig } from "axios";
 
 /**
  * @default showErrorModal = true
@@ -36,13 +37,13 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
 
   const url = isEmpty(request) ? getBackendUrl() + path : getBackendUrl() + path + "?" + str.join("&");
 
-  let req: RequestInit;
+  let req: AxiosRequestConfig;
   if (accessToken == null) {
     req = {
       headers: {
         Accept: "application/json",
       },
-      credentials: "include",
+      withCredentials: true,
     };
   } else {
     // In Tests wird AccessToken manuell übergeben, um Anmeldungen zu prüfen
@@ -55,11 +56,13 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
       },
     };
   }
+  req.responseType = "json";
+  req.validateStatus = () => true;
   try {
     const response = await fetchWithTimeout(url, req);
     switch (response.status) {
       case 200: {
-        const json = await response.json();
+        const json = response.data;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (json.result !== ApiResult.API_OK) {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -117,23 +120,23 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
     accessToken = window.__INITIAL_CONFIG__.xAccesstoken;
   }
 
-  let req: RequestInit;
+  let req: AxiosRequestConfig;
   if (accessToken == null) {
     req = {
       method: "POST",
-      body: JSON.stringify(request),
+      data: JSON.stringify(request),
       headers: {
         Accept: "application/json",
         // eslint-disable-next-line @typescript-eslint/naming-convention
         "Content-Type": "application/json",
       },
-      credentials: "include",
+      withCredentials: true,
     };
   } else {
     // In Tests wird AccessToken manuell übergeben, um Anmeldungen zu prüfen
     req = {
       method: "POST",
-      body: JSON.stringify(request),
+      data: JSON.stringify(request),
       headers: {
         Accept: "application/json",
         // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -143,11 +146,13 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       },
     };
   }
+  req.responseType = "json";
+  req.validateStatus = () => true;
   try {
     const response = await fetchWithTimeout(url, req);
     switch (response.status) {
       case 200: {
-        const json = await response.json();
+        const json = response.data;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (json.result !== ApiResult.API_OK) {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -205,13 +210,13 @@ export async function getExternalJson<Request extends IBaseRequest>(
 
   const url = apiEndpointUrl + "?" + str.join("&");
 
-  let req: RequestInit;
+  let req: AxiosRequestConfig;
   if (accessToken == null) {
     req = {
       headers: {
         Accept: "application/json",
       },
-      credentials: "include",
+      withCredentials: true,
     };
   } else {
     // In Tests wird AccessToken manuell übergeben, um Anmeldungen zu prüfen
@@ -223,11 +228,13 @@ export async function getExternalJson<Request extends IBaseRequest>(
       },
     };
   }
+  req.responseType = "json";
+  req.validateStatus = () => true;
   const response = await fetchWithTimeout(url, req);
 
   switch (response.status) {
     case 200: {
-      const json = await response.json();
+      const json = response.data;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (json.result !== ApiResult.API_OK) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access

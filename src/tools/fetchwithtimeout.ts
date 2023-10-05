@@ -1,10 +1,10 @@
-import fetch from "cross-fetch";
 import { executeWithTimeout, TaskTimedOutError } from "./executewithtimeout";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export const RequestTimedOutPrefix = "Fetch request timed out: ";
 
-export default async function (url: string, options: RequestInit, timeoutMS = 60000): Promise<Response> {
-  const fetchRequest = (): Promise<Response> => fetch(url, options);
+export default async function (url: string, options: AxiosRequestConfig, timeoutMS = 60000): Promise<AxiosResponse> {
+  const fetchRequest = (): Promise<AxiosResponse> => axios(url, options);
   return executeWithTimeout(fetchRequest, timeoutMS).catch((err) => {
     if (err instanceof TaskTimedOutError) {
       // Fetch operation timed out
