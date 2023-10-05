@@ -1,11 +1,8 @@
 // Helper functions to filter and/or sort todos
 import { ITodoDetails, TodoType } from "./todointerfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { filterInstancesForProcess, filterRemainingInstancesForWorkspace } from "../instance/instancefilters";
-import { IWorkspaceDetails, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
+import { filterInstancesForProcess } from "../instance/instancefilters";
 import { IUserDetails } from "../user/userinterfaces";
-import { IProcessDetails } from "../process/processinterfaces";
-import { StateProcessDetails } from "../process/processstate";
 import { StateUserDetails } from "../user/phclient";
 
 // Temporary solution during switch from todo.instance -> instances.todos
@@ -57,28 +54,4 @@ export function filterTodosForProcess(instances: IInstanceDetails[], processId: 
 
   const filteredTodos = getTodosFromInstances(filteredInstances);
   return filteredTodos;
-}
-
-// All todos for workspace
-export function filterTodosForWorkspace(instances: IInstanceDetails[], workspaceId: string): ITodoDetails[] {
-  if (!instances) return [];
-
-  const todos = getTodosFromInstances(instances);
-
-  const filteredTodos: ITodoDetails[] = todos.filter((todo) => todo.workspaceId === workspaceId);
-  return filteredTodos;
-}
-
-// Todos for processes in workspace that user can not see
-export function filterRemainingTodosForWorkspace(
-  instances: IInstanceDetails[],
-  workspace: IWorkspaceDetails | StateWorkspaceDetails,
-  workspaceProcesses: (IProcessDetails | StateProcessDetails)[] | undefined,
-): ITodoDetails[] {
-  if (!instances) return [];
-
-  const filteredInstances = filterRemainingInstancesForWorkspace(instances, workspace, workspaceProcesses);
-
-  const workspaceTodos = getTodosFromInstances(filteredInstances);
-  return workspaceTodos;
 }
