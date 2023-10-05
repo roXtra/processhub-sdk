@@ -27,7 +27,7 @@ describe("sdk", function () {
             throw new Error("This must not happen!");
           })
           .catch((err: Error) => {
-            chai.expect(err.message).eq("Fetch request timed out: Request was to url http://example.com:81 with timeout 2000", "Request did not timeout correctly!");
+            chai.expect(err.message).eq("Request timed out: Request was to url http://example.com:81 with timeout 2000", "Request did not timeout correctly!");
           });
       });
 
