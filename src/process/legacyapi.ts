@@ -167,18 +167,18 @@ export interface IArchiveViewDetails {
 }
 
 export interface IAddArchiveViewRequest extends IBaseRequest {
-  processId: string;
+  processId: string | undefined;
   publicView: boolean;
   details: IArchiveViewDetails;
 }
 
 export interface IDeleteArchiveViewRequest extends IBaseRequest {
-  processId: string;
+  processId: string | undefined;
   viewId: string;
 }
 
 export interface IGetArchiveViewsRequest extends IBaseRequest {
-  processId: string;
+  processId: string | undefined;
 }
 
 export interface IGetArchiveViewsReply extends IBaseReply {

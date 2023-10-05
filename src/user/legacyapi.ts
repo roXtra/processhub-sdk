@@ -31,7 +31,7 @@ export interface IUserLoadedMessage extends IBaseMessage {
 }
 
 export interface ISetArchiveViewStateRequest extends IBaseRequest {
-  processId: string;
+  processId: string | undefined;
   archiveViewId: string | undefined;
 }
 
@@ -71,6 +71,6 @@ export interface IAddFavoriteProcessMessage extends IRemoveFavoriteProcessMessag
 
 export interface ISetArchiveViewMessage extends IBaseMessage {
   type: UserMessages;
-  processId: string;
+  processOrModuleId: string | number;
   viewId?: string;
 }
