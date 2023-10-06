@@ -57,6 +57,7 @@ export interface IUserDetailsNoExtras extends IUserDetailsSmall {
   extendedRights: ExtendedRight[];
   language?: Language; // Preferred User language (de-DE, en-US, ...)
   status: UserStatus;
+  fields: { [key: string]: string | number }; // Fields that are configured in users.xml
 }
 
 export interface IUserDetails extends IUserDetailsNoExtras {
@@ -102,6 +103,7 @@ export const emptyUser: IUserDetails = {
   extendedRights: [],
   favoriteProcesses: [],
   status: UserStatus.None,
+  fields: {},
 };
 
 export function getUserWorkspace(user: IUserDetails, workspaceId: string): IWorkspaceDetails | undefined {
