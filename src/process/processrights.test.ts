@@ -42,6 +42,7 @@ const testUser: IUserDetails = {
   extendedRights: [],
   favoriteProcesses: [],
   status: UserStatus.Active,
+  fields: {},
 };
 
 describe("sdk", function () {
