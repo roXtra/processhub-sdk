@@ -14,6 +14,7 @@ import { Language } from "../tl";
 export const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 export const riskmetricRegExp = /riskMetric\['([^'\]]*)'\]/;
 export const roleNameRegExp = /role\['([^'\]]*)'\](\.(firstName|lastName|displayName|mail))?/;
+const roleUserFieldRegExp = /role\['([^'\]]*)'\]\.fields\.([a-zA-Z0-9]+)?/;
 
 export function replaceAll(target: string, search: string, replacement?: string, isQuery?: boolean): string {
   if (!replacement) {
@@ -171,6 +172,8 @@ export function parseAndInsertStringWithFieldContent(
     match = fieldNameRegExp.exec(result);
   }
 
+  result = replaceRoleUserFields(result, processOrRoles, roleOwners, defaultValue, isQuery);
+
   const groupIndexForRolePlaceholder = 0;
   const groupIndexForRoleIdentifier = 1;
   const groupIndexForRoleProperty = 3;
@@ -270,6 +273,41 @@ interface ILegacyProperty {
 export interface ILegacySchema {
   properties: { [id: string]: ILegacyProperty };
 }
+
+export function replaceRoleUserFields(
+  result: string,
+  processOrRoles: IProcessRoles | BpmnProcess,
+  roleOwners: IRoleOwnerMap,
+  defaultValue: string,
+  isQuery: boolean | undefined,
+): string {
+  let match = roleUserFieldRegExp.exec(result);
+
+  while (match) {
+    const placeHolder = match[0];
+    const roleName = match[1];
+    const fieldId = match[2];
+    if (roleName && fieldId) {
+      const laneId =
+        processOrRoles instanceof BpmnProcess
+          ? processOrRoles.getLanes(false).find((l) => l.name === roleName)?.id
+          : Object.keys(processOrRoles).find((key) => processOrRoles[key].roleName == roleName);
+      if (laneId) {
+        const roleOwner: IRoleOwner[] = roleOwners[laneId];
+        if (roleOwner && roleOwner.length) {
+          result = replaceAll(result, placeHolder, roleOwner[0].user?.fields[fieldId]?.toString() ?? defaultValue, isQuery);
+        } else {
+          result = replaceAll(result, placeHolder, defaultValue, isQuery);
+        }
+      }
+    }
+
+    result = replaceAll(result, placeHolder, defaultValue, isQuery);
+    match = roleUserFieldRegExp.exec(result);
+  }
+  return result;
+}
+
 export function updateLegacyFieldDefinitions(definitions: ILegacySchema): IFieldDefinition[] {
   if (!(definitions instanceof Array)) {
     const properties: { [id: string]: ILegacyProperty } = definitions.properties;

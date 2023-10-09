@@ -77,4 +77,6 @@ export interface IInitialConfig extends IClientSettingsConfig {
   defaultServerLanguage: string;
   aiCompletionProvider: AiCompletionProviders;
   campusLicence: boolean;
+  // Custom user fields as defined in users.xml
+  userFields: { caption: string; fieldId: string }[];
 }
