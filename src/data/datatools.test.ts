@@ -7,6 +7,7 @@ import { createBpmnTemplate } from "../process/bpmn/bpmnmoddlehelper";
 import { getProcessRoles, IProcessRoles, IRoleOwnerMap } from "../process/processrights";
 import Joi from "joi";
 import { createId } from "../tools/guid";
+import { IUserDetailsNoExtras, Licence, UserStatus } from "../user/userinterfaces";
 
 describe("sdk", function () {
   describe("data", function () {
@@ -33,6 +34,40 @@ describe("sdk", function () {
       });
 
       describe("parseAndInsertStringWithFieldContent", function () {
+        it("should replace user fields", () => {
+          const testString =
+            "Hallo role['Ersteller'].fields.Salutation role['Ersteller'].firstName role['Ersteller'].lastName, die Anschrift lautet: role['Ersteller'].fields.Address1";
+          const resultString = "Hallo Frau Vorname Nachname, die Anschrift lautet: Schillerstr. 21";
+
+          const user: IUserDetailsNoExtras = {
+            licence: Licence.Writer,
+            extendedRights: [],
+            status: UserStatus.Active,
+            fields: { Salutation: "Frau", Address1: "Schillerstr. 21" },
+            userId: "1",
+            displayName: "Nachname, Vorname",
+            firstName: "Vorname",
+            lastName: "Nachname",
+            mail: "",
+          };
+
+          const res = DataTools.parseAndInsertStringWithFieldContent(
+            testString,
+            { existiert: { value: "Teststring eingesetzt!", type: "ProcessHubTextInput" } },
+            {
+              ["Lane_7A0DD19E05A33282"]: {
+                potentialRoleOwners: [],
+                roleName: "Ersteller",
+                isStartingRole: true,
+              },
+            },
+            { ["Lane_7A0DD19E05A33282"]: [{ memberId: user.userId, user }] },
+            "de-DE",
+          );
+
+          assert.equal(res, resultString);
+        });
+
         it("should replace field values", function () {
           const testString = "Hallo {{ field.existiert }}, wie gehts {{ field.existiertnicht }}\n{trölölö} {{{moepmoep}}}\n{{ field.existiert2 }}\n";
           const resultString = "Hallo Teststring eingesetzt!, wie gehts \n{trölölö} {{{moepmoep}}}\n\n";
