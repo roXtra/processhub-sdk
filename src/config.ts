@@ -52,6 +52,21 @@ export function getBasePath(): string {
   return path.toLowerCase();
 }
 
+export interface IUserFieldsConfig {
+  fields: {
+    caption: string;
+    id: string;
+    rawcaption: string;
+    type: "select" | "string" | "int";
+    // Fieldvalueswithcaption is only defined if type is select
+    fieldvalueswithcaption?: {
+      caption: string;
+      rawcaption: string;
+      value: string;
+    }[];
+  }[];
+}
+
 export interface IInitialConfig extends IClientSettingsConfig {
   roXtraUrl: string;
   roXtraVersion: string;
@@ -78,5 +93,5 @@ export interface IInitialConfig extends IClientSettingsConfig {
   aiCompletionProvider: AiCompletionProviders;
   campusLicence: boolean;
   // Custom user fields as defined in users.xml
-  userFields: { caption: string; fieldId: string }[];
+  userFields: IUserFieldsConfig;
 }

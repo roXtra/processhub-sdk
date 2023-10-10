@@ -9,6 +9,7 @@ import { BpmnProcess } from "../process/bpmn/bpmnprocess";
 import { IFileStore } from "../filestore/ifilestore";
 import { IGenerateReportRequestType } from "../instance/legacyapi";
 import { IConfig } from "../serverconfig/iconfig";
+import { IUserFieldsConfig } from "../config";
 
 /**
  * Provide logging for ServiceTasks
@@ -69,6 +70,7 @@ export interface IServiceTaskRoxApi {
   getApiToken(): string;
   getRoxtraTokenByUserId(userId: string): Promise<string>;
   getSupervisor(userId: string): Promise<{ type: "group" | "user" | "error"; value: string | number }>;
+  getUsersConfig(): Promise<IUserFieldsConfig>;
 }
 
 /**

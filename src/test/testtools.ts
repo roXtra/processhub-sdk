@@ -5,6 +5,7 @@ import { IProcessDetails } from "../process/processinterfaces";
 import { IWorkspaceDetails, WorkspaceRole } from "../workspace/workspaceinterfaces";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { emptyUser, IUserDetails } from "../user/userinterfaces";
+import { testUserFieldsConfig } from "../data/datatools.test";
 
 export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTaskEnvironment {
   return {
@@ -40,6 +41,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       getSupervisor: async (): Promise<{ type: "group" | "user" | "error"; value: string | number }> => {
         throw new Error("Not implemented");
       },
+      getUsersConfig: () => Promise.resolve(testUserFieldsConfig),
     },
     workspace: {
       workspaceId: "",
