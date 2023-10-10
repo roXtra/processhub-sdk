@@ -10,6 +10,7 @@ import { BpmnProcess } from "../process/bpmn/bpmnprocess";
 import { replaceOldFieldSyntax } from "../tools/stringtools";
 import { IInstanceDetails } from "../instance/instanceinterfaces";
 import { Language } from "../tl";
+import { IUserFieldsConfig } from "../config";
 
 export const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 export const riskmetricRegExp = /riskMetric\['([^'\]]*)'\]/;
@@ -81,6 +82,7 @@ export function parseAndInsertStringWithFieldContent(
   processOrRoles: IProcessRoles,
   roleOwners: IRoleOwnerMap,
   locale: Language,
+  userFieldsConfig: IUserFieldsConfig,
   isQuery?: boolean,
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
@@ -93,6 +95,7 @@ export function parseAndInsertStringWithFieldContent(
   processOrRoles: BpmnProcess,
   roleOwners: IRoleOwnerMap,
   locale: Language,
+  userFieldsConfig: IUserFieldsConfig,
   isQuery?: boolean,
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
@@ -105,6 +108,7 @@ export function parseAndInsertStringWithFieldContent(
   processOrRoles: BpmnProcess | IProcessRoles,
   roleOwners: IRoleOwnerMap,
   locale: Language,
+  userFieldsConfig: IUserFieldsConfig,
   isQuery?: boolean,
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
@@ -172,7 +176,7 @@ export function parseAndInsertStringWithFieldContent(
     match = fieldNameRegExp.exec(result);
   }
 
-  result = replaceRoleUserFields(result, processOrRoles, roleOwners, defaultValue, isQuery);
+  result = replaceRoleUserFields(result, processOrRoles, roleOwners, defaultValue, userFieldsConfig, isQuery);
 
   const groupIndexForRolePlaceholder = 0;
   const groupIndexForRoleIdentifier = 1;
@@ -279,6 +283,7 @@ export function replaceRoleUserFields(
   processOrRoles: IProcessRoles | BpmnProcess,
   roleOwners: IRoleOwnerMap,
   defaultValue: string,
+  userFieldsConfig: IUserFieldsConfig,
   isQuery: boolean | undefined,
 ): string {
   let match = roleUserFieldRegExp.exec(result);
@@ -295,7 +300,13 @@ export function replaceRoleUserFields(
       if (laneId) {
         const roleOwner: IRoleOwner[] = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {
-          result = replaceAll(result, placeHolder, roleOwner[0].user?.fields[fieldId]?.toString() ?? defaultValue, isQuery);
+          let replaceWith = roleOwner[0].user?.fields[fieldId]?.toString();
+          const userField = userFieldsConfig.fields.find((f) => f.id === fieldId);
+          if (userField?.type === "select") {
+            const selectVal = userField.fieldvalueswithcaption?.find((v) => v.value === replaceWith);
+            replaceWith = selectVal?.caption ?? replaceWith;
+          }
+          result = replaceAll(result, placeHolder, replaceWith ?? defaultValue, isQuery);
         } else {
           result = replaceAll(result, placeHolder, defaultValue, isQuery);
         }
