@@ -49,8 +49,6 @@ export interface ISetCorporateDesignRequest {
   ButtonHoverColor: string;
   MainFontColor: string;
   MenuFontColor: string;
-  MenuFontHoverColor: string;
-  SubMenuColor: string;
   Darkblue: string;
   Warningred: string;
   Logo: string;
