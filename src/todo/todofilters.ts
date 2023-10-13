@@ -22,7 +22,9 @@ export function getTodosFromInstances(instances: IInstanceDetails[]): ITodoDetai
 export function filterUserTodos(todos: ITodoDetails[], user: IUserDetails | StateUserDetails): ITodoDetails[] {
   if (!user || !todos) return [];
 
-  const filteredTodos: ITodoDetails[] = todos.filter((todo) => todo.todoType !== TodoType.Simulation && todo.userId === user.userId);
+  const filteredTodos: ITodoDetails[] = todos.filter(
+    (todo) => todo.todoType !== TodoType.Simulation && todo.todoType !== TodoType.Intermediate && todo.userId === user.userId,
+  );
 
   return filteredTodos;
 }
@@ -31,7 +33,7 @@ export function filterUserTodos(todos: ITodoDetails[], user: IUserDetails | Stat
 export function filterUnassignedTodos(todos: ITodoDetails[]): ITodoDetails[] {
   if (!todos) return [];
 
-  const filteredTodos: ITodoDetails[] = todos.filter((todo) => todo.todoType !== TodoType.Simulation && todo.userId == null);
+  const filteredTodos: ITodoDetails[] = todos.filter((todo) => todo.todoType !== TodoType.Simulation && todo.todoType !== TodoType.Intermediate && todo.userId == null);
 
   return filteredTodos;
 }
@@ -52,6 +54,8 @@ export function filterTodosForProcess(instances: IInstanceDetails[], processId: 
 
   const filteredInstances = filterInstancesForProcess(instances, processId);
 
-  const filteredTodos = getTodosFromInstances(filteredInstances);
+  const todos = getTodosFromInstances(filteredInstances);
+
+  const filteredTodos: ITodoDetails[] = todos.filter((todo) => todo.todoType !== TodoType.Intermediate);
   return filteredTodos;
 }
