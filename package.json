@@ -65,7 +65,7 @@
     "@types/luxon": "^3.3.3",
     "@types/mocha": "^10.0.3",
     "@types/node": "^18.18.9",
-    "@types/react": "^18.2.33",
+    "@types/react": "^18.2.37",
     "@types/sqlstring": "^2.3.2",
     "@types/utf8": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
