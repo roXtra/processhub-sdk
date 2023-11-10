@@ -145,6 +145,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         database: "EFormulare",
         encrypt: true,
         poolSize: 300,
+        port: undefined,
       },
       Filestore: {
         baseDir: "c:\\Roxtra\\doc\\eformulare",

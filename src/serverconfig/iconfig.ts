@@ -41,6 +41,7 @@ export interface IDatabaseConfig {
   database: string;
   encrypt: boolean;
   poolSize: number;
+  port: number | undefined;
 }
 
 // !!!! Changes must also be made to Setup/Config/EFormulareFilestoreConfig.cs !!!!
