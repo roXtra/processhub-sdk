@@ -11,12 +11,12 @@ describe("sdk", function () {
 
         it("passes validation for requests of all types of RequestedInstanceReportType", function () {
           for (const reportType in RequestedInstanceReportType) {
-            if (isNaN(Number(reportType))) {
+            if (isNaN(+reportType)) {
               continue;
             }
             let reportRequest: IGenerateReportRequest;
 
-            switch (Number(reportType)) {
+            switch (+reportType) {
               case RequestedInstanceReportType.PROCESSES_REGULAR:
                 reportRequest = {
                   reportType: RequestedInstanceReportType.PROCESSES_REGULAR,
