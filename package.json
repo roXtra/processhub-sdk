@@ -37,7 +37,7 @@
     "bpmn-moddle": "^8.0.1",
     "joi": "^17.11.0",
     "lodash": "^4.17.21",
-    "luxon": "^3.4.3",
+    "luxon": "^3.4.4",
     "murmurhash": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
