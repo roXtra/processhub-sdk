@@ -16,7 +16,7 @@ describe("sdk", function () {
             }
             let reportRequest: IGenerateReportRequest;
 
-            switch (Number(reportType)) {
+            switch (Number(reportType) as RequestedInstanceReportType) {
               case RequestedInstanceReportType.PROCESSES_REGULAR:
                 reportRequest = {
                   reportType: RequestedInstanceReportType.PROCESSES_REGULAR,
