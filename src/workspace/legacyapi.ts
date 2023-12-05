@@ -23,3 +23,14 @@ export interface IUpdateWorkspaceRolesRequest extends IBaseRequest {
 export interface IUpdateWorkspaceRolesReply extends IBaseReply {
   workspace?: IWorkspaceDetails;
 }
+
+export enum RequestedWorkspaceReportType {
+  /**
+   * Represents a regular workspace report request
+   */
+  WORKSPACE_REGULAR = 1,
+  /**
+   * Represents an workspace audit trail report request
+   */
+  AUDIT_TRAIL = 6,
+} 
