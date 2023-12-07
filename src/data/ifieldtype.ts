@@ -28,6 +28,18 @@ export type GetInputParams<ConfigType extends IFieldConfig, ValueType extends Fi
   pendingFieldContents: IFieldContentMap;
 };
 
+export interface IBaseGrid {
+  getFieldValueForDataItem(
+    dataItem: {
+      [key: string]: string | {} | number | undefined;
+    },
+    fieldName: string,
+  ): { fieldValue: IFieldValue | undefined; instance: IInstanceDetails | undefined };
+  getFieldDefinitionByName(fieldName: string): IFieldDefinition | undefined;
+  spreadSheetMap: Map<string, {}>;
+  onSpreadSheetLinkClicked: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => Promise<void>;
+}
+
 export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends FieldValueType> {
   getType(): FieldType;
   getName(userLanguage: string): string;
@@ -88,7 +100,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
   ): string | Date | number | undefined;
   renderValueForGrid(
     fieldName: string,
-    baseGrid: Component,
+    baseGrid: IBaseGrid,
     process?: IProcessDetails | StateProcessDetails,
     user?: StateUserDetails | IUserDetails,
   ): ((props: { dataItem: unknown }) => React.JSX.Element) | undefined;

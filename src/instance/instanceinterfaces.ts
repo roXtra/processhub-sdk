@@ -83,8 +83,13 @@ export interface IInstanceDetails {
   subInstanceIds?: string[];
   parentProcessConfigObject?: IParentProcessConfig;
   riskAssessments?: IRiskAssessment[];
-  // Instances with ProcessLink fields that have the current instance as target
-  linkingInstances?: IProcessLinkInstance[];
+  // Instances with ProcessLink fields that have the current instance as target or source
+  instanceLinks?: {
+    // Instances with ProcessLink fields that have the current instance as target
+    incoming: IProcessLinkInstance[];
+    // Instances with ProcessLink fields that have the current instance as source
+    outgoing: IProcessLinkInstance[];
+  };
   instanceNumber?: number;
   takenStartEvent: string;
   reachedEndEvents: string[];
