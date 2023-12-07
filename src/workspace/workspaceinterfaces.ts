@@ -66,8 +66,3 @@ export interface IWorkspaceColor {
   color: string;
   title: string;
 }
-export interface IWorkspaceReportDraft {
-  draftId: string;
-  fileName: string;
-  url: string;
-}
