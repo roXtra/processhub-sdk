@@ -1,12 +1,14 @@
 import { expect } from "chai";
 import { IGenerateReportRequest, IGenerateReportRequestSchema, RequestedReportType } from "./legacyapi";
+import { IGenerateWorkspaceReportRequest, IGenerateWorkspaceReportRequestSchema } from "../workspace/legacyapi";
 
 describe("sdk", function () {
   describe("instance", function () {
     describe("legacyapi", function () {
       describe("IGenerateReportRequest", function () {
-        function validateIgenerateReportRequest(request: IGenerateReportRequest): void {
-          expect(IGenerateReportRequestSchema.validate(request).error).is.undefined;
+        function validateIgenerateReportRequest(request: IGenerateReportRequest | IGenerateWorkspaceReportRequest): void {
+          if (request.reportType === RequestedReportType.WORKSPACE_AUDIT_TRAIL) expect(IGenerateWorkspaceReportRequestSchema.validate(request).error).is.undefined;
+          else expect(IGenerateReportRequestSchema.validate(request).error).is.undefined;
         }
 
         it("passes validation for requests of all types of RequestedInstanceReportType", function () {
@@ -14,7 +16,7 @@ describe("sdk", function () {
             if (isNaN(Number(reportType))) {
               continue;
             }
-            let reportRequest: IGenerateReportRequest;
+            let reportRequest: IGenerateReportRequest | IGenerateWorkspaceReportRequest;
 
             switch (Number(reportType) as RequestedReportType) {
               case RequestedReportType.PROCESSES_REGULAR:
@@ -90,6 +92,15 @@ describe("sdk", function () {
                   processId: "456",
                   instanceIds: [],
                   resultingFileType: "docx",
+                  moduleId: 1,
+                };
+                break;
+              case RequestedReportType.WORKSPACE_AUDIT_TRAIL:
+                reportRequest = {
+                  reportType: RequestedReportType.WORKSPACE_AUDIT_TRAIL,
+                  draftId: "123",
+                  resultingFileType: "docx",
+                  workspaceId: "1",
                   moduleId: 1,
                 };
                 break;

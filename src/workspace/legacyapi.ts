@@ -67,4 +67,4 @@ const IGenerateWorkspaceReportRequestObject: IGenerateWorkspaceReportRequest = {
   ...IBaseRequestObject,
 };
 
-export const IGenerateReportRequestSchema = Joi.object(IGenerateWorkspaceReportRequestObject);
+export const IGenerateWorkspaceReportRequestSchema = Joi.object(IGenerateWorkspaceReportRequestObject);
