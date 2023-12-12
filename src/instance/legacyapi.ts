@@ -191,7 +191,7 @@ export type IGenerateReportRequestType = (typeof IGenerateReportRequestTypeOptio
  * Type of the requested report.
  * Defines which input data is provided to the ReportGenerator.
  */
-export enum RequestedInstanceReportType {
+export enum RequestedReportType {
   /**
    * Represents a regular Processes report request
    */
@@ -220,21 +220,25 @@ export enum RequestedInstanceReportType {
    * Represents an Process View report request
    */
   PROCESS_VIEW = 7,
+  /**
+   * Represents a workspace audit trail report request
+   */
+  WORKSPACE_AUDIT_TRAIL = 8,
 }
 
 /**
  * Helper union type for RequestedInstanceReportType
  */
 type RequestedInstanceReportUnionType =
-  | RequestedInstanceReportType.PROCESSES_REGULAR
-  | RequestedInstanceReportType.PROCESSES_STATISTICS
-  | RequestedInstanceReportType.RISKS
-  | RequestedInstanceReportType.GENERIC_MODULE
-  | RequestedInstanceReportType.AUDIT
-  | RequestedInstanceReportType.AUDIT_TRAIL
-  | RequestedInstanceReportType.PROCESS_VIEW;
+  | RequestedReportType.PROCESSES_REGULAR
+  | RequestedReportType.PROCESSES_STATISTICS
+  | RequestedReportType.RISKS
+  | RequestedReportType.GENERIC_MODULE
+  | RequestedReportType.AUDIT
+  | RequestedReportType.AUDIT_TRAIL
+  | RequestedReportType.PROCESS_VIEW;
 
-interface IGenerateReportForProcessesInstancesCommonData<TYPE extends RequestedInstanceReportType> extends IBaseRequest {
+interface IGenerateReportForProcessesInstancesCommonData<TYPE extends RequestedReportType> extends IBaseRequest {
   reportType: TYPE;
   instanceIds: string[];
   processId: string;
@@ -246,14 +250,14 @@ interface IGenerateReportForProcessesInstancesCommonData<TYPE extends RequestedI
  * Represents a Generate Report request for the regular processes instances
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IGenerateReportForProcessesInstancesRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.PROCESSES_REGULAR> {
+interface IGenerateReportForProcessesInstancesRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.PROCESSES_REGULAR> {
   // Requires no additional data
 }
 
 /**
  * Represents a Generate Report request for the processes statistics
  */
-interface IGenerateReportForProcessesStatisticsRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.PROCESSES_STATISTICS> {
+interface IGenerateReportForProcessesStatisticsRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.PROCESSES_STATISTICS> {
   statisticsChart: IStatisticsChartDetails;
 }
 
@@ -261,7 +265,7 @@ interface IGenerateReportForProcessesStatisticsRequest extends IGenerateReportFo
  * Represents a Generate Report request for the regular risks instances
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IGenerateReportForRisksRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.RISKS> {
+interface IGenerateReportForRisksRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.RISKS> {
   // Requires no additional data
 }
 
@@ -269,7 +273,7 @@ interface IGenerateReportForRisksRequest extends IGenerateReportForProcessesInst
  * Represents a Generate Report request for the regular instances in generic modules
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IGenerateReportForGenericModulesRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.GENERIC_MODULE> {
+interface IGenerateReportForGenericModulesRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.GENERIC_MODULE> {
   // Requires no additional data
 }
 
@@ -277,7 +281,7 @@ interface IGenerateReportForGenericModulesRequest extends IGenerateReportForProc
  * Represents a Generate Report request for the regular instances in module Audit
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IGenerateReportForAuditInstancesRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.AUDIT> {
+interface IGenerateReportForAuditInstancesRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.AUDIT> {
   // Requires no additional data
 }
 
@@ -285,7 +289,7 @@ interface IGenerateReportForAuditInstancesRequest extends IGenerateReportForProc
  * Represents a Generate Report request for the audit trail
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IGenerateReportForAuditTrailRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.AUDIT_TRAIL> {
+interface IGenerateReportForAuditTrailRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.AUDIT_TRAIL> {
   // Requires no additional data
 }
 
@@ -293,7 +297,7 @@ interface IGenerateReportForAuditTrailRequest extends IGenerateReportForProcesse
  * Represents a Generate Report request for the process view
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IGenerateReportForProcessViewRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedInstanceReportType.PROCESS_VIEW> {
+interface IGenerateReportForProcessViewRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.PROCESS_VIEW> {
   // Requires no additional data
 }
 
@@ -309,13 +313,13 @@ export type IGenerateReportRequest =
 const IGenerateReportRequestObject: IGenerateReportRequest = {
   reportType: Joi.number()
     .valid(
-      RequestedInstanceReportType.PROCESSES_REGULAR,
-      RequestedInstanceReportType.PROCESSES_STATISTICS,
-      RequestedInstanceReportType.RISKS,
-      RequestedInstanceReportType.GENERIC_MODULE,
-      RequestedInstanceReportType.AUDIT,
-      RequestedInstanceReportType.AUDIT_TRAIL,
-      RequestedInstanceReportType.PROCESS_VIEW,
+      RequestedReportType.PROCESSES_REGULAR,
+      RequestedReportType.PROCESSES_STATISTICS,
+      RequestedReportType.RISKS,
+      RequestedReportType.GENERIC_MODULE,
+      RequestedReportType.AUDIT,
+      RequestedReportType.AUDIT_TRAIL,
+      RequestedReportType.PROCESS_VIEW,
     )
     .required() as unknown as RequestedInstanceReportUnionType,
   instanceIds: Joi.array().items(Joi.string()).required() as unknown as string[],
@@ -327,7 +331,7 @@ const IGenerateReportRequestObject: IGenerateReportRequest = {
 
   // If it is a PROCESSES_STATISTICS request -> Require specific data for this type of request
   statisticsChart: Joi.alternatives().conditional("reportType", {
-    is: RequestedInstanceReportType.PROCESSES_STATISTICS,
+    is: RequestedReportType.PROCESSES_STATISTICS,
     then: Joi.object(IStatisticsChartObject).allow({}),
     otherwise: Joi.forbidden(),
   }) as unknown as IStatisticsChartDetails,

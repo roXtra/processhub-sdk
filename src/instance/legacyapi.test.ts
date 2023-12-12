@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { IGenerateReportRequest, IGenerateReportRequestSchema, RequestedInstanceReportType } from "./legacyapi";
+import { IGenerateReportRequest, IGenerateReportRequestSchema, RequestedReportType } from "./legacyapi";
 
 describe("sdk", function () {
   describe("instance", function () {
@@ -10,16 +10,16 @@ describe("sdk", function () {
         }
 
         it("passes validation for requests of all types of RequestedInstanceReportType", function () {
-          for (const reportType in RequestedInstanceReportType) {
+          for (const reportType in RequestedReportType) {
             if (isNaN(Number(reportType))) {
               continue;
             }
             let reportRequest: IGenerateReportRequest;
 
-            switch (Number(reportType) as RequestedInstanceReportType) {
-              case RequestedInstanceReportType.PROCESSES_REGULAR:
+            switch (Number(reportType) as RequestedReportType) {
+              case RequestedReportType.PROCESSES_REGULAR:
                 reportRequest = {
-                  reportType: RequestedInstanceReportType.PROCESSES_REGULAR,
+                  reportType: RequestedReportType.PROCESSES_REGULAR,
                   draftId: "123",
                   processId: "456",
                   instanceIds: [],
@@ -27,9 +27,9 @@ describe("sdk", function () {
                   moduleId: 1,
                 };
                 break;
-              case RequestedInstanceReportType.PROCESSES_STATISTICS:
+              case RequestedReportType.PROCESSES_STATISTICS:
                 reportRequest = {
-                  reportType: RequestedInstanceReportType.PROCESSES_STATISTICS,
+                  reportType: RequestedReportType.PROCESSES_STATISTICS,
                   draftId: "123",
                   processId: "456",
                   instanceIds: [],
@@ -43,9 +43,9 @@ describe("sdk", function () {
                   },
                 };
                 break;
-              case RequestedInstanceReportType.RISKS:
+              case RequestedReportType.RISKS:
                 reportRequest = {
-                  reportType: RequestedInstanceReportType.RISKS,
+                  reportType: RequestedReportType.RISKS,
                   draftId: "123",
                   processId: "456",
                   instanceIds: [],
@@ -53,9 +53,9 @@ describe("sdk", function () {
                   moduleId: 3,
                 };
                 break;
-              case RequestedInstanceReportType.GENERIC_MODULE:
+              case RequestedReportType.GENERIC_MODULE:
                 reportRequest = {
-                  reportType: RequestedInstanceReportType.GENERIC_MODULE,
+                  reportType: RequestedReportType.GENERIC_MODULE,
                   draftId: "123",
                   processId: "456",
                   instanceIds: [],
@@ -63,9 +63,9 @@ describe("sdk", function () {
                   moduleId: 9,
                 };
                 break;
-              case RequestedInstanceReportType.AUDIT:
+              case RequestedReportType.AUDIT:
                 reportRequest = {
-                  reportType: RequestedInstanceReportType.AUDIT,
+                  reportType: RequestedReportType.AUDIT,
                   draftId: "123",
                   processId: "456",
                   instanceIds: [],
@@ -73,9 +73,9 @@ describe("sdk", function () {
                   moduleId: 10,
                 };
                 break;
-              case RequestedInstanceReportType.AUDIT_TRAIL:
+              case RequestedReportType.AUDIT_TRAIL:
                 reportRequest = {
-                  reportType: RequestedInstanceReportType.AUDIT_TRAIL,
+                  reportType: RequestedReportType.AUDIT_TRAIL,
                   draftId: "123",
                   processId: "456",
                   instanceIds: [],
@@ -83,9 +83,9 @@ describe("sdk", function () {
                   moduleId: 1,
                 };
                 break;
-              case RequestedInstanceReportType.PROCESS_VIEW:
+              case RequestedReportType.PROCESS_VIEW:
                 reportRequest = {
-                  reportType: RequestedInstanceReportType.PROCESS_VIEW,
+                  reportType: RequestedReportType.PROCESS_VIEW,
                   draftId: "123",
                   processId: "456",
                   instanceIds: [],
