@@ -9,6 +9,7 @@ export const UserRequestRoutes = {
   UpdateViewState: "/api/user/updateviewstate",
   SetFavoriteProcess: "/api/user/setfavoriteprocess",
   RemoveFavoriteProcess: "/api/user/removefavoriteprocess",
+  LogComponentError: "/api/user/logcomponenterror",
 };
 export type UserRequestRoutes = keyof typeof UserRequestRoutes;
 
@@ -73,4 +74,9 @@ export interface ISetArchiveViewMessage extends IBaseMessage {
   type: UserMessages;
   processOrModuleId: string | number;
   viewId?: string;
+}
+
+export interface ILogComponentErrorRequest extends IBaseRequest {
+  error: string;
+  info: string;
 }
