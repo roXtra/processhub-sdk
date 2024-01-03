@@ -37,7 +37,10 @@ export interface IUpdateTodoRequest extends IBaseRequest {
 export type IUpdateTodoReply = IBaseReply;
 
 export interface IGetAmountOfUserTodosReply extends IBaseReply {
+  // Total amount of todos for the user (including overdue)
   todoAmount: number;
+  // Amount of todos that are overdue
+  overdueTodoAmount: number;
 }
 
 export interface ISetTodoPriorityRequest extends IBaseRequest {
