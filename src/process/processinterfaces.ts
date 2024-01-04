@@ -206,6 +206,7 @@ export type BpmnExtensionName =
   | "sequenceflow-expression"
   | "isBuilder-expression"
   | "fields-which-should-send"
+  | "attachmentfields-which-should-send" // Fileuploadfields that should be sent as attachments in sendtask
   | "datefield-for-timercatch"
   | "daterangefield-for-timercatch" // String:
   | "script-task-code"
@@ -230,6 +231,7 @@ export interface ITaskExtensions {
   sendTaskWithFieldContents: boolean;
   sendTaskInstanceLink: boolean;
   sendTaskSubject?: string;
+  sendTaskAttachmentFields?: string[];
   allFieldsEditable: boolean;
   viewAllFields: boolean;
   allowTaskClaim: boolean;

@@ -17,6 +17,7 @@ export interface ISendMailTemplateRequest extends IBaseRequest {
   signature?: string;
   subject: string;
   instance: IInstanceDetails;
+  attachmentFiles?: string[];
 }
 
 export interface ISendMailTemplateReply extends IBaseReply {
