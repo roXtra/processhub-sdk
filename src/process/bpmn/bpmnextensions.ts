@@ -140,6 +140,18 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
               returnValue.fieldsWhichShouldSend = [];
             }
             break;
+          case "attachmentfields-which-should-send":
+            try {
+              if (child.$body && child.$body.length > 0) {
+                returnValue.sendTaskAttachmentFields = JSON.parse(child.$body);
+              } else {
+                returnValue.sendTaskAttachmentFields = [];
+              }
+            } catch (ex) {
+              console.log(ex);
+              returnValue.sendTaskAttachmentFields = [];
+            }
+            break;
           case "required-fields-needed":
             {
               try {
