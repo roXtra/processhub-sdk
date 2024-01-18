@@ -8,6 +8,10 @@ export const TodoRequestRoutes = {
   DeleteNotificationTodo: "/api/todo/deletenotificationtodo",
   UpdateTodo: "/api/todo/UpdateTodo",
   GetAmountOfUserTodos: "/api/todo/getamountofusertodos",
+  /**
+   * Returns all todos for the current user, for all modules. For risk management, only assessment todos are returned.
+   */
+  GetUserTodos: "/api/todo/getusertodos",
 };
 export type TodoRequestRoutes = keyof typeof TodoRequestRoutes;
 
@@ -55,3 +59,11 @@ export interface IDeleteNotificationTodoRequest extends IBaseRequest {
   todoId: string;
 }
 export type IDeleteNotificationTodoReply = IBaseReply;
+
+export interface IGetUserTodosReply extends IBaseReply {
+  todos: (Pick<ITodoDetails, "todoId" | "todoType" | "userId" | "displayName" | "description" | "createdAt" | "dueAt"> & {
+    moduleId: number;
+    workspaceDisplayName: string;
+    processDisplayName: string;
+  })[];
+}
