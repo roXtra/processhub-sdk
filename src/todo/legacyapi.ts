@@ -63,6 +63,7 @@ export type IDeleteNotificationTodoReply = IBaseReply;
 export interface IGetUserTodosReply extends IBaseReply {
   todos: (Pick<ITodoDetails, "todoId" | "todoType" | "userId" | "displayName" | "description" | "createdAt" | "dueAt"> & {
     moduleId: number;
+    instanceDisplayName: string;
     workspaceDisplayName: string;
     processDisplayName: string;
   })[];
