@@ -8,7 +8,8 @@ export default async function (url: string, options: AxiosRequestConfig, timeout
     const response = await axios(url, options);
     return response;
   } catch (ex) {
-    if (ex instanceof AxiosError && ex.code === "ECONNABORTED") {
+    // Code is ECONNABORTED (Node18) or ETIMEDOUT (Node20)
+    if (ex instanceof AxiosError && (ex.code === "ECONNABORTED" || ex.code === "ETIMEDOUT")) {
       // Fetch operation timed out
       throw new Error(`${RequestTimedOutPrefix}Request was to url ${url} with timeout ${timeoutMS}`);
     } else {
