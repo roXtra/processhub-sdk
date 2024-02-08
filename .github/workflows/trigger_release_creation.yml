@@ -4,17 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       prassignee:
-        description: 'User to assign PR to (defaults to current user)'
+        description: "User to assign PR to (defaults to current user)"
         required: false
         type: string
       isfinalreleasebuild:
-        description: 'Build final release build? (if unchecked, this builds a pre-release)'
+        description: "Build final release build? (if unchecked, this builds a pre-release)"
         required: true
         type: boolean
         default: false
 
 env:
-  NODE_VERSION: 18
+  NODE_VERSION: 20
 
 jobs:
   configure:
@@ -65,10 +65,10 @@ jobs:
       - name: Create PR for new Version
         uses: repo-sync/pull-request@v2
         with:
-          source_branch: 'release-v${{ steps.version-upgrade.outputs.newversion }}'
-          destination_branch: 'master'
-          pr_title: 'Release v${{ steps.version-upgrade.outputs.newversion }}'
+          source_branch: "release-v${{ steps.version-upgrade.outputs.newversion }}"
+          destination_branch: "master"
+          pr_title: "Release v${{ steps.version-upgrade.outputs.newversion }}"
           pr_body: Updates version to v${{ steps.version-upgrade.outputs.newversion }}
           github_token: ${{ secrets.DEVBOT_GH_TOKEN }}
-          pr_assignee: '${{ env.prassignee }}'
+          pr_assignee: "${{ env.prassignee }}"
           pr_draft: false
