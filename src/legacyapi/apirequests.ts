@@ -9,7 +9,7 @@ import { AxiosRequestConfig } from "axios";
  * @default showErrorModal = true
  * @default accessToken = undefined
  */
-export type RequestOptions = { showErrorModal?: boolean; accessToken?: string };
+export type RequestOptions = { showErrorModal?: boolean; accessToken?: string; timeoutInMs?: number };
 
 // Api-Aufruf per GET
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
@@ -59,7 +59,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
   req.responseType = "json";
   req.validateStatus = () => true;
   try {
-    const response = await fetchWithTimeout(url, req);
+    const response = await fetchWithTimeout(url, req, options.timeoutInMs);
     switch (response.status) {
       case 200: {
         const json = response.data;
@@ -149,7 +149,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
   req.responseType = "json";
   req.validateStatus = () => true;
   try {
-    const response = await fetchWithTimeout(url, req);
+    const response = await fetchWithTimeout(url, req, options.timeoutInMs);
     switch (response.status) {
       case 200: {
         const json = response.data;

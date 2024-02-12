@@ -197,8 +197,12 @@ export interface IUpdateProcessDetailsRequest extends IBaseRequest {
 
 export interface ICopyProcessRequest extends IBaseRequest {
   processId: string;
-  targetWorkspaceId: string;
+  targetWorkspaceIds: string[];
   displayName: string;
+}
+
+export interface ICopyProcessReply extends IBaseReply {
+  createdProcesses: IProcessDetails[];
 }
 
 export interface IUploadFileRequest extends IBaseRequest {
