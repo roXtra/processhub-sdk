@@ -81,6 +81,16 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     user: StateUserDetails | IUserDetails,
     config?: IFieldConfig,
   ): React.JSX.Element | undefined;
+  /**
+   * Render value for label fields
+   */
+  renderValueForLabelField(
+    value: {} | undefined | null,
+    instance: IInstanceDetails,
+    process: IProcessDetails | StateProcessDetails,
+    user: StateUserDetails | IUserDetails,
+    config?: IFieldConfig,
+  ): React.JSX.Element | undefined;
   renderValueToString(
     value: {} | undefined,
     instance: IInstanceDetails,
