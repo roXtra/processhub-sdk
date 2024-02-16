@@ -67,7 +67,5 @@ export interface IGetUserTodosReply extends IBaseReply {
     workspaceDisplayName: string;
     processDisplayName: string;
     instanceStartedByUserId: string | undefined;
-    // Temporary, only startedByUserId should be used after ROX-17087 is done
-    instanceStartedByUserName: string;
   })[];
 }
