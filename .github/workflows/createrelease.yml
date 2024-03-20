@@ -34,7 +34,7 @@ jobs:
           RELEASENAME=$(npm pack)
           mv $RELEASENAME release.tgz
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: release.tgz
           prerelease: ${{ contains(github.ref, '-') }} # If tag contains -, it's a prerelease (e.g. /refs/tags/v8.30.0-0)
