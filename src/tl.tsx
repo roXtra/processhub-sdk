@@ -21,6 +21,7 @@ export const supportedLanguages = [
   "vi-VN",
   "ko-KR",
   "ja-JP",
+  "ro-RO",
 ] as const;
 
 export type Language = (typeof supportedLanguages)[number];
