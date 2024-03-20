@@ -52,6 +52,7 @@ describe("sdk", function () {
             "vi-VN": "2 phút trước",
             "ko-KR": "2분 전",
             "ja-JP": "2 分前",
+            "ro-RO": "acum 2 minute",
           };
           /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -137,6 +138,7 @@ describe("sdk", function () {
             "vi-VN": "Ngày kia",
             "ko-KR": "모레",
             "ja-JP": "明後日",
+            "ro-RO": "poimâine",
           };
           /* eslint-enable @typescript-eslint/naming-convention */
 

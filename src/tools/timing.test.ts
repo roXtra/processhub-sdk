@@ -42,6 +42,7 @@ describe("tools", function () {
           "vi-VN": "27/12/2021",
           "ko-KR": "2021. 12. 27.",
           "ja-JP": "2021/12/27",
+          "ro-RO": "27.12.2021",
         };
         /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -82,6 +83,7 @@ describe("tools", function () {
           "vi-VN": "12:00 27/12/2021",
           "ko-KR": "2021. 12. 27. 오후 12:00",
           "ja-JP": "2021/12/27 12:00",
+          "ro-RO": "27.12.2021, 12:00",
         };
 
         /* eslint-enable @typescript-eslint/naming-convention */
