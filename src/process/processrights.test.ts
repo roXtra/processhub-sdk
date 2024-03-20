@@ -35,6 +35,7 @@ const testUser: IUserDetails = {
   type: "backend",
   licence: Licence.Writer,
   userId: "1",
+  uid: "673df0e6-71bc-4636-96b6-4ddbad2f6d3b",
   mail: "",
   displayName: "",
   extras: {},

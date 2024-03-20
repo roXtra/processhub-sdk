@@ -45,6 +45,7 @@ export interface IArchiveViews {
 
 export interface IUserDetailsSmall {
   userId: string;
+  uid: string;
   mail: string;
   displayName: string; // RealName or mail if no name is defined
   firstName?: string;
@@ -95,6 +96,7 @@ export enum UserExtras {
 export const emptyUser: IUserDetails = {
   type: "backend",
   userId: nullId(),
+  uid: "",
   mail: "",
   displayName: "",
   extras: {},

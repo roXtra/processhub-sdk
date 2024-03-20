@@ -94,6 +94,7 @@ describe("sdk", function () {
               status: UserStatus.Active,
               fields: { Salutation: "Frau", Address1: "Schillerstr. 21" },
               userId: "1",
+              uid: "393716a0-d953-42ee-acd0-577803b2b197",
               displayName: "Nachname, Vorname",
               firstName: "Vorname",
               lastName: "Nachname",
