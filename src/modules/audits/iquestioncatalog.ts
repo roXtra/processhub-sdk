@@ -23,9 +23,13 @@ export interface IQuestionCatalogNode {
   childNodes: IQuestionCatalogNode[];
 }
 
+export interface IQuestionCatalogRevisionUser extends Omit<IUserDetailsSmall, "uid"> {
+  uid?: string;
+}
+
 export interface IQuestionCatalogRevision {
   counter: number;
-  editedBy: IUserDetailsSmall;
+  editedBy: IQuestionCatalogRevisionUser;
   editDate: Date;
   hasNodesChanged: boolean;
   hasQuestionsChanged: boolean;
