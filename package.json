@@ -11,7 +11,7 @@
     "url": "https://github.com/roXtra/processhub-sdk"
   },
   "engines": {
-    "node": "20",
+    "node": "20.12.1",
     "npm": "10.5.1"
   },
   "bugs": {
