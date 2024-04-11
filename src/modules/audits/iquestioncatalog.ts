@@ -35,7 +35,7 @@ export interface IQuestionCatalogRevision {
   hasQuestionsChanged: boolean;
 }
 
-export default interface IQuestionCatalog {
+export interface IQuestionCatalog {
   id: string;
   revision: IQuestionCatalogRevision;
   nodes: IQuestionCatalogNode[];
@@ -43,3 +43,5 @@ export default interface IQuestionCatalog {
     [questionId: string]: string;
   };
 }
+
+export default IQuestionCatalog;
