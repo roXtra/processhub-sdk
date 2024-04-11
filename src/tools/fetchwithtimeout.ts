@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
 export const RequestTimedOutPrefix = "Request timed out: ";
 
-export default async function (url: string, options: AxiosRequestConfig, timeoutMS = 60000): Promise<AxiosResponse> {
+export const fetchWithTimeout = async function (url: string, options: AxiosRequestConfig, timeoutMS = 60000): Promise<AxiosResponse> {
   options.timeout = timeoutMS;
   try {
     const response = await axios(url, options);
@@ -17,4 +17,6 @@ export default async function (url: string, options: AxiosRequestConfig, timeout
       throw ex;
     }
   }
-}
+};
+
+export default fetchWithTimeout;
