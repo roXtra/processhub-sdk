@@ -1,11 +1,11 @@
 export const NS_PER_MS = BigInt(1e6);
 
-export default class DuartionMeasurement {
+export class DurationMeasurement {
   private startBigInt: bigint;
   public startTime: number;
 
   private constructor() {
-    this.startBigInt = DuartionMeasurement.now();
+    this.startBigInt = DurationMeasurement.now();
     this.startTime = Number(this.startBigInt / NS_PER_MS);
   }
 
@@ -16,8 +16,8 @@ export default class DuartionMeasurement {
     return process.hrtime.bigint();
   }
 
-  public static start(): DuartionMeasurement {
-    return new DuartionMeasurement();
+  public static start(): DurationMeasurement {
+    return new DurationMeasurement();
   }
 
   /**
@@ -25,7 +25,9 @@ export default class DuartionMeasurement {
    * @returns The duration in milliseconds
    */
   public end(): number {
-    const endBigInt = DuartionMeasurement.now();
+    const endBigInt = DurationMeasurement.now();
     return Number((endBigInt - this.startBigInt) / NS_PER_MS);
   }
 }
+
+export default DurationMeasurement;
