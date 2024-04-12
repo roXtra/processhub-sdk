@@ -131,6 +131,10 @@ export interface IEcReleaseFileLockReply {
   Message?: string;
 }
 
+export interface IGetModuleSettingsRequest {
+  testNewUI: boolean;
+}
+
 export interface IGetModuleSettingsReply extends IBaseReply {
   currentModule: number;
   refreshinterval: number;
