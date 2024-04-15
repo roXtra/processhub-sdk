@@ -131,7 +131,7 @@ export interface IEcReleaseFileLockReply {
   Message?: string;
 }
 
-export interface IGetModuleSettingsRequest {
+export interface IGetModuleSettingsRequest extends IBaseRequest {
   testNewUI: boolean;
 }
 
