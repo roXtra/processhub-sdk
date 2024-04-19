@@ -1,9 +1,9 @@
 Die Definitionen wurden aus den bpmn-moddle-jsons mit folgendem Code erzeugt und angepasst: <br />
 
 <code>
-import { expect } from "chai";
-import { bpmnJson } from "./bpmn-json";
-import { bpmndiJson } from "./bpmndi-json";
+ import { expect } from "chai";;
+ import { bpmnJson } from "./bpmn-json.js";;
+ import { bpmndiJson } from "./bpmndi-json.js";;
 
 const json = bpmndiJson;
 

@@ -1,6 +1,6 @@
 declare module "moddle/lib/factory" {
-  export = Factory;
-  import Base = require("moddle/lib/base");
+  import Base from "moddle/lib/base";
+  export default Factory;
 
   class Factory {
     public constructor(model: {}, properties: {});

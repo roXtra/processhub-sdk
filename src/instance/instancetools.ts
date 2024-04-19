@@ -1,8 +1,8 @@
-import { IInstanceDetails } from "./instanceinterfaces";
-import { isGroupId, isId } from "../tools/guid";
-import { FieldType } from "../data/ifieldvalue";
-import { isDefaultProcessRole } from "../process/processrights";
-import { IGroupDetails } from "../group/groupinterfaces";
+import { IInstanceDetails } from "./instanceinterfaces.js";
+import { isGroupId, isId } from "../tools/guid.js";
+import { FieldType } from "../data/ifieldvalue.js";
+import { isDefaultProcessRole } from "../process/processrights.js";
+import { IGroupDetails } from "../group/groupinterfaces.js";
 
 export function parseInstanceMailSubject(mail: string): string | undefined {
   const regex = /(\[)(i-)(.*?)(\])/gm;

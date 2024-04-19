@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { Language } from "../tl";
+import { Language } from "../tl.js";
 
 export function sleep(ms = 0): Promise<void> {
   return new Promise((r): void => {

@@ -1,6 +1,6 @@
 import * as chai from "chai";
 import chaiExclude from "chai-exclude";
-import fetchWithTimeout from "./fetchwithtimeout";
+import fetchWithTimeout from "./fetchwithtimeout.js";
 import { AxiosRequestConfig } from "axios";
 
 chai.use(chaiExclude);

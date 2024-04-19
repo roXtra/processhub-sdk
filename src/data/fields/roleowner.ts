@@ -1,6 +1,6 @@
 import Joi from "joi";
-import { IFieldConfig, IFieldConfigObject } from "../datainterfaces";
-import { createLiteralTypeRegExp } from "../regextools";
+import { IFieldConfig, IFieldConfigObject } from "../datainterfaces.js";
+import { createLiteralTypeRegExp } from "../regextools.js";
 
 const IRoleOwnerFieldConfigDefaultValueOptions = ["NoValue", "CurrentUser"] as const;
 

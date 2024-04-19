@@ -2,18 +2,17 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import BpmnModdle from "bpmn-moddle";
 import { assert, expect } from "chai";
-import { Bpmn } from "../../process/bpmn";
-import { isId } from "../../tools/guid";
-import { BpmnProcess } from "./bpmnprocess";
-import { ILoadTemplateReply } from "../legacyapi";
-import { createBpmnTemplate, bpmnModdleInstance } from "./bpmnmoddlehelper";
-import { IRowDetails } from "../phclient";
-import { IParseResult } from "bpmn-moddle/lib/simple";
-import { getLastArrayEntry } from "../../tools/array";
+import { Bpmn } from "modeler/bpmn/bpmn";
+import { isId } from "../../tools/guid.js";
+import { BpmnProcess } from "./bpmnprocess.js";
+import { ILoadTemplateReply } from "../legacyapi.js";
+import { createBpmnTemplate, bpmnModdleInstance } from "./bpmnmoddlehelper.js";
+import { IRowDetails } from "../phclient.js";
+import { getLastArrayEntry } from "../../tools/array.js";
 import fs from "fs/promises";
-import { IFieldConfigSchema } from "../../data/datainterfaces";
-import { IDateRangeFieldConfigSchema } from "../../data/fields/daterange";
-import { IFieldDefinition } from "../../data/ifielddefinition";
+import { IFieldConfigSchema } from "../../data/datainterfaces.js";
+import { IDateRangeFieldConfigSchema } from "../../data/fields/daterange.js";
+import { IFieldDefinition } from "../../data/ifielddefinition.js";
 
 let TestRowDetails: IRowDetails[] = [];
 
@@ -134,7 +133,7 @@ describe("sdk", function () {
           // Load exported xml with moddle
           const moddle: BpmnModdle = new BpmnModdle();
           const fromXmlRes = await moddle.fromXML(exportedXmlString);
-          const definitions = (fromXmlRes as IParseResult).rootElement as Bpmn.IDefinitions;
+          const definitions = (fromXmlRes as BpmnModdle.IParseResult).rootElement as Bpmn.IDefinitions;
 
           // Check if empty lane is still there
           const process: Bpmn.IProcess = definitions.rootElements.find((e) => e.$type === "bpmn:Process") as Bpmn.IProcess;

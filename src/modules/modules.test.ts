@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { Processes, Risks, getModuleForRequestPath } from "./modules";
+import { Processes, Risks, getModuleForRequestPath } from "./modules.js";
 
 describe("sdk", function () {
   describe("modules", function () {

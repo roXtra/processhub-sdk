@@ -1,6 +1,6 @@
-import { Bpmn } from "../process/bpmn";
-import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces";
-import { IUserDetailsNoExtras } from "../user/userinterfaces";
+import { Bpmn } from "modeler/bpmn/bpmn";
+import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces.js";
+import { IUserDetailsNoExtras } from "../user/userinterfaces.js";
 
 export enum TodoStatus {
   TodoOnTime = 0,

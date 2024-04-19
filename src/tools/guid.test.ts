@@ -1,6 +1,6 @@
 import { assert } from "chai";
-import { SystemUserId } from "../user/usertools";
-import * as Guid from "./guid";
+import { SystemUserId } from "../user/usertools.js";
+import * as Guid from "./guid.js";
 
 describe("sdk", function () {
   describe("tools", function () {

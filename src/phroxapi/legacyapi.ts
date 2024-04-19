@@ -1,10 +1,10 @@
-import { IBaseReply, IBaseRequest } from "../legacyapi/apiinterfaces";
-import { ITaskExtensions } from "../process/processinterfaces";
-import { IModule } from "../modules/imodule";
-import { IFieldContentMap } from "../data/ifieldcontentmap";
-import { IModuleSelection, IRoxFile, IRoxFolder } from "./phroxapiinterfaces";
-import { IRoleOwnerMap } from "../process/processrights";
-import { IWorkspaceRoles } from "../workspace/workspacerights";
+import { IBaseReply, IBaseRequest } from "../legacyapi/apiinterfaces.js";
+import { ITaskExtensions } from "../process/processinterfaces.js";
+import { IModule } from "../modules/imodule.js";
+import { IFieldContentMap } from "../data/ifieldcontentmap.js";
+import { IModuleSelection, IRoxFile, IRoxFolder } from "./phroxapiinterfaces.js";
+import { IRoleOwnerMap } from "../process/processrights.js";
+import { IWorkspaceRoles } from "../workspace/workspacerights.js";
 
 export const RequestRoutes = {
   GetRootFolder: "/api/phroxapi/getrootfolder",

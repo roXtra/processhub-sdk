@@ -1,5 +1,5 @@
-import { Language, tl } from "../tl";
-import { IModule, ModuleId, ModuleName } from "./imodule";
+import { Language, tl } from "../tl.js";
+import { IModule, ModuleId, ModuleName } from "./imodule.js";
 
 export const Processes: IModule = {
   id: ModuleId.Processes,

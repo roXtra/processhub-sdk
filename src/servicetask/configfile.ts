@@ -1,8 +1,8 @@
 import Joi from "joi";
 import fs from "fs/promises";
-import { validateType } from "../data/datatools";
-import { IServiceTaskLogger } from "./servicetaskenvironment";
-import { BpmnError, ErrorCode } from "../instance/bpmnerror";
+import { validateType } from "../data/datatools.js";
+import { IServiceTaskLogger } from "./servicetaskenvironment.js";
+import { BpmnError, ErrorCode } from "../instance/bpmnerror.js";
 
 export interface IServiceConfigSecret {
   secret: { [key: string]: string };

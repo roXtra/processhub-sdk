@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 declare module "moddle/lib/base" {
-  export = Base;
+  export default Base;
 
-  import Moddle = require("moddle/lib/moddle");
-
+  import Moddle from "moddle/lib/moddle";
   class Base {
     public expressionLanguage: string;
     public typeLanguage: string;

@@ -1,16 +1,16 @@
-import { getFormattedDate, getFormattedDateTime, getFormattedTimeZoneOffset } from "../tools/timing";
+import { getFormattedDate, getFormattedDateTime, getFormattedTimeZoneOffset } from "../tools/timing.js";
 import SqlString from "sqlstring";
 import Joi from "joi";
 import murmurhash from "murmurhash";
-import { FieldType, IFieldValue } from "./ifieldvalue";
-import { IFieldContentMap } from "./ifieldcontentmap";
-import { IFieldDefinition } from "./ifielddefinition";
-import { IProcessRoles, IRoleOwner, IRoleOwnerMap } from "../process/processrights";
-import { BpmnProcess } from "../process/bpmn/bpmnprocess";
-import { replaceOldFieldSyntax } from "../tools/stringtools";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { Language } from "../tl";
-import { IUserFieldsConfig } from "../config";
+import { FieldType, IFieldValue } from "./ifieldvalue.js";
+import { IFieldContentMap } from "./ifieldcontentmap.js";
+import { IFieldDefinition } from "./ifielddefinition.js";
+import { IProcessRoles, IRoleOwner, IRoleOwnerMap } from "../process/processrights.js";
+import { BpmnProcess } from "../process/bpmn/bpmnprocess.js";
+import { replaceOldFieldSyntax } from "../tools/stringtools.js";
+import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import { Language } from "../tl.js";
+import { IUserFieldsConfig } from "../config.js";
 
 export const fieldNameRegExp = /field\['([^'\]]*)'\]/;
 export const riskmetricRegExp = /riskMetric\['([^'\]]*)'\]/;

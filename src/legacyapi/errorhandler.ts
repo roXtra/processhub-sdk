@@ -1,4 +1,4 @@
-import { IBaseError } from "./apiinterfaces";
+import { IBaseError } from "./apiinterfaces.js";
 
 let errorHandlers: IErrorHandler[] = [];
 

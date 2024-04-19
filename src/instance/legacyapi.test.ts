@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { IGenerateReportRequest, IGenerateReportRequestSchema, RequestedReportType } from "./legacyapi";
-import { IGenerateWorkspaceReportRequest, IGenerateWorkspaceReportRequestSchema } from "../workspace/legacyapi";
+import { IGenerateReportRequest, IGenerateReportRequestSchema, RequestedReportType } from "./legacyapi.js";
+import { IGenerateWorkspaceReportRequest, IGenerateWorkspaceReportRequestSchema } from "../workspace/legacyapi.js";
 
 describe("sdk", function () {
   describe("instance", function () {

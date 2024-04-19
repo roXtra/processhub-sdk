@@ -1,8 +1,8 @@
-declare module "bpmn-moddle/lib/bpmn-moddle" {
-  export = BpmnModdle;
+declare module "bpmn-moddle/lib/bpmn-moddle.js" {
+  export default BpmnModdle;
 
-  import Factory = require("moddle/lib/factory");
-  import Moddle = require("moddle/lib/moddle");
+  import Factory from "moddle/lib/factory";
+  import Moddle from "moddle/lib/moddle";
 
   import { Context } from "moddle-xml/lib/reader";
   import { Bpmn } from "modeler/bpmn/bpmn";

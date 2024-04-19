@@ -1,9 +1,9 @@
-import { IPathDetails, Page, INotificationLinkElements } from "./pathinterfaces";
-import { isTrue } from "../tools/assert";
-import { ProcessView, isValidProcessView } from "../process/phclient";
-import { WorkspaceView, isValidWorkspaceView } from "../workspace/phclient";
-import { isId } from "../tools/guid";
-import { getBackendUrl, getBasePath } from "../config";
+import { IPathDetails, Page, INotificationLinkElements } from "./pathinterfaces.js";
+import { isTrue } from "../tools/assert.js";
+import { ProcessView, isValidProcessView } from "../process/phclient.js";
+import { WorkspaceView, isValidWorkspaceView } from "../workspace/phclient.js";
+import { isId } from "../tools/guid.js";
+import { getBackendUrl, getBasePath } from "../config.js";
 
 export const AuditsOfflineRoute = "audits-offline";
 

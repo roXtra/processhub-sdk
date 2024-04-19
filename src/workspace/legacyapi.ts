@@ -1,9 +1,9 @@
 import Joi from "joi";
-import { IGenerateReportRequestType, RequestedReportType } from "../instance/legacyapi";
-import { IBaseRequest, IBaseReply, IBaseRequestObject } from "../legacyapi/apiinterfaces";
-import { WorkspaceExtras, IWorkspaceDetails } from "./workspaceinterfaces";
-import { IWorkspaceRoles } from "./workspacerights";
-import { createLiteralTypeRegExp } from "../data/regextools";
+import { IGenerateReportRequestType, RequestedReportType } from "../instance/legacyapi.js";
+import { IBaseRequest, IBaseReply, IBaseRequestObject } from "../legacyapi/apiinterfaces.js";
+import { WorkspaceExtras, IWorkspaceDetails } from "./workspaceinterfaces.js";
+import { IWorkspaceRoles } from "./workspacerights.js";
+import { createLiteralTypeRegExp } from "../data/regextools.js";
 
 // WorkspaceRequestRoutes
 export const WorkspaceRequestRoutes = {

@@ -9,13 +9,13 @@ import {
   canStartProcess,
   canStartProcessByMail,
   canStartProcessByTimer,
-} from "./processrights";
-import { createBpmnTemplate } from "./bpmn/bpmnmoddlehelper";
-import { ILoadTemplateReply } from "./legacyapi";
-import { BpmnProcess } from "./bpmn/bpmnprocess";
+} from "./processrights.js";
+import { createBpmnTemplate } from "./bpmn/bpmnmoddlehelper.js";
+import { ILoadTemplateReply } from "./legacyapi.js";
+import { BpmnProcess } from "./bpmn/bpmnprocess.js";
 import { assert } from "console";
-import { IUserDetails, Licence, UserStatus } from "../user/userinterfaces";
-import { StateProcessDetails } from "./processstate";
+import { IUserDetails, Licence, UserStatus } from "../user/userinterfaces.js";
+import { StateProcessDetails } from "./processstate.js";
 
 const testProcess: StateProcessDetails = {
   workspaceId: "2000E70281B5ECD5",

@@ -1,8 +1,8 @@
-import { getErrorHandlers } from "./errorhandler";
-import { IBaseRequest, ApiResult, IBaseError, IBaseMessage, API_FAILED } from "./apiinterfaces";
-import { getBackendUrl, getBasePath } from "../config";
-import isEmpty from "lodash/isEmpty";
-import fetchWithTimeout, { RequestTimedOutPrefix } from "../tools/fetchwithtimeout";
+import { getErrorHandlers } from "./errorhandler.js";
+import { IBaseRequest, ApiResult, IBaseError, IBaseMessage, API_FAILED } from "./apiinterfaces.js";
+import { getBackendUrl, getBasePath } from "../config.js";
+import isEmpty from "lodash/isEmpty.js";
+import fetchWithTimeout, { RequestTimedOutPrefix } from "../tools/fetchwithtimeout.js";
 import { AxiosRequestConfig } from "axios";
 
 /**

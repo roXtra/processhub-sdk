@@ -1,6 +1,6 @@
-import isEmpty from "lodash/isEmpty";
-import cloneDeep from "lodash/cloneDeep";
-import { createId } from "./guid";
+import isEmpty from "lodash/isEmpty.js";
+import cloneDeep from "lodash/cloneDeep.js";
+import { createId } from "./guid.js";
 import utf8 from "utf8";
 import base64 from "base-64";
 

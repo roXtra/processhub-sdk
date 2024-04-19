@@ -1,10 +1,10 @@
-import { TaskSettingsValueType, BpmnExtensionName, ITaskExtensions } from "../processinterfaces";
+import { TaskSettingsValueType, BpmnExtensionName, ITaskExtensions } from "../processinterfaces.js";
 import { Bpmn } from "modeler/bpmn/bpmn";
-import { replaceOldFieldSyntax } from "../../tools/stringtools";
-import { ILegacySchema, updateLegacyFieldDefinitions } from "../../data/datatools";
+import { replaceOldFieldSyntax } from "../../tools/stringtools.js";
+import { ILegacySchema, updateLegacyFieldDefinitions } from "../../data/datatools.js";
 import { Processhub } from "modeler/bpmn/processhub";
-import { bpmnModdleInstance } from "./bpmnmoddlehelper";
-import { convertFieldConfig } from "../../data/datainterfaces";
+import { bpmnModdleInstance } from "./bpmnmoddlehelper.js";
+import { convertFieldConfig } from "../../data/datainterfaces.js";
 
 export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): ITaskExtensions {
   const returnValue: ITaskExtensions = {

@@ -32,7 +32,9 @@ const BpmnErrorObject: BpmnError = {
   bpmnError: Joi.string().equal("BpmnError").required() as unknown as "BpmnError",
 };
 
-export const BpmnErrorSchema = Joi.object(BpmnErrorObject);
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const BpmnErrorSchema = Joi.object(BpmnErrorObject as any);
 
 export function isBpmnError(error: unknown): error is BpmnError {
   return error != null && BpmnErrorSchema.required().validate(error).error === undefined;

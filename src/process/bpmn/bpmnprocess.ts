@@ -1,26 +1,26 @@
 /// <reference path="../types/index.d.ts" />
-import * as BpmnModdleHelper from "./bpmnmoddlehelper";
-import { ILaneDictionary } from "./bpmnprocessdiagram";
-import { BpmnProcessDiagram } from "./bpmnprocessdiagram";
-import { Bpmn, Bpmndi } from "../bpmn";
-import { IRunningTaskLane, ITaskToLaneMapEntry, IStartButtonMap, TaskSettingsValueType, BpmnExtensionName, ITaskExtensions } from "../processinterfaces";
-import { isTrue } from "../../tools/assert";
-import { tl } from "../../tl";
-import { createId } from "../../tools/guid";
-import { ILoadTemplateReply } from "../legacyapi";
-import { IRowDetails } from "../phclient";
-import { getExtensionValues, addOrUpdateExtension, getExtensionBody } from "./bpmnextensions";
-import { bpmnModdleInstance } from "./bpmnmoddlehelper";
-import { IParseResult } from "bpmn-moddle/lib/simple";
-import { IFieldDefinition, IFieldDefinitionItem } from "../../data/ifielddefinition";
-import { filterTodosForInstance } from "../../todo/todofilters";
-import { IDecisionTask, DecisionTaskTypes } from "../../todo/todointerfaces";
-import { getLastArrayEntry } from "../../tools/array";
-import { IInstanceDetails } from "../../instance/instanceinterfaces";
-import { IRoxFileFieldConfig } from "../../data/fields/roxfilefield";
+import * as BpmnModdleHelper from "./bpmnmoddlehelper.js";
+import { ILaneDictionary } from "./bpmnprocessdiagram.js";
+import { BpmnProcessDiagram } from "./bpmnprocessdiagram.js";
+import { IRunningTaskLane, ITaskToLaneMapEntry, IStartButtonMap, TaskSettingsValueType, BpmnExtensionName, ITaskExtensions } from "../processinterfaces.js";
+import { isTrue } from "../../tools/assert.js";
+import { tl } from "../../tl.js";
+import { createId } from "../../tools/guid.js";
+import { ILoadTemplateReply } from "../legacyapi.js";
+import { IRowDetails } from "../phclient.js";
+import { getExtensionValues, addOrUpdateExtension, getExtensionBody } from "./bpmnextensions.js";
+import { bpmnModdleInstance } from "./bpmnmoddlehelper.js";
+import BpmnModdle from "bpmn-moddle";
+import { IFieldDefinition, IFieldDefinitionItem } from "../../data/ifielddefinition.js";
+import { filterTodosForInstance } from "../../todo/todofilters.js";
+import { IDecisionTask, DecisionTaskTypes } from "../../todo/todointerfaces.js";
+import { getLastArrayEntry } from "../../tools/array.js";
+import { IInstanceDetails } from "../../instance/instanceinterfaces.js";
+import { IRoxFileFieldConfig } from "../../data/fields/roxfilefield.js";
+import { Bpmn, Bpmndi } from "./index.js";
 
 export class BpmnProcess {
-  private moddleContext?: IParseResult;
+  private moddleContext?: BpmnModdle.IParseResult;
   private bpmnXml?: Bpmn.IDefinitions;
   private processDiagram: BpmnProcessDiagram;
 
@@ -29,7 +29,7 @@ export class BpmnProcess {
     this.processDiagram = new BpmnProcessDiagram(this);
   }
 
-  public getModdleContext(): IParseResult {
+  public getModdleContext(): BpmnModdle.IParseResult {
     if (this.moddleContext === undefined) {
       throw new Error("moddleContext is undefined, please load bpmn XML first!");
     }

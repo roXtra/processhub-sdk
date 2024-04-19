@@ -1,9 +1,11 @@
-import { IAuditMetricCategory } from "./iauditmetriccategory";
-import { ICustomRating } from "./icustomrating";
-import IQuestionCatalog from "./iquestioncatalog";
+import { IAuditMetricCategory } from "./iauditmetriccategory.js";
+import { ICustomRating } from "./icustomrating.js";
+import IQuestionCatalog from "./iquestioncatalog.js";
 
-export default interface IAuditsSettings {
+export interface IAuditsSettings {
   questionCatalog: IQuestionCatalog;
   customRating: ICustomRating;
   auditMetricCategories: IAuditMetricCategory[];
 }
+
+export default IAuditsSettings;

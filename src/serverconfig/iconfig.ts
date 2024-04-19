@@ -3,7 +3,7 @@
  * entries must also be adjusted in the Setup project
  */
 
-import { AiCompletionProviders } from "./aiprovider";
+import { AiCompletionProviders } from "./aiprovider.js";
 
 // !!!! Changes must also be made to Setup/Config/EFormulareConfig.cs !!!!
 export interface IConfig {

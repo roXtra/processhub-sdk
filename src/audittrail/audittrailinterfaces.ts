@@ -1,6 +1,6 @@
-import { IFieldValue } from "../data/ifieldvalue";
-import { IQuestion } from "../modules/audits/iquestioncatalog";
-import { StateUserDetails } from "../user/phclient";
+import { IFieldValue } from "../data/ifieldvalue.js";
+import { IQuestion } from "../modules/audits/iquestioncatalog.js";
+import { StateUserDetails } from "../user/phclient.js";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export enum AuditTrailAction {

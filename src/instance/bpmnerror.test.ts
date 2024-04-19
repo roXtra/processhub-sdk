@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { BpmnError, ErrorCode, isBpmnError } from "./bpmnerror";
+import { BpmnError, ErrorCode, isBpmnError } from "./bpmnerror.js";
 
 describe("sdk", function () {
   describe("instance", function () {

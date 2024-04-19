@@ -1,6 +1,6 @@
-import { IFieldContentMap } from "../../data/ifieldcontentmap";
-import { IFieldValue } from "../../data/ifieldvalue";
-import { IUserDetailsSmall } from "../../user/userinterfaces";
+import { IFieldContentMap } from "../../data/ifieldcontentmap.js";
+import { IFieldValue } from "../../data/ifieldvalue.js";
+import { IUserDetailsSmall } from "../../user/userinterfaces.js";
 
 export interface IQuestion {
   id: string;

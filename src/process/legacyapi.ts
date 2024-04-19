@@ -1,13 +1,13 @@
-import { IBaseMessage, IBaseRequest, IBaseReply, IBaseRequestObject } from "../legacyapi/apiinterfaces";
-import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces";
-import { Bpmn } from "./bpmn";
-import { IParseResult } from "bpmn-moddle/lib/simple";
-import { IStatisticRow } from "../data/statistics";
-import { IFieldDefinition } from "../data/ifielddefinition";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
-import IQuestionCatalog from "../modules/audits/iquestioncatalog";
+import { IBaseMessage, IBaseRequest, IBaseReply, IBaseRequestObject } from "../legacyapi/apiinterfaces.js";
+import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces.js";
+import { Bpmn } from "modeler/bpmn/bpmn";
+import BpmnModdle from "bpmn-moddle";
+import { IStatisticRow } from "../data/statistics.js";
+import { IFieldDefinition } from "../data/ifielddefinition.js";
+import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import IQuestionCatalog from "../modules/audits/iquestioncatalog.js";
 import Joi from "joi";
-import { StateProcessDetails } from "./processstate";
+import { StateProcessDetails } from "./processstate.js";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -283,7 +283,7 @@ export interface IProcessLoadedMessage<T extends IProcessDetails | StateProcessD
 export interface ILoadTemplateReply {
   result: ProcessResult;
   bpmnXml: Bpmn.IDefinitions;
-  bpmnContext: IParseResult;
+  bpmnContext: BpmnModdle.IParseResult;
 }
 
 export interface IListProcessesReply extends IBaseReply {

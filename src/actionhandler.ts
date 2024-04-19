@@ -1,7 +1,7 @@
-import { WorkspaceExtras } from "./workspace/workspaceinterfaces";
-import { ProcessExtras } from "./process/processinterfaces";
-import { InstanceExtras } from "./instance/instanceinterfaces";
-import { UserExtras } from "./user/userinterfaces";
+import { WorkspaceExtras } from "./workspace/workspaceinterfaces.js";
+import { ProcessExtras } from "./process/processinterfaces.js";
+import { InstanceExtras } from "./instance/instanceinterfaces.js";
+import { UserExtras } from "./user/userinterfaces.js";
 
 export interface IExtrasRequest {
   workspaceExtras?: WorkspaceExtras;
