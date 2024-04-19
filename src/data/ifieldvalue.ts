@@ -13,6 +13,7 @@ import { ISVGDropdownOption, ISVGDropdownOptionSchema } from "./fields/svgdropdo
 import { ITasksFieldValue, ITasksFieldValueSchema } from "./fields/tasks.js";
 import { ITreeViewFieldValue, TreeViewFieldValueSchema } from "./fields/treeview.js";
 import { createLiteralTypeRegExp } from "./regextools.js";
+import { IDataTableFieldValue } from "./fields/datatable.js";
 
 export const FieldTypeOptions = [
   "ProcessHubTextInput",
@@ -45,6 +46,7 @@ export const FieldTypeOptions = [
   "ProcessHubTasks",
   "ProcessHubDateRange",
   "ProcessHubAuditQuestions",
+  "ProcessHubDataTable",
 ] as const;
 
 export type FieldType = (typeof FieldTypeOptions)[number];
@@ -68,7 +70,8 @@ export type FieldValueType =
   | ITasksFieldValue // TasksField
   | ITreeViewFieldValue // TreeViewField
   | IDateRangeFieldValue // DateRange
-  | IAuditQuestionsFieldValue; // Audit
+  | IAuditQuestionsFieldValue // Audit
+  | IDataTableFieldValue; // DataTable
 
 const FieldValueTypeSchema = [
   Joi.allow(null),
