@@ -1,7 +1,7 @@
 import { Bpmn } from "modeler/bpmn/bpmn";
 import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces.js";
-import IParseResult from "bpmn-moddle/lib/simple";
+import BpmnModdle from "bpmn-moddle";
 import Joi from "joi";
 import { IProcessLinkInstance } from "../data/fields/processlink.js";
 import { IFieldContentMap } from "../data/ifieldcontentmap.js";
@@ -141,7 +141,7 @@ export interface IEngineState {
 export interface IEngineStateDefinition {
   id: string;
   state: string;
-  moddleContext: IParseResult;
+  moddleContext: BpmnModdle.IParseResult;
   stopped: boolean;
   processes: IEngineStateDefinitionProcess;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
