@@ -1,10 +1,10 @@
-import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { nullId } from "../tools/guid";
-import { isTrue } from "../tools/assert";
-import { Language, tl } from "../tl";
-import { ModuleName } from "../modules/imodule";
-import { StateUserDetails } from "./phclient";
+import { IWorkspaceDetails } from "../workspace/workspaceinterfaces.js";
+import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import { nullId } from "../tools/guid.js";
+import { isTrue } from "../tools/assert.js";
+import { Language, tl } from "../tl.js";
+import { ModuleName } from "../modules/imodule.js";
+import { StateUserDetails } from "./phclient.js";
 
 export enum UserStatus {
   None = 0,

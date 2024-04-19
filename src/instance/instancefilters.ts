@@ -1,5 +1,5 @@
-import { IInstanceDetails } from "./instanceinterfaces";
-import { IUserDetails } from "../user/userinterfaces";
+import { IInstanceDetails } from "./instanceinterfaces.js";
+import { IUserDetails } from "../user/userinterfaces.js";
 
 // Helper functions to filter and/or sort instances
 

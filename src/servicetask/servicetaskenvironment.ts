@@ -1,15 +1,15 @@
-import { IUserDetails, UserExtras } from "../user/userinterfaces";
-import { IWorkspaceDetails, WorkspaceExtras } from "../workspace/workspaceinterfaces";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { IServiceActionConfigField } from "../data/datainterfaces";
-import { ISendMailTemplateRequest, ISendMailTemplateReply } from "../mailer/mailerinterfaces";
-import { IFieldContentMap } from "../data/ifieldcontentmap";
-import { IProcessDetails, ProcessExtras } from "../process/processinterfaces";
-import { BpmnProcess } from "../process/bpmn/bpmnprocess";
-import { IFileStore } from "../filestore/ifilestore";
-import { IGenerateReportRequestType } from "../instance/legacyapi";
-import { IConfig } from "../serverconfig/iconfig";
-import { IUserFieldsConfig } from "../config";
+import { IUserDetails, UserExtras } from "../user/userinterfaces.js";
+import { IWorkspaceDetails, WorkspaceExtras } from "../workspace/workspaceinterfaces.js";
+import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import { IServiceActionConfigField } from "../data/datainterfaces.js";
+import { ISendMailTemplateRequest, ISendMailTemplateReply } from "../mailer/mailerinterfaces.js";
+import { IFieldContentMap } from "../data/ifieldcontentmap.js";
+import { IProcessDetails, ProcessExtras } from "../process/processinterfaces.js";
+import { BpmnProcess } from "../process/bpmn/bpmnprocess.js";
+import { IFileStore } from "../filestore/ifilestore.js";
+import { IGenerateReportRequestType } from "../instance/legacyapi.js";
+import { IConfig } from "../serverconfig/iconfig.js";
+import { IUserFieldsConfig } from "../config.js";
 
 /**
  * Provide logging for ServiceTasks

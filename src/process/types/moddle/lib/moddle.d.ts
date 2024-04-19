@@ -1,7 +1,7 @@
 declare module "moddle/lib/moddle" {
-  import Base = require("moddle/lib/base");
+  import Base from "moddle/lib/base";
 
-  export = Moddle;
+  export default Moddle;
 
   /**
    * @class Moddle

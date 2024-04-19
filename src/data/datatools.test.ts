@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { assert, expect } from "chai";
-import * as DataTools from "./datatools";
-import { BpmnProcess } from "../process/bpmn/bpmnprocess";
-import { ILoadTemplateReply } from "../process/legacyapi";
-import { createBpmnTemplate } from "../process/bpmn/bpmnmoddlehelper";
-import { getProcessRoles, IProcessRoles, IRoleOwnerMap } from "../process/processrights";
+import * as DataTools from "./datatools.js";
+import { BpmnProcess } from "../process/bpmn/bpmnprocess.js";
+import { ILoadTemplateReply } from "../process/legacyapi.js";
+import { createBpmnTemplate } from "../process/bpmn/bpmnmoddlehelper.js";
+import { getProcessRoles, IProcessRoles, IRoleOwnerMap } from "../process/processrights.js";
 import Joi from "joi";
-import { createId } from "../tools/guid";
-import { IUserDetailsNoExtras, Licence, UserStatus } from "../user/userinterfaces";
-import { IUserFieldsConfig } from "../config";
+import { createId } from "../tools/guid.js";
+import { IUserDetailsNoExtras, Licence, UserStatus } from "../user/userinterfaces.js";
+import { IUserFieldsConfig } from "../config.js";
 
 export const testUserFieldsConfig: IUserFieldsConfig = {
   fields: [

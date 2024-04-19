@@ -1,11 +1,11 @@
-import { IServiceTaskEnvironment } from "../servicetask/servicetaskenvironment";
-import { PREVIEW_FILENAME } from "../filestore/ifilestore";
-import { ISendMailTemplateReply } from "../mailer/mailerinterfaces";
-import { IProcessDetails } from "../process/processinterfaces";
-import { IWorkspaceDetails, WorkspaceRole } from "../workspace/workspaceinterfaces";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { emptyUser, IUserDetails } from "../user/userinterfaces";
-import { testUserFieldsConfig } from "../data/datatools.test";
+import { IServiceTaskEnvironment } from "../servicetask/servicetaskenvironment.js";
+import { PREVIEW_FILENAME } from "../filestore/ifilestore.js";
+import { ISendMailTemplateReply } from "../mailer/mailerinterfaces.js";
+import { IProcessDetails } from "../process/processinterfaces.js";
+import { IWorkspaceDetails, WorkspaceRole } from "../workspace/workspaceinterfaces.js";
+import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import { emptyUser, IUserDetails } from "../user/userinterfaces.js";
+import { testUserFieldsConfig } from "../data/datatools.test.js";
 
 export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTaskEnvironment {
   return {

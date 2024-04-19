@@ -1,9 +1,9 @@
 // Helper functions to filter and/or sort todos
-import { ITodoDetails, TodoType } from "./todointerfaces";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { filterInstancesForProcess } from "../instance/instancefilters";
-import { IUserDetails } from "../user/userinterfaces";
-import { StateUserDetails } from "../user/phclient";
+import { ITodoDetails, TodoType } from "./todointerfaces.js";
+import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import { filterInstancesForProcess } from "../instance/instancefilters.js";
+import { IUserDetails } from "../user/userinterfaces.js";
+import { StateUserDetails } from "../user/phclient.js";
 
 // Temporary solution during switch from todo.instance -> instances.todos
 export function getTodosFromInstances(instances: IInstanceDetails[]): ITodoDetails[] {

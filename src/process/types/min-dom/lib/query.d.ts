@@ -1,5 +1,5 @@
 declare module "min-dom/lib/query" {
-  export = query;
+  export default query;
 
   function query(selector: string, el: {}): HTMLElement;
 }

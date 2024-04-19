@@ -1,5 +1,5 @@
-import { IBaseReply, IBaseMessage, IBaseRequest } from "../legacyapi/apiinterfaces";
-import { ITodoDetails } from "./todointerfaces";
+import { IBaseReply, IBaseMessage, IBaseRequest } from "../legacyapi/apiinterfaces.js";
+import { ITodoDetails } from "./todointerfaces.js";
 
 // API routes
 export const TodoRequestRoutes = {

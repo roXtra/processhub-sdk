@@ -1,5 +1,5 @@
-import { IPathDetails } from "./pathinterfaces";
-import { ApiResult } from "../legacyapi/apiinterfaces";
+import { IPathDetails } from "./pathinterfaces.js";
+import { ApiResult } from "../legacyapi/apiinterfaces.js";
 
 // Internal objects used by ProcessHub client and server
 

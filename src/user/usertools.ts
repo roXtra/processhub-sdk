@@ -1,4 +1,4 @@
-import { IUserDetails } from "./userinterfaces";
+import { IUserDetails } from "./userinterfaces.js";
 
 export const SystemUserId = "-1";
 

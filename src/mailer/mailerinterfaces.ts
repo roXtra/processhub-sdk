@@ -1,6 +1,6 @@
-import { IBaseRequest, IBaseReply } from "../legacyapi/apiinterfaces";
-import { IInstanceDetails } from "../instance/instanceinterfaces";
-import { IFieldContentMap } from "../data/ifieldcontentmap";
+import { IBaseRequest, IBaseReply } from "../legacyapi/apiinterfaces.js";
+import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import { IFieldContentMap } from "../data/ifieldcontentmap.js";
 
 export interface ISendTaskReceivers {
   receiverIdOrMails: string[];

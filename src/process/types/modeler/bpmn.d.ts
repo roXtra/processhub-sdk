@@ -6,7 +6,7 @@ declare module "modeler/bpmn/bpmn" {
   import { Bpmndi } from "modeler/bpmn/bpmndi";
   import { Dc } from "modeler/bpmn/dc";
 
-  import Base = require("moddle/lib/base");
+  import Base from "moddle/lib/base";
 
   namespace Bpmn {
     export type ElementType = Bpmn.bpmnType | Bpmndi.bpmndiType | Dc.dcType;

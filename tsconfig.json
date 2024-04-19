@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "incremental": false,
-    "target": "ES2019",
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noImplicitAny": true,
     "sourceMap": true,
     "outDir": "./lib",
@@ -15,7 +15,7 @@
     "noEmit": false,
     "strict": true,
     "jsx": "react-jsx",
-    "lib": ["ES2021", "dom"]
+    "lib": ["ES2022", "dom"]
   },
   "include": ["./src/**/*"],
   "exclude": ["lib", "tsc_out", "node_modules"]

@@ -1,5 +1,5 @@
 declare module "modeler/bpmn/processhub" {
-  import Base = require("moddle/lib/base");
+  import Base from "moddle/lib/base";
 
   namespace Processhub {
     export interface IAsyncCapable {

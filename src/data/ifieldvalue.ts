@@ -1,18 +1,18 @@
 import Joi from "joi";
-import { IRiskAssessmentTargetValue, IRiskAssessmentTargetValueSchema, IRiskAssessmentValue, IRiskAssessmentValueSchema } from "../instance/instanceinterfaces";
-import { RiskAssessmentCycle, RiskAssessmentCycleSchema } from "../riskassessment/riskassessmentinterfaces";
-import { IAuditQuestionsFieldValue } from "./fields/auditquestions";
-import { IDateRangeFieldValue, IDateRangeFieldValueSchema } from "./fields/daterange";
-import { IProcessLinkValue, IProcessLinkValueSchema } from "./fields/processlink";
-import { IRadioButtonGroupFieldValue, IRadioButtonGroupFieldValueSchema } from "./fields/radiobutton";
-import { IRoxFileFieldValue, IRoxFileFieldValueSchema } from "./fields/roxfilefield";
-import { IRoxFileLinkValue, IRoxFileLinkValueSchema } from "./fields/roxfilelink";
-import { ISignatureFieldValue, ISignatureFieldValueSchema } from "./fields/signature";
-import { ISpreadSheetFieldValue, ISpreadSheetFieldValueSchema } from "./fields/spreadsheet";
-import { ISVGDropdownOption, ISVGDropdownOptionSchema } from "./fields/svgdropdown";
-import { ITasksFieldValue, ITasksFieldValueSchema } from "./fields/tasks";
-import { ITreeViewFieldValue, TreeViewFieldValueSchema } from "./fields/treeview";
-import { createLiteralTypeRegExp } from "./regextools";
+import { IRiskAssessmentTargetValue, IRiskAssessmentTargetValueSchema, IRiskAssessmentValue, IRiskAssessmentValueSchema } from "../instance/instanceinterfaces.js";
+import { RiskAssessmentCycle, RiskAssessmentCycleSchema } from "../riskassessment/riskassessmentinterfaces.js";
+import { IAuditQuestionsFieldValue } from "./fields/auditquestions.js";
+import { IDateRangeFieldValue, IDateRangeFieldValueSchema } from "./fields/daterange.js";
+import { IProcessLinkValue, IProcessLinkValueSchema } from "./fields/processlink.js";
+import { IRadioButtonGroupFieldValue, IRadioButtonGroupFieldValueSchema } from "./fields/radiobutton.js";
+import { IRoxFileFieldValue, IRoxFileFieldValueSchema } from "./fields/roxfilefield.js";
+import { IRoxFileLinkValue, IRoxFileLinkValueSchema } from "./fields/roxfilelink.js";
+import { ISignatureFieldValue, ISignatureFieldValueSchema } from "./fields/signature.js";
+import { ISpreadSheetFieldValue, ISpreadSheetFieldValueSchema } from "./fields/spreadsheet.js";
+import { ISVGDropdownOption, ISVGDropdownOptionSchema } from "./fields/svgdropdown.js";
+import { ITasksFieldValue, ITasksFieldValueSchema } from "./fields/tasks.js";
+import { ITreeViewFieldValue, TreeViewFieldValueSchema } from "./fields/treeview.js";
+import { createLiteralTypeRegExp } from "./regextools.js";
 
 export const FieldTypeOptions = [
   "ProcessHubTextInput",

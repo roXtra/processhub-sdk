@@ -1,24 +1,24 @@
-{
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 2015,
-    "sourceType": "module",
-    "project": "./tsconfig.json"
+module.exports = {
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: "module",
+    project: "./tsconfig.json",
   },
-  "plugins": ["@typescript-eslint", "deprecation", "no-only-tests"],
-  "env": {
-    "browser": true,
-    "node": true,
-    "es2019": true
+  plugins: ["@typescript-eslint", "deprecation", "no-only-tests"],
+  env: {
+    browser: true,
+    node: true,
+    es2019: true,
   },
-  "extends": [
+  extends: [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier"
+    "prettier",
   ],
-  "rules": {
+  rules: {
     "@typescript-eslint/no-non-null-assertion": "error",
     "linebreak-style": ["error", "unix"],
     "no-only-tests/no-only-tests": "error",
@@ -27,110 +27,110 @@
       "error",
       "always",
       {
-        "ignoreInlineComments": true,
-        "ignoreConsecutiveComments": true
-      }
+        ignoreInlineComments: true,
+        ignoreConsecutiveComments: true,
+      },
     ],
     "spaced-comment": "off",
     "no-eval": "error",
     "no-trailing-spaces": "error",
     "no-unsafe-finally": "error",
     "no-var": "error",
-    "eqeqeq": [
+    eqeqeq: [
       "off",
       "always",
       {
-        "null": "ignore"
-      }
+        null: "ignore",
+      },
     ],
     "id-blacklist": "error",
     "no-underscore-dangle": [
       "error",
       {
-        "allow": ["__INITIAL_CONFIG__", "__INITIAL_STATE__"]
-      }
+        allow: ["__INITIAL_CONFIG__", "__INITIAL_STATE__"],
+      },
     ],
     "require-atomic-updates": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
-        "args": "none",
-        "varsIgnorePattern": ""
-      }
+        args: "none",
+        varsIgnorePattern: "",
+      },
     ],
     "@typescript-eslint/no-floating-promises": "error",
     "@typescript-eslint/prefer-namespace-keyword": "error",
-    "semi": "off",
+    semi: "off",
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/type-annotation-spacing": ["error"],
-    "camelcase": "off",
+    camelcase: "off",
     "@typescript-eslint/naming-convention": [
       "error",
       {
-        "selector": "import",
-        "format": ["camelCase", "PascalCase", "UPPER_CASE"]
+        selector: "import",
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
       },
       {
-        "selector": "default",
-        "format": ["camelCase"]
+        selector: "default",
+        format: ["camelCase"],
       },
       {
-        "selector": "interface",
-        "format": ["PascalCase"],
-        "custom": {
-          "regex": "^I[A-Z]",
-          "match": true
-        }
+        selector: "interface",
+        format: ["PascalCase"],
+        custom: {
+          regex: "^I[A-Z]",
+          match: true,
+        },
       },
       {
-        "selector": "enumMember",
-        "format": ["PascalCase", "UPPER_CASE"]
+        selector: "enumMember",
+        format: ["PascalCase", "UPPER_CASE"],
       },
       {
-        "selector": "variable",
-        "format": ["camelCase", "PascalCase", "UPPER_CASE"]
+        selector: "variable",
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
       },
       {
-        "selector": "parameter",
-        "format": ["camelCase"],
-        "leadingUnderscore": "forbid"
+        selector: "parameter",
+        format: ["camelCase"],
+        leadingUnderscore: "forbid",
       },
       {
-        "selector": "property",
-        "format": ["PascalCase", "camelCase", "UPPER_CASE"],
-        "leadingUnderscore": "forbid"
+        selector: "property",
+        format: ["PascalCase", "camelCase", "UPPER_CASE"],
+        leadingUnderscore: "forbid",
       },
       {
-        "selector": "property",
-        "format": null,
-        "leadingUnderscore": "forbid",
-        "modifiers": ["requiresQuotes"]
+        selector: "property",
+        format: null,
+        leadingUnderscore: "forbid",
+        modifiers: ["requiresQuotes"],
       },
       {
-        "selector": "memberLike",
-        "modifiers": ["private"],
-        "format": ["PascalCase", "camelCase"],
-        "leadingUnderscore": "forbid"
+        selector: "memberLike",
+        modifiers: ["private"],
+        format: ["PascalCase", "camelCase"],
+        leadingUnderscore: "forbid",
       },
       {
-        "selector": "typeLike",
-        "format": ["PascalCase"]
-      }
+        selector: "typeLike",
+        format: ["PascalCase"],
+      },
     ],
     "@typescript-eslint/no-use-before-define": [
       "error",
       {
-        "functions": false,
-        "classes": false,
-        "variables": true
-      }
+        functions: false,
+        classes: false,
+        variables: true,
+      },
     ],
     "@typescript-eslint/no-var-requires": "error",
     "@typescript-eslint/no-misused-promises": [
       "error",
       {
-        "checksVoidReturn": false
-      }
+        checksVoidReturn: false,
+      },
     ],
     "@typescript-eslint/unbound-method": "error",
     "@typescript-eslint/no-empty-interface": "error",
@@ -153,14 +153,14 @@
     "@typescript-eslint/explicit-function-return-type": [
       "error",
       {
-        "allowExpressions": true
-      }
+        allowExpressions: true,
+      },
     ],
-    "deprecation/deprecation": "warn"
+    "deprecation/deprecation": "warn",
   },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  }
-}
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
+};

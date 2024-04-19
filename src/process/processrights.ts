@@ -1,16 +1,16 @@
-import { tl } from "../tl";
-import { getDefaultRoleGroup, hasEditAccess, IUserDetails, IUserDetailsNoExtras, Licence, PredefinedGroups } from "../user/userinterfaces";
-import { BpmnProcess } from "./bpmn/bpmnprocess";
-import { internalWorkflowsWorkspaceId, IWorkspaceDetails, IWorkspaceMember, StateWorkspaceDetails } from "../workspace/workspaceinterfaces";
-import { IProcessDetails, ProcessViewAccess } from "./processinterfaces";
-import { error, isTrue } from "../tools/assert";
-import { isGroupId, isUserId } from "../tools/guid";
-import { Bpmn } from "./bpmn";
-import isEqual from "lodash/isEqual";
-import { ModuleName } from "../modules/imodule";
-import { StateProcessDetails } from "./processstate";
-import { StateUserDetails } from "../user/phclient";
-import { isWorkspaceMember } from "../workspace/workspacerights";
+import { tl } from "../tl.js";
+import { getDefaultRoleGroup, hasEditAccess, IUserDetails, IUserDetailsNoExtras, Licence, PredefinedGroups } from "../user/userinterfaces.js";
+import { BpmnProcess } from "./bpmn/bpmnprocess.js";
+import { internalWorkflowsWorkspaceId, IWorkspaceDetails, IWorkspaceMember, StateWorkspaceDetails } from "../workspace/workspaceinterfaces.js";
+import { IProcessDetails, ProcessViewAccess } from "./processinterfaces.js";
+import { error, isTrue } from "../tools/assert.js";
+import { isGroupId, isUserId } from "../tools/guid.js";
+import { Bpmn } from "modeler/bpmn/bpmn";
+import isEqual from "lodash/isEqual.js";
+import { ModuleName } from "../modules/imodule.js";
+import { StateProcessDetails } from "./processstate.js";
+import { StateUserDetails } from "../user/phclient.js";
+import { isWorkspaceMember } from "../workspace/workspacerights.js";
 
 export enum ProcessAccessRights {
   None = 0,

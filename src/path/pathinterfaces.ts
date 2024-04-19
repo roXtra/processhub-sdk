@@ -1,6 +1,6 @@
-import { strEnum } from "../tools/types";
-import { WorkspaceView } from "../workspace/phclient";
-import { ProcessView } from "../process/phclient";
+import { strEnum } from "../tools/types.js";
+import { WorkspaceView } from "../workspace/phclient.js";
+import { ProcessView } from "../process/phclient.js";
 
 export const Page = strEnum(["AuditsOffline", "ErrorPage", "StartPage", "SignupPage", "WorkspacePage", "ProcessPage"]);
 export type Page = keyof typeof Page;

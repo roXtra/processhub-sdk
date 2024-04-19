@@ -1,5 +1,5 @@
 declare module "min-dom/lib/clear" {
-  export = clear;
+  export default clear;
 
   function clear(el: {}): void;
 }

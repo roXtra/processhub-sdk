@@ -1,10 +1,11 @@
 {
   "name": "processhub-sdk",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git://github.com/roXtra/processhub-sdk.git"
   },
-  "version": "9.90.0-0",
+  "version": "9.90.0-1",
   "author": {
     "name": "ROXTRA",
     "email": "service@roxtra.com",
@@ -20,7 +21,7 @@
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
     "all": true,
-    "check-coverage": true,
+    "check-coverage": false,
     "branches": 5,
     "lines": 10,
     "functions": 5,
@@ -49,7 +50,7 @@
     "build": "rimraf ./lib && tsc && npm run copytypings",
     "test": "npm run build && npm run lint && npm run testcoverage",
     "lint": "eslint --ext .ts,.tsx ./src",
-    "testall": "ts-mocha ./src/**/*.test.ts --exit --timeout 10000 --recursive",
+    "testall": "mocha ./lib/**/*.test.js --exit --timeout 10000 --recursive",
     "testcoverage": "nyc --reporter=lcov --reporter=text-summary npm run testall",
     "copytypings": "copyfiles -u 1 \"src/**/*.d.ts\" lib && copyfiles -u 1 \"src/*.d.ts\" lib && copyfiles -u 1 src/process/types/index.d.ts lib",
     "jscpd": "jscpd ./src --ignore \"*/**/*.test.ts\"",

@@ -1,7 +1,7 @@
-import { IBaseRequest, IBaseReply, IBaseMessage, ApiResult } from "../legacyapi/apiinterfaces";
-import { IWorkspaceDetails } from "../workspace/workspaceinterfaces";
-import { IProcessDetails } from "../process/processinterfaces";
-import { IPathDetails } from "./pathinterfaces";
+import { IBaseRequest, IBaseReply, IBaseMessage, ApiResult } from "../legacyapi/apiinterfaces.js";
+import { IWorkspaceDetails } from "../workspace/workspaceinterfaces.js";
+import { IProcessDetails } from "../process/processinterfaces.js";
+import { IPathDetails } from "./pathinterfaces.js";
 
 export const PathRequestRoutes = {
   Load: "/api/path/load",

@@ -1,7 +1,7 @@
 import { assert } from "chai";
-import * as ProcessValidation from "./processvalidation";
-import { IProcessDetails } from "./processinterfaces";
-import { createId } from "../tools/guid";
+import * as ProcessValidation from "./processvalidation.js";
+import { IProcessDetails } from "./processinterfaces.js";
+import { createId } from "../tools/guid.js";
 
 describe("sdk", function () {
   describe("process", function () {

@@ -1,9 +1,9 @@
-import { IPathDetails } from "./path/pathinterfaces";
-import { StateWorkspaceDetails } from "./workspace/workspaceinterfaces";
-import { IInstanceDetails } from "./instance/instanceinterfaces";
-import { ITodoDetails } from "./todo/todointerfaces";
-import { StateProcessDetails } from "./process/processstate";
-import { StateUserDetails } from "./user/phclient";
+import { IPathDetails } from "./path/pathinterfaces.js";
+import { StateWorkspaceDetails } from "./workspace/workspaceinterfaces.js";
+import { IInstanceDetails } from "./instance/instanceinterfaces.js";
+import { ITodoDetails } from "./todo/todointerfaces.js";
+import { StateProcessDetails } from "./process/processstate.js";
+import { StateUserDetails } from "./user/phclient.js";
 
 export interface ICoreEnvironment {
   path: IPathDetails;

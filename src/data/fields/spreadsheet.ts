@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces";
+import { IFieldConfigDefault, IFieldConfigObject } from "../datainterfaces.js";
 
 export interface ISpreadSheetFieldValue {
   // "fileUrl" is defined for all SpreadSheet fields were the value is saved in the file system and not in the DB

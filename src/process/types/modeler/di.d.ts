@@ -3,7 +3,7 @@
 
 declare module "modeler/bpmn/di" {
   import { Dc } from "modeler/bpmn/dc";
-  import Base = require("moddle/lib/base");
+  import Base from "moddle/lib/base";
 
   namespace Di {
     export interface IDiagramElement extends Base {

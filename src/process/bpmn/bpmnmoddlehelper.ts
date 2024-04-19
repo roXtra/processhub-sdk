@@ -1,9 +1,9 @@
+import { BpmnProcess } from "./bpmnprocess.js";
+import { ProcessResult } from "../processinterfaces.js";
+import { ILoadTemplateReply } from "../legacyapi.js";
+import { createId } from "../../tools/guid.js";
+import { tl } from "../../tl.js";
 import BpmnModdle from "bpmn-moddle";
-import { BpmnProcess } from "./bpmnprocess";
-import { ProcessResult } from "../processinterfaces";
-import { ILoadTemplateReply } from "../legacyapi";
-import { createId } from "../../tools/guid";
-import { tl } from "../../tl";
 
 export const bpmnModdleInstance: BpmnModdle = new BpmnModdle([], {});
 

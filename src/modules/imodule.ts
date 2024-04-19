@@ -1,4 +1,4 @@
-import { FieldType } from "../data/ifieldvalue";
+import { FieldType } from "../data/ifieldvalue.js";
 
 type KendoSeriesType =
   | "area"

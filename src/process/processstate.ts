@@ -1,4 +1,4 @@
-import { IProcessDetails } from "./processinterfaces";
+import { IProcessDetails } from "./processinterfaces.js";
 
 export type StateProcessExtras = Omit<IProcessDetails["extras"], "instances"> & {
   // Process from state references only instanceIds, not the actual instances in the process state

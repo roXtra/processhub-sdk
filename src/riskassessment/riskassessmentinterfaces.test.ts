@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { RiskAssessmentCycle, RiskAssessmentCycleSchema } from "./riskassessmentinterfaces";
+import { RiskAssessmentCycle, RiskAssessmentCycleSchema } from "./riskassessmentinterfaces.js";
 
 describe("sdk", function () {
   describe("riskassessment", function () {

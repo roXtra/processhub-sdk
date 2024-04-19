@@ -1,4 +1,4 @@
-import { IWorkspaceDetails, StateWorkspaceDetails, WorkspaceRole } from "./workspaceinterfaces";
+import { IWorkspaceDetails, StateWorkspaceDetails, WorkspaceRole } from "./workspaceinterfaces.js";
 
 export interface IWorkspaceRole {
   roleName?: string;

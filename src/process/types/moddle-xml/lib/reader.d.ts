@@ -1,5 +1,5 @@
 declare module "moddle-xml/lib/reader" {
-  import Factory = require("moddle/lib/factory");
+  import Factory from "moddle/lib/factory";
 
   /**
    * A reader for a meta-model

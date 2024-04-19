@@ -1,4 +1,4 @@
-import { SystemUserId } from "../user/usertools";
+import { SystemUserId } from "../user/usertools.js";
 
 const ID_LENGTH = 16;
 
