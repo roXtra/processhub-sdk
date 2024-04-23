@@ -12,6 +12,31 @@ import { IConfig } from "../serverconfig/iconfig.js";
 import { IUserFieldsConfig } from "../config.js";
 
 /**
+ * Provide vm environment for ServiceTasks
+ */
+export interface IServiceTaskVM extends Disposable {
+  init(): Promise<void>;
+  /**
+   * Evaluates a code string in the VM
+   * @param code Code to evaluate
+   * @returns Result of the evaluation
+   */
+  evalCode(code: string): unknown;
+  /**
+   * Sets a global variable/function in the VM
+   * @param name Name of the global variable
+   * @param value Value of the global variable
+   */
+  setGlobal(name: string, value: unknown): void;
+  /**
+   * Get a global variable from the VM
+   * @param name Name of the global variable
+   * @returns Value of the global variable
+   */
+  getGlobal(name: string): unknown;
+}
+
+/**
  * Provide logging for ServiceTasks
  */
 export interface IServiceTaskLogger {
@@ -110,6 +135,7 @@ export interface IServiceTaskEnvironment {
   sender: IUserDetails;
   fileStore: IFileStore;
   serverConfig: IConfig;
+  getVM: () => IServiceTaskVM;
 }
 
 export async function getFields(environment: IServiceTaskEnvironment): Promise<IServiceActionConfigField[]> {

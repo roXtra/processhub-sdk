@@ -218,5 +218,12 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         port: 5000,
       },
     },
+    getVM: () => ({
+      init: () => Promise.resolve(),
+      evalCode: () => undefined,
+      setGlobal: () => undefined,
+      getGlobal: () => undefined,
+      [Symbol.dispose]: () => undefined,
+    }),
   };
 }
