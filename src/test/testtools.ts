@@ -5,7 +5,52 @@ import { IProcessDetails } from "../process/processinterfaces.js";
 import { IWorkspaceDetails, WorkspaceRole } from "../workspace/workspaceinterfaces.js";
 import { IInstanceDetails } from "../instance/instanceinterfaces.js";
 import { emptyUser, IUserDetails } from "../user/userinterfaces.js";
-import { testUserFieldsConfig } from "../data/datatools.test.js";
+import { IUserFieldsConfig } from "../config.js";
+
+export const testUserFieldsConfig: IUserFieldsConfig = {
+  fields: [
+    {
+      caption: "Anrede",
+      fieldvalueswithcaption: [
+        { caption: "Herr", rawcaption: "[14972]Herr", value: "Herr" },
+        { caption: "Herr Dr.", rawcaption: "[14973]Herr Dr.", value: "Herr Dr." },
+        { caption: "Herr Prof.", rawcaption: "[14974]Herr Prof.", value: "Herr Prof." },
+        { caption: "Frau", rawcaption: "[14975]Frau", value: "Frau" },
+        { caption: "Frau Dr.", rawcaption: "[14976]Frau Dr.", value: "Frau Dr." },
+        { caption: "Frau Prof.", rawcaption: "[14977]Frau Prof.", value: "Frau Prof." },
+      ],
+      id: "Salutation",
+      rawcaption: "[15088]Anrede",
+      type: "select",
+    },
+    { caption: "Adresse 1", id: "Address1", rawcaption: "[15098]Adresse 1", type: "string" },
+    { caption: "Startordner-ID", id: "FolderID", rawcaption: "[15105]Startordner-ID", type: "int" },
+  ],
+};
+
+export const testUserFieldsConfigEn: IUserFieldsConfig = {
+  fields: [
+    {
+      caption: "Salutation",
+      fieldvalueswithcaption: [
+        { caption: "Mr.", rawcaption: "[14972]Herr", value: "Herr" },
+        { caption: "Dr.", rawcaption: "[14973]Herr Dr.", value: "Herr Dr." },
+        { caption: "Prof.", rawcaption: "[14974]Herr Prof.", value: "Herr Prof." },
+        { caption: "Ms.", rawcaption: "[14975]Frau", value: "Frau" },
+        { caption: "Dr.", rawcaption: "[14976]Frau Dr.", value: "Frau Dr." },
+        { caption: "Prof.", rawcaption: "[14977]Frau Prof.", value: "Frau Prof." },
+      ],
+      id: "Salutation",
+      rawcaption: "[15088]Anrede",
+      type: "select",
+    },
+    { caption: "Address 1", id: "Address1", rawcaption: "[15098]Adresse 1", type: "string" },
+    { caption: "Address 2", id: "Address2", rawcaption: "[15099]Adresse 2", type: "string" },
+    { caption: "Location", id: "City", rawcaption: "[15100]Stadt", type: "string" },
+    { caption: "State", id: "State", rawcaption: "[15101]Staat", type: "string" },
+    { caption: "Start folder ID", id: "FolderID", rawcaption: "[15105]Startordner-ID", type: "int" },
+  ],
+};
 
 export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTaskEnvironment {
   return {
