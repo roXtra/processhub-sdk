@@ -4,7 +4,7 @@ export interface IDataTableFieldConfig extends IFieldConfig {
   columns: {
     id: string;
     name: string;
-    type: "text" | "numeric" | "date";
+    type: "text" | "numeric";
   }[];
 }
 
