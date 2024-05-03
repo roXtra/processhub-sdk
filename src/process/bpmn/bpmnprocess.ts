@@ -260,9 +260,8 @@ export class BpmnProcess {
       return tmpList;
     }
 
-    for (const task of currentTask.outgoing) {
-      tmpList.push(task.targetRef);
-    }
+    tmpList.push(...currentTask.outgoing.map((o) => o.targetRef).filter((t) => t != null));
+
     return tmpList;
   }
 

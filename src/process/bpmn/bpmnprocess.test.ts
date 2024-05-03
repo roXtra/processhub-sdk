@@ -97,6 +97,24 @@ describe("sdk", function () {
         freigabe2Xml = await fs.readFile("./src/test/testfiles/freigabe2.bpmn", "utf-8");
       });
 
+      describe("getNextActivities", function () {
+        let bpmnProcess: BpmnProcess;
+
+        before(async function () {
+          const xml = await fs.readFile("./src/test/testfiles/getNextActivities.bpmn", "utf-8");
+          bpmnProcess = new BpmnProcess();
+          await bpmnProcess.loadXml(xml);
+        });
+
+        it("should not return undefined values", function () {
+          const flowElements = bpmnProcess.getProcess(bpmnProcess.processId()).flowElements;
+          for (const flowElement of flowElements) {
+            const nextActivities = bpmnProcess.getNextActivities(flowElement.id);
+            nextActivities.forEach((nextActivity) => expect(nextActivity).not.to.be.undefined);
+          }
+        });
+      });
+
       describe("getDecisionTasksForTask", function () {
         it("returns the possible decision tasks", async function () {
           const bpmnProcess: BpmnProcess = new BpmnProcess();
