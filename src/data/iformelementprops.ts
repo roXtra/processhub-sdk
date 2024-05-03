@@ -11,6 +11,5 @@ export interface IFormElementProps<ConfigType extends IFieldConfig, ValueType ex
   inlineEditingActive: boolean | undefined;
   disabled: boolean;
   config: ConfigType;
-  key?: string;
   auditQuestionsMode?: IFieldDefinition["auditQuestionsMode"];
 }
