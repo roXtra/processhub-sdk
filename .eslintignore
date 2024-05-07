@@ -1,3 +1,0 @@
-**/.eslintrc.cjs
-# Ignore custom thirdparty types
-src/process/types/**
