@@ -13,9 +13,9 @@ describe("sdk", function () {
       describe("isValidMailAddress", function () {
         it("soll gültige Mailadressen akzeptieren", function () {
           chai.assert.isTrue(StringTools.isValidMailAddress("tr@processhub-nomail.com"));
+          chai.assert.isTrue(StringTools.isValidMailAddress("tr@test"));
         });
         it("soll ungültige Adressen ablehnen", function () {
-          chai.assert.isFalse(StringTools.isValidMailAddress("tr@test"));
           chai.assert.isFalse(StringTools.isValidMailAddress(""));
           chai.assert.isFalse(StringTools.isValidMailAddress(null));
         });
