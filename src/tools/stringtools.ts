@@ -9,7 +9,8 @@ export function isValidMailAddress(mail: string | null): boolean {
   if (mail === null) return false;
 
   // Fault tolerant - don't block too many
-  const re = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+  // Should be the same regex that is used in the roxtra repo
+  const re = /([-+\w]+(\.[-+\w]+)*)@\w+([-\w]+(\.[-\w]+\w+)+)/;
   return re.test(mail);
 }
 
