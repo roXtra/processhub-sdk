@@ -183,7 +183,7 @@ export default tseslint.config(
       "@typescript-eslint/triple-slash-reference": "off",
       "@typescript-eslint/no-non-null-assertion": "error",
       "@typescript-eslint/no-unnecessary-condition": "warn",
-      "@typescript-eslint/default-param-last": "warn",
+      "@typescript-eslint/default-param-last": "error",
       "@typescript-eslint/no-useless-empty-export": "error",
       "@typescript-eslint/explicit-function-return-type": [
         "error",
