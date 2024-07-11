@@ -9,7 +9,9 @@ export interface IServiceConfigSecret {
 }
 
 const IServiceConfigObject: IServiceConfigSecret = {
-  secret: Joi.object().pattern(Joi.string(), Joi.string()) as unknown as { [key: string]: string },
+  secret: Joi.object().pattern(Joi.string(), Joi.string()) as unknown as {
+    [key: string]: string;
+  },
 };
 
 export const IServiceConfigSchema = Joi.object(IServiceConfigObject);
@@ -23,8 +25,8 @@ export const IServiceConfigSchema = Joi.object(IServiceConfigObject);
  */
 export async function readConfigFile<T = IServiceConfigSecret>(
   configPath: string,
-  schema: Joi.Schema<T> = IServiceConfigSchema,
   logger: IServiceTaskLogger,
+  schema: Joi.Schema<T> = IServiceConfigSchema,
 ): Promise<T | undefined> {
   try {
     const configData = await fs.readFile(configPath, "utf8");
