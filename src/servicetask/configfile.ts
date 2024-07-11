@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Joi from "joi";
 import fs from "fs/promises";
 import { validateType } from "../data/datatools.js";
@@ -9,7 +10,9 @@ export interface IServiceConfigSecret {
 }
 
 const IServiceConfigObject: IServiceConfigSecret = {
-  secret: Joi.object().pattern(Joi.string(), Joi.string()) as unknown as { [key: string]: string },
+  secret: (Joi.object().pattern(Joi.string(), Joi.string()) as unknown) as {
+    [key: string]: string;
+  },
 };
 
 export const IServiceConfigSchema = Joi.object(IServiceConfigObject);
@@ -23,8 +26,8 @@ export const IServiceConfigSchema = Joi.object(IServiceConfigObject);
  */
 export async function readConfigFile<T = IServiceConfigSecret>(
   configPath: string,
-  schema: Joi.Schema<T> = IServiceConfigSchema,
   logger: IServiceTaskLogger,
+  schema: Joi.Schema<T> = IServiceConfigSchema
 ): Promise<T | undefined> {
   try {
     const configData = await fs.readFile(configPath, "utf8");
@@ -33,11 +36,17 @@ export async function readConfigFile<T = IServiceConfigSecret>(
   } catch (ex) {
     if ((ex as NodeJS.ErrnoException)?.code === "ENOENT") {
       // Config file does not exist - use empty secrets
-      logger.info(`Could not read service config: Config file ${configPath} does not exist.`);
+      logger.info(
+        `Could not read service config: Config file ${configPath} does not exist.`
+      );
       return undefined;
     } else {
       logger.error("Failed to load service config file: " + String(ex));
-      throw new BpmnError(ErrorCode.ConfigInvalid, "Could not load config file " + configPath, ex instanceof Error ? ex : undefined);
+      throw new BpmnError(
+        ErrorCode.ConfigInvalid,
+        "Could not load config file " + configPath,
+        ex instanceof Error ? ex : undefined
+      );
     }
   }
 }
