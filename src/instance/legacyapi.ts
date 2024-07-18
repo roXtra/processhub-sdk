@@ -1,5 +1,5 @@
 import { IBaseReply, IBaseMessage, IBaseRequest, IBaseRequestObject, IBaseReplyObject } from "../legacyapi/apiinterfaces.js";
-import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras } from "./instanceinterfaces.js";
+import { IInstanceDetails, IResumeInstanceDetails, InstanceExtras, State } from "./instanceinterfaces.js";
 import Joi from "joi";
 import { createLiteralTypeRegExp } from "../data/regextools.js";
 import { IUserDetails } from "../user/userinterfaces.js";
@@ -371,11 +371,13 @@ export const IGetRoxFileLinkReferencesRequestSchema = Joi.object(IGetRoxFileLink
 export interface IRoxFileLinkReference {
   link: string;
   title: string;
+  state: State;
 }
 
 const IRoxFileLinkReferenceObject: IRoxFileLinkReference = {
   link: Joi.string().uri().required() as unknown as string,
   title: Joi.string().required() as unknown as string,
+  state: Joi.object().required() as unknown as State,
 };
 
 export const IRoxFileLinkReferenceSchema = Joi.object(IRoxFileLinkReferenceObject);
