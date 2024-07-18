@@ -87,7 +87,6 @@ export default tseslint.config(
         },
       ],
       "require-atomic-updates": "off",
-      "default-param-last": "off",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
@@ -183,7 +182,6 @@ export default tseslint.config(
       "@typescript-eslint/triple-slash-reference": "off",
       "@typescript-eslint/no-non-null-assertion": "error",
       "@typescript-eslint/no-unnecessary-condition": "warn",
-      "@typescript-eslint/default-param-last": "error",
       "@typescript-eslint/no-useless-empty-export": "error",
       "@typescript-eslint/explicit-function-return-type": [
         "error",
@@ -247,5 +245,5 @@ export default tseslint.config(
   // Add prettier as last entry to ensure it can overwrite other configurations
   {
     ...eslintPluginPrettier,
-  }
+  },
 );
