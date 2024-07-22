@@ -377,7 +377,9 @@ export interface IRoxFileLinkReference {
 const IRoxFileLinkReferenceObject: IRoxFileLinkReference = {
   link: Joi.string().uri().required() as unknown as string,
   title: Joi.string().required() as unknown as string,
-  state: Joi.object().required() as unknown as State,
+  state: Joi.string()
+    .valid(...Object.values(State))
+    .required() as unknown as State,
 };
 
 export const IRoxFileLinkReferenceSchema = Joi.object(IRoxFileLinkReferenceObject);
