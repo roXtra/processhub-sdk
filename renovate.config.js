@@ -44,10 +44,5 @@ module.exports = {
       groupName: "progress monorepo",
       matchPackagePatterns: ["^@progress/", "kendo-ui-core"],
     },
-    {
-      // Lock chai in to v4 as v5 is ES Module only
-      matchPackageNames: ["chai"],
-      allowedVersions: "^4.0.0",
-    },
   ],
 };
