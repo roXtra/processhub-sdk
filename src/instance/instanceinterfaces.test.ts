@@ -8,7 +8,7 @@ describe("sdk", function () {
         it("should validate all State options", function () {
           for (const item in State) {
             if (typeof item === "number") {
-              expect(StateSchema.validate(item).error).is.undefined;
+              expect(StateSchema.validate(item).error).equals(undefined);
             }
           }
         });

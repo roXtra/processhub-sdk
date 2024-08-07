@@ -31,11 +31,13 @@ export type GetInputParams<ConfigType extends IFieldConfig, ValueType extends Fi
 export interface IBaseGrid {
   getFieldValueForDataItem(
     dataItem: {
+      // eslint-disable-next-line @typescript-eslint/no-empty-object-type
       [key: string]: string | {} | number | undefined;
     },
     fieldName: string,
   ): { fieldValue: IFieldValue | undefined; instance: IInstanceDetails | undefined };
   getFieldDefinitionByName(fieldName: string): IFieldDefinition | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   spreadSheetMap: Map<string, {}>;
   onSpreadSheetLinkClicked: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => Promise<void>;
 }
@@ -45,6 +47,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
   getName(userLanguage: string): string;
   getInput(params: GetInputParams<ConfigType, ValueType>): React.JSX.Element | null;
   renderValue(
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     value: {} | undefined | null,
     instance: IInstanceDetails,
     process: IProcessDetails | StateProcessDetails,
@@ -53,6 +56,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     showDirect?: boolean,
   ): React.JSX.Element | undefined;
   renderValueForEmail(
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     value: {} | undefined | null,
     instance: IInstanceDetails,
     process: IProcessDetails | StateProcessDetails,
@@ -64,6 +68,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
    * Render field value for reports
    */
   renderValueForReport(
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     value: {} | undefined | null,
     instance: IInstanceDetails,
     process: IProcessDetails | StateProcessDetails,
@@ -75,6 +80,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
    * Render value for comment section (audittrail)
    */
   renderValueForComment(
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     value: {} | undefined | null,
     instance: IInstanceDetails,
     process: IProcessDetails | StateProcessDetails,
@@ -85,6 +91,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
    * Render value for label fields
    */
   renderValueForLabelField(
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     value: {} | undefined | null,
     instance: IInstanceDetails,
     process: IProcessDetails | StateProcessDetails,
@@ -92,6 +99,7 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
     config?: IFieldConfig,
   ): React.JSX.Element | undefined;
   renderValueToString(
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     value: {} | undefined,
     instance: IInstanceDetails,
     process: IProcessDetails | StateProcessDetails,
@@ -128,8 +136,10 @@ export interface IFieldType<ConfigType extends IFieldConfig, ValueType extends F
    */
   isAvailableAsChartField(type?: SeriesType): boolean;
   appendValueToChartData(currentChartData: IChartData[], field: IFieldValue): void;
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   getValueForInstanceTitle(value: {} | undefined | null, instance: IInstanceDetails, process: IProcessDetails | StateProcessDetails, config?: IFieldConfig): string;
   migrateFieldConfig(newConfig: IFieldConfig, oldConfig: IFieldConfig): void;
   filterCellRender(fieldKey: string, grid: Component): React.JSX.Element | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   applyCustomFilter(value: FieldValueType | undefined | null, filter: {}): boolean;
 }

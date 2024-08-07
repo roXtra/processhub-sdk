@@ -280,6 +280,7 @@ export class BpmnProcessDiagram {
           }
 
           const isMessageStartEvent = getLastArrayEntry(startEvent.eventDefinitions)?.$type === "bpmn:MessageEventDefinition";
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           isMessageStartEvent ? (yParam -= 40) : (yParam += 40);
         }
       }

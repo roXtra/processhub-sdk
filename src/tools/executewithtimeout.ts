@@ -1,10 +1,11 @@
 /**
  * Error that is thrown if a task failed to complete within a given timeout.
  */
-export class TaskTimedOutError {
+export class TaskTimedOutError extends Error {
   public readonly reason;
 
   constructor(reason: string) {
+    super(reason);
     this.reason = reason;
   }
 }

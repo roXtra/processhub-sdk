@@ -7,7 +7,7 @@ describe("sdk", function () {
       describe("joi schema", function () {
         it("accepts TreeView FieldValues", function () {
           // Field with undefined value
-          expect(TreeViewFieldValueSchema.required().validate(undefined).error).to.not.be.undefined;
+          expect(TreeViewFieldValueSchema.required().validate(undefined).error).not.to.equal(undefined);
 
           const treeViewEntry: ITreeViewFieldValue = {
             entries: [
@@ -20,14 +20,14 @@ describe("sdk", function () {
             ],
           };
 
-          expect(TreeViewFieldValueSchema.required().validate(treeViewEntry).error).to.be.undefined;
+          expect(TreeViewFieldValueSchema.required().validate(treeViewEntry).error).to.equal(undefined);
 
           // Test empty tree
           const treeViewEntryEmpty: ITreeViewFieldValue = {
             entries: [],
           };
 
-          expect(TreeViewFieldValueSchema.required().validate(treeViewEntryEmpty).error).to.be.undefined;
+          expect(TreeViewFieldValueSchema.required().validate(treeViewEntryEmpty).error).to.equal(undefined);
 
           // Test nested tree
           const treeViewEntryNested: ITreeViewFieldValue = {
@@ -48,7 +48,7 @@ describe("sdk", function () {
             ],
           };
 
-          expect(TreeViewFieldValueSchema.required().validate(treeViewEntryNested).error, "Error when validating nested TreeViewFieldValue").to.be.undefined;
+          expect(TreeViewFieldValueSchema.required().validate(treeViewEntryNested).error, "Error when validating nested TreeViewFieldValue").to.equal(undefined);
         });
       });
     });

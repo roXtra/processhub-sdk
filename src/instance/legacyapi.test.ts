@@ -7,8 +7,8 @@ describe("sdk", function () {
     describe("legacyapi", function () {
       describe("IGenerateReportRequest", function () {
         function validateIgenerateReportRequest(request: IGenerateReportRequest | IGenerateWorkspaceReportRequest): void {
-          if (request.reportType === RequestedReportType.WORKSPACE_AUDIT_TRAIL) expect(IGenerateWorkspaceReportRequestSchema.validate(request).error).is.undefined;
-          else expect(IGenerateReportRequestSchema.validate(request).error).is.undefined;
+          if (request.reportType === RequestedReportType.WORKSPACE_AUDIT_TRAIL) expect(IGenerateWorkspaceReportRequestSchema.validate(request).error).equals(undefined);
+          else expect(IGenerateReportRequestSchema.validate(request).error).equals(undefined);
         }
 
         it("passes validation for requests of all types of RequestedInstanceReportType", function () {
@@ -108,7 +108,7 @@ describe("sdk", function () {
                 expect.fail(`Missing test implementation for RequestedInstanceReportType ${String(reportType)}. Please add test case for type ${String(reportType)}`);
             }
 
-            expect(reportRequest, "reportRequest is undefined, this must not happen!").to.not.be.undefined;
+            expect(reportRequest, "reportRequest is undefined, this must not happen!").not.to.equal(undefined);
             validateIgenerateReportRequest(reportRequest);
           }
         });
