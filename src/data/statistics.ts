@@ -77,6 +77,7 @@ export interface IStatisticTrailEntry {
   todo?: IStatisticTrailEntryTodo;
   instance?: IStatisticTrailEntryInstance;
   user?: IStatisticTrailEntryUser;
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   process?: {};
 }
 

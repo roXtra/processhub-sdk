@@ -32,21 +32,21 @@ export interface ITodoEnvironment extends ICoreEnvironment {
   todo: ITodoDetails;
 }
 
-export function isValidCoreEnvironment(coreEnv: {}, requireUser = true): coreEnv is ICoreEnvironment {
+export function isValidCoreEnvironment(coreEnv: unknown, requireUser = true): coreEnv is ICoreEnvironment {
   if (coreEnv == null) return false;
 
   if (!requireUser) return true;
   else return (coreEnv as ICoreEnvironment).user != null;
 }
-export function isValidWorkspaceEnvironment(workspaceEnv: {}, requireUser = true): workspaceEnv is IWorkspaceEnvironment {
+export function isValidWorkspaceEnvironment(workspaceEnv: unknown, requireUser = true): workspaceEnv is IWorkspaceEnvironment {
   return isValidCoreEnvironment(workspaceEnv, requireUser) && (workspaceEnv as IWorkspaceEnvironment).workspace != null;
 }
-export function isValidProcessEnvironment(processEnv: {}, requireUser = true): processEnv is IProcessEnvironment {
+export function isValidProcessEnvironment(processEnv: unknown, requireUser = true): processEnv is IProcessEnvironment {
   return isValidWorkspaceEnvironment(processEnv, requireUser) && (processEnv as IProcessEnvironment).process != null;
 }
-export function isValidInstanceEnvironment(instanceEnv: {}, requireUser = true): instanceEnv is IInstanceEnvironment {
+export function isValidInstanceEnvironment(instanceEnv: unknown, requireUser = true): instanceEnv is IInstanceEnvironment {
   return isValidProcessEnvironment(instanceEnv, requireUser) && (instanceEnv as IInstanceEnvironment).instance != null;
 }
-export function isValidTodoEnvironment(todoEnv: {}, requireUser = true): todoEnv is ITodoEnvironment {
+export function isValidTodoEnvironment(todoEnv: unknown, requireUser = true): todoEnv is ITodoEnvironment {
   return isValidProcessEnvironment(todoEnv, requireUser) && (todoEnv as ITodoEnvironment).todo != null;
 }

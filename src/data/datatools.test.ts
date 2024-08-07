@@ -332,7 +332,7 @@ describe("sdk", function () {
           // Test if a numberstring will not be casted to a number
           const expectedNumberString = "42";
           const actualNumber = DataTools.validateType<number>(Joi.number().options({ convert: true }), expectedNumberString);
-          expect(typeof actualNumber === "string").to.be.true;
+          expect(typeof actualNumber === "string").to.equal(true);
           expect(actualNumber).to.equal(expectedNumberString);
         });
 
@@ -354,10 +354,10 @@ describe("sdk", function () {
           }).to.throw();
 
           let undefinedString = DataTools.validateType<string | undefined>(Joi.string(), undefined, { allowUndefined: true });
-          expect(undefinedString).to.be.undefined;
+          expect(undefinedString).to.equal(undefined);
 
           undefinedString = DataTools.validateType<string>(Joi.string(), undefined, { allowUndefined: true });
-          expect(undefinedString).to.be.undefined;
+          expect(undefinedString).to.equal(undefined);
 
           undefinedString = DataTools.validateType<string | undefined>(Joi.string(), "Not undefined", { allowUndefined: true });
           expect(undefinedString).to.equal("Not undefined");
@@ -365,11 +365,11 @@ describe("sdk", function () {
           // Test convert option
           const expectedNumberString = "42";
           let actualNumber = DataTools.validateType<number>(Joi.number().options({ convert: true }), expectedNumberString, { convert: false });
-          expect(typeof actualNumber === "string").to.be.true;
+          expect(typeof actualNumber === "string").to.equal(true);
           expect(actualNumber).to.equal(expectedNumberString);
 
           actualNumber = DataTools.validateType<number>(Joi.number().options({ convert: true }), expectedNumberString, { convert: true });
-          expect(typeof actualNumber === "number").to.be.true;
+          expect(typeof actualNumber === "number").to.equal(true);
           expect(actualNumber).to.equal(Number(expectedNumberString));
         });
       });

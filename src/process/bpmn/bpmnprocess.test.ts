@@ -110,7 +110,7 @@ describe("sdk", function () {
           const flowElements = bpmnProcess.getProcess(bpmnProcess.processId()).flowElements;
           for (const flowElement of flowElements) {
             const nextActivities = bpmnProcess.getNextActivities(flowElement.id);
-            nextActivities.forEach((nextActivity) => expect(nextActivity).not.to.be.undefined);
+            nextActivities.forEach((nextActivity) => expect(nextActivity).not.to.equal(undefined));
           }
         });
       });
@@ -156,7 +156,7 @@ describe("sdk", function () {
           // Check if empty lane is still there
           const process: Bpmn.IProcess = definitions.rootElements.find((e) => e.$type === "bpmn:Process") as Bpmn.IProcess;
           const [laneSet] = process.laneSets!;
-          expect(laneSet.lanes).not.to.be.undefined;
+          expect(laneSet.lanes).not.to.equal(undefined);
           expect(laneSet.lanes.length).to.equal(1);
         });
       });

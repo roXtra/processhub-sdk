@@ -8,7 +8,7 @@ describe("sdk", function () {
         it("should validate all RiskAssessmentCycle options", function () {
           for (const item in RiskAssessmentCycle) {
             if (typeof item === "number") {
-              expect(RiskAssessmentCycleSchema.validate(item).error).is.undefined;
+              expect(RiskAssessmentCycleSchema.validate(item).error).equals(undefined);
             }
           }
         });
