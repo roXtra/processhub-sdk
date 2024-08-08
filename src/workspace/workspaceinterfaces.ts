@@ -15,7 +15,6 @@ export type StateWorkspaceDetails = Omit<IWorkspaceDetails, "extras" | "type"> &
 export interface IWorkspaceDetails {
   workspaceId: string;
   displayName: string;
-  description?: string;
   userRole?: WorkspaceRole; // Rolle des angemeldeten Users im Workspace
   trialExpiresAt?: Date;
   licensedUsers?: number;
