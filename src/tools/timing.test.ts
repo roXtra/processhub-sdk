@@ -43,6 +43,9 @@ describe("tools", function () {
           "ko-KR": "2021. 12. 27.",
           "ja-JP": "2021/12/27",
           "ro-RO": "27.12.2021",
+          "da-DK": "2021-12-27",
+          "sk-SK": "27.12.2021",
+          "sl-SI": "27.12.2021",
         };
         /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -84,6 +87,9 @@ describe("tools", function () {
           "ko-KR": "2021. 12. 27. 오후 12:00",
           "ja-JP": "2021/12/27 12:00",
           "ro-RO": "27.12.2021, 12:00",
+          "da-DK": "2021-12-27, 12:00",
+          "sk-SK": "27.12.2021, 12:00",
+          "sl-SI": "27.12.2021, 12:00",
         };
 
         /* eslint-enable @typescript-eslint/naming-convention */

@@ -53,6 +53,9 @@ describe("sdk", function () {
             "ko-KR": "2분 전",
             "ja-JP": "2 分前",
             "ro-RO": "acum 2 minute",
+            "da-DK": "2 minutter siden",
+            "sk-SK": "pred 2 minútami",
+            "sl-SI": "pred 2 minutama",
           };
           /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -139,6 +142,9 @@ describe("sdk", function () {
             "ko-KR": "모레",
             "ja-JP": "明後日",
             "ro-RO": "poimâine",
+            "da-DK": "i overmorgen",
+            "sk-SK": "pozajtra",
+            "sl-SI": "pojutrišnjem",
           };
           /* eslint-enable @typescript-eslint/naming-convention */
 
