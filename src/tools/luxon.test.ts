@@ -53,7 +53,7 @@ describe("sdk", function () {
             "ko-KR": "2분 전",
             "ja-JP": "2 分前",
             "ro-RO": "acum 2 minute",
-            "da-DK": "2 minutter siden",
+            "da-DK": "for 2 minutter siden",
             "sk-SK": "pred 2 minútami",
             "sl-SI": "pred 2 minutama",
           };
