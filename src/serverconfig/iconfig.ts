@@ -5,7 +5,7 @@
 
 import { AiCompletionProviders } from "./aiprovider.js";
 
-// !!!! Changes must also be made to Setup/Config/EFormulareConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareConfig.cs !!!!
 export interface IConfig {
   Database: IDatabaseConfig;
   Filestore: IFilestoreConfig;
@@ -17,7 +17,7 @@ export interface IConfig {
   Features: IFeatureConfig;
   Tls: ITlsConfig;
   Migration: {
-    // !!!! Changes must also be made to Setup/Config/EFormulareMigrationConfig.cs !!!!
+    // !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareMigrationConfig.cs !!!!
     updateAllInstances: string;
     migrateStatisticReportDrafts: string;
     updateAuditMetrics: string;
@@ -26,14 +26,14 @@ export interface IConfig {
   GrpcSettings: IGrpcSettingsConfig;
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareRoxtraConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareRoxtraConfig.cs !!!!
 export interface IRoxtraConfig {
   efApiEndpoint: string;
   url: string;
   clientSecret: string;
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareDatabaseConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareDatabaseConfig.cs !!!!
 export interface IDatabaseConfig {
   connection: string;
   user: string;
@@ -42,16 +42,18 @@ export interface IDatabaseConfig {
   encrypt: boolean;
   poolSize: number;
   port: number | undefined;
+  requestTimeout?: number;
+  transactionTimeout?: number;
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareFilestoreConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareFilestoreConfig.cs !!!!
 export interface IFilestoreConfig {
   baseDir: string;
 }
 
 /**
  * MailboxConfig: requires either password or appId + tenantId + secret (OAuth2)
- * !!!! Changes must also be made to Setup/Config/EFormulareMailboxConfig.cs !!!!
+ * !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareMailboxConfig.cs !!!!
  */
 export interface IMailboxConfig {
   mail: string;
@@ -70,7 +72,7 @@ export interface IMailboxConfig {
   secret: string | undefined;
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareMailerConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareMailerConfig.cs !!!!
 export interface IMailerConfig {
   senderName: string;
   senderMail: string;
@@ -81,7 +83,7 @@ export interface IMailerConfig {
   requireTls: boolean;
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareWebserverConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareWebserverConfig.cs !!!!
 export interface IWebserverConfig {
   port: number;
   baseUrl: string;
@@ -89,47 +91,47 @@ export interface IWebserverConfig {
   maxUploadSizeInMB: number;
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareClientSettingsConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareClientSettingsConfig.cs !!!!
 export interface IClientSettingsConfig {
   statistics: IStatisticsConfig;
   extendedErrorMessages: boolean;
   eformVersion: string;
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareClientSettingsStatisticsConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareClientSettingsStatisticsConfig.cs !!!!
 export interface IStatisticsConfig {
   enabled: boolean;
   tabs: ITabConfig[];
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareClientSettingsStatisticsTabConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareClientSettingsStatisticsTabConfig.cs !!!!
 export interface ITabConfig {
   name: string;
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareAiCompletionConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareAiCompletionConfig.cs !!!!
 export interface IAiCompletionConfig {
   completionProvider: AiCompletionProviders;
   apiKey: string;
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareGrpcSettingsConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareGrpcSettingsConfig.cs !!!!
 export interface IGrpcSettingsConfig {
   port: number;
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareFeatureConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareFeatureConfig.cs !!!!
 export interface IFeatureConfig {
   features: IFeatureFlag[];
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareFeatureFlagConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareFeatureFlagConfig.cs !!!!
 export interface IFeatureFlag {
   feature: string;
   enabled: boolean;
 }
 
-// !!!! Changes must also be made to Setup/Config/EFormulareTlsConfig.cs !!!!
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareTlsConfig.cs !!!!
 export interface ITlsConfig {
   rejectUnauthorized: boolean;
 }
