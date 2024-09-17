@@ -232,6 +232,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
           case "busmessage-type":
             returnValue.busMessageType = child.$body;
             break;
+          case "mail-attachment-field":
+            returnValue.mailAttachmentField = child.$body;
+            break;
           default:
             break;
         }
