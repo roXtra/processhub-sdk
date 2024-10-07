@@ -4,6 +4,7 @@ import { getBackendUrl, getBasePath } from "../config.js";
 import isEmpty from "lodash/isEmpty.js";
 import fetchWithTimeout, { RequestTimedOutPrefix } from "../tools/fetchwithtimeout.js";
 import { AxiosRequestConfig } from "axios";
+import { getUserToken } from "./auth.js";
 
 /**
  * @default showErrorModal = true
@@ -21,9 +22,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
     request.moduleId = window.__INITIAL_CONFIG__.moduleId;
   }
 
-  if (accessToken == null && typeof window !== "undefined") {
-    accessToken = window.__INITIAL_CONFIG__.xAccesstoken;
-  }
+  accessToken = accessToken || getUserToken();
 
   // Request als Querystring serialisieren
   const str = [];
@@ -88,19 +87,16 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
         return error;
       }
     }
-  } catch (exception) {
+  } catch (ex) {
     // For Testing
-    const ex = exception as { message: string };
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    if (ex != null && ex.message.startsWith("request to http://localhost:8080/api/processengine/")) {
+    if (ex instanceof Error && ex.message.startsWith("request to http://localhost:8080/api/processengine/")) {
       const testResult: IBaseMessage = {
         type: "Test Result",
         result: ApiResult.API_OK,
       };
       return testResult;
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    throw new Error(ex.message);
+    throw new Error(String(ex));
   }
 }
 
@@ -116,9 +112,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
     request.moduleId = window.__INITIAL_CONFIG__.moduleId;
   }
 
-  if (accessToken == null && typeof window !== "undefined") {
-    accessToken = window.__INITIAL_CONFIG__.xAccesstoken;
-  }
+  accessToken = accessToken || getUserToken();
 
   let req: AxiosRequestConfig;
   if (accessToken == null) {
@@ -168,23 +162,21 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
         return error;
       }
     }
-  } catch (exception) {
+  } catch (ex) {
     // For Testing
-    const ex = exception as { message: string };
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
-    if (ex != null && ex.message.startsWith("request to http://localhost:8080/api/processengine/")) {
+    if (ex instanceof Error && ex.message.startsWith("request to http://localhost:8080/api/processengine/")) {
       const testResult: IBaseMessage = {
         type: "Test Result",
         result: ApiResult.API_OK,
       };
       return testResult;
     }
-    if (ex != null && ex.message.startsWith(RequestTimedOutPrefix)) {
+    if (ex instanceof Error && ex.message.startsWith(RequestTimedOutPrefix)) {
       const error: IBaseError = { result: ApiResult.API_REQUESTTIMEOUT, type: API_FAILED };
       getErrorHandlers().forEach((h) => h.handleError(error, path, showErrorModal));
       return error;
     }
 
-    throw new Error(ex.message);
+    throw new Error(String(ex));
   }
 }

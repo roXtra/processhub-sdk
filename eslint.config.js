@@ -183,12 +183,7 @@ export default tseslint.config(
       "@typescript-eslint/no-non-null-assertion": "error",
       "@typescript-eslint/no-unnecessary-condition": "warn",
       "@typescript-eslint/no-useless-empty-export": "error",
-      "@typescript-eslint/explicit-function-return-type": [
-        "error",
-        {
-          allowExpressions: true,
-        },
-      ],
+      "@typescript-eslint/explicit-function-return-type": "off",
     },
   },
   /**
