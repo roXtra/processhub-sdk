@@ -82,6 +82,7 @@ export interface IUserDetails extends IUserDetailsNoExtras {
    * @field workspaceId - The workspace id of the corresponding workspace of the favorite process
    */
   favoriteProcesses: { processId: string; workspaceId: string }[];
+  lastVisitedWorkspaceId?: string;
 }
 
 export enum UserExtras {
