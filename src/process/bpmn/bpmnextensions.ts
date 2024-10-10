@@ -235,6 +235,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
           case "mail-attachment-field":
             returnValue.mailAttachmentField = child.$body;
             break;
+          case "mail-start-event-content":
+            returnValue.mailStartEventContent = child.$body ? JSON.parse(child.$body) : undefined;
+            break;
           default:
             break;
         }
