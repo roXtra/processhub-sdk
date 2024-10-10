@@ -44,6 +44,7 @@ const testUser: IUserDetails = {
   favoriteProcesses: [],
   status: UserStatus.Active,
   fields: {},
+  userFieldsConfig: { fields: [] },
 };
 
 describe("sdk", function () {

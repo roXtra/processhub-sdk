@@ -91,6 +91,4 @@ export interface IInitialConfig extends IClientSettingsConfig {
   webSockettoken?: string;
   defaultServerLanguage: string;
   aiCompletionProvider: AiCompletionProviders;
-  // Custom user fields as defined in users.xml
-  userFields: IUserFieldsConfig;
 }
