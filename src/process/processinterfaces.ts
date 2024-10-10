@@ -223,7 +223,8 @@ export type BpmnExtensionName =
   | "copy-fields" // Boolean, can be set for StartEvent. Allows to copy the field values defined in the StartEvent from another instance
   | "linked-doc-types" // Doc types that are linked to the process for internal workflow processes.
   | "busmessage-type" // String: The type of the bus message that is sent by a message throw event (namespace + interface)
-  | "mail-attachment-field"; // String: process field where the mail attachments from mail related events are stored
+  | "mail-attachment-field" // String: process field where the mail attachments from mail related events are stored
+  | "mail-start-event-content"; // Object that contains subject, sender and body of mail
 
 export interface ITaskExtensions {
   description?: string;
@@ -275,6 +276,7 @@ export interface ITaskExtensions {
 
   busMessageType?: string; // String: The type of the bus message that is sent by a message throw event (namespace + interface)
   mailAttachmentField?: string; // String: process field where the mail attachments from mail related events are stored
+  mailStartEventContent?: IMailStartEventContent; // Object that contains subject, sender and body of mail
 }
 
 export interface ITimerStartEventConfiguration {
@@ -332,4 +334,10 @@ export interface IScriptTaskCodeObject {
   field?: string;
   operator?: ScriptTaskOperation;
   value?: string;
+}
+
+export interface IMailStartEventContent {
+  senderMail?: string;
+  subject?: string;
+  body?: string;
 }
