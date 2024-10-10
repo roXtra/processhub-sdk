@@ -5,6 +5,7 @@ import { isTrue } from "../tools/assert.js";
 import { Language, tl } from "../tl.js";
 import { ModuleName } from "../modules/imodule.js";
 import { StateUserDetails } from "./phclient.js";
+import { IUserFieldsConfig } from "../config.js";
 
 export enum UserStatus {
   None = 0,
@@ -83,6 +84,8 @@ export interface IUserDetails extends IUserDetailsNoExtras {
    */
   favoriteProcesses: { processId: string; workspaceId: string }[];
   lastVisitedWorkspaceId?: string;
+  // Custom user fields as defined in users.xml
+  userFieldsConfig: IUserFieldsConfig;
 }
 
 export enum UserExtras {
@@ -107,6 +110,7 @@ export const emptyUser: IUserDetails = {
   favoriteProcesses: [],
   status: UserStatus.None,
   fields: {},
+  userFieldsConfig: { fields: [] },
 };
 
 export function getUserWorkspace(user: IUserDetails, workspaceId: string): IWorkspaceDetails | undefined {
