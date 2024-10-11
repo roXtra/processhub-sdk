@@ -6,8 +6,7 @@ export const authConfig = {
 };
 
 function getUser() {
-  // Example: oidc.user:https://uidev.roxtra.com/roxtra/auth:roXtra
-  const itemName = `oidc.user:${authConfig.authority}}:${authConfig.clientId}`;
+  const itemName = `oidc.user:${authConfig.authority}:${authConfig.clientId}`;
   const oidcStorage = localStorage.getItem(itemName);
   if (!oidcStorage) {
     return undefined;
