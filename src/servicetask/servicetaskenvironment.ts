@@ -93,7 +93,7 @@ export interface IServiceTaskUsers {
 export interface IServiceTaskRoxApi {
   getEfApiToken(): Promise<string>;
   getApiToken(): string;
-  getRoxtraTokenByUserId(userId: string): Promise<string>;
+  getAccessTokenFromAuth(userId: string): Promise<string>;
   getSupervisor(userId: string): Promise<{ type: "group" | "user" | "error"; value: string | number }>;
   getUsersConfig(): Promise<IUserFieldsConfig>;
 }
