@@ -145,3 +145,13 @@ export interface ISettingsFile {
     };
   };
 }
+
+export interface IAuthSettingsFile {
+  auth: {
+    Applications: {
+      efApi: {
+        ClientSecret: string;
+      };
+    };
+  };
+}
