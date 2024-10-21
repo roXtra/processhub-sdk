@@ -79,7 +79,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         throw new Error("Not implemented");
       },
       // eslint-disable-next-line @typescript-eslint/require-await
-      getRoxtraTokenByUserId: async (): Promise<string> => {
+      getAccessTokenFromAuth: async (): Promise<string> => {
         throw new Error("Not implemented");
       },
       // eslint-disable-next-line @typescript-eslint/require-await
