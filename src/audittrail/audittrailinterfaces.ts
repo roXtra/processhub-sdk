@@ -82,111 +82,106 @@ export enum AuditTrailProcessFlag {
 }
 
 export interface IAuditTrailEntryDetails {
+  // Must be set for all audit trail entries - the display name of the user that performed the action at the time of the action
+  userDisplayName: string;
+
   // Must be set for completedTodo, todoDueAtDateChanged, decision, errorSubProcees, errorOnEvaluateGatewayDecision, sendTask, intermediateTimerTriggeredManually
-  todoDisplayName: string;
+  todoDisplayName?: string;
   // Must be set for AuditTrailAction.comment and processComment
-  comment: string;
+  comment?: string;
   // May be set for AuditTrailAction.comment, if the comment has attachments - links to all attachment files
-  commentAttachments: string[];
-
+  commentAttachments?: string[];
   // Must be set for AuditTrailAction.incomingMail
-  mailText: string;
+  mailText?: string;
   // Must be set for AuditTrailAction.incomingMail, sendTask
-  mailSubject: string;
+  mailSubject?: string;
   // May be set for AuditTrailAction.incomingMail, if there was html content in the email - link to the HTML document. undefined if there was no HTML content.
-  mailHtmlLink: string;
+  mailHtmlLink?: string;
   // May be set for AuditTrailAction.incomingMail, if there were attachments in the mail - links to all attachment files. Empty array if there were no attachments.
-  mailAttachments: string[];
+  mailAttachments?: string[];
   // May be set for AuditTrailAction.outgoingMail and sendTask
-  mailReceiverList: string[];
+  mailReceiverList?: string[];
   // Must be set for AuditTrailAction.jumpPerformed
-  jumpFromTodoDisplayName: string;
-  jumpToTodoDisplayName: string;
-
+  jumpFromTodoDisplayName?: string;
+  jumpToTodoDisplayName?: string;
   // Must be set for AuditTrailAction.bouncedMail
-  bouncedAddresses: string[];
-  bouncedSubject: string;
-
+  bouncedAddresses?: string[];
+  bouncedSubject?: string;
   // Must be set for AuditTrailAction.processCreated, AuditTrailAction.deletionPeriodChanged, processEdited, processComment and processDeleted
-  processDisplayName: string;
-
+  processDisplayName?: string;
   // Must be set for AuditTrailAction.retentionPeriodChanged, AuditTrailAction.deletionPeriodChanged and AuditTrailAction..auditQuestionTextChanged
-  oldValue: string;
-  newValue: string;
+  oldValue?: string;
+  newValue?: string;
 
   // Must be set for workspaceCreated
-  workspaceDisplayName: string;
+  workspaceDisplayName?: string;
 
   // Must be set for instanceRoleChanged
-  roleName: string;
+  roleName?: string;
 
   // Must be set for todoDueAtDateChanged
-  todoDueAt: Date;
+  todoDueAt?: Date;
 
   // Must be set for fieldContentChanged, setFieldForSubProcess, setFieldForParentProcess, fieldTypeChanged, linkedInstanceDeleted
-  fieldName: string;
-  newFieldValue: IFieldValue;
+  fieldName?: string;
+  newFieldValue?: IFieldValue;
 
   // Must be set for startEvent and endEvent
-  eventId: string;
-  eventName: string;
+  eventId?: string;
+  eventName?: string;
 
   // Must be set for startEvent
-  startEventType: "TimerStartEvent" | "MessageStartEvent" | "StartEvent";
+  startEventType?: "TimerStartEvent" | "MessageStartEvent" | "StartEvent";
 
   // Must be set for sendTask
-  htmlMailContent: string;
+  htmlMailContent?: string;
 
   // Must be set for decision
-  choosenTaskName: string;
+  choosenTaskName?: string;
 
   instanceName?: string;
 
   // Can be set for processXmlChanged if there is an old bpmn file
-  oldXmlFile: string;
+  oldXmlFile?: string;
   // Can be set for processXmlChanged if there is an old preview file
-  oldPreviewFile: string;
+  oldPreviewFile?: string;
   // Must be set for processXmlChanged
-  oldXmlVersion: number;
+  oldXmlVersion?: number;
 
   // Must be set for instanceRoleChanged
-  newRoleOwnerDisplayNames: string[];
+  newRoleOwnerDisplayNames?: string[];
 
   // Must be set for linkedInstanceDeleted
-  linkedInstanceTitle: string;
+  linkedInstanceTitle?: string;
 
   // Can be set for errorInScriptTask and errorInServiceTask - information about the error that occured
-  errorCode: string;
-  errorMessage: string;
+  errorCode?: string;
+  errorMessage?: string;
 
   // Must be set for automatedInstanceDeletion, represents the number of automatic deleted instances
-  automatedInstanceDeletionCount: number;
+  automatedInstanceDeletionCount?: number;
 
   // Can be set for processArchived and processRestored - an optional message the user can enter
-  archiveMessage: string;
+  archiveMessage?: string;
 
   // Displayname of the user that was replaced
-  userToReplace: string;
+  userToReplace?: string;
 
   // ID of the user that was replaced
-  userToReplaceId: string;
+  userToReplaceId?: string;
 
   // Displayname of the user that replaced the user of userToReplace
-  userThatReplaces: string;
+  userThatReplaces?: string;
 
   // ID of the user that replaced the user of userToReplace
-  userThatReplacesId: string;
+  userThatReplacesId?: string;
 
   // The changed question that only includes changed props and changed customFields, also used for new and deleted questions
-  changedQuestion: Partial<IQuestion>;
+  changedQuestion?: Partial<IQuestion>;
 
   // Required for audit trail entries that refers to an audit question
-  questionId: string;
+  questionId?: string;
 }
-
-export type Partial<T> = {
-  [P in keyof T]?: T[P];
-};
 
 export interface IAuditTrailEntry {
   trailId: string;
@@ -197,5 +192,5 @@ export interface IAuditTrailEntry {
   user?: StateUserDetails;
   createdAt: Date; // Time of action in UTC
   entryFrom?: AuditTrailProcessFlag;
-  details: Partial<IAuditTrailEntryDetails>;
+  details: IAuditTrailEntryDetails;
 }
