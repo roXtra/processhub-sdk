@@ -69,6 +69,7 @@ export interface IUserFieldsConfig {
 
 export interface IInitialConfig extends IClientSettingsConfig {
   roXtraUrl: string;
+  roXtraUrlOriginalCase: string; // Roxtra Base URL in original case from config
   roXtraVersion: string;
   features: IFeatureConfig;
   moduleId: number;
