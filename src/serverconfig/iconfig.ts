@@ -143,6 +143,9 @@ export interface ISettingsFile {
     TestServer?: {
       Enabled: boolean;
     };
+    User: {
+      AuditTrailDisplayNamePattern: string;
+    };
   };
 }
 
