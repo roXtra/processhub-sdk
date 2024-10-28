@@ -9,7 +9,6 @@ import { AiCompletionProviders } from "./aiprovider.js";
 export interface IConfig {
   Database: IDatabaseConfig;
   Filestore: IFilestoreConfig;
-  roXtra: IRoxtraConfig;
   Mailer: IMailerConfig;
   Mailbox: IMailboxConfig;
   Webserver: IWebserverConfig;
@@ -24,13 +23,6 @@ export interface IConfig {
   };
   AiCompletion: IAiCompletionConfig;
   GrpcSettings: IGrpcSettingsConfig;
-}
-
-// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareRoxtraConfig.cs !!!!
-export interface IRoxtraConfig {
-  efApiEndpoint: string;
-  url: string;
-  clientSecret: string;
 }
 
 // !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareDatabaseConfig.cs !!!!

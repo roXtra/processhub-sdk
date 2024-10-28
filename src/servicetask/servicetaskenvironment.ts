@@ -92,6 +92,7 @@ export interface IServiceTaskUsers {
  */
 export interface IServiceTaskRoxApi {
   getEfApiToken(): Promise<string>;
+  getEfApiEndpoint(): string;
   getApiToken(): string;
   getAccessTokenFromAuth(userId: string): Promise<string>;
   getSupervisor(userId: string): Promise<{ type: "group" | "user" | "error"; value: string | number }>;
@@ -115,6 +116,8 @@ export interface IServiceTaskSystem {
 }
 
 export interface IServiceTaskEnvironment {
+  // Url of the RoXtra instance, eg https://example.com/roxtra/
+  roXtraBaseUrl: string;
   bpmnXml: string;
   bpmnTaskId: string;
   bpmnTaskName: string;
