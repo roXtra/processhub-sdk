@@ -54,6 +54,7 @@ export const testUserFieldsConfigEn: IUserFieldsConfig = {
 
 export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTaskEnvironment {
   return {
+    roXtraBaseUrl: "http://localhost/roxtra/",
     bpmnXml,
     bpmnTaskId: "",
     bpmnTaskName: "",
@@ -71,6 +72,9 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       },
     },
     roxApi: {
+      getEfApiEndpoint: (): string => {
+        return "https://localhost/roxtra/api/roxefapi.svc/eforms/";
+      },
       getApiToken: (): string => {
         throw new Error("Not implemented");
       },
@@ -194,11 +198,6 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       },
       Filestore: {
         baseDir: "c:\\Roxtra\\doc\\eformulare",
-      },
-      roXtra: {
-        efApiEndpoint: "https://localhost/Roxtra/api/roxefapi.svc/eforms/",
-        url: "http://localhost/Roxtra/",
-        clientSecret: "@@roxApiClients.ClientSecret@@",
       },
       Mailbox: {
         reconnectTime: 3600000,
