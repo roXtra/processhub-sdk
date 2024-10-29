@@ -150,7 +150,7 @@ export interface IProcessSettings {
     probabilityValues: string[]; // Possible values to rate the probability, starting with the least probable one
     severityValues: string[]; // Possible values to rate the severity, starting with the least serious one
   };
-  retentionPeriodLock?: IRetentionPeriodLock;
+  retentionPeriodLock?: IRetentionPeriodLock; // Retention Period Object including reason and locked state
 }
 
 export enum ProcessViewAccess {
