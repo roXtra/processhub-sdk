@@ -132,6 +132,11 @@ export interface IProcessDetails {
   type: "backend";
 }
 
+export interface IRetentionPeriodLock {
+  locked: boolean;
+  reason?: string;
+}
+
 export interface IProcessSettings {
   dashboard?: {
     cardTitle?: string; // Title of the cards in the dashboard
@@ -145,6 +150,7 @@ export interface IProcessSettings {
     probabilityValues: string[]; // Possible values to rate the probability, starting with the least probable one
     severityValues: string[]; // Possible values to rate the severity, starting with the least serious one
   };
+  retentionPeriodLock?: IRetentionPeriodLock;
 }
 
 export enum ProcessViewAccess {
