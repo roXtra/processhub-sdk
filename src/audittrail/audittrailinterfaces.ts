@@ -1,5 +1,6 @@
 import { IFieldValue } from "../data/ifieldvalue.js";
 import { IQuestion } from "../modules/audits/iquestioncatalog.js";
+import { IRetentionPeriodLock } from "../process/processinterfaces.js";
 import { StateUserDetails } from "../user/phclient.js";
 
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -73,6 +74,8 @@ export enum AuditTrailAction {
   // An audit was edited and saved in offline mode
   instanceUpdatedOfflineMode = "instance updated from offline mode",
   errorInSendTask = "error executing send task",
+  // The retention period was locked
+  retentionPeriodLockChanged = "retention period lock changed",
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -181,6 +184,9 @@ export interface IAuditTrailEntryDetails {
 
   // Required for audit trail entries that refers to an audit question
   questionId?: string;
+
+  // Must be set for locking or unlocking retention period
+  retentionPeriodLock?: IRetentionPeriodLock;
 }
 
 export interface IAuditTrailEntry {
