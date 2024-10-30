@@ -314,9 +314,9 @@ export class BpmnProcessDiagram {
     if (!targetDiagramObject) {
       throw new Error("No diagram shape found for " + targetRef.id);
     }
-    isTrue(sourceRef != null, "Missing Ref Source: " + String(flowObject.sourceRef));
+    isTrue(sourceRef != null, "Missing Ref Source: " + String(flowObject.id));
     isTrue(sourceDiagramObject != null, "Missing Object Source with ID: " + sourceRef.id);
-    isTrue(targetRef != null, "Missing Target Source: " + String(flowObject.targetRef));
+    isTrue(targetRef != null, "Missing Target Source: " + String(flowObject.id));
     isTrue(targetDiagramObject != null, "Missing Object Target with ID: " + targetRef.id);
 
     if (drawJumpFlow) {
