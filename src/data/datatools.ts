@@ -41,12 +41,12 @@ function fieldValueToString(valueObject: IFieldValue, defaultValue: string, loca
   }
   let res: string;
   if (valueObject.type === "ProcessHubDate") {
-    res = getFormattedDate(new Date(String(valueObject.value)), locale);
+    res = getFormattedDate(new Date(String(valueObject.value as string)), locale);
   } else if (valueObject.type === "ProcessHubDateTime") {
-    const date: Date = new Date(String(valueObject.value));
+    const date: Date = new Date(String(valueObject.value as string));
     res = getFormattedDateTime(date, locale) + " " + getFormattedTimeZoneOffset(date.getTimezoneOffset());
   } else {
-    res = String(valueObject.value);
+    res = String(valueObject.value as string);
   }
   return res;
 }
@@ -146,7 +146,7 @@ export function parseAndInsertStringWithFieldContent(
           default:
             {
               const value = instance[key];
-              result = replaceAll(result, placeholder, value != null ? String(value) : defaultValue, isQuery);
+              result = replaceAll(result, placeholder, value != null ? String(value as string) : defaultValue, isQuery);
             }
             break;
         }
