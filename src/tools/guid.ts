@@ -1,5 +1,3 @@
-import { SystemUserId } from "../user/usertools.js";
-
 const ID_LENGTH = 16;
 
 function idHelper(count: number): string {
@@ -23,7 +21,8 @@ export function isId(id: string): boolean {
 }
 
 export function isUserId(id: string): boolean {
-  return id === SystemUserId || /^\d+$/.test(id);
+  // -1 is the old system user id - we don't use it anymore but it is still valid for old instances/entries in the database
+  return id === "-1" || /^\d+$/.test(id);
 }
 
 export function isGroupId(id: string): boolean {
