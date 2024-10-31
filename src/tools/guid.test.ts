@@ -1,5 +1,4 @@
 import { assert } from "chai";
-import { SystemUserId } from "../user/usertools.js";
 import * as Guid from "./guid.js";
 
 describe("sdk", function () {
@@ -33,7 +32,7 @@ describe("sdk", function () {
 
       describe("isUserId", function () {
         it("should validate system user id", function () {
-          assert.isTrue(Guid.isUserId(SystemUserId));
+          assert.isTrue(Guid.isUserId("-1"));
         });
 
         it("should deny invalid user id", function () {
