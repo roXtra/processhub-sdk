@@ -238,6 +238,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
           case "mail-start-event-content":
             returnValue.mailStartEventContent = child.$body ? JSON.parse(child.$body) : undefined;
             break;
+          case "todo-sign":
+            returnValue.todoSign = child.$body === "true";
+            break;
           default:
             break;
         }
