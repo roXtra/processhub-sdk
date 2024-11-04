@@ -230,7 +230,8 @@ export type BpmnExtensionName =
   | "linked-doc-types" // Doc types that are linked to the process for internal workflow processes.
   | "busmessage-type" // String: The type of the bus message that is sent by a message throw event (namespace + interface)
   | "mail-attachment-field" // String: process field where the mail attachments from mail related events are stored
-  | "mail-start-event-content"; // Object that contains subject, sender and body of mail
+  | "mail-start-event-content" // Object that contains subject, sender and body of mail
+  | "todo-sign"; // Boolean: Requires to enter the user credentials to complete the todo preceding the sequence flow
 
 export interface ITaskExtensions {
   description?: string;
@@ -262,6 +263,7 @@ export interface ITaskExtensions {
 
   sequenceFlowExpression?: string;
   isBuilderExpression: boolean;
+  todoSign?: boolean; // Requires to enter the user credentials to complete the todo preceding the sequence flow
 
   fieldsWhichShouldSend?: string[];
   dateFieldTimer?: string;
