@@ -129,6 +129,8 @@ export interface IResumeInstanceDetails {
   choosenTask?: IDecisionTask;
   fieldContents?: IFieldContentMap;
   timerTriggeredManually?: boolean;
+  // Token that can be used to check if the user entered his credentials to complete a todo
+  todoSignToken?: string;
 }
 
 export interface IEngineState {
