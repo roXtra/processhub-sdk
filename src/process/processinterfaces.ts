@@ -137,6 +137,12 @@ export interface IRetentionPeriodLock {
   reason?: string;
 }
 
+export interface IActionAuthorizationDetails {
+  // Title of SequenceFlow, if not set title of the triggerinig UserTask
+  object?: string;
+  // Can be extended if hashes get implemented to roXtra
+}
+
 export interface IProcessSettings {
   dashboard?: {
     cardTitle?: string; // Title of the cards in the dashboard

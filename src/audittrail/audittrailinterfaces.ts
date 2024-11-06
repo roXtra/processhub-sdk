@@ -1,6 +1,6 @@
 import { IFieldValue } from "../data/ifieldvalue.js";
 import { IQuestion } from "../modules/audits/iquestioncatalog.js";
-import { IRetentionPeriodLock } from "../process/processinterfaces.js";
+import { IActionAuthorizationDetails, IRetentionPeriodLock } from "../process/processinterfaces.js";
 import { StateUserDetails } from "../user/phclient.js";
 
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -76,6 +76,8 @@ export enum AuditTrailAction {
   errorInSendTask = "error executing send task",
   // The retention period was locked
   retentionPeriodLockChanged = "retention period lock changed",
+  // The action has been authorized (f.e. by signin)
+  actionAuthorized = "action authorized",
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -187,6 +189,9 @@ export interface IAuditTrailEntryDetails {
 
   // Must be set for locking or unlocking retention period
   retentionPeriodLock?: IRetentionPeriodLock;
+
+  // Must be set for action authorization
+  actionAuthorization?: IActionAuthorizationDetails;
 }
 
 export interface IAuditTrailEntry {
