@@ -241,6 +241,9 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
           case "todo-sign":
             returnValue.todoSign = child.$body === "true";
             break;
+          case "enable-gxp":
+            returnValue.enableGxp = child.$body === "true";
+            break;
           default:
             break;
         }
