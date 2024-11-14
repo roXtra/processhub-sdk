@@ -48,17 +48,9 @@ export interface ITodoDetails {
   };
 }
 
-export const DecisionTaskTypes = {
-  Normal: "normal",
-  Boundary: "boundary",
-};
-export type DecisionTaskTypes = keyof typeof DecisionTaskTypes;
-
 export interface IDecisionTask {
   bpmnTaskId: string;
   name: string;
-  type: DecisionTaskTypes;
   isBoundaryEvent: boolean;
   boundaryEventType?: Bpmn.bpmnType;
-  // RouteStack?: string[];
 }
