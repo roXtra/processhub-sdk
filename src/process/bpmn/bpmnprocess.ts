@@ -13,7 +13,7 @@ import { bpmnModdleInstance } from "./bpmnmoddlehelper.js";
 import BpmnModdle from "bpmn-moddle";
 import { IFieldDefinition, IFieldDefinitionItem } from "../../data/ifielddefinition.js";
 import { filterTodosForInstance } from "../../todo/todofilters.js";
-import { IDecisionTask, DecisionTaskTypes } from "../../todo/todointerfaces.js";
+import { IDecisionTask } from "../../todo/todointerfaces.js";
 import { getLastArrayEntry } from "../../tools/array.js";
 import { IInstanceDetails } from "../../instance/instanceinterfaces.js";
 import { IRoxFileFieldConfig } from "../../data/fields/roxfilefield.js";
@@ -308,7 +308,6 @@ export class BpmnProcess {
         decisionTasks.push({
           bpmnTaskId: taskId,
           name: nameValue,
-          type: DecisionTaskTypes.Normal,
           isBoundaryEvent: false,
         } as IDecisionTask);
       }
@@ -1495,7 +1494,6 @@ export class BpmnProcess {
             bpmnTaskId: tmpBoundary.id,
             name: tmpBoundary.name,
             isBoundaryEvent: true,
-            type: DecisionTaskTypes.Boundary,
             boundaryEventType: tmpBoundary.eventDefinitions[tmpBoundary.eventDefinitions.length - 1].$type,
           } as IDecisionTask);
         }
