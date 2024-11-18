@@ -52,6 +52,26 @@ export function getModuleTitle(moduleName: ModuleName, locale: Language): string
   }
 }
 
+export function getInstanceTitleByModule(moduleName: ModuleName, locale: Language): string | undefined {
+  switch (moduleName) {
+    case "processes":
+      return tl("Vorgang", locale);
+    case "risks":
+      return tl("Risiko", locale);
+    case "action":
+    case "action_basic":
+      return tl("Maßnahme", locale);
+    case "audit":
+      return tl("Audit", locale);
+    case "reclamations":
+      return tl("Reklamation", locale);
+    case "system":
+    case "user":
+    case "documents":
+      return undefined;
+  }
+}
+
 export function getModule(moduleId: number): IModule {
   return modulesById[moduleId];
 }
