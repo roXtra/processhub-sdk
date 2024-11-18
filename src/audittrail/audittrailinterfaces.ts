@@ -6,7 +6,13 @@ import { StateUserDetails } from "../user/phclient.js";
 /* eslint-disable @typescript-eslint/naming-convention */
 // Enum values should be max. 100 characters long and contain only ascii characters because of the database column type!
 export enum AuditTrailAction {
-  instanceStarted = "instance started", // Deprecated - startEvent is logged for new instances
+  /**
+   * @deprecated startEvent is logged for new instances
+   */
+  instanceStarted = "instance started",
+  /**
+   * @deprecated completedTodoV2 should be used for new events
+   */
   completedTodo = "todo completed",
   comment = "comment",
   incomingMail = "incoming mail",
@@ -79,6 +85,8 @@ export enum AuditTrailAction {
   retentionPeriodLockChanged = "retention period lock changed",
   // The action has been authorized (f.e. by signin)
   actionAuthorized = "action authorized",
+
+  completedTodoV2 = "todo completed v2",
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -195,7 +203,7 @@ export interface IAuditTrailEntryDetails {
   actionAuthorization?: IActionAuthorizationDetails;
 }
 
-export interface IAuditTrailEntry {
+export interface IBaseAuditTrailEntry {
   trailId: string;
   workspaceId: string;
   processId?: string; // May be null for entries on workspace-level
@@ -204,5 +212,87 @@ export interface IAuditTrailEntry {
   user?: StateUserDetails;
   createdAt: Date; // Time of action in UTC
   entryFrom?: AuditTrailProcessFlag;
+  details: unknown;
+}
+
+export interface ILegacyAuditTrailEntry extends IBaseAuditTrailEntry {
+  action:
+    | AuditTrailAction.actionAuthorized
+    | AuditTrailAction.activeTaskClaimed
+    | AuditTrailAction.auditQuestionAdded
+    | AuditTrailAction.auditQuestionContentChanged
+    | AuditTrailAction.auditQuestionDeleted
+    | AuditTrailAction.auditQuestionTextChanged
+    | AuditTrailAction.comment
+    // eslint-disable-next-line deprecation/deprecation
+    | AuditTrailAction.completedTodo
+    | AuditTrailAction.decision
+    | AuditTrailAction.endEvent
+    | AuditTrailAction.errorInScriptTask
+    | AuditTrailAction.errorInServiceTask
+    | AuditTrailAction.errorOnEvaluateGatewayDecision
+    | AuditTrailAction.errorSubprocess
+    | AuditTrailAction.fieldContentChanged
+    | AuditTrailAction.instanceCanceled
+    | AuditTrailAction.instanceDeleted
+    | AuditTrailAction.instanceRoleChanged
+    // eslint-disable-next-line deprecation/deprecation
+    | AuditTrailAction.instanceStarted
+    | AuditTrailAction.intermediateTimerTriggeredManually
+    | AuditTrailAction.jumpPerformed
+    | AuditTrailAction.messageBoundaryEventTriggered
+    | AuditTrailAction.outgoingMail
+    | AuditTrailAction.processArchived
+    | AuditTrailAction.processComment
+    | AuditTrailAction.processCreated
+    | AuditTrailAction.processDeleted
+    | AuditTrailAction.processDescriptionChanged
+    | AuditTrailAction.processDisplayNameChanged
+    | AuditTrailAction.processEdited
+    | AuditTrailAction.processRolesChanged
+    | AuditTrailAction.processTagsChanged
+    | AuditTrailAction.processVisibilityChanged
+    | AuditTrailAction.processXmlChanged
+    | AuditTrailAction.processXmlChangedByInlineSettings
+    | AuditTrailAction.retentionPeriodChanged
+    | AuditTrailAction.sendTask
+    | AuditTrailAction.setFieldForParentProcess
+    | AuditTrailAction.setFieldForSubProcess
+    | AuditTrailAction.startEvent
+    | AuditTrailAction.todoDueAtDateChanged
+    | AuditTrailAction.timerBoundaryEventTriggered
+    | AuditTrailAction.signalBoundaryEventTriggered
+    | AuditTrailAction.fieldTypeChanged
+    | AuditTrailAction.linkedInstanceDeleted
+    | AuditTrailAction.errorSubProcessMapping
+    | AuditTrailAction.instanceStateError
+    | AuditTrailAction.automatedInstanceDeletion
+    | AuditTrailAction.deletionPeriodChanged
+    | AuditTrailAction.processRestored
+    | AuditTrailAction.workspaceCreated
+    | AuditTrailAction.auditTrailVisibilityChanged
+    | AuditTrailAction.replaceUser
+    | AuditTrailAction.instanceUpdatedOfflineMode
+    | AuditTrailAction.errorInSendTask
+    | AuditTrailAction.retentionPeriodLockChanged
+    | AuditTrailAction.bouncedMail
+    | AuditTrailAction.incomingMail
+    | AuditTrailAction.instanceStartedByTimer;
+
   details: IAuditTrailEntryDetails;
 }
+
+export interface IAuditTrailEntryDetailsV2 {
+  userDisplayName: string;
+  instanceName?: string;
+}
+
+export interface IAuditTrailEntryCompletedTodoV2 extends IBaseAuditTrailEntry {
+  details: IAuditTrailEntryDetailsV2 & {
+    todoDisplayName: string;
+    bpmnTaskId: string;
+  };
+  action: AuditTrailAction.completedTodoV2;
+}
+
+export type AuditTrailEntry = ILegacyAuditTrailEntry | IAuditTrailEntryCompletedTodoV2;
