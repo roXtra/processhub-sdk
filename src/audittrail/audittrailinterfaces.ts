@@ -26,6 +26,7 @@ export enum AuditTrailAction {
   processVisibilityChanged = "process visibility changed",
   processTagsChanged = "process tags changed",
   processXmlChanged = "process xml changed",
+  processXmlChangedByInlineSettings = "process xml changed by inline settings",
   processRolesChanged = "process roles changed",
   retentionPeriodChanged = "retention period changed",
   instanceRoleChanged = "instance role changed",
@@ -146,11 +147,11 @@ export interface IAuditTrailEntryDetails {
 
   instanceName?: string;
 
-  // Can be set for processXmlChanged if there is an old bpmn file
+  // Can be set for processXmlChanged | processXmlChangedByInlineSettings if there is an old bpmn file
   oldXmlFile?: string;
-  // Can be set for processXmlChanged if there is an old preview file
+  // Can be set for processXmlChanged | processXmlChangedByInlineSettings if there is an old preview file
   oldPreviewFile?: string;
-  // Must be set for processXmlChanged
+  // Must be set for processXmlChanged | processXmlChangedByInlineSettings
   oldXmlVersion?: number;
 
   // Must be set for instanceRoleChanged
