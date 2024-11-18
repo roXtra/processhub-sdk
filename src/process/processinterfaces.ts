@@ -1,7 +1,7 @@
 import { ProcessAccessRights, IProcessRoles } from "./processrights.js";
 import { BpmnProcess } from "./bpmn/bpmnprocess.js";
 import { strEnum } from "../tools/types.js";
-import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
+import { AuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
 import { IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces.js";
 import { IGenericModuleSettings } from "../modules/imodule.js";
 import { IRowDetails } from "./phclient.js";
@@ -125,7 +125,7 @@ export interface IProcessDetails {
     processRoles?: IProcessRoles;
     svgString?: string; // Only used to save preview to server or if requested in extras
     settings?: IProcessSettings;
-    auditTrail?: IAuditTrailEntry[];
+    auditTrail?: AuditTrailEntry[];
     parentProcessDetails?: ISubParentBaseProcessInformation[];
     childProcessDetails?: ISubParentBaseProcessInformation[];
   };

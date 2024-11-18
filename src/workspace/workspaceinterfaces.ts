@@ -1,7 +1,7 @@
 import { IProcessDetails } from "../process/processinterfaces.js";
 import { IUserDetailsNoExtras, IUserDetailsSmall } from "../user/userinterfaces.js";
 import { IGroupDetails } from "../group/groupinterfaces.js";
-import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
+import { AuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
 import { IWorkspaceRoles } from "./workspacerights.js";
 
 export const internalWorkflowsWorkspaceId = "internal-workflows";
@@ -27,7 +27,7 @@ export interface IWorkspaceDetails {
     archivedProcesses?: IProcessDetails[]; // Processes that are archived
     settings?: IWorkspaceSettings;
     tags?: string[]; // All available tags in the workspace
-    auditTrail?: IAuditTrailEntry[];
+    auditTrail?: AuditTrailEntry[];
     groups?: IGroupDetails[];
     workspaceRoles?: IWorkspaceRoles; // Will be set for the internal workflows workspace
   };

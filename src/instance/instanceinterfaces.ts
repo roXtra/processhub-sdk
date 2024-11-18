@@ -1,5 +1,5 @@
 import { Bpmn } from "modeler/bpmn/bpmn";
-import { IAuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
+import { AuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces.js";
 import BpmnModdle from "bpmn-moddle";
 import Joi from "joi";
@@ -108,7 +108,7 @@ export interface IInstanceDetails {
     fieldContents?: IFieldContentMap;
     roleOwners?: IRoleOwnerMap;
     todos?: ITodoDetails[];
-    auditTrail?: IAuditTrailEntry[];
+    auditTrail?: AuditTrailEntry[];
   };
 }
 
