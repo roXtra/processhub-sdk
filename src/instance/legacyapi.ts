@@ -80,6 +80,10 @@ export interface IResumeRequest extends IBaseRequest {
 
 export interface IAbortRequest extends IBaseRequest {
   instanceId: string;
+  /**
+   * The token to sign the abort with - required if todo sign is enabled for any sequence flows in the process
+   */
+  signToken?: string;
 }
 export type IAbortReply = IInstanceReply;
 
