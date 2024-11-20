@@ -196,6 +196,12 @@ export interface IAuditTrailEntryDetails {
 
   // Must be set for locking or unlocking retention period
   retentionPeriodLock?: IRetentionPeriodLock;
+
+  // Must be set for todo sign actions
+  todoSignVerified?: boolean;
+
+  // Can be set in addition to todoSignVerified to specify sequence flow name
+  flowName?: string;
 }
 
 export interface IBaseAuditTrailEntry {
@@ -285,6 +291,8 @@ export interface IAuditTrailEntryCompletedTodoV2 extends IBaseAuditTrailEntry {
   details: IAuditTrailEntryDetailsV2 & {
     todoDisplayName: string;
     bpmnTaskId: string;
+    todoSignVerified?: boolean;
+    flowName?: string;
   };
   action: AuditTrailAction.completedTodoV2;
 }
