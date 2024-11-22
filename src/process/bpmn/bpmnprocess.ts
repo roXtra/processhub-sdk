@@ -1537,7 +1537,7 @@ export class BpmnProcess {
   public getFlowName(sourceTaskId: string, targetTaskId: string): string | undefined {
     const flowObj = this.getFlowObject(sourceTaskId, targetTaskId);
     if (flowObj != null) {
-      return flowObj.name;
+      return flowObj.name ?? flowObj.id;
     }
     return undefined;
   }
