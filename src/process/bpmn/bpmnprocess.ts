@@ -1536,10 +1536,12 @@ export class BpmnProcess {
 
   public getFlowName(sourceTaskId: string, targetTaskId: string): string | undefined {
     const flowObj = this.getFlowObject(sourceTaskId, targetTaskId);
-    if (flowObj != null) {
-      return flowObj.name ?? flowObj.id;
-    }
-    return undefined;
+    return flowObj?.name;
+  }
+
+  public getFlowId(sourceTaskId: string, targetTaskId: string): string | undefined {
+    const flowObj = this.getFlowObject(sourceTaskId, targetTaskId);
+    return flowObj?.id;
   }
 
   private getFlowObject(sourceTaskId: string, targetTaskId: string): Bpmn.IFlowElement | undefined {
