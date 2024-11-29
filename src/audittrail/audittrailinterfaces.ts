@@ -202,6 +202,9 @@ export interface IAuditTrailEntryDetails {
 
   // Can be set in addition to todoSignVerified to specify sequence flow name
   flowName?: string;
+
+  // Can be set in addition to todoSignVerified to tell if it isGxP
+  isGxp?: boolean;
 }
 
 export interface IBaseAuditTrailEntry {
@@ -293,6 +296,7 @@ export interface IAuditTrailEntryCompletedTodoV2 extends IBaseAuditTrailEntry {
     bpmnTaskId: string;
     todoSignVerified?: boolean;
     flowName?: string;
+    isGxp?: boolean;
   };
   action: AuditTrailAction.completedTodoV2;
 }
