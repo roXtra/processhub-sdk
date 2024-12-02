@@ -1,8 +1,8 @@
 import { IProcessDetails } from "../process/processinterfaces.js";
 import { IUserDetailsNoExtras, IUserDetailsSmall } from "../user/userinterfaces.js";
 import { IGroupDetails } from "../group/groupinterfaces.js";
-import { AuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
 import { IWorkspaceRoles } from "./workspacerights.js";
+import { AuditTrailEntry } from "../audittrail/audittrailentry.js";
 
 export const internalWorkflowsWorkspaceId = "internal-workflows";
 

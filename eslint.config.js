@@ -58,15 +58,7 @@ export default tseslint.config(
     rules: {
       "linebreak-style": ["error", "unix"],
       "no-only-tests/no-only-tests": "error",
-      "no-cond-assign": "error",
-      "capitalized-comments": [
-        "error",
-        "always",
-        {
-          ignoreInlineComments: true,
-          ignoreConsecutiveComments: true,
-        },
-      ],
+      "no-cond-assign": "error",      
       "spaced-comment": "off",
       "no-eval": "error",
       "no-trailing-spaces": "error",

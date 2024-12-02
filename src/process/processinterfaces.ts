@@ -1,7 +1,7 @@
 import { ProcessAccessRights, IProcessRoles } from "./processrights.js";
 import { BpmnProcess } from "./bpmn/bpmnprocess.js";
 import { strEnum } from "../tools/types.js";
-import { AuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
+import { AuditTrailEntry } from "../audittrail/audittrailentry.js";
 import { IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces.js";
 import { IGenericModuleSettings } from "../modules/imodule.js";
 import { IRowDetails } from "./phclient.js";
