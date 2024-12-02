@@ -1,5 +1,5 @@
 import { Bpmn } from "modeler/bpmn/bpmn";
-import { AuditTrailEntry } from "../audittrail/audittrailinterfaces.js";
+import { AuditTrailEntry } from "../audittrail/audittrailentry.js";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces.js";
 import BpmnModdle from "bpmn-moddle";
 import Joi from "joi";
