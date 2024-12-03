@@ -1,11 +1,74 @@
-import { IProcessDetails, IProcessSettings, IRetentionPeriodLock } from "../process/processinterfaces.js";
+import IAuditsSettings from "../modules/audits/iauditssettings.js";
+import { IGenericModuleSettings } from "../modules/imodule.js";
+import { IProcessAttachment, IProcessDetails, IProcessReportDraft, IProcessSettings, IRetentionPeriodLock, IStartButtonMap } from "../process/processinterfaces.js";
 import { IProcessRoles, IProcessRole } from "../process/processrights.js";
+import { IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces.js";
 import { IAuditTrailEntryDetails, AuditTrailAction, IBaseAuditTrailEntry } from "./audittrailinterfaces.js";
 
 export interface IAuditTrailEntryProcess extends IBaseAuditTrailEntry {
   instanceId?: undefined;
   processId: string;
   workspaceId: string;
+}
+
+export interface IAuditTrailProcessDetails {
+  processId: string;
+  displayName: string;
+  urlName: string | undefined;
+  description: string;
+  useModeler: boolean;
+  attachments: IProcessAttachment[];
+  reportDrafts: IProcessReportDraft[];
+  statisticsReportDrafts: IProcessReportDraft[];
+  processXmlHash: string | undefined;
+  userStartEvents: IStartButtonMap; // Map with starteventid -> start event name
+  tags: string[];
+  hasWarnings: boolean;
+  retentionPeriod: number | undefined; // Retention period for insatances in months
+  deletionPeriod: number | undefined; // Deletion period for insatances in months
+  jumpsDisabled: boolean;
+  xmlVersion: number | undefined;
+  parentProcessIds: string[];
+  childProcessIds: string[];
+  riskManagementSettings: IRiskManagementProcessSettings | undefined;
+  genericModuleSettings: IGenericModuleSettings | undefined;
+  auditsSettings: IAuditsSettings | undefined;
+  instanceCount: number;
+  archived: boolean; // True, if the process is archived, false or undefined otherwise
+  reactivateTaskId: string | undefined; // The usertask ID that is used for reactivating instances
+  processRoles: IProcessRoles | undefined;
+  settings: IProcessSettings | undefined;
+}
+
+export function toAuditTrailProcessDetails(entry: IProcessDetails): IAuditTrailProcessDetails {
+  return {
+    processId: entry.processId,
+    displayName: entry.displayName,
+    urlName: entry.urlName,
+    description: entry.description,
+    useModeler: entry.useModeler ?? false,
+    attachments: entry.attachments ?? [],
+    reportDrafts: entry.reportDrafts ?? [],
+    statisticsReportDrafts: entry.statisticsReportDrafts ?? [],
+    processXmlHash: entry.processXmlHash,
+    userStartEvents: entry.userStartEvents ?? {},
+    tags: entry.tags ?? [],
+    hasWarnings: entry.hasWarnings ?? false,
+    retentionPeriod: entry.retentionPeriod,
+    deletionPeriod: entry.deletionPeriod,
+    jumpsDisabled: entry.jumpsDisabled ?? false,
+    xmlVersion: entry.xmlVersion,
+    parentProcessIds: entry.parentProcessIds ?? [],
+    childProcessIds: entry.childProcessIds ?? [],
+    riskManagementSettings: entry.riskManagementSettings,
+    genericModuleSettings: entry.genericModuleSettings,
+    auditsSettings: entry.auditsSettings,
+    instanceCount: entry.instanceCount ?? 0,
+    archived: entry.archived ?? false,
+    reactivateTaskId: entry.reactivateTaskId,
+    processRoles: entry.extras.processRoles,
+    settings: entry.extras.settings,
+  };
 }
 
 export interface IAuditTrailEntryProcessXmlChangedV2 extends IAuditTrailEntryProcess {
@@ -60,15 +123,17 @@ export interface IAuditTrailEntryProcessCommentV2 extends IAuditTrailEntryProces
 
 export interface IAuditTrailEntryProcessEditedV2 extends IAuditTrailEntryProcess {
   details: IAuditTrailEntryDetails & {
-    oldValue: { process: Omit<IProcessDetails, "extras">; settings: IProcessSettings | undefined };
-    newValue: { process: Omit<IProcessDetails, "extras">; settings: IProcessSettings | undefined };
+    oldValue: {
+      process: IAuditTrailProcessDetails;
+    };
+    newValue: { process: IAuditTrailProcessDetails };
   };
   action: AuditTrailAction.processEditedV2;
 }
 
 export interface IAuditTrailEntryProcessCreatedV2 extends IAuditTrailEntryProcess {
   details: IAuditTrailEntryDetails & {
-    newValue: { process: Omit<IProcessDetails, "extras">; settings: IProcessSettings | undefined; xmlFile: string | undefined; previewFile: string | undefined };
+    newValue: { process: IAuditTrailProcessDetails; xmlFile: string | undefined; previewFile: string | undefined };
   };
   action: AuditTrailAction.processCreatedV2;
 }
