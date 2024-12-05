@@ -7,7 +7,7 @@ export const authConfig = {
 
 function getUser() {
   const itemName = `oidc.user:${authConfig.authority}:${authConfig.clientId}`;
-  const oidcStorage = localStorage.getItem(itemName);
+  const oidcStorage = sessionStorage.getItem(itemName);
   if (!oidcStorage) {
     return undefined;
   }
