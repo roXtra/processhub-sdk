@@ -5,7 +5,7 @@
     "type": "git",
     "url": "git://github.com/roXtra/processhub-sdk.git"
   },
-  "version": "9.106.0-3",
+  "version": "9.106.0-4",
   "author": {
     "name": "ROXTRA",
     "email": "service@roxtra.com",
@@ -111,9 +111,9 @@
       "url": "https://github.com/roXtra/processhub-sdk/blob/master/LICENSE"
     }
   ],
-  "overrides": {   
+  "overrides": {
     "ts-mocha": {
       "mocha": "^3.X.X || ^4.X.X || ^5.X.X || ^6.X.X || ^7.X.X || ^8.X.X || ^9.X.X || ^10.X.X || ^11.X.X"
-    }    
+    }
   }
 }
