@@ -61,11 +61,12 @@ export interface IDeleteNotificationTodoRequest extends IBaseRequest {
 export type IDeleteNotificationTodoReply = IBaseReply;
 
 export interface IGetUserTodosReply extends IBaseReply {
-  todos: (Pick<ITodoDetails, "todoId" | "todoType" | "userId" | "displayName" | "description" | "createdAt" | "dueAt"> & {
+  todos: (Pick<ITodoDetails, "todoId" | "todoType" | "userId" | "displayName" | "description" | "createdAt" | "dueAt" | "instanceId"> & {
     moduleId: number;
     instanceDisplayName: string;
     workspaceDisplayName: string;
     processDisplayName: string;
     instanceStartedByUserId: string | undefined;
+    instanceUrl: string;
   })[];
 }
