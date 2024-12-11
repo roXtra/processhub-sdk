@@ -67,7 +67,7 @@
     "@types/luxon": "^3.4.2",
     "@types/mocha": "^10.0.10",
     "@types/node": "^22.10.1",
-    "@types/react": "^18.3.12",
+    "@types/react": "^18.3.16",
     "@types/sqlstring": "^2.3.2",
     "@types/utf8": "^3.0.3",
     "chai": "^5.1.2",
