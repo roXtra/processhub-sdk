@@ -54,6 +54,8 @@ describe("sdk", function () {
               firstName: "Vorname",
               lastName: "Nachname",
               mail: "",
+              domain: "local",
+              login: "login",
             };
 
             const res = DataTools.parseAndInsertStringWithFieldContent(
