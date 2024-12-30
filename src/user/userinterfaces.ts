@@ -49,6 +49,8 @@ export interface IUserDetailsSmall {
   uid: string;
   mail: string;
   displayName: string; // RealName or mail if no name is defined
+  domain: string;
+  login: string; // Login name
   firstName?: string;
   lastName?: string;
 }
@@ -103,6 +105,8 @@ export const emptyUser: IUserDetails = {
   uid: "",
   mail: "",
   displayName: "",
+  domain: "",
+  login: "",
   extras: {},
   licence: Licence.None,
   language: "de-DE",

@@ -45,6 +45,8 @@ const testUser: IUserDetails = {
   status: UserStatus.Active,
   fields: {},
   userFieldsConfig: { fields: [] },
+  login: "login",
+  domain: "domain",
 };
 
 describe("sdk", function () {
