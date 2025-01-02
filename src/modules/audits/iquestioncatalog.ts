@@ -23,7 +23,7 @@ export interface IQuestionCatalogNode {
   childNodes: IQuestionCatalogNode[];
 }
 
-export interface IQuestionCatalogRevisionUser extends Omit<IUserDetailsSmall, "uid"> {
+export interface IQuestionCatalogRevisionUser extends Omit<IUserDetailsSmall, "uid" | "domain" | "login"> {
   uid?: string;
 }
 
