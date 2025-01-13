@@ -8,6 +8,8 @@ import { IInstanceDetails } from "../instance/instanceinterfaces.js";
 import IQuestionCatalog from "../modules/audits/iquestioncatalog.js";
 import Joi from "joi";
 import { StateProcessDetails } from "./processstate.js";
+import { RequestedReportType } from "../instance/legacyapi.js";
+import { createLiteralTypeRegExp } from "../data/regextools.js";
 
 // API routes
 export const ProcessRequestRoutes = {
@@ -44,6 +46,7 @@ export const ProcessRequestRoutes = {
   ReplaceUserInProcess: "/api/process/replaceuserinprocess",
   GetAICompletion: "/api/process/getaicompletion",
   GetAIImageCompletion: "/api/process/getaiimagecompletion",
+  GenerateReport: "/api/process/generatereport",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
@@ -341,3 +344,41 @@ const IReplaceUserInProcessRequestObject: IReplaceUserInProcessRequest = {
 };
 
 export const IReplaceUserInProcessRequestSchema = Joi.object(IReplaceUserInProcessRequestObject);
+
+const IGenerateProcessReportRequestTypeOptions = ["docx", "pdf"] as const;
+
+export type IGenerateProcessReportRequestType = (typeof IGenerateProcessReportRequestTypeOptions)[number];
+
+interface IGenerateReportForProcessCommonData<TYPE extends RequestedReportType> extends IBaseRequest {
+  reportType: TYPE;
+  workspaceId: string;
+  processId: string;
+  draftId: string;
+  resultingFileType: IGenerateProcessReportRequestType;
+}
+
+/**
+ * Represents a generate report request for the process audit trail
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-empty-object-type
+interface IGenerateReportForProcessAuditTrailRequest extends IGenerateReportForProcessCommonData<RequestedReportType.PROCESS_AUDIT_TRAIL> {
+  // Requires no additional dta
+}
+
+type RequestedProcessReportUnionType = RequestedReportType.PROCESS_AUDIT_TRAIL;
+
+export type IGenerateProcessReportRequest = IGenerateReportForProcessAuditTrailRequest;
+
+const IGenerateProcessReportRequestObject: IGenerateProcessReportRequest = {
+  reportType: Joi.number().valid(RequestedReportType.PROCESS_AUDIT_TRAIL).required() as unknown as RequestedProcessReportUnionType,
+  workspaceId: Joi.string().required() as unknown as string,
+  processId: Joi.string().required() as unknown as string,
+  draftId: Joi.string().required() as unknown as string,
+  resultingFileType: Joi.string()
+    .pattern(createLiteralTypeRegExp(Object.values(IGenerateProcessReportRequestTypeOptions)))
+    .required() as unknown as IGenerateProcessReportRequestType,
+
+  ...IBaseRequestObject,
+};
+
+export const IGenerateProcessReportRequestSchema = Joi.object(IGenerateProcessReportRequestObject);

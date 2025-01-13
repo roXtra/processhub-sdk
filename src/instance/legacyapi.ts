@@ -228,6 +228,10 @@ export enum RequestedReportType {
    * Represents a workspace audit trail report request
    */
   WORKSPACE_AUDIT_TRAIL = 8,
+  /**
+   * Represents a process audit trail report request
+   */
+  PROCESS_AUDIT_TRAIL = 9,
 }
 
 /**
