@@ -1,13 +1,15 @@
 import { expect } from "chai";
 import { IGenerateReportRequest, IGenerateReportRequestSchema, RequestedReportType } from "./legacyapi.js";
 import { IGenerateWorkspaceReportRequest, IGenerateWorkspaceReportRequestSchema } from "../workspace/legacyapi.js";
+import { IGenerateProcessReportRequest, IGenerateProcessReportRequestSchema } from "../process/legacyapi.js";
 
 describe("sdk", function () {
   describe("instance", function () {
     describe("legacyapi", function () {
       describe("IGenerateReportRequest", function () {
-        function validateIgenerateReportRequest(request: IGenerateReportRequest | IGenerateWorkspaceReportRequest): void {
+        function validateIgenerateReportRequest(request: IGenerateReportRequest | IGenerateWorkspaceReportRequest | IGenerateProcessReportRequest): void {
           if (request.reportType === RequestedReportType.WORKSPACE_AUDIT_TRAIL) expect(IGenerateWorkspaceReportRequestSchema.validate(request).error).equals(undefined);
+          else if (request.reportType === RequestedReportType.PROCESS_AUDIT_TRAIL) expect(IGenerateProcessReportRequestSchema.validate(request).error).equals(undefined);
           else expect(IGenerateReportRequestSchema.validate(request).error).equals(undefined);
         }
 
@@ -16,7 +18,7 @@ describe("sdk", function () {
             if (isNaN(Number(reportType))) {
               continue;
             }
-            let reportRequest: IGenerateReportRequest | IGenerateWorkspaceReportRequest;
+            let reportRequest: IGenerateReportRequest | IGenerateWorkspaceReportRequest | IGenerateProcessReportRequest;
 
             switch (Number(reportType) as RequestedReportType) {
               case RequestedReportType.PROCESSES_REGULAR:
@@ -101,6 +103,16 @@ describe("sdk", function () {
                   draftId: "123",
                   resultingFileType: "docx",
                   workspaceId: "1",
+                  moduleId: 1,
+                };
+                break;
+              case RequestedReportType.PROCESS_AUDIT_TRAIL:
+                reportRequest = {
+                  reportType: RequestedReportType.PROCESS_AUDIT_TRAIL,
+                  draftId: "123",
+                  processId: "456",
+                  resultingFileType: "pdf",
+                  workspaceId: "789",
                   moduleId: 1,
                 };
                 break;
