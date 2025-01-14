@@ -69,6 +69,10 @@ export interface IUpdateInstanceRequest extends IBaseRequest {
   instance: IInstanceDetails;
   // Used to create an audit trail entry if the updateInstance request was made by offline mode
   initiator?: "offlinemode";
+  // Should be set by the client to indicate that the instance is expected to have a certain set of todos
+  // - if the actual state on the server does not match the expected state, the server will return an error
+  // to indicate that the client should reload the instance
+  expectedTodoIds?: string[];
 }
 export interface IUpdateInstanceReply extends IInstanceReply {
   instance?: IInstanceDetails;
