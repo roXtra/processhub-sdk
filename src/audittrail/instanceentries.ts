@@ -187,6 +187,22 @@ export interface IAuditTrailEntrySetFieldForSubInstanceV2 extends IAuditTrailEnt
   action: AuditTrailAction.setFieldForSubInstanceV2;
 }
 
+export interface IAuditTrailEntryDataReceivedFromSubInstance extends IAuditTrailEntryInstance {
+  details: IAuditTrailEntryDetails & {
+    subInstanceId: string;
+    providedFields: { fieldName: string; value: IFieldValue }[];
+  };
+  action: AuditTrailAction.dataReceivedFromSubInstance;
+}
+
+export interface IAuditTrailEntryDataReceivedFromParentInstance extends IAuditTrailEntryInstance {
+  details: IAuditTrailEntryDetails & {
+    parentInstanceId: string;
+    providedFields: { fieldName: string; value: IFieldValue }[];
+  };
+  action: AuditTrailAction.dataReceivedFromParentInstance;
+}
+
 export interface IAuditTrailEntrySendTaskV2 extends IAuditTrailEntryInstance {
   details: IAuditTrailEntryDetails & {
     todoDisplayName: string;

@@ -34,6 +34,8 @@ import {
   IAuditTrailEntryJumpPerformedV2,
   IAuditTrailEntryInstanceCommentV2,
   IAuditTrailEntrySetFieldForSubInstanceV2,
+  IAuditTrailEntryDataReceivedFromSubInstance,
+  IAuditTrailEntryDataReceivedFromParentInstance,
 } from "./instanceentries.js";
 import {
   IAuditTrailEntryAuditTrailVisibilityChangedV2,
@@ -113,4 +115,6 @@ export type AuditTrailEntry =
   | IAuditTrailEntryInstanceCommentV2
   | IAuditTrailEntryProcessXmlChangedByInlineSettingsV2
   | IAuditTrailEntryProcessXmlChangedV2
-  | IAuditTrailEntrySetFieldForSubInstanceV2;
+  | IAuditTrailEntrySetFieldForSubInstanceV2
+  | IAuditTrailEntryDataReceivedFromSubInstance
+  | IAuditTrailEntryDataReceivedFromParentInstance;
