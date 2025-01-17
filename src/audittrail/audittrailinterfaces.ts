@@ -340,13 +340,21 @@ export enum AuditTrailAction {
    */
   decisionV2 = "decision v2",
   /**
-   * Field was set for parent instance from a sub instance
+   * Field was set for parent instance from a sub instance - this is logged in the audit trail of the sub instance
    */
   setFieldForParentInstanceV2 = "set field for parent instance v2",
   /**
-   * Field was set for sub instance from a parent instance
+   * Field was set for sub instance from a parent instance - this is logged in the audit trail of the sub instance
+   */
+  dataReceivedFromParentInstance = "data received from parent instance",
+  /**
+   * Field was set for sub instance from a parent instance - this is logged in the audit trail of the parent instance
    */
   setFieldForSubInstanceV2 = "set field for sub instance v2",
+  /**
+   * Field was set for parent after a sub instance was completed - this is logged in the audit trail of the parent instance
+   */
+  dataReceivedFromSubInstance = "data received from sub instance",
   /**
    * A send task was executed
    */
