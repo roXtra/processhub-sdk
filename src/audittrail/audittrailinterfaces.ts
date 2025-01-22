@@ -459,6 +459,18 @@ export enum AuditTrailAction {
    * Process xml was updated
    */
   processXmlChangedV2 = "process xml changed v2",
+  /**
+   * Process owner was changed
+   */
+  processOwnerChanged = "process owner changed",
+  /**
+   * Process manager was changed
+   */
+  processManagerChanged = "process manager changed",
+  /**
+   * Process Dashboardviewer was changed
+   */
+  processDashboardViewerChanged = "process dashboard viewer changed",
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 

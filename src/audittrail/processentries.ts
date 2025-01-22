@@ -254,3 +254,30 @@ export interface IAuditTrailEntryInstanceDeletedV2 extends IAuditTrailEntryProce
   };
   action: AuditTrailAction.instanceDeletedV2;
 }
+
+export interface IAuditTrailEntryProcessOwnerChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: IProcessRole | undefined;
+    newValue: IProcessRole | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processOwnerChanged;
+}
+
+export interface IAuditTrailEntryProcessManagerChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: IProcessRole | undefined;
+    newValue: IProcessRole | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processManagerChanged;
+}
+
+export interface IAuditTrailEntryProcessDashboardViewerChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: IProcessRole | undefined;
+    newValue: IProcessRole | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processDashboardViewerChanged;
+}
