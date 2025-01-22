@@ -45,10 +45,13 @@ import {
   IAuditTrailEntryProcessArchivedV2,
   IAuditTrailEntryProcessCommentV2,
   IAuditTrailEntryProcessCreatedV2,
+  IAuditTrailEntryProcessDashboardViewerChanged,
   IAuditTrailEntryProcessDeletedV2,
   IAuditTrailEntryProcessDescriptionChangedV2,
   IAuditTrailEntryProcessDisplayNameChangedV2,
   IAuditTrailEntryProcessEditedV2,
+  IAuditTrailEntryProcessManagerChanged,
+  IAuditTrailEntryProcessOwnerChanged,
   IAuditTrailEntryProcessRestoredV2,
   IAuditTrailEntryProcessRolesChangedV2,
   IAuditTrailEntryProcessTagsChangedV2,
@@ -117,4 +120,7 @@ export type AuditTrailEntry =
   | IAuditTrailEntryProcessXmlChangedV2
   | IAuditTrailEntrySetFieldForSubInstanceV2
   | IAuditTrailEntryDataReceivedFromSubInstance
-  | IAuditTrailEntryDataReceivedFromParentInstance;
+  | IAuditTrailEntryDataReceivedFromParentInstance
+  | IAuditTrailEntryProcessOwnerChanged
+  | IAuditTrailEntryProcessManagerChanged
+  | IAuditTrailEntryProcessDashboardViewerChanged;
