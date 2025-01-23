@@ -43,6 +43,7 @@ import {
   IAuditTrailEntryDeletionPeriodChangedV2,
   IAuditTrailEntryInstanceDeletedV2,
   IAuditTrailEntryProcessArchivedV2,
+  IAuditTrailEntryProcessAttachmentsChanged,
   IAuditTrailEntryProcessCommentV2,
   IAuditTrailEntryProcessCreatedV2,
   IAuditTrailEntryProcessDashboardViewerChanged,
@@ -123,4 +124,5 @@ export type AuditTrailEntry =
   | IAuditTrailEntryDataReceivedFromParentInstance
   | IAuditTrailEntryProcessOwnerChanged
   | IAuditTrailEntryProcessManagerChanged
-  | IAuditTrailEntryProcessDashboardViewerChanged;
+  | IAuditTrailEntryProcessDashboardViewerChanged
+  | IAuditTrailEntryProcessAttachmentsChanged;

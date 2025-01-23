@@ -471,6 +471,10 @@ export enum AuditTrailAction {
    * Process Dashboardviewer was changed
    */
   processDashboardViewerChanged = "process dashboard viewer changed",
+  /**
+   * Process Attachments changed
+   */
+  processAttachmentsChanged = "process attachments changed",
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
