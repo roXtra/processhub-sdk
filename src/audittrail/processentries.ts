@@ -281,3 +281,11 @@ export interface IAuditTrailEntryProcessDashboardViewerChanged extends IAuditTra
   };
   action: AuditTrailAction.processDashboardViewerChanged;
 }
+export interface IAuditTrailEntryProcessAttachmentsChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: IProcessAttachment[] | undefined;
+    newValue: IProcessAttachment[] | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processAttachmentsChanged;
+}
