@@ -495,6 +495,18 @@ export enum AuditTrailAction {
    * risk matrix visibility of a risk process was changed
    */
   processRiskHideRiskMatrixChanged = "process risk hide risk matrix changed",
+  /**
+   * Process Audit custom rating was changed
+   */
+  processAuditCustomRatingChanged = "process audit custom rating changed",
+  /**
+   * Process Audit metric settings were changed
+   */
+  processAuditMetricSettingsChanged = "process audit metric settings changed",
+  /**
+   * Process Audit default svg dropdown settings were changed
+   */
+  processAuditDefaultSVGDropdownSettingsChanged = "process audit default svg dropdown settings changed",
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 

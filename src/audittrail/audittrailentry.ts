@@ -67,6 +67,9 @@ import {
   IAuditTrailEntryProcessRiskDefaultRPZFieldChanged,
   IAuditTrailEntryProcessRiskMetricsColorCategoriesChanged,
   IAuditTrailEntryProcessRiskHideRiskMatrixChanged,
+  IAuditTrailEntryProcessAuditCustomRatingChanged,
+  IAuditTrailEntryProcessAuditMetricSettingsChanged,
+  IAuditTrailEntryProcessAuditDefaultSVGDropdownSettingsChanged,
 } from "./processentries.js";
 
 export type AuditTrailEntry =
@@ -135,4 +138,7 @@ export type AuditTrailEntry =
   | IAuditTrailEntryProcessRiskDefaultRPZFieldChanged
   | IAuditTrailEntryProcessRiskMetricsColorCategoriesChanged
   | IAuditTrailEntryProcessRiskHideRiskMatrixChanged
-  | IAuditTrailEntryProcessAttachmentsChanged;
+  | IAuditTrailEntryProcessAttachmentsChanged
+  | IAuditTrailEntryProcessAuditCustomRatingChanged
+  | IAuditTrailEntryProcessAuditMetricSettingsChanged
+  | IAuditTrailEntryProcessAuditDefaultSVGDropdownSettingsChanged;
