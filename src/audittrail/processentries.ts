@@ -1,4 +1,6 @@
+import { IAuditMetricCategory } from "../modules/audits/iauditmetriccategory.js";
 import IAuditsSettings from "../modules/audits/iauditssettings.js";
+import { ICustomRating } from "../modules/audits/icustomrating.js";
 import { IGenericModuleSettings } from "../modules/imodule.js";
 import { IProcessAttachment, IProcessDetails, IProcessReportDraft, IProcessSettings, IRetentionPeriodLock, IStartButtonMap } from "../process/processinterfaces.js";
 import { IProcessRoles, IProcessRole } from "../process/processrights.js";
@@ -333,4 +335,31 @@ export interface IAuditTrailEntryProcessRiskHideRiskMatrixChanged extends IAudit
     processDisplayName: string;
   };
   action: AuditTrailAction.processRiskHideRiskMatrixChanged;
+}
+
+export interface IAuditTrailEntryProcessAuditCustomRatingChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: ICustomRating | undefined;
+    newValue: ICustomRating | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processAuditCustomRatingChanged;
+}
+
+export interface IAuditTrailEntryProcessAuditMetricSettingsChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: IAuditMetricCategory[] | undefined;
+    newValue: IAuditMetricCategory[] | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processAuditMetricSettingsChanged;
+}
+
+export interface IAuditTrailEntryProcessAuditDefaultSVGDropdownSettingsChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: string | undefined;
+    newValue: string | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processAuditDefaultSVGDropdownSettingsChanged;
 }
