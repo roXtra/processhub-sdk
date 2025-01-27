@@ -2,7 +2,7 @@ import IAuditsSettings from "../modules/audits/iauditssettings.js";
 import { IGenericModuleSettings } from "../modules/imodule.js";
 import { IProcessAttachment, IProcessDetails, IProcessReportDraft, IProcessSettings, IRetentionPeriodLock, IStartButtonMap } from "../process/processinterfaces.js";
 import { IProcessRoles, IProcessRole } from "../process/processrights.js";
-import { IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces.js";
+import { IRiskAssessmentDimension, IRiskManagementColor, IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces.js";
 import { IAuditTrailEntryDetails, AuditTrailAction, IBaseAuditTrailEntry } from "./audittrailinterfaces.js";
 
 export interface IAuditTrailEntryProcess extends IBaseAuditTrailEntry {
@@ -288,4 +288,49 @@ export interface IAuditTrailEntryProcessAttachmentsChanged extends IAuditTrailEn
     processDisplayName: string;
   };
   action: AuditTrailAction.processAttachmentsChanged;
+}
+
+export interface IAuditTrailEntryProcessRiskDimensionsChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: IRiskAssessmentDimension[] | undefined;
+    newValue: IRiskAssessmentDimension[] | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processRiskDimensionsChanged;
+}
+
+export interface IAuditTrailEntryProcessRiskMetricsExpressionChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: string | undefined;
+    newValue: string | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processRiskMetricsExpressionChanged;
+}
+
+export interface IAuditTrailEntryProcessRiskDefaultRPZFieldChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: string | undefined;
+    newValue: string | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processRiskDefaultRPZFieldChanged;
+}
+
+export interface IAuditTrailEntryProcessRiskMetricsColorCategoriesChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: IRiskManagementColor[] | undefined;
+    newValue: IRiskManagementColor[] | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processRiskMetricsColorCategoriesChanged;
+}
+
+export interface IAuditTrailEntryProcessRiskHideRiskMatrixChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: boolean | undefined;
+    newValue: boolean | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processRiskHideRiskMatrixChanged;
 }

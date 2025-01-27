@@ -475,6 +475,26 @@ export enum AuditTrailAction {
    * Process Attachments changed
    */
   processAttachmentsChanged = "process attachments changed",
+  /**
+   * dimensions of a risk process were changed
+   */
+  processRiskDimensionsChanged = "process risk dimensions changed",
+  /**
+   * risk metrics expression of a risk process were changed
+   */
+  processRiskMetricsExpressionChanged = "process risk metrics expression changed",
+  /**
+   * default risk metrics fields of a risk process were changed
+   */
+  processRiskDefaultRPZFieldChanged = "process risk default RPZ field changed",
+  /**
+   * risk metrics colors/categories of a risk process were changed
+   */
+  processRiskMetricsColorCategoriesChanged = "process risk metrics color categories changed",
+  /**
+   * risk matrix visibility of a risk process was changed
+   */
+  processRiskHideRiskMatrixChanged = "process risk hide risk matrix changed",
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 

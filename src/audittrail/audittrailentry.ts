@@ -62,6 +62,11 @@ import {
   IAuditTrailEntryReplaceUserV2,
   IAuditTrailEntryRetentionPeriodChangedV2,
   IAuditTrailEntryRetentionPeriodLockChangedV2,
+  IAuditTrailEntryProcessRiskDimensionsChanged,
+  IAuditTrailEntryProcessRiskMetricsExpressionChanged,
+  IAuditTrailEntryProcessRiskDefaultRPZFieldChanged,
+  IAuditTrailEntryProcessRiskMetricsColorCategoriesChanged,
+  IAuditTrailEntryProcessRiskHideRiskMatrixChanged,
 } from "./processentries.js";
 
 export type AuditTrailEntry =
@@ -125,4 +130,9 @@ export type AuditTrailEntry =
   | IAuditTrailEntryProcessOwnerChanged
   | IAuditTrailEntryProcessManagerChanged
   | IAuditTrailEntryProcessDashboardViewerChanged
+  | IAuditTrailEntryProcessRiskDimensionsChanged
+  | IAuditTrailEntryProcessRiskMetricsExpressionChanged
+  | IAuditTrailEntryProcessRiskDefaultRPZFieldChanged
+  | IAuditTrailEntryProcessRiskMetricsColorCategoriesChanged
+  | IAuditTrailEntryProcessRiskHideRiskMatrixChanged
   | IAuditTrailEntryProcessAttachmentsChanged;
