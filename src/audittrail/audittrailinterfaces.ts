@@ -507,6 +507,26 @@ export enum AuditTrailAction {
    * Process Audit default svg dropdown settings were changed
    */
   processAuditDefaultSVGDropdownSettingsChanged = "process audit default svg dropdown settings changed",
+  /**
+   * Process Jumps settings where changed
+   */
+  processJumpsDisabledChanged = "process jumps disabled changed",
+  /**
+   * Process Instance reactivation settings where changed
+   */
+  processInstanceReactivationTaskIdChanged = "process instance reactivation taskid changed",
+  /**
+   * Process report drafts where changed
+   */
+  processReportDraftsChanged = "process report drafts changed",
+  /**
+   * Process Statistics report drafts where changed
+   */
+  processStatisticsReportDraftsChanged = "process statistics report drafts changed",
+  /**
+   * Process dashboard title changed
+   */
+  processDashboardTitleChanged = "process dashboard title changed",
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 

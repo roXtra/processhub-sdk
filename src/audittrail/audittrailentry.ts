@@ -70,6 +70,11 @@ import {
   IAuditTrailEntryProcessAuditCustomRatingChanged,
   IAuditTrailEntryProcessAuditMetricSettingsChanged,
   IAuditTrailEntryProcessAuditDefaultSVGDropdownSettingsChanged,
+  IAuditTrailEntryProcessJumpsDisabledChanged,
+  IAuditTrailEntryProcessInstanceReactivationTaskIdChanged,
+  IAuditTrailEntryProcessReportDraftsChanged,
+  IAuditTrailEntryProcessStatisticsReportDraftsChanged,
+  IAuditTrailEntryProcessDashboardTitleChanged,
 } from "./processentries.js";
 
 export type AuditTrailEntry =
@@ -141,4 +146,9 @@ export type AuditTrailEntry =
   | IAuditTrailEntryProcessAttachmentsChanged
   | IAuditTrailEntryProcessAuditCustomRatingChanged
   | IAuditTrailEntryProcessAuditMetricSettingsChanged
-  | IAuditTrailEntryProcessAuditDefaultSVGDropdownSettingsChanged;
+  | IAuditTrailEntryProcessAuditDefaultSVGDropdownSettingsChanged
+  | IAuditTrailEntryProcessJumpsDisabledChanged
+  | IAuditTrailEntryProcessInstanceReactivationTaskIdChanged
+  | IAuditTrailEntryProcessReportDraftsChanged
+  | IAuditTrailEntryProcessStatisticsReportDraftsChanged
+  | IAuditTrailEntryProcessDashboardTitleChanged;

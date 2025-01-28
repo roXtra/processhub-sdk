@@ -363,3 +363,48 @@ export interface IAuditTrailEntryProcessAuditDefaultSVGDropdownSettingsChanged e
   };
   action: AuditTrailAction.processAuditDefaultSVGDropdownSettingsChanged;
 }
+
+export interface IAuditTrailEntryProcessJumpsDisabledChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: boolean | undefined;
+    newValue: boolean | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processJumpsDisabledChanged;
+}
+
+export interface IAuditTrailEntryProcessInstanceReactivationTaskIdChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: string | undefined;
+    newValue: string | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processInstanceReactivationTaskIdChanged;
+}
+
+export interface IAuditTrailEntryProcessReportDraftsChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: IProcessReportDraft[] | undefined;
+    newValue: IProcessReportDraft[] | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processReportDraftsChanged;
+}
+
+export interface IAuditTrailEntryProcessStatisticsReportDraftsChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: IProcessReportDraft[] | undefined;
+    newValue: IProcessReportDraft[] | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processStatisticsReportDraftsChanged;
+}
+
+export interface IAuditTrailEntryProcessDashboardTitleChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: string | undefined;
+    newValue: string | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processDashboardTitleChanged;
+}
