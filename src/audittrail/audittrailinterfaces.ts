@@ -527,6 +527,10 @@ export enum AuditTrailAction {
    * Process dashboard title changed
    */
   processDashboardTitleChanged = "process dashboard title changed",
+  /**
+   * Process generic modules settings chart fields changed
+   */
+  processGenericModulesSettingsChartFieldsChanged = "process generic modules settings chart fields changed",
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -719,7 +723,8 @@ export interface ILegacyAuditTrailEntry extends IBaseAuditTrailEntry {
     | AuditTrailAction.retentionPeriodLockChanged
     | AuditTrailAction.bouncedMail
     | AuditTrailAction.incomingMail
-    | AuditTrailAction.instanceStartedByTimer;
+    | AuditTrailAction.instanceStartedByTimer
+    | AuditTrailAction.processGenericModulesSettingsChartFieldsChanged;
   details: ILegacyAuditTrailEntryDetails;
 }
 

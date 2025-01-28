@@ -75,6 +75,7 @@ import {
   IAuditTrailEntryProcessReportDraftsChanged,
   IAuditTrailEntryProcessStatisticsReportDraftsChanged,
   IAuditTrailEntryProcessDashboardTitleChanged,
+  IAuditTrailEntryProcessGenericModulesSettingsChartFieldsChanged,
 } from "./processentries.js";
 
 export type AuditTrailEntry =
@@ -151,4 +152,5 @@ export type AuditTrailEntry =
   | IAuditTrailEntryProcessInstanceReactivationTaskIdChanged
   | IAuditTrailEntryProcessReportDraftsChanged
   | IAuditTrailEntryProcessStatisticsReportDraftsChanged
-  | IAuditTrailEntryProcessDashboardTitleChanged;
+  | IAuditTrailEntryProcessDashboardTitleChanged
+  | IAuditTrailEntryProcessGenericModulesSettingsChartFieldsChanged;

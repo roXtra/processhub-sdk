@@ -1,7 +1,7 @@
 import { IAuditMetricCategory } from "../modules/audits/iauditmetriccategory.js";
 import IAuditsSettings from "../modules/audits/iauditssettings.js";
 import { ICustomRating } from "../modules/audits/icustomrating.js";
-import { IGenericModuleSettings } from "../modules/imodule.js";
+import { IGenericModuleChartField, IGenericModuleSettings } from "../modules/imodule.js";
 import { IProcessAttachment, IProcessDetails, IProcessReportDraft, IProcessSettings, IRetentionPeriodLock, IStartButtonMap } from "../process/processinterfaces.js";
 import { IProcessRoles, IProcessRole } from "../process/processrights.js";
 import { IRiskAssessmentDimension, IRiskManagementColor, IRiskManagementProcessSettings } from "../riskassessment/riskassessmentinterfaces.js";
@@ -407,4 +407,13 @@ export interface IAuditTrailEntryProcessDashboardTitleChanged extends IAuditTrai
     processDisplayName: string;
   };
   action: AuditTrailAction.processDashboardTitleChanged;
+}
+
+export interface IAuditTrailEntryProcessGenericModulesSettingsChartFieldsChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: IGenericModuleChartField[] | undefined;
+    newValue: IGenericModuleChartField[] | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processGenericModulesSettingsChartFieldsChanged;
 }
