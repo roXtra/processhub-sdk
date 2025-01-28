@@ -189,6 +189,7 @@ export interface IAuditTrailEntrySetFieldForSubInstanceV2 extends IAuditTrailEnt
 
 export interface IAuditTrailEntryDataReceivedFromSubInstance extends IAuditTrailEntryInstance {
   details: IAuditTrailEntryDetails & {
+    subInstanceTitle: string;
     subInstanceId: string;
     providedFields: { fieldName: string; value: IFieldValue }[];
   };
@@ -197,6 +198,7 @@ export interface IAuditTrailEntryDataReceivedFromSubInstance extends IAuditTrail
 
 export interface IAuditTrailEntryDataReceivedFromParentInstance extends IAuditTrailEntryInstance {
   details: IAuditTrailEntryDetails & {
+    parentInstanceTitle: string;
     parentInstanceId: string;
     providedFields: { fieldName: string; value: IFieldValue }[];
   };
