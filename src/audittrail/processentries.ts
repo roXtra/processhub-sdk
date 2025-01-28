@@ -372,3 +372,12 @@ export interface IAuditTrailEntryProcessGenericModuleSettingsChartFieldsChanged 
   };
   action: AuditTrailAction.processGenericModuleSettingsChartFieldsChanged;
 }
+
+export interface IAuditTrailEntryProcessGenericModuleSettingsChartFieldsChanged extends IAuditTrailEntryProcess {
+  details: IAuditTrailEntryDetails & {
+    oldValue: IGenericModuleChartField[] | undefined;
+    newValue: IGenericModuleChartField[] | undefined;
+    processDisplayName: string;
+  };
+  action: AuditTrailAction.processGenericModuleSettingsChartFieldsChanged;
+}

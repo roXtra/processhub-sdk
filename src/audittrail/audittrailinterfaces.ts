@@ -508,6 +508,26 @@ export enum AuditTrailAction {
    */
   processAuditDefaultSVGDropdownSettingsChanged = "process audit default svg dropdown settings changed",
   /**
+   * Process Jumps settings where changed
+   */
+  processJumpsDisabledChanged = "process jumps disabled changed",
+  /**
+   * Process Instance reactivation settings where changed
+   */
+  processInstanceReactivationTaskIdChanged = "process instance reactivation taskid changed",
+  /**
+   * Process report drafts where changed
+   */
+  processReportDraftsChanged = "process report drafts changed",
+  /**
+   * Process Statistics report drafts where changed
+   */
+  processStatisticsReportDraftsChanged = "process statistics report drafts changed",
+  /**
+   * Process dashboard title changed
+   */
+  processDashboardTitleChanged = "process dashboard title changed",
+  /**
    *Process generic module settings chart fields were changed
    */
   processGenericModuleSettingsChartFieldsChanged = "process generic module settings chart fields changed",
@@ -703,7 +723,8 @@ export interface ILegacyAuditTrailEntry extends IBaseAuditTrailEntry {
     | AuditTrailAction.retentionPeriodLockChanged
     | AuditTrailAction.bouncedMail
     | AuditTrailAction.incomingMail
-    | AuditTrailAction.instanceStartedByTimer;
+    | AuditTrailAction.instanceStartedByTimer
+    | AuditTrailAction.processGenericModuleSettingsChartFieldsChanged;
   details: ILegacyAuditTrailEntryDetails;
 }
 
