@@ -507,6 +507,10 @@ export enum AuditTrailAction {
    * Process Audit default svg dropdown settings were changed
    */
   processAuditDefaultSVGDropdownSettingsChanged = "process audit default svg dropdown settings changed",
+  /**
+   *Process generic module settings chart fields were changed
+   */
+  processGenericModuleSettingsChartFieldsChanged = "process generic module settings chart fields changed",
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
