@@ -723,8 +723,7 @@ export interface ILegacyAuditTrailEntry extends IBaseAuditTrailEntry {
     | AuditTrailAction.retentionPeriodLockChanged
     | AuditTrailAction.bouncedMail
     | AuditTrailAction.incomingMail
-    | AuditTrailAction.instanceStartedByTimer
-    | AuditTrailAction.processGenericModulesSettingsChartFieldsChanged;
+    | AuditTrailAction.instanceStartedByTimer;
   details: ILegacyAuditTrailEntryDetails;
 }
 
