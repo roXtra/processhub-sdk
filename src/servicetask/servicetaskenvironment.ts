@@ -1,6 +1,6 @@
 import { IUserDetails, UserExtras } from "../user/userinterfaces.js";
 import { IWorkspaceDetails, WorkspaceExtras } from "../workspace/workspaceinterfaces.js";
-import { IInstanceDetails } from "../instance/instanceinterfaces.js";
+import { IInstanceDetails, InstanceExtras } from "../instance/instanceinterfaces.js";
 import { IServiceActionConfigField } from "../data/datainterfaces.js";
 import { ISendMailTemplateRequest, ISendMailTemplateReply } from "../mailer/mailerinterfaces.js";
 import { IFieldContentMap } from "../data/ifieldcontentmap.js";
@@ -56,6 +56,13 @@ export interface IServiceTaskInstances {
   generateInstanceReport(processId: string, instanceIds: string[], draftId: string, type: IGenerateReportRequestType): Promise<{ doc: string /* Base64*/; fileName: string }>;
   executeInstance(processId: string, instance: IInstanceDetails, startEventId?: string, accessToken?: string): Promise<string>;
   getInstanceUrl(instanceId: string, workspaceId: string, moduleId: number, isUsedThroughTest?: boolean): string;
+  /**
+   * Returns all instances for a process, also the ones the user running the service task is usually not allowed to see.
+   * @param processId The process to get the instances for
+   * @param extras Additional information to include in the instances
+   * @returns All instances for the process - also the ones the user running the service task is usually not allowed to see.
+   */
+  getAllInstancesForProcess(processId: string, extras: InstanceExtras): Promise<IInstanceDetails[]>;
 }
 
 /**
