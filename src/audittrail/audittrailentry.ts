@@ -36,6 +36,7 @@ import {
   IAuditTrailEntrySetFieldForSubInstanceV2,
   IAuditTrailEntryDataReceivedFromSubInstance,
   IAuditTrailEntryDataReceivedFromParentInstance,
+  IAuditTrailEntrySubInstanceCanceled,
 } from "./instanceentries.js";
 import {
   IAuditTrailEntryAuditTrailVisibilityChangedV2,
@@ -153,4 +154,5 @@ export type AuditTrailEntry =
   | IAuditTrailEntryProcessReportDraftsChanged
   | IAuditTrailEntryProcessStatisticsReportDraftsChanged
   | IAuditTrailEntryProcessDashboardTitleChanged
-  | IAuditTrailEntryProcessGenericModulesSettingsChartFieldsChanged;
+  | IAuditTrailEntryProcessGenericModulesSettingsChartFieldsChanged
+  | IAuditTrailEntrySubInstanceCanceled;

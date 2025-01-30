@@ -330,3 +330,11 @@ export interface IAuditTrailEntryCompletedTodoV2 extends IAuditTrailEntryInstanc
   };
   action: AuditTrailAction.completedTodoV2;
 }
+
+export interface IAuditTrailEntrySubInstanceCanceled extends IAuditTrailEntryInstance {
+  details: IAuditTrailEntryDetails & {
+    subInstanceId: string;
+    subInstanceTitle: string;
+  };
+  action: AuditTrailAction.subInstanceCanceled;
+}
