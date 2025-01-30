@@ -531,6 +531,10 @@ export enum AuditTrailAction {
    * Process generic modules settings chart fields changed
    */
   processGenericModulesSettingsChartFieldsChanged = "process generic modules settings chart fields changed",
+  /**
+   * Sub instance was canceled - is logged in the audit trail of the parent instance
+   */
+  subInstanceCanceled = "sub instance canceled",
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
