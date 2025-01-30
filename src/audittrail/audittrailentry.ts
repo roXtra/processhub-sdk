@@ -70,7 +70,7 @@ import {
   IAuditTrailEntryProcessRiskHideRiskMatrixChanged,
   IAuditTrailEntryProcessAuditCustomRatingChanged,
   IAuditTrailEntryProcessAuditMetricSettingsChanged,
-  IAuditTrailEntryProcessAuditDefaultSVGDropdownSettingsChanged,
+  IAuditTrailEntryProcessDefaultStatusFieldChanged,
   IAuditTrailEntryProcessJumpsDisabledChanged,
   IAuditTrailEntryProcessInstanceReactivationTaskIdChanged,
   IAuditTrailEntryProcessReportDraftsChanged,
@@ -148,7 +148,7 @@ export type AuditTrailEntry =
   | IAuditTrailEntryProcessAttachmentsChanged
   | IAuditTrailEntryProcessAuditCustomRatingChanged
   | IAuditTrailEntryProcessAuditMetricSettingsChanged
-  | IAuditTrailEntryProcessAuditDefaultSVGDropdownSettingsChanged
+  | IAuditTrailEntryProcessDefaultStatusFieldChanged
   | IAuditTrailEntryProcessJumpsDisabledChanged
   | IAuditTrailEntryProcessInstanceReactivationTaskIdChanged
   | IAuditTrailEntryProcessReportDraftsChanged

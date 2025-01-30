@@ -355,7 +355,7 @@ export interface IAuditTrailEntryProcessAuditMetricSettingsChanged extends IAudi
   action: AuditTrailAction.processAuditMetricSettingsChanged;
 }
 
-export interface IAuditTrailEntryProcessAuditDefaultSVGDropdownSettingsChanged extends IAuditTrailEntryProcess {
+export interface IAuditTrailEntryProcessDefaultStatusFieldChanged extends IAuditTrailEntryProcess {
   details: IAuditTrailEntryDetails & {
     oldValue: string | undefined;
     newValue: string | undefined;
