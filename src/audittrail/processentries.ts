@@ -361,7 +361,7 @@ export interface IAuditTrailEntryProcessAuditDefaultSVGDropdownSettingsChanged e
     newValue: string | undefined;
     processDisplayName: string;
   };
-  action: AuditTrailAction.processAuditDefaultSVGDropdownSettingsChanged;
+  action: AuditTrailAction.processDefaultStatusFieldChanged;
 }
 
 export interface IAuditTrailEntryProcessJumpsDisabledChanged extends IAuditTrailEntryProcess {

@@ -504,9 +504,9 @@ export enum AuditTrailAction {
    */
   processAuditMetricSettingsChanged = "process audit metric settings changed",
   /**
-   * Process Audit default svg dropdown settings were changed
+   * Process default status field was changed
    */
-  processAuditDefaultSVGDropdownSettingsChanged = "process audit default svg dropdown settings changed",
+  processDefaultStatusFieldChanged = "process default status field changed",
   /**
    * Process Jumps settings where changed
    */
