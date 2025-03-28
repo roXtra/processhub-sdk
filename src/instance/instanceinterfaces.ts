@@ -110,6 +110,7 @@ export interface IInstanceDetails {
     todos?: ITodoDetails[];
     auditTrail?: AuditTrailEntry[];
   };
+  concurrencyStamp?: string;
 }
 
 export enum InstanceExtras {
@@ -131,6 +132,8 @@ export interface IResumeInstanceDetails {
   timerTriggeredManually?: boolean;
   // Token that can be used to check if the user entered his credentials to complete a todo
   todoSignToken?: string;
+  // Must match the instance's concurrencyStamp on the server to prevent concurrency issues
+  concurrencyStamp?: string | undefined;
 }
 
 export interface IEngineState {
