@@ -10,7 +10,7 @@ export enum ApiResult {
   API_FORBIDDEN = 403, // User is signed in but has insufficient rights
   API_NOTFOUND = 404,
   API_REQUESTTIMEOUT = 408,
-  API_DUPLICATE = 409,
+  API_CONFLICT = 409,
   API_REQUEST_ENTITY_TOO_LARGE = 413,
   API_QUOTA_EXCEEDED = 429,
   API_NOTEMPTY = 423,
