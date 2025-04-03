@@ -88,6 +88,7 @@ export interface IAbortRequest extends IBaseRequest {
    * The token to sign the abort with - required if todo sign is enabled for any sequence flows in the process
    */
   signToken?: string;
+  concurrencyStamp?: string | undefined;
 }
 export type IAbortReply = IInstanceReply;
 
