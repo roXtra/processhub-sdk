@@ -79,6 +79,7 @@ export interface ISubParentBaseProcessInformation {
   workspaceId: string;
   displayName: string;
   urlName: string;
+  archived: boolean; // True, if the process is archived, false or undefined otherwise
 }
 
 export interface IProcessDetails {
