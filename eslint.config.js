@@ -4,7 +4,6 @@ import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import globals from "globals";
 import eslintPluginNoOnlyTests from "eslint-plugin-no-only-tests";
-import eslintPluginDeprecation from "eslint-plugin-deprecation";
 import eslintPluginPrettier from "eslint-plugin-prettier/recommended";
 import eslintPluginLodash from "eslint-plugin-lodash";
 import eslintPluginReactRecommended from "eslint-plugin-react/configs/recommended.js";
@@ -176,6 +175,7 @@ export default tseslint.config(
       "@typescript-eslint/no-unnecessary-condition": "warn",
       "@typescript-eslint/no-useless-empty-export": "error",
       "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-deprecated": "warn"
     },
   },
   /**
@@ -194,17 +194,6 @@ export default tseslint.config(
     },
     rules: {
       "no-only-tests/no-only-tests": "error",
-    },
-  },
-  /**
-   * Deprecation Plugin
-   */
-  {
-    plugins: {
-      deprecation: eslintPluginDeprecation,
-    },
-    rules: {
-      "deprecation/deprecation": "warn",
     },
   },
   /**
