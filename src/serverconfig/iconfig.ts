@@ -73,6 +73,11 @@ export interface IMailerConfig {
   smtpUser: string;
   smtpPassword: string;
   requireTls: boolean;
+  OAuth2Config?: {
+    AppId: string;
+    TenantId: string;
+    ClientSecret: string;
+  };
 }
 
 // !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareWebserverConfig.cs !!!!
