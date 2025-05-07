@@ -109,6 +109,8 @@ export interface IInstanceDetails {
     roleOwners?: IRoleOwnerMap;
     todos?: ITodoDetails[];
     auditTrail?: AuditTrailEntry[];
+    // Audit Trail entries that reflect a comment/a mail that was sent to the instance
+    commentsTrail?: AuditTrailEntry[];
   };
   concurrencyStamp?: string;
 }
@@ -120,6 +122,7 @@ export enum InstanceExtras {
   ExtrasFieldContents = 1 << 3,
   ExtrasTodos = 1 << 4,
   ExtrasAuditTrail = 1 << 5,
+  ExtrasCommentsTrail = 1 << 6,
 }
 
 export interface IResumeInstanceDetails {
