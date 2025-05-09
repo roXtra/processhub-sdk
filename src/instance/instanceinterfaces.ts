@@ -5,7 +5,7 @@ import BpmnModdle from "bpmn-moddle";
 import Joi from "joi";
 import { IProcessLinkInstance } from "../data/fields/processlink.js";
 import { IFieldContentMap } from "../data/ifieldcontentmap.js";
-import { IRoleOwnerMap } from "../process/processrights.js";
+import { IRoleOwner, IRoleOwnerMap } from "../process/processrights.js";
 import { ITodoDetails, IDecisionTask } from "../todo/todointerfaces.js";
 import { ICustomRating } from "../modules/audits/icustomrating.js";
 
@@ -113,6 +113,8 @@ export interface IInstanceDetails {
     commentsTrail?: AuditTrailEntry[];
   };
   concurrencyStamp?: string;
+  // The user that started the instance
+  startedBy?: IRoleOwner;
 }
 
 export enum InstanceExtras {
