@@ -246,6 +246,7 @@ export interface IAuditTrailEntryRetentionPeriodLockChangedV2 extends IAuditTrai
   details: IAuditTrailEntryDetails & {
     oldValue: IRetentionPeriodLock | undefined;
     newValue: IRetentionPeriodLock | undefined;
+    processDisplayName?: string;
   };
   action: AuditTrailAction.retentionPeriodLockChangedV2;
 }
