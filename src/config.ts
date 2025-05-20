@@ -72,8 +72,6 @@ export interface IInitialConfig extends IClientSettingsConfig {
   roXtraUrlOriginalCase: string; // Roxtra Base URL in original case from config
   roXtraVersion: string;
   features: IFeatureConfig;
-  moduleId: number;
-  currentModule: IModule;
   modules: IModule[];
   /* Is set to true if running in production environment, false if running in development environment. Used for assertions. */
   isProduction: boolean;

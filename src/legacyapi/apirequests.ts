@@ -5,6 +5,7 @@ import isEmpty from "lodash/isEmpty.js";
 import fetchWithTimeout, { RequestTimedOutPrefix } from "../tools/fetchwithtimeout.js";
 import { AxiosRequestConfig } from "axios";
 import { getUserToken } from "./auth.js";
+import { getModuleForRequestPath } from "../modules/modules.js";
 
 /**
  * @default showErrorModal = true
@@ -19,7 +20,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
   const { showErrorModal } = options;
   let { accessToken } = options;
   if (request.moduleId === undefined && typeof window !== "undefined") {
-    request.moduleId = window.__INITIAL_CONFIG__.moduleId;
+    request.moduleId = getModuleForRequestPath(window.location.pathname).id;
   }
 
   accessToken = accessToken || getUserToken();
@@ -99,7 +100,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
   const url = getBackendUrl() + path;
 
   if (request.moduleId === undefined && typeof window !== "undefined") {
-    request.moduleId = window.__INITIAL_CONFIG__.moduleId;
+    request.moduleId = getModuleForRequestPath(window.location.pathname).id;
   }
 
   accessToken = accessToken || getUserToken();
