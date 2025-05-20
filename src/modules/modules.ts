@@ -1,3 +1,4 @@
+import { getBasePath } from "../config.js";
 import { Language, tl } from "../tl.js";
 import { IModule, ModuleId, ModuleName } from "./imodule.js";
 
@@ -80,21 +81,36 @@ export function getModules(): IModule[] {
   return modules;
 }
 
+const modulesByPath: { [path: string]: IModule | undefined } = {};
+
 export function getModuleForRequestPath(requestPath: string): IModule {
-  let prefix = requestPath;
-  while (prefix.startsWith("/")) {
-    prefix = prefix.substr(1);
+  if (modulesByPath[requestPath] !== undefined) {
+    return modulesByPath[requestPath] as IModule;
   }
+  const module = getModule(requestPath);
+  modulesByPath[requestPath] = module;
+  return module;
 
-  // Look only at first path segment
-  prefix = prefix.split("/")[0];
-
-  for (const m of modules) {
-    if (m.urlPrefix === prefix) {
-      return m;
+  function getModule(requestPath: string): IModule {
+    if (requestPath.toLowerCase().startsWith(getBasePath().toLowerCase())) {
+      requestPath = requestPath.substring(getBasePath().length);
     }
-  }
 
-  // Default module is Processes
-  return Processes;
+    let prefix = requestPath;
+    while (prefix.startsWith("/")) {
+      prefix = prefix.substring(1);
+    }
+
+    // Look only at first path segment
+    prefix = prefix.split("/")[0];
+
+    for (const m of modules) {
+      if (m.urlPrefix === prefix) {
+        return m;
+      }
+    }
+
+    // Default module is Processes
+    return Processes;
+  }
 }
