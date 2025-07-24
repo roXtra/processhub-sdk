@@ -167,7 +167,10 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       getErrorHandlers().forEach((h) => h.handleError(error, path, showErrorModal));
       return error;
     }
-    if (ex instanceof Error && (ex as any).code === "ENETUNREACH") { // Replace with a robust error code check
+    /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    if (ex instanceof Error && (ex as any).code === "ENETUNREACH") {
+      // Replace with a robust error code check
       const error: IBaseError = { result: ApiResult.API_NETWORK_ERROR, type: API_FAILED };
       getErrorHandlers().forEach((h) => h.handleError(error, path, showErrorModal));
       return error;
