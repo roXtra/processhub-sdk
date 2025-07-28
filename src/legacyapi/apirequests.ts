@@ -175,7 +175,10 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       getErrorHandlers().forEach((h) => h.handleError(error, path, showErrorModal));
       return error;
     }
-
-    throw new Error(String(ex));
+    // Unknown error, log it
+    const error: IBaseError = { result: ApiResult.API_ERROR_UNKNOWN, type: API_FAILED };
+    console.error("Unknown error in postJson:", ex);
+    getErrorHandlers().forEach((h) => h.handleError(error, path, showErrorModal));
+    return error;
   }
 }

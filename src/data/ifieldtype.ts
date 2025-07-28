@@ -14,18 +14,27 @@ import { IFieldDefinition } from "./ifielddefinition.js";
 import { FieldType, FieldValueType, IFieldValue } from "./ifieldvalue.js";
 import { IFormElementProps } from "./iformelementprops.js";
 import React from "react";
+import { IUpdateInstanceReply } from "../instance/legacyapi.js";
+
+export type SavePendingFieldContentsAction = () => Promise<IUpdateInstanceReply>;
 
 export type GetInputParams<ConfigType extends IFieldConfig, ValueType extends FieldValueType> = {
   formElementProps: IFormElementProps<ConfigType, ValueType>;
   instanceEnv: IInstanceEnvironment;
   actionHandler: ActionHandler;
-  onFieldValueChanged: (newFieldContents: IFieldContentMap) => void;
+  /**
+   * Update the pending field contents for the form
+   * @param newFieldContents - The new field contents to set
+   * @param flush - If true, the pending field contents will be saved immediately - otherwise, a debounce will be used
+   */
+  onFieldValueChanged: (newFieldContents: IFieldContentMap, flush?: boolean) => void;
   showInvalidValue: boolean;
   /* Id of the bpmn element that contains the form of the current field */
   bpmnElementId?: string;
   hideRequiredIdentifier?: boolean;
   disableMentions?: boolean;
   pendingFieldContents: IFieldContentMap;
+  savePendingFieldContents: SavePendingFieldContentsAction;
 };
 
 export interface IBaseGrid {

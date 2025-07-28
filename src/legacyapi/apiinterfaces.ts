@@ -20,6 +20,7 @@ export enum ApiResult {
   API_BADGATEWAY = 502,
   API_ERROR_ROXAPI = 512,
   API_NETWORK_ERROR = 590, // Custom code for network errors, e.g., no connection to server
+  API_ERROR_UNKNOWN = 591, // Custom code for unknown errors
 }
 
 export type ApiError = 400 | 401 | 409 | 404 | 423 | 500;

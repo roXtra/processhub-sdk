@@ -33,7 +33,7 @@ export async function readConfigFile<T = IServiceConfigSecret>(
     const config = validateType<T>(schema, JSON.parse(configData));
     return config;
   } catch (ex) {
-    if ((ex as NodeJS.ErrnoException)?.code === "ENOENT") {
+    if ((ex as NodeJS.ErrnoException | undefined)?.code === "ENOENT") {
       // Config file does not exist - use empty secrets
       logger.info(`Could not read service config: Config file ${configPath} does not exist.`);
       return undefined;
