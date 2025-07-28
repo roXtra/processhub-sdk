@@ -4,6 +4,13 @@ import { createId } from "./guid.js";
 import utf8 from "utf8";
 import base64 from "base-64";
 
+/**
+ * Serializes an error object to a JSON string, including non enumerable properties.
+ */
+export function stringifyError(error: unknown): string {
+  return JSON.stringify(error, Object.getOwnPropertyNames(error));
+}
+
 // Mailadresse auf Gültigkeit prüfen
 export function isValidMailAddress(mail: string | null): boolean {
   if (mail === null) return false;
