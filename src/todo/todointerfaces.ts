@@ -18,6 +18,8 @@ export enum TodoType {
   Intermediate = 3,
   // SubProcess with missing role, will be started as soon as role was set
   SubProcessWaitingForStart = 4,
+  // An email was received for a completed instance
+  EmailReceivedForCompletedInstance = 5,
 }
 
 export interface ITodoDetails {
