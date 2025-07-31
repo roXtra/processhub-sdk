@@ -73,7 +73,7 @@
     "chai": "^5.2.1",
     "chai-exclude": "^3.0.1",
     "copyfiles": "^2.4.1",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.0.0",
     "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-lodash": "^8.0.0",
