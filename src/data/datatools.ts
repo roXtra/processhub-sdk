@@ -362,7 +362,7 @@ type ValidateTypeOptions = {
  * @param element The element that should be validated
  * @param options Options for the validation
  */
-export function validateType<T>(schema: Joi.Schema, element: unknown, options?: ValidateTypeOptions): T {
+export function validateType<T>(schema: Joi.Schema<T>, element: unknown, options?: ValidateTypeOptions): T {
   const res = options?.allowUndefined
     ? schema.validate(element, { allowUnknown: options.allowUnknown })
     : schema.required().validate(element, { allowUnknown: options?.allowUnknown });
