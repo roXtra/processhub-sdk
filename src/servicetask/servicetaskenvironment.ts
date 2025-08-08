@@ -102,6 +102,7 @@ export interface IServiceTaskRoxApi {
   getEfApiEndpoint(): string;
   getApiToken(): string;
   getAccessTokenFromAuth(userId: string): Promise<string>;
+  getSystemUserAccessToken(): Promise<string>;
   getSupervisor(userId: string): Promise<{ type: "group" | "user" | "error"; value: string | number }>;
   getUsersConfig(): Promise<IUserFieldsConfig>;
 }
