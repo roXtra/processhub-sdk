@@ -23,6 +23,7 @@ export interface IConfig {
   };
   AiCompletion: IAiCompletionConfig;
   GrpcSettings: IGrpcSettingsConfig;
+  AiOptions: IAiOptionsConfig;
 }
 
 // !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareDatabaseConfig.cs !!!!
@@ -154,4 +155,11 @@ export interface IAuthSettingsFile {
       };
     };
   };
+}
+
+// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EformulareAiOptionsConfig.cs !!!!
+export interface IAiOptionsConfig {
+  RoxtraAiApiKey?: string;
+  AiProvider?: string;
+  AiServiceGrpcEndpoint?: string;
 }

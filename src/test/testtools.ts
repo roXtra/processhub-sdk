@@ -267,6 +267,7 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
       GrpcSettings: {
         port: 5000,
       },
+      AiOptions: {},
     },
     getVM: () => ({
       init: () => Promise.resolve(),
