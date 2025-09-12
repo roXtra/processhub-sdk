@@ -47,6 +47,7 @@ export const ProcessRequestRoutes = {
   GetAICompletion: "/api/process/getaicompletion",
   GetAIImageCompletion: "/api/process/getaiimagecompletion",
   GenerateReport: "/api/process/generatereport",
+  GenerateProcessWithAI: "/api/process/generateprocesswithai",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
@@ -130,6 +131,17 @@ export interface IGetAICompletionReply extends IBaseReply {
 
 export interface IGetAIImageCompletionReply extends IBaseReply {
   completionImageURL: string;
+}
+
+export interface IGenerateProcessWithAIRequest extends IBaseRequest {
+  userInput: string;
+  oldProcessPrompt?: string;
+  oldBpmnXml?: string;
+}
+
+export interface IGenerateProcessWithAIReply extends IBaseReply {
+  bpmnXml: string;
+  processPrompt: string;
 }
 
 enum ArchiveViewType {
