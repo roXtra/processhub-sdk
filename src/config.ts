@@ -90,4 +90,5 @@ export interface IInitialConfig extends IClientSettingsConfig {
   webSockettoken?: string;
   defaultServerLanguage: string;
   aiCompletionProvider: AiCompletionProviders;
+  roXtraAiServiceConfigured: boolean;
 }
