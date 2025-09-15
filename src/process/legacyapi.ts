@@ -137,6 +137,10 @@ export interface IGenerateProcessWithAIRequest extends IBaseRequest {
   userInput: string;
   oldProcessPrompt?: string;
   oldBpmnXml?: string;
+  /**
+   * Optional: A roXtra document that describes the process to be created.
+   */
+  roXtraFileId?: number;
 }
 
 export interface IGenerateProcessWithAIReply extends IBaseReply {
