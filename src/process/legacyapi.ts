@@ -141,6 +141,7 @@ export interface IGenerateProcessWithAIRequest extends IBaseRequest {
    * Optional: A roXtra document that describes the process to be created.
    */
   roXtraFileId?: number;
+  temperature: number;
 }
 
 export interface IGenerateProcessWithAIReply extends IBaseReply {
