@@ -70,7 +70,7 @@
     "@types/react": "^18.3.25",
     "@types/sqlstring": "^2.3.2",
     "@types/utf8": "^3.0.3",
-    "chai": "^6.0.1",
+    "chai": "^6.2.0",
     "chai-exclude": "^3.0.1",
     "copyfiles": "^2.4.1",
     "cross-env": "^10.0.0",
