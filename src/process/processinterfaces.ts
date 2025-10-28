@@ -152,6 +152,7 @@ export interface IProcessSettings {
     severityValues: string[]; // Possible values to rate the severity, starting with the least serious one
   };
   retentionPeriodLock?: IRetentionPeriodLock; // Retention Period Object including reason and locked state
+  processEntryPane?: "dashboard" | "instances"; // Default entry pane when opening a process
 }
 
 export enum ProcessViewAccess {
