@@ -59,7 +59,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
   req.responseType = "json";
   req.validateStatus = () => true;
   try {
-    const response = await fetchWithTimeout(url, req, options.timeoutInMs);
+    const response = await fetchWithTimeout(url, req, options.timeoutInMs ?? 120000); // Default 2 minutes timeout
     switch (response.status) {
       case 200: {
         const json = response.data;
