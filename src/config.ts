@@ -1,5 +1,4 @@
 import { IModule } from "./modules/imodule.js";
-import { AiCompletionProviders } from "./serverconfig/aiprovider.js";
 import { IClientSettingsConfig, IFeatureConfig } from "./serverconfig/iconfig.js";
 
 declare global {
@@ -89,6 +88,5 @@ export interface IInitialConfig extends IClientSettingsConfig {
   /* This token is used to authenticate the user when connecting to websockets */
   webSockettoken?: string;
   defaultServerLanguage: string;
-  aiCompletionProvider: AiCompletionProviders;
-  roXtraAiServiceConfigured: boolean;
+  aiFeaturesAvailable: boolean;
 }
