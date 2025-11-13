@@ -3,8 +3,6 @@
  * entries must also be adjusted in the Setup project
  */
 
-import { AiCompletionProviders } from "./aiprovider.js";
-
 // !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareConfig.cs !!!!
 export interface IConfig {
   Database: IDatabaseConfig;
@@ -21,9 +19,7 @@ export interface IConfig {
     migrateStatisticReportDrafts: string;
     updateAuditMetrics: string;
   };
-  AiCompletion: IAiCompletionConfig;
   GrpcSettings: IGrpcSettingsConfig;
-  AiOptions: IAiOptionsConfig;
 }
 
 // !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareDatabaseConfig.cs !!!!
@@ -107,12 +103,6 @@ export interface ITabConfig {
   name: string;
 }
 
-// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareAiCompletionConfig.cs !!!!
-export interface IAiCompletionConfig {
-  completionProvider: AiCompletionProviders;
-  apiKey: string;
-}
-
 // !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EFormulareGrpcSettingsConfig.cs !!!!
 export interface IGrpcSettingsConfig {
   port: number;
@@ -155,11 +145,4 @@ export interface IAuthSettingsFile {
       };
     };
   };
-}
-
-// !!!! Changes must also be made to Roxtra.Standard.Config/Eformulare/EformulareAiOptionsConfig.cs !!!!
-export interface IAiOptionsConfig {
-  RoxtraAiApiKey?: string;
-  AiProvider?: string;
-  AiServiceGrpcEndpoint?: string;
 }

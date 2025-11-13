@@ -260,14 +260,9 @@ export function createEmptyTestServiceEnvironment(bpmnXml: string): IServiceTask
         migrateStatisticReportDrafts: "",
         updateAuditMetrics: "",
       },
-      AiCompletion: {
-        completionProvider: "",
-        apiKey: "",
-      },
       GrpcSettings: {
         port: 5000,
       },
-      AiOptions: {},
     },
     getVM: () => ({
       init: () => Promise.resolve(),
