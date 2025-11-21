@@ -85,7 +85,7 @@ const modulesByPath: { [path: string]: IModule | undefined } = {};
 
 export function getModuleForRequestPath(requestPath: string): IModule {
   if (modulesByPath[requestPath] !== undefined) {
-    return modulesByPath[requestPath] as IModule;
+    return modulesByPath[requestPath];
   }
   const module = getModule(requestPath);
   modulesByPath[requestPath] = module;
