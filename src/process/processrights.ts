@@ -454,7 +454,7 @@ export function canStartProcessByTimer(process: IProcessDetails | StateProcessDe
 export function canViewTodos(process: IProcessDetails | StateProcessDetails): boolean {
   if (process == null || process.userRights == null) return false;
 
-  return canViewAllTodos(process) || process.userRights !== ProcessAccessRights.None;
+  return canViewAllTodos(process) || process.userRights !== 0;
 }
 export function canViewAllTodos(process: IProcessDetails | StateProcessDetails): boolean {
   if (process == null || process.userRights == null) return false;
@@ -465,7 +465,7 @@ export function canViewAllTodos(process: IProcessDetails | StateProcessDetails):
 export function canViewArchive(process: IProcessDetails | StateProcessDetails): boolean {
   if (process == null || process.userRights == null) return false;
 
-  return process.userRights !== ProcessAccessRights.None;
+  return process.userRights !== 0;
 }
 
 export function canDeleteProcess(process: IProcessDetails | StateProcessDetails, user: StateUserDetails | IUserDetails | IUserDetailsNoExtras): boolean {
