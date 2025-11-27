@@ -9,7 +9,7 @@ export enum ErrorCode {
 }
 
 export class BpmnError extends Error {
-  public readonly errorCode: ErrorCode | string;
+  public readonly errorCode: string;
   public readonly errorMessage: string;
   public readonly innerError: Error | undefined;
   public readonly bpmnError = "BpmnError";
