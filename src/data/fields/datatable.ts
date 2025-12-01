@@ -6,6 +6,7 @@ export interface IDataTableFieldConfig extends IFieldConfig {
     name: string;
     type: "text" | "numeric";
   }[];
+  selectionMode: "single" | "multiple";
 }
 
 export interface IDataTableFieldValue {
