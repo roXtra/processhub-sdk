@@ -43,5 +43,10 @@ module.exports = {
       groupName: "progress monorepo",
       matchPackagePatterns: ["^@progress/", "kendo-ui-core"],
     },
+	// Lock bpmn-moddle to 9.0.4 because of https://rossmanith.atlassian.net/browse/RM-814
+	{
+		matchPackageNames: ["bpmn-moddle"],
+		allowedVersions: ["9.0.4"],
+	},
   ],
 };
