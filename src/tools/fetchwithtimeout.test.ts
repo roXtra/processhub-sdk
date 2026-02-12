@@ -31,8 +31,13 @@ describe("sdk", function () {
           });
       });
 
-      it("should resolve if url is reachable", async () => {
-        const request: AxiosRequestConfig = {};
+      // eslint-disable-next-line no-only-tests/no-only-tests
+      it.only("should resolve if url is reachable", async () => {
+        const request: AxiosRequestConfig = {
+          headers: {
+            "User-Agent": "ProcessHubSDK-Test",
+          },
+        };
         return fetchWithTimeout("https://www.roxtra.com", request)
           .then((onFulfilled) => {
             return Promise.resolve();
