@@ -1,4 +1,4 @@
-/// <reference path="../types/index.d.ts" />
+/// <reference path="../types/index.d.ts" preserve="true" />
 import * as BpmnModdleHelper from "./bpmnmoddlehelper.js";
 import { ILaneDictionary } from "./bpmnprocessdiagram.js";
 import { BpmnProcessDiagram } from "./bpmnprocessdiagram.js";
