@@ -1,6 +1,6 @@
-/// <reference path="./bpmn.d.ts" />
-/// <reference path="./dc.d.ts" />
-/// <reference path="./di.d.ts" />
+/// <reference path="./bpmn.d.ts" preserve="true" />
+/// <reference path="./dc.d.ts" preserve="true" />
+/// <reference path="./di.d.ts" preserve="true" />
 
 declare module "modeler/bpmn/bpmndi" {
   import { Bpmn } from "modeler/bpmn/bpmn";

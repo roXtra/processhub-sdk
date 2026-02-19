@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-/// <reference path="./bpmndi.d.ts" />
-/// <reference path="./dc.d.ts" />
+/// <reference path="./bpmndi.d.ts" preserve="true" />
+/// <reference path="./dc.d.ts" preserve="true" />
 
 declare module "modeler/bpmn/bpmn" {
   import { Bpmndi } from "modeler/bpmn/bpmndi";
