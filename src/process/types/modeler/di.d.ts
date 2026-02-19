@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-/// <reference path="./dc.d.ts" />
+/// <reference path="./dc.d.ts" preserve="true" />
 
 declare module "modeler/bpmn/di" {
   import { Dc } from "modeler/bpmn/dc";

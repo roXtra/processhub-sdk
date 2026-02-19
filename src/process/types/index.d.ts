@@ -1,59 +1,59 @@
-/// <reference path="./bpmn-moddle/index.d.ts" />
-/// <reference path="./bpmn-moddle/lib/bpmn-moddle.d.ts" />
-/// <reference path="./bpmn-moddle/lib/simple.d.ts" />
-/// <reference path="./diagram-js/index.d.ts" />
-/// <reference path="./diagram-js/lib/command/commandhandler.d.ts" />
-/// <reference path="./diagram-js/lib/command/commandinterceptor.d.ts" />
-/// <reference path="./diagram-js/lib/command/commandstack.d.ts" />
-/// <reference path="./diagram-js/lib/core/canvas.d.ts" />
-/// <reference path="./diagram-js/lib/core/elementfactory.d.ts" />
-/// <reference path="./diagram-js/lib/core/elementregistry.d.ts" />
-/// <reference path="./diagram-js/lib/core/eventbus.d.ts" />
-/// <reference path="./diagram-js/lib/core/graphicsfactory.d.ts" />
-/// <reference path="./diagram-js/lib/draw/baserenderer.d.ts" />
-/// <reference path="./diagram-js/lib/draw/styles.d.ts" />
-/// <reference path="./diagram-js/lib/features/bendpoints/index.d.ts" />
-/// <reference path="./diagram-js/lib/features/connect/connect.d.ts" />
-/// <reference path="./diagram-js/lib/features/context-pad/contextpad.d.ts" />
-/// <reference path="./diagram-js/lib/features/context-pad/index.d.ts" />
-/// <reference path="./diagram-js/lib/features/create/create.d.ts" />
-/// <reference path="./diagram-js/lib/features/dragging/dragging.d.ts" />
-/// <reference path="./diagram-js/lib/features/global-connect/globalconnect.d.ts" />
-/// <reference path="./diagram-js/lib/features/hand-tool/handtool.d.ts" />
-/// <reference path="./diagram-js/lib/features/interaction-events/index.d.ts" />
-/// <reference path="./diagram-js/lib/features/interaction-events/interactionevents.d.ts" />
-/// <reference path="./diagram-js/lib/features/keyboard/keyboard.d.ts" />
-/// <reference path="./diagram-js/lib/features/lasso-tool/lassotool.d.ts" />
-/// <reference path="./diagram-js/lib/features/modeling/modeling.d.ts" />
-/// <reference path="./diagram-js/lib/features/overlays/overlays.d.ts" />
-/// <reference path="./diagram-js/lib/features/palette/palette.d.ts" />
-/// <reference path="./diagram-js/lib/features/resize/index.d.ts" />
-/// <reference path="./diagram-js/lib/features/resize/resize.d.ts" />
-/// <reference path="./diagram-js/lib/features/resize/resizehandles.d.ts" />
-/// <reference path="./diagram-js/lib/features/rules/ruleprovider.d.ts" />
-/// <reference path="./diagram-js/lib/features/rules/rules.d.ts" />
-/// <reference path="./diagram-js/lib/features/selection/selection.d.ts" />
-/// <reference path="./diagram-js/lib/features/snapping/snapcontext.d.ts" />
-/// <reference path="./diagram-js/lib/features/snapping/createmovesnapping.d.ts" />
-/// <reference path="./diagram-js/lib/features/snapping/snapping.d.ts" />
-/// <reference path="./diagram-js/lib/features/space-tool/spacetool.d.ts" />
-/// <reference path="./diagram-js/lib/features/tooltips/tooltips.d.ts" />
-/// <reference path="./diagram-js/lib/i18n/translate/translate.d.ts" />
-/// <reference path="./diagram-js/lib/layout/baselayouter.d.ts" />
-/// <reference path="./diagram-js/lib/layout/manhattanlayout.d.ts" />
-/// <reference path="./diagram-js/lib/model/index.d.ts" />
-/// <reference path="./diagram-js/lib/util/renderutil.d.ts" />
-/// <reference path="./didi/lib/injector.d.ts" />
-/// <reference path="./didi/lib/module.d.ts" />
-/// <reference path="./min-dom/lib/clear.d.ts" />
-/// <reference path="./min-dom/lib/domify.d.ts" />
-/// <reference path="./min-dom/lib/query.d.ts" />
-/// <reference path="./moddle/lib/base.d.ts" />
-/// <reference path="./moddle/lib/factory.d.ts" />
-/// <reference path="./moddle/lib/moddle.d.ts" />
-/// <reference path="./moddle-xml/lib/reader.d.ts" />
-/// <reference path="./modeler/bpmn.d.ts" />
-/// <reference path="./modeler/bpmndi.d.ts" />
-/// <reference path="./modeler/di.d.ts" />
-/// <reference path="./modeler/dc.d.ts" />
-/// <reference path="./modeler/processhub.d.ts" />
+/// <reference path="./bpmn-moddle/index.d.ts" preserve="true" />
+/// <reference path="./bpmn-moddle/lib/bpmn-moddle.d.ts" preserve="true" />
+/// <reference path="./bpmn-moddle/lib/simple.d.ts" preserve="true" />
+/// <reference path="./diagram-js/index.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/command/commandhandler.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/command/commandinterceptor.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/command/commandstack.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/core/canvas.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/core/elementfactory.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/core/elementregistry.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/core/eventbus.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/core/graphicsfactory.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/draw/baserenderer.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/draw/styles.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/bendpoints/index.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/connect/connect.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/context-pad/contextpad.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/context-pad/index.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/create/create.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/dragging/dragging.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/global-connect/globalconnect.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/hand-tool/handtool.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/interaction-events/index.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/interaction-events/interactionevents.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/keyboard/keyboard.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/lasso-tool/lassotool.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/modeling/modeling.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/overlays/overlays.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/palette/palette.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/resize/index.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/resize/resize.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/resize/resizehandles.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/rules/ruleprovider.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/rules/rules.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/selection/selection.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/snapping/snapcontext.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/snapping/createmovesnapping.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/snapping/snapping.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/space-tool/spacetool.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/features/tooltips/tooltips.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/i18n/translate/translate.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/layout/baselayouter.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/layout/manhattanlayout.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/model/index.d.ts" preserve="true" />
+/// <reference path="./diagram-js/lib/util/renderutil.d.ts" preserve="true" />
+/// <reference path="./didi/lib/injector.d.ts" preserve="true" />
+/// <reference path="./didi/lib/module.d.ts" preserve="true" />
+/// <reference path="./min-dom/lib/clear.d.ts" preserve="true" />
+/// <reference path="./min-dom/lib/domify.d.ts" preserve="true" />
+/// <reference path="./min-dom/lib/query.d.ts" preserve="true" />
+/// <reference path="./moddle/lib/base.d.ts" preserve="true" />
+/// <reference path="./moddle/lib/factory.d.ts" preserve="true" />
+/// <reference path="./moddle/lib/moddle.d.ts" preserve="true" />
+/// <reference path="./moddle-xml/lib/reader.d.ts" preserve="true" />
+/// <reference path="./modeler/bpmn.d.ts" preserve="true" />
+/// <reference path="./modeler/bpmndi.d.ts" preserve="true" />
+/// <reference path="./modeler/di.d.ts" preserve="true" />
+/// <reference path="./modeler/dc.d.ts" preserve="true" />
+/// <reference path="./modeler/processhub.d.ts" preserve="true" />
