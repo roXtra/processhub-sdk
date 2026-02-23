@@ -153,6 +153,9 @@ export interface IProcessSettings {
   };
   retentionPeriodLock?: IRetentionPeriodLock; // Retention Period Object including reason and locked state
   processEntryPane?: "dashboard" | "instances"; // Default entry pane when opening a process
+  commentNotifications?: {
+    notifyOnlyMentionedUsers?: boolean; // If true, only users mentioned in the comment will receive a notification, otherwise all users with access to the process will receive a notification
+  };
 }
 
 export enum ProcessViewAccess {
