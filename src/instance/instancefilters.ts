@@ -7,18 +7,12 @@ import { IUserDetails } from "../user/userinterfaces.js";
 export function filterUserInstances(instances: IInstanceDetails[] | undefined, user?: IUserDetails): IInstanceDetails[] {
   if (!user || !instances) return [];
 
-  const filteredInstances: IInstanceDetails[] = [];
-
-  instances.map((instance) => {
-    if (instance.extras.todos && !instance.isSimulation) {
-      const hasUserTodo = instance.extras.todos.some((todo) => todo.userId === user.userId);
-      if (hasUserTodo) {
-        filteredInstances.push(instance);
-      }
+  return instances.filter((instance) => {
+    if (!instance.extras.todos || instance.isSimulation) {
+      return false;
     }
+    return instance.extras.todos.some((todo) => todo.userId === user.userId);
   });
-
-  return filteredInstances;
 }
 
 // All instance for a process
