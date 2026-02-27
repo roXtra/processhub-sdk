@@ -21,10 +21,9 @@ export interface IFieldConfig {
 
 export function convertFieldConfig(config: IFieldConfig): IFieldConfig {
   const { conditionBuilderMode, conditionExpression, validationExpression, validationBuilderMode } = config;
-  const normalizedConditionExpression = conditionExpression ?? "";
   const normalizedValidationExpression = validationExpression ?? "";
   config.conditionBuilderMode = typeof conditionBuilderMode !== "undefined" ? conditionBuilderMode : true;
-  config.conditionExpression = normalizedConditionExpression;
+  config.conditionExpression = conditionExpression ?? "";
   config.validationExpression = normalizedValidationExpression;
   config.validationBuilderMode = typeof validationBuilderMode !== "undefined" ? validationBuilderMode : normalizedValidationExpression.length === 0;
   return config;
