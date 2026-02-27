@@ -134,6 +134,11 @@ export interface ISettingsFile {
     User: {
       AuditTrailDisplayNamePattern: string;
     };
+    OpenTelemetry: {
+      EndpointGrpc: string;
+      EndpointHttpProtobuf: string;
+      CollectorEndpoint: string;
+    };
   };
 }
 
@@ -143,6 +148,18 @@ export interface IAuthSettingsFile {
       efApi: {
         ClientSecret: string;
       };
+    };
+  };
+}
+
+/**
+ * Feature Flags file for roXtra Feature Flags.
+ * Additional feature flags exist in @see IFeatureConfig which are defined in roxtra-config-custom.json
+ */
+export interface IFeatureFlagsRoxtraSettingsFile {
+  featureFlags: {
+    [key: string]: {
+      Active: boolean;
     };
   };
 }
