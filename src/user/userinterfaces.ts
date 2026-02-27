@@ -117,7 +117,11 @@ export const emptyUser: IUserDetails = {
   userFieldsConfig: { fields: [] },
 };
 
-export function getUserWorkspace(user: IUserDetails, workspaceId: string): IWorkspaceDetails | undefined {
+export function getUserWorkspace(user: IUserDetails | undefined, workspaceId: string): IWorkspaceDetails | undefined {
+  if (!user) {
+    return undefined;
+  }
+
   // ExtrasWorkspaces required
   isTrue(user.extras.workspaces != null, "getUserWorkspace: user.extras.workspaces == null");
   if (user.extras.workspaces) {
