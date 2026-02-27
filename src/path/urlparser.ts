@@ -87,7 +87,7 @@ export function parseNotificationLink(fullUrlWithBase: string | undefined): INot
   if (split[index] !== "i" || split.length < 3) return elements;
 
   let nextPart = split[index + 1] as string | undefined;
-  if (!nextPart) return elements;
+  if (nextPart === undefined) return elements;
   if (nextPart.substring(0, 1) === "@") {
     // Old links had workspaceUrl - ignore
   } else {

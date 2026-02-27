@@ -31,7 +31,7 @@ export function hasSetCorporateDesignRight(user: IUserDetails | IUserDetailsNoEx
   if (user.isSystemUser) {
     return true;
   }
-  return user.extendedRights.includes("Z1");
+  return user.extendedRights?.includes("Z1") ?? false;
 }
 
 export interface IRoxtraUserDetails {
@@ -58,7 +58,7 @@ export interface IUserDetailsSmall {
 export interface IUserDetailsNoExtras extends IUserDetailsSmall {
   licence: Licence;
   isSystemUser?: boolean;
-  extendedRights: ExtendedRight[];
+  extendedRights?: ExtendedRight[];
   language?: Language; // Preferred User language (de-DE, en-US, ...)
   status: UserStatus;
   fields: { [key: string]: string | number }; // Fields that are configured in users.xml

@@ -3,7 +3,7 @@ import * as BpmnModdleHelper from "./bpmnmoddlehelper.js";
 import { ILaneDictionary } from "./bpmnprocessdiagram.js";
 import { BpmnProcessDiagram } from "./bpmnprocessdiagram.js";
 import { IRunningTaskLane, ITaskToLaneMapEntry, IStartButtonMap, TaskSettingsValueType, BpmnExtensionName, ITaskExtensions } from "../processinterfaces.js";
-import { isTrue } from "../../tools/assert.js";
+import { error } from "../../tools/assert.js";
 import { tl } from "../../tl.js";
 import { createId } from "../../tools/guid.js";
 import { ILoadTemplateReply } from "../legacyapi.js";
@@ -183,11 +183,10 @@ export class BpmnProcess {
       const stack = new Error().stack;
       console.log("PRINTING CALL STACK");
       console.log(stack);
+      error("XML string of process should not be null/undefined!");
+      return;
     }
-    isTrue(processXmlStr != null, "XML string of process should not be null/undefined!");
-
-    const xmlString = processXmlStr ?? "";
-    const fromXmlRes = await bpmnModdleInstance.fromXML(xmlString);
+    const fromXmlRes = await bpmnModdleInstance.fromXML(processXmlStr);
     if (Array.isArray(fromXmlRes)) {
       throw fromXmlRes[0];
     }
