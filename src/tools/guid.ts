@@ -38,14 +38,14 @@ export function createInstanceNumber(): string {
   return (
     Math.floor(1000 + Math.random() * 1000)
       .toString()
-      .substr(1, 3) +
+      .substring(1, 4) +
     "." +
     Math.floor(10000 + Math.random() * 10000)
       .toString()
-      .substr(1, 4) +
+      .substring(1, 5) +
     "." +
     Math.floor(1000 + Math.random() * 1000)
       .toString()
-      .substr(1, 3)
+      .substring(1, 4)
   );
 }

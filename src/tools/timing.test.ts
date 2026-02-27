@@ -20,7 +20,6 @@ describe("tools", function () {
         now.setHours(12, 0, 0, 0);
 
         // Translations
-        /* eslint-disable @typescript-eslint/naming-convention */
         const localeTranslation: { [locale in Language]: string } = {
           "de-DE": "27.12.2021",
           "en-US": "12/27/2021",
@@ -47,8 +46,6 @@ describe("tools", function () {
           "sk-SK": "27. 12. 2021",
           "sl-SI": "27. 12. 2021",
         };
-        /* eslint-enable @typescript-eslint/naming-convention */
-
         expect(Object.keys(localeTranslation)).to.have.lengthOf(supportedLanguages.length);
 
         for (const locale of supportedLanguages) {
@@ -64,7 +61,6 @@ describe("tools", function () {
         now.setHours(12, 0, 0, 0);
 
         // Translations
-        /* eslint-disable @typescript-eslint/naming-convention */
         const localeTranslation: { [locale in Language]: string } = {
           "de-DE": "27.12.2021, 12:00",
           "en-US": "12/27/2021, 12:00 PM",
@@ -91,8 +87,6 @@ describe("tools", function () {
           "sk-SK": "27. 12. 2021 12:00",
           "sl-SI": "27. 12. 2021, 12:00",
         };
-
-        /* eslint-enable @typescript-eslint/naming-convention */
 
         expect(Object.keys(localeTranslation)).to.have.lengthOf(supportedLanguages.length);
 

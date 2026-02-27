@@ -50,7 +50,6 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
     req = {
       headers: {
         Accept: "application/json",
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         "x-accesstoken": accessToken, // X-accesstoken Kleinschreibung erforderlich
         authorization: accessToken,
       },
@@ -112,7 +111,6 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       data: JSON.stringify(request),
       headers: {
         Accept: "application/json",
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         "Content-Type": "application/json",
       },
       withCredentials: true,
@@ -124,9 +122,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       data: JSON.stringify(request),
       headers: {
         Accept: "application/json",
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         "Content-Type": "application/json",
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         "x-accesstoken": accessToken, // X-accesstoken Kleinschreibung erforderlich
       },
     };

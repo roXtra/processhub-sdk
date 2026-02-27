@@ -25,7 +25,6 @@ class TimeoutHandler<T> {
   get execute(): Promise<T> {
     return new Promise((result, reject) => {
       this.timeoutID = setTimeout(() => {
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         reject(new TaskTimedOutError(`Task execution request with ID ${String(this.timeoutID)} failed to complete within timeout ${this.timeoutMS}!`));
       }, this.timeoutMS);
     });

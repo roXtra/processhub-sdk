@@ -13,11 +13,11 @@ export function parseUrl(fullUrlWithBase: string): IPathDetails | undefined {
   const fullUrl = fullUrlWithBase !== undefined ? fullUrlWithBase.toLowerCase().replace(backendUrl, "") : "";
 
   // Split path
-  isTrue(fullUrl.substr(0, 1) === "/", "Url doesn't start with /");
-  let url = fullUrl.toLowerCase().substr(1);
+  isTrue(fullUrl.substring(0, 1) === "/", "Url doesn't start with /");
+  let url = fullUrl.toLowerCase().substring(1);
   if (url.endsWith("/"))
     // Ignore "/" on end
-    url = url.substr(0, url.length - 1);
+    url = url.substring(0, url.length - 1);
   const split = url.split("/");
 
   // Url is f/... for module f
@@ -41,7 +41,7 @@ export function parseUrl(fullUrlWithBase: string): IPathDetails | undefined {
   // ...otherwise workspace or riskmanagement must follow
 
   // -> Workspace
-  path.workspaceUrlName = part.substr(1);
+  path.workspaceUrlName = part.substring(1);
 
   part = split.length >= 3 ? split[2] : WorkspaceView.Processes;
   if (isValidWorkspaceView(part) && split.length <= 3) {
@@ -74,11 +74,11 @@ export function parseNotificationLink(fullUrlWithBase: string): INotificationLin
   const fullUrl = fullUrlWithBase !== undefined ? fullUrlWithBase.toLowerCase().replace(basePath, "") : "";
 
   // Split path
-  isTrue(fullUrl.substr(0, 1) === "/", "Url doesn't start with /");
-  let url = fullUrl.toLowerCase().substr(1);
+  isTrue(fullUrl.substring(0, 1) === "/", "Url doesn't start with /");
+  let url = fullUrl.toLowerCase().substring(1);
   if (url.endsWith("/"))
     // Ignore "/" on end
-    url = url.substr(0, url.length - 1);
+    url = url.substring(0, url.length - 1);
   const split = url.split("/");
 
   // Index 0 is the module, e.g. f or riskmanagement (f/i/...)
@@ -87,7 +87,7 @@ export function parseNotificationLink(fullUrlWithBase: string): INotificationLin
   if (split[index] !== "i" || split.length < 3) return elements;
 
   let nextPart = split[index + 1];
-  if (nextPart.substr(0, 1) === "@") {
+  if (nextPart.substring(0, 1) === "@") {
     // Old links had workspaceUrl - ignore
   } else {
     elements.workspaceId = nextPart;
