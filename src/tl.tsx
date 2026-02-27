@@ -58,7 +58,7 @@ export function registerTranslations(newTranslations: ITranslations): void {
  * Translation string pairs
  */
 export type TranslationStrings = {
-  [source: string]: string;
+  [source: string]: string | undefined;
 };
 
 export interface ITranslations {

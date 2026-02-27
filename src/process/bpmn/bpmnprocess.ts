@@ -47,7 +47,7 @@ export class BpmnProcess {
   }
 
   public static getFieldDefinitionsForElement(baseElement: Bpmn.IBaseElement): IFieldDefinition[] | undefined {
-    return getExtensionValues(baseElement)?.fieldDefinitions;
+    return getExtensionValues(baseElement).fieldDefinitions;
   }
 
   public static getFlowNodeDescription(flowNode: Bpmn.IFlowNode): string | undefined {
@@ -126,22 +126,19 @@ export class BpmnProcess {
     const elements = process.flowElements;
     elements.push(process);
     elements.map((element) => {
-      const extVals = getExtensionValues(element);
-      if (extVals) {
-        const taskFields = getExtensionValues(element).fieldDefinitions;
-        if (taskFields && taskFields.length > 0) {
-          // Currently all tasks have their own fieldDefinitions. It might happen that they have different configs
-          // -> add the first one we find to the result set
-          taskFields.map((taskField) => {
-            if (taskField.type === "ProcessHubRoxFile") {
-              fieldDefinitionsList.push({
-                bpmnTaskId: element.id,
-                isStartEvent: element.$type === "bpmn:StartEvent" ? true : false,
-                fieldDefinition: taskField,
-              });
-            }
-          });
-        }
+      const taskFields = getExtensionValues(element).fieldDefinitions;
+      if (taskFields && taskFields.length > 0) {
+        // Currently all tasks have their own fieldDefinitions. It might happen that they have different configs
+        // -> add the first one we find to the result set
+        taskFields.map((taskField) => {
+          if (taskField.type === "ProcessHubRoxFile") {
+            fieldDefinitionsList.push({
+              bpmnTaskId: element.id,
+              isStartEvent: element.$type === "bpmn:StartEvent" ? true : false,
+              fieldDefinition: taskField,
+            });
+          }
+        });
       }
     });
     return fieldDefinitionsList;
@@ -153,18 +150,15 @@ export class BpmnProcess {
     const elements = this.getSortedActivities(this.processId(), ["bpmn:StartEvent", "bpmn:UserTask", "bpmn:BoundaryEvent"]);
     elements.push(...this.getProcesses());
     elements.forEach((element) => {
-      const extVals = getExtensionValues(element);
-      if (extVals) {
-        const taskFields = getExtensionValues(element).fieldDefinitions;
-        if (taskFields && taskFields.length > 0) {
-          // Currently all tasks have their own fieldDefinitions. It might happen that they have different configs
-          // -> add the first one we find to the result set
-          taskFields.map((taskField) => {
-            if (fieldDefinitions.find((fieldDefinition) => fieldDefinition.name === taskField.name) == null) {
-              fieldDefinitions.push(taskField);
-            }
-          });
-        }
+      const taskFields = getExtensionValues(element).fieldDefinitions;
+      if (taskFields && taskFields.length > 0) {
+        // Currently all tasks have their own fieldDefinitions. It might happen that they have different configs
+        // -> add the first one we find to the result set
+        taskFields.map((taskField) => {
+          if (fieldDefinitions.find((fieldDefinition) => fieldDefinition.name === taskField.name) == null) {
+            fieldDefinitions.push(taskField);
+          }
+        });
       }
     });
 
@@ -179,21 +173,21 @@ export class BpmnProcess {
    * @deprecated use {@link BpmnProcess#getFieldDefinitionsForElement}
    */
   public getFieldDefinitionsForTask(taskObject: Bpmn.ITask | Bpmn.IActivity): IFieldDefinition[] | undefined {
-    return getExtensionValues(taskObject)?.fieldDefinitions;
+    return getExtensionValues(taskObject).fieldDefinitions;
   }
 
-  public async loadXml(processXmlStr: string): Promise<void> {
+  public async loadXml(processXmlStr: string | undefined): Promise<void> {
     if (processXmlStr == null) {
       console.log("XML string of process should not be null/undefined!");
 
       const stack = new Error().stack;
       console.log("PRINTING CALL STACK");
       console.log(stack);
-
-      isTrue(processXmlStr != null, "XML string of process should not be null/undefined!");
     }
+    isTrue(processXmlStr != null, "XML string of process should not be null/undefined!");
 
-    const fromXmlRes = await bpmnModdleInstance.fromXML(processXmlStr);
+    const xmlString = processXmlStr ?? "";
+    const fromXmlRes = await bpmnModdleInstance.fromXML(xmlString);
     if (Array.isArray(fromXmlRes)) {
       throw fromXmlRes[0];
     }
@@ -203,18 +197,24 @@ export class BpmnProcess {
     // Fix für startevent
     const sequenceFlows: Bpmn.ISequenceFlow[] = this.getSequenceFlowElements();
     for (const sequenceFlow of sequenceFlows) {
-      if (sequenceFlow.sourceRef && sequenceFlow.sourceRef.outgoing == null) {
-        sequenceFlow.sourceRef.outgoing = [];
-      }
-      if (sequenceFlow.sourceRef && !sequenceFlow.sourceRef.outgoing?.includes(sequenceFlow)) {
-        sequenceFlow.sourceRef.outgoing?.push(sequenceFlow);
+      const sourceRef = sequenceFlow.sourceRef as Bpmn.IFlowNode | undefined;
+      if (sourceRef) {
+        if (sourceRef.outgoing == null) {
+          sourceRef.outgoing = [];
+        }
+        if (!sourceRef.outgoing.includes(sequenceFlow)) {
+          sourceRef.outgoing.push(sequenceFlow);
+        }
       }
 
-      if (sequenceFlow.targetRef && sequenceFlow.targetRef.incoming == null) {
-        sequenceFlow.targetRef.incoming = [];
-      }
-      if (sequenceFlow.targetRef && !sequenceFlow.targetRef.incoming?.includes(sequenceFlow)) {
-        sequenceFlow.targetRef.incoming?.push(sequenceFlow);
+      const targetRef = sequenceFlow.targetRef as Bpmn.IFlowNode | undefined;
+      if (targetRef) {
+        if (targetRef.incoming == null) {
+          targetRef.incoming = [];
+        }
+        if (!targetRef.incoming.includes(sequenceFlow)) {
+          targetRef.incoming.push(sequenceFlow);
+        }
       }
     }
 
@@ -223,12 +223,13 @@ export class BpmnProcess {
     for (const t of boundaryEvents) {
       // Console.log(this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs);
 
-      if (this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs == null) {
-        this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs = [];
+      const attachedTask = this.getExistingTask(this.processId(), t.attachedToRef.id);
+      if (attachedTask.boundaryEventRefs == null) {
+        attachedTask.boundaryEventRefs = [];
       }
 
-      if (!this.getExistingTask(this.processId(), t.attachedToRef.id).boundaryEventRefs?.find((e) => e.id === t.id)) {
-        this.getExistingTask(this.processId(), t.attachedToRef.id)?.boundaryEventRefs?.push(t);
+      if (!attachedTask.boundaryEventRefs.find((e) => e.id === t.id)) {
+        attachedTask.boundaryEventRefs.push(t);
       }
     }
 
@@ -261,13 +262,14 @@ export class BpmnProcess {
       return tmpList;
     }
 
-    tmpList.push(...currentTask.outgoing.map((o) => o.targetRef).filter((t) => t != null));
+    const targets = currentTask.outgoing.map((o) => o.targetRef as Bpmn.IFlowNode | undefined);
+    tmpList.push(...targets.filter((t): t is Bpmn.IFlowNode => t != null));
 
     return tmpList;
   }
 
   private getTaskIdsAfterGateway(currentGatewayId: string, userLanguage: string): IDecisionTask[] {
-    const currentObject = this.getExistingActivityObject(currentGatewayId);
+    const currentObject = this.getExistingActivityObject(currentGatewayId) as Bpmn.IFlowNode | undefined;
     let exclusiveGateway: Bpmn.IExclusiveGateway;
     if (currentObject?.$type === "bpmn:ExclusiveGateway") {
       exclusiveGateway = currentObject as Bpmn.IExclusiveGateway;
@@ -288,7 +290,7 @@ export class BpmnProcess {
 
         let nameValue = target.name;
         // If the current target is an unnamed ExclusiveGateway with exactly one outgoing SequenceFlow, use the name of the SequenceFlows target
-        if (!nameValue && target.$type === "bpmn:ExclusiveGateway" && target.outgoing && target.outgoing.length === 1 && target.outgoing[0].targetRef) {
+        if (!nameValue && target.$type === "bpmn:ExclusiveGateway" && target.outgoing && target.outgoing.length === 1) {
           nameValue = target.outgoing[0].targetRef.name;
         }
 
@@ -449,7 +451,7 @@ export class BpmnProcess {
   // Get the text that should be displayed on the start button
   public getStartButtonMap(): IStartButtonMap {
     const startEvents = this.getStartEvents(this.processId());
-    if (startEvents && startEvents.length > 0) {
+    if (startEvents.length > 0) {
       const map = {} as IStartButtonMap;
       startEvents.forEach((startEvent) => {
         if (startEvent.eventDefinitions == null || startEvent.eventDefinitions.find((d) => d.$type === "bpmn:LinkEventDefinition")) {
@@ -467,7 +469,7 @@ export class BpmnProcess {
               startEventName: startEvent.name && startEvent.name.trim() !== "" ? startEvent.name : undefined,
               laneId: lane.id,
               onlyRoxFileField,
-              anonymousStart: extVals ? extVals.anonymousStart : false,
+              anonymousStart: extVals.anonymousStart,
             };
           }
         }
@@ -598,30 +600,18 @@ export class BpmnProcess {
     const lanes = this.getProcessLanes(this.processId());
 
     for (const lane of lanes) {
-      const mapForLane = lane.flowNodeRef
-        ? lane.flowNodeRef.filter((node) => node.$type === "bpmn:UserTask" || node.$type === "bpmn:SendTask" || node.$type === "bpmn:ExclusiveGateway")
-        : null;
-      let mapForLaneNodes = null;
-      if (mapForLane != null) {
-        mapForLaneNodes = mapForLane.map((taskNode) => {
-          return { taskId: taskNode.id, laneId: lane.id };
-        });
-      }
-
-      if (mapForLaneNodes != null) {
-        resultMap = resultMap.concat(mapForLaneNodes);
-      }
+      const mapForLane = lane.flowNodeRef.filter((node) => node.$type === "bpmn:UserTask" || node.$type === "bpmn:SendTask" || node.$type === "bpmn:ExclusiveGateway");
+      const mapForLaneNodes = mapForLane.map((taskNode) => {
+        return { taskId: taskNode.id, laneId: lane.id };
+      });
+      resultMap = resultMap.concat(mapForLaneNodes);
     }
     return resultMap;
   }
 
   public getProcessLane(processId: string, laneId: string): Bpmn.ILane | undefined {
     const processLanes: Bpmn.ILane[] = this.getProcessLanes(processId);
-    if (processLanes) {
-      return processLanes.find((lane) => lane.id === laneId);
-    } else {
-      return undefined;
-    }
+    return processLanes.find((lane) => lane.id === laneId);
   }
 
   private removeSequenceFlow(processId: string, sequenceFlowObject: Bpmn.ISequenceFlow): void {
@@ -644,8 +634,13 @@ export class BpmnProcess {
 
     const processContext: Bpmn.IProcess = this.getProcess(processId);
     processContext.laneSets = processContext.laneSets || [];
-    if (processContext.laneSets[0].lanes == null) {
-      processContext.laneSets[0].lanes = [];
+    if (processContext.laneSets.length === 0) {
+      processContext.laneSets.push(
+        bpmnModdleInstance.create("bpmn:LaneSet", {
+          id: BpmnProcess.getBpmnId("bpmn:LaneSet"),
+          lanes: [],
+        }),
+      );
     }
 
     processContext.laneSets[0].lanes.push(lane);
@@ -657,13 +652,15 @@ export class BpmnProcess {
 
     for (let laneIndex = 0; laneIndex < lanes.length; laneIndex++) {
       const laneObject = lanes[laneIndex];
-      if (laneObject.flowNodeRef != null) {
-        laneObject.flowNodeRef = laneObject.flowNodeRef.filter((flowObj) => flowObj.id !== taskObject.id);
+      const flowNodeRef = laneObject.flowNodeRef as Bpmn.IFlowNode[] | undefined;
+      if (flowNodeRef) {
+        laneObject.flowNodeRef = flowNodeRef.filter((flowObj) => flowObj.id !== taskObject.id);
       }
     }
     lanes = lanes.filter((lane) => {
-      if (lane.flowNodeRef != null) {
-        return lane.flowNodeRef.length > 0;
+      const flowNodeRef = lane.flowNodeRef as Bpmn.IFlowNode[] | undefined;
+      if (flowNodeRef) {
+        return flowNodeRef.length > 0;
       } else {
         // Wenn flowNodeRef == null, dann ist die Lane erst hinzugefügt worden und darf nicht gelöscht werden, da im nächsten Schritt die Tasks hinzugefügt werden
         return false;
@@ -671,13 +668,14 @@ export class BpmnProcess {
     });
   }
 
-  private addTaskToLane(processId: string, laneId: string, taskObject: Bpmn.IBaseElement): void {
+  private addTaskToLane(processId: string, laneId: string | undefined, taskObject: Bpmn.IBaseElement): void {
     // Task objekt wieder zur neuen rolle hinzufügen
     // process in lane einfügen // ID von selected Role in der UI entspricht der LaneID
     if (laneId != null) {
       const laneObject = this.getProcessLane(processId, laneId);
       if (laneObject) {
-        if (laneObject.flowNodeRef == null) {
+        const flowNodeRef = laneObject.flowNodeRef as Bpmn.IFlowNode[] | undefined;
+        if (!flowNodeRef) {
           laneObject.flowNodeRef = [];
         }
 
@@ -742,7 +740,7 @@ export class BpmnProcess {
 
     const res = this.removeElementWithAllReferences(delTaskId);
 
-    const objToDelete = this.getExistingTask(this.processId(), delTaskId);
+    const objToDelete = this.getExistingTask(this.processId(), delTaskId) as Bpmn.ITask | undefined;
     if (objToDelete != null) {
       this.removeTaskObjectFromLanes(this.processId(), objToDelete);
     }
@@ -760,7 +758,8 @@ export class BpmnProcess {
           // Remove gateway and all sfs
           this.removeElementWithAllReferences(targetObj.id);
           // Next or end element
-          const newTargetId = rowDetails[rowNumber + 1] != null ? rowDetails[rowNumber + 1].taskId : this.getEndEvents(this.processId())[0].id;
+          const nextRow = rowDetails[rowNumber + 1] as IRowDetails | undefined;
+          const newTargetId = nextRow ? nextRow.taskId : this.getEndEvents(this.processId())[0].id;
           targetObj = this.getExistingActivityObject(newTargetId);
 
           res.objectIdsWithMissingSource = res.objectIdsWithMissingSource.filter((obj) => obj !== targetId);
@@ -883,7 +882,7 @@ export class BpmnProcess {
       newTaskRowDetails.taskId = id;
     }
 
-    let focusedTask: Bpmn.ITask = this.getExistingTask(this.processId(), newTaskRowDetails.taskId);
+    let focusedTask = this.getExistingTask(this.processId(), newTaskRowDetails.taskId) as Bpmn.ITask | undefined;
     const processContext: Bpmn.IProcess = this.getProcess(this.processId());
 
     if (focusedTask == null) {
@@ -915,20 +914,19 @@ export class BpmnProcess {
 
     // NEXT object
     let nextElement: Bpmn.IActivity | undefined;
-    if (rowDetails[focusedRowNumber + 1] == null) {
+    const nextRow = rowDetails[focusedRowNumber + 1] as IRowDetails | undefined;
+    if (!nextRow) {
       nextElement = getLastArrayEntry(this.getEndEvents(this.processId()));
     } else {
-      nextElement = this.getExistingActivityObject(rowDetails[focusedRowNumber + 1].taskId);
+      nextElement = this.getExistingActivityObject(nextRow.taskId);
     }
 
     let targetRefsOfPrev: string[] = [];
-    if (previousElements != null) {
-      previousElements.forEach((start) => {
-        if (start.outgoing) {
-          targetRefsOfPrev = targetRefsOfPrev.concat(start.outgoing.map((out) => out.targetRef.id));
-        }
-      });
-    }
+    previousElements.forEach((start) => {
+      if (start.outgoing) {
+        targetRefsOfPrev = targetRefsOfPrev.concat(start.outgoing.map((out) => out.targetRef.id));
+      }
+    });
     const targetRefsOfPrevUnique: string[] = [];
     targetRefsOfPrev.forEach((item) => {
       if (!targetRefsOfPrevUnique.includes(item)) {
@@ -937,21 +935,19 @@ export class BpmnProcess {
     });
 
     // Remove all outgoings from previous
-    if (previousElements != null) {
-      previousElements.forEach((previousElement) => {
-        previousElement.outgoing?.forEach((out) => {
-          this.removeSequenceFlow(this.processId(), out);
-        });
-
-        const sfObj = this.getSequenceFlowElements().find((sf) => sf.sourceRef.id === previousElement.id && sf.targetRef.id === nextElement?.id);
-        if (sfObj) {
-          this.removeSequenceFlow(this.processId(), sfObj);
-        }
-        if (targetElement) {
-          this.addSequenceFlow(this.processId(), previousElement, targetElement, true);
-        }
+    previousElements.forEach((previousElement) => {
+      previousElement.outgoing?.forEach((out) => {
+        this.removeSequenceFlow(this.processId(), out);
       });
-    }
+
+      const sfObj = this.getSequenceFlowElements().find((sf) => sf.sourceRef.id === previousElement.id && sf.targetRef.id === nextElement?.id);
+      if (sfObj) {
+        this.removeSequenceFlow(this.processId(), sfObj);
+      }
+      if (targetElement) {
+        this.addSequenceFlow(this.processId(), previousElement, targetElement, true);
+      }
+    });
 
     for (const targetRefId of targetRefsOfPrevUnique) {
       const tmpTargetElement = this.getExistingActivityObject(targetRefId);
@@ -1099,23 +1095,9 @@ export class BpmnProcess {
     const processes: Bpmn.IProcess[] = this.bpmnXml.rootElements.filter((e: Bpmn.IRootElement) => e.$type === "bpmn:Process") as Bpmn.IProcess[];
 
     for (let i = 0; i < processes.length; i++) {
-      const laneSetElements = processes[i].laneSets?.filter((e: Bpmn.ILaneSet) => e.$type === "bpmn:LaneSet");
-      if (laneSetElements) {
-        for (let t = 0; t < laneSetElements.length; t++) {
-          if (laneSetElements[t].lanes != null) {
-            laneElementsList = laneSetElements[t].lanes.filter((lane) => {
-              if (onlyLanesWithTasks) {
-                if (lane.flowNodeRef != null && lane.flowNodeRef.length > 0) {
-                  return true;
-                } else {
-                  return false;
-                }
-              } else {
-                return true;
-              }
-            });
-          }
-        }
+      const laneSetElements = processes[i].laneSets ?? [];
+      for (let t = 0; t < laneSetElements.length; t++) {
+        laneElementsList = laneSetElements[t].lanes.filter((lane) => !onlyLanesWithTasks || lane.flowNodeRef.length > 0);
       }
     }
 
@@ -1131,21 +1113,9 @@ export class BpmnProcess {
     const processes: Bpmn.IProcess[] = this.bpmnXml.rootElements.filter((e: Bpmn.IRootElement) => e.$type === "bpmn:Process") as Bpmn.IProcess[];
 
     for (let i = 0; i < processes.length; i++) {
-      const laneSetElements = processes[i].laneSets?.filter((e: Bpmn.ILaneSet) => e.$type === "bpmn:LaneSet");
-      if (laneSetElements) {
-        for (let t = 0; t < laneSetElements.length; t++) {
-          if (laneSetElements[t].lanes != null) {
-            laneElement = laneSetElements[t].lanes.find((lane) => {
-              if (lane.flowNodeRef != null) {
-                const flowObj = lane.flowNodeRef.find((fo) => fo.id === flowNodeId);
-                if (flowObj != null) {
-                  return true;
-                }
-              }
-              return false;
-            });
-          }
-        }
+      const laneSetElements = processes[i].laneSets ?? [];
+      for (let t = 0; t < laneSetElements.length; t++) {
+        laneElement = laneSetElements[t].lanes.find((lane) => lane.flowNodeRef.find((fo) => fo.id === flowNodeId) != null);
       }
     }
     return laneElement;
@@ -1159,12 +1129,10 @@ export class BpmnProcess {
     const laneIds: string[] = [];
 
     const startEvents: Bpmn.IStartEvent[] = this.getStartEvents(this.processId());
-    if (startEvents) {
-      for (const startEvent of startEvents) {
-        const startLane = this.getLaneOfFlowNode(startEvent.id);
-        if (startLane != null) {
-          laneIds.push(startLane.id);
-        }
+    for (const startEvent of startEvents) {
+      const startLane = this.getLaneOfFlowNode(startEvent.id);
+      if (startLane != null) {
+        laneIds.push(startLane.id);
       }
     }
 
@@ -1181,7 +1149,7 @@ export class BpmnProcess {
 
   public getSortedActivities(processId: string, types: Bpmn.ElementType[]): Bpmn.IActivity[] {
     const startEvents: Bpmn.IStartEvent[] = this.getStartEvents(processId);
-    if (startEvents == null || startEvents.length === 0) {
+    if (startEvents.length === 0) {
       return []; // Process definition is not correct, but function should be fault tolerant
     }
 
@@ -1202,14 +1170,11 @@ export class BpmnProcess {
 
           if (curElem.outgoing && curElem.outgoing.length) {
             curElem.outgoing.forEach((o) => {
-              if (o && o.targetRef) {
-                flowNodeQueue.push(o.targetRef);
-              }
+              flowNodeQueue.push(o.targetRef);
             });
           }
-          if ((curElem as Bpmn.IActivity).boundaryEventRefs) {
-            (curElem as Bpmn.IActivity).boundaryEventRefs?.forEach((b) => flowNodeQueue.push(b));
-          }
+          const boundaryEvents = (curElem as Bpmn.IActivity).boundaryEventRefs;
+          boundaryEvents?.forEach((b) => flowNodeQueue.push(b));
           checkedFlowNodes.push(curElem);
         }
       }
@@ -1218,13 +1183,11 @@ export class BpmnProcess {
     // Nochmals alle Activities iterieren und fehlende anfügen
     for (const type of types) {
       const tasks = this.getEvents(processId, type);
-      if (tasks != null) {
-        tasks.map((task) => {
-          if (sortedTasks.find((e) => e.id === task.id) == null) {
-            sortedTasks.push(task as Bpmn.ITask);
-          }
-        });
-      }
+      tasks.map((task) => {
+        if (sortedTasks.find((e) => e.id === task.id) == null) {
+          sortedTasks.push(task as Bpmn.ITask);
+        }
+      });
     }
 
     return sortedTasks;
@@ -1247,15 +1210,11 @@ export class BpmnProcess {
     const processes: Bpmn.IProcess[] = this.bpmnXml.rootElements.filter((e) => e.$type === "bpmn:Process") as Bpmn.IProcess[];
 
     for (let i = 0; i < processes.length; i++) {
-      if (processes[i].flowElements) {
-        const flowElements: Bpmn.IFlowElement[] = processes[i].flowElements.filter((e) => {
-          return e.$type === type;
-        });
-        // Jeder SeqenceFlow soll direkt in der Liste sein
-        for (let i = 0; i < flowElements.length; i++) {
-          const element = flowElements[i] as T;
-          elements.push(element);
-        }
+      const flowElements: Bpmn.IFlowElement[] = (processes[i].flowElements as Bpmn.IFlowElement[] | undefined)?.filter((e) => e.$type === type) ?? [];
+      // Jeder SeqenceFlow soll direkt in der Liste sein
+      for (let i = 0; i < flowElements.length; i++) {
+        const element = flowElements[i] as T;
+        elements.push(element);
       }
     }
 
@@ -1311,32 +1270,28 @@ export class BpmnProcess {
 
     if (sourceObj?.outgoing) {
       for (const outgoing of sourceObj.outgoing) {
-        if (outgoing.targetRef) {
-          const queue = [outgoing.targetRef];
-          const visited: { [id: string]: boolean } = {
-            [outgoing.targetRef.id]: true,
-          };
-          // Check all targets that are reachable directly or connected via ExclusiveGateways
-          while (queue.length) {
-            const curElem = queue.shift();
-            if (curElem) {
-              if (curElem.id === targetId) {
-                if (outgoing.name != null && outgoing.name.trim().length > 0) {
-                  // Ignore empty flow names
-                  return outgoing.name;
-                } else {
-                  return undefined;
-                }
+        const queue = [outgoing.targetRef];
+        const visited: { [id: string]: boolean } = {
+          [outgoing.targetRef.id]: true,
+        };
+        // Check all targets that are reachable directly or connected via ExclusiveGateways
+        while (queue.length) {
+          const curElem = queue.shift();
+          if (curElem) {
+            if (curElem.id === targetId) {
+              if (outgoing.name != null && outgoing.name.trim().length > 0) {
+                // Ignore empty flow names
+                return outgoing.name;
+              } else {
+                return undefined;
               }
-              if (curElem.$type === "bpmn:ExclusiveGateway") {
-                if (curElem.outgoing) {
-                  for (const gwOut of curElem.outgoing) {
-                    if (gwOut.targetRef) {
-                      if (!visited[gwOut.targetRef.id]) {
-                        visited[gwOut.targetRef.id] = true;
-                        queue.push(gwOut.targetRef);
-                      }
-                    }
+            }
+            if (curElem.$type === "bpmn:ExclusiveGateway") {
+              if (curElem.outgoing) {
+                for (const gwOut of curElem.outgoing) {
+                  if (!visited[gwOut.targetRef.id]) {
+                    visited[gwOut.targetRef.id] = true;
+                    queue.push(gwOut.targetRef);
                   }
                 }
               }
@@ -1350,24 +1305,22 @@ export class BpmnProcess {
   }
 
   public getSharedOutgoingElementId(taskIds: string[]): string | undefined {
-    const map: { [key: string]: number } = {};
+    const map: { [key: string]: number | undefined } = {};
     taskIds.forEach((taskId) => {
       const obj = this.getExistingActivityObject(taskId);
       obj?.incoming?.forEach((inc) => {
-        if (map[inc.sourceRef.id] != null) {
-          map[inc.sourceRef.id]++;
-        } else {
-          map[inc.sourceRef.id] = 1;
-        }
+        const currentCount = map[inc.sourceRef.id] ?? 0;
+        map[inc.sourceRef.id] = currentCount + 1;
       });
     });
 
     let biggestKey = undefined;
     let biggestLength = 0;
     for (const key in map) {
-      if (biggestLength < map[key]) {
+      const currentLength = map[key] ?? 0;
+      if (biggestLength < currentLength) {
         biggestKey = key;
-        biggestLength = map[key];
+        biggestLength = currentLength;
       }
     }
 
@@ -1517,7 +1470,7 @@ export class BpmnProcess {
         for (const planeElement of diagram.plane.planeElement) {
           if (planeElement.$type === "bpmndi:BPMNShape") {
             const bpmndiBPMNShape: Bpmndi.IBPMNShape = planeElement as Bpmndi.IBPMNShape;
-            if (bpmndiBPMNShape.bpmnElement && bpmndiBPMNShape.bpmnElement.id === lane.id) {
+            if (bpmndiBPMNShape.bpmnElement.id === lane.id) {
               return true;
             }
           }

@@ -5,7 +5,7 @@ import murmurhash from "murmurhash";
 import { FieldType, IFieldValue } from "./ifieldvalue.js";
 import { IFieldContentMap } from "./ifieldcontentmap.js";
 import { IFieldDefinition } from "./ifielddefinition.js";
-import { IProcessRoles, IRoleOwner, IRoleOwnerMap } from "../process/processrights.js";
+import { IProcessRoles, IRoleOwnerMap } from "../process/processrights.js";
 import { BpmnProcess } from "../process/bpmn/bpmnprocess.js";
 import { replaceOldFieldSyntax } from "../tools/stringtools.js";
 import { IInstanceDetails } from "../instance/instanceinterfaces.js";
@@ -102,7 +102,7 @@ export function parseAndInsertStringWithFieldContent(
   riskMetrics?: { [riskName: string]: number },
 ): string | undefined;
 export function parseAndInsertStringWithFieldContent(
-  inputString: string,
+  inputString: string | undefined,
   fieldContentMap: IFieldContentMap | undefined,
   processOrRoles: BpmnProcess | IProcessRoles,
   roleOwners: IRoleOwnerMap,
@@ -112,7 +112,7 @@ export function parseAndInsertStringWithFieldContent(
   defaultValue?: string,
   fieldValueToStringFn?: (fieldName: string, valueObject: IFieldValue) => string,
   instance?: IInstanceDetails,
-  riskMetrics?: { [riskName: string]: number },
+  riskMetrics?: { [riskName: string]: number | undefined },
 ): string | undefined {
   if (inputString == null) return undefined;
   if (fieldContentMap == null) return inputString;
@@ -135,19 +135,17 @@ export function parseAndInsertStringWithFieldContent(
     match = instanceRegex.exec(result);
     while (match) {
       const placeholder = match[0];
-      const key = match[1] as keyof IInstanceDetails;
-
-      if (key) {
+      const key = match[1];
+      if (key.length > 0) {
         switch (key) {
           case "instanceId":
             result = replaceAll(result, placeholder, instance.instanceId.toLowerCase(), isQuery);
             break;
-          default:
-            {
-              const value = instance[key];
-              result = replaceAll(result, placeholder, value != null ? String(value as string) : defaultValue, isQuery);
-            }
+          default: {
+            const value = instance[key as keyof IInstanceDetails];
+            result = replaceAll(result, placeholder, value != null ? String(value as string) : defaultValue, isQuery);
             break;
+          }
         }
       }
       match = instanceRegex.exec(result);
@@ -160,7 +158,7 @@ export function parseAndInsertStringWithFieldContent(
     const fieldPlaceholder = match[groupIndexForFieldPlaceholder];
     const fieldName = match[groupIndexForFieldIdentifier];
 
-    if (fieldName != null) {
+    if (fieldName.length > 0) {
       const valueObject = fieldContentMap[fieldName];
 
       if (valueObject) {
@@ -190,13 +188,13 @@ export function parseAndInsertStringWithFieldContent(
     if (match.length === 4) {
       roleProperty = match[groupIndexForRoleProperty];
     }
-    if (roleName != null) {
+    if (roleName.length > 0) {
       const laneId =
         processOrRoles instanceof BpmnProcess
           ? processOrRoles.getLanes(false).find((l) => l.name === roleName)?.id
-          : Object.keys(processOrRoles).find((key) => processOrRoles[key].roleName == roleName);
+          : Object.keys(processOrRoles).find((key) => processOrRoles[key]?.roleName == roleName);
       if (laneId) {
-        const roleOwner: IRoleOwner[] = roleOwners[laneId];
+        const roleOwner = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {
           result = replaceAll(
             result,
@@ -240,7 +238,7 @@ export function parseAndInsertStringWithFieldContent(
       const laneId =
         processOrRoles instanceof BpmnProcess
           ? processOrRoles.getLanes(false).find((l) => l.name === roleName)?.id
-          : Object.keys(processOrRoles).find((key) => processOrRoles[key].roleName == roleName);
+          : Object.keys(processOrRoles).find((key) => processOrRoles[key]?.roleName == roleName);
       if (laneId) {
         const roleOwner = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {
@@ -295,9 +293,9 @@ export function replaceRoleUserFields(
       const laneId =
         processOrRoles instanceof BpmnProcess
           ? processOrRoles.getLanes(false).find((l) => l.name === roleName)?.id
-          : Object.keys(processOrRoles).find((key) => processOrRoles[key].roleName == roleName);
+          : Object.keys(processOrRoles).find((key) => processOrRoles[key]?.roleName == roleName);
       if (laneId) {
-        const roleOwner: IRoleOwner[] = roleOwners[laneId];
+        const roleOwner = roleOwners[laneId];
         if (roleOwner && roleOwner.length) {
           let replaceWith = roleOwner[0].user?.fields[fieldId]?.toString();
           const userField = userFieldsConfig.fields.find((f) => f.id === fieldId);

@@ -4,16 +4,19 @@ import { IUserDetails } from "../user/userinterfaces.js";
 // Helper functions to filter and/or sort instances
 
 // instance where the user owns at least one todo
-export function filterUserInstances(instances: IInstanceDetails[], user?: IUserDetails): IInstanceDetails[] {
+export function filterUserInstances(instances: IInstanceDetails[] | undefined, user?: IUserDetails): IInstanceDetails[] {
   if (!user || !instances) return [];
 
   const filteredInstances: IInstanceDetails[] = [];
 
   instances.map((instance) => {
-    const instanceAdded = false;
+    let instanceAdded = false;
     if (instance.extras.todos && !instance.isSimulation) {
       instance.extras.todos.map((todo) => {
-        if (!instanceAdded && todo.userId === user.userId) filteredInstances.push(instance);
+        if (!instanceAdded && todo.userId === user.userId) {
+          filteredInstances.push(instance);
+          instanceAdded = true;
+        }
       });
     }
   });
@@ -22,7 +25,7 @@ export function filterUserInstances(instances: IInstanceDetails[], user?: IUserD
 }
 
 // All instance for a process
-export function filterInstancesForProcess(instances: IInstanceDetails[], processId: string): IInstanceDetails[] {
+export function filterInstancesForProcess(instances: IInstanceDetails[] | undefined, processId: string): IInstanceDetails[] {
   if (!instances) return [];
 
   const filteredInstances: IInstanceDetails[] = instances.filter((instance) => instance.processId === processId && !instance.isSimulation);
@@ -30,7 +33,7 @@ export function filterInstancesForProcess(instances: IInstanceDetails[], process
 }
 
 // All instance for workspace
-export function filterInstancesForWorkspace(instances: IInstanceDetails[], workspaceId: string): IInstanceDetails[] {
+export function filterInstancesForWorkspace(instances: IInstanceDetails[] | undefined, workspaceId: string): IInstanceDetails[] {
   if (!instances) return [];
 
   const filteredInstances: IInstanceDetails[] = instances.filter((instance) => instance.workspaceId === workspaceId && !instance.isSimulation);

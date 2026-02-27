@@ -36,17 +36,17 @@ export function isValidCoreEnvironment(coreEnv: unknown, requireUser = true): co
   if (coreEnv == null) return false;
 
   if (!requireUser) return true;
-  else return (coreEnv as ICoreEnvironment).user != null;
+  return (coreEnv as Partial<ICoreEnvironment>).user != null;
 }
 export function isValidWorkspaceEnvironment(workspaceEnv: unknown, requireUser = true): workspaceEnv is IWorkspaceEnvironment {
-  return isValidCoreEnvironment(workspaceEnv, requireUser) && (workspaceEnv as IWorkspaceEnvironment).workspace != null;
+  return isValidCoreEnvironment(workspaceEnv, requireUser) && (workspaceEnv as Partial<IWorkspaceEnvironment>).workspace != null;
 }
 export function isValidProcessEnvironment(processEnv: unknown, requireUser = true): processEnv is IProcessEnvironment {
-  return isValidWorkspaceEnvironment(processEnv, requireUser) && (processEnv as IProcessEnvironment).process != null;
+  return isValidWorkspaceEnvironment(processEnv, requireUser) && (processEnv as Partial<IProcessEnvironment>).process != null;
 }
 export function isValidInstanceEnvironment(instanceEnv: unknown, requireUser = true): instanceEnv is IInstanceEnvironment {
-  return isValidProcessEnvironment(instanceEnv, requireUser) && (instanceEnv as IInstanceEnvironment).instance != null;
+  return isValidProcessEnvironment(instanceEnv, requireUser) && (instanceEnv as Partial<IInstanceEnvironment>).instance != null;
 }
 export function isValidTodoEnvironment(todoEnv: unknown, requireUser = true): todoEnv is ITodoEnvironment {
-  return isValidProcessEnvironment(todoEnv, requireUser) && (todoEnv as ITodoEnvironment).todo != null;
+  return isValidProcessEnvironment(todoEnv, requireUser) && (todoEnv as Partial<ITodoEnvironment>).todo != null;
 }

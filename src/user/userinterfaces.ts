@@ -31,7 +31,7 @@ export function hasSetCorporateDesignRight(user: IUserDetails | IUserDetailsNoEx
   if (user.isSystemUser) {
     return true;
   }
-  return user.extendedRights && user.extendedRights.includes("Z1");
+  return user.extendedRights.includes("Z1");
 }
 
 export interface IRoxtraUserDetails {
@@ -118,10 +118,6 @@ export const emptyUser: IUserDetails = {
 };
 
 export function getUserWorkspace(user: IUserDetails, workspaceId: string): IWorkspaceDetails | undefined {
-  if (user == null) {
-    return undefined;
-  }
-
   // ExtrasWorkspaces required
   isTrue(user.extras.workspaces != null, "getUserWorkspace: user.extras.workspaces == null");
   if (user.extras.workspaces) {

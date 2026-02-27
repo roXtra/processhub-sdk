@@ -49,9 +49,10 @@ export function isRoleOwner(userId: string, roleId: string | undefined, instance
     return false;
   }
 
-  if (instance.extras.roleOwners[roleId] == null) return false;
+  const roleOwners = instance.extras.roleOwners[roleId];
+  if (!roleOwners) return false;
 
-  for (const roleOwner of instance.extras.roleOwners[roleId]) {
+  for (const roleOwner of roleOwners) {
     if (workspaceGroups && isGroupId(roleOwner.memberId)) {
       const group = workspaceGroups.find((g) => g.groupId === roleOwner.memberId);
       if (group) {

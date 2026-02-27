@@ -23,7 +23,7 @@ export enum ProcessAccessRights {
 }
 
 export interface IProcessRoles {
-  [roleId: string]: IProcessRole; // RoleId ist RollenId bzw. LaneId des Prozesses
+  [roleId: string]: IProcessRole | undefined; // RoleId ist RollenId bzw. LaneId des Prozesses
 }
 export const DefaultRoles = {
   Owner: "OWNER", // DO NOT CHANGE - string used in database
@@ -67,7 +67,7 @@ export interface IPotentialRoleOwners {
   potentialRoleOwner: IRoleOwner[];
 }
 export interface IRoleOwnerMap {
-  [roleId: string]: IRoleOwner[]; // Array, da es später auch mehrere gleichzeitige Rolleninhaber geben könnte
+  [roleId: string]: IRoleOwner[] | undefined; // Array, da es später auch mehrere gleichzeitige Rolleninhaber geben könnte
 }
 
 export interface IRoleOwner {
@@ -113,15 +113,14 @@ export function getProcessRoles(
     // Set default owners for all roles
     const lanes = bpmnProcess.getLanes(false);
     lanes.map((lane) => {
-      if (processRoles[lane.id] == null) {
-        processRoles[lane.id] = { potentialRoleOwners: [{ memberId: defaultRoleOwnerId }] };
-      }
-      processRoles[lane.id].roleName = lane.name;
+      const processRole = processRoles[lane.id] ?? { potentialRoleOwners: [{ memberId: defaultRoleOwnerId }] };
+      processRoles[lane.id] = processRole;
+      processRole.roleName = lane.name;
 
       // Clean up starting role setting from all lanes, will be added again in next step
-      delete processRoles[lane.id].isStartingRole;
-      delete processRoles[lane.id].isStartingByMailRole;
-      delete processRoles[lane.id].isStartingByTimerRole;
+      delete processRole.isStartingRole;
+      delete processRole.isStartingByMailRole;
+      delete processRole.isStartingByTimerRole;
     });
 
     // Set starting roles
@@ -135,12 +134,14 @@ export function getProcessRoles(
       const role = bpmnProcess.getLaneOfFlowNode(startEvent.id);
       if (role) {
         // In new processes somehow the start element is not in a lane (yet)
+        const processRole = processRoles[role.id] ?? { potentialRoleOwners: [{ memberId: defaultRoleOwnerId }] };
+        processRoles[role.id] = processRole;
         if (isMailMessageStartEvent) {
-          processRoles[role.id].isStartingByMailRole = true;
+          processRole.isStartingByMailRole = true;
         } else if (isTimerStartEvent) {
-          processRoles[role.id].isStartingByTimerRole = true;
+          processRole.isStartingByTimerRole = true;
         } else {
-          processRoles[role.id].isStartingRole = true;
+          processRole.isStartingRole = true;
         }
       }
     });
@@ -152,23 +153,26 @@ export function getProcessRoles(
         const role = bpmnProcess.getLaneOfFlowNode(startEvent.id);
         if (role) {
           const addToRole = (role: IProcessRole): void => {
-            if (role) {
-              if (extensions.anonymousStartUserId) {
-                if (!role.potentialRoleOwners.find((o) => o.memberId === extensions.anonymousStartUserId)) {
-                  role.potentialRoleOwners.push({ memberId: extensions.anonymousStartUserId });
-                }
+            if (extensions.anonymousStartUserId) {
+              if (!role.potentialRoleOwners.find((o) => o.memberId === extensions.anonymousStartUserId)) {
+                role.potentialRoleOwners.push({ memberId: extensions.anonymousStartUserId });
               }
             }
           };
-          addToRole(processRoles[role.id]);
-          processRoles[DefaultRoles.Viewer] = processRoles[DefaultRoles.Viewer] || { potentialRoleOwners: [{ memberId: defaultRoleOwnerId }] };
-          addToRole(processRoles[DefaultRoles.Viewer]);
+          const processRole = processRoles[role.id];
+          if (processRole) {
+            addToRole(processRole);
+          }
+          const viewerRole = processRoles[DefaultRoles.Viewer] ?? { potentialRoleOwners: [{ memberId: defaultRoleOwnerId }] };
+          processRoles[DefaultRoles.Viewer] = viewerRole;
+          addToRole(viewerRole);
         }
       }
     }
 
     // Backwards compatibility for new dashboard access control
-    if (!processRoles[DefaultRoles.DashboardViewer] || processRoles[DefaultRoles.DashboardViewer].potentialRoleOwners.length === 0) {
+    const dashboardRole = processRoles[DefaultRoles.DashboardViewer];
+    if (!dashboardRole || dashboardRole.potentialRoleOwners.length === 0) {
       if (dashBoardAccess === ProcessViewAccess.WorkspaceMembersSeeAll) {
         processRoles[DefaultRoles.DashboardViewer] = { potentialRoleOwners: [{ memberId: PredefinedGroups.AllWorkspaceMembers }] };
       } else {
@@ -242,9 +246,10 @@ export function isPotentialRoleOwner(
     return false;
   }
 
-  if (roles[roleId] == null || roles[roleId].potentialRoleOwners == null) return false;
+  const role = roles[roleId];
+  if (!role) return false;
 
-  for (const potentialRoleOwner of roles[roleId].potentialRoleOwners) {
+  for (const potentialRoleOwner of role.potentialRoleOwners) {
     if (potentialRoleOwner.memberId === userId) {
       // Always accept current roleOwners (process might have been changed, we still want to accept existing owners)
       return true;
@@ -269,7 +274,7 @@ export function isPotentialRoleOwner(
   }
 
   if (roleId === DefaultRoles.Viewer) {
-    if (roles[roleId].potentialRoleOwners.find((potentialRoleOwner) => potentialRoleOwner.memberId === PredefinedGroups.AllParticipants)) {
+    if (role.potentialRoleOwners.find((potentialRoleOwner) => potentialRoleOwner.memberId === PredefinedGroups.AllParticipants)) {
       // Bei Sichtbarkeit "AllParticipants" oder "Public" muss geprüft werden, ob User in einer der anderen Rollen eingetragen ist
       // Der Fall Public ist nur bei ignorePublic relevant
       for (const role in roles) {
@@ -350,7 +355,7 @@ export function getPotentialRoleOwnersForProcessRole(
         } else if (isGroupId(potentialOwner.memberId)) {
           if (workspaceDetails.extras.groups) {
             const group = workspaceDetails.extras.groups.find((g) => g.groupId === potentialOwner.memberId);
-            if (group && group.memberIds) {
+            if (group) {
               for (const memberId of group.memberIds) {
                 const member = workspaceDetails.extras.members?.[memberId];
                 if (member) {
@@ -394,7 +399,7 @@ export function isProcessManager(process: IProcessDetails | StateProcessDetails 
   return isProcessOwner(process, currentUser) || (process.userRights & ProcessAccessRights.ManageProcess) !== 0;
 }
 
-export function canViewProcess(process: IProcessDetails | StateProcessDetails): boolean {
+export function canViewProcess(process: IProcessDetails | StateProcessDetails | undefined): boolean {
   if (process == null || process.userRights == null) return false;
 
   return (process.userRights & ProcessAccessRights.ViewProcess) !== 0;
@@ -451,18 +456,18 @@ export function canStartProcessByTimer(process: IProcessDetails | StateProcessDe
   return hasEditAccess(user) && (process.userRights & ProcessAccessRights.StartProcessByTimer) !== 0;
 }
 
-export function canViewTodos(process: IProcessDetails | StateProcessDetails): boolean {
+export function canViewTodos(process: IProcessDetails | StateProcessDetails | undefined): boolean {
   if (process == null || process.userRights == null) return false;
 
   return canViewAllTodos(process) || process.userRights !== ProcessAccessRights.None;
 }
-export function canViewAllTodos(process: IProcessDetails | StateProcessDetails): boolean {
+export function canViewAllTodos(process: IProcessDetails | StateProcessDetails | undefined): boolean {
   if (process == null || process.userRights == null) return false;
 
   return (process.userRights & ProcessAccessRights.ViewAllTodos) !== 0;
 }
 
-export function canViewArchive(process: IProcessDetails | StateProcessDetails): boolean {
+export function canViewArchive(process: IProcessDetails | StateProcessDetails | undefined): boolean {
   if (process == null || process.userRights == null) return false;
 
   return process.userRights !== ProcessAccessRights.None;

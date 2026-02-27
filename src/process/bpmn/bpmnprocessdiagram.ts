@@ -3,7 +3,6 @@ import { Bpmn, Bpmndi } from "../bpmn/index.js";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper.js";
 import { Dc } from "modeler/bpmn/dc";
 import { IRowDetails } from "../phclient.js";
-import { isTrue } from "../../tools/assert.js";
 import { getLastArrayEntry } from "../../tools/array.js";
 
 export class Waypoint {
@@ -48,11 +47,7 @@ export class BpmnProcessDiagram {
   public getShapeFromDiagram(shapeId: string): Bpmndi.IBPMNShape | undefined {
     const diagram = this.getDiagramElement();
     for (const planeElement of diagram.plane.planeElement) {
-      if (
-        planeElement.$type === "bpmndi:BPMNShape" &&
-        (planeElement as Bpmndi.IBPMNShape).bpmnElement != null &&
-        (planeElement as Bpmndi.IBPMNShape).bpmnElement.id === shapeId
-      ) {
+      if (planeElement.$type === "bpmndi:BPMNShape" && (planeElement as Bpmndi.IBPMNShape).bpmnElement.id === shapeId) {
         return planeElement as Bpmndi.IBPMNShape;
       }
     }
@@ -93,7 +88,7 @@ export class BpmnProcessDiagram {
     let amountOfOutgoingsOnTasksUnderpass = 0;
 
     let sortedTasks: Bpmn.IFlowNode[] = [];
-    if (copyTaskIdsOrderFromTable != null && copyTaskIdsOrderFromTable.length > 0) {
+    if (copyTaskIdsOrderFromTable.length > 0) {
       const tmp = this.bpmnProcess.getExistingActivityObject(copyTaskIdsOrderFromTable[0].taskId);
       if (tmp != null && tmp.$type === "bpmn:StartEvent") {
         copyTaskIdsOrderFromTable.splice(0, 1);
@@ -103,7 +98,7 @@ export class BpmnProcessDiagram {
     sortedTasks = copyTaskIdsOrderFromTable.map((row) => this.bpmnProcess.getExistingTask(this.bpmnProcess.processId(), row.taskId));
 
     copyTaskIdsOrderFromTable.forEach((row) => {
-      if (row.jumpsTo != null && row.jumpsTo.length > 0) {
+      if (row.jumpsTo.length > 0) {
         amountOfOutgoingsOnTasksUnderpass += row.jumpsTo.length - 1;
       }
     });
@@ -196,7 +191,7 @@ export class BpmnProcessDiagram {
 
       for (let i = 0; i < drawObjectList.length; i++) {
         const task = drawObjectList[i];
-        if (task != null && task.$type !== "bpmn:EndEvent" && task.outgoing != null && task.outgoing.find((out) => out.targetRef.$type === "bpmn:ExclusiveGateway")) {
+        if (task.$type !== "bpmn:EndEvent" && task.outgoing != null && task.outgoing.find((out) => out.targetRef.$type === "bpmn:ExclusiveGateway")) {
           const gate = gates.find((g) => g.incoming && g.incoming.find((inc) => inc.sourceRef.id === task.id) != null);
           if (gate) {
             if (drawObjectList.find((obj) => obj.id === gate.id) == null) {
@@ -205,9 +200,6 @@ export class BpmnProcessDiagram {
           }
         }
       }
-
-      // Filter undefined
-      drawObjectList = drawObjectList.filter((elem) => elem != null);
 
       this.drawAllTasks(diagram, laneDictionaries, drawObjectList, this.diagramXStartParam + 100);
 
@@ -314,11 +306,6 @@ export class BpmnProcessDiagram {
     if (!targetDiagramObject) {
       throw new Error("No diagram shape found for " + targetRef.id);
     }
-    isTrue(sourceRef != null, "Missing Ref Source: " + String(flowObject.id));
-    isTrue(sourceDiagramObject != null, "Missing Object Source with ID: " + sourceRef.id);
-    isTrue(targetRef != null, "Missing Target Source: " + String(flowObject.id));
-    isTrue(targetDiagramObject != null, "Missing Object Target with ID: " + targetRef.id);
-
     if (drawJumpFlow) {
       waypoints = this.getWaypointsBetweenObjectsUnderpass(sourceDiagramObject, targetDiagramObject, numberOfJumpEdge, laneDictionaries);
     } else {

@@ -316,12 +316,14 @@ export interface IRunningTaskLane {
 }
 
 export interface IStartButtonMap {
-  [id: string]: {
-    startEventName?: string;
-    laneId: string;
-    onlyRoxFileField: boolean;
-    anonymousStart?: boolean;
-  };
+  [id: string]:
+    | {
+        startEventName?: string;
+        laneId: string;
+        onlyRoxFileField: boolean;
+        anonymousStart?: boolean;
+      }
+    | undefined;
 }
 
 export interface IServiceTaskConfigObject {

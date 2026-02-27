@@ -7,7 +7,7 @@ import { getBackendUrl, getBasePath } from "../config.js";
 
 export const AuditsOfflineRoute = "audits-offline";
 
-export function parseUrl(fullUrlWithBase: string): IPathDetails | undefined {
+export function parseUrl(fullUrlWithBase: string | undefined): IPathDetails | undefined {
   const path: IPathDetails = {};
   const backendUrl = getBackendUrl().toLowerCase();
   const fullUrl = fullUrlWithBase !== undefined ? fullUrlWithBase.toLowerCase().replace(backendUrl, "") : "";
@@ -23,7 +23,7 @@ export function parseUrl(fullUrlWithBase: string): IPathDetails | undefined {
   // Url is f/... for module f
 
   // Pages not related to workspace
-  let part = split[1];
+  let part = split[1] as string | undefined;
   if (part == null || (part === "" && split.length === 2) || (part === "profile" && split.length === 2) || (part === "i" && split.length >= 3)) {
     // Instance and Todo-links are handled on StartPage
     path.page = Page.StartPage;
@@ -68,7 +68,7 @@ export function parseUrl(fullUrlWithBase: string): IPathDetails | undefined {
   } else return undefined;
 }
 
-export function parseNotificationLink(fullUrlWithBase: string): INotificationLinkElements {
+export function parseNotificationLink(fullUrlWithBase: string | undefined): INotificationLinkElements {
   const elements: INotificationLinkElements = {};
   const basePath = getBasePath().toLowerCase();
   const fullUrl = fullUrlWithBase !== undefined ? fullUrlWithBase.toLowerCase().replace(basePath, "") : "";
@@ -86,7 +86,8 @@ export function parseNotificationLink(fullUrlWithBase: string): INotificationLin
 
   if (split[index] !== "i" || split.length < 3) return elements;
 
-  let nextPart = split[index + 1];
+  let nextPart = split[index + 1] as string | undefined;
+  if (!nextPart) return elements;
   if (nextPart.substring(0, 1) === "@") {
     // Old links had workspaceUrl - ignore
   } else {

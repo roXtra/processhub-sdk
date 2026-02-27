@@ -195,9 +195,7 @@ export function parseNestedElement(query: string, nestedElements: NestedElements
 
   nestedElements[query].top = true;
   group.rules.push(parseNestedElementsToGroupConstruct(nestedElements));
-  if (nestedElements[query]) {
-    nestedElements[query].top = false;
-  }
+  nestedElements[query].top = false;
 }
 
 /**

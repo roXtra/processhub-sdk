@@ -12,20 +12,20 @@ export interface IWorkspaceRoles {
   [roleId: string]: IWorkspaceRole; // Role id is the lane id of the process
 }
 
-export function isWorkspaceMember(workspace: IWorkspaceDetails | StateWorkspaceDetails): boolean {
+export function isWorkspaceMember(workspace: IWorkspaceDetails | StateWorkspaceDetails | undefined): boolean {
   if (workspace == null) return false;
 
   return workspace.userRole != null && workspace.userRole !== WorkspaceRole.None;
 }
 
-export function isWorkspaceAdmin(workspace: IWorkspaceDetails | StateWorkspaceDetails): boolean {
+export function isWorkspaceAdmin(workspace: IWorkspaceDetails | StateWorkspaceDetails | undefined): boolean {
   if (workspace == null || workspace.userRole == null) return false;
 
   return (workspace.userRole & WorkspaceRole.WorkspaceAdmin) !== 0;
 }
 
 // Only true if flag is set AND licenseHasWorkspaceProcessManagers()
-export function isWorkspaceProcessManager(workspace: IWorkspaceDetails): boolean {
+export function isWorkspaceProcessManager(workspace: IWorkspaceDetails | undefined): boolean {
   if (workspace == null || workspace.userRole == null) return false;
 
   return (workspace.userRole & (WorkspaceRole.WorkspaceAdmin | WorkspaceRole.WorkspaceProcessManager)) !== 0;

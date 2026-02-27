@@ -1,5 +1,6 @@
 export function isMicrosoftEdge(): boolean {
-  if (typeof navigator === "undefined" || navigator == null) return false;
+  const navigatorRef = (globalThis as { navigator?: Navigator }).navigator;
+  if (!navigatorRef) return false;
 
-  return /Edge\/1./i.test(navigator.userAgent);
+  return /Edge\/1./i.test(navigatorRef.userAgent);
 }

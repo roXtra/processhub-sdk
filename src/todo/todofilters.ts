@@ -19,7 +19,7 @@ export function getTodosFromInstances(instances: IInstanceDetails[]): ITodoDetai
 }
 
 // Todos assigned to user
-export function filterUserTodos(todos: ITodoDetails[], user: IUserDetails | StateUserDetails): ITodoDetails[] {
+export function filterUserTodos(todos: ITodoDetails[] | undefined, user?: IUserDetails | StateUserDetails): ITodoDetails[] {
   if (!user || !todos) return [];
 
   const filteredTodos: ITodoDetails[] = todos.filter(
@@ -30,7 +30,7 @@ export function filterUserTodos(todos: ITodoDetails[], user: IUserDetails | Stat
 }
 
 // Unassigned todos
-export function filterUnassignedTodos(todos: ITodoDetails[]): ITodoDetails[] {
+export function filterUnassignedTodos(todos: ITodoDetails[] | undefined): ITodoDetails[] {
   if (!todos) return [];
 
   const filteredTodos: ITodoDetails[] = todos.filter((todo) => todo.todoType !== TodoType.Simulation && todo.todoType !== TodoType.Intermediate && todo.userId == null);
@@ -39,7 +39,7 @@ export function filterUnassignedTodos(todos: ITodoDetails[]): ITodoDetails[] {
 }
 
 // All todos for an instance
-export function filterTodosForInstance(instances: IInstanceDetails[], instanceId: string): ITodoDetails[] {
+export function filterTodosForInstance(instances: IInstanceDetails[] | undefined, instanceId: string): ITodoDetails[] {
   if (!instances) return [];
 
   const todos = getTodosFromInstances(instances);
@@ -49,7 +49,7 @@ export function filterTodosForInstance(instances: IInstanceDetails[], instanceId
 }
 
 // All todos for a process
-export function filterTodosForProcess(instances: IInstanceDetails[], processId: string): ITodoDetails[] {
+export function filterTodosForProcess(instances: IInstanceDetails[] | undefined, processId: string): ITodoDetails[] {
   if (!instances) return [];
 
   const filteredInstances = filterInstancesForProcess(instances, processId);

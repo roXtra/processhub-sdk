@@ -183,10 +183,7 @@ describe("sdk", function () {
           const bpmnProcess = await createTestBpmnProcess();
 
           assert(bpmnProcess.processId() !== "");
-          assert(bpmnProcess.processId() != null);
           assert(bpmnProcess.definitionId() !== "");
-          assert(bpmnProcess.definitionId() != null);
-          assert(bpmnProcess != null);
         });
 
         it("soll alle Prozesse aus dem BPMN Prozess zurückgeben", async function () {
@@ -200,9 +197,7 @@ describe("sdk", function () {
         it("soll id von BPMN zurückgeben", async function () {
           const bpmnProcess = await createTestBpmnProcess();
           assert(bpmnProcess.processId() !== "");
-          assert(bpmnProcess.processId() != null);
           assert(bpmnProcess.definitionId() !== "");
-          assert(bpmnProcess.definitionId() != null);
           assert(bpmnProcess.processId().includes("_"));
           assert(bpmnProcess.definitionId().includes("_"));
         });
@@ -216,8 +211,7 @@ describe("sdk", function () {
 
           const process: Bpmn.IProcess = bpmnProcess.getProcess(processes[0].id);
 
-          assert(process.id != null);
-          assert(process.id === processes[0].id);
+          assert.equal(process.id, processes[0].id);
         });
 
         it("soll Start oder EndEvent von ausgewähltem Prozess zurückgeben", async function () {
@@ -229,18 +223,17 @@ describe("sdk", function () {
 
           const process: Bpmn.IProcess = bpmnProcess.getProcess(processes[0].id);
 
-          assert(process.id != null);
-          assert(process.id === processes[0].id);
+          assert.equal(process.id, processes[0].id);
 
           // Wie test zuvor bis hier her
 
           const startEvents: Bpmn.IStartEvent[] = bpmnProcess.getStartEvents(process.id);
-          assert(startEvents[0].outgoing![0].targetRef.$type === "bpmn:UserTask");
-          assert(startEvents[0].outgoing![0].sourceRef.$type === "bpmn:StartEvent");
+          assert.equal(startEvents[0].outgoing![0].targetRef.$type, "bpmn:UserTask");
+          assert.equal(startEvents[0].outgoing![0].sourceRef.$type, "bpmn:StartEvent");
 
           const endEvent: Bpmn.IEndEvent = bpmnProcess.getEndEvents(process.id)[0];
-          assert(endEvent.incoming![0].sourceRef.$type === "bpmn:UserTask");
-          assert(endEvent.incoming![0].targetRef.$type === "bpmn:EndEvent");
+          assert.equal(endEvent.incoming![0].sourceRef.$type, "bpmn:UserTask");
+          assert.equal(endEvent.incoming![0].targetRef.$type, "bpmn:EndEvent");
         });
 
         it("soll Lane anlegen", async function () {
@@ -267,7 +260,7 @@ describe("sdk", function () {
           // Wie test zuvor bis hier her
           const testLane = bpmnProcess.getProcessLane(process.id, rowDetails[1].laneId);
 
-          assert(testLane!.flowNodeRef.length === 2);
+          assert.equal(testLane!.flowNodeRef.length, 2);
 
           const testTaskName = "Test Aufgabe";
 
@@ -285,7 +278,7 @@ describe("sdk", function () {
 
           bpmnProcess.removeTaskObjectFromLanes(process.id, testTaskObject);
 
-          assert(testLane!.flowNodeRef.length === 2);
+          assert.equal(testLane!.flowNodeRef.length, 2);
           bpmnProcess.removeTaskObjectFromLanes(process.id, bpmnProcess.getStartEvents(process.id)[0]);
           expect(testLane!.flowNodeRef.length).to.equal(1);
         });
@@ -312,7 +305,7 @@ describe("sdk", function () {
             testTaskObject = bpmnProcess.getExistingTask(process.id, testTaskId) as Bpmn.IUserTask;
             assert(testTaskObject.name === rowDetails[1].task);
             assert(testTaskObject.id === testTaskId);
-            assert(testTaskObject.$type === "bpmn:UserTask");
+            assert.equal(testTaskObject.$type, "bpmn:UserTask");
           });
 
           it("soll Text einfügen und lesen - Description", function () {
@@ -418,7 +411,7 @@ describe("sdk", function () {
 
             assert(testTaskObject1.name === testTaskName1);
             assert(testTaskObject1.id === testTaskId1);
-            assert(testTaskObject1.$type === "bpmn:UserTask");
+            assert.equal(testTaskObject1.$type, "bpmn:UserTask");
 
             const testTaskName2 = "Test Aufgabe B";
             const testTaskId2: string = rowDetails[2].taskId;
@@ -428,7 +421,7 @@ describe("sdk", function () {
 
             assert(testTaskObject2.name === testTaskName2);
             assert(testTaskObject2.id === testTaskId2);
-            assert(testTaskObject2.$type === "bpmn:UserTask");
+            assert.equal(testTaskObject2.$type, "bpmn:UserTask");
 
             const testTaskName3 = "Test Aufgabe C";
             const testTaskId3: string = rowDetails[2].taskId;
@@ -438,10 +431,10 @@ describe("sdk", function () {
 
             assert(testTaskObject3.name === testTaskName3, testTaskObject3.name! + " === " + testTaskName3);
             assert(testTaskObject3.id === testTaskId3, testTaskObject3.id + " === " + testTaskId3);
-            assert(testTaskObject3.$type === "bpmn:UserTask", testTaskObject3.$type + " === " + "bpmn:UserTask");
+            assert.equal(testTaskObject3.$type, "bpmn:UserTask", testTaskObject3.$type + " === " + "bpmn:UserTask");
 
             const tasks = bpmnProcess.getSortedTasks(bpmnProcess.processId());
-            assert(tasks.length === 2);
+            assert.equal(tasks.length, 2);
 
             let lanes = bpmnProcess.getLanes(false);
             assert(lanes.length === 4);
@@ -604,14 +597,13 @@ describe("sdk", function () {
 
           assert.isTrue(rowDetails.length === 4, "error in addTaskBetween method");
           assert.isTrue(rowDetails[2].task === testTaskName, "wrong testtaskname");
-          assert.isTrue(rowDetails[2].taskId != null, "taskId is not set after method");
+          assert(rowDetails[2].taskId !== "", "taskId is not set after method");
 
           const newLane = bpmnProcess.getLaneOfFlowNode(rowDetails[rowNumber].taskId);
           assert.isTrue(newLane?.id === rowDetails[2].laneId);
           assert.isTrue(newLane?.id === rowDetails[2 - 1].laneId);
 
           const taskObj = bpmnProcess.getExistingTask(bpmnProcess.processId(), rowDetails[2].taskId);
-          assert.isTrue(taskObj != null);
           bpmnProcess.changeTaskName(rowDetails[2].taskId, "TEST 123 a");
           assert.isTrue(taskObj.name === "TEST 123 a", "wrong testtaskname");
         });

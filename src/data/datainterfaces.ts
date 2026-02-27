@@ -12,19 +12,21 @@ export const NestedFieldPropsObject: NestedFieldProps = {
 export const NestedFieldPropsSchema = Joi.object(NestedFieldPropsObject);
 
 export interface IFieldConfig {
-  conditionExpression: string;
+  conditionExpression: string | undefined;
   conditionBuilderMode: boolean;
-  validationExpression: string;
+  validationExpression: string | undefined;
   validationBuilderMode: boolean;
   nestedFieldProps?: NestedFieldProps;
 }
 
 export function convertFieldConfig(config: IFieldConfig): IFieldConfig {
   const { conditionBuilderMode, conditionExpression, validationExpression, validationBuilderMode } = config;
+  const normalizedConditionExpression = conditionExpression ?? "";
+  const normalizedValidationExpression = validationExpression ?? "";
   config.conditionBuilderMode = typeof conditionBuilderMode !== "undefined" ? conditionBuilderMode : true;
-  config.conditionExpression = typeof conditionExpression !== "undefined" ? conditionExpression : "";
-  config.validationExpression = typeof validationExpression !== "undefined" ? validationExpression : "";
-  config.validationBuilderMode = typeof validationBuilderMode !== "undefined" ? validationBuilderMode : !(validationExpression != null && validationExpression.length > 0);
+  config.conditionExpression = normalizedConditionExpression;
+  config.validationExpression = normalizedValidationExpression;
+  config.validationBuilderMode = typeof validationBuilderMode !== "undefined" ? validationBuilderMode : normalizedValidationExpression.length === 0;
   return config;
 }
 
