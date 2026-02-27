@@ -136,7 +136,7 @@ export function parseAndInsertStringWithFieldContent(
     while (match) {
       const placeholder = match[0];
       const key = match[1];
-      if (key && key.length > 0 && key in instance) {
+      if (key && key in instance) {
         switch (key) {
           case "instanceId":
             result = replaceAll(result, placeholder, instance.instanceId.toLowerCase(), isQuery);
@@ -158,7 +158,7 @@ export function parseAndInsertStringWithFieldContent(
     const fieldPlaceholder = match[groupIndexForFieldPlaceholder];
     const fieldName = match[groupIndexForFieldIdentifier];
 
-    if (fieldName && fieldName.length > 0) {
+    if (fieldName) {
       const valueObject = fieldContentMap[fieldName];
 
       if (valueObject) {
@@ -188,7 +188,7 @@ export function parseAndInsertStringWithFieldContent(
     if (match.length === 4) {
       roleProperty = match[groupIndexForRoleProperty];
     }
-    if (roleName && roleName.length > 0) {
+    if (roleName) {
       const laneId =
         processOrRoles instanceof BpmnProcess
           ? processOrRoles.getLanes(false).find((l) => l.name === roleName)?.id
