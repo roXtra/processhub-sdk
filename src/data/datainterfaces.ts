@@ -21,11 +21,10 @@ export interface IFieldConfig {
 
 export function convertFieldConfig(config: IFieldConfig): IFieldConfig {
   const { conditionBuilderMode, conditionExpression, validationExpression, validationBuilderMode } = config;
-  const normalizedValidationExpression = validationExpression ?? "";
   config.conditionBuilderMode = typeof conditionBuilderMode !== "undefined" ? conditionBuilderMode : true;
   config.conditionExpression = conditionExpression ?? "";
-  config.validationExpression = normalizedValidationExpression;
-  config.validationBuilderMode = typeof validationBuilderMode !== "undefined" ? validationBuilderMode : normalizedValidationExpression.length === 0;
+  config.validationExpression = validationExpression ?? "";
+  config.validationBuilderMode = typeof validationBuilderMode !== "undefined" ? validationBuilderMode : config.validationExpression.length === 0;
   return config;
 }
 
