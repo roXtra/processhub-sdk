@@ -256,7 +256,7 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
 export function addOrUpdateExtension(
   baseElement: Bpmn.IBaseElement,
   key: BpmnExtensionName,
-  value: string | boolean | unknown[] | undefined,
+  value: string | boolean | object[] | undefined,
   extensionValueType: TaskSettingsValueType,
 ): void {
   if (extensionValueType === "List") {

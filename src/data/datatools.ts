@@ -136,7 +136,7 @@ export function parseAndInsertStringWithFieldContent(
     while (match) {
       const placeholder = match[0];
       const key = match[1];
-      if (key && key.length > 0) {
+      if (key && key.length > 0 && key in instance) {
         switch (key) {
           case "instanceId":
             result = replaceAll(result, placeholder, instance.instanceId.toLowerCase(), isQuery);
