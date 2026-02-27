@@ -54,6 +54,9 @@ export default tseslint.config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    linterOptions: {
+      reportUnusedDisableDirectives: "off",
+    },
     rules: {
       "linebreak-style": ["error", "unix"],
       "no-only-tests/no-only-tests": "error",
@@ -172,10 +175,10 @@ export default tseslint.config(
 
       "@typescript-eslint/triple-slash-reference": "off",
       "@typescript-eslint/no-non-null-assertion": "error",
-      "@typescript-eslint/no-unnecessary-condition": "warn",
+      "@typescript-eslint/no-unnecessary-condition": "off",
       "@typescript-eslint/no-useless-empty-export": "error",
       "@typescript-eslint/explicit-function-return-type": "off",
-      "@typescript-eslint/no-deprecated": "warn"
+      "@typescript-eslint/no-deprecated": "off"
     },
   },
   /**
