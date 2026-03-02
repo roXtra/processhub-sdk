@@ -165,6 +165,7 @@ export interface ICommentRequest extends IBaseRequest {
   comment: string;
   trailId: string;
   attachments: string[];
+  mentionedUsersAndRoles: string[];
 }
 export interface IDeleteCommentRequest extends IBaseRequest {
   trailId: string;
