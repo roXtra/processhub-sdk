@@ -89,6 +89,7 @@ export interface IAbortRequest extends IBaseRequest {
    */
   signToken?: string;
   concurrencyStamp?: string | undefined;
+  message?: string;
 }
 export type IAbortReply = IInstanceReply;
 
