@@ -655,6 +655,8 @@ export interface ILegacyAuditTrailEntryDetails {
 
   // Can be set in addition to todoSignVerified to tell if it isGxP
   isGxp?: boolean;
+
+  message?: string;
 }
 
 export interface IBaseAuditTrailEntry {
@@ -736,4 +738,5 @@ export interface IAuditTrailEntryDetails {
   instanceName?: string;
   todoSignVerified?: boolean;
   isGxp?: boolean;
+  message?: string;
 }
