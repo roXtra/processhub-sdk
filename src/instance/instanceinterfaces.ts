@@ -102,6 +102,8 @@ export interface IInstanceDetails {
     // The id of the roXtra document (source file) if this is a workflow instance
     roXtraFileId?: number;
   };
+  // If the instance was canceled, the reason for cancellation (optional)
+  cancellationReason?: string;
   extras: {
     // New Extras must be added to cache-handling in instanceactions -> loadInstance!
     instanceState?: IEngineState;
