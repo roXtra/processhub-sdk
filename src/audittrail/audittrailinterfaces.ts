@@ -738,6 +738,5 @@ export interface IAuditTrailEntryDetails {
   instanceName?: string;
   todoSignVerified?: boolean;
   isGxp?: boolean;
-  fieldName?: string;
   message?: string;
 }
