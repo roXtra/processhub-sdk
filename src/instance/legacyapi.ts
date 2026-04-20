@@ -28,6 +28,7 @@ export const ProcessEngineApiRoutes = {
   exportAuditTrail: "/api/processengine/exportaudittrail",
   generateReport: "/api/processengine/generatereport",
   convertSpreadsheets: "/api/processengine/convertspreadsheets",
+  convertTextareaInlineImages: "/api/processengine/converttextareainlineimages",
   getroxfilelinkreferences: "/api/processengine/getroxfilelinkreferences",
   setStartEventReferences: "/api/processengine/setstarteventreferences",
   copyFields: "/api/processengine/copyfields",
@@ -62,6 +63,10 @@ export interface IExecuteReply extends IInstanceReply {
 }
 
 export interface IConvertSpreadsheetsRequest extends IBaseRequest {
+  processId: string;
+}
+
+export interface IConvertTextareaInlineImagesRequest extends IBaseRequest {
   processId: string;
 }
 
