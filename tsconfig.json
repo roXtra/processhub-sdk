@@ -15,7 +15,8 @@
     "noEmit": false,
     "strict": true,
     "jsx": "react-jsx",
-    "lib": ["ES2022", "dom"]
+    "lib": ["ES2022", "dom"],
+    "types": ["mocha", "node"]
   },
   "include": ["./src/**/*"],
   "exclude": ["lib", "tsc_out", "node_modules"]
