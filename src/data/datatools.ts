@@ -51,7 +51,7 @@ function fieldValueToString(valueObject: IFieldValue, defaultValue: string, loca
     } else if (typeof valueObject.value === "number" || typeof valueObject.value === "boolean" || typeof valueObject.value === "bigint") {
       res = String(valueObject.value);
     } else if (Array.isArray(valueObject.value)) {
-      res = (valueObject.value as string[]).join(",");
+      res = valueObject.value.map(String).join(",");
     } else if (valueObject.value instanceof Date) {
       res = valueObject.value.toISOString();
     } else {
