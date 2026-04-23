@@ -4,7 +4,7 @@ import * as DataTools from "./datatools.js";
 import { BpmnProcess } from "../process/bpmn/bpmnprocess.js";
 import { ILoadTemplateReply } from "../process/legacyapi.js";
 import { createBpmnTemplate } from "../process/bpmn/bpmnmoddlehelper.js";
-import { getProcessRoles, IProcessRoles, IRoleOwnerMap } from "../process/processrights.js";
+import { getProcessRoles, IProcessRoles } from "../process/processrights.js";
 import Joi from "joi";
 import { createId } from "../tools/guid.js";
 import { IUserDetailsNoExtras, Licence, UserStatus } from "../user/userinterfaces.js";
@@ -168,7 +168,7 @@ describe("sdk", function () {
             processRoles,
             {
               [bpmnProcess.getLanes(false).find((l) => l.name === "Bearbeiter")!.id]: [{ memberId: "1", displayName: "Administrator, Admin" }],
-            } as IRoleOwnerMap,
+            },
             "de-DE",
             testUserFieldsConfig,
           );

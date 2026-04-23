@@ -20,7 +20,8 @@ describe("sdk", function () {
             }
             let reportRequest: IGenerateReportRequest | IGenerateWorkspaceReportRequest | IGenerateProcessReportRequest;
 
-            switch (Number(reportType) as RequestedReportType) {
+            const reportTypeValue: RequestedReportType = Number(reportType);
+            switch (reportTypeValue) {
               case RequestedReportType.PROCESSES_REGULAR:
                 reportRequest = {
                   reportType: RequestedReportType.PROCESSES_REGULAR,

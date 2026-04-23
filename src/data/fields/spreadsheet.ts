@@ -13,7 +13,7 @@ const ISpreadSheetFieldValueObject: ISpreadSheetFieldValue = {
   fileUrl: Joi.string().allow("").required() as unknown as string,
   url: Joi.string().allow("").required() as unknown as string,
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  value: Joi.object().required() as unknown as {},
+  value: Joi.object().required(),
 };
 
 export const ISpreadSheetFieldValueSchema = Joi.object(ISpreadSheetFieldValueObject);

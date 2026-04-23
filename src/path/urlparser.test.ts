@@ -14,18 +14,18 @@ describe("sdk", function () {
           const wrongPath = parseUrl("/xx"); // Ignore case and / at end
           assert.deepEqual(wrongPath, {
             page: Page.StartPage,
-          } as IPathDetails);
+          });
         });
 
         it("should parse top page", function () {
           let path = parseUrl("/f/"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.StartPage,
-          } as IPathDetails);
+          });
           path = parseUrl("/p/"); // Ignore case and / at end
           assert.deepEqual(path, {
             page: Page.StartPage,
-          } as IPathDetails);
+          });
         });
 
         it("should parse workspace pages", function () {
@@ -113,7 +113,7 @@ describe("sdk", function () {
             const path = parseUrl("/r/"); // Ignore case and / at end
             assert.deepEqual(path, {
               page: Page.StartPage,
-            } as IPathDetails);
+            });
           });
 
           it("should parse workspace pages", function () {
