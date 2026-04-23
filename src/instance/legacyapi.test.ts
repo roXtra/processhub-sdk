@@ -14,13 +14,11 @@ describe("sdk", function () {
         }
 
         it("passes validation for requests of all types of RequestedInstanceReportType", function () {
-          for (const reportType in RequestedReportType) {
-            if (isNaN(Number(reportType))) {
-              continue;
-            }
+          for (const reportType of Object.values(RequestedReportType)) {
+            if (typeof reportType !== "number") continue;
             let reportRequest: IGenerateReportRequest | IGenerateWorkspaceReportRequest | IGenerateProcessReportRequest;
 
-            switch (Number(reportType) as RequestedReportType) {
+            switch (reportType) {
               case RequestedReportType.PROCESSES_REGULAR:
                 reportRequest = {
                   reportType: RequestedReportType.PROCESSES_REGULAR,

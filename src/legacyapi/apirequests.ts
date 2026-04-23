@@ -73,7 +73,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
         return json;
       }
       default: {
-        const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
+        const error: IBaseError = { result: response.status, type: API_FAILED };
         getErrorHandlers().forEach((h) => h.handleError(error, path, showErrorModal));
         return error;
       }
@@ -148,7 +148,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
         return json;
       }
       default: {
-        const error: IBaseError = { result: response.status as ApiResult, type: API_FAILED };
+        const error: IBaseError = { result: response.status, type: API_FAILED };
         getErrorHandlers().forEach((h) => h.handleError(error, path, showErrorModal));
         return error;
       }

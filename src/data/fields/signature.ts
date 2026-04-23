@@ -9,8 +9,7 @@ export interface ISignatureFieldValue {
 
 const ISignatureFieldValueObject: ISignatureFieldValue = {
   svgDataUrl: Joi.string().allow("") as unknown as string,
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  dataPoints: Joi.object() as unknown as {},
+  dataPoints: Joi.object(),
 };
 
 export const ISignatureFieldValueSchema = Joi.object(ISignatureFieldValueObject);

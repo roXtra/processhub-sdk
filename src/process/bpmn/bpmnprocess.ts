@@ -309,7 +309,7 @@ export class BpmnProcess {
           bpmnTaskId: taskId,
           name: nameValue,
           isBoundaryEvent: false,
-        } as IDecisionTask);
+        });
       }
     }
     return decisionTasks;
@@ -1389,7 +1389,7 @@ export class BpmnProcess {
     for (const runInstance of runningInstances) {
       const todos = filterTodosForInstance(userInstances, runInstance.instanceId);
       const value = todos.map((t): IRunningTaskLane => {
-        return { bpmnLaneId: t.bpmnLaneId, bpmnTaskId: t.bpmnTaskId } as IRunningTaskLane;
+        return { bpmnLaneId: t.bpmnLaneId, bpmnTaskId: t.bpmnTaskId };
       });
       actualRunningTasks = actualRunningTasks.concat(value);
     }

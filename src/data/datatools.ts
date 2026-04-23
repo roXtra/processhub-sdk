@@ -41,12 +41,22 @@ function fieldValueToString(valueObject: IFieldValue, defaultValue: string, loca
   }
   let res: string;
   if (valueObject.type === "ProcessHubDate") {
-    res = getFormattedDate(new Date(String(valueObject.value as string)), locale);
+    res = getFormattedDate(new Date(valueObject.value as string), locale);
   } else if (valueObject.type === "ProcessHubDateTime") {
-    const date: Date = new Date(String(valueObject.value as string));
+    const date: Date = new Date(valueObject.value as string);
     res = getFormattedDateTime(date, locale) + " " + getFormattedTimeZoneOffset(date.getTimezoneOffset());
   } else {
-    res = String(valueObject.value as string);
+    if (typeof valueObject.value === "string") {
+      res = valueObject.value;
+    } else if (typeof valueObject.value === "number" || typeof valueObject.value === "boolean" || typeof valueObject.value === "bigint") {
+      res = String(valueObject.value);
+    } else if (Array.isArray(valueObject.value)) {
+      res = (valueObject.value as string[]).join(",");
+    } else if (valueObject.value instanceof Date) {
+      res = valueObject.value.toISOString();
+    } else {
+      res = JSON.stringify(valueObject.value);
+    }
   }
   return res;
 }
@@ -146,7 +156,12 @@ export function parseAndInsertStringWithFieldContent(
           default:
             {
               const value = instance[key];
-              result = replaceAll(result, placeholder, value != null ? String(value as string) : defaultValue, isQuery);
+              result = replaceAll(
+                result,
+                placeholder,
+                value != null ? (typeof value === "string" || typeof value === "number" ? String(value) : JSON.stringify(value)) : defaultValue,
+                isQuery,
+              );
             }
             break;
         }
