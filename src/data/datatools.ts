@@ -41,9 +41,15 @@ function fieldValueToString(valueObject: IFieldValue, defaultValue: string, loca
   }
   let res: string;
   if (valueObject.type === "ProcessHubDate") {
-    res = getFormattedDate(new Date(valueObject.value as string), locale);
+    if (typeof valueObject.value !== "string" && typeof valueObject.value !== "number" && !(valueObject.value instanceof Date)) {
+      return defaultValue;
+    }
+    res = getFormattedDate(new Date(valueObject.value), locale);
   } else if (valueObject.type === "ProcessHubDateTime") {
-    const date: Date = new Date(valueObject.value as string);
+    if (typeof valueObject.value !== "string" && typeof valueObject.value !== "number" && !(valueObject.value instanceof Date)) {
+      return defaultValue;
+    }
+    const date: Date = new Date(valueObject.value);
     res = getFormattedDateTime(date, locale) + " " + getFormattedTimeZoneOffset(date.getTimezoneOffset());
   } else {
     if (typeof valueObject.value === "string") {
