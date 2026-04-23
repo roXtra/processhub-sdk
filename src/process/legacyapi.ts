@@ -48,6 +48,7 @@ export const ProcessRequestRoutes = {
   GetAIImageCompletion: "/api/process/getaiimagecompletion",
   GenerateReport: "/api/process/generatereport",
   GenerateProcessWithAI: "/api/process/generateprocesswithai",
+  GetProcessInstancesChunked: "/api/process/getprocessinstanceschunked",
 };
 export type ProcessRequestRoutes = keyof typeof ProcessRequestRoutes;
 
@@ -326,6 +327,33 @@ export interface IGetProcessInstancesRequest extends IBaseRequest {
 
 export interface IGetProcessInstancesReply extends IBaseMessage {
   instances?: IInstanceDetails[];
+}
+
+export interface IGetProcessInstancesChunkedRequest extends IBaseRequest {
+  processId: string;
+  scope: "running" | "all";
+  /**
+   * Raw row offset in the server-side chunk stream before visibility filtering is applied.
+   * Clients should advance this by the requested limit after each request.
+   */
+  skip: number;
+  /**
+   * Number of raw instance rows the server should inspect for this chunk before visibility filtering.
+   */
+  limit: number;
+}
+
+export interface IGetProcessInstancesChunkedReply extends IBaseMessage {
+  /**
+   * Visible instances from the requested raw chunk. This list may contain fewer items than requested
+   * and may even be empty although additional raw chunks still exist, if the requesting user has no permissions
+   * to see all or even any instances in the currently requested raw chunk.
+   */
+  instances?: IInstanceDetails[];
+  /**
+   * True when the server has more raw chunks to inspect after this response.
+   */
+  hasMore: boolean;
 }
 
 export interface IMoveToArchiveRequest extends IBaseRequest {
