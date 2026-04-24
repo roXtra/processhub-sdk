@@ -119,5 +119,5 @@ export async function createBpmnTemplate(userLanguage: string): Promise<ILoadTem
     result: ProcessResult.Ok,
     bpmnContext: fromXmlRes,
     bpmnXml: fromXmlRes.rootElement,
-  } as ILoadTemplateReply;
+  };
 }

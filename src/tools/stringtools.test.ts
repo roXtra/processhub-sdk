@@ -59,7 +59,7 @@ describe("sdk", function () {
               rules: [],
               combinator: "&&",
               id: createId(),
-            } as Group,
+            },
           },
           {
             guid: "b0e8c905-7f79-4a38-ae46-b9ccf6262106",
@@ -68,7 +68,7 @@ describe("sdk", function () {
               rules: [],
               combinator: "&&",
               id: createId(),
-            } as Group,
+            },
           },
           {
             guid: "d5b3362e-83de-450f-8519-043ed7b8566f",
@@ -83,7 +83,7 @@ describe("sdk", function () {
               ],
               combinator: "&&",
               id: createId(),
-            } as Group,
+            },
           },
           {
             guid: "556712e5-d2e2-4d4e-ab92-1b01aa92d3a8",
@@ -274,7 +274,7 @@ describe("sdk", function () {
               ],
               combinator: "&&",
               id: createId(),
-            } as Group,
+            },
           },
           {
             guid: "961bd296-f5aa-4e16-bb54-239a7855606d",
@@ -329,7 +329,7 @@ describe("sdk", function () {
               rules: [],
               combinator: "&&",
               id: createId(),
-            } as Group,
+            },
           },
           {
             guid: "25c23455-0952-4dc5-b28f-fce55d8c37c8",
