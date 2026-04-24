@@ -54,7 +54,7 @@ describe("sdk", function () {
           processId: createId(),
           useModeler: false,
           extras: {},
-        } as IProcessDetails;
+        };
 
         res = ProcessValidation.isProcessDetailsValid(obj as IProcessDetails);
         assert.isTrue(res, "error: " + String(obj.displayName) + " - " + String(obj.description));
