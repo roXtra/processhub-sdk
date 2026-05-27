@@ -17,3 +17,7 @@ export interface IDataTableFieldValue {
     };
   }[];
 }
+
+export interface IDataTableFieldDataReference {
+  dataRef: string;
+}
