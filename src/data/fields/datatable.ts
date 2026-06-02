@@ -16,6 +16,8 @@ export interface IDataTableFieldValue {
       [field: string]: string | number | Date;
     };
   }[];
+  loadError?: "notFound" | "corrupt";
+  dataRef?: string;
 }
 
 export interface IDataTableFieldReference {
