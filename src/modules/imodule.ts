@@ -48,7 +48,10 @@ export enum ModuleId {
   Module = 6,
 }
 
-export type ModuleName = "documents" | "processes" | "risks" | "user" | "system" | "action" | "action_basic" | "audit" | "reclamations";
+export type ModuleName = RoxtraModuleName | IntegratedModuleName | FutureModuleName;
+export type RoxtraModuleName = "documents" | "user" | "system";
+export type IntegratedModuleName = "processes" | "risks" | "action" | "action_basic" | "audit";
+export type FutureModuleName = "reclamations"; // Not yet implemented but reserved for future use
 
 export interface IModule {
   id: number;
