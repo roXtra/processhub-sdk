@@ -62,7 +62,16 @@ export interface IServiceActionConfig {
 /**
  * Predefined functions that set the <select>-Elements options if type is "select"
  */
-export type ServiceActionFieldOnloadFunction = "fields" | "reportDrafts" | "reportTypes" | "allProcesses" | "allPublicViews" | "allRisks" | "allActions" | "allAudits";
+export type ServiceActionFieldOnloadFunction =
+  | "fields"
+  | "reportDrafts"
+  | "reportTypes"
+  | "allProcesses"
+  | "allPublicViews"
+  | "allRisks"
+  | "allActions"
+  | "allAudits"
+  | "allModuleProcesses";
 
 export interface IServiceActionField {
   name: string;
