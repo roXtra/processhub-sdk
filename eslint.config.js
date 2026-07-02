@@ -57,7 +57,7 @@ export default tseslint.config(
     rules: {
       "linebreak-style": ["error", "unix"],
       "no-only-tests/no-only-tests": "error",
-      "no-cond-assign": "error",      
+      "no-cond-assign": "error",
       "spaced-comment": "off",
       "no-eval": "error",
       "no-trailing-spaces": "error",
@@ -175,7 +175,7 @@ export default tseslint.config(
       "@typescript-eslint/no-unnecessary-condition": "warn",
       "@typescript-eslint/no-useless-empty-export": "error",
       "@typescript-eslint/explicit-function-return-type": "off",
-      "@typescript-eslint/no-deprecated": "warn"
+      "@typescript-eslint/no-deprecated": "warn",
     },
   },
   /**
