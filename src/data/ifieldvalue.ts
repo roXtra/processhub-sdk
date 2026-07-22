@@ -14,6 +14,7 @@ import { ITasksFieldValue, ITasksFieldValueSchema } from "./fields/tasks.js";
 import { ITreeViewFieldValue, TreeViewFieldValueSchema } from "./fields/treeview.js";
 import { createLiteralTypeRegExp } from "./regextools.js";
 import { IDataTableFieldReference, IDataTableFieldValue } from "./fields/datatable.js";
+import { IInstanceNumberFieldValue } from "./fields/instanceNumber.js";
 
 export const FieldTypeOptions = [
   "ProcessHubTextInput",
@@ -72,7 +73,8 @@ export type FieldValueType =
   | IDateRangeFieldValue // DateRange
   | IAuditQuestionsFieldValue // Audit
   | IDataTableFieldValue // DataTable
-  | IDataTableFieldReference; // DataTable reference to download link
+  | IDataTableFieldReference // DataTable reference to download link
+  | IInstanceNumberFieldValue; // InstanceNumber
 
 const FieldValueTypeSchema = [
   Joi.allow(null),
