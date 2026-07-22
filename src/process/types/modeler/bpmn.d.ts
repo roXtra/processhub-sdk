@@ -163,7 +163,14 @@ declare module "modeler/bpmn/bpmn" {
 
     export interface ITask extends IActivity, IInteractionNode {
       readonly $type:
-        "bpmn:Task" | "bpmn:ManualTask" | "bpmn:UserTask" | "bpmn:ServiceTask" | "bpmn:SendTask" | "bpmn:ReceiveTask" | "bpmn:ScriptTask" | "bpmn:BusinessRuleTask";
+        | "bpmn:Task"
+        | "bpmn:ManualTask"
+        | "bpmn:UserTask"
+        | "bpmn:ServiceTask"
+        | "bpmn:SendTask"
+        | "bpmn:ReceiveTask"
+        | "bpmn:ScriptTask"
+        | "bpmn:BusinessRuleTask";
     }
 
     export interface IManualTask extends ITask {
