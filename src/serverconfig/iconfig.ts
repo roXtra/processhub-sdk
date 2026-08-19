@@ -149,6 +149,11 @@ export interface IAuthSettingsFile {
         ClientSecret: string;
       };
     };
+    InactivityLogout?: {
+      Active: boolean;
+      LogoutAfterMinutes: number;
+      WarningBeforeLogoutSeconds: number;
+    };
   };
 }
 
