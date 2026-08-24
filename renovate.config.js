@@ -26,7 +26,7 @@ module.exports = {
     },
     {
       matchPackageNames: ["npm"],
-      allowedVersions: "^12.0.0",
+      allowedVersions: ">=11 <13",
     },
     {
       description: "Don't bump engines field in package.json",
