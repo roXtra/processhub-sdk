@@ -89,4 +89,11 @@ export interface IInitialConfig extends IClientSettingsConfig {
   webSockettoken?: string;
   defaultServerLanguage: string;
   aiFeaturesAvailable: boolean;
+  auth?: {
+    InactivityLogout?: {
+      Active: boolean;
+      LogoutAfterMinutes: number;
+      WarningBeforeLogoutSeconds: number;
+    };
+  };
 }
