@@ -1,7 +1,7 @@
 import { IBaseMessage, IBaseRequest, IBaseReply, IBaseRequestObject } from "../legacyapi/apiinterfaces.js";
 import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces.js";
 import { Bpmn } from "modeler/bpmn/bpmn";
-import BpmnModdle from "bpmn-moddle";
+import { BpmnModdle } from "bpmn-moddle";
 import { IStatisticRow } from "../data/statistics.js";
 import { IFieldDefinition } from "../data/ifielddefinition.js";
 import { IInstanceDetails } from "../instance/instanceinterfaces.js";

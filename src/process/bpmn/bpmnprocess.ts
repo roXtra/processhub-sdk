@@ -10,7 +10,7 @@ import { ILoadTemplateReply } from "../legacyapi.js";
 import { IRowDetails } from "../phclient.js";
 import { getExtensionValues, addOrUpdateExtension, getExtensionBody } from "./bpmnextensions.js";
 import { bpmnModdleInstance } from "./bpmnmoddlehelper.js";
-import BpmnModdle from "bpmn-moddle";
+import { BpmnModdle } from "bpmn-moddle";
 import { IFieldDefinition, IFieldDefinitionItem } from "../../data/ifielddefinition.js";
 import { filterTodosForInstance } from "../../todo/todofilters.js";
 import { IDecisionTask } from "../../todo/todointerfaces.js";

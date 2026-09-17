@@ -3,7 +3,7 @@ import { ProcessResult } from "../processinterfaces.js";
 import { ILoadTemplateReply } from "../legacyapi.js";
 import { createId } from "../../tools/guid.js";
 import { tl } from "../../tl.js";
-import BpmnModdle from "bpmn-moddle";
+import { BpmnModdle } from "bpmn-moddle";
 
 export const bpmnModdleInstance: BpmnModdle = new BpmnModdle([], {});
 

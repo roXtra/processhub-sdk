@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import BpmnModdle from "bpmn-moddle";
+import { BpmnModdle } from "bpmn-moddle";
 import { assert, expect } from "chai";
 import { Bpmn } from "modeler/bpmn/bpmn";
 import { isId } from "../../tools/guid.js";
