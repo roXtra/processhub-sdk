@@ -1,7 +1,7 @@
 import { Bpmn } from "modeler/bpmn/bpmn";
 import { AuditTrailEntry } from "../audittrail/audittrailentry.js";
 import { RiskAssessmentCycle } from "../riskassessment/riskassessmentinterfaces.js";
-import BpmnModdle from "bpmn-moddle";
+import { BpmnModdle } from "bpmn-moddle";
 import Joi from "joi";
 import { IProcessLinkInstance } from "../data/fields/processlink.js";
 import { IFieldContentMap } from "../data/ifieldcontentmap.js";
