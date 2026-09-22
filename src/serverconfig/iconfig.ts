@@ -18,6 +18,7 @@ export interface IConfig {
     updateAllInstances: string;
     migrateStatisticReportDrafts: string;
     updateAuditMetrics: string;
+    correctProcessXmlVersions?: string;
   };
   GrpcSettings: IGrpcSettingsConfig;
 }

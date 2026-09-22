@@ -106,6 +106,8 @@ export interface IProcessDetails {
   deletionPeriod?: number; // Deletion period for insatances in months
   jumpsDisabled?: boolean;
   xmlVersion?: number;
+  /** Internal marker for the one-time correction of BPMN version numbering. */
+  xmlVersionNumberingCorrected?: boolean;
   parentProcessIds?: string[];
   parentProcesses?: {
     parentProcessDisplayName: string;
