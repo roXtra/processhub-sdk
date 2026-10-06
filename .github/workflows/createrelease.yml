@@ -12,6 +12,9 @@ jobs:
   build:
     name: Create Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -19,6 +22,8 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@roxtra"
       - name: Install dependencies
         run: npm ci
       - name: Run Format Checker
@@ -40,3 +45,8 @@ jobs:
           prerelease: ${{ contains(github.ref, '-') }} # If tag contains -, it's a prerelease (e.g. /refs/tags/v8.30.0-0)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish to GitHub Package Registry
+        # If tag contains -, it's a prerelease (e.g. /refs/tags/v8.30.0-0) and is published under the "prerelease" dist-tag instead of "latest"
+        run: npm publish --tag ${{ contains(github.ref, '-') && 'prerelease' || 'latest' }}
+        env: 
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
