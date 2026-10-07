@@ -23,7 +23,6 @@ export interface IAuditTrailEntryJumpPerformedV2 extends IAuditTrailEntryInstanc
     // Values for from are undefinded if the instance was reactivated
     from: { displayName: string | undefined; bpmnTaskId: string | undefined };
     to: { displayName: string; bpmnTaskId: string };
-    processBpmnHash: string | undefined;
   };
   action: AuditTrailAction.jumpPerformedV2;
 }
@@ -237,7 +236,6 @@ export interface IAuditTrailEntryStartEventV2 extends IAuditTrailEntryInstance {
     eventName: string | undefined;
     startEventType: "TimerStartEvent" | "MessageStartEvent" | "StartEvent";
     processBpmnVersion: number;
-    processBpmnHash: string | undefined;
   };
   action: AuditTrailAction.startEventV2;
 }
