@@ -79,13 +79,11 @@ export interface IAuditTrailEntryProcessXmlChangedV2 extends IAuditTrailEntryPro
       xmlVersion: number;
       xmlFile: string | undefined;
       previewFile: string | undefined;
-      xmlHash: string | undefined;
     };
     newValue: {
       xmlVersion: number;
       xmlFile: string;
       previewFile: string | undefined;
-      xmlHash: string | undefined;
     };
     processDisplayName: string;
   };
@@ -98,13 +96,11 @@ export interface IAuditTrailEntryProcessXmlChangedByInlineSettingsV2 extends IAu
       xmlVersion: number;
       xmlFile: string | undefined;
       previewFile: string | undefined;
-      xmlHash: string | undefined;
     };
     newValue: {
       xmlVersion: number;
       xmlFile: string;
       previewFile: string | undefined;
-      xmlHash: string | undefined;
     };
     fieldName: string;
     processDisplayName: string;
