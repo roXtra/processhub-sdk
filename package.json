@@ -1,9 +1,12 @@
 {
-  "name": "processhub-sdk",
+  "name": "@roxtra/processhub-sdk",
   "type": "module",
   "repository": {
     "type": "git",
     "url": "git://github.com/roXtra/processhub-sdk.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "version": "9.146.0-0",
   "author": {
