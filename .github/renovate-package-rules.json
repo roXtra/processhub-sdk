@@ -12,6 +12,16 @@
       "minimumReleaseAge": "5 days",
       "internalChecksFilter": "strict"
     },
+    // Keep internal npm packages eligible for updates throughout the working week.
+    {
+      "matchManagers": ["npm"],
+      "matchPackageNames": [
+        "/^@roxtra//",
+        "/^@eformservice//",
+        "/processhub-sdk/"
+      ],
+      "schedule": ["after 6am and before 6pm every weekday"]
+    },
     {
       "matchPackageNames": ["node", "@types/node"],
       "allowedVersions": "^24.0.0"
