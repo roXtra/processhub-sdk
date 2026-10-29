@@ -1,5 +1,5 @@
 import { IBaseMessage, IBaseRequest, IBaseReply, IBaseRequestObject } from "../legacyapi/apiinterfaces.js";
-import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails } from "./processinterfaces.js";
+import { IProcessDetails, ProcessExtras, ProcessResult, ITimerStartEventConfiguration, IServiceDetails, IReportDraftDocumentDetails } from "./processinterfaces.js";
 import { Bpmn } from "modeler/bpmn/bpmn";
 import { BpmnModdle } from "bpmn-moddle";
 import { IStatisticRow } from "../data/statistics.js";
@@ -35,6 +35,9 @@ export const ProcessRequestRoutes = {
   DeleteArchiveView: "/api/process/deletearchiveview",
   UploadReportDraft: "/api/process/uploadreportdraft",
   DeleteReportDraft: "/api/process/deletereportdraft",
+  CheckReportDraftDocument: "/api/process/checkreportdraftdocument",
+  LinkReportDraft: "/api/process/linkreportdraft",
+  GetReportDraftDocumentStatuses: "/api/process/getreportdraftdocumentstatuses",
   ListProcesses: "/api/process/listprocesses",
   TemplateProcesses: "/api/process/templateprocesses",
   TemplateCustomProcesses: "/api/process/templatecustomprocesses",
@@ -247,6 +250,27 @@ export interface IUploadReportDraftRequest extends IBaseRequest {
   fileName: string;
   data: string;
   reportDraftType: "default" | "statistics";
+}
+
+export interface ICheckReportDraftDocumentRequest extends IBaseRequest {
+  processId: string;
+  roxFileId: number;
+}
+
+export interface ICheckReportDraftDocumentReply extends IBaseReply {
+  document: IReportDraftDocumentDetails;
+}
+
+export interface ILinkReportDraftRequest extends ICheckReportDraftDocumentRequest {
+  reportDraftType: "default" | "statistics";
+}
+
+export interface IGetReportDraftDocumentStatusesRequest extends IBaseRequest {
+  processId: string;
+}
+
+export interface IGetReportDraftDocumentStatusesReply extends IBaseReply {
+  documents: IReportDraftDocumentDetails[];
 }
 
 export interface IDeleteReportDraftRequest extends IBaseRequest {
