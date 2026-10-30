@@ -3,7 +3,7 @@ import { IBaseRequest, ApiResult, IBaseError, IBaseMessage, API_FAILED } from ".
 import { getBackendUrl, getBasePath } from "../config.js";
 import isEmpty from "lodash/isEmpty.js";
 import fetchWithTimeout, { RequestTimedOutPrefix } from "../tools/fetchwithtimeout.js";
-import { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { getUserToken } from "./auth.js";
 import { getModuleForRequestPath } from "../modules/modules.js";
 
@@ -12,6 +12,16 @@ import { getModuleForRequestPath } from "../modules/modules.js";
  * @default accessToken = undefined
  */
 export type RequestOptions = { showErrorModal?: boolean; accessToken?: string; timeoutInMs?: number };
+
+function getResponseError(response: AxiosResponse<unknown>): IBaseError {
+  const error: IBaseError = { result: response.status, type: API_FAILED };
+  const data = response.data;
+  if (data && typeof data === "object" && !Array.isArray(data)) {
+    if ("errorMessage" in data && typeof data.errorMessage === "string") error.errorMessage = data.errorMessage;
+    if ("errorCode" in data && typeof data.errorCode === "string") error.errorCode = data.errorCode;
+  }
+  return error;
+}
 
 // Api-Aufruf per GET
 // Gemäß http-Spezifikation soll GET genutzt werden, wenn der Aufruf keine Änderungen auf Serverseite auslöst
@@ -73,7 +83,7 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
         return json;
       }
       default: {
-        const error: IBaseError = { result: response.status, type: API_FAILED };
+        const error = getResponseError(response);
         getErrorHandlers().forEach((h) => h.handleError(error, path, showErrorModal));
         return error;
       }
@@ -148,7 +158,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
         return json;
       }
       default: {
-        const error: IBaseError = { result: response.status, type: API_FAILED };
+        const error = getResponseError(response);
         getErrorHandlers().forEach((h) => h.handleError(error, path, showErrorModal));
         return error;
       }

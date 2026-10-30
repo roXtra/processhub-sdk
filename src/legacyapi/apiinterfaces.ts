@@ -54,5 +54,7 @@ export interface IBaseMessage extends IBaseReply {
 export const API_FAILED = "FAILED";
 export const API_SUCCESS = "OK";
 export interface IBaseError extends IBaseMessage {
+  errorMessage?: string;
+  errorCode?: string;
   request?: IBaseRequest; // Enthält den urprünglichen Aufruf
 }
