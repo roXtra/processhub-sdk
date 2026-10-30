@@ -30,7 +30,20 @@ export interface IProcessAttachment {
 export interface IProcessReportDraft {
   draftId: string;
   fileName: string;
-  url: string;
+  url?: string;
+  roxFileId?: number;
+}
+
+export type ReportDraftDocumentStatus = "valid" | "notFound" | "notReleased" | "notDocx" | "invalidDocument" | "unavailable";
+
+export interface IReportDraftDocumentDetails {
+  roxFileId: number;
+  title?: string;
+  fileName?: string;
+  status: ReportDraftDocumentStatus;
+  errorMessage?: string;
+  oldRevisionFileId?: number;
+  revisionSignature?: string;
 }
 
 /**
