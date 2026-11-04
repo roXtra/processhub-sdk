@@ -9,7 +9,7 @@
   "ignorePresets": [":prHourlyLimit2"],
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["after 3pm and before 7pm on Thursday"]
+    "schedule": ["* 12-14 * * 4"]
   },
   "major": {
     "minimumReleaseAge": "3 days"
