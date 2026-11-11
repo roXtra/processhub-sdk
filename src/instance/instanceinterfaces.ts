@@ -156,7 +156,7 @@ export interface IEngineStateDefinition {
   moddleContext: BpmnModdle.IParseResult;
   stopped: boolean;
   processes: IEngineStateDefinitionProcess;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any
   environment: any;
   entryPointId?: string;
 }
@@ -169,12 +169,12 @@ export interface IEngineStateDefinitionProcessDetails {
   id: string;
   type: Bpmn.bpmnType;
   entered: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any
   variables: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any
   services: any;
   children: IEngineStateDefinitionChild[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any
   environment: any;
 }
 

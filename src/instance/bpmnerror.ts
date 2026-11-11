@@ -33,7 +33,7 @@ const BpmnErrorObject: BpmnError = {
 };
 
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable typescript/no-explicit-any */
 export const BpmnErrorSchema = Joi.object(BpmnErrorObject as any);
 
 export function isBpmnError(error: unknown): error is BpmnError {

@@ -37,7 +37,7 @@ export class BpmnProcess {
     return this.moddleContext;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  // oxlint-disable-next-line typescript/no-empty-object-type
   public static addOrUpdateExtension(baseElement: Bpmn.IBaseElement, key: BpmnExtensionName, value: string | boolean | {}[], extensionValueType: TaskSettingsValueType): void {
     addOrUpdateExtension(baseElement, key, value, extensionValueType);
   }

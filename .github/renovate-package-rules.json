@@ -45,6 +45,12 @@
       "groupName": "progress monorepo",
       "matchPackageNames": ["/^@progress//", "/kendo-ui-core/"]
     },
+    // Keep the native linter and its ESLint compatibility rules on matching versions.
+    {
+      "matchPackageNames": ["oxlint", "eslint-plugin-oxlint"],
+      "groupName": "Oxlint",
+      "rangeStrategy": "pin"
+    },
     // Lock eslint to 9.39.2 because of https://rossmanith.atlassian.net/browse/RM-850
     {
       "matchPackageNames": ["eslint"],

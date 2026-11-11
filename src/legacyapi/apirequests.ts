@@ -178,7 +178,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       return error;
     }
     /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-    /* eslint-disable @typescript-eslint/no-explicit-any */
+    /* oxlint-disable typescript/no-explicit-any */
     if (ex instanceof Error && (ex as any).code === "ENETUNREACH") {
       // Replace with a robust error code check
       const error: IBaseError = { result: ApiResult.API_NETWORK_ERROR, type: API_FAILED };

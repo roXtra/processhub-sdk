@@ -43,7 +43,7 @@ export interface IGenerateReportForWorkspaceCommonData<TYPE extends RequestedRep
 /**
  * Represents a Generate Report request for the workspace audit trail
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-empty-object-type
+// oxlint-disable-next-line typescript/no-empty-interface, typescript/no-empty-object-type
 export interface IGenerateReportForWorkspaceAuditTrail extends IGenerateReportForWorkspaceCommonData<RequestedReportType.WORKSPACE_AUDIT_TRAIL> {
   // No additional data needed
 }

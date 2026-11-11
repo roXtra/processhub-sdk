@@ -1,6 +1,8 @@
 // @ts-check
 
 import eslint from "@eslint/js";
+import eslintPluginOxlint from "eslint-plugin-oxlint";
+import eslintPluginSecurity from "eslint-plugin-security";
 import tseslint from "typescript-eslint";
 import globals from "globals";
 import eslintPluginNoOnlyTests from "eslint-plugin-no-only-tests";
@@ -218,8 +220,12 @@ export default tseslint.config(
       "src/process/types/",
     ],
   },
-  // Add prettier as last entry to ensure it can overwrite other configurations
+  // Security findings remain visible without making warnings fail the build.
+  eslintPluginSecurity.configs.recommended,
+  // Keep Prettier after lint rules and before the Oxlint compatibility configuration.
   {
     ...eslintPluginPrettier,
   },
+  // Native syntax checks run once; type-aware and remaining checks stay in ESLint.
+  ...eslintPluginOxlint.buildFromOxlintConfigFile(`${import.meta.dirname}/.oxlintrc.json`, { typeAware: false }),
 );
