@@ -9,7 +9,6 @@ export interface ISignatureFieldValue {
 
 const ISignatureFieldValueObject: ISignatureFieldValue = {
   svgDataUrl: Joi.string().allow("") as unknown as string,
-  // oxlint-disable-next-line typescript/no-empty-object-type
   dataPoints: Joi.object(),
 };
 

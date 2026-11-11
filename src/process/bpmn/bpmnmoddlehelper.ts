@@ -16,7 +16,6 @@ export async function createBpmnTemplate(userLanguage: string): Promise<ILoadTem
     "'>" +
     "</bpmn:definitions>";
 
-  // oxlint-disable-next-line typescript/no-explicit-any
   const fromXmlRes = await bpmnModdleInstance.fromXML(xmlStr);
   if (Array.isArray(fromXmlRes)) {
     throw fromXmlRes[0];

@@ -12,7 +12,6 @@ export interface ISpreadSheetFieldValue {
 const ISpreadSheetFieldValueObject: ISpreadSheetFieldValue = {
   fileUrl: Joi.string().allow("").required() as unknown as string,
   url: Joi.string().allow("").required() as unknown as string,
-  // oxlint-disable-next-line typescript/no-empty-object-type
   value: Joi.object().required(),
 };
 
