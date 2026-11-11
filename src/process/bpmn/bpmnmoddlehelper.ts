@@ -108,10 +108,8 @@ export async function createBpmnTemplate(userLanguage: string): Promise<ILoadTem
   // bpmnXml.get("rootElements").push(bpmnProcessElement);
 
   // Variante 2: Erzeugte Knoten in Context einhängen
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   fromXmlRes.rootElement.rootElements = [bpmnCollaboration, bpmnProcessElement];
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   fromXmlRes.rootElement.diagrams = [bpmnDiagram];
 
   return {

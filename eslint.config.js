@@ -43,6 +43,9 @@ export default tseslint.config(
    * General rules
    */
   {
+    linterOptions: {
+      reportUnusedDisableDirectives: "error",
+    },
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -226,6 +229,6 @@ export default tseslint.config(
   {
     ...eslintPluginPrettier,
   },
-  // Native syntax checks run once; type-aware and remaining checks stay in ESLint.
-  ...eslintPluginOxlint.buildFromOxlintConfigFile(`${import.meta.dirname}/.oxlintrc.json`, { typeAware: false }),
+  // Rules checked by Oxlint run once; remaining checks stay in ESLint.
+  ...eslintPluginOxlint.buildFromOxlintConfigFile(`${import.meta.dirname}/.oxlintrc.json`, { typeAware: true }),
 );

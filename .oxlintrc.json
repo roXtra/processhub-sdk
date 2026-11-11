@@ -131,7 +131,14 @@
     "typescript/no-var-requires": "error",
     "typescript/no-empty-interface": "error",
     "typescript/no-non-null-assertion": "error",
-    "typescript/no-useless-empty-export": "error"
+    "typescript/no-useless-empty-export": "error",
+    "typescript/no-floating-promises": "error",
+    "typescript/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ]
   },
   "overrides": [
     {
@@ -170,8 +177,8 @@
     }
   },
   "options": {
-    "typeAware": false,
-    "reportUnusedDisableDirectives": "warn",
+    "typeAware": true,
+    "reportUnusedDisableDirectives": "error",
     "respectEslintDisableDirectives": false
   }
 }

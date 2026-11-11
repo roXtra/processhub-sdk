@@ -265,7 +265,6 @@ describe("sdk", function () {
           const rowDetails: IRowDetails[] = JSON.parse(JSON.stringify(TestRowDetails));
 
           // Wie test zuvor bis hier her
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           const testLane = bpmnProcess.getProcessLane(process.id, rowDetails[1].laneId);
 
           assert(testLane!.flowNodeRef.length === 2);
@@ -274,11 +273,8 @@ describe("sdk", function () {
 
           addTask(rowDetails, 1, bpmnProcess);
           assert.isTrue(rowDetails[2].taskId.startsWith("UserTask_"));
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           bpmnProcess.changeTaskName(rowDetails[2].taskId, testTaskName);
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           assert.isTrue(bpmnProcess.getExistingTask(bpmnProcess.processId(), rowDetails[2].taskId).name === testTaskName);
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           const testTaskId: string = rowDetails[2].taskId;
 
           // +2 hier wegen dem Start und End Event!!!!
