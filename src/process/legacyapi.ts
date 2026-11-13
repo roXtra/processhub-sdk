@@ -175,9 +175,9 @@ export interface IBaseStateColumn {
 }
 
 interface IFilterDescriptor {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+  // oxlint-disable-next-line typescript/no-unsafe-function-type
   field?: string | Function;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+  // oxlint-disable-next-line typescript/no-unsafe-function-type
   operator: string | Function;
   value?: unknown;
   ignoreCase?: boolean;
@@ -429,7 +429,7 @@ interface IGenerateReportForProcessCommonData<TYPE extends RequestedReportType> 
 /**
  * Represents a generate report request for the process audit trail
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-empty-object-type
+// oxlint-disable-next-line typescript/no-empty-interface, typescript/no-empty-object-type
 interface IGenerateReportForProcessAuditTrailRequest extends IGenerateReportForProcessCommonData<RequestedReportType.PROCESS_AUDIT_TRAIL> {
   // Requires no additional dta
 }

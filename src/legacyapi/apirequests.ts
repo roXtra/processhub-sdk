@@ -60,7 +60,6 @@ export async function getJson<Request extends IBaseRequest>(path: string, reques
     req = {
       headers: {
         Accept: "application/json",
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         "x-accesstoken": accessToken, // X-accesstoken Kleinschreibung erforderlich
         authorization: accessToken,
       },
@@ -122,7 +121,6 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       data: JSON.stringify(request),
       headers: {
         Accept: "application/json",
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         "Content-Type": "application/json",
       },
       withCredentials: true,
@@ -134,9 +132,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       data: JSON.stringify(request),
       headers: {
         Accept: "application/json",
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         "Content-Type": "application/json",
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         "x-accesstoken": accessToken, // X-accesstoken Kleinschreibung erforderlich
       },
     };
@@ -178,7 +174,7 @@ export async function postJson<Request extends IBaseRequest>(path: string, reque
       return error;
     }
     /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-    /* eslint-disable @typescript-eslint/no-explicit-any */
+    /* oxlint-disable typescript/no-explicit-any */
     if (ex instanceof Error && (ex as any).code === "ENETUNREACH") {
       // Replace with a robust error code check
       const error: IBaseError = { result: ApiResult.API_NETWORK_ERROR, type: API_FAILED };

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* oxlint-disable typescript/no-non-null-assertion */
 import { assert, expect } from "chai";
 import * as DataTools from "./datatools.js";
 import { BpmnProcess } from "../process/bpmn/bpmnprocess.js";

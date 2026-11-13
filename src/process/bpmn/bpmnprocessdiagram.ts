@@ -280,7 +280,7 @@ export class BpmnProcessDiagram {
           }
 
           const isMessageStartEvent = getLastArrayEntry(startEvent.eventDefinitions)?.$type === "bpmn:MessageEventDefinition";
-          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+          // oxlint-disable-next-line no-unused-expressions
           isMessageStartEvent ? (yParam -= 40) : (yParam += 40);
         }
       }
@@ -364,7 +364,7 @@ export class BpmnProcessDiagram {
     });
     return shape;
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any
   private createEdge(bpmnElement: Bpmn.ISequenceFlow, sourceElement: any, targetElement: any, waypoints: Waypoint[]): Bpmndi.IBPMNEdge {
     const resultWaypoint: Dc.IPoint[] = [];
     // Waypoint einfügen

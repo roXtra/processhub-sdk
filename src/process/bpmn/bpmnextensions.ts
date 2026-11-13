@@ -253,7 +253,7 @@ export function getExtensionValues(activityObject: Bpmn.IActivity | undefined): 
   return returnValue;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+// oxlint-disable-next-line typescript/no-empty-object-type
 export function addOrUpdateExtension(baseElement: Bpmn.IBaseElement, key: BpmnExtensionName, value: string | boolean | {}[], extensionValueType: TaskSettingsValueType): void {
   if (extensionValueType === "List") {
     value = JSON.stringify(value);

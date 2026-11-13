@@ -274,7 +274,7 @@ interface IGenerateReportForProcessesInstancesCommonData<TYPE extends RequestedR
 /**
  * Represents a Generate Report request for the regular processes instances
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-empty-object-type
+// oxlint-disable-next-line typescript/no-empty-interface, typescript/no-empty-object-type
 interface IGenerateReportForProcessesInstancesRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.PROCESSES_REGULAR> {
   // Requires no additional data
 }
@@ -289,7 +289,7 @@ interface IGenerateReportForProcessesStatisticsRequest extends IGenerateReportFo
 /**
  * Represents a Generate Report request for the regular risks instances
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-empty-object-type
+// oxlint-disable-next-line typescript/no-empty-interface, typescript/no-empty-object-type
 interface IGenerateReportForRisksRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.RISKS> {
   // Requires no additional data
 }
@@ -297,7 +297,7 @@ interface IGenerateReportForRisksRequest extends IGenerateReportForProcessesInst
 /**
  * Represents a Generate Report request for the regular instances in generic modules
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-empty-object-type
+// oxlint-disable-next-line typescript/no-empty-interface, typescript/no-empty-object-type
 interface IGenerateReportForGenericModulesRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.GENERIC_MODULE> {
   // Requires no additional data
 }
@@ -305,7 +305,7 @@ interface IGenerateReportForGenericModulesRequest extends IGenerateReportForProc
 /**
  * Represents a Generate Report request for the regular instances in module Audit
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-empty-object-type
+// oxlint-disable-next-line typescript/no-empty-interface, typescript/no-empty-object-type
 interface IGenerateReportForAuditInstancesRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.AUDIT> {
   // Requires no additional data
 }
@@ -313,7 +313,7 @@ interface IGenerateReportForAuditInstancesRequest extends IGenerateReportForProc
 /**
  * Represents a Generate Report request for the audit trail
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-empty-object-type
+// oxlint-disable-next-line typescript/no-empty-interface, typescript/no-empty-object-type
 interface IGenerateReportForAuditTrailRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.AUDIT_TRAIL> {
   // Requires no additional data
 }
@@ -321,7 +321,7 @@ interface IGenerateReportForAuditTrailRequest extends IGenerateReportForProcesse
 /**
  * Represents a Generate Report request for the process view
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-empty-object-type
+// oxlint-disable-next-line typescript/no-empty-interface, typescript/no-empty-object-type
 interface IGenerateReportForProcessViewRequest extends IGenerateReportForProcessesInstancesCommonData<RequestedReportType.PROCESS_VIEW> {
   // Requires no additional data
 }

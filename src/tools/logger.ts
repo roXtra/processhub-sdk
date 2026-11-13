@@ -21,12 +21,10 @@ export function getLogger(): ILogger | undefined {
 
 if (typeof window !== "undefined") {
   const consoleLogger: ILogger = {
-    /* eslint-disable no-console */
     error: (msg) => console.error(msg),
     warn: (msg) => console.warn(msg),
     info: (msg) => console.info(msg),
     debug: (msg) => console.debug(msg),
-    /* eslint-enable no-console */
   };
   registerLogger(consoleLogger);
 }
