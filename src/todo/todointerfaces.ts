@@ -48,6 +48,8 @@ export interface ITodoDetails {
     // Does the task contain "ProcessHubRiskAssessment"-fields?
     isAssessmentTodo?: boolean;
   };
+  // Todo is a timer with set executionTimestamp
+  timerExecutionTimestamp?: Date | null;
 }
 
 export interface IDecisionTask {
