@@ -17,6 +17,9 @@ on:
         required: true
         type: string
 
+env:
+  NODE_VERSION: 24
+
 permissions:
   contents: read
 
@@ -71,10 +74,10 @@ jobs:
             exit 1
           fi
 
-      - name: Set up Node.js 24
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Set SDK version
         run: |
