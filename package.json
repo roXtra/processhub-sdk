@@ -91,7 +91,7 @@
     "nyc": "^18.0.0",
     "oxlint": "^1.82.0",
     "oxlint-tsgolint": "^7.0.2001",
-    "prettier": "^3.9.10",
+    "prettier": "^3.10.1",
     "rimraf": "^6.1.4",
     "ts-mocha": "^11.1.0",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
